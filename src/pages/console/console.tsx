@@ -1,8 +1,15 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
 
+import { Header } from "../../components/";
 
-const Console = () => {
-return ( 
-<div> <p> Console here </p> </div> ) }
+const Console = (): JSX.Element => {
+  return (
+    <div>
+      {" "}
+      <Header /> <p> Console here </p>{" "}
+    </div>
+  );
+};
 
-export default Console 
+export default Console;
