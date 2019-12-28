@@ -1,19 +1,18 @@
-import React from 'react';
+import React from "react";
 import { Router, Route, Switch } from "react-router";
 import { createBrowserHistory } from "history";
 
-import { Console } from './pages/'
+import { Console, Login } from "./pages/";
 
-
-const History = createBrowserHistory()
+const History = createBrowserHistory();
 function App() {
   return (
-	<Router history={history}>
+    <Router history={History}>
       <Switch>
         <Route path="console" component={Console} />
-
+        <Route path="login" component={Login} />
       </Switch>
-  </Router>,
+    </Router>
   );
 }
 
