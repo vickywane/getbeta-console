@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Flex from "styled-flex-component";
 import { FiMenu } from "react-icons/fi";
 
-import useWindowWidth from "../../hook_style";
+import useWindowWidth from "../hook_style";
 
 const Header = props => {
   const hooks = useWindowWidth();

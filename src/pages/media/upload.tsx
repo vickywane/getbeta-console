@@ -1,6 +1,6 @@
 import React from "react";
 
-const Upoad = (): JSX.Element => {
+const Upload = (): JSX.Element => {
   return (
     <div>
       {" "}
