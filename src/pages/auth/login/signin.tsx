@@ -5,6 +5,7 @@ import Flex from "styled-flex-component";
 import { FiTwitter } from "react-icons/fi";
 import { IoLogoGoogle } from "react-icons/io";
 import media from "styled-media-query";
+import { inject, observer } from "mobx-react";
 
 const Body = styled.div`
   padding: 1em;
@@ -45,7 +46,9 @@ const Buttons = styled.button`
     `};
 `;
 
-const Signin = (): JSX.Element => {
+const Signin = (props): JSX.Element => {
+  const { AuthUser, authenticated } = props.AuthStore;
+  console.log(authenticated);
   return (
     <Body>
       <Flex justifyCenter>
@@ -56,7 +59,14 @@ const Signin = (): JSX.Element => {
           <Input type="password" placeholder="password" /> <br />
           <Flex justifyCenter>
             {" "}
-            <Buttons> Login </Buttons>{" "}
+            <Buttons
+              onClick={() => {
+                AuthUser();
+              }}
+            >
+              {" "}
+              Login{" "}
+            </Buttons>{" "}
           </Flex>
           <div>
             <hr />
@@ -83,4 +93,4 @@ const Signin = (): JSX.Element => {
   );
 };
 
-export default Signin;
+export default inject("AuthStore")(observer(Signin));

@@ -4,10 +4,11 @@ import Img from "react-image";
 import styled from "styled-components";
 import Flex from "styled-flex-component";
 import { FiMenu } from "react-icons/fi";
+import { inject, observer } from "mobx-react";
 
 import useWindowWidth from "../hook_style";
 
-const Header = props => {
+const Header = (props): JSX.Element => {
   const hooks = useWindowWidth();
 
   const Div = styled.div`
@@ -24,8 +25,7 @@ const Header = props => {
 
   const Title = styled.a`
 	font-size : 1.2em
-	color  : white
-`;
+	color : white `;
 
   const Image = styled(Img)`
     width: 7%;
@@ -33,7 +33,7 @@ const Header = props => {
   `;
 
   const Button = styled.button`
-    background: #0e2f5a 
+    background: #0e2f5a
     text-align: right;
     border-radius: 5px;
     height: 40px;
@@ -69,8 +69,9 @@ const Header = props => {
     margin-left: 4%;
   `;
 
-  //fix later -- should come from store auth flow
-  const isAuth = false;
+  //fix later -- should change name later
+  const isAuth = props.AuthStore.authenticated;
+  console.log(isAuth);
 
   return (
     <div>
@@ -182,6 +183,12 @@ const Header = props => {
                       </Flex>
                     ) : (
                       <Flex justifyBetween>
+                        <div style={{ paddingRight: "20px" }}>
+                          <Link to="/signup">
+                            <Title>Create Account </Title>
+                          </Link>
+                        </div>
+
                         <Link to="/login">
                           <Apply>Login</Apply>
                         </Link>
@@ -240,4 +247,4 @@ const Header = props => {
   );
 };
 
-export default Header;
+export default inject("AuthStore")(observer(Header));
