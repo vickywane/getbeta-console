@@ -2,24 +2,30 @@ import React from "react";
 import { Router, Route, Switch } from "react-router";
 import { createBrowserHistory } from "history";
 
-import { Provider } from "mobx-react";
+import { inject, observer } from "mobx-react";
 
-import { Console, Signin, Signup } from "./pages/";
+import { Console, Signin, Signup, Documentation } from "./pages/";
 import { AuthStore } from "./state/";
+import Protected from "./pages/auth/protectedRoute";
 
 const History = createBrowserHistory();
-function App() {
+function App(props): JSX.Element {
+  const { authenticated } = props.AuthStore;
   return (
-    <Provider AuthStore={AuthStore}>
-      <Router history={History}>
-        <Switch>
-          <Route exact path="/" component={Console} />
-          <Route path="/login" component={Signin} />
-          <Route path="/signup" component={Signup} />
-        </Switch>
-      </Router>
-    </Provider>
+    <Router history={History}>
+      <Switch>
+        <Route exact path="/" component={Documentation} />
+        <Route path="/login" component={Signin} />
+        <Route path="/signup" component={Signup} />
+
+        <Protected
+          authenticated={authenticated}
+          path="/console"
+          component={Console}
+        />
+      </Switch>
+    </Router>
   );
 }
 
-export default App;
+export default inject("AuthStore")(observer(App));
