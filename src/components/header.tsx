@@ -14,10 +14,11 @@ const Header = props => {
       padding: 0.5em
       background : #444444
     `;
+
   const A = styled.a`
     color: #0e2f5a;
     text-decoration: none;
-    font-size: 1.85em;
+    font-size: 1.6em;
     font-family: comic sans ms;
   `;
 
@@ -68,8 +69,8 @@ const Header = props => {
     margin-left: 4%;
   `;
 
-  //fix later
-  const isAuth = true;
+  //fix later -- should come from store auth flow
+  const isAuth = false;
 
   return (
     <div>
@@ -131,7 +132,7 @@ const Header = props => {
                           }
                         />
                         <Link href="/">
-                          <A>Event</A>
+                          <A style={{ fontSize: "1.4em" }}>Event</A>
                         </Link>
                       </Flex>
                     </NameDiv>
@@ -180,28 +181,12 @@ const Header = props => {
 
                     {isAuth ? (
                       <Flex>
-                        <Button> Apply </Button>
-
                         <Button onClick={alert("..")}> Logout </Button>
-                        <Button> Profile </Button>
                       </Flex>
                     ) : (
                       <Flex justifyBetween>
-                        <div>
-                          <Flex>
-                            <div style={{ paddingRight: "30px" }}>
-                              <Link to="/team">
-                                <Title> Team </Title>
-                              </Link>
-                            </div>
-                          </Flex>
-                        </div>
-
                         <Link to="/login">
-                          <Apply onClick={alert("..")}>
-                            {" "}
-                            Start Application{" "}
-                          </Apply>
+                          <Apply>Login</Apply>
                         </Link>
                       </Flex>
                     )}
@@ -220,6 +205,7 @@ const Header = props => {
                           src={
                             "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
                           }
+                          alt="Logo"
                         />
                         <Link href="/">
                           <A>Event</A>
