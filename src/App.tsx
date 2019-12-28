@@ -13,7 +13,7 @@ function App() {
     <Provider AuthStore={AuthStore}>
       <Router history={History}>
         <Switch>
-          <Route exact path="/console" component={Console} />
+          <Route exact path="/" component={Console} />
           <Route path="/login" component={Login} />
         </Switch>
       </Router>
