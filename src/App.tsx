@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 
 import { inject, observer } from "mobx-react";
 
-import { Console, Signin, Signup, Documentation } from "./pages/";
+import { Console, Signin, Media, Signup, Documentation } from "./pages/";
 import { AuthStore } from "./state/";
 import Protected from "./pages/auth/protectedRoute";
 
@@ -22,6 +22,11 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/console"
           component={Console}
+        />
+        <Protected
+          authenticated={authenticated}
+          path="/media"
+          component={Media}
         />
       </Switch>
     </Router>

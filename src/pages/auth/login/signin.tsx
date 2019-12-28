@@ -6,6 +6,7 @@ import { FiTwitter } from "react-icons/fi";
 import { IoLogoGoogle } from "react-icons/io";
 import media from "styled-media-query";
 import { inject, observer } from "mobx-react";
+import { Link } from "react-router-dom";
 
 const Body = styled.div`
   padding: 1em;
@@ -37,7 +38,7 @@ const Buttons = styled.button`
   margin: 0 1em;
   padding: 1em 2.5em;
   :hover {
-    font-size: 1em;
+    cursor: pointer;
   }
   ${media.lessThan("medium")`
       padding: 0.70em 1em;
@@ -59,14 +60,16 @@ const Signin = (props): JSX.Element => {
           <Input type="password" placeholder="password" /> <br />
           <Flex justifyCenter>
             {" "}
-            <Buttons
-              onClick={() => {
-                AuthUser();
-              }}
-            >
-              {" "}
-              Login{" "}
-            </Buttons>{" "}
+            <Link to="/console">
+              <Buttons
+                onClick={() => {
+                  AuthUser();
+                }}
+              >
+                {" "}
+                Login{" "}
+              </Buttons>{" "}
+            </Link>
           </Flex>
           <div>
             <hr />

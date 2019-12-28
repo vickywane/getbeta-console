@@ -1,7 +1,7 @@
 import { action, observable, decorate } from "mobx";
 
 class AuthStore {
-  authenticated = false;
+  authenticated = true;
 
   AuthUser = () => {
     this.authenticated = true;
