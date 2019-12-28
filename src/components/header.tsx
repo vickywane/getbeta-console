@@ -100,18 +100,15 @@ const Header = props => {
                         <div>
                           <Flex>
                             <div style={{ paddingRight: "30px" }}>
-                              <Link to="/team">
-                                <Title> Team </Title>
+                              <Link to="/login">
+                                <Title>Login </Title>
                               </Link>
                             </div>
                           </Flex>
                         </div>
 
-                        <Link to="/login">
-                          <Apply onClick={alert("..")}>
-                            {" "}
-                            Start Application{" "}
-                          </Apply>
+                        <Link to="/signup">
+                          <Apply onClick={alert("..")}>Create Account</Apply>
                         </Link>
                       </Flex>
                     )}
