@@ -76,7 +76,6 @@ const Console = (props): JSX.Element => {
 
   return (
     <div>
-      {" "}
       <Header />
       {ProfilePane ? (
         <div>

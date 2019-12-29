@@ -8,8 +8,17 @@ import { inject, observer } from "mobx-react";
 
 import useWindowWidth from "../hook_style";
 
-const Header = (props): JSX.Element => {
+// ? marks this interface value as not required by other comps
+// marking this interface as non-mandatory makes d values undefined --fix later
+interface CustomProps {
+  screen?: String;
+  name?: String;
+}
+
+const Header = (props, { screen, name }: CustomProps): JSX.Element => {
   const hooks = useWindowWidth();
+
+  console.log(props.screen, props.name);
 
   const Hover = styled.div({
     cursor: "pointer"
@@ -167,6 +176,13 @@ const Header = (props): JSX.Element => {
           </div>
         )}
       </div>
+
+      {props.screen === "event" ? (
+        <Div style={{ padding: "0.2em", background: "transparent" }}>
+          <h3 style={{ color: "#000" }}> {props.name} </h3>
+          <hr />
+        </Div>
+      ) : null}
     </div>
   );
 };

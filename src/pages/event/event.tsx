@@ -8,7 +8,7 @@ const Event = () => {
   return (
     <div>
       {" "}
-      <Header />
+      <Header name="OSCA" screen="event" />
       <p> Event page </p>
       <Footer />
     </div>
