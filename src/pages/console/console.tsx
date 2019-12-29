@@ -7,6 +7,7 @@ import posed from "react-pose";
 import { Link } from "react-router-dom";
 
 import { Header, Footer } from "../../components/";
+import Create from "./create";
 
 const Body = styled.div`
   padding: 1em;
@@ -64,6 +65,7 @@ const Bounce = posed.div({
 
 const Console = (props): JSX.Element => {
   const { closeProfilePane, ProfilePane } = props.ConsoleStore;
+  const { hasEvent, hasVolunteer, setEvent, setVolunter } = props.AuthStore;
 
   const data = [
     { i: 1, name: "a" },
@@ -101,27 +103,31 @@ const Console = (props): JSX.Element => {
           </Pane>
         </div>
       ) : null}
+
       <Body>
-        <p style={{ textAlign: "center" }}> Console here </p>{" "}
-        <Flex justifyAround>
-          {data.map(({ i, name }) => {
-            return (
-              <Bounce>
-                <Link to={`/event/${i}`}>
-                  <Card key={i}>
-                    <div style={{ textAlign: "center" }}>
-                      <h5> {name}</h5>
-                    </div>
-                  </Card>
-                </Link>
-              </Bounce>
-            );
-          })}
-        </Flex>
+        {hasEvent ? (
+          <Flex justifyAround>
+            {data.map(({ i, name }) => {
+              return (
+                <Bounce>
+                  <Link to={`/event/${i}`}>
+                    <Card key={i}>
+                      <div style={{ textAlign: "center" }}>
+                        <h5> {name}</h5>
+                      </div>
+                    </Card>
+                  </Link>
+                </Bounce>
+              );
+            })}
+          </Flex>
+        ) : (
+          <Create />
+        )}
       </Body>
       <Footer />
     </div>
   );
 };
 
-export default inject("ConsoleStore")(observer(Console));
+export default inject("ConsoleStore", "AuthStore")(observer(Console));
