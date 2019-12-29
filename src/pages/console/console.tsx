@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import Flex from "styled-flex-component";
 import { FiX } from "react-icons/fi";
+import posed from "react-pose";
+import { Link } from "react-router-dom";
 
 import { Header, Footer } from "../../components/";
 
@@ -32,8 +34,45 @@ const Button = styled.button`
     }
   `;
 
+const Card = styled.div({
+  height: "7vh",
+  padding: "0.5em",
+  paddingTop: "0.2em",
+  width: "4em",
+  borderRadius: "5px",
+  boxShadow: "0px 2px 6px grey",
+  background: "black",
+  color: "white",
+  cursor: "pointer"
+});
+
+const Bounce = posed.div({
+  hoverable: true,
+  init: {
+    scale: 1,
+    boxShadow: "0px 0px 0px rgba(0,0,0,0)",
+    textAlign: "center"
+  },
+  hover: {
+    scale: 1.1
+  },
+  press: {
+    scale: 1.1,
+    boxShadow: "0px 2px 5px rgba(0,0,0,0.1)"
+  }
+});
+
 const Console = (props): JSX.Element => {
   const { closeProfilePane, ProfilePane } = props.ConsoleStore;
+
+  const data = [
+    { i: 1, name: "a" },
+    { i: 2, name: "b" },
+    { i: 3, name: "b" },
+    { i: 4, name: "c" },
+    { i: 5, name: "d" },
+    { i: 6, name: "e" }
+  ];
 
   return (
     <div>
@@ -64,7 +103,22 @@ const Console = (props): JSX.Element => {
         </div>
       ) : null}
       <Body>
-        <p> Console here </p>{" "}
+        <p style={{ textAlign: "center" }}> Console here </p>{" "}
+        <Flex justifyAround>
+          {data.map(({ i, name }) => {
+            return (
+              <Bounce>
+                <Link to={`/event/${i}`}>
+                  <Card key={i}>
+                    <div style={{ textAlign: "center" }}>
+                      <h5> {name}</h5>
+                    </div>
+                  </Card>
+                </Link>
+              </Bounce>
+            );
+          })}
+        </Flex>
       </Body>
       <Footer />
     </div>

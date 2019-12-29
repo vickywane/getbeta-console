@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 
 import { inject, observer } from "mobx-react";
 
-import { Console, Signin, Media, Signup, Documentation } from "./pages/";
+import { Event, Console, Signin, Media, Signup, Documentation } from "./pages/";
 import Protected from "./pages/auth/protectedRoute";
 
 const History = createBrowserHistory();
@@ -26,6 +26,11 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/media"
           component={Media}
+        />
+        <Protected
+          authenticated={authenticated}
+          path="/event/:id"
+          component={Event}
         />
       </Switch>
     </Router>
