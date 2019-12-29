@@ -75,182 +75,98 @@ const Header = (props): JSX.Element => {
 
   //fix later -- should change name later
   const isAuth = props.AuthStore.authenticated;
-  console.log(isAuth);
+
+  const { showProfilePane, ProfilePane } = props.ConsoleStore;
 
   return (
     <div>
-      {props.screens === "Eng" ? (
-        <div style={{ boxShadow: "0px 7px 7px grey" }}>
-          {hooks >= 720 ? (
-            <div>
-              <Div
-                style={{
-                  paddingTop: "1%"
-                }}
-              >
-                <nav>
-                  <Flex justifyBetween>
-                    <NameDiv>
-                      <Link href="/">
-                        <A>Event</A>
-                      </Link>
-                    </NameDiv>
+      <div
+        style={{ boxShadow: ProfilePane ? "0px 0px 0px" : "0px 7px 7px grey" }}
+      >
+        {hooks >= 720 ? (
+          <div>
+            <Div
+              style={{
+                paddingTop: "1%"
+              }}
+            >
+              <nav>
+                <Flex justifyBetween>
+                  <NameDiv>
+                    <Link href="/">
+                      <A>Event</A>
+                    </Link>
+                  </NameDiv>
 
-                    {isAuth ? (
-                      <Flex>
-                        <Button onClick={alert("ss..")}> Logout </Button>
-
-                        <Hover style={{ paddingLeft: "15px" }}>
-                          <FiUser style={{ color: "#fff", fontSize: "2em" }} />{" "}
-                        </Hover>
-                      </Flex>
-                    ) : (
-                      <Flex justifyBetween>
-                        <div>
-                          <Flex>
-                            <div style={{ paddingRight: "30px" }}>
-                              <Link to="/login">
-                                <Title>Login </Title>
-                              </Link>
-                            </div>
-                          </Flex>
-                        </div>
-
+                  {isAuth ? (
+                    <Flex>
+                      <Button onClick={() => alert("..")}> Logout </Button>
+                      <Hover
+                        style={{ paddingLeft: "10px", paddingRight: "10px" }}
+                        onClick={() => {
+                          showProfilePane();
+                        }}
+                      >
+                        <FiUser style={{ color: "#fff", fontSize: "2em" }} />{" "}
+                      </Hover>
+                    </Flex>
+                  ) : (
+                    <Flex justifyBetween>
+                      <div style={{ paddingRight: "20px" }}>
                         <Link to="/signup">
-                          <Apply onClick={alert("..")}>Create Account</Apply>
+                          <Title>Create Account </Title>
                         </Link>
-                      </Flex>
-                    )}
-                  </Flex>
-                </nav>
-              </Div>
-            </div>
-          ) : (
-            <div>
-              <Div style={{ padding: "0.5em", paddingRight: "1%" }}>
-                <nav>
-                  <Flex justifyBetween>
-                    <NameDiv>
-                      <Flex>
-                        <Image
-                          src={
-                            "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
-                          }
-                        />
-                        <Link href="/">
-                          <A style={{ fontSize: "1.4em" }}>Event</A>
-                        </Link>
-                      </Flex>
-                    </NameDiv>
+                      </div>
 
-                    {isAuth ? (
-                      <Button>
-                        <Flex>
-                          <FiMenu
-                            style={{ fontSize: "1.5em", color: "#fff" }}
-                          />
-                          <p style={{ paddingLeft: "10px" }}> Menu</p>
-                        </Flex>
-                      </Button>
-                    ) : (
-                      <Button>
-                        <Flex>
-                          <FiMenu
-                            style={{ fontSize: "1.5em", color: "#fff" }}
-                          />
-                          <p style={{ paddingLeft: "10px" }}> Menu</p>
-                        </Flex>
-                      </Button>
-                    )}
-                  </Flex>
-                </nav>
-              </Div>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div style={{ boxShadow: "0px 7px 7px grey" }}>
-          {hooks >= 720 ? (
-            <div>
-              <Div
-                style={{
-                  paddingTop: "1%"
-                }}
-              >
-                <nav>
-                  <Flex justifyBetween>
-                    <NameDiv>
+                      <Link to="/login">
+                        <Apply>Login</Apply>
+                      </Link>
+                    </Flex>
+                  )}
+                </Flex>
+              </nav>
+            </Div>
+          </div>
+        ) : (
+          <div>
+            <Div style={{ padding: "0.5em", paddingRight: "1%" }}>
+              <nav>
+                <Flex justifyBetween>
+                  <NameDiv>
+                    <Flex>
+                      <Image
+                        src={
+                          "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
+                        }
+                        alt="Logo"
+                      />
                       <Link href="/">
                         <A>Event</A>
                       </Link>
-                    </NameDiv>
+                    </Flex>
+                  </NameDiv>
 
-                    {isAuth ? (
+                  {isAuth ? (
+                    <Button>
                       <Flex>
-                        <Button onClick={alert("..")}> Logout </Button>
+                        <FiMenu style={{ fontSize: "1.5em", color: "#fff" }} />
+                        <p style={{ paddingLeft: "10px" }}> Menu</p>
                       </Flex>
-                    ) : (
-                      <Flex justifyBetween>
-                        <div style={{ paddingRight: "20px" }}>
-                          <Link to="/signup">
-                            <Title>Create Account </Title>
-                          </Link>
-                        </div>
-
-                        <Link to="/login">
-                          <Apply>Login</Apply>
-                        </Link>
-                      </Flex>
-                    )}
-                  </Flex>
-                </nav>
-              </Div>
-            </div>
-          ) : (
-            <div>
-              <Div style={{ padding: "0.5em", paddingRight: "1%" }}>
-                <nav>
-                  <Flex justifyBetween>
-                    <NameDiv>
+                    </Button>
+                  ) : (
+                    <Button>
                       <Flex>
-                        <Image
-                          src={
-                            "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
-                          }
-                          alt="Logo"
-                        />
-                        <Link href="/">
-                          <A>Event</A>
-                        </Link>
+                        <FiMenu style={{ fontSize: "1.5em", color: "#fff" }} />
+                        <p style={{ paddingLeft: "10px" }}> Menu</p>
                       </Flex>
-                    </NameDiv>
-
-                    {isAuth ? (
-                      <Button>
-                        <Flex>
-                          <FiMenu
-                            style={{ fontSize: "1.5em", color: "#fff" }}
-                          />
-                          <p style={{ paddingLeft: "10px" }}> Menu</p>
-                        </Flex>
-                      </Button>
-                    ) : (
-                      <Button>
-                        <Flex>
-                          <FiMenu
-                            style={{ fontSize: "1.5em", color: "#fff" }}
-                          />
-                          <p style={{ paddingLeft: "10px" }}> Menu</p>
-                        </Flex>
-                      </Button>
-                    )}
-                  </Flex>
-                </nav>
-              </Div>
-            </div>
-          )}
-        </div>
-      )}
+                    </Button>
+                  )}
+                </Flex>
+              </nav>
+            </Div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
