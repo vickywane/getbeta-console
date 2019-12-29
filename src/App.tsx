@@ -5,7 +5,6 @@ import { createBrowserHistory } from "history";
 import { inject, observer } from "mobx-react";
 
 import { Console, Signin, Media, Signup, Documentation } from "./pages/";
-import { AuthStore } from "./state/";
 import Protected from "./pages/auth/protectedRoute";
 
 const History = createBrowserHistory();

@@ -3,13 +3,17 @@ import React from "react";
 import Img from "react-image";
 import styled from "styled-components";
 import Flex from "styled-flex-component";
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiUser } from "react-icons/fi";
 import { inject, observer } from "mobx-react";
 
 import useWindowWidth from "../hook_style";
 
 const Header = (props): JSX.Element => {
   const hooks = useWindowWidth();
+
+  const Hover = styled.div({
+    cursor: "pointer"
+  });
 
   const Div = styled.div`
       padding: 0.5em
@@ -94,7 +98,11 @@ const Header = (props): JSX.Element => {
 
                     {isAuth ? (
                       <Flex>
-                        <Button onClick={alert("..")}> Logout </Button>
+                        <Button onClick={alert("ss..")}> Logout </Button>
+
+                        <Hover style={{ paddingLeft: "15px" }}>
+                          <FiUser style={{ color: "#fff", fontSize: "2em" }} />{" "}
+                        </Hover>
                       </Flex>
                     ) : (
                       <Flex justifyBetween>
@@ -247,4 +255,4 @@ const Header = (props): JSX.Element => {
   );
 };
 
-export default inject("AuthStore")(observer(Header));
+export default inject("AuthStore", "ConsoleStore")(observer(Header));

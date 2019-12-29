@@ -5,10 +5,14 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { MediaStore, AuthStore } from "./state/";
+import { ConsoleStore, MediaStore, AuthStore } from "./state/";
 
 ReactDOM.render(
-  <Provider AuthStore={AuthStore} MediaStore={MediaStore}>
+  <Provider
+    AuthStore={AuthStore}
+    ConsoleStore={ConsoleStore}
+    MediaStore={MediaStore}
+  >
     {" "}
     <App />
   </Provider>,
