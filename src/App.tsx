@@ -4,7 +4,16 @@ import { createBrowserHistory } from "history";
 
 import { inject, observer } from "mobx-react";
 
-import { Event, Console, Signin, Media, Signup, Documentation } from "./pages/";
+import {
+  Event,
+  CreateEvent,
+  Console,
+  Signin,
+  EventList,
+  Media,
+  Signup,
+  Documentation
+} from "./pages/";
 import Protected from "./pages/auth/protectedRoute";
 
 const History = createBrowserHistory();
@@ -19,9 +28,22 @@ function App(props): JSX.Element {
 
         <Protected
           authenticated={authenticated}
+          path="/create"
+          component={CreateEvent}
+        />
+
+        <Protected
+          authenticated={authenticated}
           path="/console"
           component={Console}
         />
+
+        <Protected
+          authenticated={authenticated}
+          path="/list"
+          component={EventList}
+        />
+
         <Protected
           authenticated={authenticated}
           path="/media"
