@@ -4,6 +4,8 @@ import Flex from "styled-flex-component";
 import { FiUser, FiUsers } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+import useWindowWidth from "../../hook_style";
+
 const Body = styled.div`
   padding: 0.5em;
 `;
@@ -31,29 +33,58 @@ color : #0e2f5a
 `;
 
 const Create = () => {
+  const hooks = useWindowWidth();
   return (
-    <Flex justifyCenter>
-      {" "}
-      <Body>
-        <Link to="/create">
-          <Circle>
-            <Flex justifyCenter>
-              <FiUsers style={{ textAlign: "center", fontSize: "2em" }} />
-            </Flex>
-            <Text> Organize Event</Text>{" "}
-          </Circle>
-        </Link>
+    <div>
+      {!hooks >= 700 ? (
+        <Flex justifyCenter>
+          {" "}
+          <Body>
+            <Link to="/create">
+              <Circle>
+                <Flex justifyCenter>
+                  <FiUsers style={{ textAlign: "center", fontSize: "2em" }} />
+                </Flex>
+                <Text> Organize Event</Text>{" "}
+              </Circle>
+            </Link>
 
-        <Link to="/list">
-          <Circle>
-            <Flex justifyCenter>
-              <FiUser style={{ textAlign: "center", fontSize: "2em" }} />
-            </Flex>
-            <Text> Volunteer </Text>{" "}
-          </Circle>
-        </Link>
-      </Body>{" "}
-    </Flex>
+            <Link to="/list">
+              <Circle>
+                <Flex justifyCenter>
+                  <FiUser style={{ textAlign: "center", fontSize: "2em" }} />
+                </Flex>
+                <Text> Volunteer </Text>{" "}
+              </Circle>
+            </Link>
+          </Body>{" "}
+        </Flex>
+      ) : (
+        <Flex justifyBetween>
+          <Link to="/create">
+            <Circle>
+              <Flex justifyCenter>
+                <FiUsers style={{ textAlign: "center", fontSize: "2em" }} />
+              </Flex>
+              <Text> Organize Event</Text>{" "}
+            </Circle>
+          </Link>
+
+          <div style={{ padding: "1em" }}>
+            <p style={{ color: "grey" }}> OR </p>
+          </div>
+
+          <Link to="/list">
+            <Circle>
+              <Flex justifyCenter>
+                <FiUser style={{ textAlign: "center", fontSize: "2em" }} />
+              </Flex>
+              <Text> Volunteer </Text>{" "}
+            </Circle>
+          </Link>
+        </Flex>
+      )}
+    </div>
   );
 };
 
