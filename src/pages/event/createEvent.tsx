@@ -5,20 +5,46 @@ import Flex from "styled-flex-component";
 import { Header, Footer } from "../../components/";
 
 const Input = styled.input`
-width : 25em
-height : 4.5vh
-border : 1px solid #000
+width : ${props => (props.description ? "50em" : "35em")}
+height : ${props => (props.description ? "20vh" : "4.5vh")}
+padding-top : ${props => (props.description ? "0px" : "0px")}
+border : 1px solid grey
 border-radius : 3px
 padding : 0.5em
 font-size : 1em
-paddingLeft : 15px
+padding-left : 15px
 `;
 
 const Body = styled.div`
   padding: 1em;
 `;
 
-const Description = styled.textarea``;
+const Button = styled.button`
+  background: #0e2f5a
+  text-align: right;
+  border-radius: 5px;
+  height: 57px;
+  border: 1px solid #0e2f5a;
+  color: #fff;
+  margin: 0 1em;
+  padding: 0.5em 5em;
+  font-size: 1.3em;
+  &:hover {
+    color: #0e2f5a;
+    background: #fff;
+  }
+`;
+
+const Text = styled.p`
+font-size: 1.1em
+ color: ${props => (props.notice ? "grey" : "#000")}
+text-align : center
+`;
+
+const Section = styled.h2`
+padding-left:  10px
+  font-weight:  normal
+`;
 
 const CreateEvent = () => {
   const [Name, setName] = useState<string>("");
@@ -29,10 +55,11 @@ const CreateEvent = () => {
       <Header screen="event" name="" />
 
       <Body>
+        <Section> Details </Section>
         <Flex column>
           <label
             style={{
-              paddingLeft: "5px",
+              paddingLeft: "10px",
               paddingBottom: "5px",
               fontSize: "1.1em"
             }}
@@ -58,12 +85,27 @@ const CreateEvent = () => {
           >
             Event Description{" "}
           </label>
-          <Description
-            style={{ height: "6em", width: "35em" }}
+          <Input
+            description
             placeholder="Describe your event to your attendees"
           />
         </Flex>
+
+        <br />
+        <Flex column>
+          <Section>Images</Section>
+        </Flex>
       </Body>
+
+      <Flex justifyCenter>
+        {" "}
+        <div>
+          <Text notice> All data here can be updated at a later time. </Text>
+
+          <Button> Create Event </Button>
+        </div>{" "}
+      </Flex>
+
       <Footer />
     </div>
   );

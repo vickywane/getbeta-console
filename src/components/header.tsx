@@ -102,7 +102,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
               <nav>
                 <Flex justifyBetween>
                   <NameDiv>
-                    <Link href="/">
+                    <Link to="/console">
                       <A>Event</A>
                     </Link>
                   </NameDiv>
@@ -149,7 +149,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                         }
                         alt="Logo"
                       />
-                      <Link href="/">
+                      <Link to="/console">
                         <A>Event</A>
                       </Link>
                     </Flex>

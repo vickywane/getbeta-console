@@ -18,15 +18,15 @@ const Text = styled.p`
 const Circle = styled.div`
  padding : 1em
  border-radius : 110px
-height : 23vh
-width : 10.5em
+height : 17vh
+width : 11em
 background : #0e2f5a
 color :  #fff
 margin : 2em
 padding-top : 10px
 &:hover {
 cursor : pointer
-box-shadow : 0px 7px 7px grey 
+box-shadow : 0px 7px 7px grey
 background-color : transparent
 color : #0e2f5a
 }
@@ -36,7 +36,7 @@ const Create = () => {
   const hooks = useWindowWidth();
   return (
     <div>
-      {!hooks >= 700 ? (
+      {hooks >= 700 ? (
         <Flex justifyCenter>
           {" "}
           <Body>
