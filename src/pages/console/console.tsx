@@ -118,15 +118,12 @@ const Console = (props): JSX.Element => {
               />
 
               <Detail>
-                {" "}
                 <Name> Nwani Victory </Name>
                 <Bio>
-                  {" "}
                   Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
                   bla bla bla bla{" "}
                 </Bio>
                 <Hover style={{ textAlign: "center" }}>
-                  {" "}
                   <FiEdit3 style={{ fontSize: "2em" }} />{" "}
                 </Hover>
               </Detail>
