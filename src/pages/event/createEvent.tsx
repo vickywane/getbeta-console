@@ -3,7 +3,10 @@ import styled from "styled-components"
 import Flex from "styled-flex-component"
 import { IoMdAdd } from "react-icons/io"
 import { FiToggleLeft } from "react-icons/fi"
+import media from "styled-media-query"
+import DatePicker from "react-datepicker"
 
+import "react-datepicker/dist/react-datepicker.css"
 import { Header, Footer } from "../../components/"
 
 const Input = styled.input`
@@ -19,7 +22,20 @@ const Input = styled.input`
 `
 
 const Body = styled.div`
-  padding: 1em;
+  padding-left: 10em;
+  padding-right: 12em;
+  ${media.lessThan("large")`
+padding-left: 4em;
+padding-right: 4em;
+`};
+  ${media.lessThan("medium")`
+padding-left: 1.5em;
+padding-right: 1.5em;
+`};
+  ${media.lessThan("small")`
+padding-left: 0.4em;
+padding-right: 0.4em;
+`};
 `
 
 const Button = styled.button`
@@ -47,7 +63,7 @@ padding-left : 15px
 
 const Section = styled.h2`
   padding-left:  10px
-  font-weight:  normal
+  font-weight:  550
   font-size: 1.9em
 `
 
@@ -72,6 +88,13 @@ const CreateEvent = () => {
   const [Name, setName] = useState<string>("")
 
   console.log(Name)
+
+  const [StartDate, setStartDate] = useState(new Date())
+
+  const handleChange = date => {
+    setStartDate(date)
+  }
+
   return (
     <div>
       <Header screen="event" name="" />
@@ -106,7 +129,7 @@ const CreateEvent = () => {
         <br />
         <Flex column>
           <Label details>Event Date </Label>
-          <Input placeholder="City , State , Country" />
+          <DatePicker selected={StartDate} onChange={handleChange} />
         </Flex>
 
         <br />

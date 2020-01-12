@@ -1,49 +1,51 @@
-import { Link } from "react-router-dom";
-import React from "react";
-import Img from "react-image";
-import styled from "styled-components";
-import Flex from "styled-flex-component";
-import { FiMenu, FiUser } from "react-icons/fi";
-import { inject, observer } from "mobx-react";
+import { Link } from "react-router-dom"
+import React from "react"
+import Img from "react-image"
+import styled from "styled-components"
+import Flex from "styled-flex-component"
+import { FiMenu, FiUser } from "react-icons/fi"
+import { IoIosNotificationsOutline } from "react-icons/io"
+import { inject, observer } from "mobx-react"
 
-import useWindowWidth from "../hook_style";
+import useWindowWidth from "../hook_style"
 
 // ? marks this interface value as not required by other comps
 // marking this interface as non-mandatory makes d values undefined --fix later
 interface CustomProps {
-  screen?: String;
-  name?: String;
+  screen?: String
+  name?: String
 }
 
 const Header = (props, { screen, name }: CustomProps): JSX.Element => {
-  const hooks = useWindowWidth();
+  const hooks = useWindowWidth()
 
-  console.log(props.screen, props.name);
+  console.log(props.screen, props.name)
 
-  const Hover = styled.div({
-    cursor: "pointer"
-  });
+  const Hover = styled.div`
+    cursor:  pointer
+    color:  #fff  
+ `
 
   const Div = styled.div`
       padding: 0.5em
       background : #444444
-    `;
+    `
 
   const A = styled.a`
     color: #0e2f5a;
     text-decoration: none;
     font-size: 1.6em;
     font-family: comic sans ms;
-  `;
+  `
 
   const Title = styled.a`
 	font-size : 1.2em
-	color : white `;
+	color : white `
 
   const Image = styled(Img)`
     width: 7%;
     height: 25px;
-  `;
+  `
 
   const Button = styled.button`
     background: #0e2f5a
@@ -59,7 +61,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
       color: #0e2f5a;
       background: #fff;
     }
-  `;
+  `
 
   const Apply = styled.button`
     background: #f9db77;
@@ -75,17 +77,17 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
       color: #0e2f5a;
       background: #fff;
     }
-  `;
+  `
 
   // react hooks && event listeners
   const NameDiv = styled.div`
     margin-left: 4%;
-  `;
+  `
 
   //fix later -- should change name later
-  const isAuth = props.AuthStore.authenticated;
+  const isAuth = props.AuthStore.authenticated
 
-  const { showProfilePane, ProfilePane } = props.ConsoleStore;
+  const { showProfilePane, ProfilePane } = props.ConsoleStore
 
   return (
     <div>
@@ -96,7 +98,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
           <div>
             <Div
               style={{
-                paddingTop: "1%"
+                paddingTop: "1%",
               }}
             >
               <nav>
@@ -110,13 +112,20 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                   {isAuth ? (
                     <Flex>
                       <Button onClick={() => alert("..")}> Logout </Button>
+
+                      <Hover style={{ paddingRight: "10px" }}>
+                        <IoIosNotificationsOutline
+                          style={{ fontSize: "2em" }}
+                        />
+                      </Hover>
+
                       <Hover
                         style={{ paddingLeft: "10px", paddingRight: "10px" }}
                         onClick={() => {
-                          showProfilePane();
+                          showProfilePane()
                         }}
                       >
-                        <FiUser style={{ color: "#fff", fontSize: "2em" }} />{" "}
+                        <FiUser style={{ fontSize: "2em" }} />{" "}
                       </Hover>
                     </Flex>
                   ) : (
@@ -184,7 +193,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
         </Div>
       ) : null}
     </div>
-  );
-};
+  )
+}
 
-export default inject("AuthStore", "ConsoleStore")(observer(Header));
+export default inject("AuthStore", "ConsoleStore")(observer(Header))
