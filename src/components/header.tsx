@@ -3,13 +3,14 @@ import React from "react"
 import Img from "react-image"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiMenu, FiUser } from "react-icons/fi"
+import { FiMenu, FiUser, FiEdit3 } from "react-icons/fi"
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { inject, observer } from "mobx-react"
 
+import { Hover } from "../styles/style"
 import useWindowWidth from "../hook_style"
 
-// ? marks this interface value as not required by other comps
+// ? marks this interface value as not required by other components
 // marking this interface as non-mandatory makes d values undefined --fix later
 interface CustomProps {
   screen?: String
@@ -20,11 +21,6 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
   const hooks = useWindowWidth()
 
   console.log(props.screen, props.name)
-
-  const Hover = styled.div`
-    cursor:  pointer
-    color:  #fff  
- `
 
   const Div = styled.div`
       padding: 0.5em
@@ -38,54 +34,15 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
     font-family: comic sans ms;
   `
 
-  const Title = styled.a`
-	font-size : 1.2em
-	color : white `
-
   const Image = styled(Img)`
     width: 7%;
     height: 25px;
-  `
-
-  const Button = styled.button`
-    background: #0e2f5a
-    text-align: right;
-    border-radius: 5px;
-    height: 40px;
-    border: 1px solid #0e2f5a;
-    color: #fff;
-    margin: 0 1em;
-    padding: 0.50em 1.5em;
-    font-size: 1em;
-    &:hover {
-      color: #0e2f5a;
-      background: #fff;
-    }
-  `
-
-  const Apply = styled.button`
-    background: #f9db77;
-    text-align: right;
-    border-radius: 5px;
-    height: 35px
-    border: 0.3px solid #0e2f5a;
-    color: #0e2f5a;
-    margin: 0 1em;
-    padding: 0.25em 1em;
-    font-size: 1em;
-    &:hover {
-      color: #0e2f5a;
-      background: #fff;
-    }
   `
 
   // react hooks && event listeners
   const NameDiv = styled.div`
     margin-left: 4%;
   `
-
-  //fix later -- should change name later
-  const isAuth = props.AuthStore.authenticated
 
   const { showProfilePane, ProfilePane } = props.ConsoleStore
 
@@ -109,38 +66,21 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                     </Link>
                   </NameDiv>
 
-                  {isAuth ? (
-                    <Flex>
-                      <Button onClick={() => alert("..")}> Logout </Button>
+                  <Flex>
+                    <Hover white style={{ paddingRight: "10px" }}>
+                      <IoIosNotificationsOutline style={{ fontSize: "2em" }} />
+                    </Hover>
 
-                      <Hover style={{ paddingRight: "10px" }}>
-                        <IoIosNotificationsOutline
-                          style={{ fontSize: "2em" }}
-                        />
-                      </Hover>
-
-                      <Hover
-                        style={{ paddingLeft: "10px", paddingRight: "10px" }}
-                        onClick={() => {
-                          showProfilePane()
-                        }}
-                      >
-                        <FiUser style={{ fontSize: "2em" }} />{" "}
-                      </Hover>
-                    </Flex>
-                  ) : (
-                    <Flex justifyBetween>
-                      <div style={{ paddingRight: "20px" }}>
-                        <Link to="/signup">
-                          <Title>Create Account </Title>
-                        </Link>
-                      </div>
-
-                      <Link to="/login">
-                        <Apply>Login</Apply>
-                      </Link>
-                    </Flex>
-                  )}
+                    <Hover
+                      white
+                      style={{ paddingLeft: "10px", paddingRight: "10px" }}
+                      onClick={() => {
+                        showProfilePane()
+                      }}
+                    >
+                      <FiUser style={{ fontSize: "2em" }} />{" "}
+                    </Hover>
+                  </Flex>
                 </Flex>
               </nav>
             </Div>
@@ -164,21 +104,9 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                     </Flex>
                   </NameDiv>
 
-                  {isAuth ? (
-                    <Button>
-                      <Flex>
-                        <FiMenu style={{ fontSize: "1.5em", color: "#fff" }} />
-                        <p style={{ paddingLeft: "10px" }}> Menu</p>
-                      </Flex>
-                    </Button>
-                  ) : (
-                    <Button>
-                      <Flex>
-                        <FiMenu style={{ fontSize: "1.5em", color: "#fff" }} />
-                        <p style={{ paddingLeft: "10px" }}> Menu</p>
-                      </Flex>
-                    </Button>
-                  )}
+                  <Hover white>
+                    <FiMenu style={{ fontSize: "2em" }} />{" "}
+                  </Hover>
                 </Flex>
               </nav>
             </Div>
@@ -188,7 +116,15 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
 
       {props.screen === "event" ? (
         <Div style={{ padding: "0.2em", background: "transparent" }}>
-          <h3 style={{ color: "#000" }}> {props.name} </h3>
+          <Flex justifyBetween>
+            <h3 style={{ color: "#000", paddingLeft: "10px" }}>
+              {props.name}{" "}
+            </h3>
+
+            <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
+              <FiEdit3 style={{ fontSize: "2em" }} />
+            </Hover>
+          </Flex>
           <hr />
         </Div>
       ) : null}
