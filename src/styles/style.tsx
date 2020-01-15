@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import posed from "react-pose"
+import media from "styled-media-query"
 
 const Head = styled.div`
   padding: 0.7em;
@@ -58,7 +59,20 @@ const Bounce = posed.div({
 })
 
 const Contain = styled.div`
-  padding: 0.5em;
+    padding-left:   5em
+  padding-right:   5em 
+  ${media.lessThan("large")`
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  `};
+  ${media.lessThan("medium")`
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  `};
+  ${media.lessThan("small")`
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  `};
 `
 
 const Section = styled.h5`
