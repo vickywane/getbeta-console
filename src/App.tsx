@@ -1,8 +1,8 @@
-import React from "react";
-import { Router, Route, Switch } from "react-router";
-import { createBrowserHistory } from "history";
+import React from "react"
+import { Router, Route, Switch } from "react-router"
+import { createBrowserHistory } from "history"
 
-import { inject, observer } from "mobx-react";
+import { inject, observer } from "mobx-react"
 
 import {
   Event,
@@ -12,13 +12,14 @@ import {
   EventList,
   Media,
   Signup,
-  Documentation
-} from "./pages/";
-import Protected from "./pages/auth/protectedRoute";
+  Documentation,
+  Team,
+} from "./pages/"
+import Protected from "./pages/auth/protectedRoute"
 
-const History = createBrowserHistory();
+const History = createBrowserHistory()
 function App(props): JSX.Element {
-  const { authenticated } = props.AuthStore;
+  const { authenticated } = props.AuthStore
   return (
     <Router history={History}>
       <Switch>
@@ -54,9 +55,15 @@ function App(props): JSX.Element {
           path="/event/:id"
           component={Event}
         />
+
+        <Protected
+          authenticated={authenticated}
+          path="/team/:id"
+          component={Team}
+        />
       </Switch>
     </Router>
-  );
+  )
 }
 
-export default inject("AuthStore")(observer(App));
+export default inject("AuthStore")(observer(App))

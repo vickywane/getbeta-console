@@ -1,6 +1,10 @@
 import styled from "styled-components"
 import posed from "react-pose"
 
+const Head = styled.div`
+  padding: 0.7em;
+`
+
 const Body = styled.div`
   padding: 1em;
 `
@@ -26,10 +30,10 @@ const Button = styled.button`
   `
 
 const Card = styled.div`
-  height:    ${props => (props.team ? "5vh" : "7.5vh")}  
+  height:    ${props => (props.team ? "6.5vh" : "7.5vh")}  
   padding:  0.5em 
   padding-top:  0.2em 
-    width: ${props => (props.team ? "3em" : "5em")} 
+    width: ${props => (props.team ? "5em" : "5em")} 
   border-radius:  5px 
   box-shadow:  0px 2px 6px grey 
   background:  black 
@@ -90,5 +94,6 @@ export {
   Button,
   Pane,
   Detail,
+  Head,
   Body,
 }

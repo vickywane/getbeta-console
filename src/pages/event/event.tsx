@@ -5,32 +5,37 @@ import { FiList } from "react-icons/fi"
 import { MdPeopleOutline } from "react-icons/md"
 import { GoLocation } from "react-icons/go"
 import { inject, observer } from "mobx-react"
+import { Link } from "react-router-dom"
 
 import { Header, Footer } from "../../components/"
 import { Hover, Bio, Contain, Bounce, Card } from "../../styles/style"
 import { Checklist } from "../../components/modals/"
 import Activity from "./Activity"
+import { Modal } from "react-bootstrap"
 
 const data = [
-  { i: 1, name: "design" },
-  { i: 2, name: "gifts" },
-  { i: 3, name: "food" },
-  { i: 4, name: "attendees" },
+  { id: 1, name: "design" },
+  { id: 2, name: "gifts" },
+  { id: 3, name: "food" },
+  { id: 4, name: "attendees" },
 ]
 
 const Event = (props): JSX.Element => {
   const { openChecklist } = props.ModalStore
+
+  const m = true
   return (
     <div>
       <Header name="OSCA" screen="event" />
       <Checklist />
+
       <Contain>
         <Flex justifyBetween>
           <Flex column>
             <Image
               alt="profile"
               src={require("../../assets/images/developer.png")}
-              style={{ maxWidth: "5em", maxHeight: "5em" }}
+              style={{ maxWidth: "7em", maxHeight: "7em" }}
               fluid
               thumbnail
             />
@@ -62,20 +67,23 @@ const Event = (props): JSX.Element => {
                 <MdPeopleOutline style={{ fontSize: "2.2em" }} />{" "}
               </Hover>
             </div>
-            <h1 style={{ fontWeight: "lighter" }}> 30days left </h1>
+            <h2 style={{ fontWeight: "lighter" }}> 30days left </h2>
           </Flex>
         </Flex>
       </Contain>
 
       <hr />
       <Flex column>
-        <h4 style={{ textAlign: "center" }}> TEAMS </h4>
+        <h5 style={{ textAlign: "center" }}> TEAMS </h5>
         <Flex justifyAround>
-          {data.map(({ i, name }) => {
+          {data.map(({ id, name }) => {
             return (
               <Bounce>
-                <Card key={i} team />
-                <h5> {name.toUpperCase()}</h5>
+                <Link to={`/team/${id}`}>
+                  <Card key={id} team>
+                    <h6> {name.toUpperCase()}</h6>
+                  </Card>
+                </Link>
               </Bounce>
             )
           })}

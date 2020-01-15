@@ -49,7 +49,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
   return (
     <div>
       <div
-        style={{ boxShadow: ProfilePane ? "0px 0px 0px" : "0px 7px 7px grey" }}
+        style={{ boxShadow: ProfilePane ? "0px 0px 0px" : "0px 5px 5px grey" }}
       >
         {hooks >= 720 ? (
           <div>
@@ -115,14 +115,16 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
       </div>
 
       {props.screen === "event" ? (
-        <Div style={{ padding: "0.2em", background: "transparent" }}>
+        <Div style={{ background: "transparent" }}>
           <Flex justifyBetween>
-            <h3 style={{ color: "#000", paddingLeft: "10px" }}>
-              {props.name}{" "}
-            </h3>
+            <h5
+              style={{ color: "#000", paddingLeft: "10px", paddingTop: "10px" }}
+            >
+              {props.name}
+            </h5>
 
             <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
-              <FiEdit3 style={{ fontSize: "2em" }} />
+              <FiEdit3 style={{ fontSize: "1.7em" }} />
             </Hover>
           </Flex>
           <hr />
