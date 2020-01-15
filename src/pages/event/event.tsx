@@ -9,9 +9,8 @@ import { Link } from "react-router-dom"
 
 import { Header, Footer } from "../../components/"
 import { Hover, Bio, Contain, Bounce, Card } from "../../styles/style"
-import { Checklist } from "../../components/modals/"
+import { Checklist, People } from "../../components/modals/"
 import Activity from "./Activity"
-import { Modal } from "react-bootstrap"
 
 const data = [
   { id: 1, name: "design" },
@@ -21,13 +20,13 @@ const data = [
 ]
 
 const Event = (props): JSX.Element => {
-  const { openChecklist } = props.ModalStore
+  const { openChecklist, openPeople } = props.ModalStore
 
-  const m = true
   return (
     <div>
       <Header name="OSCA" screen="event" />
       <Checklist />
+      <People />
 
       <Contain>
         <Flex justifyBetween>
@@ -47,7 +46,7 @@ const Event = (props): JSX.Element => {
             <Flex>
               <GoLocation style={{ fontSize: "1.7em" }} />
               <p style={{ paddingLeft: "7px" }}>
-                Tech Zone Park , Egbeda , Lagos{" "}
+                Tech Zone Park , Egbeda , Lagos
               </p>
             </Flex>
           </Flex>
@@ -60,11 +59,16 @@ const Event = (props): JSX.Element => {
                   openChecklist()
                 }}
               >
-                <FiList style={{ fontSize: "2.2em" }} />{" "}
+                <FiList style={{ fontSize: "2.2em" }} />
               </Hover>
               <br />
               <Hover>
-                <MdPeopleOutline style={{ fontSize: "2.2em" }} />{" "}
+                <MdPeopleOutline
+                  onClick={() => {
+                    openPeople()
+                  }}
+                  style={{ fontSize: "2.2em" }}
+                />
               </Hover>
             </div>
             <h2 style={{ fontWeight: "lighter" }}> 30days left </h2>

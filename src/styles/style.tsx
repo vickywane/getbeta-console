@@ -17,11 +17,11 @@ const Button = styled.button`
     background: #0e2f5a
     text-align: right;
     border-radius: 5px;
-    height: 40px;
+    height: 45px;
     border: 1px solid #0e2f5a;
     color: #fff;
     margin: 0 1em;
-    padding: 0.50em 1.5em;
+    padding: ${props => (props.long ? "0.50em 3.5em" : "0.50em 1.5em")};
     font-size: 1em;
     &:hover {
       color: #0e2f5a;
@@ -61,7 +61,7 @@ const Contain = styled.div`
   padding: 0.5em;
 `
 
-const Section = styled.h3`
+const Section = styled.h5`
   font-weight: normal;
 `
 
@@ -83,8 +83,24 @@ const Hover = styled.div`
   color: ${props => (props.white ? "#fff" : null)};
 `
 
+const Input = styled.input`
+height  : 55px
+width : 30em 
+padding : 0.5em
+border : 1px solid black
+margin : 0 1em
+padding-left : 10px
+border-radius : 4px
+`
+
+const Box = styled.div`
+    padding : 0.5em
+    border  : 1px solid black
+  `
+
 export {
   Hover,
+  Box,
   Bio,
   Name,
   Section,
@@ -96,4 +112,5 @@ export {
   Detail,
   Head,
   Body,
+  Input,
 }
