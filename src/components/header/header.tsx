@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import React from "react"
+import React, { useState } from "react"
 import Img from "react-image"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
@@ -7,8 +7,9 @@ import { FiMenu, FiUser, FiEdit3 } from "react-icons/fi"
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { inject, observer } from "mobx-react"
 
-import { Hover } from "../styles/style"
-import useWindowWidth from "../hook_style"
+import { Hover } from "../../styles/style"
+import { Burger, Menu } from "./"
+import useWindowWidth from "../../hook_style"
 
 // ? marks this interface value as not required by other components
 // marking this interface as non-mandatory makes d values undefined --fix later
@@ -19,8 +20,6 @@ interface CustomProps {
 
 const Header = (props, { screen, name }: CustomProps): JSX.Element => {
   const hooks = useWindowWidth()
-
-  console.log(props.screen, props.name)
 
   const Div = styled.div`
       padding: 0.5em
@@ -45,6 +44,9 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
   `
 
   const { showProfilePane, ProfilePane } = props.ConsoleStore
+
+  const [open, setOpen] = useState(false)
+  const menuId = "main-menu"
 
   return (
     <div>
@@ -104,9 +106,14 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                     </Flex>
                   </NameDiv>
 
-                  <Hover white>
-                    <FiMenu style={{ fontSize: "2em" }} />{" "}
-                  </Hover>
+                  <div>
+                    <Burger
+                      open={open}
+                      setOpen={setOpen}
+                      aria-controls={menuId}
+                    />
+                    <Menu open={open} setOpen={setOpen} id={menuId} />
+                  </div>
                 </Flex>
               </nav>
             </Div>

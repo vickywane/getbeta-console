@@ -16,12 +16,14 @@ import {
   Team,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
+import { GlobalStyles } from "./styles/global"
 
 const History = createBrowserHistory()
 function App(props): JSX.Element {
   const { authenticated } = props.AuthStore
   return (
     <Router history={History}>
+      <GlobalStyles />
       <Switch>
         <Route exact path="/" component={Documentation} />
         <Route path="/login" component={Signin} />

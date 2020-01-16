@@ -13,7 +13,7 @@ class ModalStore {
   }
 
   // people modal
-  showPeople = true
+  showPeople = false
   invite = false
   search = false
 

@@ -1,22 +1,36 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "mobx-react"
+import { ThemeProvider } from "styled-components"
+
 import "./index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 
 import { ConsoleStore, MediaStore, AuthStore, ModalStore } from "./state/"
 
+// i would work on the theming later!!
+const theme = {
+  primaryDark: null,
+  primaryLight: null,
+  primaryHover: null,
+}
+
+// primaryDark: '#0D0C1D',
+// primaryLight: '#EFFFFA',
+// primaryHover: '#343078',
+
 ReactDOM.render(
-  <Provider
-    AuthStore={AuthStore}
-    ConsoleStore={ConsoleStore}
-    MediaStore={MediaStore}
-    ModalStore={ModalStore}
-  >
-    {" "}
-    <App />
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <Provider
+      AuthStore={AuthStore}
+      ConsoleStore={ConsoleStore}
+      MediaStore={MediaStore}
+      ModalStore={ModalStore}
+    >
+      <App />
+    </Provider>
+  </ThemeProvider>,
   document.getElementById("root")
 )
 
