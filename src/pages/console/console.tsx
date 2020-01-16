@@ -64,14 +64,18 @@ const Console = (props): JSX.Element => {
 
             <Flex column>
               <br /> <br />
-              <Hover>
-                {" "}
-                <IoMdClipboard style={{ fontSize: "2.2em" }} />{" "}
-              </Hover>
+              <Link to="/talks">
+                <Hover>
+                  {" "}
+                  <IoMdClipboard style={{ fontSize: "2.2em" }} />{" "}
+                </Hover>
+              </Link>
               <br />
-              <Hover>
-                <FiLogOut style={{ fontSize: "2.2em" }} />{" "}
-              </Hover>
+              <Link to="/signup">
+                <Hover>
+                  <FiLogOut style={{ fontSize: "2.2em" }} />{" "}
+                </Hover>
+              </Link>
             </Flex>
           </Flex>
         </Contain>

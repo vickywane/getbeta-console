@@ -14,6 +14,8 @@ import {
   Signup,
   Documentation,
   Team,
+  Deck,
+  Talks,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
@@ -62,6 +64,18 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/team/:id"
           component={Team}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/talks"
+          component={Talks}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/deck"
+          component={Deck}
         />
       </Switch>
     </Router>

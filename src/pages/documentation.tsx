@@ -1,21 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import Flex from "styled-flex-component";
-import { Link } from "react-router-dom";
+import React from "react"
+import styled from "styled-components"
+import Flex from "styled-flex-component"
+import { Link } from "react-router-dom"
 
-import { Header, Footer } from "../components/";
+import { Header, Footer } from "../components/"
 
 const Body = styled.div`
   padding: 1em;
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
-const Title = styled.h1`
+const Title = styled.h2`
   text-align: center;
-`;
-const Text = styled.p``;
+`
+const Text = styled.p``
 const TitleText = styled.p`
   font-size: 1.3em;
-`;
+`
 
 const Button = styled.button`
     background: #0e2f5a
@@ -31,12 +34,12 @@ const Button = styled.button`
       color: #0e2f5a;
       background: #fff;
     }
-  `;
+  `
 
 const Documentation = (): JSX.Element => {
   return (
     <div>
-      <Header />
+      <Header screen="Docs" />
       <Body>
         <Flex justifyCenter>
           {" "}
@@ -56,7 +59,7 @@ const Documentation = (): JSX.Element => {
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Documentation;
+export default Documentation

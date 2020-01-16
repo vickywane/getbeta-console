@@ -69,9 +69,15 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                   </NameDiv>
 
                   <Flex>
-                    <Hover white style={{ paddingRight: "10px" }}>
-                      <IoIosNotificationsOutline style={{ fontSize: "2em" }} />
-                    </Hover>
+                    <div>
+                      <Burger
+                        type="Notification"
+                        open={open}
+                        setOpen={setOpen}
+                        aria-controls={menuId}
+                      />
+                      <Menu open={open} setOpen={setOpen} id={menuId} />
+                    </div>
 
                     <Hover
                       white
@@ -106,14 +112,17 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                     </Flex>
                   </NameDiv>
 
-                  <div>
-                    <Burger
-                      open={open}
-                      setOpen={setOpen}
-                      aria-controls={menuId}
-                    />
-                    <Menu open={open} setOpen={setOpen} id={menuId} />
-                  </div>
+                  {props.screen === "Docs" ? null : (
+                    <div>
+                      <Burger
+                        type="Burger"
+                        open={open}
+                        setOpen={setOpen}
+                        aria-controls={menuId}
+                      />
+                      <Menu open={open} setOpen={setOpen} id={menuId} />
+                    </div>
+                  )}
                 </Flex>
               </nav>
             </Div>

@@ -31,15 +31,15 @@ const Button = styled.button`
   `
 
 const Card = styled.div`
-  height:    ${props => (props.team ? "6.5vh" : "7.5vh")}  
-  padding:  0.5em 
-  padding-top:  0.2em 
-    width: ${props => (props.team ? "5em" : "5em")} 
-  border-radius:  5px 
-  box-shadow:  0px 2px 6px grey 
-  background:  black 
-  color:  white 
-  cursor:  pointer 
+  height:    ${props => (props.team ? "6.5vh" : "7.5vh")}
+  padding:  0.5em
+  padding-top:  0.2em
+    width: ${props => (props.team ? "5em" : "5em")}
+  border-radius:  5px
+  box-shadow:  0px 2px 6px grey
+  background:  black
+  color:  white
+  cursor:  pointer
  `
 
 const Bounce = posed.div({
@@ -60,7 +60,7 @@ const Bounce = posed.div({
 
 const Contain = styled.div`
     padding-left:   5em
-  padding-right:   5em 
+  padding-right:   5em
   ${media.lessThan("large")`
   padding-left: 1.5em;
   padding-right: 1.5em;
@@ -99,7 +99,7 @@ const Hover = styled.div`
 
 const Input = styled.input`
 height  : 55px
-width : 30em 
+width : 30em
 padding : 0.5em
 border : 1px solid black
 margin : 0 1em
@@ -112,9 +112,12 @@ const Box = styled.div`
     border  : 1px solid black
   `
 
+const Text = styled.p``
+
 export {
   Hover,
   Box,
+  Text,
   Bio,
   Name,
   Section,

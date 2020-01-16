@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { IoIosNotificationsOutline } from "react-icons/io"
 
 const StyledMenu = styled.nav`
   display: flex;
@@ -48,6 +49,7 @@ const StyledBurger = styled.button`
   justify-content: space-around;
   width: 2rem;
   height: 2rem;
+  margin-right  : 10px
   background: transparent;
   border: none;
   cursor: pointer;
@@ -57,7 +59,7 @@ const StyledBurger = styled.button`
   span {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ theme, open }) => (open ? "#fff" : "#0D0C1D")};
+    background: ${({ theme, open }) => (open ? "#fff" : "#fff")};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -78,4 +80,44 @@ const StyledBurger = styled.button`
   }
 `
 
-export { StyledMenu, StyledBurger }
+const StyledNotification = styled(IoIosNotificationsOutline)`
+  position: right;
+  top: 5%;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 2.2em;
+  color: #fff;
+  margin-right  : 5px
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+
+  span {
+    width: 2rem;
+    height: 0.25rem;
+    background: ${({ theme, open }) => (open ? "#fff" : "#fff")};
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+
+    :first-child {
+      transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};
+    }
+
+    :nth-child(2) {
+      opacity: ${({ open }) => (open ? "0" : "1")};
+      transform: ${({ open }) => (open ? "translateX(20px)" : "translateX(0)")};
+    }
+
+    :nth-child(3) {
+      transform: ${({ open }) => (open ? "rotate(-45deg)" : "rotate(0)")};
+    }
+  }
+`
+
+export { StyledMenu, StyledBurger, StyledNotification }
