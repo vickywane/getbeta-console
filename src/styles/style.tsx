@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import posed from "react-pose"
 import media from "styled-media-query"
+import { Image } from "react-bootstrap"
 
 const Head = styled.div`
   padding: 0.7em;
@@ -160,15 +161,49 @@ const UploadContainer = styled.div`
   transition: border 0.24s ease-in-out;
 `
 
+const autoGrid = (minColumnWidth = 200, gridGap = 0) => ({
+  display: "grid",
+  gridTemplateColumns: `repeat(auto-fill, minmax(${minColumnWidth}px, 1fr))`,
+  gridGap,
+})
+
+const Items = styled.div({
+  ...autoGrid(220, 20),
+  padding: "3em",
+  marginLeft: "1.5em",
+})
+
+const SmallItems = styled.div({
+  ...autoGrid(170, 20),
+  padding: "0.5em",
+  margin: "0.5em",
+})
+
+const Title = styled.h4`
+padding-left: ${props => (props.small ? "7px" : "15px")};
+padding-right: 10px
+font-size : ${props => (props.small ? "1.2em" : null)}
+font-weight : ${props => (props.small ? "normal" : null)}
+`
+
+const CustomImage = styled(Image)`
+  height: auto;
+  width: ${props => (props.small ? "7.7rem" : "10rem")};
+`
+
 export {
   Hover,
+  CustomImage,
   Box,
+  SmallItems,
+  Title,
   getColor,
   UploadContainer,
   Text,
   Bio,
   Name,
   Section,
+  Items,
   Contain,
   Bounce,
   Card,

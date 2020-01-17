@@ -16,26 +16,11 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.primaryLight};
-    height: 100vh;
     text-rendering: optimizeLegibility;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
-  h1 {
-    font-size: 2rem;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  img {
-    border-radius: 5px;
-    height: auto;
-    width: 10rem;
-  }
-
-  div {
-    text-align: center;
-  }
+  
 
   small {
     display: block;
@@ -46,3 +31,19 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 `
+
+// h1 {
+//     font-size: 2rem;
+//     text-align: center;
+//     text-transform: uppercase;
+//   }
+
+//   img {
+//     border-radius: 5px;
+//     height: auto;
+//     width: 10rem;
+//   }
+
+//   div {
+//     text-align: center;
+//   }
