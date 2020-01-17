@@ -1,7 +1,7 @@
 import React from "react"
 import Flex from "styled-flex-component"
 import { Image } from "react-bootstrap"
-import { FiList } from "react-icons/fi"
+import { FiList, FiImage } from "react-icons/fi"
 import { MdPeopleOutline } from "react-icons/md"
 import { GoLocation } from "react-icons/go"
 import { inject, observer } from "mobx-react"
@@ -53,6 +53,16 @@ const Event = (props): JSX.Element => {
 
           <Flex column>
             <div style={{ textAlign: "right" }}>
+              <Link to="/upload">
+                <Hover
+                  onClick={() => {
+                    openChecklist()
+                  }}
+                >
+                  <FiImage style={{ fontSize: "2.2em" }} />
+                </Hover>
+              </Link>
+
               <br />
               <Hover
                 onClick={() => {
@@ -71,7 +81,7 @@ const Event = (props): JSX.Element => {
                 />
               </Hover>
             </div>
-            <h2 style={{ fontWeight: "lighter" }}> 30days left </h2>
+            <h3 style={{ fontWeight: "lighter" }}> 30days left </h3>
           </Flex>
         </Flex>
       </Contain>

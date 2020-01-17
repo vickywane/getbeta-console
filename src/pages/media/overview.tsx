@@ -1,19 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { inject, observer } from "mobx-react";
-
-import { Header, Footer } from "../../components/";
-import Upload from "./upload";
+import React from "react"
+import styled from "styled-components"
 
 const Overview = (props): JSX.Element => {
-  const { items } = props.MediaStore;
-  const ItemsNo = items.length;
   return (
     <div>
-      <Header /> <p> upload overview </p> <p> {ItemsNo} items in store </p>
-      <Upload />
-      <Footer />
+      <p> upload overview </p> <p> items in store </p>
     </div>
-  );
-};
-export default inject("MediaStore")(observer(Overview));
+  )
+}
+
+export default Overview

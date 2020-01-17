@@ -2,7 +2,9 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { Provider } from "mobx-react"
 import { ThemeProvider } from "styled-components"
+import { ApolloProvider } from "@apollo/react-hooks"
 
+import Client from "./data/config"
 import "./index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
@@ -21,16 +23,18 @@ const theme = {
 // primaryHover: '#343078',
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
+  <ApolloProvider client={Client}>
     <Provider
       AuthStore={AuthStore}
       ConsoleStore={ConsoleStore}
       MediaStore={MediaStore}
       ModalStore={ModalStore}
     >
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
-  </ThemeProvider>,
+  </ApolloProvider>,
   document.getElementById("root")
 )
 

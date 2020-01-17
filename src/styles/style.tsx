@@ -114,9 +114,57 @@ const Box = styled.div`
 
 const Text = styled.p``
 
+const UploadBtn = styled.button`
+  background: #1a1c28;
+  text-align: right;
+  border-radius: 30px;
+  height: 40px;
+  color: #fff;
+  margin: 0 1em;
+  padding: 0.25em 2em;
+  font-size: 1em;
+  &:hover {
+    color: #0e2f5a;
+    background: #fff;
+  }
+`
+
+const getColor = props => {
+  if (props.isDragAccept) {
+    return "#00e676"
+  }
+  if (props.isDragReject) {
+    return "#ff1744"
+  }
+  if (props.isDragActive) {
+    return "#2196f3"
+  }
+  return "#eeeeee"
+}
+
+const UploadContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: ${props => getColor(props)};
+  border-style: dashed;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  outline: none;
+  margin: 1.5em;
+  border-radius: 10px;
+  transition: border 0.24s ease-in-out;
+`
+
 export {
   Hover,
   Box,
+  getColor,
+  UploadContainer,
   Text,
   Bio,
   Name,
@@ -124,6 +172,7 @@ export {
   Contain,
   Bounce,
   Card,
+  UploadBtn,
   Button,
   Pane,
   Detail,

@@ -1,10 +1,11 @@
 import React from "react"
 import { inject, observer } from "mobx-react"
 import Flex from "styled-flex-component"
-import { FiX, FiLogOut, FiEdit3 } from "react-icons/fi"
+import { FiX, FiLogOut, FiEdit3, FiImage } from "react-icons/fi"
 import { IoMdClipboard } from "react-icons/io"
 import { Link } from "react-router-dom"
 import { Image } from "react-bootstrap"
+import { useQuery } from "@apollo/react-hooks"
 
 import { Header, Footer } from "../../components/"
 import {
@@ -18,12 +19,15 @@ import {
   Bio,
   Hover,
 } from "../../styles/style"
-
+import { TEST } from "../../data/queries"
 import Create from "./create"
 
 const Console = (props): JSX.Element => {
   // const { closeProfilePane, ProfilePane } = props.ConsoleStore;
   // const { hasEvent, hasVolunteer, setEvent, setVolunter } = props.AuthStore;
+  // const { loading, error, data } = useQuery(TEST, {
+  //   // variables: { language: "english" },
+  // })
 
   const data = [
     { i: 1, name: "a" },
@@ -34,6 +38,9 @@ const Console = (props): JSX.Element => {
     { i: 6, name: "e" },
   ]
 
+  // if (loading) return <p> Loading ... </p>
+  // if (error) return <p> error ... </p>
+  // if (data)
   return (
     <div>
       <Header />
@@ -63,7 +70,14 @@ const Console = (props): JSX.Element => {
             </Flex>
 
             <Flex column>
-              <br /> <br />
+              <br />
+              <Link to="/media">
+                <Hover>
+                  {" "}
+                  <FiImage style={{ fontSize: "2.2em" }} />{" "}
+                </Hover>
+              </Link>
+              <br />
               <Link to="/talks">
                 <Hover>
                   {" "}
