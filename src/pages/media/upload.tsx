@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { inject, observer } from "mobx-react"
 import { FiUploadCloud } from "react-icons/fi"
 import Flex from "styled-flex-component"
-import { useDropzone } from "react-dropzone"
+import Dropzone, { useDropzone } from "react-dropzone"
 
 import { Header, Footer } from "../../components/"
 import { Body, UploadBtn, UploadContainer, getColor } from "../../styles/style"
@@ -11,7 +11,7 @@ import { Body, UploadBtn, UploadContainer, getColor } from "../../styles/style"
 const Upload = (props): JSX.Element => {
   const { Empty } = props.MediaStore
 
-  const [upload, uploading] = useState<Boolean>(false)
+  // const [upload, uploading] = useState < Boolean > false;
 
   const {
     getRootProps,
@@ -73,7 +73,7 @@ const Upload = (props): JSX.Element => {
               <br />
             </div>
           )}
-        </UploadContainer>
+        </UploadContainer>{" "}
       </Body>
 
       <Footer />

@@ -10,7 +10,7 @@ const Media = (props): JSX.Element => {
   const ItemsNo = items.length
   return (
     <div>
-      <Header />
+      <Header options={true} name="OSCA > Media " action="upload" />
       <Overview />
       <Footer />
     </div>

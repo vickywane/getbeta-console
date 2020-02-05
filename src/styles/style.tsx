@@ -20,7 +20,8 @@ const Button = styled.button`
     text-align: right;
     border-radius: 5px;
     height: 45px;
-    border: 1px solid #0e2f5a;
+  outline: 0px;
+    border: 1px solid #0e2f5a; 
     color: #fff;
     margin: 0 1em;
     padding: ${props => (props.long ? "0.50em 3.5em" : "0.50em 1.5em")};
@@ -120,6 +121,7 @@ const UploadBtn = styled.button`
   text-align: right;
   border-radius: 30px;
   height: 40px;
+  outline: 0px;
   color: #fff;
   margin: 0 1em;
   padding: 0.25em 2em;

@@ -3,22 +3,23 @@ import { IoIosNotificationsOutline } from "react-icons/io"
 
 const StyledMenu = styled.nav`
   display: flex;
+  color: white;
   flex-direction: column;
   justify-content: center;
-  background:  #0D0C1D
+  background:  #444444
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
-  height: 100vh;
-  text-align: right;
+  height: 93vh;
+  margin-top: 3.1em;
+  text-align: center;
   padding: 2rem;
   position: absolute;
   top: 0;
+  width  : 25em
   left: 0;
   transition: transform 0.3s ease-in-out;
-
   @media (max-width: ${({ theme }) => theme.mobile}) {
       width: 100%;
-    }
-
+    } font-size : 1.3em;
   a {
     font-size: 2rem;
     text-transform: uppercase;
@@ -28,12 +29,10 @@ const StyledMenu = styled.nav`
     color: ${({ theme }) => theme.primaryDark};
     text-decoration: none;
     transition: color 0.3s linear;
-
     @media (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 1.5rem;
       text-align: center;
     }
-
     &:hover {
       color: ${({ theme }) => theme.primaryHover};
     }
@@ -120,4 +119,9 @@ const StyledNotification = styled(IoIosNotificationsOutline)`
   }
 `
 
-export { StyledMenu, StyledBurger, StyledNotification }
+const Hover = styled.div`
+  cursor: pointer;
+  color: ${props => (props.white ? "#fff" : null)};
+`
+
+export { StyledMenu, StyledBurger, StyledNotification, Hover }

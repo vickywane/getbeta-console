@@ -24,7 +24,7 @@ const Event = (props): JSX.Element => {
 
   return (
     <div>
-      <Header name="OSCA" screen="event" />
+      <Header options={true} name="OSCA" action="edit" />
       <Checklist />
       <People />
 
@@ -53,7 +53,7 @@ const Event = (props): JSX.Element => {
 
           <Flex column>
             <div style={{ textAlign: "right" }}>
-              <Link to="/upload">
+              <Link to="/media">
                 <Hover
                   onClick={() => {
                     openChecklist()

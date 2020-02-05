@@ -3,18 +3,20 @@ import React, { useState } from "react"
 import Img from "react-image"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiMenu, FiUser, FiEdit3 } from "react-icons/fi"
-import { IoIosNotificationsOutline } from "react-icons/io"
+import { FiUser, FiEdit3, FiUploadCloud } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 
-import { Hover } from "../../styles/style"
+import { Hover, UploadBtn } from "../../styles/style"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
 
 // ? marks this interface value as not required by other components
 // marking this interface as non-mandatory makes d values undefined --fix later
+//@ts-ignore
 interface CustomProps {
+  //@ts-ignore
   screen?: String
+  //@ts-ignore
   name?: String
 }
 
@@ -130,7 +132,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
         )}
       </div>
 
-      {props.screen === "event" ? (
+      {props.options ? (
         <Div style={{ background: "transparent" }}>
           <Flex justifyBetween>
             <h5
@@ -139,9 +141,31 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
               {props.name}
             </h5>
 
-            <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
-              <FiEdit3 style={{ fontSize: "1.7em" }} />
-            </Hover>
+            {props.action === "edit" ? (
+              <div>
+                <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
+                  <FiEdit3 style={{ fontSize: "1.7em" }} />
+                </Hover>
+              </div>
+            ) : null}
+
+            {props.action === "upload" ? (
+              <div>
+                <Link to="/upload">
+                  <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
+                    <UploadBtn
+                      style={{
+                        boxShadow: "0px 2px 5px grey",
+                        textAlign: "center",
+                      }}
+                      onClick={() => {}}
+                    >
+                      <FiUploadCloud style={{ fontSize: "1.5em" }} />
+                    </UploadBtn>
+                  </Hover>
+                </Link>
+              </div>
+            ) : null}
           </Flex>
           <hr />
         </Div>
