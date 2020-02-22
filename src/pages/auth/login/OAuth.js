@@ -10,9 +10,6 @@ const Hover = styled.div({
   cursor: "pointer",
 })
 
-const API_URL =
-  "https://codeburst.io/react-authentication-with-twitter-google-facebook-and-github-862d59583105"
-
 export default class OAuth extends Component {
   state = {
     user: {},
@@ -49,7 +46,7 @@ export default class OAuth extends Component {
     const height = 600
     const left = window.innerWidth / 2 - width / 2
     const top = window.innerHeight / 2 - height / 2
-    const url = `${API_URL}/?socketId=${socket.id}`
+    const url = `${this.props.API_URL}/?socketId=${socket.id}`
 
     return window.open(
       url,

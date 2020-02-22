@@ -29,7 +29,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
     `
 
   const A = styled.a`
-    color: #0e2f5a;
+    color: #fff;
     text-decoration: none;
     font-size: 1.6em;
     font-family: comic sans ms;

@@ -16,7 +16,8 @@ import {
   Name,
   Section,
   Contain,
-  Bio,
+  Title,
+  Text,
   Hover,
 } from "../../styles/style"
 import { TEST } from "../../data/queries"
@@ -58,11 +59,11 @@ const Console = (props): JSX.Element => {
               />
 
               <Detail>
-                <Name> Nwani Victory </Name>
-                <Bio>
+                <Title center> Nwani Victory </Title>
+                <Text center>
                   Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
                   bla bla bla bla{" "}
-                </Bio>
+                </Text>
                 <Hover style={{ textAlign: "center" }}>
                   <FiEdit3 style={{ fontSize: "2em" }} />{" "}
                 </Hover>
@@ -73,7 +74,6 @@ const Console = (props): JSX.Element => {
               <br />
               <Link to="/media">
                 <Hover>
-                  {" "}
                   <FiImage style={{ fontSize: "2.2em" }} />{" "}
                 </Hover>
               </Link>
