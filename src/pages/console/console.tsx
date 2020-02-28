@@ -21,16 +21,18 @@ import {
   Hover,
 } from "../../styles/style"
 import { TEST } from "../../data/queries"
-import Create from "./create"
+// import Create from "./create"
 
 const Console = (props): JSX.Element => {
   // const { closeProfilePane, ProfilePane } = props.ConsoleStore;
   // const { hasEvent, hasVolunteer, setEvent, setVolunter } = props.AuthStore;
-  // const { loading, error, data } = useQuery(TEST, {
-  //   // variables: { language: "english" },
-  // })
+  const { loading, error, data } = useQuery(TEST, {
+    // variables: { language: "english" },
+  })
 
-  const data = [
+  console.log(data, "data")
+
+  const datas = [
     { i: 1, name: "a" },
     { i: 2, name: "b" },
     { i: 3, name: "b" },
@@ -41,7 +43,7 @@ const Console = (props): JSX.Element => {
 
   // if (loading) return <p> Loading ... </p>
   // if (error) return <p> error ... </p>
-  // if (data)
+  // if (datas)
   return (
     <div>
       <Header />
@@ -97,7 +99,7 @@ const Console = (props): JSX.Element => {
 
         <Section> Organizing : </Section>
         <Flex justifyAround>
-          {data.map(({ i, name }) => {
+          {datas.map(({ i, name }) => {
             return (
               <Bounce>
                 <Link to={`/event/${i}`}>
@@ -114,7 +116,7 @@ const Console = (props): JSX.Element => {
         <br />
         <Section> Volunteering : </Section>
         <Flex justifyAround>
-          {data.map(({ i, name }) => {
+          {datas.map(({ i, name }) => {
             return (
               <Bounce>
                 <Link to={`/event/${i}`}>
