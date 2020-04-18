@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import posed from "react-pose"
 import media from "styled-media-query"
 import { Image, Modal } from "react-bootstrap"
@@ -191,16 +191,16 @@ const Title = styled.h5`
   padding-left: ${props => (props.small ? "3px" : "15px")};
   padding-right: 10px;
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: ${props => (props.small ? "1.5rem" : "1.7rem")};
+  font-size: ${props => (props.small ? "1.7rem" : "2rem")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
   ${media.lessThan("large")`
-font-size: ${props => (props.small ? "1.4em" : "2em")};
+font-size: ${props => (props.small ? "1.8em" : "2em")};
   `};
   ${media.lessThan("medium")`
-font-size: ${props => (props.small ? "1.3em" : "2em")};
+font-size: ${props => (props.small ? "1.5em" : "2em")};
 `};
   ${media.lessThan("small")`
-font-size: ${props => (props.small ? "1.2em" : "2em")};
+font-size: ${props => (props.small ? "1.3em" : "2em")};
 `};
 `
 
@@ -221,8 +221,8 @@ font-size: ${props => (props.small ? "1.1em" : "1.3em")};
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 3rem;
 `
 
 const CustomImage = styled(Image)`
@@ -314,12 +314,14 @@ const Switch = styled.div`
 `
 
 const SwitchBtn = styled.button`
-  padding: 0.5rem 4.35rem;
+  padding: 0.6rem 4rem;
   border: 0px;
   background: transparent;
   color: #401364;
   outline: none;
   font-weight: bold;
+  transition: all 600ms;
+  font-size: 1.1rem;
   &: hover {
     background: #401364;
     color: #fff;
@@ -341,17 +343,17 @@ const InputBox = styled.div`
 
 // HEADER STYLES =================>
 const Header = styled.nav`
-      padding: 0.8em 1rem;
-      background : #444444
-      position: fixed;
-      width: 100%;
-        ${media.lessThan("medium")`
+  padding: 0.8em 1rem;
+  background: #444444;
+  position: fixed;
+  width: 100%;
+  ${media.lessThan("medium")`
           padding: 0.1rem 1rem;
 `};
   ${media.lessThan("small")`
             padding: 0.1rem 1rem;
 `};
-    `
+`
 
 const HeaderLinks = styled.a`
   text-decoration: none;
@@ -387,8 +389,10 @@ const CustomModal = styled(Modal)`
 `
 
 const ScheduleCard = styled.div`
+  background: #fff;
   box-shadow: 0px 3px 4px grey;
-  width: 25rem;
+  width: ${props => (props.talk ? "25rem" : "100%")};
+  margin: ${props => (props.talk ? "0ren 1ren" : null)};
   padding: ${props => (props.padded ? "1rem" : null)};
 `
 
@@ -405,7 +409,22 @@ const FormBody = styled.div`
 `};
 `
 
+const fadein = keyframes`
+    0% {
+      transform: translateX(0%);
+    }
+    200% {
+      transform: translateX(-110%);
+      transition: all 600 ease; 
+    }
+`
+
+const Slide = styled.div`
+  transform: ${fadein};
+`
+
 export {
+  Slide,
   FormBody,
   ScheduleCard,
   CustomModal,

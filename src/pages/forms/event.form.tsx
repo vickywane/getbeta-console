@@ -38,6 +38,22 @@ const CustomCard = styled(Card)`
   text-align: center;
 `
 
+const TypeBox = styled.div`
+  padding: 0.5rem 1rem;
+  border-radius : 5px
+  border: 1px solid #000;
+  width: 30rem;
+  margin : 0rem 1rem;
+ &: hover {
+    cursor: pointer;
+  }
+`
+
+const Radio = styled.input`
+  font-size: 2rem;
+  padding: 1rem 0.5rem;
+`
+
 const CreateEvent = (props): JSX.Element => {
   const { Notify, closeNotify, importPane } = props.PaneStore
 
@@ -112,7 +128,6 @@ const CreateEvent = (props): JSX.Element => {
         </div>
       ) : null}
       {Notify ? <Panes type={"Event-Form-Info"} color="#000" /> : null}
-      j
       <br />
       {!importPane ? (
         <div>
@@ -147,7 +162,7 @@ const CreateEvent = (props): JSX.Element => {
                                 }}
                                 value={Name}
                                 placeholder={placeholder}
-                              />{" "}
+                              />
                             </Flex>
                           ) : (
                             <textarea placeholder={placeholder} />
@@ -238,69 +253,6 @@ const CreateEvent = (props): JSX.Element => {
                     }}
                   >
                     <br />
-                    <Label small details hmtlFor="event-venue">
-                      Event Venue
-                    </Label>
-                    <Input
-                      id="event-venue"
-                      name="event-venue"
-                      onChange={event => {
-                        setVenue(event.target.value)
-                        event.preventDefault()
-                      }}
-                      value={Venue}
-                      placeholder="City , State , Country"
-                    />
-                    <br />
-
-                    <Flex column>
-                      <Label small details>
-                        Event Date{" "}
-                      </Label>
-
-                      <p
-                        style={{
-                          paddingLeft: "20px",
-                          color: "grey",
-                        }}
-                      >
-                        {" "}
-                        Start Date :{" "}
-                      </p>
-                      <div style={{ textAlign: "center" }}>
-                        <DatePicker
-                          selected={StartDate}
-                          onChange={handleCalendarChange}
-                        />
-                      </div>
-
-                      <p
-                        style={{
-                          paddingLeft: "20px",
-                          color: "grey",
-                        }}
-                      >
-                        {" "}
-                        End Date :{" "}
-                      </p>
-                      <div style={{ textAlign: "center" }}>
-                        <DatePicker
-                          selected={StartDate}
-                          onChange={handleCalendarChange}
-                        />
-                      </div>
-                    </Flex>
-
-                    <br />
-                  </Card>
-
-                  <Card
-                    style={{
-                      boxShadow: "0px 3px 4px grey",
-                      padding: "0rem 0.2rem",
-                    }}
-                  >
-                    <br />
                     <Flex column>
                       <Label small details hmtlFor="event-venue">
                         Event Venue
@@ -354,6 +306,50 @@ const CreateEvent = (props): JSX.Element => {
                           onChange={handleCalendarChange}
                         />
                       </div>
+                    </Flex>
+
+                    <br />
+                  </Card>
+
+                  <Card
+                    style={{
+                      boxShadow: "0px 3px 4px grey",
+                      padding: "0rem 0.2rem",
+                    }}
+                  >
+                    <br />
+                    <Flex column>
+                      <Label small details hmtlFor="event-venue">
+                        Event Type
+                      </Label>
+                      <TypeBox>
+                        <Flex>
+                          <Radio type="radio" />
+
+                          <Flex column>
+                            <Text style={{ padding: "0rem 1rem" }}>
+                              <b> Conference Event </b> <br /> Explanation of a
+                              conference event.
+                            </Text>
+                          </Flex>
+                        </Flex>
+                      </TypeBox>
+
+                      <br />
+                      <br />
+
+                      <TypeBox>
+                        <Flex>
+                          <Radio type="radio" />
+
+                          <Flex column>
+                            <Text style={{ padding: "0rem 1rem" }}>
+                              <b> Meetup Event </b> <br /> Explanation of a
+                              meetup event.
+                            </Text>
+                          </Flex>
+                        </Flex>
+                      </TypeBox>
                     </Flex>
 
                     <br />

@@ -34,6 +34,17 @@ const Head = styled.div`
   border-bottom : 1px solid grey;
 `
 
+const Box = styled.div`
+  background: #e7f0fa;
+  height: auto;
+  border-radius: 5px;
+  background-image: radial-gradient(circle 5rem, #ccc 100%, transparent);
+  transition: all 500ms;
+  &: empty {
+    height: 30vh;
+  }
+`
+
 const Images = [
   {
     id: 1,
@@ -97,11 +108,13 @@ const Overview = (props): JSX.Element => {
                 return (
                   <div>
                     <br />
-                    <CustomImage
-                      small
-                      fluid
-                      src={require(`../../assets/images/${id}.jpg`)}
-                    />
+                    <Box>
+                      <CustomImage
+                        small
+                        fluid
+                        src={require(`../../assets/images/${id}.jpg`)}
+                      />
+                    </Box>
                   </div>
                 )
               })}

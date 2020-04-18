@@ -1,6 +1,6 @@
 import React from "react"
 import Flex from "styled-flex-component"
-import { FiX, FiCalendar, FiPlus } from "react-icons/fi"
+import { FiX, FiCalendar, FiPlus, FiSearch } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import { inject, observer } from "mobx-react"
 
@@ -23,27 +23,35 @@ const Pane = props => {
     switch (type) {
       case "Schedule":
         return (
-          <Flex justifyBetween>
-            <Flex>
-              <Hover style={{ padding: "0rem 0.9rem" }}>
-                <FiCalendar style={{ fontSize: "1.8rem" }} />
+          <div style={{ padding: "0rem 1rem" }}>
+            <Flex justifyBetween>
+              <Text white bold>
+                {" "}
+                Tracks{" "}
+              </Text>
+
+              <Hover>
+                <FiPlus style={{ fontSize: "2rem" }} />
               </Hover>
-              {Data.map(({ id }) => {
-                return (
-                  <Link style={{ textDecoration: "none" }} to={"/create"}>
-                    <Text white key={id} style={{ padding: "0rem 0.8rem" }}>
-                      Day {id} >{" "}
-                    </Text>
-                  </Link>
-                )
-              })}
             </Flex>
+          </div>
+        )
+      case "Talks":
+        return (
+          <Flex justifyBetween>
+            <Text>.</Text>
+
+            <Text white bold>
+              {" "}
+              Talks{" "}
+            </Text>
 
             <Hover>
               <FiPlus style={{ fontSize: "2rem" }} />
             </Hover>
           </Flex>
         )
+
       case "Event-Form-Import":
         return (
           <FormBody>

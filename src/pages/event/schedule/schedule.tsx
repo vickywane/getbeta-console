@@ -1,38 +1,31 @@
-import React from "react"
+import * as React from "react"
 import Flex from "styled-flex-component"
-import { FiCalendar, FiPlus } from "react-icons/fi"
 import { Link } from "react-router-dom"
+import { useQuery } from "@apollo/react-hooks"
 
-import { Panes, Header, Footer } from "../../../components/"
-import {
-  Hover,
-  Grid,
-  ScheduleCard,
-  Text,
-  Notification,
-  Contain,
-  Title,
-} from "../../../styles/style"
+import { TRACKS } from "../../../data/queries"
+import { Panes, Header, Footer, Loader } from "../../../components/"
+import { Grid, ScheduleCard, Text, Contain, Title } from "../../../styles/style"
 
 const Data = [
   {
     id: 1,
-    track: "Design Track",
+    name: "Design Track",
     time: "12pm - 2pm",
   },
   {
     id: 2,
-    track: "Documentation Track",
+    name: "Documentation Track",
     time: "2pm - 3pm",
   },
   {
     id: 3,
-    track: "Android Track",
+    name: "Android Track",
     time: "2pm - 3pm",
   },
   {
     id: 4,
-    track: "Mobile Web Track",
+    name: "Mobile Web Track",
     time: "2pm - 3pm",
   },
 ]
@@ -40,42 +33,47 @@ const Data = [
 //Todo Make talk cover image an image background
 
 const Schedule = () => {
+  const [Click, setClick] = React.useState(false)
+
+  const { data, loading, error } = useQuery(TRACKS)
+
+  if (error) {
+    return <Loader type={"loading"} />
+  }
+
+  if (loading) {
+    return <Loader type={"error"} />
+  }
+
+  const { tracks } = data
   return (
     <div>
-      <Header unshadowed />
-      <Panes Data={Data} type={"Schedule"} color={"#000"} />
-
-      <Contain>
+      <Contain
+        style={{
+          backgroundColor: "aliceblue",
+          height: window.innerHeight - 50,
+          boxShadow: "5px 4px 4px grey",
+        }}
+      >
         <br />
         <br />
 
         <Grid>
-          {Data.map(({ id, time, track }) => {
+          {Data.map(({ id, time, name }) => {
             return (
-              <ScheduleCard padded key={id}>
-                <Flex justifyAround>
-                  <img
-                    style={{ height: "auto", maxWidth: "5rem" }}
-                    alt={"Track"}
-                    src={require("../../../assets/images/developer.png")}
-                  />
-
-                  <Flex column>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      to={"/event-talks"}
-                    >
-                      <Title small center bold>
-                        {" "}
-                        {track}{" "}
-                      </Title>
-                    </Link>
-
-                    <Text small center style={{ color: "grey" }}>
-                      {" "}
-                      {time}{" "}
-                    </Text>
-                  </Flex>
+              <ScheduleCard
+                onClick={() => setClick(!Click)}
+                style={{ borderRight: Click ? "5px solid blue" : "5px" }}
+                padded
+                key={id}
+              >
+                <Flex column>
+                  <Title small center bold>
+                    {name}
+                  </Title>
+                  <Text small center style={{ color: "grey" }}>
+                    {time}{" "}
+                  </Text>
                 </Flex>
               </ScheduleCard>
             )
@@ -84,8 +82,6 @@ const Schedule = () => {
         <br />
         <br />
       </Contain>
-
-      <Footer />
     </div>
   )
 }

@@ -28,12 +28,14 @@ const Team = (props): JSX.Element => {
         <Flex justifyBetween>
           <Flex column>
             <br />
-            <Title center bold>
-              {" "}
+            <Title small center bold>
               Design Team{" "}
             </Title>
 
-            <Text center> Created: 12-12-12 </Text>
+            <Text center style={{ color: "grey" }}>
+              {" "}
+              Created: 12-12-12{" "}
+            </Text>
           </Flex>
 
           <Flex column>

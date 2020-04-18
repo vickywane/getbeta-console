@@ -21,6 +21,15 @@ const GET_USER: any = gql`
       name
       email
       bucketLink
+      events {
+        id
+        name
+        eventType
+        venue
+        alias
+        summary
+        description
+      }
     }
   }
 `
@@ -57,4 +66,25 @@ const TEAMS: any = gql`
   }
 `
 
-export { TEAMS, GET_USER, USERS, GET_EVENT, EVENTS }
+const TALK: any = gql`
+  query talk {
+    talks(Limit: 5) {
+      title
+      id
+      Archived
+      description
+      summary
+    }
+  }
+`
+
+const TRACKS: any = gql`
+  query Track {
+    tracks {
+      name
+      id
+    }
+  }
+`
+
+export { TEAMS, GET_USER, USERS, TALK, TRACKS, EVENTS }

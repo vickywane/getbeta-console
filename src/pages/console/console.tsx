@@ -3,6 +3,7 @@ import { inject, observer } from "mobx-react"
 import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
+import { CSSTransition } from "react-transition-group"
 
 import Profile from "../user/profile"
 import { FiSearch, FiPlus } from "react-icons/fi"
@@ -10,8 +11,8 @@ import { Header, Footer, Loader } from "../../components/"
 import {
   Body,
   Bounce,
-  Section,
   Items,
+  Slide,
   Button,
   Contain,
   Switch,
@@ -22,6 +23,7 @@ import { GET_USER } from "../../data/queries"
 
 import EventCard from "../../components/cards/EventCard"
 import { Events } from "../../Data"
+import "../extra.css"
 
 const Console = (props): JSX.Element => {
   const { loading, error, data } = useQuery(GET_USER, {
@@ -30,16 +32,17 @@ const Console = (props): JSX.Element => {
       name: "John Doe",
     },
   })
-  const [Organize, showVolunteer] = useState<boolean>(true)
+
+  const [activeSection, setActiveSection] = useState<string>("organized")
 
   if (error) {
     console.log(error, "data error")
     return <Loader type={"error"} />
   }
-
   if (loading) {
     return <Loader type={"loading"} />
   } else {
+    //Todo : Slide-in animation for sections hasn't been fixed
     return (
       <div>
         <Header />
@@ -52,22 +55,24 @@ const Console = (props): JSX.Element => {
               <Switch two>
                 <SwitchBtn
                   style={{
-                    background: Organize ? "#401364" : "transparent",
-                    color: Organize ? "#fff" : "#401364",
+                    background:
+                      activeSection === "organized" ? "#401364" : "transparent",
+                    color: activeSection === "organized" ? "#fff" : "#401364",
                   }}
                   onClick={() => {
-                    showVolunteer(true)
+                    setActiveSection("organized")
                   }}
                 >
                   Organizing
                 </SwitchBtn>
                 <SwitchBtn
                   style={{
-                    background: !Organize ? "#401364" : "transparent",
-                    color: !Organize ? "#fff" : "#401364",
+                    background:
+                      activeSection === "volunteer" ? "#401364" : "transparent",
+                    color: activeSection === "volunteer" ? "#fff" : "#401364",
                   }}
                   onClick={() => {
-                    showVolunteer(false)
+                    setActiveSection("volunteer")
                   }}
                 >
                   {" "}
@@ -77,8 +82,16 @@ const Console = (props): JSX.Element => {
             </Flex>
             <br />
 
-            {Organize ? (
-              <div>
+            <CSSTransition
+              timeout={900}
+              classNames={"slider"}
+              unmountOnExit
+              in={activeSection === "organized"}
+              onEnter={() => {
+                console.log("am in")
+              }}
+            >
+              <Slide>
                 <Flex justifyBetween>
                   <Title small> Organizing : </Title>
 
@@ -96,16 +109,29 @@ const Console = (props): JSX.Element => {
                 </Flex>
                 <br />
                 <Items>
-                  {Events.map(({ i, name, text }) => {
+                  {data.user.events.map(({ id, name, summary, venue }) => {
                     return (
                       <Bounce>
-                        <EventCard id={i} name={name} summary={text} />
+                        <EventCard
+                          id={id}
+                          name={name}
+                          venue={venue}
+                          location={true}
+                          summary={summary}
+                        />
                       </Bounce>
                     )
                   })}
                 </Items>
-              </div>
-            ) : (
+              </Slide>
+            </CSSTransition>
+
+            <CSSTransition
+              timeout={900}
+              unmountOnExit
+              in={activeSection === "volunteer"}
+              classNames={"slider"}
+            >
               <div>
                 <Flex justifyBetween>
                   <Title small> Volunteering : </Title>
@@ -132,6 +158,7 @@ const Console = (props): JSX.Element => {
                           role={"Attendant"}
                           id={i}
                           name={name}
+                          location={true}
                           summary={text}
                         />
                       </Bounce>
@@ -139,7 +166,7 @@ const Console = (props): JSX.Element => {
                   })}
                 </Items>
               </div>
-            )}
+            </CSSTransition>
             <br />
             <br />
             <hr />

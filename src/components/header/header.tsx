@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import Flex from "styled-flex-component"
 import { FiSettings, FiSearch } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
+import { CSSTransition } from "react-transition-group"
 
 import {
   Hover,
@@ -12,11 +13,15 @@ import {
   Input,
   Text,
 } from "../../styles/style"
+import { SettingsPane } from "../"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
+import "../../pages/extra.css"
 
 const Header = (props): JSX.Element => {
   const hooks: number = useWindowWidth()
+
+  const [SettingsVisibility, setSettingsVisibility] = useState<boolean>(false)
 
   const { showProfilePane }: any = props.ConsoleStore
   const [open, setOpen] = useState<boolean>(false)
@@ -113,23 +118,34 @@ const Header = (props): JSX.Element => {
                 <Menu open={open} setOpen={setOpen} id={menuId} />
               </div>
 
-              <Link to="/settings" style={{ color: "white" }}>
-                <Hover
-                  white
-                  style={{ paddingLeft: "10px", paddingRight: "10px" }}
-                  onClick={() => {
-                    showProfilePane()
-                  }}
-                >
-                  <FiSettings style={{ fontSize: "1.6rem" }} />{" "}
-                </Hover>{" "}
-              </Link>
+              <Hover
+                white
+                style={{ padding: "0rem 1rem 0rem 2rem" }}
+                onClick={() => {
+                  setSettingsVisibility(!SettingsVisibility)
+                }}
+              >
+                <FiSettings style={{ fontSize: "1.7rem" }} />{" "}
+              </Hover>
+
+              <CSSTransition
+                timeout={30000}
+                in={SettingsVisibility === true}
+                unmountOnExit={true}
+                classNames={"setting"}
+                onEnter={() => {
+                  // timeout is going by itself
+                  console.log("exit")
+                }}
+              >
+                <SettingsPane />
+              </CSSTransition>
             </Flex>
           </div>
         ) : (
           <Flex justifyBetween style={{ padding: "0.5em", paddingRight: "1%" }}>
             <Link to="/console">
-              <HeaderLinks>Event</HeaderLinks>
+              <HeaderLinks>Oasis</HeaderLinks>
             </Link>
 
             {props.screen === "Docs" ? null : (
