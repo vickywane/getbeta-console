@@ -10,6 +10,7 @@ import { Body, UploadBtn, UploadContainer, getColor } from "../../styles/style"
 
 const Upload = (props): JSX.Element => {
   const { Empty } = props.MediaStore
+  const { type } = props
 
   // const [upload, uploading] = useState < Boolean > false;
 
@@ -24,7 +25,7 @@ const Upload = (props): JSX.Element => {
 
   return (
     <div>
-      <Header />
+      {type === "component" ? null : <Header />}
 
       <Body>
         <UploadContainer
@@ -41,10 +42,10 @@ const Upload = (props): JSX.Element => {
                     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
                       <FiUploadCloud style={{ fontSize: "1.5em" }} />
                     </div>
-                    <p> button to upload files into your storage . </p>
+                    <p> button to upload images. </p>
                   </Flex>
 
-                  <p> You can drag 'n' drop files to upload </p>
+                  <p> You can drag 'n' drop image to upload </p>
 
                   <Flex justifyCenter>
                     <UploadBtn
@@ -73,10 +74,10 @@ const Upload = (props): JSX.Element => {
               <br />
             </div>
           )}
-        </UploadContainer>{" "}
+        </UploadContainer>
       </Body>
 
-      <Footer />
+      {type === "component" ? null : <Footer />}
     </div>
   )
 }

@@ -5,63 +5,46 @@ import { FiX, FiLogOut, FiEdit3, FiImage } from "react-icons/fi"
 import { IoMdClipboard } from "react-icons/io"
 import { Link } from "react-router-dom"
 
-import {
-  Body,
-  Detail,
-  Card,
-  Bounce,
-  Name,
-  Section,
-  Contain,
-  Title,
-  Text,
-  Hover,
-} from "../../styles/style"
+import { Detail, Contain, Title, Text, Hover } from "../../styles/style"
 
 const Profile = (): JSX.Element => {
   return (
     <Contain>
+      <br />
       <Flex justifyBetween>
         <Flex>
           <Image
             alt="profile"
             src={require("../../assets/images/developer.png")}
-            style={{ maxWidth: "10em", maxHeight: "10em" }}
+            style={{ maxWidth: "8em", maxHeight: "8em" }}
             roundedCircle
             rounded
             fluid
           />
 
           <Detail>
+            <br />
             <Title center> Nwani Victory </Title>
-            <Text center>
-              Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-              bla bla bla{" "}
-            </Text>
-            <Hover style={{ textAlign: "center" }}>
-              <FiEdit3 style={{ fontSize: "2em" }} />{" "}
-            </Hover>
+            <Text center> Vickywane@gmail.com </Text>
           </Detail>
         </Flex>
 
         <Flex column>
-          <br />
           <Link to="/media">
             <Hover>
-              <FiImage style={{ fontSize: "2.2em" }} />{" "}
+              <FiImage style={{ fontSize: "2.2em" }} />
             </Hover>
           </Link>
           <br />
           <Link to="/talks">
             <Hover>
-              {" "}
-              <IoMdClipboard style={{ fontSize: "2.2em" }} />{" "}
+              <IoMdClipboard style={{ fontSize: "2.2em" }} />
             </Hover>
           </Link>
           <br />
           <Link to="/login">
             <Hover>
-              <FiLogOut style={{ fontSize: "2.2em" }} />{" "}
+              <FiLogOut style={{ fontSize: "2.2em" }} />
             </Hover>
           </Link>
         </Flex>

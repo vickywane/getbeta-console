@@ -10,11 +10,11 @@ import {
   Body,
   Card,
   Bounce,
-  Name,
   Section,
-  Title,
+  Items,
   Text,
-  Hover,
+  Button,
+  Contain,
 } from "../../styles/style"
 import { TEST } from "../../data/queries"
 // import Create from "./create"
@@ -28,7 +28,6 @@ const Console = (props): JSX.Element => {
     { i: 3, name: "GDG Eng" },
     { i: 4, name: "FB DevC" },
     { i: 5, name: "CCHUB" },
-    { i: 6, name: "LPDVS" },
   ]
 
   return (
@@ -36,40 +35,58 @@ const Console = (props): JSX.Element => {
       <Header />
       <Body>
         <Profile />
+        <hr />
 
-        <Section> Organizing : </Section>
-        <Flex justifyAround>
-          {datas.map(({ i, name }) => {
-            return (
-              <Bounce>
-                <Link to={`/event/${i}`}>
+        <Contain>
+          <Flex justifyBetween>
+            <Section> Organizing : </Section>
+
+            <Link to="/create">
+              <Button>Create Event</Button>
+            </Link>
+          </Flex>
+          <Items>
+            {datas.map(({ i, name }) => {
+              return (
+                <Bounce>
                   <Card key={i}>
                     <div style={{ textAlign: "center" }}>
-                      <h5> {name}</h5>
+                      <img alt="event cover" src="" />
+
+                      <hr />
+                      <Link to={`/event/${i}`}>
+                        <h5> {name}</h5>
+                      </Link>
+
+                      <Text small center>
+                        Some description of the event description of the event
+                        description of the event.
+                      </Text>
                     </div>
                   </Card>
-                </Link>
-              </Bounce>
-            )
-          })}
-        </Flex>
-        <br />
-        <Section> Volunteering : </Section>
-        <Flex justifyAround>
-          {datas.map(({ i, name }) => {
-            return (
-              <Bounce>
-                <Link to={`/event/${i}`}>
-                  <Card key={i}>
-                    <div style={{ textAlign: "center" }}>
-                      <h5> {name}</h5>
-                    </div>
-                  </Card>
-                </Link>
-              </Bounce>
-            )
-          })}
-        </Flex>
+                </Bounce>
+              )
+            })}
+          </Items>
+          <br />
+
+          <Section> Volunteering : </Section>
+          <Items>
+            {datas.map(({ i, name }) => {
+              return (
+                <Bounce>
+                  <Link to={`/event/${i}`}>
+                    <Card key={i}>
+                      <div style={{ textAlign: "center" }}>
+                        <h5> {name}</h5>
+                      </div>
+                    </Card>
+                  </Link>
+                </Bounce>
+              )
+            })}
+          </Items>
+        </Contain>
       </Body>
       <Footer />
     </div>

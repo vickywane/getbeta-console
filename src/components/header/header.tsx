@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import Img from "react-image"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiUser, FiEdit3, FiUploadCloud } from "react-icons/fi"
+import { FiEdit3, FiUploadCloud, FiSettings } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 
 import { Hover, UploadBtn } from "../../styles/style"
@@ -88,7 +88,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                         showProfilePane()
                       }}
                     >
-                      <FiUser style={{ fontSize: "2em" }} />{" "}
+                      <FiSettings style={{ fontSize: "1.75em" }} />{" "}
                     </Hover>
                   </Flex>
                 </Flex>

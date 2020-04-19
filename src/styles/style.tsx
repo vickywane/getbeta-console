@@ -33,16 +33,15 @@ const Button = styled.button`
 `
 
 const Card = styled.div`
-  height:    ${props => (props.team ? "6.5vh" : "7.5vh")}
-  padding:  0.5em
-  padding-top:  0.2em
-    width: ${props => (props.team ? "5em" : "5em")}
-  border-radius:  5px
-  box-shadow:  0px 2px 6px grey
-  background:  black
-  color:  white
-  cursor:  pointer
- `
+  height: ${props => (props.team ? "6.5vh" : "25vh")};
+  place-items: center;
+  width: ${props => (props.team ? "5em" : "17em")};
+  border-radius: 5px;
+  box-shadow: 0px 2px 6px grey;
+  background: transparent;
+  color: black;
+  cursor: pointer;
+`
 
 const Bounce = posed.div({
   hoverable: true,
@@ -78,7 +77,7 @@ const Contain = styled.div`
 `
 
 const Section = styled.h5`
-  font-weight: normal;
+  font-weight: 500px;
 `
 
 const Name = styled.h2`
@@ -87,8 +86,7 @@ text-align : center
 `
 
 const Detail = styled.div`
-padding-left : 10px
-width :  20rem
+  padding-left: 5px;
 `
 
 const Bio = styled.p`
@@ -101,13 +99,14 @@ const Hover = styled.div`
 `
 
 const Input = styled.input`
-  height: 55px;
-  width: 30em;
+  height: ${props => (props.long ? "10vh" : "50px")};
+  width: ${props => (props.wide ? "52rem" : "30em")};
   padding: 0.5em;
   border: 1px solid black;
+  outline: 0px;
   margin: 0.7rem 1rem;
   padding-left: 10px;
-  border-radius: 6px;
+  border-radius: 4px;
 `
 
 const Box = styled.div`
@@ -117,7 +116,8 @@ const Box = styled.div`
 
 const Text = styled.p`
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: 1.2rem;
+  font-size: ${props => (props.small ? "1.05rem" : "1.2rem")};
+  color: ${props => (props.white ? "white" : "black")};
 `
 
 const UploadBtn = styled.button`
@@ -175,8 +175,8 @@ const autoGrid = (minColumnWidth = 200, gridGap = 0) => ({
 
 const Items = styled.div({
   ...autoGrid(220, 20),
-  padding: "3em",
-  marginLeft: "1.5em",
+  padding: "1em",
+  marginLeft: "1em",
 })
 
 const SmallItems = styled.div({
@@ -186,11 +186,11 @@ const SmallItems = styled.div({
 })
 
 const Title = styled.h4`
-padding-left: ${props => (props.small ? "7px" : "15px")};
-padding-right: 10px
-text-align : ${props => (props.center ? "center" : null)}
-font-size : ${props => (props.small ? "1.5em" : "2em")}
-font-weight : ${props => (props.small ? "normal" : "700px")}
+  padding-left: ${props => (props.small ? "3px" : "15px")};
+  padding-right: 10px;
+  text-align: ${props => (props.center ? "center" : null)};
+  font-size: ${props => (props.small ? "1.5em" : "2em")};
+  font-weight: ${props => (props.bold ? "600px" : "normal")};
 `
 
 const CustomImage = styled(Image)`
@@ -198,8 +198,27 @@ const CustomImage = styled(Image)`
   width: ${props => (props.small ? "7.7rem" : "10rem")};
 `
 
+const Label = styled.label`
+padding-left: 10px
+font-size: ${props => (props.small ? "1.2em" : "1.3em")}
+`
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-gap: 1rem;
+`
+
+const Notification = styled.div`
+  padding: 0.5rem 1rem;
+  background: black;
+`
+
 export {
   Hover,
+  Notification,
+  Grid,
+  Label,
   CustomImage,
   Box,
   SmallItems,
