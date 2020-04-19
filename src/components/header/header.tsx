@@ -29,10 +29,9 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
     `
 
   const A = styled.a`
-    color: #fff;
     text-decoration: none;
-    font-size: 1.6em;
-    font-family: comic sans ms;
+    font-size: 1.7em;
+    font-family: monospace;
   `
 
   const Image = styled(Img)`
@@ -42,7 +41,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
 
   // react hooks && event listeners
   const NameDiv = styled.div`
-    margin-left: 4%;
+    margin-left: 3%;
   `
 
   const { showProfilePane, ProfilePane } = props.ConsoleStore
@@ -65,7 +64,7 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
               <nav>
                 <Flex justifyBetween>
                   <NameDiv>
-                    <Link to="/console">
+                    <Link to="/console" style={{ textDecoration: "none" }}>
                       <A>Event</A>
                     </Link>
                   </NameDiv>
@@ -81,15 +80,17 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
                       <Menu open={open} setOpen={setOpen} id={menuId} />
                     </div>
 
-                    <Hover
-                      white
-                      style={{ paddingLeft: "10px", paddingRight: "10px" }}
-                      onClick={() => {
-                        showProfilePane()
-                      }}
-                    >
-                      <FiSettings style={{ fontSize: "1.75em" }} />{" "}
-                    </Hover>
+                    <Link to="/settings" style={{ color: "white" }}>
+                      <Hover
+                        white
+                        style={{ paddingLeft: "10px", paddingRight: "10px" }}
+                        onClick={() => {
+                          showProfilePane()
+                        }}
+                      >
+                        <FiSettings style={{ fontSize: "1.6rem" }} />{" "}
+                      </Hover>{" "}
+                    </Link>
                   </Flex>
                 </Flex>
               </nav>

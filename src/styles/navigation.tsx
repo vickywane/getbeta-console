@@ -82,7 +82,7 @@ const StyledNotification = styled(IoIosNotificationsOutline)`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: 2.2em;
+  font-size: 1.8rem;
   color: #fff;
   margin-right  : 5px
   background: transparent;
