@@ -1,6 +1,6 @@
 import React from "react"
 import Flex from "styled-flex-component"
-import { Image } from "react-bootstrap"
+import { Image, Tab, Tabs } from "react-bootstrap"
 import { FiList, FiImage } from "react-icons/fi"
 import { MdPeopleOutline } from "react-icons/md"
 import { GoLocation } from "react-icons/go"
@@ -8,46 +8,47 @@ import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
 
 import { Header, Footer } from "../../components/"
-import { Hover, Bio, Contain, Bounce, Card } from "../../styles/style"
+import { Hover, Contain, Text } from "../../styles/style"
 import { Checklist, People } from "../../components/modals/"
-import Activity from "./Activity"
 
-const data = [
-  { id: 1, name: "design" },
-  { id: 2, name: "gifts" },
-  { id: 3, name: "food" },
-  { id: 4, name: "attendees" },
-]
+import Activity from "./Activity"
+import Team from "./team"
 
 const Event = (props): JSX.Element => {
   const { openChecklist, openPeople } = props.ModalStore
 
   return (
     <div>
-      <Header options={true} name="OSCA" action="edit" />
+      <Header event="|OSCA" />
+      <br />
       <Checklist />
       <People />
-
       <Contain>
         <Flex justifyBetween>
           <Flex column>
-            <Image
-              alt="profile"
-              src={require("../../assets/images/developer.png")}
-              style={{ maxWidth: "7em", maxHeight: "7em" }}
-              fluid
-              thumbnail
-            />
-
-            <Bio>
-              Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-            </Bio>
-
+            <Flex>
+              <Image
+                alt="profile"
+                src={require("../../assets/images/developer.png")}
+                style={{ maxWidth: "7em", maxHeight: "7em" }}
+                fluid
+                thumbnail
+              />
+              <Text
+                style={{ padding: "0.5rem 1rem", width: "20rem" }}
+                small
+                center
+              >
+                Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+              </Text>
+            </Flex>
+            <br />
             <Flex>
               <GoLocation style={{ fontSize: "1.7em" }} />
-              <p style={{ paddingLeft: "7px" }}>
+              <Text small style={{ paddingLeft: "7px" }}>
                 Tech Zone Park , Egbeda , Lagos
-              </p>
+              </Text>
             </Flex>
           </Flex>
 
@@ -59,7 +60,7 @@ const Event = (props): JSX.Element => {
                     openChecklist()
                   }}
                 >
-                  <FiImage style={{ fontSize: "2.2em" }} />
+                  <FiImage style={{ fontSize: "2rem" }} />
                 </Hover>
               </Link>
 
@@ -69,7 +70,7 @@ const Event = (props): JSX.Element => {
                   openChecklist()
                 }}
               >
-                <FiList style={{ fontSize: "2.2em" }} />
+                <FiList style={{ fontSize: "2rem" }} />
               </Hover>
               <br />
               <Hover>
@@ -77,7 +78,7 @@ const Event = (props): JSX.Element => {
                   onClick={() => {
                     openPeople()
                   }}
-                  style={{ fontSize: "2.2em" }}
+                  style={{ fontSize: "2rem" }}
                 />
               </Hover>
             </div>
@@ -85,28 +86,19 @@ const Event = (props): JSX.Element => {
           </Flex>
         </Flex>
       </Contain>
-
       <hr />
-      <Flex column>
-        <h5 style={{ textAlign: "center" }}> TEAMS </h5>
-        <Flex justifyAround>
-          {data.map(({ id, name }) => {
-            return (
-              <Bounce>
-                <Link to={`/team/${id}`}>
-                  <Card key={id} team>
-                    <h6> {name.toUpperCase()}</h6>
-                  </Card>
-                </Link>
-              </Bounce>
-            )
-          })}
-        </Flex>
-      </Flex>
-
-      <hr />
-
-      <Activity />
+      <Tabs defaultActiveKey="activity" id="uncontrolled-tab-example">
+        <Tab eventKey="activity" title="Home">
+          <Activity />
+        </Tab>
+        <Tab eventKey="team" title="Teams">
+          <Team />
+        </Tab>
+        <Tab eventKey="Assets" title="Assets">
+          <p> </p>
+        </Tab>
+      </Tabs>
+      <br />
       <Footer />
     </div>
   )

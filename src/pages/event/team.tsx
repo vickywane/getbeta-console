@@ -1,34 +1,48 @@
 import React from "react"
 import Flex from "styled-flex-component"
-import { Image } from "react-bootstrap"
-import { FiList } from "react-icons/fi"
-import { MdPeopleOutline } from "react-icons/md"
-import { GoLocation } from "react-icons/go"
 import { inject, observer } from "mobx-react"
+import { Link } from "react-router-dom"
+import { FiChevronRight } from "react-icons/fi"
 
-import { Header, Footer } from "../../components/"
-import { Hover, Body } from "../../styles/style"
+import { Bounce, Card } from "../../styles/style"
 import { Checklist } from "../../components/modals/"
-import Activity from "./Activity"
-import { Modal } from "react-bootstrap"
 
 const data = [
-  { i: 1, name: "design" },
-  { i: 2, name: "gifts" },
-  { i: 3, name: "food" },
-  { i: 4, name: "attendees" },
+  { id: 1, name: "design" },
+  { id: 2, name: "gifts" },
+  { id: 3, name: "food" },
+  { id: 4, name: "attendees" },
 ]
 
 const Team = (props): JSX.Element => {
   return (
     <div>
-      <Header name="OSCA > Team" screen="event" />
-      <Checklist />
-
-      <Body>
-        <h2> Team page </h2>
-      </Body>
-      <Footer />
+      <br />
+      <Flex column>
+        <h5 style={{ textAlign: "center" }}> TEAMS </h5>
+        <Flex justifyAround>
+          {data.map(({ id, name }) => {
+            return (
+              <Bounce>
+                <Card key={id} team>
+                  <Flex justifyBetween>
+                    {" "}
+                    <img
+                      alt="team sketch"
+                      src={require("../../assets/images/developer.png")}
+                      style={{ maxWidth: "3.4em", maxHeight: "3.4em" }}
+                    />
+                    <h5 style={{ fontWeight: "normal" }}> {name} </h5>{" "}
+                    <Link to={`/team/${id}`} style={{ textDecoration: "none" }}>
+                      <FiChevronRight style={{ fontSize: "3rem" }} />
+                    </Link>{" "}
+                  </Flex>{" "}
+                </Card>
+              </Bounce>
+            )
+          })}
+        </Flex>
+      </Flex>
     </div>
   )
 }

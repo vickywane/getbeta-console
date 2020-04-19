@@ -33,10 +33,11 @@ const Button = styled.button`
 `
 
 const Card = styled.div`
-  height: ${props => (props.team ? "6.5vh" : "25vh")};
+  height: ${props => (props.team ? "7vh" : "25vh")};
   place-items: center;
-  width: ${props => (props.team ? "5em" : "17em")};
-  border-radius: 5px;
+  width: ${props => (props.team ? "15em" : "17em")};
+  border-radius: ${props => (props.team ? "30px" : "5px")};
+  padding-top: ${props => (props.team ? "3px" : null)};
   box-shadow: 0px 2px 6px grey;
   background: transparent;
   color: black;
@@ -51,7 +52,7 @@ const Bounce = posed.div({
     textAlign: "center",
   },
   hover: {
-    scale: 1.1,
+    scale: 1.05,
   },
   press: {
     scale: 1.1,

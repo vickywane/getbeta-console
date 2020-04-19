@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Contain } from "../../styles/style"
+import { Contain, Text } from "../../styles/style"
 
 const data = [
   { id: 1, name: "John just joined your design team" },
@@ -16,8 +16,10 @@ const Activity = () => {
     <Contain>
       {data.map(({ name, id }) => {
         return (
-          <ul>
-            <li key={id}> {name} </li>{" "}
+          <ul style={{ listStyle: "none" }}>
+            <li key={id}>
+              <Text small> {name} </Text>{" "}
+            </li>
           </ul>
         )
       })}

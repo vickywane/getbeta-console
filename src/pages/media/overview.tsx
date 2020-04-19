@@ -4,7 +4,7 @@ import Flex from "styled-flex-component"
 import { FiClock } from "react-icons/fi"
 import media from "styled-media-query"
 
-import { SmallItems, Title, CustomImage } from "../../styles/style"
+import { SmallItems, Title, CustomImage, Text } from "../../styles/style"
 
 const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }]
 const section = [
@@ -39,10 +39,12 @@ const Overview = (props): JSX.Element => {
           <Section key={id}>
             <Head>
               <Flex justifyBetween>
-                <Title> {name} </Title>
+                <Title small> {name} </Title>
 
                 <Flex>
-                  <Title small> 34 days ago </Title>
+                  <Text small white>
+                    34 days ago{" "}
+                  </Text>
                   <FiClock style={{ fontSize: "1.3em" }} />
                 </Flex>
               </Flex>

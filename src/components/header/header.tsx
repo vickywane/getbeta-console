@@ -63,11 +63,17 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
             >
               <nav>
                 <Flex justifyBetween>
-                  <NameDiv>
-                    <Link to="/console" style={{ textDecoration: "none" }}>
-                      <A>Event</A>
-                    </Link>
-                  </NameDiv>
+                  <Flex>
+                    <NameDiv>
+                      <Link to="/console" style={{ textDecoration: "none" }}>
+                        <A>Event</A>
+                      </Link>
+                    </NameDiv>
+                    <A style={{ paddingLeft: "5px", color: "white" }}>
+                      {" "}
+                      {props.event}{" "}
+                    </A>
+                  </Flex>
 
                   <Flex>
                     <div>
@@ -132,45 +138,6 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
           </div>
         )}
       </div>
-
-      {props.options ? (
-        <Div style={{ background: "transparent" }}>
-          <Flex justifyBetween>
-            <h5
-              style={{ color: "#000", paddingLeft: "10px", paddingTop: "10px" }}
-            >
-              {props.name}
-            </h5>
-
-            {props.action === "edit" ? (
-              <div>
-                <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
-                  <FiEdit3 style={{ fontSize: "1.7em" }} />
-                </Hover>
-              </div>
-            ) : null}
-
-            {props.action === "upload" ? (
-              <div>
-                <Link to="/upload">
-                  <Hover style={{ paddingRight: "15px", paddingTop: "15px" }}>
-                    <UploadBtn
-                      style={{
-                        boxShadow: "0px 2px 5px grey",
-                        textAlign: "center",
-                      }}
-                      onClick={() => {}}
-                    >
-                      <FiUploadCloud style={{ fontSize: "1.5em" }} />
-                    </UploadBtn>
-                  </Hover>
-                </Link>
-              </div>
-            ) : null}
-          </Flex>
-          <hr />
-        </Div>
-      ) : null}
     </div>
   )
 }
