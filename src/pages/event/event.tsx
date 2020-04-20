@@ -100,7 +100,7 @@ const Event = (props): JSX.Element => {
         </Flex>
         <hr />
         <Tabs defaultActiveKey="team" id="uncontrolled-tab-example">
-          <Tab eventKey="activity" title="Home">
+          <Tab eventKey="activity" title="Activity">
             <Activity />
           </Tab>
           <Tab eventKey="team" title="Teams">

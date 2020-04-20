@@ -57,9 +57,22 @@ const CreateEvent = () => {
 
   return (
     <div>
-      <Header screen="event" name="" />
+      <Header screen="event" name="" unshadowed={true} />
+      {!Mail ? (
+        <Notification color="#401364">
+          <br />
+          <Flex justifyBetween>
+            <Text center small white>
+              Import and use event data from existing event managers.
+            </Text>
+
+            <Button> Import Data </Button>
+          </Flex>
+        </Notification>
+      ) : null}
       {Notify ? (
-        <Notification>
+        <Notification color="#000">
+          <br />
           <Flex justifyBetween>
             <Text center small white>
               Information saved here can be updated later.

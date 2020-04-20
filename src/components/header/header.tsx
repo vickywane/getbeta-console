@@ -3,14 +3,14 @@ import React, { useState } from "react"
 import Img from "react-image"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiEdit3, FiUploadCloud, FiSettings } from "react-icons/fi"
+import { FiSettings } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 
-import { Hover, UploadBtn } from "../../styles/style"
+import { Hover } from "../../styles/style"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
 
-// ? marks this interface value as not required by other components
+// TODO ? marks this interface value as not required by other components
 // marking this interface as non-mandatory makes d values undefined --fix later
 //@ts-ignore
 interface CustomProps {
@@ -18,9 +18,14 @@ interface CustomProps {
   screen?: String
   //@ts-ignore
   name?: String
+  //@ts-ignore
+  unshadowed?: boolean
 }
 
-const Header = (props, { screen, name }: CustomProps): JSX.Element => {
+const Header = (
+  props,
+  { screen, name, unshadowed }: CustomProps
+): JSX.Element => {
   const hooks = useWindowWidth()
 
   const Head = styled.nav`
@@ -31,7 +36,6 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
       width: 100%;
       margin-bottom: 12rem;
       display: flex;
-      box-shadow:  0px 5px 5px grey;
     `
 
   const A = styled.a`
@@ -50,15 +54,16 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
     margin-left: 3%;
   `
 
-  const { showProfilePane, ProfilePane } = props.ConsoleStore
+  const { showProfilePane } = props.ConsoleStore
 
   const [open, setOpen] = useState(false)
   const menuId = "main-menu"
-
+  console.log(props.unshadowed)
   return (
     <div>
       <Head
         style={{
+          boxShadow: props.unshadowed ? null : "0px 5px 5px grey",
           paddingTop: "1%",
         }}
       >

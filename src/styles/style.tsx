@@ -213,7 +213,7 @@ const Grid = styled.div`
 
 const Notification = styled.div`
   padding: 0.5rem 1rem;
-  background: black;
+  background: ${props => props.color};
 `
 
 export {

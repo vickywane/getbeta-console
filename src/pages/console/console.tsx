@@ -4,7 +4,7 @@ import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import Profile from "../user/profile"
-
+import { FiSearch, FiPlus } from "react-icons/fi"
 import { Header, Footer } from "../../components/"
 import {
   Body,
@@ -24,8 +24,7 @@ const Console = (props): JSX.Element => {
 
   const datas = [
     { i: 1, name: "OSCA" },
-    { i: 2, name: "FB Eng" },
-    { i: 3, name: "GDG Eng" },
+    { i: 2, name: "FB Open Source" },
     { i: 4, name: "FB DevC" },
     { i: 5, name: "CCHUB" },
   ]
@@ -42,7 +41,15 @@ const Console = (props): JSX.Element => {
             <Section> Organizing : </Section>
 
             <Link to="/create">
-              <Button>Create Event</Button>
+              <Button>
+                {" "}
+                <Flex>
+                  <div style={{ paddingRight: "15px" }}>
+                    <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
+                  </div>{" "}
+                  Create Event{" "}
+                </Flex>
+              </Button>
             </Link>
           </Flex>
           <Items>
@@ -58,7 +65,10 @@ const Console = (props): JSX.Element => {
                       />
 
                       <hr />
-                      <Link to={`/event/${i}`}>
+                      <Link
+                        to={`/event/${i}`}
+                        style={{ textDecoration: "none" }}
+                      >
                         <h5> {name}</h5>
                       </Link>
 
@@ -74,18 +84,47 @@ const Console = (props): JSX.Element => {
           </Items>
           <br />
 
-          <Section> Volunteering : </Section>
+          <Flex justifyBetween>
+            <Section> Volunteering : </Section>
+
+            <Link to="/list" style={{ textDecoration: "none" }}>
+              <Button transparent>
+                {" "}
+                <Flex>
+                  <div style={{ paddingRight: "15px" }}>
+                    <FiSearch style={{ fontSize: "1.55rem" }} />{" "}
+                  </div>{" "}
+                  Search For Events{" "}
+                </Flex>{" "}
+              </Button>
+            </Link>
+          </Flex>
           <Items>
             {datas.map(({ i, name }) => {
               return (
                 <Bounce>
-                  <Link to={`/event/${i}`}>
-                    <Card key={i}>
-                      <div style={{ textAlign: "center" }}>
+                  <Card key={i}>
+                    <div style={{ textAlign: "center" }}>
+                      <img
+                        alt="event cover"
+                        src={require("../../assets/images/test.png")}
+                        style={{ maxWidth: "50%" }}
+                      />
+
+                      <hr />
+                      <Link
+                        to={`/event/${i}`}
+                        style={{ textDecoration: "none" }}
+                      >
                         <h5> {name}</h5>
-                      </div>
-                    </Card>
-                  </Link>
+                      </Link>
+
+                      <Text small center>
+                        Some description of the event description of the event
+                        description of the event.
+                      </Text>
+                    </div>
+                  </Card>
                 </Bounce>
               )
             })}
