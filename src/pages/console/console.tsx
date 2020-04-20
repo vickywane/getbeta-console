@@ -51,7 +51,11 @@ const Console = (props): JSX.Element => {
                 <Bounce>
                   <Card key={i}>
                     <div style={{ textAlign: "center" }}>
-                      <img alt="event cover" src="" />
+                      <img
+                        alt="event cover"
+                        src={require("../../assets/images/test.png")}
+                        style={{ maxWidth: "50%" }}
+                      />
 
                       <hr />
                       <Link to={`/event/${i}`}>

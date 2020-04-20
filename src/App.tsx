@@ -15,6 +15,7 @@ import {
   Documentation,
   Team,
   Deck,
+  Mobile,
   Talks,
   Upload,
 } from "./pages/"
@@ -77,6 +78,12 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/deck"
           component={Deck}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/mobile"
+          component={Mobile}
         />
 
         <Protected

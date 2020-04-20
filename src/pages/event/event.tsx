@@ -40,7 +40,7 @@ const Event = (props): JSX.Element => {
 
               <div style={{ padding: "0.2rem 1rem" }}>
                 <Flex column>
-                  <Title small center>
+                  <Title small center bold>
                     Open Source Community Africa.
                   </Title>
                   <Flex justifyBetween>
@@ -67,7 +67,7 @@ const Event = (props): JSX.Element => {
 
           <Flex column>
             <div style={{ textAlign: "right" }}>
-              <Link to="/media">
+              <Link to="/mobile">
                 <Hover
                   onClick={() => {
                     openChecklist()

@@ -32,19 +32,19 @@ const Profile = (): JSX.Element => {
         <Flex column>
           <Link to="/media">
             <Hover>
-              <FiImage style={{ fontSize: "2.2em" }} />
+              <FiImage style={{ fontSize: "2em" }} />
             </Hover>
           </Link>
           <br />
           <Link to="/talks">
             <Hover>
-              <IoMdClipboard style={{ fontSize: "2.2em" }} />
+              <IoMdClipboard style={{ fontSize: "2em" }} />
             </Hover>
           </Link>
           <br />
           <Link to="/login">
             <Hover>
-              <FiLogOut style={{ fontSize: "2.2em" }} />
+              <FiLogOut style={{ fontSize: "2em" }} />
             </Hover>
           </Link>
         </Flex>
