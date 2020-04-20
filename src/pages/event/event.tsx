@@ -1,14 +1,14 @@
 import React from "react"
 import Flex from "styled-flex-component"
 import { Image, Tab, Tabs } from "react-bootstrap"
-import { FiList, FiImage } from "react-icons/fi"
+import { FiList, FiImage, FiSmartphone } from "react-icons/fi"
 import { MdPeopleOutline } from "react-icons/md"
 import { GoLocation } from "react-icons/go"
 import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
 
 import { Header, Footer } from "../../components/"
-import { Hover, Contain, Text } from "../../styles/style"
+import { Hover, Contain, Text, Title, Button } from "../../styles/style"
 import { Checklist, People } from "../../components/modals/"
 
 import Activity from "./Activity"
@@ -23,7 +23,10 @@ const Event = (props): JSX.Element => {
       <br />
       <Checklist />
       <People />
-      <Contain>
+      <Contain img="../../assets/images/test.png">
+        <br />
+        <br />
+        <br />
         <Flex justifyBetween>
           <Flex column>
             <Flex>
@@ -34,18 +37,28 @@ const Event = (props): JSX.Element => {
                 fluid
                 thumbnail
               />
-              <Text
-                style={{ padding: "0.5rem 1rem", width: "20rem" }}
-                small
-                center
-              >
-                Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-              </Text>
+
+              <div style={{ padding: "0.2rem 1rem" }}>
+                <Flex column>
+                  <Title small center>
+                    Open Source Community Africa.
+                  </Title>
+                  <Flex justifyBetween>
+                    <Text small> 1 Conference </Text>
+                    <Text small> 10 Meetup </Text>
+                  </Flex>
+                  <Flex justifyBetween>
+                    <Link to="/media">
+                      <Button> Gallery </Button>
+                    </Link>
+                    <Button transparent> Contact Support </Button>
+                  </Flex>
+                </Flex>
+              </div>
             </Flex>
             <br />
             <Flex>
-              <GoLocation style={{ fontSize: "1.7em" }} />
+              <GoLocation style={{ fontSize: "1.5em" }} />
               <Text small style={{ paddingLeft: "7px" }}>
                 Tech Zone Park , Egbeda , Lagos
               </Text>
@@ -60,7 +73,7 @@ const Event = (props): JSX.Element => {
                     openChecklist()
                   }}
                 >
-                  <FiImage style={{ fontSize: "2rem" }} />
+                  <FiSmartphone style={{ fontSize: "2rem" }} />
                 </Hover>
               </Link>
 
@@ -85,19 +98,20 @@ const Event = (props): JSX.Element => {
             <h3 style={{ fontWeight: "lighter" }}> 30days left </h3>
           </Flex>
         </Flex>
+        <hr />
+        <Tabs defaultActiveKey="team" id="uncontrolled-tab-example">
+          <Tab eventKey="activity" title="Home">
+            <Activity />
+          </Tab>
+          <Tab eventKey="team" title="Teams">
+            <Team />
+          </Tab>
+          <Tab eventKey="Assets" title="Assets">
+            <p> </p>
+          </Tab>
+        </Tabs>
       </Contain>
-      <hr />
-      <Tabs defaultActiveKey="activity" id="uncontrolled-tab-example">
-        <Tab eventKey="activity" title="Home">
-          <Activity />
-        </Tab>
-        <Tab eventKey="team" title="Teams">
-          <Team />
-        </Tab>
-        <Tab eventKey="Assets" title="Assets">
-          <p> </p>
-        </Tab>
-      </Tabs>
+
       <br />
       <Footer />
     </div>

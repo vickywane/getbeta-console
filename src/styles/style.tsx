@@ -16,13 +16,14 @@ const Pane = styled.div`
 `
 
 const Button = styled.button`
-  background: #0e2f5a;
+  background: ${props => (props.transparent ? "transparent" : "#0e2f5a")};
   text-align: right;
   border-radius: 5px;
   height: auto;
   outline: 0px;
-  border: 1px solid #0e2f5a;
-  color: #fff;
+  border: ${props =>
+    props.transparent ? " 1px solid #000" : " 1px solid #0e2f5a"};
+  color: ${props => (props.transparent ? "#0e2f5a" : "#fff")};
   margin: 0 1em;
   padding: ${props => (props.long ? "0.50em 3.5em" : "0.50em 1.5em")};
   font-size: 1em;
@@ -33,10 +34,10 @@ const Button = styled.button`
 `
 
 const Card = styled.div`
-  height: ${props => (props.team ? "7vh" : "25vh")};
+  height: ${props => (props.team ? "15vh" : "25vh")};
   place-items: center;
   width: ${props => (props.team ? "15em" : "17em")};
-  border-radius: ${props => (props.team ? "30px" : "5px")};
+  border-radius: ${props => (props.team ? "7px" : "5px")};
   padding-top: ${props => (props.team ? "3px" : null)};
   box-shadow: 0px 2px 6px grey;
   background: transparent;
@@ -61,8 +62,9 @@ const Bounce = posed.div({
 })
 
 const Contain = styled.div`
-    padding-left:   5em
-  padding-right:   5em
+  padding-left: 5em;
+  padding-right: 5em;
+  background-image: url('${props => props.img}');
   ${media.lessThan("large")`
   padding-left: 1.5em;
   padding-right: 1.5em;
@@ -168,16 +170,15 @@ const UploadContainer = styled.div`
   transition: border 0.24s ease-in-out;
 `
 
-const autoGrid = (minColumnWidth = 200, gridGap = 0) => ({
+const autoGrid = (minColumnWidth, gridGap) => ({
   display: "grid",
   gridTemplateColumns: `repeat(auto-fill, minmax(${minColumnWidth}px, 1fr))`,
   gridGap,
 })
 
 const Items = styled.div({
-  ...autoGrid(220, 20),
+  ...autoGrid(255, 30),
   padding: "1em",
-  marginLeft: "1em",
 })
 
 const SmallItems = styled.div({

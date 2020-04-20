@@ -23,14 +23,20 @@ interface CustomProps {
 const Header = (props, { screen, name }: CustomProps): JSX.Element => {
   const hooks = useWindowWidth()
 
-  const Div = styled.div`
+  const Head = styled.nav`
       padding: 0.5em
       background : #444444
+      position: fixed;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 12rem;
+      display: flex;
+      box-shadow:  0px 5px 5px grey;
     `
 
   const A = styled.a`
     text-decoration: none;
-    font-size: 1.7em;
+    font-size: 2em;
     font-family: monospace;
   `
 
@@ -51,93 +57,89 @@ const Header = (props, { screen, name }: CustomProps): JSX.Element => {
 
   return (
     <div>
-      <div
-        style={{ boxShadow: ProfilePane ? "0px 0px 0px" : "0px 5px 5px grey" }}
+      <Head
+        style={{
+          paddingTop: "1%",
+        }}
       >
         {hooks >= 720 ? (
-          <div>
-            <Div
-              style={{
-                paddingTop: "1%",
-              }}
-            >
-              <nav>
-                <Flex justifyBetween>
-                  <Flex>
-                    <NameDiv>
-                      <Link to="/console" style={{ textDecoration: "none" }}>
-                        <A>Event</A>
-                      </Link>
-                    </NameDiv>
-                    <A style={{ paddingLeft: "5px", color: "white" }}>
-                      {" "}
-                      {props.event}{" "}
-                    </A>
-                  </Flex>
+          <Flex justifyBetween>
+            <Flex>
+              <NameDiv>
+                <Link to="/console" style={{ textDecoration: "none" }}>
+                  <A>Event</A>
+                </Link>
+              </NameDiv>
+              <A
+                style={{
+                  paddingLeft: "5px",
+                  color: "white",
+                  fontSize: "1.6em",
+                  paddingTop: "5px",
+                }}
+              >
+                {" "}
+                {props.event}{" "}
+              </A>
+            </Flex>
 
-                  <Flex>
-                    <div>
-                      <Burger
-                        type="Notification"
-                        open={open}
-                        setOpen={setOpen}
-                        aria-controls={menuId}
-                      />
-                      <Menu open={open} setOpen={setOpen} id={menuId} />
-                    </div>
+            <Flex>
+              <div>
+                <Burger
+                  type="Notification"
+                  open={open}
+                  setOpen={setOpen}
+                  aria-controls={menuId}
+                />
+                <Menu open={open} setOpen={setOpen} id={menuId} />
+              </div>
 
-                    <Link to="/settings" style={{ color: "white" }}>
-                      <Hover
-                        white
-                        style={{ paddingLeft: "10px", paddingRight: "10px" }}
-                        onClick={() => {
-                          showProfilePane()
-                        }}
-                      >
-                        <FiSettings style={{ fontSize: "1.6rem" }} />{" "}
-                      </Hover>{" "}
-                    </Link>
-                  </Flex>
-                </Flex>
-              </nav>
-            </Div>
-          </div>
+              <Link to="/settings" style={{ color: "white" }}>
+                <Hover
+                  white
+                  style={{ paddingLeft: "10px", paddingRight: "10px" }}
+                  onClick={() => {
+                    showProfilePane()
+                  }}
+                >
+                  <FiSettings style={{ fontSize: "1.6rem" }} />{" "}
+                </Hover>{" "}
+              </Link>
+            </Flex>
+          </Flex>
         ) : (
-          <div>
-            <Div style={{ padding: "0.5em", paddingRight: "1%" }}>
-              <nav>
-                <Flex justifyBetween>
-                  <NameDiv>
-                    <Flex>
-                      <Image
-                        src={
-                          "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
-                        }
-                        alt="Logo"
-                      />
-                      <Link to="/console">
-                        <A>Event</A>
-                      </Link>
-                    </Flex>
-                  </NameDiv>
+          <Flex justifyBetween style={{ padding: "0.5em", paddingRight: "1%" }}>
+            <NameDiv>
+              <Flex>
+                <Image
+                  src={
+                    "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
+                  }
+                  alt="Logo"
+                />
+                <Link to="/console">
+                  <A>Event</A>
+                </Link>
+              </Flex>
+            </NameDiv>
 
-                  {props.screen === "Docs" ? null : (
-                    <div>
-                      <Burger
-                        type="Burger"
-                        open={open}
-                        setOpen={setOpen}
-                        aria-controls={menuId}
-                      />
-                      <Menu open={open} setOpen={setOpen} id={menuId} />
-                    </div>
-                  )}
-                </Flex>
-              </nav>
-            </Div>
-          </div>
+            {props.screen === "Docs" ? null : (
+              <div>
+                <Burger
+                  type="Burger"
+                  open={open}
+                  setOpen={setOpen}
+                  aria-controls={menuId}
+                />
+                <Menu open={open} setOpen={setOpen} id={menuId} />
+              </div>
+            )}
+          </Flex>
         )}
-      </div>
+      </Head>
+
+      <br />
+      <br />
     </div>
   )
 }
