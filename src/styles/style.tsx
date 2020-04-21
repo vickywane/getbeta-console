@@ -196,11 +196,6 @@ const Title = styled.h4`
   font-weight: ${props => (props.bold ? "600px" : "normal")};
 `
 
-const CustomImage = styled(Image)`
-  height: auto;
-  width: ${props => (props.small ? "25rem" : null)};
-`
-
 const Label = styled.label`
 padding-left: 10px
 font-size: ${props => (props.small ? "1.2em" : "1.3em")}
@@ -222,6 +217,16 @@ const GalleryGrid = styled.div`
   }
 `
 
+const CustomImage = styled(Image)`
+  height: auto;
+  width: ${props => (props.small ? "25rem" : null)};
+  transition: transform 1s;
+  &: hover {
+    cursor: pointer;
+    transform: translateY(-25px);
+  }
+`
+
 const Notification = styled.div`
   padding: 0.5rem 1rem;
   background: ${props => props.color};
@@ -232,7 +237,11 @@ const Switch = styled.div`
   border: 2.5px solid #401364;
   width: 36rem;
   background: transparent;
+  transition: transform 2s;
   border-radius: 6px;
+  &: hover {
+    transform: ease-in;
+  }
   ${media.lessThan("large")`
      width: 36rem;
     border-radius: 2.5px;
