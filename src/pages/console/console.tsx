@@ -8,26 +8,19 @@ import { FiSearch, FiPlus } from "react-icons/fi"
 import { Header, Footer } from "../../components/"
 import {
   Body,
-  Card,
   Bounce,
   Section,
   Items,
-  Text,
   Button,
   Contain,
 } from "../../styles/style"
 import { TEST } from "../../data/queries"
-// import Create from "./create"
+
+import EventCard from "../../components/cards/EventCard"
+import { Events } from "../../Data"
 
 const Console = (props): JSX.Element => {
   const { loading, error, data } = useQuery(TEST, {})
-
-  const datas = [
-    { i: 1, name: "OSCA" },
-    { i: 2, name: "FB Open Source" },
-    { i: 4, name: "FB DevC" },
-    { i: 5, name: "CCHUB" },
-  ]
 
   return (
     <div>
@@ -52,32 +45,12 @@ const Console = (props): JSX.Element => {
               </Button>
             </Link>
           </Flex>
+          <br />
           <Items>
-            {datas.map(({ i, name }) => {
+            {Events.map(({ i, name, text }) => {
               return (
                 <Bounce>
-                  <Card key={i}>
-                    <div style={{ textAlign: "center" }}>
-                      <img
-                        alt="event cover"
-                        src={require("../../assets/images/test.png")}
-                        style={{ maxWidth: "50%" }}
-                      />
-
-                      <hr />
-                      <Link
-                        to={`/event/${i}`}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <h5> {name}</h5>
-                      </Link>
-
-                      <Text small center>
-                        Some description of the event description of the event
-                        description of the event.
-                      </Text>
-                    </div>
-                  </Card>
+                  <EventCard id={i} name={name} summary={text} />
                 </Bounce>
               )
             })}
@@ -99,32 +72,13 @@ const Console = (props): JSX.Element => {
               </Button>
             </Link>
           </Flex>
+          <br />
+
           <Items>
-            {datas.map(({ i, name }) => {
+            {Events.map(({ i, name, text }) => {
               return (
                 <Bounce>
-                  <Card key={i}>
-                    <div style={{ textAlign: "center" }}>
-                      <img
-                        alt="event cover"
-                        src={require("../../assets/images/test.png")}
-                        style={{ maxWidth: "50%" }}
-                      />
-
-                      <hr />
-                      <Link
-                        to={`/event/${i}`}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <h5> {name}</h5>
-                      </Link>
-
-                      <Text small center>
-                        Some description of the event description of the event
-                        description of the event.
-                      </Text>
-                    </div>
-                  </Card>
+                  <EventCard id={i} name={name} summary={text} />
                 </Bounce>
               )
             })}

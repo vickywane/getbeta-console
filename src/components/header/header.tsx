@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom"
 import React, { useState } from "react"
 import Flex from "styled-flex-component"
-import { FiSettings } from "react-icons/fi"
+import { FiSettings, FiSearch } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 
-import { Hover, Header as Head, HeaderLinks } from "../../styles/style"
+import {
+  Hover,
+  Header as Head,
+  HeaderLinks,
+  InputBox,
+  Input,
+} from "../../styles/style"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
 
@@ -43,10 +49,33 @@ const Header = (props): JSX.Element => {
                   paddingTop: "5px",
                 }}
               >
-                {" "}
                 {props.event}{" "}
               </HeaderLinks>
             </Flex>
+
+            {props.page === "EventList" ? (
+              <div>
+                {hooks >= 900 ? (
+                  <InputBox>
+                    <Flex>
+                      <Hover style={{ paddingTop: "10px " }}>
+                        <FiSearch
+                          style={{ fontSize: "1.6rem", color: "#fff" }}
+                        />
+                      </Hover>
+
+                      <Input
+                        tiny
+                        white
+                        placeholder="Search For An Event"
+                        transparent
+                        unbordered
+                      />
+                    </Flex>
+                  </InputBox>
+                ) : null}
+              </div>
+            ) : null}
 
             <Flex>
               <div>

@@ -6,16 +6,8 @@ import styled from "styled-components"
 
 import { Header, Footer } from "../../components/"
 import Gallery from "./gallery"
-import { Contain, Input, Hover, Text } from "../../styles/style"
+import { Contain, Input, Hover, Text, InputBox } from "../../styles/style"
 import useWindowWidth from "../../hook_style"
-
-const InputBox = styled.div`
-  padding: 0.05rem 1rem;
-  width: 35rem;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  height: auto;
-`
 
 const Border = styled.div`
   padding: 0.1rem 1rem;
@@ -46,8 +38,8 @@ const Media = (props): JSX.Element => {
             {Hooks >= 700 ? (
               <InputBox>
                 <Flex>
-                  <Hover style={{ paddingTop: "10px" }}>
-                    <FiSearch style={{ fontSize: "1.5rem" }} />
+                  <Hover style={{ paddingTop: "5px" }}>
+                    <FiSearch style={{ fontSize: "1.4rem" }} />
                   </Hover>
                   <Input
                     white

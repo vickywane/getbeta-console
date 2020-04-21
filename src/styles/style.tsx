@@ -32,18 +32,6 @@ const Button = styled.button`
   }
 `
 
-const Card = styled.div`
-  height: ${props => (props.team ? "15vh" : "25vh")};
-  place-items: center;
-  width: ${props => (props.team ? "15em" : "17em")};
-  border-radius: ${props => (props.team ? "7px" : "5px")};
-  padding-top: ${props => (props.team ? "3px" : null)};
-  box-shadow: 0px 2px 6px grey;
-  background: transparent;
-  color: black;
-  cursor: pointer;
-`
-
 const Bounce = posed.div({
   hoverable: true,
   init: {
@@ -101,16 +89,26 @@ const Hover = styled.div`
 `
 
 const Input = styled.input`
-  height: ${props => (props.long ? "10vh" : "50px")};
+  height: ${props => (props.long ? "10vh" : "40px")};
   width: ${props => (props.wide ? "52rem" : "30em")};
   padding: 0.5em;
-  border: ${props => (props.unbordered ? "0px" : " 1px solid black")};
+  border: ${props => (props.unbordered ? "0px" : " 1px solid grey")};
   outline: 0px;
   color: ${props => (props.white ? "#fff" : "#000")}
   margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
   padding-left: 10px;
   border-radius: 4px;
+  font-size: 1.1rem;
   background: ${props => (props.transparent ? "transparent" : null)};
+    ${media.lessThan("large")`
+  width: ${props => (props.wide ? "60rem" : "25em")};
+  `};
+  ${media.lessThan("medium")`
+  width: ${props => (props.wide ? "52rem" : "30em")};
+  `};
+  ${media.lessThan("small")`
+  width: ${props => (props.wide ? "52rem" : "30em")};
+  `};
 `
 
 const Box = styled.div`
@@ -177,11 +175,6 @@ const autoGrid = (minColumnWidth, gridGap) => ({
   gridGap,
 })
 
-const Items = styled.div({
-  ...autoGrid(255, 30),
-  padding: "1em",
-})
-
 const SmallItems = styled.div({
   ...autoGrid(170, 20),
   padding: "0.5em",
@@ -198,13 +191,24 @@ const Title = styled.h4`
 
 const Label = styled.label`
 padding-left: 10px
+font-weight: 500;
 font-size: ${props => (props.small ? "1.2em" : "1.3em")}
 `
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   grid-gap: 1rem;
+`
+
+const CustomImage = styled(Image)`
+  height: auto;
+  width: ${props => (props.small ? "25rem" : null)};
+  transition: transform 1s;
+  &: hover {
+    cursor: pointer;
+    transform: translateY(-25px);
+  }
 `
 
 const GalleryGrid = styled.div`
@@ -217,14 +221,36 @@ const GalleryGrid = styled.div`
   }
 `
 
-const CustomImage = styled(Image)`
-  height: auto;
-  width: ${props => (props.small ? "25rem" : null)};
-  transition: transform 1s;
-  &: hover {
-    cursor: pointer;
-    transform: translateY(-25px);
-  }
+const Card = styled.div`
+  place-items: center;
+  width: ${props => (props.team ? "22em" : "23em")};
+  border-radius: ${props => (props.team ? "7px" : "5px")};
+  padding: 1rem 0.5rem;
+  box-shadow: 0px 2px 6px grey;
+  background: transparent;
+  color: black;
+  cursor: pointer;
+  ${media.lessThan("large")`
+      height: ${props => (props.team ? "20vh" : "30vh")};
+    width: ${props => (props.team ? "22em" : "20em")};
+  `};
+  ${media.lessThan("medium")`
+   height: ${props => (props.team ? "20vh" : "26vh")};
+  width: ${props => (props.team ? "22em" : "17em")};
+`};
+  ${media.lessThan("small")`
+      height: ${props => (props.team ? "20vh" : "23vh")};
+      width: ${props => (props.team ? "22em" : "15em")};
+`};
+`
+
+const Items = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+  grid-gap: 1rem;
+  ${media.lessThan("medium")`
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+`};
 `
 
 const Notification = styled.div`
@@ -278,6 +304,14 @@ const SwitchBtn = styled.button`
 `};
 `
 
+const InputBox = styled.div`
+  padding: 0rem 1rem;
+  width: 30rem;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  height: auto;
+`
+
 // HEADER STYLES =================>
 const Header = styled.nav`
       padding: 0.8em 1rem;
@@ -295,6 +329,7 @@ const HeaderLinks = styled.a`
 export {
   Header,
   HeaderLinks,
+  InputBox,
   Hover,
   Switch,
   SwitchBtn,
