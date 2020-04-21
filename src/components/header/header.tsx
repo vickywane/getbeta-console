@@ -12,19 +12,19 @@ import useWindowWidth from "../../hook_style"
 
 // TODO ? marks this interface value as not required by other components
 // marking this interface as non-mandatory makes d values undefined --fix later
-//@ts-ignore
-interface CustomProps {
-  //@ts-ignore
-  screen?: String
-  //@ts-ignore
-  name?: String
-  //@ts-ignore
-  unshadowed?: boolean
-}
+// //@ts-ignore
+// interface CustomProps {
+//   //@ts-ignore
+//   screen?: String
+//   //@ts-ignore
+//   name?: String
+//   //@ts-ignore
+//   unshadowed?: boolean
+// }
 
 const Header = (
-  props,
-  { screen, name, unshadowed }: CustomProps
+  props
+  // { screen, name, unshadowed }: CustomProps
 ): JSX.Element => {
   const hooks = useWindowWidth()
 
@@ -32,9 +32,9 @@ const Header = (
       padding: 0.5em
       background : #444444
       position: fixed;
+      flex-direction: row;
       justify-content: space-between;
       width: 100%;
-      margin-bottom: 12rem;
       display: flex;
     `
 
@@ -45,7 +45,6 @@ const Header = (
   `
 
   const Image = styled(Img)`
-    width: 7%;
     height: 25px;
   `
 

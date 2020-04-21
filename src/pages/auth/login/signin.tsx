@@ -23,7 +23,13 @@ const Signin = (props): JSX.Element => {
   return (
     <Body>
       <Flex justifyCenter>
-        <Card style={{ padding: "1em", marginTop: "5%" }}>
+        <Card
+          style={{
+            padding: "1em",
+            marginTop: "8%",
+            boxShadow: "0px 5px 5px grey",
+          }}
+        >
           <Title center small bold>
             Event Management Console{" "}
           </Title>

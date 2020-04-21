@@ -13,6 +13,7 @@ import { Checklist, People } from "../../components/modals/"
 
 import Activity from "./Activity"
 import Team from "./team"
+import Events from "./events"
 
 const Event = (props): JSX.Element => {
   const { openChecklist, openPeople } = props.ModalStore
@@ -107,8 +108,8 @@ const Event = (props): JSX.Element => {
           <Tab eventKey="team" title="Teams">
             <Team />
           </Tab>
-          <Tab eventKey="Assets" title="Assets">
-            <p> </p>
+          <Tab eventKey="Events" title="Events">
+            <Events />
           </Tab>
         </Tabs>
       </Contain>

@@ -42,13 +42,14 @@ const Documentation = (): JSX.Element => {
       <Header screen="Docs" />
       <Body>
         <Flex justifyCenter>
-          {" "}
           <div>
-            {" "}
+            <br />
+            <br />
             <Title> Event Playground </Title>
             <TitleText> Content Management Console for Event </TitleText>
+            <br />
+
             <Flex justifyCenter>
-              {" "}
               <Link to="/console">
                 <Button> Open Console </Button>{" "}
               </Link>
