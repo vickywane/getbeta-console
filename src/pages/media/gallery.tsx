@@ -2,10 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
 import { FiClock, FiSearch, FiImage } from "react-icons/fi"
-import { GoFile } from "react-icons/go"
-import { MdVideoLibrary } from "react-icons/md"
 import media from "styled-media-query"
-import { Dropdown } from "react-bootstrap"
 
 import { CustomImage, Text, Hover, Input } from "../../styles/style"
 
@@ -32,9 +29,66 @@ const Head = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 2fr);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 0.3rem;
   grid-auto-rows: auto;
+
+  img {
+    width: 30rem;
+  }
+`
+
+const Images = [
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+  {
+    id: 3,
+  },
+  {
+    id: 4,
+  },
+  {
+    id: 5,
+  },
+]
+
+const Switch = styled.div`
+  padding: 0rem 0rem;
+  border: 2.5px solid #401364;
+  width: 35rem;
+  background: transparent;
+  border-radius: 6px;
+  ${media.lessThan("medium")`
+     width: 23rem;
+    border-radius: 4px;
+`};
+  ${media.lessThan("small")`
+   width: 19rem;
+    border-radius: 3px;
+`};
+`
+
+const SwitchBtn = styled.button`
+  padding: 0.5rem 4.35rem;
+  border: 0px;
+  background: transparent;
+  color: #401364;
+  outline: none;
+  font-weight: bold;
+  &: hover {
+    background: #401364;
+    color: #fff;
+  }
+  ${media.lessThan("medium")`
+      padding: 0.5rem 2.25rem;
+`};
+  ${media.lessThan("small")`
+       padding: 0.5rem 1.6rem;
+`};
 `
 
 const Overview = (props): JSX.Element => {
@@ -42,7 +96,24 @@ const Overview = (props): JSX.Element => {
     <div>
       <br />
 
-      <br />
+      <Flex justifyCenter>
+        <Switch>
+          <Flex>
+            <Flex>
+              <SwitchBtn> Images </SwitchBtn>
+              <div style={{ borderRight: "4px solid  #401364" }} />
+            </Flex>
+
+            <Flex>
+              <SwitchBtn> Videos </SwitchBtn>
+              <div style={{ borderRight: "4px solid  #401364" }} />
+            </Flex>
+
+            <SwitchBtn> Slides </SwitchBtn>
+          </Flex>
+        </Switch>
+      </Flex>
+
       {section.map(({ id, time }) => {
         return (
           <Section key={id}>
@@ -61,29 +132,18 @@ const Overview = (props): JSX.Element => {
             </Head>
 
             <Grid>
-              <CustomImage
-                small
-                fluid
-                src={require("../../assets/images/1.jpg")}
-              />
-
-              <CustomImage
-                small
-                fluid
-                src={require("../../assets/images/2.jpg")}
-              />
-
-              <CustomImage
-                small
-                fluid
-                src={require("../../assets/images/3.jpg")}
-              />
-
-              <CustomImage
-                small
-                fluid
-                src={require("../../assets/images/4.jpg")}
-              />
+              {Images.map(({ id }) => {
+                return (
+                  <div>
+                    <br />
+                    <CustomImage
+                      small
+                      fluid
+                      src={require(`../../assets/images/${id}.jpg`)}
+                    />
+                  </div>
+                )
+              })}
             </Grid>
           </Section>
         )

@@ -106,6 +106,7 @@ const Input = styled.input`
   padding: 0.5em;
   border: ${props => (props.unbordered ? "0px" : " 1px solid black")};
   outline: 0px;
+  color: ${props => (props.white ? "#fff" : "#000")}
   margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
   padding-left: 10px;
   border-radius: 4px;
@@ -172,7 +173,7 @@ const UploadContainer = styled.div`
 
 const autoGrid = (minColumnWidth, gridGap) => ({
   display: "grid",
-  gridTemplateColumns: `repeat(auto-fill, minmax(${minColumnWidth}px, 1fr))`,
+  gridTemplateColumns: `repeat(auto-fit, minmax(${minColumnWidth}px, 1fr))`,
   gridGap,
 })
 
@@ -197,7 +198,7 @@ const Title = styled.h4`
 
 const CustomImage = styled(Image)`
   height: auto;
-  width: ${props => (props.small ? "20rem" : null)};
+  width: ${props => (props.small ? "25rem" : null)};
 `
 
 const Label = styled.label`

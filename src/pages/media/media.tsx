@@ -11,39 +11,10 @@ import { Header, Footer } from "../../components/"
 import Gallery from "./gallery"
 import { Contain, Input, Hover, Text } from "../../styles/style"
 
-const FileType = () => (
-  <Dropdown>
-    <Dropdown.Toggle variant="success" id="dropdown-basic">
-      All
-    </Dropdown.Toggle>
-
-    <Dropdown.Menu>
-      <Dropdown.Item href="/">
-        <Flex>
-          <GoFile style={{ fontSize: "1.7em" }} />
-          <p> Documents </p>
-        </Flex>
-      </Dropdown.Item>
-      <Dropdown.Item href="/">
-        <Flex>
-          <FiImage style={{ fontSize: "1.7em" }} />
-          <p> Images </p>
-        </Flex>{" "}
-      </Dropdown.Item>
-      <Dropdown.Item href="/">
-        <Flex>
-          <MdVideoLibrary style={{ fontSize: "1.7em" }} />
-          <p> Videos </p>
-        </Flex>{" "}
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-)
-
 const InputBox = styled.div`
   padding: 0.05rem 1rem;
   width: 35rem;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   border-radius: 5px;
   height: auto;
 `
@@ -52,8 +23,12 @@ const Border = styled.div`
   padding: 0.1rem 1rem;
   border: 0px;
   margin: 0.7rem 0rem;
+  color: #fff;
   border-radius: 5px;
-  background: #c4c4c4;
+  background: #100e17;
+  &: hover {
+    cursor: pointer;
+  }
 `
 
 const Media = (props): JSX.Element => {
@@ -61,20 +36,21 @@ const Media = (props): JSX.Element => {
 
   return (
     <div>
-      <Header options={true} event="|OSCA>Media " />
+      <Header unshadowed options={true} event="|OSCA>Media " />
 
-      <div style={{ backgroundColor: "#F2F5F5" }}>
+      <div style={{ backgroundColor: "#401364", color: "#fff" }}>
         <br />
         <br />
         <Contain>
           <Flex justifyBetween>
-            <Text> 700 Files </Text>
+            <Text white> 700 Files </Text>
             <InputBox>
               <Flex>
                 <Hover style={{ paddingTop: "10px" }}>
                   <FiSearch style={{ fontSize: "1.5rem" }} />
                 </Hover>
                 <Input
+                  white
                   unmargined
                   unbordered
                   transparent
@@ -86,9 +62,9 @@ const Media = (props): JSX.Element => {
           <br />
 
           <Flex justifyBetween>
-            <Text> XXXXX files sent to xxx attendees. </Text>
+            <Text white> XXXXX files sent to xxx attendees. </Text>
 
-            <Text>700 Total Files </Text>
+            <Text white>700 Total Files </Text>
           </Flex>
 
           <div
@@ -98,7 +74,7 @@ const Media = (props): JSX.Element => {
           >
             <Flex>
               <Border>
-                <Text style={{ paddingTop: "15px" }} small>
+                <Text white style={{ paddingTop: "15px" }} small>
                   Media Team:{" "}
                 </Text>
               </Border>

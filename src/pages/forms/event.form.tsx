@@ -58,7 +58,7 @@ const CreateEvent = () => {
   }
 
   return (
-    <div>
+    <div style={{ background: "#eeeeee" }}>
       <Header screen="event" name="" unshadowed={true} />
       {!Mail ? (
         <div>
