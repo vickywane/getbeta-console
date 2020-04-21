@@ -105,11 +105,12 @@ const Input = styled.input`
   height: ${props => (props.long ? "10vh" : "50px")};
   width: ${props => (props.wide ? "52rem" : "30em")};
   padding: 0.5em;
-  border: 1px solid black;
+  border: ${props => (props.unbordered ? "0px" : " 1px solid black")};
   outline: 0px;
-  margin: 0.7rem 1rem;
+  margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
   padding-left: 10px;
   border-radius: 4px;
+  background: ${props => (props.transparent ? "transparent" : null)};
 `
 
 const Box = styled.div`
@@ -197,7 +198,7 @@ const Title = styled.h4`
 
 const CustomImage = styled(Image)`
   height: auto;
-  width: ${props => (props.small ? "7.7rem" : "10rem")};
+  width: ${props => (props.small ? "20rem" : null)};
 `
 
 const Label = styled.label`

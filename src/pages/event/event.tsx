@@ -27,6 +27,7 @@ const Event = (props): JSX.Element => {
         <br />
         <br />
         <br />
+        <br />
         <Flex justifyBetween>
           <Flex column>
             <Flex>
@@ -99,7 +100,7 @@ const Event = (props): JSX.Element => {
           </Flex>
         </Flex>
         <hr />
-        <Tabs defaultActiveKey="team" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="activity" id="uncontrolled-tab-example">
           <Tab eventKey="activity" title="Activity">
             <Activity />
           </Tab>

@@ -13,17 +13,18 @@ const data = [
 
 const Activity = () => {
   return (
-    <Contain>
+    <div>
+      <br />
       {data.map(({ name, id }) => {
         return (
           <ul style={{ listStyle: "none" }}>
-            <li key={id}>
+            <li key={id} style={{ padding: "0.3rem 0rem" }}>
               <Text small> {name} </Text>{" "}
             </li>
           </ul>
         )
       })}
-    </Contain>
+    </div>
   )
 }
 
