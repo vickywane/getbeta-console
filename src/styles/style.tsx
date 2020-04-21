@@ -17,7 +17,6 @@ const Pane = styled.div`
 
 const Button = styled.button`
   background: ${props => (props.transparent ? "transparent" : "#0e2f5a")};
-  text-align: right;
   border-radius: 5px;
   height: auto;
   outline: 0px;
