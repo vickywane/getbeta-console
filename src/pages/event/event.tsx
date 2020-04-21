@@ -1,7 +1,7 @@
 import React from "react"
 import Flex from "styled-flex-component"
 import { Image, Tab, Tabs } from "react-bootstrap"
-import { FiList, FiImage, FiSmartphone } from "react-icons/fi"
+import { FiList, FiImage, FiSmartphone, FiMail } from "react-icons/fi"
 import { MdPeopleOutline } from "react-icons/md"
 import { GoLocation } from "react-icons/go"
 import { inject, observer } from "mobx-react"
@@ -9,14 +9,16 @@ import { Link } from "react-router-dom"
 
 import { Header, Footer } from "../../components/"
 import { Hover, Contain, Text, Title, Button } from "../../styles/style"
-import { Checklist, People } from "../../components/modals/"
+import { Checklist, People, Contact } from "../../components/modals/"
+import useWindowWidth from "../../hook_style"
 
 import Activity from "./Activity"
 import Team from "./team"
 import Events from "./events"
 
 const Event = (props): JSX.Element => {
-  const { openChecklist, openPeople } = props.ModalStore
+  const { openChecklist, openPeople, openContactModal } = props.ModalStore
+  const Hooks = useWindowWidth()
 
   return (
     <div>
@@ -24,6 +26,7 @@ const Event = (props): JSX.Element => {
       <br />
       <Checklist />
       <People />
+      <Contact />
       <Contain img="../../assets/images/test.png">
         <br />
         <br />
@@ -49,12 +52,38 @@ const Event = (props): JSX.Element => {
                     <Text small> 1 Conference </Text>
                     <Text small> 10 Meetup </Text>
                   </Flex>
-                  <Flex justifyBetween>
-                    <Link to="/media">
-                      <Button> Gallery </Button>
-                    </Link>
-                    <Button transparent> Contact Support </Button>
-                  </Flex>
+
+                  {Hooks >= 650 ? (
+                    <Flex justifyBetween>
+                      <Link to="/media">
+                        <Button> Gallery </Button>
+                      </Link>
+
+                      <Button
+                        transparent
+                        onClick={() => {
+                          openContactModal()
+                        }}
+                      >
+                        {" "}
+                        Contact Support{" "}
+                      </Button>
+                    </Flex>
+                  ) : (
+                    <Flex justifyBetween>
+                      <Hover>
+                        <FiImage style={{ fontSize: "1.8rem" }} />
+                      </Hover>
+
+                      <Hover
+                        onClick={() => {
+                          openContactModal()
+                        }}
+                      >
+                        <FiMail style={{ fontSize: "1.8rem" }} />
+                      </Hover>
+                    </Flex>
+                  )}
                 </Flex>
               </div>
             </Flex>

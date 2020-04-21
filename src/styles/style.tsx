@@ -212,13 +212,84 @@ const Grid = styled.div`
   grid-gap: 1rem;
 `
 
+const GalleryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 0.3rem;
+  grid-auto-rows: auto;
+  img {
+    width: 30rem;
+  }
+`
+
 const Notification = styled.div`
   padding: 0.5rem 1rem;
   background: ${props => props.color};
 `
 
+const Switch = styled.div`
+  padding: 0rem 0rem;
+  border: 2.5px solid #401364;
+  width: 36rem;
+  background: transparent;
+  border-radius: 6px;
+  ${media.lessThan("large")`
+     width: 36rem;
+    border-radius: 2.5px;
+     border: 1.5px solid #401364;  
+  `};
+  ${media.lessThan("medium")`
+     width: 24rem;
+    border-radius: 2.5px;
+  border: 1.5px solid #401364;
+`};
+  ${media.lessThan("small")`
+   width: 19rem;
+    border-radius: 2.5px;
+  border: 1px solid #401364;
+`};
+`
+
+const SwitchBtn = styled.button`
+  padding: 0.5rem 4.35rem;
+  border: 0px;
+  background: transparent;
+  color: #401364;
+  outline: none;
+  font-weight: bold;
+  &: hover {
+    background: #401364;
+    color: #fff;
+  }
+  ${media.lessThan("medium")`
+      padding: 0.5rem 2.25rem;
+`};
+  ${media.lessThan("small")`
+       padding: 0.5rem 1.6rem;
+`};
+`
+
+// HEADER STYLES =================>
+const Header = styled.nav`
+      padding: 0.8em 1rem;
+      background : #444444
+      position: fixed;
+      width: 100%;
+    `
+
+const HeaderLinks = styled.a`
+  text-decoration: none;
+  font-size: 2em;
+  font-family: monospace;
+`
+
 export {
+  Header,
+  HeaderLinks,
   Hover,
+  Switch,
+  SwitchBtn,
+  GalleryGrid,
   Notification,
   Grid,
   Label,

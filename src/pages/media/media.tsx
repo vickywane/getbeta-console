@@ -1,15 +1,13 @@
 import React from "react"
 import { inject, observer } from "mobx-react"
-import { FiSearch, FiImage } from "react-icons/fi"
-import { GoFile } from "react-icons/go"
-import { MdVideoLibrary } from "react-icons/md"
-import { Dropdown } from "react-bootstrap"
+import { FiSearch } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
 
 import { Header, Footer } from "../../components/"
 import Gallery from "./gallery"
 import { Contain, Input, Hover, Text } from "../../styles/style"
+import useWindowWidth from "../../hook_style"
 
 const InputBox = styled.div`
   padding: 0.05rem 1rem;
@@ -30,10 +28,10 @@ const Border = styled.div`
     cursor: pointer;
   }
 `
+const mediaTeam = [{ id: 1 }, { id: 2 }, { id: 1 }, { id: 2 }]
 
 const Media = (props): JSX.Element => {
-  const mediaTeam = [{ id: 1 }, { id: 2 }, { id: 1 }, { id: 2 }]
-
+  const Hooks: number = useWindowWidth()
   return (
     <div>
       <Header unshadowed options={true} event="|OSCA>Media " />
@@ -44,20 +42,27 @@ const Media = (props): JSX.Element => {
         <Contain>
           <Flex justifyBetween>
             <Text white> 700 Files </Text>
-            <InputBox>
-              <Flex>
-                <Hover style={{ paddingTop: "10px" }}>
-                  <FiSearch style={{ fontSize: "1.5rem" }} />
-                </Hover>
-                <Input
-                  white
-                  unmargined
-                  unbordered
-                  transparent
-                  placeholder="Search a file"
-                />
-              </Flex>
-            </InputBox>
+
+            {Hooks >= 700 ? (
+              <InputBox>
+                <Flex>
+                  <Hover style={{ paddingTop: "10px" }}>
+                    <FiSearch style={{ fontSize: "1.5rem" }} />
+                  </Hover>
+                  <Input
+                    white
+                    unmargined
+                    unbordered
+                    transparent
+                    placeholder="Search a file"
+                  />
+                </Flex>
+              </InputBox>
+            ) : (
+              <Hover style={{ paddingTop: "10px" }}>
+                <FiSearch style={{ fontSize: "1.5rem" }} />
+              </Hover>
+            )}
           </Flex>
           <br />
 

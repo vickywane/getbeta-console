@@ -1,63 +1,20 @@
 import { Link } from "react-router-dom"
 import React, { useState } from "react"
-import Img from "react-image"
-import styled from "styled-components"
 import Flex from "styled-flex-component"
 import { FiSettings } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 
-import { Hover } from "../../styles/style"
+import { Hover, Header as Head, HeaderLinks } from "../../styles/style"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
 
-// TODO ? marks this interface value as not required by other components
-// marking this interface as non-mandatory makes d values undefined --fix later
-// //@ts-ignore
-// interface CustomProps {
-//   //@ts-ignore
-//   screen?: String
-//   //@ts-ignore
-//   name?: String
-//   //@ts-ignore
-//   unshadowed?: boolean
-// }
-
-const Header = (
-  props
-  // { screen, name, unshadowed }: CustomProps
-): JSX.Element => {
+const Header = (props): JSX.Element => {
   const hooks = useWindowWidth()
-
-  const Head = styled.nav`
-      padding: 0.5em
-      background : #444444
-      position: fixed;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 100%;
-      display: flex;
-    `
-
-  const A = styled.a`
-    text-decoration: none;
-    font-size: 2em;
-    font-family: monospace;
-  `
-
-  const Image = styled(Img)`
-    height: 25px;
-  `
-
-  // react hooks && event listeners
-  const NameDiv = styled.div`
-    margin-left: 3%;
-  `
 
   const { showProfilePane } = props.ConsoleStore
 
   const [open, setOpen] = useState(false)
   const menuId = "main-menu"
-  console.log(props.unshadowed)
   return (
     <div>
       <Head
@@ -67,14 +24,18 @@ const Header = (
         }}
       >
         {hooks >= 720 ? (
-          <Flex justifyBetween>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
             <Flex>
-              <NameDiv>
-                <Link to="/console" style={{ textDecoration: "none" }}>
-                  <A>Event</A>
-                </Link>
-              </NameDiv>
-              <A
+              <Link to="/console" style={{ textDecoration: "none" }}>
+                <HeaderLinks>Event</HeaderLinks>
+              </Link>
+              <HeaderLinks
                 style={{
                   paddingLeft: "5px",
                   color: "white",
@@ -84,7 +45,7 @@ const Header = (
               >
                 {" "}
                 {props.event}{" "}
-              </A>
+              </HeaderLinks>
             </Flex>
 
             <Flex>
@@ -110,22 +71,12 @@ const Header = (
                 </Hover>{" "}
               </Link>
             </Flex>
-          </Flex>
+          </div>
         ) : (
           <Flex justifyBetween style={{ padding: "0.5em", paddingRight: "1%" }}>
-            <NameDiv>
-              <Flex>
-                <Image
-                  src={
-                    "https://res.cloudinary.com/dkfptto8m/image/upload/v1558070244/Mongodb%20hackathon%20project/thunder.png"
-                  }
-                  alt="Logo"
-                />
-                <Link to="/console">
-                  <A>Event</A>
-                </Link>
-              </Flex>
-            </NameDiv>
+            <Link to="/console">
+              <HeaderLinks>Event</HeaderLinks>
+            </Link>
 
             {props.screen === "Docs" ? null : (
               <div>

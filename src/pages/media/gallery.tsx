@@ -1,10 +1,17 @@
 import React from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiClock, FiSearch, FiImage } from "react-icons/fi"
+import { FiClock } from "react-icons/fi"
 import media from "styled-media-query"
 
-import { CustomImage, Text, Hover, Input } from "../../styles/style"
+import {
+  CustomImage,
+  Text,
+  Hover,
+  GalleryGrid,
+  SwitchBtn,
+  Switch,
+} from "../../styles/style"
 
 const section = [
   { id: 1, time: "10 days ago" },
@@ -27,17 +34,6 @@ const Head = styled.div`
   border-bottom : 1px solid grey;
 `
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  grid-gap: 0.3rem;
-  grid-auto-rows: auto;
-
-  img {
-    width: 30rem;
-  }
-`
-
 const Images = [
   {
     id: 1,
@@ -55,41 +51,6 @@ const Images = [
     id: 5,
   },
 ]
-
-const Switch = styled.div`
-  padding: 0rem 0rem;
-  border: 2.5px solid #401364;
-  width: 35rem;
-  background: transparent;
-  border-radius: 6px;
-  ${media.lessThan("medium")`
-     width: 23rem;
-    border-radius: 4px;
-`};
-  ${media.lessThan("small")`
-   width: 19rem;
-    border-radius: 3px;
-`};
-`
-
-const SwitchBtn = styled.button`
-  padding: 0.5rem 4.35rem;
-  border: 0px;
-  background: transparent;
-  color: #401364;
-  outline: none;
-  font-weight: bold;
-  &: hover {
-    background: #401364;
-    color: #fff;
-  }
-  ${media.lessThan("medium")`
-      padding: 0.5rem 2.25rem;
-`};
-  ${media.lessThan("small")`
-       padding: 0.5rem 1.6rem;
-`};
-`
 
 const Overview = (props): JSX.Element => {
   return (
@@ -131,7 +92,7 @@ const Overview = (props): JSX.Element => {
               </Flex>
             </Head>
 
-            <Grid>
+            <GalleryGrid>
               {Images.map(({ id }) => {
                 return (
                   <div>
@@ -144,7 +105,7 @@ const Overview = (props): JSX.Element => {
                   </div>
                 )
               })}
-            </Grid>
+            </GalleryGrid>
           </Section>
         )
       })}

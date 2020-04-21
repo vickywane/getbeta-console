@@ -32,6 +32,17 @@ class ModalStore {
   beginSearch = () => {
     this.search = true
   }
+
+  //contact modal
+  showContactModal = false
+
+  openContactModal = () => {
+    this.showContactModal = true
+  }
+
+  closeContactModal = () => {
+    this.showContactModal = false
+  }
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
@@ -54,6 +65,12 @@ const DecoratedModalStore = decorate(ModalStore, {
   closePeople: action,
   beginInvite: action,
   beginSearch: action,
+
+  // contact
+  showContactModal: observable,
+
+  openContactModal: action,
+  closeContactModal: action,
 })
 
 const store = new DecoratedModalStore()
