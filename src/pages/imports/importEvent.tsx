@@ -4,6 +4,8 @@ import Flex from "styled-flex-component"
 import { FiUser, FiUsers } from "react-icons/fi"
 import { Link } from "react-router-dom"
 
+// TODO Delete this page later
+
 import useWindowWidth from "../../hook_style"
 
 const Body = styled.div`
