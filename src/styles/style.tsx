@@ -104,10 +104,36 @@ const Input = styled.input`
   width: ${props => (props.wide ? "60rem" : "25em")};
   `};
   ${media.lessThan("medium")`
-  width: ${props => (props.wide ? "52rem" : "30em")};
+  width: ${props => (props.wide ? "52rem" : "24em")};
   `};
   ${media.lessThan("small")`
+  width: ${props => (props.wide ? "52rem" : "21em")};
+  `};
+`
+
+const FormInput = styled.input`
+  height: ${props => (props.long ? "10vh" : "50px")};
   width: ${props => (props.wide ? "52rem" : "30em")};
+  padding: 0.5em;
+  border: ${props => (props.unbordered ? "0px" : " 1px solid grey")};
+  outline: 0px;
+  color: ${props => (props.white ? "#fff" : "#000")}
+  margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
+  padding-left: 10px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  background: ${props => (props.transparent ? "transparent" : null)};
+    ${media.lessThan("large")`
+  width: ${props => (props.wide ? "46rem" : "21.5em")};
+  font-size: 1rem;
+  `};
+  ${media.lessThan("medium")`
+  width: ${props => (props.wide ? "28rem" : "27em")};
+  font-size: 1rem;
+  `};
+  ${media.lessThan("small")`
+  width: ${props => (props.wide ? "52rem" : "25em")};
+  font-size: 1rem;
   `};
 `
 
@@ -187,12 +213,30 @@ const Title = styled.h4`
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.5em" : "2em")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
+  ${media.lessThan("large")`
+font-size: ${props => (props.small ? "1.4em" : "2em")};
+  `};
+  ${media.lessThan("medium")`
+font-size: ${props => (props.small ? "1.3em" : "2em")};
+`};
+  ${media.lessThan("small")`
+font-size: ${props => (props.small ? "1.2em" : "2em")};
+`};
 `
 
 const Label = styled.label`
 padding-left: 10px
 font-weight: 500;
-font-size: ${props => (props.small ? "1.2em" : "1.3em")}
+font-size: ${props => (props.small ? "1.2em" : "1.3em")};
+${media.lessThan("large")`
+font-size: ${props => (props.small ? "1.1em" : "1.3em")};
+  `};
+  ${media.lessThan("medium")`
+ font-size: ${props => (props.small ? "1em" : "1.3em")};
+`};
+  ${media.lessThan("small")`
+ font-size: ${props => (props.small ? "1em" : "1.3em")};
+`};
 `
 
 const Grid = styled.div`
@@ -318,6 +362,12 @@ const Header = styled.nav`
       background : #444444
       position: fixed;
       width: 100%;
+        ${media.lessThan("medium")`
+          padding: 0.1rem 1rem;
+`};
+  ${media.lessThan("small")`
+            padding: 0.1rem 1rem;
+`};
     `
 
 const HeaderLinks = styled.a`
@@ -326,7 +376,15 @@ const HeaderLinks = styled.a`
   font-family: monospace;
 `
 
+const FormCard = styled.div`
+  box-shadow: 0px 3px 4px grey;
+  padding: 0rem 0.5rem;
+  background: #fff;
+  border-radius: 5px;
+`
+
 export {
+  FormCard,
   Header,
   HeaderLinks,
   InputBox,
@@ -337,6 +395,7 @@ export {
   Notification,
   Grid,
   Label,
+  FormInput,
   CustomImage,
   Box,
   SmallItems,

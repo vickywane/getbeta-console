@@ -27,6 +27,11 @@ const Signin = (props): JSX.Element => {
   const [Forgot, setForgot] = useState(false)
   const [Mail, sendMail] = useState(false)
 
+  // input states
+  const [Email, setEmail] = useState("")
+  const [Password, setPassword] = useState("")
+  const [ConfirmPassword, setConfirmPassword] = useState("")
+
   return (
     <Body>
       <Flex justifyCenter>
@@ -58,11 +63,28 @@ const Signin = (props): JSX.Element => {
                   <hr />
                   <Label>Email Address</Label>
                   <div>
-                    <Input type="email" placeholder="Email Address" />
+                    <Input
+                      onChange={event => {
+                        setEmail(event.target.value)
+                        event.preventDefault()
+                      }}
+                      value={Email}
+                      type="email"
+                      placeholder="Email Address"
+                    />
                   </div>
                   <Label>Password</Label>
                   <div>
-                    <Input type="password" placeholder="Password" /> <br />
+                    <Input
+                      value={Password}
+                      onChange={event => {
+                        setPassword(event.target.value)
+                        event.preventDefault()
+                      }}
+                      type="password"
+                      placeholder="Password"
+                    />{" "}
+                    <br />
                   </div>
                   <Text
                     small

@@ -14,80 +14,105 @@ import {
   Button,
   Contain,
 } from "../../styles/style"
-import { TEST } from "../../data/queries"
+import { GET_USER } from "../../data/queries"
 
 import EventCard from "../../components/cards/EventCard"
 import { Events } from "../../Data"
 
 const Console = (props): JSX.Element => {
-  const { loading, error, data } = useQuery(TEST, {})
+  const { loading, error, data } = useQuery(GET_USER, {})
+  console.log(data, "data from graphql")
 
-  return (
-    <div>
-      <Header />
-      <Body>
-        <Profile />
-        <hr />
+  if (error) {
+    console.log(error, "data error")
+    return (
+      <div>
+        <Header />
+        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{" "}
+        <h2 style={{ textAlign: "center" }}>
+          An error has occurred with the server <br /> Switching to offline mode
+          ....{" "}
+        </h2>{" "}
+        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <Footer />
+      </div>
+    )
+  }
 
-        <Contain>
-          <Flex justifyBetween>
-            <Section> Organizing : </Section>
+  if (loading) {
+    return (
+      <div>
+        <br /> <br /> <br /> <br />
+        <h2 style={{ textAlign: "center" }}> Data is Loading </h2>{" "}
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <Header />
+        <Body>
+          <Profile User={data} />
+          <hr />
 
-            <Link to="/create">
-              <Button>
-                {" "}
-                <Flex>
-                  <div style={{ paddingRight: "15px" }}>
-                    <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
-                  </div>{" "}
-                  Create Event{" "}
-                </Flex>
-              </Button>
-            </Link>
-          </Flex>
-          <br />
-          <Items>
-            {Events.map(({ i, name, text }) => {
-              return (
-                <Bounce>
-                  <EventCard id={i} name={name} summary={text} />
-                </Bounce>
-              )
-            })}
-          </Items>
-          <br />
+          <Contain>
+            <Flex justifyBetween>
+              <Section> Organizing : </Section>
 
-          <Flex justifyBetween>
-            <Section> Volunteering : </Section>
+              <Link to="/create">
+                <Button>
+                  {" "}
+                  <Flex>
+                    <div style={{ paddingRight: "15px" }}>
+                      <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
+                    </div>{" "}
+                    Create Event{" "}
+                  </Flex>
+                </Button>
+              </Link>
+            </Flex>
+            <br />
+            <Items>
+              {Events.map(({ i, name, text }) => {
+                return (
+                  <Bounce>
+                    <EventCard id={i} name={name} summary={text} />
+                  </Bounce>
+                )
+              })}
+            </Items>
+            <br />
 
-            <Link to="/list" style={{ textDecoration: "none" }}>
-              <Button transparent>
-                {" "}
-                <Flex>
-                  <div style={{ paddingRight: "15px" }}>
-                    <FiSearch style={{ fontSize: "1.55rem" }} />{" "}
-                  </div>{" "}
-                  Search For Events{" "}
-                </Flex>{" "}
-              </Button>
-            </Link>
-          </Flex>
-          <br />
+            <Flex justifyBetween>
+              <Section> Volunteering : </Section>
 
-          <Items>
-            {Events.map(({ i, name, text }) => {
-              return (
-                <Bounce>
-                  <EventCard id={i} name={name} summary={text} />
-                </Bounce>
-              )
-            })}
-          </Items>
-        </Contain>
-      </Body>
-      <Footer />
-    </div>
-  )
+              <Link to="/list" style={{ textDecoration: "none" }}>
+                <Button transparent>
+                  {" "}
+                  <Flex>
+                    <div style={{ paddingRight: "15px" }}>
+                      <FiSearch style={{ fontSize: "1.55rem" }} />{" "}
+                    </div>{" "}
+                    Search For Events{" "}
+                  </Flex>{" "}
+                </Button>
+              </Link>
+            </Flex>
+            <br />
+
+            <Items>
+              {Events.map(({ i, name, text }) => {
+                return (
+                  <Bounce>
+                    <EventCard id={i} name={name} summary={text} />
+                  </Bounce>
+                )
+              })}
+            </Items>
+          </Contain>
+        </Body>
+        <Footer />
+      </div>
+    )
+  }
 }
 
 export default inject("ConsoleStore", "AuthStore")(observer(Console))

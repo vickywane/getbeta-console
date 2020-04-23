@@ -7,7 +7,8 @@ import { Link } from "react-router-dom"
 
 import { Detail, Contain, Title, Text, Hover } from "../../styles/style"
 
-const Profile = (): JSX.Element => {
+const Profile = (props): JSX.Element => {
+  const { name, email } = props.User.user
   return (
     <Contain>
       <br />
@@ -24,8 +25,8 @@ const Profile = (): JSX.Element => {
 
           <Detail>
             <br />
-            <Title center> Nwani Victory </Title>
-            <Text center> Vickywane@gmail.com </Text>
+            <Title center> {name} </Title>
+            <Text center> {email} </Text>
           </Detail>
         </Flex>
 

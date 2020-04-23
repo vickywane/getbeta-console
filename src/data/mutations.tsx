@@ -5,20 +5,13 @@ const CREATE_USER = gql`
     $name: String!
     $email: String!
     $website: String
-    $supportEmail: String
     $attendees: Int
     $teams: Int
-    $type: String
-    $venue: String
   ) {
     createUser(
       name: $name
       password: $password
       email: $email
-      supportEmail: $email
-      type: $email
-      venue: $email
-      venue: $venue
       website: $venue
       teams: $teams
       attendees: $attendees
@@ -31,10 +24,35 @@ const CREATE_USER = gql`
 `
 
 const CREATE_EVENT = gql`
-  mutation createEvent($name: String!, $email: String!) {
-    createUser(name: $name, email: $email) {
+  mutation createEvent(
+    $name: String!
+    $Email: String!
+    $eventType: String!
+    $summary: String
+    $alias: String
+    $description: String
+    $venue: String
+    $website: String
+  ) {
+    createUser(
+      name: $name
+      email: $email
+      website: $website
+      alias: $alias
+      description: $description
+      venue: $venue
+      eventType: $eventType
+      summary: $summary
+    ) {
       name
       id
+      summary
+      description
+      alias
+      website
+      Email
+      Date
+      bucketLink
     }
   }
 `
