@@ -25,4 +25,37 @@ const Events = [
   },
 ]
 
-export { Events }
+const TalksList = [
+  {
+    id: 1,
+    title: "Building Scalable Apps With the Google Cloud ",
+    reviewed: false,
+  },
+  {
+    id: 2,
+    title: "Responsive Web Designs with Event Listeners",
+    reviewed: false,
+  },
+  {
+    id: 3,
+    title: "Building with Tailwind css",
+    reviewed: true,
+  },
+  {
+    id: 4,
+    title: "Blazing Fast Sites with Gatsby",
+    reviewed: false,
+  },
+  {
+    id: 5,
+    title: "Reducing Redux Boilerplates",
+    reviewed: false,
+  },
+  {
+    id: 6,
+    title: "Nano Frontends with Preact",
+    reviewed: true,
+  },
+]
+
+export { TalksList, Events }

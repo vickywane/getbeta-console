@@ -1,9 +1,9 @@
 import React from "react"
 import { Router, Route, Switch } from "react-router"
 import { createBrowserHistory } from "history"
-
 import { inject, observer } from "mobx-react"
 
+import useWindowWidth from "./hook_style"
 import {
   Event,
   CreateEvent,
@@ -18,13 +18,20 @@ import {
   Mobile,
   Talks,
   Upload,
+  Preferences,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
+import { ResolutionError } from "./components/"
 
 const History = createBrowserHistory()
 function App(props): JSX.Element {
   const { authenticated } = props.AuthStore
+  const Hooks = useWindowWidth()
+
+  if (Hooks <= 550) {
+    return <ResolutionError />
+  }
   return (
     <Router history={History}>
       <GlobalStyles />
@@ -84,6 +91,12 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/mobile"
           component={Mobile}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/settings"
+          component={Preferences}
         />
 
         <Protected

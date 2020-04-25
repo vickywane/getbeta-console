@@ -11,10 +11,6 @@ const Body = styled.div`
   padding: 1em;
 `
 
-const Pane = styled.div`
-  padding: 0.5em;
-`
-
 const Button = styled.button`
   background: ${props => (props.transparent ? "transparent" : "#0e2f5a")};
   border-radius: 5px;
@@ -49,8 +45,7 @@ const Bounce = posed.div({
 })
 
 const Contain = styled.div`
-  padding-left: 5em;
-  padding-right: 5em;
+  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0rem 5rem")}
   background-image: url('${props => props.img}');
   ${media.lessThan("large")`
   padding-left: 1.5em;
@@ -70,22 +65,20 @@ const Section = styled.h5`
   font-weight: 500px;
 `
 
-const Name = styled.h2`
-font-weight : 500
-text-align : center
-`
-
 const Detail = styled.div`
   padding-left: 5px;
-`
-
-const Bio = styled.p`
-  text-align: center;
 `
 
 const Hover = styled.div`
   cursor: pointer;
   color: ${props => (props.white ? "#fff" : null)};
+`
+
+const ModalInput = styled.input`
+  padding: ${props => (props.input ? "0.1rem 0.7rem" : "0.2rem 0.5rem")};
+  outline: 0px;
+  width: ${props => (props.input ? "18rem" : "12rem")};
+  border: 0px;
 `
 
 const Input = styled.input`
@@ -137,12 +130,7 @@ const FormInput = styled.input`
   `};
 `
 
-const Box = styled.div`
-    padding : 0.5em
-    border  : 1px solid black
-  `
-
-const Text = styled.p`
+const Text: any = styled.p`
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.05rem" : "1.2rem")};
   color: ${props => (props.white ? "white" : "black")};
@@ -194,18 +182,6 @@ const UploadContainer = styled.div`
   border-radius: 10px;
   transition: border 0.24s ease-in-out;
 `
-
-const autoGrid = (minColumnWidth, gridGap) => ({
-  display: "grid",
-  gridTemplateColumns: `repeat(auto-fit, minmax(${minColumnWidth}px, 1fr))`,
-  gridGap,
-})
-
-const SmallItems = styled.div({
-  ...autoGrid(170, 20),
-  padding: "0.5em",
-  margin: "0.5em",
-})
 
 const Title = styled.h4`
   padding-left: ${props => (props.small ? "3px" : "15px")};
@@ -349,9 +325,8 @@ const SwitchBtn = styled.button`
 `
 
 const InputBox = styled.div`
-  padding: 0rem 1rem;
-  width: 30rem;
-  border: 1px solid #fff;
+  padding: ${props => (props.modal ? "0.5rem 2rem" : "0rem 1rem")};
+  border: ${props => (props.modal ? "1px solid #000" : "1px solid #fff")};
   border-radius: 5px;
   height: auto;
 `
@@ -383,28 +358,30 @@ const FormCard = styled.div`
   border-radius: 5px;
 `
 
+const List = styled.ul`
+  list-style: none;
+`
+
 export {
   FormCard,
+  List,
   Header,
   HeaderLinks,
   InputBox,
   Hover,
   Switch,
   SwitchBtn,
+  ModalInput,
   GalleryGrid,
   Notification,
   Grid,
   Label,
   FormInput,
   CustomImage,
-  Box,
-  SmallItems,
   Title,
   getColor,
   UploadContainer,
   Text,
-  Bio,
-  Name,
   Section,
   Items,
   Contain,
@@ -412,7 +389,6 @@ export {
   Card,
   UploadBtn,
   Button,
-  Pane,
   Detail,
   Head,
   Body,

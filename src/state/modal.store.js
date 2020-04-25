@@ -33,6 +33,10 @@ class ModalStore {
     this.search = true
   }
 
+  stopSearch = () => {
+    this.search = false
+  }
+
   //contact modal
   showContactModal = false
 
@@ -65,6 +69,7 @@ const DecoratedModalStore = decorate(ModalStore, {
   closePeople: action,
   beginInvite: action,
   beginSearch: action,
+  stopSearch: action,
 
   // contact
   showContactModal: observable,

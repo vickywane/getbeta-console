@@ -48,6 +48,7 @@ const Event = (props): JSX.Element => {
                   <Title small center bold>
                     Open Source Community Africa.
                   </Title>
+                  <Text center> OscaAfrica@gmail.com </Text>
                   <Flex justifyBetween>
                     <Text small> 1 Conference </Text>
                     <Text small> 10 Meetup </Text>

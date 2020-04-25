@@ -1,10 +1,26 @@
 import { action, observable, decorate } from "mobx"
+import axios from "axios"
 
 class AuthStore {
   authenticated = true
 
   AuthUser = () => {
-    this.authenticated = true
+    //Todo: Move login endpoint to graphql endpoint && use apollo NOT axios
+    try {
+      axios
+        .post("http://localhost:8080/login", {
+          username: "admin",
+          password: "admin",
+        })
+        .then(res => {
+          const token = res.data.token
+          console.log(token)
+          localStorage.setItem("token", token)
+          this.authenticated = true
+        })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   UnAuthUser = () => {

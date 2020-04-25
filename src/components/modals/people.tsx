@@ -10,8 +10,8 @@ import {
   Section,
   Body,
   Button,
-  Input,
-  Box,
+  InputBox,
+  ModalInput,
 } from "../../styles/style"
 import List from "./peopleList"
 
@@ -34,7 +34,7 @@ const People = props => {
     >
       <Head>
         <Flex justifyBetween>
-          <Section> People </Section>
+          <Section style={{ padding: "0.5rem 0.5rem" }}> Team members </Section>
 
           <Flex>
             {!search ? (
@@ -45,18 +45,15 @@ const People = props => {
                 <FiSearch style={{ fontSize: "1.5em" }} />
               </Hover>
             ) : (
-              <Box>
-                <Flex>
-                  <input />
-
-                  <Hover onClick={() => closePeople()}>
-                    <FiXCircle style={{ fontSize: "1.3em" }} />
-                  </Hover>
-                </Flex>{" "}
-              </Box>
+              <InputBox modal>
+                <ModalInput borderLess placeholder="Find Event Team member" />
+              </InputBox>
             )}
 
-            <Hover onClick={() => closePeople()}>
+            <Hover
+              onClick={() => closePeople()}
+              style={{ paddingLeft: "10px" }}
+            >
               <FiX style={{ fontSize: "1.75em" }} />
             </Hover>
           </Flex>
@@ -65,7 +62,7 @@ const People = props => {
       </Head>
 
       <List />
-
+      <hr />
       <Body>
         {!invite ? (
           <Flex justifyCenter>
@@ -80,12 +77,14 @@ const People = props => {
           </Flex>
         ) : (
           <Flex justifyCenter>
-            <Flex>
-              <Input placeholder="Email Address" />
-              <Hover style={{ paddingTop: "10px" }}>
-                <FiSend style={{ fontSize: "2em" }} />
-              </Hover>
-            </Flex>
+            <InputBox modal>
+              <Flex justifyBetween>
+                <ModalInput input placeholder="Email Address" />
+                <Hover style={{ paddingTop: "10px" }}>
+                  <FiSend style={{ fontSize: "2em" }} />
+                </Hover>
+              </Flex>
+            </InputBox>
           </Flex>
         )}
       </Body>

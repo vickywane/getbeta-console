@@ -14,23 +14,23 @@ const Body = styled.div`
   padding: 1em;
 `
 
-const API_URL = process.env.SOCKET_URL
-const socket = io(API_URL)
+const API_URL: string = process.env.SOCKET_URL
+const socket: string = io(API_URL)
 
 // TODO : Components here should be split into smaller comps & managed with our auth store
+// TODO : Reduce State her
 
-const Signin = (props): JSX.Element => {
-  const { AuthUser, authenticated } = props.AuthStore
-  console.log(authenticated)
+const SignIn = (props): JSX.Element => {
+  const { AuthUser }: any = props.AuthStore
 
-  const [Create, setCreate] = useState(false)
-  const [Forgot, setForgot] = useState(false)
-  const [Mail, sendMail] = useState(false)
+  const [Create, setCreate] = useState<boolean>(false)
+  const [Forgot, setForgot] = useState<boolean>(false)
+  const [Mail, sendMail] = useState<boolean>(false)
 
   // input states
-  const [Email, setEmail] = useState("")
-  const [Password, setPassword] = useState("")
-  const [ConfirmPassword, setConfirmPassword] = useState("")
+  const [Email, setEmail] = useState<string>("")
+  const [Password, setPassword] = useState<string>("")
+  const [ConfirmPassword, setConfirmPassword] = useState<string>("")
 
   return (
     <Body>
@@ -55,13 +55,18 @@ const Signin = (props): JSX.Element => {
             </Title>
           )}
           <br />
-          {!Forgot ? <Button center> Take A Tour - Guest Mode </Button> : null}
+          {!Forgot ? (
+            <Button transparent center>
+              {" "}
+              Take A Tour - Guest Mode{" "}
+            </Button>
+          ) : null}
           {!Forgot ? (
             <div>
               {!Create ? (
                 <div>
                   <hr />
-                  <Label>Email Address</Label>
+                  <Label small>Email Address</Label>
                   <div>
                     <Input
                       onChange={event => {
@@ -72,8 +77,9 @@ const Signin = (props): JSX.Element => {
                       type="email"
                       placeholder="Email Address"
                     />
-                  </div>
-                  <Label>Password</Label>
+                  </div>{" "}
+                  <br />
+                  <Label small>Password</Label>
                   <div>
                     <Input
                       value={Password}
@@ -146,17 +152,28 @@ const Signin = (props): JSX.Element => {
               ) : (
                 <div>
                   <hr />
-                  <Label>Email Address</Label>
+                  <Label small>Email Address</Label>
                   <div>
+                    {" "}
                     <Input type="email" placeholder="Email Address" />
-                  </div>
-                  <Label>Password</Label>
+                  </div>{" "}
+                  <br />
+                  <Label small>Password</Label>
                   <div>
                     <Input type="password" placeholder="Password" /> <br />
-                  </div>
-                  <Label>Confirm</Label>
+                  </div>{" "}
+                  <br />
+                  <Label small>Confirm Password</Label>
                   <div>
-                    <Input type="password" placeholder="Retype Password" />{" "}
+                    <Input
+                      onChange={event => {
+                        setConfirmPassword(event.target.value)
+                        event.preventDefault()
+                      }}
+                      type="password"
+                      value={ConfirmPassword}
+                      placeholder="Retype Password"
+                    />{" "}
                     <br />
                   </div>
                   <br />
@@ -224,7 +241,7 @@ const Signin = (props): JSX.Element => {
                     A <b> Tempoary 5 minute </b> valid reset link would be sent
                     to the inputed email address.
                   </Text>
-                  <Label> Email Address</Label>
+                  <Label small> Email Address</Label>
                   <div>
                     <Input type="email" placeholder="Email Address" />
                   </div>
@@ -254,4 +271,4 @@ const Signin = (props): JSX.Element => {
   )
 }
 
-export default inject("AuthStore")(observer(Signin))
+export default inject("AuthStore")(observer(SignIn))

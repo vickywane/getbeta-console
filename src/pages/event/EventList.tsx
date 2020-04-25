@@ -34,7 +34,7 @@ const EventList = () => {
   } else {
     return (
       <div>
-        <Header page="EventList" />
+        <Header page="Search" placeholder="Search For An Event" />
         <br />
         <br />
         <Contain>

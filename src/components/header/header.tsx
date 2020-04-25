@@ -15,12 +15,33 @@ import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
 
 const Header = (props): JSX.Element => {
-  const hooks = useWindowWidth()
+  const hooks: number = useWindowWidth()
 
-  const { showProfilePane } = props.ConsoleStore
+  const { showProfilePane }: any = props.ConsoleStore
+  const [open, setOpen] = useState<boolean>(false)
+  const menuId: string = "main-menu"
 
-  const [open, setOpen] = useState(false)
-  const menuId = "main-menu"
+  if (props.page === "non-app") {
+    return (
+      <Head
+        style={{
+          boxShadow: props.unshadowed ? null : "0px 5px 5px grey",
+          paddingTop: "2%",
+        }}
+      >
+        <Flex justifyCenter>
+          <a
+            target={"_blank"}
+            href="https://my-event.netlify.com"
+            style={{ textDecoration: "none" }}
+          >
+            <HeaderLinks>Oasis</HeaderLinks>
+          </a>
+        </Flex>
+      </Head>
+    )
+  }
+
   return (
     <div>
       <Head
@@ -39,7 +60,7 @@ const Header = (props): JSX.Element => {
           >
             <Flex>
               <Link to="/console" style={{ textDecoration: "none" }}>
-                <HeaderLinks>Event</HeaderLinks>
+                <HeaderLinks>Oasis</HeaderLinks>
               </Link>
               <HeaderLinks
                 style={{
@@ -53,7 +74,7 @@ const Header = (props): JSX.Element => {
               </HeaderLinks>
             </Flex>
 
-            {props.page === "EventList" ? (
+            {props.page === "Search" ? (
               <div>
                 {hooks >= 900 ? (
                   <InputBox>
@@ -67,7 +88,7 @@ const Header = (props): JSX.Element => {
                       <Input
                         tiny
                         white
-                        placeholder="Search For An Event"
+                        placeholder={props.placeholder}
                         transparent
                         unbordered
                       />
