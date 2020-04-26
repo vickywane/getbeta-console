@@ -30,13 +30,9 @@ const Header = (props): JSX.Element => {
         }}
       >
         <Flex justifyCenter>
-          <a
-            target={"_blank"}
-            href="https://my-event.netlify.com"
-            style={{ textDecoration: "none" }}
-          >
-            <HeaderLinks>Oasis</HeaderLinks>
-          </a>
+          <HeaderLinks target={"_blank"} href="https://my-event.netlify.com">
+            Oasis
+          </HeaderLinks>
         </Flex>
       </Head>
     )

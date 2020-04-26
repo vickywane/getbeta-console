@@ -1,7 +1,12 @@
-import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "apollo-boost"
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloLink,
+  ApolloError,
+} from "apollo-boost"
 
 const ENDPOINT: string = process.env.REACT_APP_GRAPHQL_ENDPOINT
-console.log(ENDPOINT, "config file")
 
 const Client = new ApolloClient({
   link: ApolloLink.from([

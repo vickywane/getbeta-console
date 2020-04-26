@@ -8,9 +8,9 @@ const Menu = ({ open, ...props }) => {
 
   const data = [
     { id: 1, name: "File Upload finised." },
-    { id: 1, name: "File Upload finised." },
-    { id: 1, name: "File Upload finised." },
-    { id: 1, name: "File Upload finised." },
+    { id: 2, name: "File Upload finised." },
+    { id: 3, name: "File Upload finised." },
+    { id: 4, name: "File Upload finised." },
   ]
 
   return (

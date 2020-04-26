@@ -1,15 +1,9 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { Provider } from "mobx-react"
-import { ThemeProvider } from "styled-components"
-import { ApolloProvider } from "@apollo/react-hooks"
 
-import Client from "./data/config"
 import "./index.css"
-import App from "./App"
+import Main from "./Main"
 import * as serviceWorker from "./serviceWorker"
-
-import { ConsoleStore, MediaStore, AuthStore, ModalStore } from "./state/"
 
 // i would work on the theming later!!
 const theme = {
@@ -22,21 +16,9 @@ const theme = {
 // primaryLight: '#EFFFFA',
 // primaryHover: '#343078',
 
-ReactDOM.render(
-  <ApolloProvider client={Client}>
-    <Provider
-      AuthStore={AuthStore}
-      ConsoleStore={ConsoleStore}
-      MediaStore={MediaStore}
-      ModalStore={ModalStore}
-    >
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </ApolloProvider>,
-  document.getElementById("root")
-)
+ReactDOM.render(<Main />, document.getElementById("root"))
+
+export default Main
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

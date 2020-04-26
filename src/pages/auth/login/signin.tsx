@@ -17,7 +17,7 @@ const Body = styled.div`
 const API_URL: string = process.env.SOCKET_URL
 const socket: string = io(API_URL)
 
-// TODO : Components here should be split into smaller comps & managed with our auth store
+// TODO : Make Forms here more reusable
 // TODO : Reduce State her
 
 const SignIn = (props): JSX.Element => {

@@ -3,9 +3,10 @@ import { inject, observer } from "mobx-react"
 import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
+
 import Profile from "../user/profile"
 import { FiSearch, FiPlus } from "react-icons/fi"
-import { Header, Footer } from "../../components/"
+import { Header, Footer, Loader } from "../../components/"
 import {
   Body,
   Bounce,
@@ -25,26 +26,11 @@ const Console = (props): JSX.Element => {
 
   if (error) {
     console.log(error, "data error")
-    return (
-      <div>
-        <Header />
-        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{" "}
-        <h2 style={{ textAlign: "center" }}>
-          An error has occurred with the server <br /> Switching to offline mode
-          ....{" "}
-        </h2>{" "}
-        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <Footer />
-      </div>
-    )
+    return <Loader state={"error"} />
   }
 
   if (loading) {
-    return (
-      <div>
-        <br /> <br /> <br /> <br />
-        <h2 style={{ textAlign: "center" }}> Data is Loading </h2>{" "}
-      </div>
-    )
+    return <Loader />
   } else {
     return (
       <div>
