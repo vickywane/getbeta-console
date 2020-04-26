@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for the Login Page Login Page is rendered with specific Elements 1`] = `ShallowWrapper {}`;

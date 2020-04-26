@@ -13,6 +13,7 @@ test("Header contains specific links", () => {
       AuthStore={AuthStore}
       ConsoleStore={ConsoleStore}
       page={"non-app"}
+      screen={"docs"}
     />
   )
 

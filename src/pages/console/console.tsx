@@ -26,11 +26,11 @@ const Console = (props): JSX.Element => {
 
   if (error) {
     console.log(error, "data error")
-    return <Loader state={"error"} />
+    return <Loader error={true} />
   }
 
   if (loading) {
-    return <Loader />
+    return <Loader loading={true} />
   } else {
     return (
       <div>

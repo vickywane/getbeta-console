@@ -51,5 +51,6 @@ describe("Tests the User Console", () => {
     const ConsoleWrapper = Component
 
     expect(ConsoleWrapper.find("h2"))
+    expect(Component).toMatchSnapshot()
   })
 })

@@ -14,6 +14,8 @@ describe("Tests for the Login Page", () => {
     expect(Component.find("h4"))
 
     expect(Component.exists(".input"))
+
+    expect(Component).toMatchSnapshot()
     // expect(Component.find("input")).toHaveLength(6)
   })
 })
