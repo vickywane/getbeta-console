@@ -21,7 +21,12 @@ import EventCard from "../../components/cards/EventCard"
 import { Events } from "../../Data"
 
 const Console = (props): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_USER, {})
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: {
+      id: 605394647632969758,
+      name: "John Doe",
+    },
+  })
   console.log(data, "data from graphql")
 
   if (error) {
@@ -76,8 +81,8 @@ const Console = (props): JSX.Element => {
                   <Flex>
                     <div style={{ paddingRight: "15px" }}>
                       <FiSearch style={{ fontSize: "1.55rem" }} />{" "}
-                    </div>{" "}
-                    Search For Events{" "}
+                    </div>
+                    Find Events Nearby
                   </Flex>{" "}
                 </Button>
               </Link>

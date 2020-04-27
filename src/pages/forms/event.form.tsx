@@ -9,6 +9,7 @@ import * as Yup from "yup"
 import { useMutation } from "@apollo/react-hooks"
 
 import { CREATE_EVENT } from "../../data/mutations"
+import { Forms } from "../../data/mockData"
 import Upload from "../media/upload"
 import { Header, Footer } from "../../components/"
 import Options from "../imports/createEvent/eventoptions.import"
@@ -65,48 +66,57 @@ const CreateEvent = () => {
   const [createEvent, { data }] = useMutation(CREATE_EVENT)
   console.log(data, "mutation data")
 
-  const [Name, setName] = useState("")
-  const [Alias, setAlias] = useState("")
-  const [Description, setDescription] = useState("")
-  const [Website, setWebsite] = useState("")
-  const [Summary, setSummary] = useState("")
-  const [Venue, setVenue] = useState("")
-  const [Email, setEmail] = useState("")
+  const [Name, setName] = useState("aaaxaxaaxaxaxa")
+  const [Alias, setAlias] = useState("aaaxaxaaxaxaxa")
+  const [Description, setDescription] = useState("aaaxaxaaxaxaxa")
+  const [Website, setWebsite] = useState("aaaxaxaaxaxaxa")
+  const [Summary, setSummary] = useState("aaaxaxaaxaxaxa")
+  const [Venue, setVenue] = useState("aaaxaxaaxaxaxa")
+  const [Email, setEmail] = useState("aaaxaxaaxaxaxa")
+  const [EventType, setEventType] = useState("Conference")
 
-  // let Validation = Yup.object().shape({
-  //   name: Yup.string
-  //     .min(8, 'Not less than 3')
-  //     .max(24, 'More than 25')
-  //     .required('must have a name '),
-  //   description: Yup.string().min(10, 'Not less than 10'),
-  //   alias: Yup.string().min(2, 'Not less than 10'),
-  //   website: Yup.string().min(2, 'Not less than 10'),
-  //   email: Yup.string().min(2, 'Not less than 10'),
-  //   venue: Yup.string().min(2, 'Not less than 10'),
-  // });
+  let Validation = Yup.object().shape({
+    name: Yup.string()
+      .min(8, "Not less than 3")
+      .max(24, "More than 25")
+      .required("must have a name "),
+    description: Yup.string().min(10, "Not less than 10"),
+    alias: Yup.string().min(2, "Not less than 10"),
+    website: Yup.string().min(2, "Not less than 10"),
+    email: Yup.string().min(2, "Not less than 10"),
+    venue: Yup.string().min(2, "Not less than 10"),
+  })
 
   const SubmitData = () => {
-    // Validation.isValid({
-    //   name: Name,
-    // }).then((valid) => {
-    //   if (valid) {
-    //     createEvent({
-    //       variables: {
-    //         name: Name,
-    //         website: Website,
-    //         description: Description,
-    //         supportEmail: Email,
-    //         attendees: '',
-    //         teams: '',
-    //         type: '',
-    //         venue: Venue,
-    //         summary: Summary,
-    //       },
-    //     });
-    //   }
-    // });
+    // Todo: Validation doesnt work yet!
+    try {
+      Validation.isValid({
+        name: Name,
+      }).then(valid => {
+        if (valid) {
+          createEvent({
+            variables: {
+              name: Name,
+              website: Website,
+              alias: Alias,
+              description: Description,
+              Email: Email,
+              venue: Venue,
+              Date: 11,
+              eventType: EventType,
+              summary: Summary,
+            },
+          }).then(() => {
+            alert("created")
+          })
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
+  const { first, second, third } = Forms
   return (
     <div style={{ background: "#eeeeee" }}>
       <Header screen="event" name="" unshadowed={true} event={Alias} />
@@ -163,129 +173,113 @@ const CreateEvent = () => {
                 Details
               </Title>
               <hr />
+
               <form onSubmit={SubmitData}>
                 <UpGrid>
-                  <div>
-                    <Card>
-                      <br />{" "}
-                      <Flex column>
-                        <Label htmlFor="event-name" small>
-                          Event Name
-                        </Label>
-                        <Input
-                          grey
-                          id="event-name"
-                          name="event-name"
-                          onChange={event => {
-                            setName(event.target.value)
-                            event.preventDefault()
-                            console.log(event.target.value, "text value")
-                          }}
-                          value={Name}
-                          placeholder="Event Name"
-                        />{" "}
-                      </Flex>
-                      <br />
-                      <Flex column>
-                        <Label htmlFor="event-alias" small>
-                          Event Alias
-                        </Label>
-                        <Input
-                          id="event-alias"
-                          name="event-alias"
-                          placeholder="Event Alias"
-                          value={Alias}
-                          onChange={event => {
-                            setAlias(event.target.value)
-                          }}
-                        />
-                      </Flex>
-                      <br />
-                    </Card>
-                  </div>
+                  <Card>
+                    {first.map(({ id, label, placeholder, textarea }) => {
+                      return (
+                        <div key={id}>
+                          <br />
 
-                  <div>
-                    <Card>
-                      <br />
-                      <Flex column>
-                        <Label small details htmlFor="event-website">
-                          Event Brand Page
-                        </Label>
-                        <Input
-                          id="event-website"
-                          name="event-website"
-                          onChange={event => {
-                            setWebsite(event.target.value)
-                            event.preventDefault()
-                          }}
-                          value={Website}
-                          placeholder="https//my-event.com"
-                        />
-                      </Flex>
-                      <br />
-                      <Flex column>
-                        <Label small details htmlFor="event-email">
-                          Support E-Mail
-                        </Label>
-                        <Input
-                          id="event-email"
-                          name="event-email"
-                          onChange={event => {
-                            setEmail(event.target.value)
-                            event.preventDefault()
-                          }}
-                          value={Email}
-                          placeholder="myevent@gmail.com"
-                        />
-                      </Flex>
-                      <br />
-                    </Card>
-                  </div>
+                          {!textarea ? (
+                            <Flex column>
+                              <Label htmlFor="event-name" small>
+                                {label}
+                              </Label>
+                              <Input
+                                grey
+                                id="event-name"
+                                name="event-name"
+                                onChange={event => {
+                                  setName(event.target.value)
+                                  event.preventDefault()
+                                  console.log(event.target.value, "text value")
+                                }}
+                                value={Name}
+                                placeholder={placeholder}
+                              />{" "}
+                            </Flex>
+                          ) : (
+                            <textarea placeholder={placeholder} />
+                          )}
+                        </div>
+                      )
+                    })}
+                    <br />
+                  </Card>
                 </UpGrid>
                 <br />
-                <br />
-                <Card>
-                  <br />
-                  <Flex column>
-                    <Label small htmlFor="event-summary">
-                      Event Summary
-                    </Label>
-                    <Input
-                      id="event-summary"
-                      name="event-summary"
-                      onChange={event => {
-                        setSummary(event.target.value)
-                        event.preventDefault()
-                      }}
-                      value={Summary}
-                      wide
-                      description
-                      placeholder="Few line summary of your event"
-                    />
-                  </Flex>
-                  <br />
-                  <Flex column>
-                    <Label small htmlFor="event-description">
-                      Event Description
-                    </Label>
-                    <Input
-                      id="event-description"
-                      name="event-description"
-                      onChange={event => {
-                        setDescription(event.target.value)
-                        event.preventDefault()
-                      }}
-                      value={Description}
-                      wide
-                      long
-                      description
-                      placeholder="Describe your event to your attendees"
-                    />
-                  </Flex>
-                  <br />
-                </Card>
+                <UpGrid>
+                  <Card>
+                    {second.map(({ id, label, placeholder, textarea }) => {
+                      return (
+                        <div key={id}>
+                          <br />
 
+                          {!textarea ? (
+                            <Flex column>
+                              <Label htmlFor="event-name" small>
+                                {label}
+                              </Label>
+                              <Input
+                                grey
+                                id="event-name"
+                                name="event-name"
+                                onChange={event => {
+                                  setName(event.target.value)
+                                  event.preventDefault()
+                                  console.log(event.target.value, "text value")
+                                }}
+                                value={Name}
+                                placeholder={placeholder}
+                              />{" "}
+                            </Flex>
+                          ) : (
+                            <textarea placeholder={placeholder} />
+                          )}
+                        </div>
+                      )
+                    })}
+                    <br />
+                  </Card>
+                </UpGrid>
                 <br />
+                <UpGrid>
+                  <Card>
+                    {third.map(({ id, label, placeholder, textarea }) => {
+                      return (
+                        <div key={id}>
+                          <br />
+
+                          {!textarea ? (
+                            <Flex column>
+                              <Label htmlFor="event-name" small>
+                                {label}
+                              </Label>
+                              <Input
+                                grey
+                                id="event-name"
+                                name="event-name"
+                                onChange={event => {
+                                  setName(event.target.value)
+                                  event.preventDefault()
+                                  console.log(event.target.value, "text value")
+                                }}
+                                value={Name}
+                                placeholder={placeholder}
+                              />{" "}
+                            </Flex>
+                          ) : (
+                            <textarea placeholder={placeholder} />
+                          )}
+                        </div>
+                      )
+                    })}
+                    <br />
+                  </Card>
+                </UpGrid>
+
                 <br />
                 <UpGrid>
                   <Card

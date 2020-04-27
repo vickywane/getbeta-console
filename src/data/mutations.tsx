@@ -28,21 +28,25 @@ const CREATE_EVENT = gql`
     $name: String!
     $Email: String!
     $eventType: String!
-    $summary: String
-    $alias: String
-    $description: String
-    $venue: String
-    $website: String
+    $summary: String!
+    $alias: String!
+    $description: String!
+    $Date: Int!
+    $venue: String!
+    $website: String!
   ) {
-    createUser(
-      name: $name
-      email: $email
-      website: $website
-      alias: $alias
-      description: $description
-      venue: $venue
-      eventType: $eventType
-      summary: $summary
+    createEvent(
+      input: {
+        name: $name
+        Email: $Email
+        website: $website
+        alias: $alias
+        description: $description
+        venue: $venue
+        eventType: $eventType
+        summary: $summary
+        Date: $Date
+      }
     ) {
       name
       id

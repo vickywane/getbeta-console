@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
-import io from "socket.io-client"
+// import io from "socket.io-client"
 
 import { Input, Button, Title, Text, Label } from "../../../styles/style"
 
@@ -15,7 +15,7 @@ const Body = styled.div`
 `
 
 const API_URL: string = process.env.SOCKET_URL
-const socket: string = io(API_URL)
+// const socket: string = io(API_URL)
 
 // TODO : Make Forms here more reusable
 // TODO : Reduce State her
@@ -146,7 +146,7 @@ const SignIn = (props): JSX.Element => {
                       Login with{" "}
                     </p>
 
-                    <OAuth socket={socket} URL={API_URL} />
+                    <OAuth URL={API_URL} />
                   </div>{" "}
                 </div>
               ) : (
@@ -218,7 +218,7 @@ const SignIn = (props): JSX.Element => {
                       Create Account with{" "}
                     </p>
 
-                    <OAuth socket={socket} URL={API_URL} />
+                    <OAuth URL={API_URL} />
                   </div>{" "}
                 </div>
               )}

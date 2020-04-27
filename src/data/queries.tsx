@@ -16,7 +16,7 @@ const USERS: any = gql`
 
 const GET_USER: any = gql`
   query get_user {
-    user(id: 5577006791947779410, name: "John Doe") {
+    user(id: 5577006791947779410, name: "Victory") {
       id
       name
       email
