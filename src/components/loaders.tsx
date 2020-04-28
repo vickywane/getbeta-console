@@ -6,7 +6,7 @@ const Loader = (props): JSX.Element => {
   const { loading, error } = props
   console.log(loading, error)
   switch (props) {
-    case props.loading === true:
+    case props.loading:
       return (
         <div>
           <Header />
@@ -27,7 +27,7 @@ const Loader = (props): JSX.Element => {
         </div>
       )
 
-    case props.error === true:
+    case props.error:
       return (
         <div>
           <Header />

@@ -10,6 +10,7 @@ import {
   HeaderLinks,
   InputBox,
   Input,
+  Text,
 } from "../../styles/style"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
@@ -92,6 +93,13 @@ const Header = (props): JSX.Element => {
                   </InputBox>
                 ) : null}
               </div>
+            ) : null}
+
+            {props.middleText ? (
+              <Text white bold>
+                {" "}
+                {props.text}{" "}
+              </Text>
             ) : null}
 
             <Flex>

@@ -61,4 +61,22 @@ const CREATE_EVENT = gql`
   }
 `
 
-export { CREATE_EVENT, CREATE_USER }
+const CREATE_TEAM = gql`
+  mutation createTeam($name: String!, $goal: String!) {
+    createTeam(input: { name: $name, goal: $goal }) {
+      name
+      goal
+    }
+  }
+`
+
+const CREATE_TASK = gql`
+  mutation createTask($name: String!, $type: String!, $isCompleted: Boolean!) {
+    createTask(input: { name: $name, type: $type, isComplted: $isComplted }) {
+      name
+      type
+      isCompleted
+    }
+  }
+`
+export { CREATE_EVENT, CREATE_TASK, CREATE_TEAM }

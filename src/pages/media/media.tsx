@@ -2,24 +2,19 @@ import React from "react"
 import { inject, observer } from "mobx-react"
 import { FiSearch } from "react-icons/fi"
 import Flex from "styled-flex-component"
-import styled from "styled-components"
 
 import { Header, Footer } from "../../components/"
 import Gallery from "./gallery"
-import { Contain, Input, Hover, Text, InputBox } from "../../styles/style"
+import {
+  Contain,
+  Border,
+  Input,
+  Hover,
+  Text,
+  InputBox,
+} from "../../styles/style"
 import useWindowWidth from "../../hook_style"
 
-const Border = styled.div`
-  padding: 0.1rem 1rem;
-  border: 0px;
-  margin: 0.7rem 0rem;
-  color: #fff;
-  border-radius: 5px;
-  background: #100e17;
-  &: hover {
-    cursor: pointer;
-  }
-`
 const mediaTeam = [{ id: 1 }, { id: 2 }, { id: 1 }, { id: 2 }]
 
 const Media = (props): JSX.Element => {

@@ -47,6 +47,17 @@ class ModalStore {
   closeContactModal = () => {
     this.showContactModal = false
   }
+
+  // Forms Modal
+  showFormModal = false
+
+  openFormModal = () => {
+    this.showFormModal = true
+  }
+
+  closeFormModal = () => {
+    this.showFormModal = false
+  }
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
@@ -76,6 +87,12 @@ const DecoratedModalStore = decorate(ModalStore, {
 
   openContactModal: action,
   closeContactModal: action,
+
+  // forms
+  showFormModal: observable,
+
+  openFormModal: action,
+  closeFormModal: action,
 })
 
 const store = new DecoratedModalStore()

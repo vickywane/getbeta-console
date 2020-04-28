@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import posed from "react-pose"
 import media from "styled-media-query"
-import { Image } from "react-bootstrap"
+import { Image, Modal } from "react-bootstrap"
 
 const Head = styled.div`
   padding: 0.7em;
@@ -134,6 +134,7 @@ const Text: any = styled.p`
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.05rem" : "1.2rem")};
   color: ${props => (props.white ? "white" : "black")};
+  font-weight: ${props => (props.bold ? "600" : "normal")};
 `
 
 const UploadBtn = styled.button`
@@ -183,11 +184,11 @@ const UploadContainer = styled.div`
   transition: border 0.24s ease-in-out;
 `
 
-const Title = styled.h4`
+const Title = styled.h5`
   padding-left: ${props => (props.small ? "3px" : "15px")};
   padding-right: 10px;
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: ${props => (props.small ? "1.5em" : "2em")};
+  font-size: ${props => (props.small ? "1.5rem" : "1.7rem")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
   ${media.lessThan("large")`
 font-size: ${props => (props.small ? "1.4em" : "2em")};
@@ -276,6 +277,7 @@ const Items = styled.div`
 const Notification = styled.div`
   padding: 0.5rem 1rem;
   background: ${props => props.color};
+  color: ${props => (props.white ? "#fff" : "#000")};
 `
 
 const Switch = styled.div`
@@ -362,7 +364,25 @@ const List = styled.ul`
   list-style: none;
 `
 
+const Border = styled.div`
+  padding: 0.1rem 1rem;
+  border: 0px;
+  margin: 0.7rem 0rem;
+  color: #fff;
+  border-radius: 5px;
+  background: #100e17;
+  &: hover {
+    cursor: pointer;
+  }
+`
+
+const CustomModal = styled(Modal)`
+  margin-top: 5%;
+`
+
 export {
+  CustomModal,
+  Border,
   FormCard,
   List,
   Header,

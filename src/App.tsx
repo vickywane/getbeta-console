@@ -19,6 +19,8 @@ import {
   Talks,
   Upload,
   Preferences,
+  TaskForm,
+  TeamForm,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
@@ -103,6 +105,18 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/upload"
           component={Upload}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/create-task"
+          component={TaskForm}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/create-team"
+          component={TeamForm}
         />
       </Switch>
     </Router>

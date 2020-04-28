@@ -58,4 +58,43 @@ const TalksList = [
   },
 ]
 
-export { TalksList, Events }
+const TeamList = [
+  { id: 1, name: "Design Team" },
+  { id: 2, name: "OSCA Sales Team" },
+  { id: 2, name: "OSCA Design Team" },
+  { id: 2, name: "OSCA Advert Team" },
+  { id: 2, name: "OSCA Media Team" },
+]
+
+const TaskList = [
+  {
+    id: 1,
+    assignedTo: "",
+    created: "12-12-12",
+    createdBy: "Victory",
+    name: "Sketching image assets for the OSCA Festival",
+  },
+  {
+    id: 2,
+    assignedTo: "",
+    created: "12-12-12",
+    createdBy: "David",
+    name: "Creating image assets for the OSCA Festival",
+  },
+  {
+    id: 3,
+    assignedTo: "",
+    created: "12-12-12",
+    createdBy: "John",
+    name: "Creating Talk assets for the OSCA Festival",
+  },
+  {
+    id: 4,
+    assignedTo: "",
+    created: "12-12-12",
+    createdBy: "Doe",
+    name: "Reviewing assets for the OSCA Festival",
+  },
+]
+
+export { TaskList, TalksList, Events, TeamList }

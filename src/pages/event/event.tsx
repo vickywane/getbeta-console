@@ -13,7 +13,7 @@ import { Checklist, People, Contact } from "../../components/modals/"
 import useWindowWidth from "../../hook_style"
 
 import Activity from "./Activity"
-import Team from "./team"
+import TeamList from "./teamList"
 import Events from "./events"
 
 const Event = (props): JSX.Element => {
@@ -136,7 +136,7 @@ const Event = (props): JSX.Element => {
             <Activity />
           </Tab>
           <Tab eventKey="team" title="Teams">
-            <Team />
+            <TeamList />
           </Tab>
           <Tab eventKey="Events" title="Events">
             <Events />
