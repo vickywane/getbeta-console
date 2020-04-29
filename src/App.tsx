@@ -15,12 +15,14 @@ import {
   Documentation,
   Team,
   Deck,
+  ScheduledTalks,
   Mobile,
   Talks,
   Upload,
   Preferences,
   TaskForm,
   TeamForm,
+  Schedule,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
@@ -117,6 +119,18 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/create-team"
           component={TeamForm}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/schedule"
+          component={Schedule}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/event-talks"
+          component={ScheduledTalks}
         />
       </Switch>
     </Router>

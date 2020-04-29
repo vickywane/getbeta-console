@@ -7,11 +7,13 @@ import { GoLocation } from "react-icons/go"
 import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
 
-import { Header, Footer } from "../../components/"
+import { useQuery } from "@apollo/react-hooks"
+import { Loader, Header, Footer } from "../../components/"
 import { Hover, Contain, Text, Title, Button } from "../../styles/style"
 import { Checklist, People, Contact } from "../../components/modals/"
 import useWindowWidth from "../../hook_style"
 
+import { TEAMS } from "../../data/queries"
 import Activity from "./Activity"
 import TeamList from "./teamList"
 import Events from "./events"
@@ -20,134 +22,144 @@ const Event = (props): JSX.Element => {
   const { openChecklist, openPeople, openContactModal } = props.ModalStore
   const Hooks = useWindowWidth()
 
-  return (
-    <div>
-      <Header event="|OSCA" />
-      <br />
-      <Checklist />
-      <People />
-      <Contact />
-      <Contain img="../../assets/images/test.png">
+  const { data, loading, error } = useQuery(TEAMS)
+
+  if (loading) {
+    return <Loader loading={true} />
+  }
+
+  if (error) {
+    return <Loader error={true} />
+  }
+
+  if (data) {
+    console.log(data)
+    return (
+      <div>
+        <Header event="|OSCA" />
         <br />
-        <br />
-        <br />
-        <br />
-        <Flex justifyBetween>
-          <Flex column>
-            <Flex>
-              <Image
-                alt="profile"
-                src={require("../../assets/images/developer.png")}
-                style={{ maxWidth: "7em", maxHeight: "7em" }}
-                fluid
-                thumbnail
-              />
-
-              <div style={{ padding: "0.2rem 1rem" }}>
-                <Flex column>
-                  <Title small center bold>
-                    Open Source Community Africa.
-                  </Title>
-                  <Text center> OscaAfrica@gmail.com </Text>
-                  <Flex justifyBetween>
-                    <Text small> 1 Conference </Text>
-                    <Text small> 10 Meetup </Text>
-                  </Flex>
-
-                  {Hooks >= 650 ? (
-                    <Flex justifyBetween>
-                      <Link to="/media">
-                        <Button> Gallery </Button>
-                      </Link>
-
-                      <Button
-                        transparent
-                        onClick={() => {
-                          openContactModal()
-                        }}
-                      >
-                        {" "}
-                        Contact Support{" "}
-                      </Button>
-                    </Flex>
-                  ) : (
-                    <Flex justifyBetween>
-                      <Hover>
-                        <FiImage style={{ fontSize: "1.8rem" }} />
-                      </Hover>
-
-                      <Hover
-                        onClick={() => {
-                          openContactModal()
-                        }}
-                      >
-                        <FiMail style={{ fontSize: "1.8rem" }} />
-                      </Hover>
-                    </Flex>
-                  )}
-                </Flex>
-              </div>
-            </Flex>
-            <br />
-            <Flex>
-              <GoLocation style={{ fontSize: "1.5em" }} />
-              <Text small style={{ paddingLeft: "7px" }}>
-                Tech Zone Park , Egbeda , Lagos
-              </Text>
-            </Flex>
-          </Flex>
-
-          <Flex column>
-            <div style={{ textAlign: "right" }}>
-              <Link to="/mobile">
-                <Hover
-                  onClick={() => {
-                    openChecklist()
-                  }}
-                >
-                  <FiSmartphone style={{ fontSize: "2rem" }} />
-                </Hover>
-              </Link>
-
-              <br />
-              <Hover
-                onClick={() => {
-                  openChecklist()
-                }}
-              >
-                <FiList style={{ fontSize: "2rem" }} />
-              </Hover>
-              <br />
-              <Hover>
-                <MdPeopleOutline
-                  onClick={() => {
-                    openPeople()
-                  }}
-                  style={{ fontSize: "2rem" }}
+        <Checklist />
+        <People />
+        <Contact />
+        <Contain img="../../assets/images/test.png">
+          <br />
+          <br />
+          <br />
+          <br />
+          <Flex justifyBetween>
+            <Flex column>
+              <Flex>
+                <Image
+                  alt="profile"
+                  src={require("../../assets/images/developer.png")}
+                  style={{ maxWidth: "7em", maxHeight: "7em" }}
+                  fluid
+                  thumbnail
                 />
-              </Hover>
-            </div>
-            <h3 style={{ fontWeight: "lighter" }}> 30days left </h3>
-          </Flex>
-        </Flex>
-        <hr />
-        <Tabs defaultActiveKey="activity" id="uncontrolled-tab-example">
-          <Tab eventKey="activity" title="Activity">
-            <Activity />
-          </Tab>
-          <Tab eventKey="team" title="Teams">
-            <TeamList />
-          </Tab>
-          <Tab eventKey="Events" title="Events">
-            <Events />
-          </Tab>
-        </Tabs>
-      </Contain>
 
-      <br />
-      <Footer />
-    </div>
-  )
+                <div style={{ padding: "0.2rem 1rem" }}>
+                  <Flex column>
+                    <Title small center bold>
+                      Open Source Community Africa.
+                    </Title>
+                    <Text center> OscaAfrica@gmail.com </Text>
+                    <Flex justifyBetween>
+                      <Text small> 1 Conference </Text>
+                      <Text small> 10 Meetup </Text>
+                    </Flex>
+
+                    {Hooks >= 650 ? (
+                      <Flex justifyBetween>
+                        <Link to="/media">
+                          <Button> Gallery </Button>
+                        </Link>
+
+                        <Button
+                          transparent
+                          onClick={() => {
+                            openContactModal()
+                          }}
+                        >
+                          {" "}
+                          Contact Support{" "}
+                        </Button>
+                      </Flex>
+                    ) : (
+                      <Flex justifyBetween>
+                        <Hover>
+                          <FiImage style={{ fontSize: "1.8rem" }} />
+                        </Hover>
+
+                        <Hover
+                          onClick={() => {
+                            openContactModal()
+                          }}
+                        >
+                          <FiMail style={{ fontSize: "1.8rem" }} />
+                        </Hover>
+                      </Flex>
+                    )}
+                  </Flex>
+                </div>
+              </Flex>
+              <br />
+              <Flex>
+                <GoLocation style={{ fontSize: "1.5em" }} />
+                <Text small style={{ paddingLeft: "7px" }}>
+                  Tech Zone Park , Egbeda , Lagos
+                </Text>
+              </Flex>
+            </Flex>
+
+            <Flex column>
+              <div style={{ textAlign: "right" }}>
+                <Link to="/mobile">
+                  <Hover
+                    onClick={() => {
+                      openChecklist()
+                    }}
+                  >
+                    <FiSmartphone style={{ fontSize: "2rem" }} />
+                  </Hover>
+                </Link>
+
+                <br />
+                <Link to={"/schedule"} style={{ textDecoration: "none" }}>
+                  <FiList style={{ fontSize: "2rem" }} />
+                </Link>
+                <br />
+                <br />
+                <Hover>
+                  <MdPeopleOutline
+                    onClick={() => {
+                      openPeople()
+                    }}
+                    style={{ fontSize: "2rem" }}
+                  />
+                </Hover>
+              </div>
+              <h3 style={{ fontWeight: "lighter" }}> 30days left </h3>
+            </Flex>
+          </Flex>
+          <hr />
+          <Tabs defaultActiveKey="activity" id="uncontrolled-tab-example">
+            <Tab eventKey="activity" title="Activity">
+              <Activity />
+            </Tab>
+            <Tab eventKey="team" title="Teams">
+              <TeamList teams={data.teams} />
+            </Tab>
+            <Tab eventKey="Meetups" title="Meetups">
+              <Events />
+            </Tab>
+          </Tabs>
+        </Contain>
+
+        <br />
+        <Footer />
+      </div>
+    )
+  }
 }
 
 export default inject("ModalStore")(observer(Event))

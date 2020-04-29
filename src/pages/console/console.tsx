@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { inject, observer } from "mobx-react"
 import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
@@ -14,6 +14,9 @@ import {
   Items,
   Button,
   Contain,
+  Switch,
+  SwitchBtn,
+  Title,
 } from "../../styles/style"
 import { GET_USER } from "../../data/queries"
 
@@ -27,7 +30,7 @@ const Console = (props): JSX.Element => {
       name: "John Doe",
     },
   })
-  console.log(data, "data from graphql")
+  const [Organize, showVolunteer] = useState<boolean>(true)
 
   if (error) {
     console.log(error, "data error")
@@ -45,59 +48,101 @@ const Console = (props): JSX.Element => {
           <hr />
 
           <Contain>
-            <Flex justifyBetween>
-              <Section> Organizing : </Section>
-
-              <Link to="/create">
-                <Button>
+            <Flex justifyCenter>
+              <Switch two>
+                <SwitchBtn
+                  style={{
+                    background: Organize ? "#401364" : "transparent",
+                    color: Organize ? "#fff" : "#401364",
+                  }}
+                  onClick={() => {
+                    showVolunteer(true)
+                  }}
+                >
+                  Organizing
+                </SwitchBtn>
+                <SwitchBtn
+                  style={{
+                    background: !Organize ? "#401364" : "transparent",
+                    color: !Organize ? "#fff" : "#401364",
+                  }}
+                  onClick={() => {
+                    showVolunteer(false)
+                  }}
+                >
                   {" "}
-                  <Flex>
-                    <div style={{ paddingRight: "15px" }}>
-                      <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
-                    </div>{" "}
-                    Create Event{" "}
-                  </Flex>
-                </Button>
-              </Link>
-            </Flex>
-            <br />
-            <Items>
-              {Events.map(({ i, name, text }) => {
-                return (
-                  <Bounce>
-                    <EventCard id={i} name={name} summary={text} />
-                  </Bounce>
-                )
-              })}
-            </Items>
-            <br />
-
-            <Flex justifyBetween>
-              <Section> Volunteering : </Section>
-
-              <Link to="/list" style={{ textDecoration: "none" }}>
-                <Button transparent>
-                  {" "}
-                  <Flex>
-                    <div style={{ paddingRight: "15px" }}>
-                      <FiSearch style={{ fontSize: "1.55rem" }} />{" "}
-                    </div>
-                    Find Events Nearby
-                  </Flex>{" "}
-                </Button>
-              </Link>
+                  Volunteering{" "}
+                </SwitchBtn>
+              </Switch>
             </Flex>
             <br />
 
-            <Items>
-              {Events.map(({ i, name, text }) => {
-                return (
-                  <Bounce>
-                    <EventCard id={i} name={name} summary={text} />
-                  </Bounce>
-                )
-              })}
-            </Items>
+            {Organize ? (
+              <div>
+                <Flex justifyBetween>
+                  <Title small> Organizing : </Title>
+
+                  <Link to="/create">
+                    <Button>
+                      {" "}
+                      <Flex>
+                        <div style={{ paddingRight: "15px" }}>
+                          <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
+                        </div>{" "}
+                        Create Event{" "}
+                      </Flex>
+                    </Button>
+                  </Link>
+                </Flex>
+                <br />
+                <Items>
+                  {Events.map(({ i, name, text }) => {
+                    return (
+                      <Bounce>
+                        <EventCard id={i} name={name} summary={text} />
+                      </Bounce>
+                    )
+                  })}
+                </Items>
+              </div>
+            ) : (
+              <div>
+                <Flex justifyBetween>
+                  <Title small> Volunteering : </Title>
+
+                  <Link to="/list" style={{ textDecoration: "none" }}>
+                    <Button transparent>
+                      {" "}
+                      <Flex>
+                        <div style={{ paddingRight: "15px" }}>
+                          <FiSearch style={{ fontSize: "1.55rem" }} />{" "}
+                        </div>
+                        Find Events Nearby
+                      </Flex>{" "}
+                    </Button>
+                  </Link>
+                </Flex>
+                <br />
+
+                <Items>
+                  {Events.map(({ i, name, text }) => {
+                    return (
+                      <Bounce>
+                        <EventCard
+                          role={"Attendant"}
+                          id={i}
+                          name={name}
+                          summary={text}
+                        />
+                      </Bounce>
+                    )
+                  })}
+                </Items>
+              </div>
+            )}
+            <br />
+            <br />
+            <hr />
           </Contain>
         </Body>
         <Footer />

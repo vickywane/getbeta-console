@@ -1,21 +1,16 @@
-import React, { createElement } from "react"
+import React from "react"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
 import { FiChevronRight, FiUser } from "react-icons/fi"
 
-import { useMutation } from "@apollo/react-hooks"
-
-// import { CREATE_TEAM } from "../../data/mutations"
 import { Text, Button } from "../../styles/style"
-import { TeamList as Data } from "../../Data"
 import { FormModal } from "../../components/modals/"
 
 const TeamList = (props): JSX.Element => {
   const { openFormModal, closeFormModal } = props.ModalStore
-
-  // const [createTeam, { data }] = useMutation(CREATE_TEAM)
-
+  const { teams } = props
+  console.log(teams, "teamlist")
   return (
     <div>
       <br /> <FormModal close={closeFormModal} type={"Team"} />
@@ -24,6 +19,7 @@ const TeamList = (props): JSX.Element => {
           <h5> Teams </h5>
 
           <Button
+            long
             onClick={() => {
               openFormModal()
             }}
@@ -33,7 +29,7 @@ const TeamList = (props): JSX.Element => {
         </Flex>
         <hr />
         <br />
-        {Data.map(({ id, name }) => {
+        {teams.map(({ id, name }) => {
           return (
             <ul style={{ listStyle: "none" }}>
               <li>

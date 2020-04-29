@@ -1,10 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import { Card, Text } from "../../styles/style"
+import { Card, Text, Button } from "../../styles/style"
 
 const EventCard = props => {
-  const { name, id, summary } = props
+  const { name, id, summary, role, volunteerOption } = props
 
   return (
     <Card key={id}>
@@ -23,6 +23,15 @@ const EventCard = props => {
         <Text small center>
           {summary}
         </Text>
+        <hr />
+
+        <Text bold> {role} </Text>
+        {volunteerOption ? (
+          <Button long transparent>
+            {" "}
+            Volunteer{" "}
+          </Button>
+        ) : null}
       </div>
     </Card>
   )

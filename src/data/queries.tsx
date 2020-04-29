@@ -39,6 +39,7 @@ const EVENTS: any = gql`
     events {
       id
       name
+      summary
       Date
       Email
       venue
@@ -47,4 +48,13 @@ const EVENTS: any = gql`
   }
 `
 
-export { GET_USER, USERS, GET_EVENT, EVENTS }
+const TEAMS: any = gql`
+  query Teams {
+    teams {
+      id
+      name
+    }
+  }
+`
+
+export { TEAMS, GET_USER, USERS, GET_EVENT, EVENTS }

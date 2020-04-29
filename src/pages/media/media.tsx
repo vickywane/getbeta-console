@@ -1,7 +1,8 @@
 import React from "react"
 import { inject, observer } from "mobx-react"
-import { FiSearch } from "react-icons/fi"
+import { FiSearch, FiUploadCloud } from "react-icons/fi"
 import Flex from "styled-flex-component"
+import { Link } from "react-router-dom"
 
 import { Header, Footer } from "../../components/"
 import Gallery from "./gallery"
@@ -52,11 +53,20 @@ const Media = (props): JSX.Element => {
             )}
           </Flex>
           <br />
+          <br />
 
           <Flex justifyBetween>
             <Text white> XXXXX files sent to xxx attendees. </Text>
 
-            <Text white>700 Total Files </Text>
+            <Link to={"/upload"} style={{ textDecoration: "none" }}>
+              <Flex>
+                <FiUploadCloud style={{ color: "#fff", fontSize: "2rem" }} />
+                <Text style={{ padding: "0rem 0.7rem" }} white>
+                  {" "}
+                  Upload{" "}
+                </Text>
+              </Flex>
+            </Link>
           </Flex>
 
           <div

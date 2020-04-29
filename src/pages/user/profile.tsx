@@ -31,7 +31,7 @@ const Profile = (props): JSX.Element => {
         </Flex>
 
         <Flex column>
-          <Link to="/media">
+          <Link to="/">
             <Hover>
               <FiImage style={{ fontSize: "2em" }} />
             </Hover>

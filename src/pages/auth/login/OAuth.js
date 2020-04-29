@@ -17,12 +17,12 @@ export default class OAuth extends Component {
   }
 
   componentDidMount() {
-    const { socket } = this.props
-
-    socket.on(user => {
-      this.popup.close()
-      this.setState({ user })
-    })
+    // const { socket } = this.props
+    //
+    // socket.on(user => {
+    //   this.popup.close()
+    //   this.setState({ user })
+    // })
   }
 
   // Routinely checks the popup to re-enable the login button

@@ -4,7 +4,8 @@ import media from "styled-media-query"
 import { Image, Modal } from "react-bootstrap"
 
 const Head = styled.div`
-  padding: 0.7em;
+  padding: 0.7em 0.7rem;
+  border-bottom: 1px solid grey;
 `
 
 const Body = styled.div`
@@ -247,15 +248,18 @@ const Card = styled.div`
   width: ${props => (props.team ? "22em" : "23em")};
   border-radius: ${props => (props.team ? "7px" : "5px")};
   padding: 1rem 0.5rem;
+  margin : 1rem
   box-shadow: 0px 2px 6px grey;
   background: transparent;
   color: black;
   cursor: pointer;
   ${media.lessThan("large")`
-      height: ${props => (props.team ? "20vh" : "30vh")};
+    margin : 0.7rem
+      height: ${props => (props.team ? "20vh" : "33vh")};
     width: ${props => (props.team ? "22em" : "20em")};
   `};
   ${media.lessThan("medium")`
+    margin : 0.7rem
    height: ${props => (props.team ? "20vh" : "26vh")};
   width: ${props => (props.team ? "22em" : "17em")};
 `};
@@ -283,7 +287,7 @@ const Notification = styled.div`
 const Switch = styled.div`
   padding: 0rem 0rem;
   border: 2.5px solid #401364;
-  width: 36rem;
+  width: ${props => (props.two ? "29rem" : "36rem")};
   background: transparent;
   transition: transform 2s;
   border-radius: 6px;
@@ -291,12 +295,12 @@ const Switch = styled.div`
     transform: ease-in;
   }
   ${media.lessThan("large")`
-     width: 36rem;
+    width:  ${props => (props.two ? "29.5rem" : "36rem")};
     border-radius: 2.5px;
-     border: 1.5px solid #401364;  
+    border: 1.5px solid #401364;  
   `};
   ${media.lessThan("medium")`
-     width: 24rem;
+    width:  ${props => (props.two ? "20.5rem" : "24rem")};
     border-radius: 2.5px;
   border: 1.5px solid #401364;
 `};
@@ -380,7 +384,14 @@ const CustomModal = styled(Modal)`
   margin-top: 5%;
 `
 
+const ScheduleCard = styled.div`
+  box-shadow: 0px 3px 4px grey;
+  width: 25rem;
+  padding: ${props => (props.padded ? "1rem" : null)};
+`
+
 export {
+  ScheduleCard,
   CustomModal,
   Border,
   FormCard,

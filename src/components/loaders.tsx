@@ -5,8 +5,9 @@ import { Header, Footer } from "./"
 const Loader = (props): JSX.Element => {
   const { loading, error } = props
   console.log(loading, error)
-  switch (props) {
-    case props.loading:
+  // @ts-ignore
+  switch ((loading, error)) {
+    case loading:
       return (
         <div>
           <Header />
@@ -27,7 +28,7 @@ const Loader = (props): JSX.Element => {
         </div>
       )
 
-    case props.error:
+    case error:
       return (
         <div>
           <Header />
