@@ -2,16 +2,24 @@ import React from "react"
 import Flex from "styled-flex-component"
 import { FiX, FiCalendar, FiPlus } from "react-icons/fi"
 import { Link } from "react-router-dom"
+import { inject, observer } from "mobx-react"
 
-import { Hover, Notification, Text } from "../../styles/style"
+import {
+  Button,
+  Hover,
+  FormBody,
+  Notification,
+  Text,
+  FormBody as Body,
+} from "../../styles/style"
 
 const Pane = props => {
   const { color, Data, type } = props
-  console.log(Data, "pane")
+  const { closeImport, closeNotify } = props.PaneStore
 
+  //Todo: Improve reusablity of these panes.
   const Panes = props => {
-    const { Data, type } = props
-    console.log(Data, "panes")
+    const { Data, type, closeImport, closeNotify } = props
     switch (type) {
       case "Schedule":
         return (
@@ -24,12 +32,11 @@ const Pane = props => {
                 return (
                   <Link style={{ textDecoration: "none" }} to={"/create"}>
                     <Text white key={id} style={{ padding: "0rem 0.8rem" }}>
-                      {" "}
                       Day {id} >{" "}
                     </Text>
                   </Link>
                 )
-              })}{" "}
+              })}
             </Flex>
 
             <Hover>
@@ -37,17 +44,82 @@ const Pane = props => {
             </Hover>
           </Flex>
         )
+      case "Event-Form-Import":
+        return (
+          <FormBody>
+            <Flex justifyBetween>
+              <Text center small white>
+                Import data from existing event managers.
+              </Text>
+
+              <Button
+                onClick={() => {
+                  closeImport()
+                }}
+              >
+                Import Data
+              </Button>
+            </Flex>
+          </FormBody>
+        )
+      case "Event-Form-Info":
+        return (
+          <Body>
+            <Flex justifyBetween>
+              <Text center small white>
+                Information saved here can be updated later.
+              </Text>
+
+              <Hover
+                onClick={() => {
+                  closeNotify()
+                }}
+              >
+                <FiX style={{ fontSize: "1.7rem", color: "white" }} />
+              </Hover>
+            </Flex>
+          </Body>
+        )
+      case "Team":
+        return (
+          <Flex justifyBetween>
+            <Text white> Use external tools to manage your tasks </Text>
+
+            <Flex>
+              <Button> Add Integration </Button>
+              <Hover
+                style={{ padding: "0.5rem 0rem" }}
+                onClick={() => {
+                  closeNotify()
+                }}
+              >
+                <FiX style={{ fontSize: "1.7rem" }} />
+              </Hover>
+            </Flex>
+          </Flex>
+        )
       default:
-        return <p> Panes. No Pane has been matched </p>
+        return (
+          <p style={{ textAlign: "center" }}>
+            {" "}
+            Panes. No Pane has been matched{" "}
+          </p>
+        )
     }
   }
 
   return (
     <Notification white color={color}>
       <br />
-      <Panes type={type} Data={Data} />
+      <Panes
+        closeImport={closeImport}
+        closeNotify={closeNotify}
+        type={type}
+        Data={Data}
+      />
     </Notification>
   )
 }
 
-export default Pane
+// @ts-ignore
+export default inject("PaneStore")(observer(Pane))

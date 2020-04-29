@@ -25,11 +25,11 @@ const Event = (props): JSX.Element => {
   const { data, loading, error } = useQuery(TEAMS)
 
   if (loading) {
-    return <Loader loading={true} />
+    return <Loader type={"loading"} />
   }
 
   if (error) {
-    return <Loader error={true} />
+    return <Loader type={"error"} />
   }
 
   if (data) {

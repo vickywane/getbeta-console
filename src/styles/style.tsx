@@ -3,6 +3,8 @@ import posed from "react-pose"
 import media from "styled-media-query"
 import { Image, Modal } from "react-bootstrap"
 
+// Todo: Refactor & compress file !!
+
 const Head = styled.div`
   padding: 0.7em 0.7rem;
   border-bottom: 1px solid grey;
@@ -390,7 +392,21 @@ const ScheduleCard = styled.div`
   padding: ${props => (props.padded ? "1rem" : null)};
 `
 
+const FormBody = styled.div`
+  padding: 0rem 15rem;
+  ${media.lessThan("large")`
+  padding: 0rem 2rem;
+`};
+  ${media.lessThan("medium")`
+  padding: 0rem 0.7rem;
+`};
+  ${media.lessThan("small")`
+ padding : 0rem 0.5rem;
+`};
+`
+
 export {
+  FormBody,
   ScheduleCard,
   CustomModal,
   Border,

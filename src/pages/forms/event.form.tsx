@@ -1,17 +1,16 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiX } from "react-icons/fi"
-import media from "styled-media-query"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import * as Yup from "yup"
 import { useMutation } from "@apollo/react-hooks"
+import { inject, observer } from "mobx-react"
 
 import { CREATE_EVENT } from "../../data/mutations"
 import { Forms } from "../../data/mockData"
 import Upload from "../media/upload"
-import { Header, Footer } from "../../components/"
+import { Header, Footer, Panes } from "../../components/"
 import Options from "../imports/createEvent/eventoptions.import"
 import {
   FormInput as Input,
@@ -19,24 +18,10 @@ import {
   Button,
   Text,
   Label,
-  Hover,
   Grid,
+  FormBody as Body,
   FormCard as Card,
-  Notification,
 } from "../../styles/style"
-
-const Body = styled.div`
-  padding: 0rem 15rem;
-  ${media.lessThan("large")`
-  padding: 0rem 2rem;
-`};
-  ${media.lessThan("medium")`
-  padding: 0rem 0.7rem;
-`};
-  ${media.lessThan("small")`
- padding : 0rem 0.5rem;
-`};
-`
 
 const UpGrid = styled.div`
   display: grid;
@@ -53,18 +38,17 @@ const CustomCard = styled(Card)`
   text-align: center;
 `
 
-const CreateEvent = () => {
+const CreateEvent = (props): JSX.Element => {
+  const { Notify, closeNotify, importPane } = props.PaneStore
+
   const [StartDate, setStartDate] = useState(new Date())
-  const [Notify, SetNotify] = useState(true)
   const [Mail, ConfirmMail] = useState(false)
-  const [Import, setImport] = useState(false)
 
   const handleCalendarChange = date => {
     setStartDate(date)
   }
 
   const [createEvent, { data }] = useMutation(CREATE_EVENT)
-  console.log(data, "mutation data")
 
   const [Name, setName] = useState("aaaxaxaaxaxaxa")
   const [Alias, setAlias] = useState("aaaxaxaaxaxaxa")
@@ -122,51 +106,15 @@ const CreateEvent = () => {
       <Header screen="event" name="" unshadowed={true} event={Alias} />
       {!Mail ? (
         <div>
-          {!Import ? (
-            <Notification color="#401364">
-              <br />
-              <Body>
-                <Flex justifyBetween>
-                  <Text center small white>
-                    Import data from existing event managers.
-                  </Text>
-
-                  <Button
-                    onClick={() => {
-                      setImport(true)
-                    }}
-                  >
-                    Import Data
-                  </Button>
-                </Flex>
-              </Body>
-            </Notification>
+          {!importPane ? (
+            <Panes type={"Event-Form-Import"} color="#401364" />
           ) : null}
         </div>
       ) : null}
-      {Notify ? (
-        <Notification color="#000">
-          <br />
-          <Body>
-            <Flex justifyBetween>
-              <Text center small white>
-                Information saved here can be updated later.
-              </Text>
-
-              <Hover
-                onClick={() => {
-                  SetNotify(false)
-                }}
-              >
-                <FiX style={{ fontSize: "1.7rem", color: "white" }} />
-              </Hover>
-            </Flex>
-          </Body>
-        </Notification>
-      ) : null}
+      {Notify ? <Panes type={"Event-Form-Info"} color="#000" /> : null}
       j
       <br />
-      {!Import ? (
+      {!importPane ? (
         <div>
           {!Mail ? (
             <Body>
@@ -483,7 +431,7 @@ const CreateEvent = () => {
                 <Button
                   onClick={() => {
                     ConfirmMail(true)
-                    SetNotify(false)
+                    closeNotify()
                     SubmitData()
                   }}
                 >
@@ -509,4 +457,4 @@ const CreateEvent = () => {
   )
 }
 
-export default CreateEvent
+export default inject("PaneStore")(observer(CreateEvent))

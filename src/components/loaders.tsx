@@ -3,11 +3,9 @@ import React from "react"
 import { Header, Footer } from "./"
 
 const Loader = (props): JSX.Element => {
-  const { loading, error } = props
-  console.log(loading, error)
-  // @ts-ignore
-  switch ((loading, error)) {
-    case loading:
+  const { type } = props
+  switch (type) {
+    case "loading":
       return (
         <div>
           <Header />
@@ -28,7 +26,7 @@ const Loader = (props): JSX.Element => {
         </div>
       )
 
-    case error:
+    case "error":
       return (
         <div>
           <Header />

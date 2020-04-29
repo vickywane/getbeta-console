@@ -6,7 +6,13 @@ import { ApolloProvider } from "@apollo/react-hooks"
 import Client from "./data/config"
 import App from "./App"
 
-import { ConsoleStore, MediaStore, AuthStore, ModalStore } from "./state/"
+import {
+  ConsoleStore,
+  PaneStore,
+  MediaStore,
+  AuthStore,
+  ModalStore,
+} from "./state/"
 
 // i would work on the theming later!!
 const theme = {
@@ -23,6 +29,7 @@ const Main = () => {
         ConsoleStore={ConsoleStore}
         MediaStore={MediaStore}
         ModalStore={ModalStore}
+        PaneStore={PaneStore}
       >
         <ThemeProvider theme={theme}>
           <App />

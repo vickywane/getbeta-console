@@ -1,27 +1,16 @@
-import React, { useState } from "react"
+import React from "react"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
-import { FiX } from "react-icons/fi"
 import { GiChecklist } from "react-icons/gi"
 
-import { Header, Footer } from "../../components/"
+import { Panes, Header, Footer } from "../../components/"
 import { FormModal } from "../../components/modals/"
-import {
-  Text,
-  Title,
-  Notification,
-  Contain,
-  Body,
-  Button,
-  Hover,
-  List,
-} from "../../styles/style"
+import { Text, Title, Contain, Button, List } from "../../styles/style"
 import { TaskList } from "../../Data"
 
 const Team = (props): JSX.Element => {
   const { openFormModal } = props.ModalStore
-
-  const [Notify, setNotify] = useState<boolean>(true)
+  const { Notify } = props.PaneStore
 
   return (
     <div>
@@ -30,27 +19,7 @@ const Team = (props): JSX.Element => {
         middleText={true}
         text={"Design Team"}
       />
-
-      {Notify ? (
-        <Notification white color="#401364">
-          <br />
-          <Flex justifyBetween>
-            <Text white> Use external tools to manage your tasks </Text>
-
-            <Flex>
-              <Button> Add Integration </Button>
-
-              <Hover
-                onClick={() => {
-                  setNotify(false)
-                }}
-              >
-                <FiX style={{ fontSize: "1.7rem" }} />
-              </Hover>
-            </Flex>
-          </Flex>
-        </Notification>
-      ) : null}
+      {Notify ? <Panes type={"Team"} color="#401364" /> : null}
       <FormModal type={"Team"} />
 
       <br />
@@ -161,4 +130,4 @@ const Team = (props): JSX.Element => {
   )
 }
 
-export default inject("ModalStore")(observer(Team))
+export default inject("ModalStore", "PaneStore")(observer(Team))
