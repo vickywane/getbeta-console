@@ -1,21 +1,8 @@
 import { gql } from "apollo-boost"
 
 const CREATE_USER = gql`
-  mutation createUser(
-    $name: String!
-    $email: String!
-    $website: String
-    $attendees: Int
-    $teams: Int
-  ) {
-    createUser(
-      name: $name
-      password: $password
-      email: $email
-      website: $venue
-      teams: $teams
-      attendees: $attendees
-    ) {
+  mutation createUser($name: String!, $email: String!, $password: String!) {
+    createUser(input: { name: $name, password: $password, email: $email }) {
       name
       id
       email
@@ -72,11 +59,26 @@ const CREATE_TEAM = gql`
 
 const CREATE_TASK = gql`
   mutation createTask($name: String!, $type: String!, $isCompleted: Boolean!) {
-    createTask(input: { name: $name, type: $type, isComplted: $isComplted }) {
+    createTask(input: { name: $name, type: $type, isCompleted: $isCompleted }) {
       name
       type
       isCompleted
     }
   }
 `
-export { CREATE_EVENT, CREATE_TASK, CREATE_TEAM }
+
+const LOGIN_USER = gql`
+  mutation login($email: String!, $password: String!) {
+    loginUser(input: { email: $email, password: $password }) {
+      token
+      id
+      expiredAt
+      user {
+        name
+        id
+      }
+    }
+  }
+`
+
+export { CREATE_EVENT, CREATE_TASK, CREATE_TEAM, CREATE_USER, LOGIN_USER }

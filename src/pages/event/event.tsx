@@ -1,28 +1,27 @@
-import React from "react"
-import Flex from "styled-flex-component"
-import { Image, Tab, Tabs } from "react-bootstrap"
-import { FiList, FiImage, FiSmartphone, FiMail } from "react-icons/fi"
-import { MdPeopleOutline } from "react-icons/md"
-import { GoLocation } from "react-icons/go"
+import * as React from "react"
 import { inject, observer } from "mobx-react"
-import { Link } from "react-router-dom"
-
 import { useQuery } from "@apollo/react-hooks"
-import { Loader, Header, Footer } from "../../components/"
-import { Hover, Contain, Text, Title, Button } from "../../styles/style"
-import { Checklist, People, Contact } from "../../components/modals/"
-import useWindowWidth from "../../hook_style"
-
-import { TEAMS } from "../../data/queries"
+import { CSSTransition } from "react-transition-group"
 import Activity from "./Activity"
 import TeamList from "./teamList"
 import Events from "./events"
 
-const Event = (props): JSX.Element => {
-  const { openChecklist, openPeople, openContactModal } = props.ModalStore
-  const Hooks = useWindowWidth()
+import { Loader, Header, Footer, Detail } from "../../components/"
+import { Contain } from "../../styles/style"
+import { Checklist, People, Contact } from "../../components/modals/"
+import useWindowWidth from "../../hook_style"
+import { UserContext, TabContext } from "../../state/context/contextState"
+import { GET_EVENT } from "../../data/queries"
+import EventDetails from "./eventdetails"
 
-  const { data, loading, error } = useQuery(TEAMS)
+const Event = (props): JSX.Element => {
+  const Hooks = useWindowWidth()
+  const { data, loading, error } = useQuery(GET_EVENT, {
+    variables: {
+      id: props.match.params.id,
+      name: "John Doe",
+    },
+  })
 
   if (loading) {
     return <Loader type={"loading"} />
@@ -33,129 +32,68 @@ const Event = (props): JSX.Element => {
   }
 
   if (data) {
-    console.log(data)
     return (
       <div>
         <Header event="|OSCA" />
-        <br />
-        <Checklist />
-        <People />
-        <Contact />
-        <Contain img="../../assets/images/test.png">
-          <br />
-          <br />
-          <br />
-          <br />
-          <Flex justifyBetween>
-            <Flex column>
-              <Flex>
-                <Image
-                  alt="profile"
-                  src={require("../../assets/images/developer.png")}
-                  style={{ maxWidth: "7em", maxHeight: "7em" }}
-                  fluid
-                  thumbnail
-                />
+        <UserContext.Consumer>
+          {user => {
+            return (
+              <div>
+                <br />
+                <Checklist />
+                <People />
+                <Contact email={data.event.Email} />
+                <EventDetails data={data} currentWindowSize={Hooks} />
 
-                <div style={{ padding: "0.2rem 1rem" }}>
-                  <Flex column>
-                    <Title small center bold>
-                      Open Source Community Africa.
-                    </Title>
-                    <Text center> OscaAfrica@gmail.com </Text>
-                    <Flex justifyBetween>
-                      <Text small> 1 Conference </Text>
-                      <Text small> 10 Meetup </Text>
-                    </Flex>
-
-                    {Hooks >= 650 ? (
-                      <Flex justifyBetween>
-                        <Link to="/media">
-                          <Button> Gallery </Button>
-                        </Link>
-
-                        <Button
-                          transparent
-                          onClick={() => {
-                            openContactModal()
-                          }}
+                <TabContext.Consumer>
+                  {tab => {
+                    console.log(tab)
+                    return (
+                      <Contain>
+                        <CSSTransition
+                          timeout={500}
+                          in={tab.activeTab === "detail"}
+                          classNames={""}
+                          unmountOnExit
                         >
-                          {" "}
-                          Contact Support{" "}
-                        </Button>
-                      </Flex>
-                    ) : (
-                      <Flex justifyBetween>
-                        <Hover>
-                          <FiImage style={{ fontSize: "1.8rem" }} />
-                        </Hover>
+                          <Detail data={data.event.createdBy[0]} />
+                        </CSSTransition>
 
-                        <Hover
-                          onClick={() => {
-                            openContactModal()
-                          }}
+                        <CSSTransition
+                          timeout={500}
+                          in={tab.activeTab === "activity"}
+                          classNames={""}
+                          unmountOnExit
                         >
-                          <FiMail style={{ fontSize: "1.8rem" }} />
-                        </Hover>
-                      </Flex>
-                    )}
-                  </Flex>
-                </div>
-              </Flex>
-              <br />
-              <Flex>
-                <GoLocation style={{ fontSize: "1.5em" }} />
-                <Text small style={{ paddingLeft: "7px" }}>
-                  Tech Zone Park , Egbeda , Lagos
-                </Text>
-              </Flex>
-            </Flex>
+                          <Activity />
+                        </CSSTransition>
 
-            <Flex column>
-              <div style={{ textAlign: "right" }}>
-                <Link to="/mobile">
-                  <Hover
-                    onClick={() => {
-                      openChecklist()
-                    }}
-                  >
-                    <FiSmartphone style={{ fontSize: "2rem" }} />
-                  </Hover>
-                </Link>
+                        <CSSTransition
+                          timeout={500}
+                          in={tab.activeTab === "teams"}
+                          classNames={""}
+                          unmountOnExit
+                        >
+                          <TeamList />
+                        </CSSTransition>
 
-                <br />
-                <Link to={"/schedule"} style={{ textDecoration: "none" }}>
-                  <FiList style={{ fontSize: "2rem" }} />
-                </Link>
-                <br />
-                <br />
-                <Hover>
-                  <MdPeopleOutline
-                    onClick={() => {
-                      openPeople()
-                    }}
-                    style={{ fontSize: "2rem" }}
-                  />
-                </Hover>
+                        <CSSTransition
+                          timeout={500}
+                          in={tab.activeTab === "events"}
+                          classNames={""}
+                          unmountOnExit
+                        >
+                          <Events />
+                        </CSSTransition>
+                      </Contain>
+                    )
+                  }}
+                </TabContext.Consumer>
               </div>
-              <h3 style={{ fontWeight: "lighter" }}> 30days left </h3>
-            </Flex>
-          </Flex>
-          <hr />
-          <Tabs defaultActiveKey="activity" id="uncontrolled-tab-example">
-            <Tab eventKey="activity" title="Activity">
-              <Activity />
-            </Tab>
-            <Tab eventKey="team" title="Teams">
-              <TeamList teams={data.teams} />
-            </Tab>
-            <Tab eventKey="Meetups" title="Meetups">
-              <Events />
-            </Tab>
-          </Tabs>
-        </Contain>
+            )
+          }}
+        </UserContext.Consumer>
 
-        <br />
         <Footer />
       </div>
     )

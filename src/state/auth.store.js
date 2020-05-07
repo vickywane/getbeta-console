@@ -1,29 +1,20 @@
 import { action, observable, decorate } from "mobx"
-import axios from "axios"
 
 class AuthStore {
-  authenticated = true
+  authenticated = false
 
-  AuthUser = () => {
-    //Todo: Move login endpoint to graphql endpoint && use apollo NOT axios
-    try {
-      axios
-        .post("http://localhost:8080/login", {
-          username: "admin",
-          password: "admin",
-        })
-        .then(res => {
-          const token = res.data.token
-          console.log(token)
-          localStorage.setItem("token", token)
-          this.authenticated = true
-        })
-    } catch (e) {
-      console.log(e)
-    }
+  AuthUser = details => {
+    const { id, name } = details
+
+    localStorage.setItem("user_id", id)
+    localStorage.setItem("user_name", name)
+
+    this.authenticated = true
   }
 
-  UnAuthUser = () => {
+  LogOut = () => {
+    localStorage.clear()
+
     this.authenticated = false
   }
 
@@ -49,7 +40,7 @@ const DecoratedAuthStore = decorate(AuthStore, {
 
   //actions
   AuthUser: action,
-  UnAuthUser: action,
+  LogOut: action,
   setEvent: action,
   setVolunter: action,
 })

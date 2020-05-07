@@ -17,5 +17,6 @@ export { default as Schedule } from "./event/schedule/schedule"
 export { default as ScheduledTalks } from "./event/schedule/talks"
 
 export { default as CreateEvent } from "./forms/event.form"
+export { default as AuthForm } from "./forms/login.form"
 export { default as TaskForm } from "./forms/task.form"
 export { default as TeamForm } from "./forms/team.form"

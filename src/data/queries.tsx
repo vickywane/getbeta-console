@@ -15,8 +15,8 @@ const USERS: any = gql`
 `
 
 const GET_USER: any = gql`
-  query get_user {
-    user(id: 5577006791947779410, name: "Victory") {
+  query get_user($id: Int!, $name: String!) {
+    user(id: $id, name: $name) {
       id
       name
       email
@@ -35,10 +35,26 @@ const GET_USER: any = gql`
 `
 
 const GET_EVENT: any = gql`
-  query GET_EVENT {
-    event(id: 5577006791947779410) {
+  query GET_EVENT($id: Int!, $name: String!) {
+    event(id: $id, name: $name) {
       name
+      venue
+      description
+      summary
       Email
+      createdBy {
+        name
+        email
+      }
+      attendees {
+        name
+      }
+      teams {
+        name
+      }
+      tracks {
+        name
+      }
     }
   }
 `
@@ -87,4 +103,4 @@ const TRACKS: any = gql`
   }
 `
 
-export { TEAMS, GET_USER, USERS, TALK, TRACKS, EVENTS }
+export { TEAMS, GET_USER, USERS, TALK, TRACKS, EVENTS, GET_EVENT }

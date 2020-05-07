@@ -17,10 +17,10 @@ const Client = new ApolloClient({
     }),
     new HttpLink({
       uri: ENDPOINT,
-      headers: {
-        Username: "victory",
-        Password: "iamnwani01",
-      },
+      // headers: {
+      //   Username: "victory",
+      //   Password: "iamnwani01",
+      // },
     }),
   ]),
   cache: new InMemoryCache(),

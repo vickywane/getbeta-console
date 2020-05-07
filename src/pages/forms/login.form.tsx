@@ -3,25 +3,28 @@ import styled from "styled-components"
 import { Card } from "react-bootstrap"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
-import { useMutation, useQuery } from "@apollo/react-hooks"
-import { Redirect } from "react-router-dom"
-
+import { Link } from "react-router-dom"
+import { useMutation } from "@apollo/react-hooks"
 // import io from "socket.io-client"
 
-import { CREATE_USER, LOGIN_USER } from "../../../data/mutations"
-import { Input, Button, Title, Text, Label } from "../../../styles/style"
+import { CREATE_USER } from "../../data/mutations"
+import { Input, Button, Title, Text, Label } from "../../styles/style"
+import { LoginData, CreateAccountFields } from "./formsData"
+import Forms from "./forms"
 
-import OAuth from "./OAuth"
-
+import OAuth from "../auth/login/OAuth"
 const Body = styled.div`
-  font-family: Muli', sans-serif;
   padding: 1em;
 `
-
 const API_URL: string = process.env.SOCKET_URL
 // const socket: string = io(API_URL)
 
-//TODO : I WILL DELETE THIS FILE AND USE THE LOGIN.FORM FILE  LATER
+// TODO : I plan to use this as a single REGISTER / LOGIN component and map inputs using d login data
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const SignIn = (props): JSX.Element => {
   const { AuthUser }: any = props.AuthStore
@@ -35,47 +38,43 @@ const SignIn = (props): JSX.Element => {
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
   const [ConfirmPassword, setConfirmPassword] = useState("")
+  const [createUser, { data }] = useMutation(CREATE_USER)
 
-  const [Error, setError] = useState("")
+  // trying to do something
+  const [f, setF] = useState(
+    LoginData.map(label => ({
+      ...label,
+      name: label,
+      value: "",
+    }))
+  )
 
-  // const [createUser, { data }] = useMutation(CREATE_USER);
-  const [loginUser, { data, loading }] = useMutation(LOGIN_USER, {
-    ignoreResults: false,
-    onCompleted: () => {},
-  })
+  const handleChange = e => {
+    const name = e.target.getAttribute("name")
 
-  const CreateUser = () => {
-    // createUser({
-    //   variables: {
-    //     name: Name,
-    //     email: Email,
-    //     password: Password,
-    //   },
-    // }).then(() => {
-    //   alert('created');
-    //   alert(JSON.stringify(data));
-    // });
+    const newF = f.map(f => {
+      return f.name === name ? { ...f, value: e.target.value } : f
+    })
+    setF(newF)
   }
 
-  const LoginUser = () => {
-    loginUser({
+  console.log(f, "feild")
+
+  const CreateUser = () => {
+    if (Password != ConfirmPassword) {
+      throw new Error("Passwords dont match")
+    }
+
+    createUser({
       variables: {
+        name: Name,
         email: Email,
         password: Password,
       },
-    }).catch(e => {
-      setError(e.graphQLErrors[0].message)
+    }).then(() => {
+      alert("created")
+      alert(JSON.stringify(data))
     })
-  }
-
-  if (data) {
-    const details = data.loginUser.user
-    AuthUser(details)
-    return <Redirect to="/console" message="Loggging in" />
-  }
-
-  if (loading) {
-    return <h2> Logging in ... </h2>
   }
 
   return (
@@ -83,9 +82,8 @@ const SignIn = (props): JSX.Element => {
       <Flex justifyCenter>
         <Card
           style={{
-            transition: "all 400ms",
             padding: "1em",
-            marginTop: "5%",
+            marginTop: "8%",
             boxShadow: "0px 5px 5px grey",
           }}
         >
@@ -113,45 +111,26 @@ const SignIn = (props): JSX.Element => {
               {!Create ? (
                 <div>
                   <hr />
-                  <Label small>Email Address</Label>
-                  <div>
-                    <Input
-                      onChange={event => {
-                        setEmail(event.target.value)
-                        event.preventDefault()
-                      }}
-                      value={Email}
-                      type="email"
-                      placeholder="Email Address"
-                    />
-                  </div>{" "}
-                  <br />
-                  <Label small>Password</Label>
-                  <div>
-                    <Input
-                      value={Password}
-                      onChange={event => {
-                        setPassword(event.target.value)
-                        event.preventDefault()
-                      }}
-                      type="password"
-                      placeholder="Password"
-                    />
-                    <br />
-                  </div>
+                  {LoginData.map(({ id, label, type, placeholder }) => {
+                    return (
+                      <div>
+                        <Column key={id}>
+                          <Label small>{label}</Label>
+                          <Input
+                            onChange={handleChange}
+                            value={Email}
+                            type={type}
+                            placeholder={placeholder}
+                          />
+                          <br />
+                        </Column>
+                      </div>
+                    )
+                  })}
                   <Text
                     small
                     style={{
                       color: "red",
-                      textAlign: "center",
-                    }}
-                  >
-                    {Error}
-                  </Text>
-                  <Text
-                    small
-                    style={{
-                      color: "blue",
                       cursor: "pointer",
                       textAlign: "right",
                     }}
@@ -162,14 +141,16 @@ const SignIn = (props): JSX.Element => {
                     Forgot Password ?
                   </Text>
                   <Flex justifyCenter>
-                    <Button
-                      long
-                      onClick={() => {
-                        LoginUser()
-                      }}
-                    >
-                      Login
-                    </Button>{" "}
+                    <Link to="/console">
+                      <Button
+                        long
+                        onClick={() => {
+                          AuthUser()
+                        }}
+                      >
+                        Login
+                      </Button>{" "}
+                    </Link>
                   </Flex>
                   <br />
                   <Flex justifyCenter>
@@ -206,49 +187,27 @@ const SignIn = (props): JSX.Element => {
               ) : (
                 <div>
                   <hr />
-                  <Label small> Name </Label>
-                  <div>
-                    {" "}
-                    <Input
-                      type="email"
-                      placeholder="Name"
-                      onChange={e => {
-                        setName(e.target.value)
-                        e.preventDefault()
-                      }}
-                    />
-                  </div>{" "}
-                  <br />
-                  <Label small>Email Address</Label>
-                  <div>
-                    <Input
-                      type="email"
-                      placeholder="Email Address"
-                      onChange={e => {
-                        setEmail(e.target.value)
-                        e.preventDefault()
-                      }}
-                    />
-                  </div>
-                  <br />
-                  <Label small>Password</Label>
-                  <div>
-                    <Input type="password" placeholder="Password" /> <br />
-                  </div>{" "}
-                  <br />
-                  <Label small>Confirm Password</Label>
-                  <div>
-                    <Input
-                      onChange={event => {
-                        setConfirmPassword(event.target.value)
-                        event.preventDefault()
-                      }}
-                      type="password"
-                      value={ConfirmPassword}
-                      placeholder="Retype Password"
-                    />{" "}
-                    <br />
-                  </div>
+                  {CreateAccountFields.map(
+                    ({ id, label, type, placeholder }) => {
+                      return (
+                        <div>
+                          <Column key={id}>
+                            <Label small>{label}</Label>
+                            <Input
+                              onChange={event => {
+                                setEmail(event.target.value)
+                                event.preventDefault()
+                              }}
+                              value={Email}
+                              type={type}
+                              placeholder={placeholder}
+                            />
+                            <br />
+                          </Column>
+                        </div>
+                      )
+                    }
+                  )}
                   <br />
                   <Flex justifyCenter>
                     <Button
@@ -276,7 +235,7 @@ const SignIn = (props): JSX.Element => {
                         small
                         style={{ color: "blue", cursor: "pointer" }}
                         onClick={() => {
-                          setForgot(false)
+                          setCreate(true)
                         }}
                       >
                         Login Instead

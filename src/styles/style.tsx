@@ -19,6 +19,7 @@ const Button = styled.button`
   border-radius: 5px;
   height: auto;
   outline: 0px;
+  transition: all 400ms;
   border: ${props =>
     props.transparent ? " 1px solid #000" : " 1px solid #0e2f5a"};
   color: ${props => (props.transparent ? "#0e2f5a" : "#fff")};
@@ -48,19 +49,17 @@ const Bounce = posed.div({
 })
 
 const Contain = styled.div`
-  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0rem 5rem")}
-  background-image: url('${props => props.img}');
+  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "1rem 5rem")}
+  background:  ${props => (props.grey ? "#F3F3F3" : "transparent")}
+  box-shadow: ${props => (props.bottomShadow ? "0px 1px 3px grey" : null)} ;
   ${media.lessThan("large")`
-  padding-left: 1.5em;
-  padding-right: 1.5em;
+  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0.3em 1.5rem")} ;
   `};
   ${media.lessThan("medium")`
-  padding-left: 1.5em;
-  padding-right: 1.5em;
+  padding: 1.5em 1.5rem;
   `};
   ${media.lessThan("small")`
-  padding-left: 0.4em;
-  padding-right: 0.4em;
+  paddingt: 0.4em 0.4rem;
   `};
 `
 
@@ -409,22 +408,24 @@ const FormBody = styled.div`
 `};
 `
 
-const fadein = keyframes`
-    0% {
-      transform: translateX(0%);
-    }
-    200% {
-      transform: translateX(-110%);
-      transition: all 600 ease; 
-    }
-`
-
-const Slide = styled.div`
-  transform: ${fadein};
+const BigTitle = styled.h2`
+  padding: 0.1rem 1rem;
+  font-size: ${props => (props.small ? "1.8em" : "2.5em")};
+  text-align: ${props => (props.center ? "center" : null)};
+  font-weight: ${props => (props.bold ? "600px" : "normal")};
+  ${media.lessThan("large")`
+      font-size: ${props => (props.small ? "1.8em" : "2.1em")};
+  `};
+  ${media.lessThan("medium")`
+font-size: ${props => (props.small ? "1.5em" : "2em")};
+`};
+  ${media.lessThan("small")`
+font-size: ${props => (props.small ? "1.3em" : "1.6em")};
+`};
 `
 
 export {
-  Slide,
+  BigTitle,
   FormBody,
   ScheduleCard,
   CustomModal,

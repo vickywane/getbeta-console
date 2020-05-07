@@ -23,6 +23,7 @@ import {
   TaskForm,
   TeamForm,
   Schedule,
+  AuthForm,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
@@ -45,6 +46,7 @@ function App(props): JSX.Element {
         <Route exact path="/" component={Documentation} />
         <Route path="/login" component={Signin} />
         <Route path="/signup" component={Signup} />
+        <Route path="/test-login" component={AuthForm} />
 
         <Protected
           authenticated={authenticated}

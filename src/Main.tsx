@@ -2,6 +2,7 @@ import React from "react"
 import { Provider } from "mobx-react"
 import { ThemeProvider } from "styled-components"
 import { ApolloProvider } from "@apollo/react-hooks"
+import { UserContext } from "./state/context/contextState"
 
 import Client from "./data/config"
 import App from "./App"
@@ -21,6 +22,11 @@ const theme = {
   primaryHover: null,
 }
 
+const CtxValue = {
+  id: "11",
+  name: "22",
+}
+
 const Main = () => {
   return (
     <ApolloProvider client={Client}>
@@ -31,9 +37,11 @@ const Main = () => {
         ModalStore={ModalStore}
         PaneStore={PaneStore}
       >
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
+        <UserContext.Provider value={CtxValue}>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </UserContext.Provider>
       </Provider>
     </ApolloProvider>
   )
