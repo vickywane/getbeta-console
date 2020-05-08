@@ -29,6 +29,7 @@ const Upload = (props): JSX.Element => {
 
       <Body>
         <UploadContainer
+          upload
           {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
         >
           {!isDragActive ? (

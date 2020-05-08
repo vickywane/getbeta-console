@@ -8,6 +8,7 @@ import { CSSTransition } from "react-transition-group"
 import Profile from "../user/profile"
 import { FiSearch, FiPlus } from "react-icons/fi"
 import { Header, Footer, Loader } from "../../components/"
+import { EventPlaceholder } from "../../components/placeholders/"
 import {
   Body,
   Bounce,
@@ -23,7 +24,7 @@ import { UserContext } from "../../state/context/contextState"
 
 import EventCard from "../../components/cards/EventCard"
 import { Events } from "../../Data"
-import "../extra.css"
+import "../../App.css"
 
 const Console = (props): JSX.Element => {
   const { loading, error, data } = useQuery(GET_USER, {
@@ -94,7 +95,6 @@ const Console = (props): JSX.Element => {
 
                 <Link to="/create">
                   <Button>
-                    {" "}
                     <Flex>
                       <div style={{ paddingRight: "15px" }}>
                         <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
@@ -106,19 +106,24 @@ const Console = (props): JSX.Element => {
               </Flex>
               <br />
               <Items>
-                {data.user.events.map(({ id, name, summary, venue }) => {
-                  return (
-                    <Bounce>
-                      <EventCard
-                        id={id}
-                        name={name}
-                        venue={venue}
-                        location={true}
-                        summary={summary}
-                      />
-                    </Bounce>
-                  )
-                })}
+                {/* I would use the Coalesc operator ( ?? ) here...   */}
+                {data.user.events == null ? (
+                  <EventPlaceholder />
+                ) : (
+                  data.user.events.map(({ id, name, summary, venue }) => {
+                    return (
+                      <Bounce>
+                        <EventCard
+                          id={id}
+                          name={name}
+                          venue={venue}
+                          location={true}
+                          summary={summary}
+                        />
+                      </Bounce>
+                    )
+                  })
+                )}
               </Items>
             </div>
           </CSSTransition>
@@ -148,19 +153,27 @@ const Console = (props): JSX.Element => {
               <br />
 
               <Items>
-                {Events.map(({ i, name, text }) => {
-                  return (
-                    <Bounce>
-                      <EventCard
-                        role={"Attendant"}
-                        id={i}
-                        name={name}
-                        location={true}
-                        summary={text}
-                      />
-                    </Bounce>
-                  )
-                })}
+                {/* I would use the Coalesc operator ( ?? ) here...   */}
+
+                {Events == null ? (
+                  <div>
+                    <p> you currently have not volunteered for any event </p>
+                  </div>
+                ) : (
+                  Events.map(({ i, name, text }) => {
+                    return (
+                      <Bounce>
+                        <EventCard
+                          role={"Attendant"}
+                          id={i}
+                          name={name}
+                          location={true}
+                          summary={text}
+                        />
+                      </Bounce>
+                    )
+                  })
+                )}
               </Items>
             </div>
           </CSSTransition>

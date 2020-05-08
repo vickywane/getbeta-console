@@ -16,15 +16,15 @@ import {
 import { SettingsPane } from "../"
 import { Burger, Menu } from "./"
 import useWindowWidth from "../../hook_style"
-import "../../pages/extra.css"
+import "../../App.css"
 
 const Header = (props): JSX.Element => {
   const hooks: number = useWindowWidth()
 
-  const [SettingsVisibility, setSettingsVisibility] = useState<boolean>(false)
+  const [SettingsVisibility, setSettingsVisibility] = useState(false)
 
   const { showProfilePane }: any = props.ConsoleStore
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState(false)
   const menuId: string = "main-menu"
 
   if (props.page === "non-app") {

@@ -7,6 +7,7 @@ import { UserContext } from "./state/context/contextState"
 import Client from "./data/config"
 import App from "./App"
 
+import "./App.css"
 import {
   ConsoleStore,
   PaneStore,
@@ -23,8 +24,8 @@ const theme = {
 }
 
 const CtxValue = {
-  id: "11",
-  name: "22",
+  id: "",
+  name: "",
 }
 
 const Main = () => {

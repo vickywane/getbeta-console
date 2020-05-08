@@ -173,15 +173,14 @@ const UploadContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1em;
-  border-width: 2px;
-  border-radius: 2px;
-  border-color: ${props => getColor(props)};
+  padding: 2em;
+  border: ${props =>
+    props.upload ? `7px solid ${getColor(props)}` : "7px solid #eeeeee"};
   border-style: dashed;
   background-color: #fafafa;
   color: #bdbdbd;
   outline: none;
-  margin: 1.5em;
+  margin: 2em;
   border-radius: 10px;
   transition: border 0.24s ease-in-out;
 `

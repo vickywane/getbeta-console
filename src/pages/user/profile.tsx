@@ -1,17 +1,38 @@
-import React from "react"
+import * as React from "react"
 import Flex from "styled-flex-component"
 import { Image } from "react-bootstrap"
-import { FiLogOut, FiImage } from "react-icons/fi"
+import { FiLogOut, FiImage, FiX } from "react-icons/fi"
 import { IoMdClipboard } from "react-icons/io"
 import { Link } from "react-router-dom"
-import useWindowWidth from "../../hook_style"
+import { CSSTransition } from "react-transition-group"
+import styled from "styled-components"
+import media from "styled-media-query"
 
+import useWindowWidth from "../../hook_style"
 import { Detail, Contain, Text, Hover, BigTitle } from "../../styles/style"
+import ChangeProfile from "./editProfile"
+import "../../App.css"
+
+const Card = styled.div`
+  padding: 1rem 1rem;
+  width: 38rem;
+  box-shadow: 0px 2px 6px grey;
+  border-radius: 10px;
+  border: 0px;
+  outline: 0px;
+  background: #fff;
+  position: absolute;
+  margin: 1rem 10rem;
+  transition: ease-in-out 700ms;
+  ${media.lessThan("medium")`
+  width: 33rem;
+  `};
+`
 
 const Profile = (props): JSX.Element => {
   const { name, email } = props.User.user
-
   const Hooks = useWindowWidth()
+  const [EditProfile, setEditProfile] = React.useState(false)
 
   return (
     <Contain grey bottomShadow>
@@ -19,14 +40,43 @@ const Profile = (props): JSX.Element => {
         <br />
         <Flex justifyBetween>
           <Flex>
-            <Image
-              alt="profile"
-              src={require("../../assets/images/developer.png")}
-              style={{ maxWidth: "8em", maxHeight: "8em" }}
-              roundedCircle
-              rounded
-              fluid
-            />
+            <Hover
+              onClick={() => {
+                setEditProfile(!EditProfile)
+              }}
+            >
+              <Image
+                alt="profile"
+                src={require("../../assets/images/developer.png")}
+                style={{ maxWidth: "8em", maxHeight: "8em" }}
+                roundedCircle
+                rounded
+                fluid
+              />
+            </Hover>
+
+            <CSSTransition
+              timeout={400}
+              classNames={"Profile"}
+              in={EditProfile == true}
+              unmountOnExit
+            >
+              <Card>
+                <Flex justifyBetween>
+                  <Text bold> Edit Profile </Text>
+                  <Hover
+                    onClick={() => {
+                      setEditProfile(!EditProfile)
+                    }}
+                    style={{ textAlign: "right" }}
+                  >
+                    <FiX style={{ fontSize: "1.8rem" }} />
+                  </Hover>
+                </Flex>
+                <hr />
+                <ChangeProfile name={name} email={email} />
+              </Card>
+            </CSSTransition>
 
             <Detail style={{ padding: "0rem 1rem" }}>
               <br />

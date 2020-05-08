@@ -81,4 +81,29 @@ const LOGIN_USER = gql`
   }
 `
 
-export { CREATE_EVENT, CREATE_TASK, CREATE_TEAM, CREATE_USER, LOGIN_USER }
+const UPDATE_USER = gql`
+  mutation updateUser(
+    $id: ID
+    $name: String
+    $email: String
+    $password: String
+    $role: String
+  ) {
+    updateUser(
+      id: $id
+      input: { name: $name, password: $password, email: $email, role: $role }
+    ) {
+      name
+      email
+    }
+  }
+`
+
+export {
+  CREATE_EVENT,
+  UPDATE_USER,
+  CREATE_TASK,
+  CREATE_TEAM,
+  CREATE_USER,
+  LOGIN_USER,
+}
