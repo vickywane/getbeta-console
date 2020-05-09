@@ -5,29 +5,18 @@ import { FiLogOut, FiImage, FiX } from "react-icons/fi"
 import { IoMdClipboard } from "react-icons/io"
 import { Link } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
-import styled from "styled-components"
-import media from "styled-media-query"
 
 import useWindowWidth from "../../hook_style"
-import { Detail, Contain, Text, Hover, BigTitle } from "../../styles/style"
+import {
+  Detail,
+  Contain,
+  Text,
+  Hover,
+  BigTitle,
+  MyCard,
+} from "../../styles/style"
 import ChangeProfile from "./editProfile"
 import "../../App.css"
-
-const Card = styled.div`
-  padding: 1rem 1rem;
-  width: 38rem;
-  box-shadow: 0px 2px 6px grey;
-  border-radius: 10px;
-  border: 0px;
-  outline: 0px;
-  background: #fff;
-  position: absolute;
-  margin: 1rem 10rem;
-  transition: ease-in-out 700ms;
-  ${media.lessThan("medium")`
-  width: 33rem;
-  `};
-`
 
 const Profile = (props): JSX.Element => {
   const { name, email } = props.User.user
@@ -54,14 +43,13 @@ const Profile = (props): JSX.Element => {
                 fluid
               />
             </Hover>
-
             <CSSTransition
               timeout={400}
-              classNames={"Profile"}
+              classNames={"profile"}
               in={EditProfile == true}
               unmountOnExit
             >
-              <Card>
+              <MyCard>
                 <Flex justifyBetween>
                   <Text bold> Edit Profile </Text>
                   <Hover
@@ -75,7 +63,7 @@ const Profile = (props): JSX.Element => {
                 </Flex>
                 <hr />
                 <ChangeProfile name={name} email={email} />
-              </Card>
+              </MyCard>
             </CSSTransition>
 
             <Detail style={{ padding: "0rem 1rem" }}>

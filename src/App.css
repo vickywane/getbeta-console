@@ -64,13 +64,46 @@ p {
 
 /* PROFILE TRANSITION STYLE */
 .profile-enter {
+  width: 5rem;
+  transition: all 400ms;
+  opacity: 0.5;
 }
 
 .profile-enter-active {
+  width: auto;
+  transition: all 400ms;
+  opacity: 1;
 }
 
 .profile-exit {
+  opacity: 0.5;
+  transition: all 400ms;
 }
 
 .profile-exit-active {
+  opacity: 0;
+}
+
+/* // Welcome Modal */
+.welcome-enter {
+  height: 5vh;
+  color: transparent;
+  transition: all 700ms;
+  box-shadow: 0px 1px 2px grey;
+}
+
+.welcome-enter-active {
+  height: auto;
+  transition: all 700ms;
+  box-shadow: 0px 2px 6px grey;
+  color: #000;
+}
+
+.welcome-exit {
+  opacity: 0.7;
+  transition: all 700ms;
+}
+
+.welcome-exit-active {
+  opacity: 0.3;
 }

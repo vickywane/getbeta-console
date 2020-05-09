@@ -58,6 +58,13 @@ class ModalStore {
   closeFormModal = () => {
     this.showFormModal = false
   }
+
+  // welcome modal
+  showWelcomeModal = true
+
+  closeWelcomeModal = () => {
+    this.showWelcomeModal = false
+  }
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
@@ -93,6 +100,9 @@ const DecoratedModalStore = decorate(ModalStore, {
 
   openFormModal: action,
   closeFormModal: action,
+
+  showWelcomeModal: observable,
+  closeWelcomeModal: action,
 })
 
 const store = new DecoratedModalStore()

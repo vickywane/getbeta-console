@@ -9,6 +9,7 @@ import Profile from "../user/profile"
 import { FiSearch, FiPlus } from "react-icons/fi"
 import { Header, Footer, Loader } from "../../components/"
 import { EventPlaceholder } from "../../components/placeholders/"
+import { WelcomeModal } from "../../components/modals/"
 import {
   Body,
   Bounce,
@@ -20,7 +21,6 @@ import {
   Title,
 } from "../../styles/style"
 import { GET_USER } from "../../data/queries"
-import { UserContext } from "../../state/context/contextState"
 
 import EventCard from "../../components/cards/EventCard"
 import { Events } from "../../Data"
@@ -48,6 +48,7 @@ const Console = (props): JSX.Element => {
       <div>
         <Header />
         <br />
+        <WelcomeModal />
         <Profile User={data} logout={LogOut} />
         <Contain>
           <Flex justifyCenter>

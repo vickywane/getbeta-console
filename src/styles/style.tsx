@@ -423,7 +423,24 @@ font-size: ${props => (props.small ? "1.3em" : "1.6em")};
 `};
 `
 
+const MyCard = styled.div`
+  padding: 1rem 1rem;
+  width: 38rem;
+  box-shadow: 0px 2px 6px grey;
+  border-radius: 10px;
+  border: 0px;
+  outline: 0px;
+  background: #fff;
+  position: absolute;
+  margin: ${props => (props.center ? "4rem 0rem" : "1rem 10rem")};
+  transition: ease-in-out 700ms;
+  ${media.lessThan("medium")`
+  width: 33rem;
+  `};
+`
+
 export {
+  MyCard,
   BigTitle,
   FormBody,
   ScheduleCard,
