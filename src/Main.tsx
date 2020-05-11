@@ -2,7 +2,7 @@ import React from "react"
 import { Provider } from "mobx-react"
 import { ThemeProvider } from "styled-components"
 import { ApolloProvider } from "@apollo/react-hooks"
-import { UserContext } from "./state/context/contextState"
+import { UserContext, TabContext, TabState } from "./state/context/contextState"
 
 import Client from "./data/config"
 import App from "./App"
@@ -39,9 +39,11 @@ const Main = () => {
         PaneStore={PaneStore}
       >
         <UserContext.Provider value={CtxValue}>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
+          <TabContext.Provider value={TabState}>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </TabContext.Provider>
         </UserContext.Provider>
       </Provider>
     </ApolloProvider>

@@ -5,10 +5,12 @@ const UserContext = React.createContext({
   name: "",
 })
 
-const TabContext = React.createContext({
+const TabState = {
   id: 1,
   activeTab: "detail",
   active: true,
-})
+}
 
-export { UserContext, TabContext }
+const TabContext = React.createContext(TabState)
+
+export { UserContext, TabContext, TabState }

@@ -44,10 +44,9 @@ const Event = (props): JSX.Element => {
                 <People />
                 <Contact email={data.event.Email} />
                 <EventDetails data={data} currentWindowSize={Hooks} />
-
                 <TabContext.Consumer>
                   {tab => {
-                    console.log(tab)
+                    console.log(tab, "event page")
                     return (
                       <Contain>
                         <CSSTransition

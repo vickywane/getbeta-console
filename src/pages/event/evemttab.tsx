@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import { TabContext } from "../../state/context/contextState"
+import { TabState } from "../../state/context/contextState"
 
 const Tab = styled.div`
   padding: 0rem 1rem;
@@ -23,47 +23,60 @@ const Column = styled.div`
 }
 `
 
+const TabReducer = (state, action) => {
+  console.log(state, "tab reducer")
+  switch (action.type) {
+    case "SWITCH_DETAIL":
+      return { ...state, activeTab: "detail" }
+    case "SWITCH_TRACKS":
+      return { ...state, activeTab: "activity" }
+    case "SWITCH_TEAMS":
+      return { ...state, activeTab: "teams" }
+    case "SWITCH_MEETUPS":
+      return { ...state, activeTab: "meetups" }
+    default:
+      break
+  }
+}
+
 // TODO : This component should be a reusable component using props!
 const EventTabs = () => {
+  // @ts-ignore
+  const [state, dispatch] = React.useReducer(TabReducer, TabState)
+
+  console.log(state, "state")
   return (
-    <TabContext.Consumer>
-      {tab => {
-        console.log(tab)
-        return (
-          <Tab key={tab.id}>
-            <Column
-              active
-              onClick={() => {
-                tab.activeTab = "detail"
-              }}
-            >
-              About
-            </Column>
-            <Column
-              onClick={() => {
-                tab.activeTab = "track"
-              }}
-            >
-              Tracks{" "}
-            </Column>
-            <Column
-              onClick={() => {
-                tab.activeTab = "teams"
-              }}
-            >
-              Teams{" "}
-            </Column>
-            <Column
-              onClick={() => {
-                tab.activeTab = "meetups"
-              }}
-            >
-              Meetups{" "}
-            </Column>
-          </Tab>
-        )
-      }}
-    </TabContext.Consumer>
+    <Tab key={state.id}>
+      <Column
+        active
+        onClick={() => {
+          dispatch({ type: "SWITCH_DETAIL" })
+        }}
+      >
+        About
+      </Column>
+      <Column
+        onClick={() => {
+          dispatch({ type: "SWITCH_TRACKS" })
+        }}
+      >
+        Tracks{" "}
+      </Column>
+      <Column
+        onClick={() => {
+          dispatch({ type: "SWITCH_TEAMS" })
+        }}
+      >
+        Teams{" "}
+      </Column>
+      <Column
+        onClick={() => {
+          dispatch({ type: "SWITCH_MEETUP" })
+        }}
+      >
+        Meetups{" "}
+      </Column>
+    </Tab>
   )
 }
 
