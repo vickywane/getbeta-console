@@ -119,7 +119,7 @@ const FormInput = styled.input`
   font-size: 1.1rem;
   background: ${props => (props.transparent ? "transparent" : null)};
     ${media.lessThan("large")`
-  width: ${props => (props.wide ? "46rem" : "21.5em")};
+  width: ${props => (props.wide ? "46rem" : "27em")};
   font-size: 1rem;
   `};
   ${media.lessThan("medium")`
@@ -128,6 +128,29 @@ const FormInput = styled.input`
   `};
   ${media.lessThan("small")`
   width: ${props => (props.wide ? "52rem" : "25em")};
+  font-size: 1rem;
+  `};
+`
+
+const BigInput = styled.textarea`
+  padding: 1.5rem 1.5rem;
+  margin: 0.5rem 1rem;
+  height: 20vh;
+  width: 50rem;
+  border-radius: 7px;
+  border: 1px solid black;
+  outline: 0px;
+  font-size: 1.1rem;
+  ${media.lessThan("large")`
+  width: 43rem;
+  font-size: 1.1rem;
+  `};
+  ${media.lessThan("medium")`
+ width: 35rem;
+  font-size: 1rem;
+  `};
+  ${media.lessThan("small")`
+width: 25.5rem;
   font-size: 1rem;
   `};
 `
@@ -173,7 +196,7 @@ const UploadContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2em;
+  padding: ${props => (props.unpadded ? "1em 1rem" : "2rem")};
   border: ${props =>
     props.upload ? `7px solid ${getColor(props)}` : "7px solid #eeeeee"};
   border-style: dashed;
@@ -450,6 +473,7 @@ export {
   List,
   Header,
   HeaderLinks,
+  BigInput,
   InputBox,
   Hover,
   Switch,

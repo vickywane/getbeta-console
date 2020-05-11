@@ -19,13 +19,13 @@ const Forms: any = {
       id: 3,
       label: "Event Description",
       placeholder: "Description of your event",
-      type: "text-area",
+      textarea: true,
     },
     {
       id: 4,
       label: "Event Summary",
-      placeholder: "Try summarize your event in one line",
-      type: "input",
+      placeholder: "Try summarize your event in few lines",
+      textarea: true,
     },
   ],
   third: [

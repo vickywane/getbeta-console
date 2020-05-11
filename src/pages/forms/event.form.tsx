@@ -17,6 +17,7 @@ import {
   Title,
   Button,
   Text,
+  BigInput,
   Label,
   Grid,
   FormBody as Body,
@@ -25,8 +26,8 @@ import {
 
 const UpGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(autofit, minmax(20rem, 1fr));
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 2rem 1rem;
 `
 // repeat(auto-fit, minmax(30rem, 1fr))
 
@@ -158,58 +159,19 @@ const CreateEvent = (props): JSX.Element => {
                                 onChange={event => {
                                   setName(event.target.value)
                                   event.preventDefault()
-                                  console.log(event.target.value, "text value")
                                 }}
                                 value={Name}
                                 placeholder={placeholder}
                               />
                             </Flex>
                           ) : (
-                            <textarea placeholder={placeholder} />
+                            <BigInput placeholder={placeholder} />
                           )}
                         </div>
                       )
                     })}
                     <br />
-                  </Card>
-                </UpGrid>
-                <br />
-                <UpGrid>
-                  <Card>
-                    {second.map(({ id, label, placeholder, textarea }) => {
-                      return (
-                        <div key={id}>
-                          <br />
-
-                          {!textarea ? (
-                            <Flex column>
-                              <Label htmlFor="event-name" small>
-                                {label}
-                              </Label>
-                              <Input
-                                grey
-                                id="event-name"
-                                name="event-name"
-                                onChange={event => {
-                                  setName(event.target.value)
-                                  event.preventDefault()
-                                  console.log(event.target.value, "text value")
-                                }}
-                                value={Name}
-                                placeholder={placeholder}
-                              />{" "}
-                            </Flex>
-                          ) : (
-                            <textarea placeholder={placeholder} />
-                          )}
-                        </div>
-                      )
-                    })}
-                    <br />
-                  </Card>
-                </UpGrid>
-                <br />
-                <UpGrid>
+                  </Card>{" "}
                   <Card>
                     {third.map(({ id, label, placeholder, textarea }) => {
                       return (
@@ -243,8 +205,7 @@ const CreateEvent = (props): JSX.Element => {
                     <br />
                   </Card>
                 </UpGrid>
-
-                <br />
+                <br /> <br />
                 <UpGrid>
                   <Card
                     style={{
@@ -358,6 +319,48 @@ const CreateEvent = (props): JSX.Element => {
               </form>
               <br />
               <br />
+              <UpGrid>
+                <Card>
+                  {second.map(({ id, label, placeholder, textarea }) => {
+                    return (
+                      <div key={id}>
+                        <br />
+
+                        {!textarea ? (
+                          <Flex column>
+                            <Label htmlFor="event-name" small>
+                              {label}
+                            </Label>
+                            <Input
+                              grey
+                              id="event-name"
+                              name="event-name"
+                              onChange={event => {
+                                setName(event.target.value)
+                                event.preventDefault()
+                                console.log(event.target.value, "text value")
+                              }}
+                              value={Name}
+                              placeholder={placeholder}
+                            />{" "}
+                          </Flex>
+                        ) : (
+                          <Flex column>
+                            <Label htmlFor={label} small>
+                              {label}
+                            </Label>
+                            <BigInput placeholder={placeholder} />{" "}
+                          </Flex>
+                        )}
+                      </div>
+                    )
+                  })}
+                  <br />
+                </Card>
+              </UpGrid>
+              <br />
+
+              <br />
 
               <Card
                 style={{
@@ -378,7 +381,7 @@ const CreateEvent = (props): JSX.Element => {
                 <hr />
                 <Label small> Cover Image </Label>
                 <Grid>
-                  <Upload type="component" />
+                  <Upload type="component" unpadded />
 
                   <div>
                     <br />
@@ -400,7 +403,7 @@ const CreateEvent = (props): JSX.Element => {
                 <br />
                 <Label small> Logo </Label>
                 <Grid>
-                  <Upload type="component" />
+                  <Upload type="component" unpadded />
 
                   <div>
                     <br />
