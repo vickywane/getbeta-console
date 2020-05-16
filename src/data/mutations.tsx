@@ -10,8 +10,12 @@ const CREATE_USER = gql`
   }
 `
 
+// this should come from mutation variable
+const id = localStorage.getItem("user_id")
+
 const CREATE_EVENT = gql`
   mutation createEvent(
+    # $UserID: ${id}!
     $name: String!
     $Email: String!
     $eventType: String!
@@ -23,6 +27,7 @@ const CREATE_EVENT = gql`
     $website: String!
   ) {
     createEvent(
+      UserID: ${id}
       input: {
         name: $name
         Email: $Email

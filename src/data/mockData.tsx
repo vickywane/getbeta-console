@@ -25,7 +25,7 @@ const Forms: any = {
       id: 4,
       label: "Event Summary",
       placeholder: "Try summarize your event in few lines",
-      textarea: true,
+      textarea: false,
     },
   ],
   third: [

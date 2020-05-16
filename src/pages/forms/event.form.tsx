@@ -13,16 +13,15 @@ import Upload from "../media/upload"
 import { Header, Footer, Panes } from "../../components/"
 import Options from "../imports/createEvent/eventoptions.import"
 import {
-  FormInput as Input,
   Title,
   Button,
-  Text,
-  BigInput,
   Label,
+  Text,
   Grid,
   FormBody as Body,
   FormCard as Card,
 } from "../../styles/style"
+import Field from "./fields"
 
 const UpGrid = styled.div`
   display: grid;
@@ -67,13 +66,24 @@ const CreateEvent = (props): JSX.Element => {
 
   const [createEvent, { data }] = useMutation(CREATE_EVENT)
 
-  const [Name, setName] = useState("aaaxaxaaxaxaxa")
-  const [Alias, setAlias] = useState("aaaxaxaaxaxaxa")
-  const [Description, setDescription] = useState("aaaxaxaaxaxaxa")
-  const [Website, setWebsite] = useState("aaaxaxaaxaxaxa")
-  const [Summary, setSummary] = useState("aaaxaxaaxaxaxa")
-  const [Venue, setVenue] = useState("aaaxaxaaxaxaxa")
-  const [Email, setEmail] = useState("aaaxaxaaxaxaxa")
+  // const [InputValues, setInputValues] = useState({
+  //   Name: '',
+  //   Alias: '',
+  //   Description: '',
+  //   Website: '',
+  //   Summary: '',
+  //   Venue: '',
+  //   Email: '',
+  //   EventType: 'Conference',
+  // });
+
+  const [Name, setName] = useState("")
+  const [Alias, setAlias] = useState("")
+  const [Description, setDescription] = useState("")
+  const [Website, setWebsite] = useState("")
+  const [Summary, setSummary] = useState("")
+  const [Venue, setVenue] = useState("Lagos")
+  const [Email, setEmail] = useState("")
   const [EventType, setEventType] = useState("Conference")
 
   let Validation = Yup.object().shape({
@@ -91,33 +101,59 @@ const CreateEvent = (props): JSX.Element => {
   const SubmitData = () => {
     // Todo: Validation doesnt work yet!
     try {
-      Validation.isValid({
-        name: Name,
-      }).then(valid => {
-        if (valid) {
-          createEvent({
-            variables: {
-              name: Name,
-              website: Website,
-              alias: Alias,
-              description: Description,
-              Email: Email,
-              venue: Venue,
-              Date: 11,
-              eventType: EventType,
-              summary: Summary,
-            },
-          }).then(() => {
-            alert("created")
-          })
-        }
+      createEvent({
+        variables: {
+          name: Name,
+          website: Website,
+          alias: Alias,
+          description: Description,
+          Email: Email,
+          venue: Venue,
+          Date: 11,
+          eventType: EventType,
+          summary: Summary,
+        },
+      }).then(() => {
+        alert("created")
       })
     } catch (e) {
       console.log(e)
     }
   }
 
+  const handleChange = (value, label) => {
+    console.log(value)
+    console.log(label)
+
+    switch (label) {
+      case "Event Name":
+        setName(value)
+        break
+      case "Event Alias":
+        setAlias(value)
+        break
+      case "Event Brand Page":
+        setWebsite(value)
+        break
+      case "Event Support Email":
+        setEmail(value)
+        break
+      case "Event Description":
+        setDescription(value)
+        break
+      case "Event Summary":
+        setSummary(value)
+        break
+      case "Event Venue":
+        setVenue(value)
+        break
+      default:
+        console.log(label)
+    }
+  }
+
   const { first, second, third } = Forms
+
   return (
     <div style={{ background: "#eeeeee" }}>
       <Header screen="event" name="" unshadowed={true} event={Alias} />
@@ -147,58 +183,36 @@ const CreateEvent = (props): JSX.Element => {
                         <div key={id}>
                           <br />
 
-                          {!textarea ? (
-                            <Flex column>
-                              <Label htmlFor="event-name" small>
-                                {label}
-                              </Label>
-                              <Input
-                                grey
-                                id="event-name"
-                                name="event-name"
-                                onChange={event => {
-                                  setName(event.target.value)
-                                  event.preventDefault()
-                                }}
-                                value={Name}
-                                placeholder={placeholder}
-                              />
-                            </Flex>
-                          ) : (
-                            <BigInput placeholder={placeholder} />
-                          )}
+                          <Field
+                            id={label}
+                            name={label}
+                            type={"text"}
+                            textarea={textarea}
+                            value={label == "Event Name" ? Name : Alias}
+                            onChange={e => handleChange(e, label)}
+                            placeholder={placeholder}
+                          />
                         </div>
                       )
                     })}
                     <br />
-                  </Card>{" "}
+                  </Card>
                   <Card>
                     {third.map(({ id, label, placeholder, textarea }) => {
                       return (
                         <div key={id}>
                           <br />
-
-                          {!textarea ? (
-                            <Flex column>
-                              <Label htmlFor="event-name" small>
-                                {label}
-                              </Label>
-                              <Input
-                                grey
-                                id="event-name"
-                                name="event-name"
-                                onChange={event => {
-                                  setName(event.target.value)
-                                  event.preventDefault()
-                                  console.log(event.target.value, "text value")
-                                }}
-                                value={Name}
-                                placeholder={placeholder}
-                              />{" "}
-                            </Flex>
-                          ) : (
-                            <textarea placeholder={placeholder} />
-                          )}
+                          <Field
+                            id={label}
+                            name={label}
+                            type={"text"}
+                            textarea={textarea}
+                            value={
+                              label == "Event Brand Page" ? Website : Email
+                            }
+                            onChange={e => handleChange(e, label)}
+                            placeholder={placeholder}
+                          />
                         </div>
                       )
                     })}
@@ -214,28 +228,22 @@ const CreateEvent = (props): JSX.Element => {
                     }}
                   >
                     <br />
-                    <Flex column>
-                      <Label small details hmtlFor="event-venue">
-                        Event Venue
-                      </Label>
-                      <Input
-                        id="event-venue"
-                        name="event-venue"
-                        onChange={event => {
-                          setVenue(event.target.value)
-                          event.preventDefault()
-                        }}
-                        value={Venue}
-                        placeholder="City , State , Country"
-                      />
-                    </Flex>
+                    <Field
+                      type="text"
+                      name="Event-Venue"
+                      id="Event-Venue"
+                      onChange={e => handleChange(e, "Event-Venue")}
+                      value={Venue}
+                      textarea={false}
+                      placeholder="City , State , Country"
+                    />
+
                     <br />
 
                     <Flex column>
                       <Label small details>
                         Event Date{" "}
                       </Label>
-
                       <p
                         style={{
                           paddingLeft: "20px",
@@ -326,32 +334,17 @@ const CreateEvent = (props): JSX.Element => {
                       <div key={id}>
                         <br />
 
-                        {!textarea ? (
-                          <Flex column>
-                            <Label htmlFor="event-name" small>
-                              {label}
-                            </Label>
-                            <Input
-                              grey
-                              id="event-name"
-                              name="event-name"
-                              onChange={event => {
-                                setName(event.target.value)
-                                event.preventDefault()
-                                console.log(event.target.value, "text value")
-                              }}
-                              value={Name}
-                              placeholder={placeholder}
-                            />{" "}
-                          </Flex>
-                        ) : (
-                          <Flex column>
-                            <Label htmlFor={label} small>
-                              {label}
-                            </Label>
-                            <BigInput placeholder={placeholder} />{" "}
-                          </Flex>
-                        )}
+                        <Field
+                          id={label}
+                          name={label}
+                          type={"text"}
+                          textarea={textarea}
+                          value={
+                            label == "Event Description" ? Description : Summary
+                          }
+                          onChange={e => handleChange(e, label)}
+                          placeholder={placeholder}
+                        />
                       </div>
                     )
                   })}
@@ -429,7 +422,7 @@ const CreateEvent = (props): JSX.Element => {
               <div style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    ConfirmMail(true)
+                    // ConfirmMail(true);
                     closeNotify()
                     SubmitData()
                   }}
