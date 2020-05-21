@@ -11,7 +11,6 @@ import {
   Signin,
   EventList,
   Media,
-  Signup,
   Documentation,
   Team,
   Deck,
@@ -23,7 +22,6 @@ import {
   TaskForm,
   TeamForm,
   Schedule,
-  AuthForm,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
@@ -45,8 +43,6 @@ function App(props): JSX.Element {
       <Switch>
         <Route exact path="/" component={Documentation} />
         <Route path="/login" component={Signin} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/test-login" component={AuthForm} />
 
         <Protected
           authenticated={authenticated}
@@ -135,12 +131,6 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/event-talks"
           component={ScheduledTalks}
-        />
-
-        <Protected
-          authenticated={authenticated}
-          path="/test"
-          component={Main}
         />
       </Switch>
     </Router>

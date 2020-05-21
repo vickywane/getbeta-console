@@ -25,122 +25,121 @@ const Profile = (props): JSX.Element => {
 
   return (
     <Contain grey bottomShadow>
-      <Contain>
-        <br />
-        <Flex justifyBetween>
-          <Flex>
-            <Hover
-              onClick={() => {
-                setEditProfile(!EditProfile)
-              }}
-            >
-              <Image
-                alt="profile"
-                src={require("../../assets/images/developer.png")}
-                style={{ maxWidth: "8em", maxHeight: "8em" }}
-                roundedCircle
-                rounded
-                fluid
-              />
-            </Hover>
-            <CSSTransition
-              timeout={400}
-              classNames={"profile"}
-              in={EditProfile == true}
-              unmountOnExit
-            >
-              <MyCard>
-                <Flex justifyBetween>
-                  <Text bold> Edit Profile </Text>
-                  <Hover
-                    onClick={() => {
-                      setEditProfile(!EditProfile)
-                    }}
-                    style={{ textAlign: "right" }}
-                  >
-                    <FiX style={{ fontSize: "1.8rem" }} />
-                  </Hover>
-                </Flex>
-                <hr />
-                <ChangeProfile name={name} email={email} />
-              </MyCard>
-            </CSSTransition>
+      <br />
+      <Flex justifyBetween>
+        <Flex>
+          <Hover
+            onClick={() => {
+              setEditProfile(!EditProfile)
+            }}
+          >
+            <Image
+              alt="profile"
+              src={require("../../assets/images/developer.png")}
+              style={{ maxWidth: "8em", maxHeight: "8em" }}
+              roundedCircle
+              rounded
+              fluid
+            />
+          </Hover>
+          <CSSTransition
+            timeout={400}
+            classNames={"profile"}
+            in={EditProfile == true}
+            unmountOnExit
+          >
+            <MyCard>
+              <Flex justifyBetween>
+                <Text bold> Edit Profile </Text>
+                <Hover
+                  onClick={() => {
+                    setEditProfile(!EditProfile)
+                  }}
+                  style={{ textAlign: "right" }}
+                >
+                  <FiX style={{ fontSize: "1.8rem" }} />
+                </Hover>
+              </Flex>
+              <hr />
+              <ChangeProfile name={name} email={email} />
+            </MyCard>
+          </CSSTransition>
 
-            <Detail style={{ padding: "0rem 1rem" }}>
-              <br />
-              <BigTitle bold center>
-                {name}{" "}
-              </BigTitle>
-              <Text center> {email} </Text>
-            </Detail>
-          </Flex>
+          <Detail style={{ padding: "0rem 1rem" }}>
+            <br />
+            <BigTitle bold center>
+              {name}{" "}
+            </BigTitle>
+            <Text center> {email} </Text>
+          </Detail>
+        </Flex>
 
-          {Hooks >= 1000 ? (
-            <Flex column>
-              <Link to="/">
-                <Flex>
-                  <Hover>
-                    <FiImage style={{ fontSize: "2em" }} />
-                  </Hover>
-
-                  <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
-                    Gallery{" "}
-                  </Text>
-                </Flex>
-              </Link>
-              <br />
-              <Link to="/talks">
-                <Flex>
-                  <Hover>
-                    <IoMdClipboard style={{ fontSize: "2em" }} />
-                  </Hover>
-
-                  <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
-                    {" "}
-                    Talks{" "}
-                  </Text>
-                </Flex>
-              </Link>
-              <br />
-              <Hover
-                style={{ color: "#401364" }}
-                onClick={() => {
-                  props.logout()
-                }}
-              >
-                <Flex>
-                  <FiLogOut style={{ fontSize: "2em" }} />
-
-                  <Text style={{ padding: "0rem 1rem" }}>Sign Out </Text>
-                </Flex>
-              </Hover>
-            </Flex>
-          ) : (
-            <Flex column>
-              <Link to="/">
+        {Hooks >= 1000 ? (
+          <Flex column>
+            <Link to="/">
+              <Flex>
                 <Hover>
                   <FiImage style={{ fontSize: "2em" }} />
                 </Hover>
-              </Link>
-              <br />
-              <Link to="/talks">
+
+                <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
+                  Gallery{" "}
+                </Text>
+              </Flex>
+            </Link>
+            <br />
+            <Link to="/talks">
+              <Flex>
                 <Hover>
                   <IoMdClipboard style={{ fontSize: "2em" }} />
                 </Hover>
-              </Link>
-              <br />
-              <Hover
-                style={{ color: "#401364" }}
-                onClick={() => {
-                  props.logout()
-                }}
-              >
+
+                <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
+                  {" "}
+                  Talks{" "}
+                </Text>
+              </Flex>
+            </Link>
+            <br />
+            <Hover
+              style={{ color: "#401364" }}
+              onClick={() => {
+                props.logout()
+              }}
+            >
+              <Flex>
                 <FiLogOut style={{ fontSize: "2em" }} />
+
+                <Text style={{ padding: "0rem 1rem" }}>Sign Out </Text>
+              </Flex>
+            </Hover>
+          </Flex>
+        ) : (
+          <Flex column>
+            <Link to="/">
+              <Hover>
+                <FiImage style={{ fontSize: "2em" }} />
               </Hover>
-            </Flex>
-          )}
-        </Flex>
-      </Contain>
+            </Link>
+            <br />
+            <Link to="/talks">
+              <Hover>
+                <IoMdClipboard style={{ fontSize: "2em" }} />
+              </Hover>
+            </Link>
+            <br />
+            <Hover
+              style={{ color: "#401364" }}
+              onClick={() => {
+                props.logout()
+              }}
+            >
+              <FiLogOut style={{ fontSize: "2em" }} />
+            </Hover>
+          </Flex>
+        )}
+      </Flex>
+      <br />
     </Contain>
   )
 }

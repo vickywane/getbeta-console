@@ -22,13 +22,28 @@ import {
   FormCard as Card,
 } from "../../styles/style"
 import Field from "./fields"
+import media from "styled-media-query"
 
 const UpGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 2rem 1rem;
+  ${media.lessThan("huge")`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-gap: 2rem 1rem;
+  `};
+  ${media.lessThan("large")`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 2rem 1rem;
+  `};
+  ${media.lessThan("medium")`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 2rem 1rem;
+  `};
 `
-// repeat(auto-fit, minmax(30rem, 1fr))
 
 const CustomCard = styled(Card)`
   width: 30rem;
@@ -47,6 +62,15 @@ const TypeBox = styled.div`
  &: hover {
     cursor: pointer;
   }
+  ${media.lessThan("large")`
+  width: 26rem;
+  `};
+  ${media.lessThan("medium")`
+  width: 30rem;
+  `};
+  ${media.lessThan("small")`
+  width: 30rem;
+  `};
 `
 
 const Radio = styled.input`
@@ -56,26 +80,15 @@ const Radio = styled.input`
 
 const CreateEvent = (props): JSX.Element => {
   const { Notify, closeNotify, importPane } = props.PaneStore
-
   const [StartDate, setStartDate] = useState(new Date())
   const [Mail, ConfirmMail] = useState(false)
+  const [Error, setError] = useState("")
 
   const handleCalendarChange = date => {
     setStartDate(date)
   }
 
   const [createEvent, { data }] = useMutation(CREATE_EVENT)
-
-  // const [InputValues, setInputValues] = useState({
-  //   Name: '',
-  //   Alias: '',
-  //   Description: '',
-  //   Website: '',
-  //   Summary: '',
-  //   Venue: '',
-  //   Email: '',
-  //   EventType: 'Conference',
-  // });
 
   const [Name, setName] = useState("")
   const [Alias, setAlias] = useState("")
@@ -99,32 +112,28 @@ const CreateEvent = (props): JSX.Element => {
   })
 
   const SubmitData = () => {
-    // Todo: Validation doesnt work yet!
-    try {
-      createEvent({
-        variables: {
-          name: Name,
-          website: Website,
-          alias: Alias,
-          description: Description,
-          Email: Email,
-          venue: Venue,
-          Date: 11,
-          eventType: EventType,
-          summary: Summary,
-        },
-      }).then(() => {
+    createEvent({
+      variables: {
+        name: Name,
+        website: Website,
+        alias: Alias,
+        description: Description,
+        Email: Email,
+        venue: Venue,
+        Date: 11,
+        eventType: EventType,
+        summary: Summary,
+      },
+    })
+      .then(() => {
         alert("created")
       })
-    } catch (e) {
-      console.log(e)
-    }
+      .catch(e => {
+        setError(e.graphQLErrors[0].message)
+      })
   }
 
   const handleChange = (value, label) => {
-    console.log(value)
-    console.log(label)
-
     switch (label) {
       case "Event Name":
         setName(value)
@@ -164,12 +173,12 @@ const CreateEvent = (props): JSX.Element => {
           ) : null}
         </div>
       ) : null}
-      {Notify ? <Panes type={"Event-Form-Info"} color="#000" /> : null}
       <br />
       {!importPane ? (
         <div>
           {!Mail ? (
             <Body>
+              <Text style={{ color: "red" }}> {Error} </Text>
               <Title small bold>
                 Details
               </Title>

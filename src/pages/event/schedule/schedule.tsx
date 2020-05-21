@@ -7,59 +7,22 @@ import { TRACKS } from "../../../data/queries"
 import { Panes, Header, Footer, Loader } from "../../../components/"
 import { Grid, ScheduleCard, Text, Contain, Title } from "../../../styles/style"
 
-const Data = [
-  {
-    id: 1,
-    name: "Design Track",
-    time: "12pm - 2pm",
-  },
-  {
-    id: 2,
-    name: "Documentation Track",
-    time: "2pm - 3pm",
-  },
-  {
-    id: 3,
-    name: "Android Track",
-    time: "2pm - 3pm",
-  },
-  {
-    id: 4,
-    name: "Mobile Web Track",
-    time: "2pm - 3pm",
-  },
-]
-
-//Todo Make talk cover image an image background
-
-const Schedule = () => {
+const Schedule = props => {
   const [Click, setClick] = React.useState(false)
 
-  const { data, loading, error } = useQuery(TRACKS)
-
-  if (error) {
-    return <Loader type={"loading"} />
-  }
-
-  if (loading) {
-    return <Loader type={"error"} />
-  }
-
-  const { tracks } = data
+  const { data } = props
   return (
-    <div>
-      <Contain
-        style={{
-          backgroundColor: "aliceblue",
-          height: window.innerHeight - 50,
-          boxShadow: "5px 4px 4px grey",
-        }}
-      >
-        <br />
-        <br />
+    <Contain>
+      <br />
+      <br />
 
+      {data === null ? (
+        <div>
+          <p> No track </p>
+        </div>
+      ) : (
         <Grid>
-          {Data.map(({ id, time, name }) => {
+          {data.map(({ id, duration, name }) => {
             return (
               <ScheduleCard
                 onClick={() => setClick(!Click)}
@@ -68,21 +31,26 @@ const Schedule = () => {
                 key={id}
               >
                 <Flex column>
-                  <Title small center bold>
-                    {name}
-                  </Title>
+                  <Link
+                    to={`/event-talks/${id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Title small center bold>
+                      {name}
+                    </Title>
+                  </Link>
                   <Text small center style={{ color: "grey" }}>
-                    {time}{" "}
+                    {duration}
                   </Text>
                 </Flex>
               </ScheduleCard>
             )
           })}
         </Grid>
-        <br />
-        <br />
-      </Contain>
-    </div>
+      )}
+      <br />
+      <br />
+    </Contain>
   )
 }
 

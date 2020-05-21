@@ -188,4 +188,8 @@ const Console = (props): JSX.Element => {
   }
 }
 
-export default inject("ConsoleStore", "AuthStore")(observer(Console))
+export default inject(
+  "ConsoleStore",
+  "AuthStore",
+  "ModalStore"
+)(observer(Console))

@@ -1,8 +1,9 @@
 import React from "react"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
-
+import { useQuery } from "@apollo/react-hooks"
 import { FiSearch } from "react-icons/fi"
+
 import { Panes, Header, Footer } from "../../../components/"
 import {
   Grid,
@@ -12,6 +13,7 @@ import {
   Hover,
   Title,
 } from "../../../styles/style"
+import { TALKS } from "../../../data/queries"
 
 const Data = [
   {
@@ -40,11 +42,22 @@ const InputBox = styled.div`
   border: 1px solid #000;
   border-radius: 5px;
 `
-
+// 858555300
 //Todo Make talk cover image an image background
-const Schedule = () => {
+const Schedule = props => {
+  const { loading, error, data } = useQuery(TALKS, {})
+  if (error) {
+    return <p> error </p>
+  }
+  if (loading) {
+    return <p> loading </p>
+  }
+
+  console.log(data, "track")
+
   return (
     <div>
+      <Header />
       <br />
       <div style={{ padding: "1rem 2rem", textAlign: "right" }}>
         <Flex justifyBetween>
@@ -62,7 +75,7 @@ const Schedule = () => {
 
       <br />
       <Grid>
-        {Data.map(({ id }) => {
+        {data.talks.map(({ id, title, summary }) => {
           return (
             <ScheduleCard style={{ marginLeft: "3rem" }} talk key={id}>
               <img
@@ -73,7 +86,7 @@ const Schedule = () => {
               <Body>
                 <Flex justifyBetween>
                   <Text style={{ padding: "0.5rem 0rem" }}>
-                    Shedrack Akintayo
+                    Somebody Somebody
                   </Text>
                   <img
                     style={{ height: "auto", maxWidth: "4rem" }}
@@ -82,8 +95,7 @@ const Schedule = () => {
                   />
                 </Flex>
                 <Title small center>
-                  {" "}
-                  Building Distributed Systems{" "}
+                  {title}
                 </Title>
               </Body>
             </ScheduleCard>
@@ -92,6 +104,7 @@ const Schedule = () => {
       </Grid>
 
       <br />
+      <Footer />
     </div>
   )
 }

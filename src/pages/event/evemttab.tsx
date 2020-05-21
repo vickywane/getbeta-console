@@ -14,7 +14,7 @@ const Column = styled.div`
     font-size : 1.1rem;
     padding: 1rem  2rem;
     transition : all 200ms;
-    margin: 0rem 1rem; 
+    margin: 0rem 1rem;
     font-weight: ${props => (props.active ? "600" : "normal")}
     border-bottom: ${props => (props.active ? "4px solid blue" : "0px")} ;
 &: hover {
@@ -48,7 +48,6 @@ const EventTabs = () => {
   return (
     <Tab key={state.id}>
       <Column
-        active
         onClick={() => {
           dispatch({ type: "SWITCH_DETAIL" })
         }}
@@ -56,6 +55,7 @@ const EventTabs = () => {
         About
       </Column>
       <Column
+        active
         onClick={() => {
           dispatch({ type: "SWITCH_TRACKS" })
         }}

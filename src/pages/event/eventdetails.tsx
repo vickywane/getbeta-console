@@ -43,7 +43,7 @@ const EventDetails = (props): JSX.Element => {
                     alt="profile"
                     src={require("../../assets/images/developer.png")}
                     style={{
-                      width: "8em",
+                      width: "7em",
                       height: "11vh",
                       margin: "1rem 0rem",
                     }}

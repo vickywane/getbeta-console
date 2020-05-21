@@ -2,6 +2,7 @@ import { action, observable, decorate } from "mobx"
 
 class AuthStore {
   authenticated = true
+  authState = "Login"
 
   AuthUser = details => {
     const { id, name } = details
@@ -9,6 +10,10 @@ class AuthStore {
     localStorage.setItem("user_id", id)
     localStorage.setItem("user_name", name)
 
+    this.authenticated = true
+  }
+
+  Login = () => {
     this.authenticated = true
   }
 
@@ -30,6 +35,10 @@ class AuthStore {
   setVolunter = () => {
     this.hasVolunteer = true
   }
+
+  setAuthState = state => {
+    this.authState = state
+  }
 }
 
 const DecoratedAuthStore = decorate(AuthStore, {
@@ -37,12 +46,15 @@ const DecoratedAuthStore = decorate(AuthStore, {
   authenticated: observable,
   hasEvent: observable,
   hasVolunteer: observable,
+  authState: observable,
 
   //actions
+  Login: action,
   AuthUser: action,
   LogOut: action,
   setEvent: action,
   setVolunter: action,
+  setAuthState: action,
 })
 
 const store = new DecoratedAuthStore()

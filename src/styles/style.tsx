@@ -53,10 +53,10 @@ const Contain = styled.div`
   background:  ${props => (props.grey ? "#F3F3F3" : "transparent")}
   box-shadow: ${props => (props.bottomShadow ? "0px 1px 3px grey" : null)} ;
   ${media.lessThan("large")`
-  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0.3em 1.5rem")} ;
+  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0.5em 1.5rem")} ;
   `};
   ${media.lessThan("medium")`
-  padding: 1.5em 1.5rem;
+  padding: 1.5em 0.5rem;
   `};
   ${media.lessThan("small")`
   paddingt: 0.4em 0.4rem;
@@ -85,8 +85,10 @@ const ModalInput = styled.input`
 
 const Input = styled.input`
   height: ${props => (props.long ? "10vh" : "40px")};
-  width: ${props => (props.wide ? "52rem" : "30em")};
-  padding: 0.5em;
+  width: auto;
+  padding: 0.7em 1.5rem;
+  display : flex;
+  flex: 1;
   border: ${props => (props.unbordered ? "0px" : " 1px solid grey")};
   outline: 0px;
   color: ${props => (props.white ? "#fff" : "#000")}
@@ -94,16 +96,23 @@ const Input = styled.input`
   padding-left: 10px;
   border-radius: 4px;
   font-size: 1.1rem;
+  transition: all 300ms;
   background: ${props => (props.transparent ? "transparent" : null)};
+    ${media.lessThan("huge")`
+    width: ${props => (props.wide ? "60rem" : "auto")};
+    `};
     ${media.lessThan("large")`
-  width: ${props => (props.wide ? "60rem" : "25em")};
+  width: ${props => (props.wide ? "60rem" : "auto")};
   `};
   ${media.lessThan("medium")`
-  width: ${props => (props.wide ? "52rem" : "24em")};
+  width: ${props => (props.wide ? "52rem" : "auto")};
   `};
   ${media.lessThan("small")`
-  width: ${props => (props.wide ? "52rem" : "21em")};
+  width: ${props => (props.wide ? "52rem" : "auto")};
   `};
+  &: hover {
+    border: 1px solid blue;
+  }
 `
 
 const FormInput = styled.input`
@@ -136,6 +145,8 @@ const BigInput = styled.textarea`
   padding: 1.5rem 1.5rem;
   margin: 0.5rem 1rem;
   height: 20vh;
+  display: flex;
+  flex: 1;
   width: 50rem;
   border-radius: 7px;
   border: 1px solid black;
@@ -156,6 +167,7 @@ width: 25.5rem;
 `
 
 const Text: any = styled.p`
+  font-family: calibri;
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.05rem" : "1.2rem")};
   color: ${props => (props.white ? "white" : "black")};
@@ -215,13 +227,13 @@ const Title = styled.h5`
   font-size: ${props => (props.small ? "1.7rem" : "2rem")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
   ${media.lessThan("large")`
-font-size: ${props => (props.small ? "1.8em" : "2em")};
+  font-size: ${props => (props.small ? "1.6em" : "2em")};
   `};
   ${media.lessThan("medium")`
-font-size: ${props => (props.small ? "1.5em" : "2em")};
+  font-size: ${props => (props.small ? "1.5em" : "2em")};
 `};
   ${media.lessThan("small")`
-font-size: ${props => (props.small ? "1.3em" : "2em")};
+  font-size: ${props => (props.small ? "1.3em" : "2em")};
 `};
 `
 
@@ -320,7 +332,7 @@ const Switch = styled.div`
   ${media.lessThan("large")`
     width:  ${props => (props.two ? "29.5rem" : "36rem")};
     border-radius: 2.5px;
-    border: 1.5px solid #401364;  
+    border: 1.5px solid #401364;
   `};
   ${media.lessThan("medium")`
     width:  ${props => (props.two ? "20.5rem" : "24rem")};
@@ -418,9 +430,12 @@ const ScheduleCard = styled.div`
 `
 
 const FormBody = styled.div`
-  padding: 0rem 15rem;
+  padding: 0rem 10rem;
+  ${media.lessThan("huge")`
+  padding: 0rem 6rem;
+  `};
   ${media.lessThan("large")`
-  padding: 0rem 2rem;
+  padding: 0rem 1rem;
 `};
   ${media.lessThan("medium")`
   padding: 0rem 0.7rem;

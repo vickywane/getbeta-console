@@ -5,6 +5,7 @@ import { CSSTransition } from "react-transition-group"
 import Activity from "./Activity"
 import TeamList from "./teamList"
 import Events from "./events"
+import Schedule from "./schedule/schedule"
 
 import { Loader, Header, Footer, Detail } from "../../components/"
 import { Contain } from "../../styles/style"
@@ -60,11 +61,11 @@ const Event = (props): JSX.Element => {
 
                         <CSSTransition
                           timeout={500}
-                          in={tab.activeTab === "activity"}
+                          in={tab.activeTab === "tracks"}
                           classNames={""}
                           unmountOnExit
                         >
-                          <Activity />
+                          <Schedule data={data.event.tracks} />
                         </CSSTransition>
 
                         <CSSTransition

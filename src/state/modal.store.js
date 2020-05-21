@@ -60,7 +60,7 @@ class ModalStore {
   }
 
   // welcome modal
-  showWelcomeModal = true
+  showWelcomeModal = false
 
   closeWelcomeModal = () => {
     this.showWelcomeModal = false

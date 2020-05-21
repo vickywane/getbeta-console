@@ -53,7 +53,9 @@ const GET_EVENT: any = gql`
         name
       }
       tracks {
+        id
         name
+        duration
       }
     }
   }
@@ -82,18 +84,6 @@ const TEAMS: any = gql`
   }
 `
 
-const TALK: any = gql`
-  query talk {
-    talks(Limit: 5) {
-      title
-      id
-      Archived
-      description
-      summary
-    }
-  }
-`
-
 const TRACKS: any = gql`
   query Track {
     tracks {
@@ -103,4 +93,32 @@ const TRACKS: any = gql`
   }
 `
 
-export { TEAMS, GET_USER, USERS, TALK, TRACKS, EVENTS, GET_EVENT }
+const GET_TALK: any = gql`
+  query talk($id: Int!) {
+    talk(id: $id) {
+      id
+      title
+      summary
+      speaker {
+        name
+      }
+    }
+  }
+`
+
+const TALKS: any = gql`
+  query talk {
+    talks(Limit: 5) {
+      title
+      id
+      Archived
+      description
+      summary
+      speaker {
+        name
+      }
+    }
+  }
+`
+
+export { TEAMS, GET_TALK, GET_USER, USERS, TALKS, TRACKS, EVENTS, GET_EVENT }

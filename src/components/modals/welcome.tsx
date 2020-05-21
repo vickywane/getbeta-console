@@ -30,20 +30,10 @@ const Welcome = props => {
       <Flex justifyCenter>
         <MyCard center>
           <Head>
-            <Flex justifyBetween>
-              <Title bold small>
-                {" "}
-                Welcome To Oasis
-              </Title>
-
-              <Hover
-                onClick={() => {
-                  setShow(!show)
-                }}
-              >
-                <FiX style={{ fontSize: "1.8rem" }} />
-              </Hover>
-            </Flex>
+            <Title bold small center>
+              {" "}
+              Welcome To Oasis
+            </Title>
           </Head>
 
           <Body>
