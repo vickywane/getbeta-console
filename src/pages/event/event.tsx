@@ -37,9 +37,7 @@ const Event = (props): JSX.Element => {
     return <Loader type={"error"} />
   }
   if (data) {
-    console.log(data)
     const name = Hooks >= 900 ? data.event.name : data.event.alias
-
     return (
       <div>
         <Header event={name} />
@@ -51,7 +49,7 @@ const Event = (props): JSX.Element => {
                 <Checklist />
                 <People />
                 <Contact email={data.event.Email} />
-                <CreateTrack />
+                <CreateTrack EventID={data.event.id} />
                 <EventDetails data={data} currentWindowSize={Hooks} />
                 <TabContext.Consumer>
                   {tab => {

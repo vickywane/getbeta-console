@@ -36,6 +36,8 @@ const Schedule = props => {
           Create Track{" "}
         </Button>
       </Flex>
+
+      <br />
       {data === null ? (
         <div>
           <p> No track </p>

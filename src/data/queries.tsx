@@ -38,6 +38,7 @@ const GET_EVENT: any = gql`
   query GET_EVENT($id: Int!, $name: String!) {
     event(id: $id, name: $name) {
       name
+      id
       venue
       description
       summary

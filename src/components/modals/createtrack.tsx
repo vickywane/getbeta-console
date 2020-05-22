@@ -5,6 +5,7 @@ import { FiX, FiSend } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import { useMutation } from "@apollo/react-hooks"
 
+import { CREATE_TRACK } from "../../data/mutations"
 import { TrackInputs } from "../../pages/forms/formsData"
 import Field from "../../pages/forms/fields"
 import {
@@ -18,8 +19,8 @@ import {
   Button,
 } from "../../styles/style"
 
-const Contact = props => {
-  const { createTrack, closeCreateTrack } = props.ModalStore
+const CreateTrackModal = props => {
+  const { showCreateTrack, closeCreateTrack } = props.ModalStore
 
   const [Name, setName] = useState("")
   const [Summary, setSummary] = useState("")
@@ -41,8 +42,25 @@ const Contact = props => {
         setDuration(value)
         break
       default:
-        console.log(label)
+        break
     }
+  }
+
+  const [createTrack, { loading, data, error }] = useMutation(CREATE_TRACK)
+  const Submit = () => {
+    createTrack({
+      variables: {
+        EventID: props.EventID,
+        totalTalks: 0,
+        name: Name,
+        summary: Summary,
+        duration: Duration,
+        isCompleted: false,
+        Archived: false,
+      },
+    })
+      .catch(e => console.log(e))
+      .then(() => closeCreateTrack())
   }
 
   return (
@@ -50,7 +68,7 @@ const Contact = props => {
       size="lg"
       style={{ marginTop: "5%" }}
       onHide={() => closeCreateTrack()}
-      show={createTrack}
+      show={showCreateTrack}
     >
       <Head>
         <Flex justifyBetween>
@@ -65,24 +83,27 @@ const Contact = props => {
       <Body>
         {TrackInputs.map(({ id, placeholder, label, type }) => {
           return (
-            <div>
-              <Field
-                onChange={e => onChange(e, label)}
-                id={id}
-                value={""}
-                placeholder={placeholder}
-                name={label}
-                type={type}
-                textarea={false}
-              />
-              <br />
-            </div>
+            <Field
+              onChange={e => onChange(e, label)}
+              id={id}
+              placeholder={placeholder}
+              name={label}
+              type={type}
+              textarea={false}
+            />
           )
         })}
       </Body>
       <br />
       <Flex justifyCenter>
-        <Button long> Create Track </Button>
+        <Button
+          onClick={() => {
+            Submit()
+          }}
+          long
+        >
+          Create Track{" "}
+        </Button>
       </Flex>
 
       <br />
@@ -90,4 +111,4 @@ const Contact = props => {
   )
 }
 
-export default inject("ModalStore")(observer(Contact))
+export default inject("ModalStore")(observer(CreateTrackModal))

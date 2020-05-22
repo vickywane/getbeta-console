@@ -34,7 +34,7 @@ const People = props => {
     >
       <Head>
         <Flex justifyBetween>
-          <Section style={{ padding: "0.5rem 0.5rem" }}> Team members </Section>
+          <Section> Team members </Section>
 
           <Flex>
             {!search ? (
@@ -58,9 +58,9 @@ const People = props => {
             </Hover>
           </Flex>
         </Flex>
-        <hr />
       </Head>
 
+      <br />
       <List />
       <hr />
       <Body>

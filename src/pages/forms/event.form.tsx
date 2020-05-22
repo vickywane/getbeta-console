@@ -95,7 +95,7 @@ const CreateEvent = (props): JSX.Element => {
   const [Description, setDescription] = useState("")
   const [Website, setWebsite] = useState("")
   const [Summary, setSummary] = useState("")
-  const [Venue, setVenue] = useState("Lagos")
+  const [Venue, setVenue] = useState("")
   const [Email, setEmail] = useState("")
   const [EventType, setEventType] = useState("Conference")
 
@@ -153,7 +153,7 @@ const CreateEvent = (props): JSX.Element => {
       case "Event Summary":
         setSummary(value)
         break
-      case "Event Venue":
+      case "Event-Venue":
         setVenue(value)
         break
       default:

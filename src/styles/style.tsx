@@ -152,21 +152,21 @@ const BigInput = styled.textarea`
   height: 20vh;
   display: flex;
   flex: 1;
-  width: 50rem;
+  width: ${props => (props.small ? "auto" : "50rem")};
   border-radius: 7px;
   border: 1px solid black;
   outline: 0px;
   font-size: 1.1rem;
   ${media.lessThan("large")`
-  width: 43rem;
+  width: ${props => (props.small ? "auto" : "43rem")};
   font-size: 1.1rem;
   `};
   ${media.lessThan("medium")`
- width: 35rem;
+ width: ${props => (props.small ? "auto" : "35rem")};
   font-size: 1rem;
   `};
   ${media.lessThan("small")`
-width: 25.5rem;
+  width: ${props => (props.small ? "auto" : "25rem")};
   font-size: 1rem;
   `};
 `

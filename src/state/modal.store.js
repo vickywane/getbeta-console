@@ -66,14 +66,25 @@ class ModalStore {
     this.showWelcomeModal = false
   }
 
-  createTrack = false
+  showCreateTrack = false
 
   openCreateTrack = () => {
-    this.createTrack = true
+    this.showCreateTrack = true
   }
 
   closeCreateTrack = () => {
-    this.createTrack = false
+    this.showCreateTrack = false
+  }
+
+  VolunteerModal = false
+  EventId = null
+  openVolunteerModal = id => {
+    this.EventId = id
+    this.VolunteerModal = true
+  }
+
+  closeVolunteerModal = () => {
+    this.VolunteerModal = false
   }
 }
 
@@ -114,9 +125,14 @@ const DecoratedModalStore = decorate(ModalStore, {
   showWelcomeModal: observable,
   closeWelcomeModal: action,
 
-  createTrack: observable,
+  showCreateTrack: observable,
   closeCreateTrack: action,
   openCreateTrack: action,
+
+  EventId: observable,
+  VolunteerModal: observable,
+  openVolunteerModal: action,
+  closeVolunteerModal: action,
 })
 
 const store = new DecoratedModalStore()

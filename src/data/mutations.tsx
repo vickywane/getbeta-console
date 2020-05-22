@@ -108,11 +108,12 @@ const UPDATE_USER = gql`
   }
 `
 
-const CREATE_TRACK: string = gql`
+const CREATE_TRACK: any = gql`
   mutation createTrack(
-    $EventID: ID!
+    $EventID: Int!
     $totalTalks: Int!
     $name: String!
+    $duration: String!
     $summary: String!
     $isCompleted: Boolean!
     $Archived: Boolean!
@@ -140,5 +141,6 @@ export {
   CREATE_TASK,
   CREATE_TEAM,
   CREATE_USER,
+  CREATE_TRACK,
   LOGIN_USER,
 }
