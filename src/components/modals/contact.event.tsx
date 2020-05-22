@@ -4,7 +4,15 @@ import { inject, observer } from "mobx-react"
 import { FiX, FiSend } from "react-icons/fi"
 import Flex from "styled-flex-component"
 
-import { Hover, Head, Section, Body, Input } from "../../styles/style"
+import {
+  Hover,
+  Head,
+  Section,
+  Body,
+  Input,
+  Text,
+  Button,
+} from "../../styles/style"
 
 const Contact = props => {
   const { showContactModal, closeContactModal } = props.ModalStore
@@ -24,17 +32,18 @@ const Contact = props => {
             <FiX style={{ fontSize: "1.75em" }} />
           </Hover>
         </Flex>
-        <hr />
       </Head>
 
       <Body>
+        <Flex>
+          <Text style={{ padding: "0rem 1rem" }}> To : </Text>
+          <Text> {props.email}</Text>
+        </Flex>
+        <br />
+        <Input placeholder="Type in your message. " />
+        <br />
         <Flex justifyCenter>
-          <Flex>
-            <Input long placeholder="Email Address" />
-            <Hover style={{ paddingTop: "10px" }}>
-              <FiSend style={{ fontSize: "2em" }} />
-            </Hover>
-          </Flex>
+          <Button long> Send Message </Button>
         </Flex>
       </Body>
     </Modal>

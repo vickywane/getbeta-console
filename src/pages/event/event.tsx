@@ -9,7 +9,12 @@ import Schedule from "./schedule/schedule"
 
 import { Loader, Header, Footer, Detail } from "../../components/"
 import { Contain } from "../../styles/style"
-import { Checklist, People, Contact } from "../../components/modals/"
+import {
+  Checklist,
+  People,
+  Contact,
+  CreateTrack,
+} from "../../components/modals/"
 import useWindowWidth from "../../hook_style"
 import { UserContext, TabContext } from "../../state/context/contextState"
 import { GET_EVENT } from "../../data/queries"
@@ -31,11 +36,13 @@ const Event = (props): JSX.Element => {
   if (error) {
     return <Loader type={"error"} />
   }
-
   if (data) {
+    console.log(data)
+    const name = Hooks >= 900 ? data.event.name : data.event.alias
+
     return (
       <div>
-        <Header event="|OSCA" />
+        <Header event={name} />
         <UserContext.Consumer>
           {user => {
             return (
@@ -44,6 +51,7 @@ const Event = (props): JSX.Element => {
                 <Checklist />
                 <People />
                 <Contact email={data.event.Email} />
+                <CreateTrack />
                 <EventDetails data={data} currentWindowSize={Hooks} />
                 <TabContext.Consumer>
                   {tab => {

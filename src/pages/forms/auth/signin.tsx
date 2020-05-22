@@ -5,16 +5,10 @@ import Flex from "styled-flex-component"
 import { useMutation, useQuery } from "@apollo/react-hooks"
 import { Redirect } from "react-router-dom"
 
+import { AuthInput } from "../formsData"
+import Fields from "../fields"
 import { LOGIN_USER } from "../../../data/mutations"
 import { Input, Button, Title, Text, Label } from "../../../styles/style"
-
-const Body = styled.div`
-  font-family: Muli', sans-serif;
-  padding: 1em;
-`
-
-const API_URL: string = process.env.SOCKET_URL
-// const socket: string = io(API_URL)
 
 const SignIn = (props): JSX.Element => {
   const { AuthUser, setAuthState }: any = props
@@ -24,7 +18,19 @@ const SignIn = (props): JSX.Element => {
   const [Password, setPassword] = useState("")
   const [Error, setError] = useState("")
 
-  // const [createUser, { data }] = useMutation(CREATE_USER);
+  const handleChange = (value, label) => {
+    switch (label) {
+      case "Email Address":
+        setEmail(value)
+        break
+      case "Password":
+        setPassword(value)
+        break
+      default:
+        console.log(label)
+    }
+  }
+
   const [loginUser, { data, loading }] = useMutation(LOGIN_USER, {
     ignoreResults: false,
     onCompleted: () => {},
@@ -51,71 +57,63 @@ const SignIn = (props): JSX.Element => {
     return <h2> Logging in ... </h2>
   }
 
+  const { Login } = AuthInput
   return (
-    <Flex justifyCenter>
-      <div>
-        <hr />
-        <Label small>Email Address</Label>
-        <div>
-          <Input
-            onChange={event => {
-              setEmail(event.target.value)
-              event.preventDefault()
-            }}
-            value={Email}
-            type="email"
-            placeholder="Email Address"
+    <div>
+      {Login.map(({ placeholder, label, id, type }) => {
+        return (
+          <Fields
+            placeholder={placeholder}
+            type={type}
+            textarea={false}
+            value={label === "Email Address" ? Email : Password}
+            name={label}
+            onChange={e => handleChange(e, label)}
+            id={id}
           />
-        </div>{" "}
-        <br />
-        <Label small>Password</Label>
-        <div>
-          <Input
-            value={Password}
-            onChange={event => {
-              setPassword(event.target.value)
-              event.preventDefault()
-            }}
-            type="password"
-            placeholder="Password"
-          />
-          <br />
-        </div>
-        <Text
-          small
-          style={{
-            color: "red",
-            textAlign: "center",
-          }}
-        >
-          {Error}
-        </Text>
-        <Text
-          small
-          style={{
-            color: "blue",
-            cursor: "pointer",
-            textAlign: "right",
-          }}
+        )
+      })}
+
+      <Text
+        small
+        style={{
+          color: "red",
+          textAlign: "center",
+        }}
+      >
+        {Error}
+      </Text>
+      <Text
+        small
+        style={{
+          color: "blue",
+          cursor: "pointer",
+          textAlign: "right",
+        }}
+        onClick={() => {
+          setAuthState("Forgot Password")
+        }}
+      >
+        Forgot Password ?
+      </Text>
+      <Flex justifyCenter>
+        <Button
+          long
+          transparent={
+            Password.length < 5 || Email.length < 7 || !Email.includes("@")
+          }
+          disabled={
+            Password.length < 5 || Email.length < 7 || !Email.includes("@")
+          }
           onClick={() => {
-            setAuthState("Forgot Password")
+            LoginUser()
           }}
         >
-          Forgot Password ?
-        </Text>
-        <Flex justifyCenter>
-          <Button
-            long
-            onClick={() => {
-              LoginUser()
-            }}
-          >
-            Login
-          </Button>{" "}
-        </Flex>
-        <br />
-      </div>
-    </Flex>
+          Login
+        </Button>{" "}
+      </Flex>
+      <br />
+    </div>
   )
 }
 

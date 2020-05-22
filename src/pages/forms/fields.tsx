@@ -4,10 +4,10 @@ import Flex from "styled-flex-component"
 import { Input, BigInput, Label } from "../../styles/style"
 
 type CustomProps = {
-  id: string
+  id: any
   name: string
   onChange: any
-  value: string
+  value?: string
   type: string
   textarea: boolean
   placeholder: string
@@ -38,6 +38,7 @@ const Fields = (props: CustomProps) => {
             value={value}
             placeholder={placeholder}
           />
+          <br />
         </Flex>
       ) : (
         <BigInput

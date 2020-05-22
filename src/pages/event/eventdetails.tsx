@@ -23,7 +23,7 @@ const EventDetails = (props): JSX.Element => {
   const { openChecklist, openPeople, openContactModal } = props.ModalStore
 
   const { currentWindowSize, data } = props
-  const { name, summary, venue } = data.event
+  const { name, summary, venue, website } = data.event
 
   return (
     <Contain grey bottomShadow>
@@ -55,6 +55,13 @@ const EventDetails = (props): JSX.Element => {
                       <BigTitle center bold>
                         {name}
                       </BigTitle>
+                      <a
+                        style={{ textAlign: "center" }}
+                        href={website}
+                        target="_blank"
+                      >
+                        {website}{" "}
+                      </a>
                       <Text center> {summary} </Text>
 
                       {currentWindowSize >= 650 ? (

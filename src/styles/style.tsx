@@ -6,8 +6,13 @@ import { Image, Modal } from "react-bootstrap"
 // Todo: Refactor & compress file !!
 
 const Head = styled.div`
-  padding: 0.7em 0.7rem;
+  padding: 1em 1.5rem;
   border-bottom: 1px solid grey;
+  background: #444444;
+  color: #fff;
+  ${media.lessThan("large")`
+  padding: 1em 1rem;
+  `};
 `
 
 const Body = styled.div`
@@ -221,6 +226,7 @@ const UploadContainer = styled.div`
 `
 
 const Title = styled.h5`
+  font-family: calibri;
   padding-left: ${props => (props.small ? "3px" : "15px")};
   padding-right: 10px;
   text-align: ${props => (props.center ? "center" : null)};
@@ -376,7 +382,7 @@ const InputBox = styled.div`
 
 // HEADER STYLES =================>
 const Header = styled.nav`
-  padding: 0.8em 1rem;
+  padding: 0.3em 3rem;
   background: #444444;
   position: fixed;
   width: 100%;
@@ -391,7 +397,7 @@ const Header = styled.nav`
 const HeaderLinks = styled.a`
   text-decoration: none;
   font-size: 2em;
-  font-family: monospace;
+  font-family: calibri;
 `
 
 const FormCard = styled.div`

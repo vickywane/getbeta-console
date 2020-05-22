@@ -64,17 +64,18 @@ const Header = (props): JSX.Element => {
               <Link to="/console" style={{ textDecoration: "none" }}>
                 <HeaderLinks>Oasis</HeaderLinks>
               </Link>
-              <HeaderLinks
-                style={{
-                  paddingLeft: "5px",
-                  color: "white",
-                  fontSize: "1.6em",
-                  paddingTop: "5px",
-                }}
-              >
-                {props.event}{" "}
-              </HeaderLinks>
             </Flex>
+
+            <HeaderLinks
+              style={{
+                paddingLeft: "5px",
+                color: "white",
+                fontSize: "1.6em",
+                paddingTop: "5px",
+              }}
+            >
+              {props.event}
+            </HeaderLinks>
 
             {props.page === "Search" ? (
               <div>

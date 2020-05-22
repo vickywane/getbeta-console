@@ -8,7 +8,7 @@ import { useMutation } from "@apollo/react-hooks"
 import { inject, observer } from "mobx-react"
 
 import { CREATE_EVENT } from "../../data/mutations"
-import { Forms } from "../../data/mockData"
+import { CREATE_EVENT_INPUT } from "./formsData"
 import Upload from "../media/upload"
 import { Header, Footer, Panes } from "../../components/"
 import Options from "../imports/createEvent/eventoptions.import"
@@ -161,11 +161,11 @@ const CreateEvent = (props): JSX.Element => {
     }
   }
 
-  const { first, second, third } = Forms
+  const { first, second, third } = CREATE_EVENT_INPUT
 
   return (
     <div style={{ background: "#eeeeee" }}>
-      <Header screen="event" name="" unshadowed={true} event={Alias} />
+      <Header screen="event" name="" unshadowed={true} event={Name} />
       {!Mail ? (
         <div>
           {!importPane ? (

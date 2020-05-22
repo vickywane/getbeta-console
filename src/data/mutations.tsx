@@ -108,6 +108,32 @@ const UPDATE_USER = gql`
   }
 `
 
+const CREATE_TRACK: string = gql`
+  mutation createTrack(
+    $EventID: ID!
+    $totalTalks: Int!
+    $name: String!
+    $summary: String!
+    $isCompleted: Boolean!
+    $Archived: Boolean!
+  ) {
+    createTrack(
+      EventID: $EventID
+      input: {
+        totalTalks: $totalTalks
+        name: $name
+        summary: $summary
+        duration: $duration
+        isCompleted: $isCompleted
+        Archived: $Archived
+      }
+    ) {
+      id
+      name
+    }
+  }
+`
+
 export {
   CREATE_EVENT,
   UPDATE_USER,

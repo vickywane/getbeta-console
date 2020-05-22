@@ -10,17 +10,18 @@ const Tab = styled.div`
 `
 
 const Column = styled.div`
-    text-align: center
-    font-size : 1.1rem;
-    padding: 1rem  2rem;
-    transition : all 200ms;
-    margin: 0rem 1rem;
-    font-weight: ${props => (props.active ? "600" : "normal")}
-    border-bottom: ${props => (props.active ? "4px solid blue" : "0px")} ;
-&: hover {
+  font-family: calibri;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.5rem 2rem;
+  transition: all 200ms;
+  margin: 0rem 1rem;
+  font-weight: ${props => (props.active ? "600" : "normal")};
+  border-bottom: ${props => (props.active ? "4px solid blue" : "0px")};
+  &: hover {
     cursor: pointer;
     border-bottom: 4px solid blue;
-}
+  }
 `
 
 const TabReducer = (state, action) => {
@@ -44,7 +45,6 @@ const EventTabs = () => {
   // @ts-ignore
   const [state, dispatch] = React.useReducer(TabReducer, TabState)
 
-  console.log(state, "state")
   return (
     <Tab key={state.id}>
       <Column

@@ -42,6 +42,8 @@ const GET_EVENT: any = gql`
       description
       summary
       Email
+      website
+      alias
       createdBy {
         name
         email

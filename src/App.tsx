@@ -27,8 +27,6 @@ import Protected from "./pages/auth/protectedRoute"
 import { GlobalStyles } from "./styles/global"
 import { ResolutionError } from "./components/"
 
-import Main from "./pages/event/schedule/main"
-
 const History = createBrowserHistory()
 function App(props): JSX.Element {
   const { authenticated } = props.AuthStore

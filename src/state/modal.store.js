@@ -65,6 +65,16 @@ class ModalStore {
   closeWelcomeModal = () => {
     this.showWelcomeModal = false
   }
+
+  createTrack = false
+
+  openCreateTrack = () => {
+    this.createTrack = true
+  }
+
+  closeCreateTrack = () => {
+    this.createTrack = false
+  }
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
@@ -103,6 +113,10 @@ const DecoratedModalStore = decorate(ModalStore, {
 
   showWelcomeModal: observable,
   closeWelcomeModal: action,
+
+  createTrack: observable,
+  closeCreateTrack: action,
+  openCreateTrack: action,
 })
 
 const store = new DecoratedModalStore()

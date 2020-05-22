@@ -5,25 +5,41 @@ import { useMutation, useQuery } from "@apollo/react-hooks"
 import { Redirect } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
 
+import { AuthInput } from "../formsData"
+import Fields from "../fields"
 import { CREATE_USER } from "../../../data/mutations"
 import { Input, Button, Title, Text, Label } from "../../../styles/style"
 
-const Body = styled.div`
-  font-family: Muli', sans-serif;
-  padding: 1em;
-`
+// TODO: ADD VALIDATION LATER
 
-const SignOut = (props): JSX.Element => {
+const CreateAccount = (props): JSX.Element => {
   const { AuthUser, setAuthState }: any = props
 
-  // input states
   const [Name, setName] = useState("")
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
   const [ConfirmPassword, setConfirmPassword] = useState("")
   const [Error, setError] = useState("")
-
   const [CreationStage, setCreationStage] = useState("1")
+
+  const handleChange = (value, label) => {
+    switch (label) {
+      case "Name":
+        setName(value)
+        break
+      case "Email Address":
+        setEmail(value)
+        break
+      case "Password":
+        setPassword(value)
+        break
+      case "Confirm Password":
+        setConfirmPassword(value)
+        break
+      default:
+        break
+    }
+  }
 
   const [createUser, { data, loading, error }] = useMutation(CREATE_USER, {
     ignoreResults: false,
@@ -50,122 +66,105 @@ const SignOut = (props): JSX.Element => {
     return <h2> Logging in ... </h2>
   }
 
+  const { CreateAccountStage1, CreateAccountStage2 } = AuthInput
   return (
-    <Flex justifyCenter>
-      <div>
-        <br />
-        <CSSTransition timeout={300} unmountOnExit in={CreationStage === "1"}>
-          <div>
-            <Label small> Name </Label>
-            <div>
-              {" "}
-              <Input
-                type="text"
-                placeholder="Name"
-                value={Name}
-                onChange={e => {
-                  setName(e.target.value)
-                  e.preventDefault()
-                }}
-              />
-            </div>{" "}
-            <br />
-            <Label small>Email Address</Label>
-            <div>
-              <Input
-                type="email"
-                placeholder="Email Address"
-                value={Email}
-                onChange={e => {
-                  setEmail(e.target.value)
-                  e.preventDefault()
-                }}
-              />
-            </div>
-            <br />
-          </div>
-        </CSSTransition>
-
-        <CSSTransition timeout={300} unmountOnExit in={CreationStage === "2"}>
-          <div>
-            <Label small>Password</Label>
-            <div>
-              <Input
-                onChange={e => {
-                  e.preventDefault()
-                  setPassword(e.target.value)
-                }}
-                value={Password}
-                type="password"
-                placeholder="Password"
-              />{" "}
-              <br />
-            </div>
-            <br />
-            <Label small>Confirm Password</Label>
-            <div>
-              <Input
-                onChange={event => {
-                  setConfirmPassword(event.target.value)
-                  event.preventDefault()
-                }}
-                type="password"
-                value={ConfirmPassword}
-                placeholder="Retype Password"
-              />{" "}
-              <br />
-            </div>
-          </div>
-        </CSSTransition>
-        <p style={{ color: "red" }}> {Error} </p>
-
-        <div style={{ textAlign: "right" }}>
-          <CSSTransition unmountOnExit timeout={200} in={CreationStage === "1"}>
-            <Button
-              long
-              onClick={() => {
-                setCreationStage("2")
-              }}
-            >
-              Proceed
-            </Button>
-          </CSSTransition>
+    <div>
+      <br />
+      <CSSTransition timeout={300} unmountOnExit in={CreationStage === "1"}>
+        <div>
+          {CreateAccountStage1.map(({ placeholder, id, label, type }) => {
+            return (
+              <div>
+                <Fields
+                  onChange={e => handleChange(e, label)}
+                  type={type}
+                  id={id}
+                  value={label === "Name" ? Name : Email}
+                  name={label}
+                  placeholder={placeholder}
+                  textarea={false}
+                />
+              </div>
+            )
+          })}
         </div>
-        <br />
-        <Flex justifyCenter>
-          <CSSTransition unmountOnExit timeout={200} in={CreationStage === "2"}>
-            <Button
-              long
-              onClick={() => {
-                CreateUser()
-              }}
-            >
-              Create Account
-            </Button>
-          </CSSTransition>
-        </Flex>
-        <br />
-        <Flex justifyCenter>
-          <Flex>
-            <Text center small style={{ padding: "0rem 1rem", color: "grey" }}>
-              Own an account?
-            </Text>
+      </CSSTransition>
 
-            <Text
-              center
-              small
-              style={{ color: "blue", cursor: "pointer" }}
-              onClick={() => {
-                setAuthState("Login")
-              }}
-            >
-              Login Instead
-            </Text>
-          </Flex>
-        </Flex>
+      <CSSTransition timeout={300} unmountOnExit in={CreationStage === "2"}>
+        <div>
+          {CreateAccountStage2.map(({ placeholder, id, label, type }) => {
+            return (
+              <div>
+                <Fields
+                  onChange={e => handleChange(e, label)}
+                  type={type}
+                  id={id}
+                  value={label === "Password" ? Password : ConfirmPassword}
+                  name={label}
+                  placeholder={placeholder}
+                  textarea={false}
+                />
+              </div>
+            )
+          })}
+        </div>
+      </CSSTransition>
+      <p style={{ color: "red" }}> {Error} </p>
+
+      <div style={{ textAlign: "right" }}>
+        <CSSTransition unmountOnExit timeout={200} in={CreationStage === "1"}>
+          <Button
+            long
+            transparent={
+              Name.length < 5 || Email.length < 7 || !Email.includes("@")
+            }
+            disabled={
+              Name.length < 5 || Email.length < 7 || !Email.includes("@")
+            }
+            onClick={() => {
+              setCreationStage("2")
+            }}
+          >
+            Proceed
+          </Button>
+        </CSSTransition>
       </div>
-    </Flex>
+      <br />
+      <Flex justifyCenter>
+        <CSSTransition unmountOnExit timeout={200} in={CreationStage === "2"}>
+          <Button
+            long
+            transparent={Password != ConfirmPassword ? true : false}
+            disabled={Password != ConfirmPassword ? true : false}
+            onClick={() => {
+              CreateUser()
+            }}
+          >
+            Create Account
+          </Button>
+        </CSSTransition>
+      </Flex>
+      <br />
+      <Flex justifyCenter>
+        <Flex>
+          <Text center small style={{ padding: "0rem 1rem", color: "grey" }}>
+            Own an account?
+          </Text>
+
+          <Text
+            center
+            small
+            style={{ color: "blue", cursor: "pointer" }}
+            onClick={() => {
+              setAuthState("Login")
+            }}
+          >
+            Login Instead
+          </Text>
+        </Flex>
+      </Flex>
+    </div>
   )
 }
 
-export default SignOut
+export default CreateAccount
