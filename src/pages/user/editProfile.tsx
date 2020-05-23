@@ -13,6 +13,9 @@ import {
   Label,
 } from "../../styles/style"
 
+import {} from "../forms/formsData"
+import Fields from "../forms/fields"
+
 const EditProfile = props => {
   const { name, email } = props
   const [updateUser, { loading }] = useMutation(UPDATE_USER)
@@ -39,6 +42,19 @@ const EditProfile = props => {
     return <p> loading </p>
   }
 
+  const handleChange = (value, label) => {
+    switch (label) {
+      case "Name":
+        setName(value)
+        break
+      case "Email":
+        setEmail(value)
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <Body>
       <Flex justifyBetween>
@@ -58,28 +74,29 @@ const EditProfile = props => {
         </div>
       </Flex>
       <br />
-      <Label small>
-        Name
-        <Input
-          value={Name}
-          onChange={e => {
-            setName(e.target.value)
-          }}
-          placeholder={name}
-        />
-      </Label>
+      <Fields
+        textarea={false}
+        value={Name}
+        id={1}
+        type="text"
+        name={"Name"}
+        onChange={e => {
+          handleChange(e, "Name")
+        }}
+        placeholder={name}
+      />
 
-      <Label small>
-        Email
-        <Input
-          value={Email}
-          onChange={e => {
-            setEmail(e.target.value)
-          }}
-          placeholder={email}
-        />
-      </Label>
-      <br />
+      <Fields
+        value={Email}
+        textarea={false}
+        name="Email"
+        id={2}
+        type="text"
+        onChange={e => {
+          handleChange(e, "Email")
+        }}
+        placeholder={email}
+      />
       <br />
 
       <Flex justifyCenter>
@@ -89,8 +106,7 @@ const EditProfile = props => {
             Update()
           }}
         >
-          {" "}
-          Save Details{" "}
+          Update Profile
         </Button>
       </Flex>
     </Body>

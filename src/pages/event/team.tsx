@@ -4,7 +4,7 @@ import { inject, observer } from "mobx-react"
 import { GiChecklist } from "react-icons/gi"
 
 import { Panes, Header, Footer } from "../../components/"
-import { FormModal } from "../../components/modals/"
+import { TeamModal } from "../../components/modals/"
 import { Text, Title, Contain, Button, List } from "../../styles/style"
 import { TaskList } from "../../Data"
 
@@ -20,7 +20,7 @@ const Team = (props): JSX.Element => {
         text={"Design Team"}
       />
       {Notify ? <Panes type={"Team"} color="#401364" /> : null}
-      <FormModal type={"Team"} />
+      <TeamModal />
 
       <br />
 

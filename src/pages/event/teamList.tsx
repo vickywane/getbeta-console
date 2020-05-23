@@ -7,17 +7,17 @@ import { useQuery } from "@apollo/react-hooks"
 
 import { TEAMS } from "../../data/queries"
 import { Text, Button } from "../../styles/style"
-import { FormModal } from "../../components/modals/"
+import { TeamModal } from "../../components/modals/"
 
 const TeamList = (props): JSX.Element => {
-  const { openFormModal, closeFormModal } = props.ModalStore
-  const { teams } = props
+  const { openTeamModal, closeTeamModal } = props.ModalStore
+  const { teams, EventID } = props
   const { data, loading, error } = useQuery(TEAMS)
-
   if (data) {
     return (
       <div>
-        <br /> <FormModal close={closeFormModal} type={"Team"} />
+        <br />{" "}
+        <TeamModal EventID={EventID} close={closeTeamModal} type={"Team"} />
         <Flex column>
           <Flex justifyBetween>
             <h5> Teams </h5>
@@ -25,7 +25,7 @@ const TeamList = (props): JSX.Element => {
             <Button
               long
               onClick={() => {
-                openFormModal()
+                openTeamModal()
               }}
             >
               Create Team
@@ -45,15 +45,10 @@ const TeamList = (props): JSX.Element => {
                     />
                     <Link to={`/team/${id}`} style={{ textDecoration: "none" }}>
                       <Text bold style={{ fontWeight: "normal" }}>
-                        {name}{" "}
-                      </Text>{" "}
+                        {name}
+                      </Text>
                     </Link>
                     <Flex>
-                      <div style={{ display: "flex", paddingRight: "20px" }}>
-                        <FiUser style={{ fontSize: "1.7rem" }} />
-                        <Text style={{ paddingLeft: "5px" }}> 11 </Text>
-                      </div>
-
                       <Link
                         to={`/team/${id}`}
                         style={{ textDecoration: "none" }}

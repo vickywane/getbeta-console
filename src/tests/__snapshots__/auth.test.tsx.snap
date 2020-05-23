@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests the Authemtication Setup Create Account Component is rendered with specific Elements 1`] = `ShallowWrapper {}`;
+
+exports[`Tests the Authemtication Setup Login Component is rendered with specific Elements 1`] = `ShallowWrapper {}`;

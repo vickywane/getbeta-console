@@ -58,8 +58,8 @@ const CREATE_EVENT = gql`
 `
 
 const CREATE_TEAM = gql`
-  mutation createTeam($name: String!, $goal: String!) {
-    createTeam(input: { name: $name, goal: $goal }) {
+  mutation createTeam($EventID: Int!, $name: String!, $goal: String!) {
+    createTeam(EventID: $EventID, input: { name: $name, goal: $goal }) {
       name
       goal
     }

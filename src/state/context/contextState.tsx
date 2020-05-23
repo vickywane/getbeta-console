@@ -7,7 +7,7 @@ const UserContext = React.createContext({
 
 const TabState = {
   id: 1,
-  activeTab: "tracks",
+  activeTab: "detail",
   active: true,
 }
 

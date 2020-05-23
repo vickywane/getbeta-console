@@ -26,7 +26,7 @@ const EventDetails = (props): JSX.Element => {
   const { name, summary, venue, website } = data.event
 
   return (
-    <Contain grey bottomShadow>
+    <div>
       <br />
       <UserContext.Consumer>
         {user => {
@@ -140,8 +140,7 @@ const EventDetails = (props): JSX.Element => {
           )
         }}
       </UserContext.Consumer>
-      <EventTabs />
-    </Contain>
+    </div>
   )
 }
 

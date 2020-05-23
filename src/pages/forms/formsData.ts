@@ -137,4 +137,25 @@ const AuthInput = {
   ],
 }
 
-export { TrackInputs, CREATE_EVENT_INPUT, CreateAccountFields, AuthInput }
+const TeamInput = [
+  {
+    id: 1,
+    label: "Team Name",
+    type: "text",
+    placeholder: "Team Name",
+  },
+  {
+    id: 2,
+    label: "Team Goal",
+    type: "text",
+    placeholder: "Description and Target goal of created team",
+  },
+]
+
+export {
+  TrackInputs,
+  CREATE_EVENT_INPUT,
+  CreateAccountFields,
+  AuthInput,
+  TeamInput,
+}

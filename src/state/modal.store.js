@@ -48,15 +48,15 @@ class ModalStore {
     this.showContactModal = false
   }
 
-  // Forms Modal
-  showFormModal = false
+  // Teams Modal
+  showTeamModal = false
 
-  openFormModal = () => {
-    this.showFormModal = true
+  openTeamModal = () => {
+    this.showTeamModal = true
   }
 
-  closeFormModal = () => {
-    this.showFormModal = false
+  closeTeamModal = () => {
+    this.showTeamModal = false
   }
 
   // welcome modal
@@ -116,11 +116,11 @@ const DecoratedModalStore = decorate(ModalStore, {
   openContactModal: action,
   closeContactModal: action,
 
-  // forms
-  showFormModal: observable,
+  // Teams
+  showTeamModal: observable,
 
-  openFormModal: action,
-  closeFormModal: action,
+  openTeamModal: action,
+  closeTeamModal: action,
 
   showWelcomeModal: observable,
   closeWelcomeModal: action,

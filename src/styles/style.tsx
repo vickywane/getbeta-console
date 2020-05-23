@@ -174,7 +174,7 @@ const BigInput = styled.textarea`
 const Text: any = styled.p`
   font-family: calibri;
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: ${props => (props.small ? "1.05rem" : "1.2rem")};
+  font-size: ${props => (props.small ? "1.2rem" : "1.3rem")};
   color: ${props => (props.white ? "white" : "black")};
   font-weight: ${props => (props.bold ? "600" : "normal")};
 `
@@ -483,7 +483,32 @@ const MyCard = styled.div`
   `};
 `
 
+const Tab = styled.div`
+  padding: 0rem 1rem;
+  margin: 0.5rem 0rem 0rem;
+  display: flex;
+  justify-content: center;
+`
+
+const TabColumn = styled.div`
+  font-family: calibri;
+  text-align: center;
+  font-size: 1.3rem;
+  padding: 0.5rem 2rem;
+  transition: all 200ms;
+  margin: 0rem 1rem;
+  font-weight: ${props => (props.active ? "600" : "normal")};
+  border-bottom: ${props => (props.active ? "4px solid blue" : "0px")};
+  &: hover {
+    cursor: pointer;
+    border-bottom: ${props =>
+      props.active ? "4px solid blue" : "4px solid grey"};
+  }
+`
+
 export {
+  Tab,
+  TabColumn,
   MyCard,
   BigTitle,
   FormBody,

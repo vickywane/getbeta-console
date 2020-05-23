@@ -38,13 +38,9 @@ const Main = () => {
         ModalStore={ModalStore}
         PaneStore={PaneStore}
       >
-        <UserContext.Provider value={CtxValue}>
-          <TabContext.Provider value={TabState}>
-            <ThemeProvider theme={theme}>
-              <App />
-            </ThemeProvider>
-          </TabContext.Provider>
-        </UserContext.Provider>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </ApolloProvider>
   )
