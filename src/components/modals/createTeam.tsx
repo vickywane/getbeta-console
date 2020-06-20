@@ -19,13 +19,13 @@ import {
   Button,
 } from "../../styles/style"
 
-const CreateTrackModal = props => {
+const CreateTeamModal = props => {
   const [Name, setName] = useState("")
   const [Goal, setGoal] = useState("")
 
   const { EventID } = props
 
-  const onChange = (value, label) => {
+  const onChange = (value: string, label: string) => {
     switch (label) {
       case "Team Name":
         setName(value)
@@ -51,7 +51,6 @@ const CreateTrackModal = props => {
   }
 
   const { closeTeamModal, showTeamModal } = props.ModalStore
-
   return (
     <Modal
       size="lg"
@@ -60,20 +59,18 @@ const CreateTrackModal = props => {
       show={showTeamModal}
     >
       <Head>
-        <Flex justifyBetween>
-          <Section> Create New Team</Section>
+        <Section> Create New Team</Section>
 
-          <Hover onClick={() => closeTeamModal()}>
-            <FiX style={{ fontSize: "1.75em" }} />
-          </Hover>
-        </Flex>
+        <Hover onClick={() => closeTeamModal()}>
+          <FiX style={{ fontSize: "1.75em" }} />
+        </Hover>
       </Head>
 
       <Body>
         {TeamInput.map(({ id, placeholder, label, type }) => {
           return (
             <Field
-              onChange={e => onChange(e, label)}
+              onChange={(e: string) => onChange(e, label)}
               id={id}
               placeholder={placeholder}
               name={label}
@@ -100,4 +97,4 @@ const CreateTrackModal = props => {
   )
 }
 
-export default inject("ModalStore")(observer(CreateTrackModal))
+export default inject("ModalStore")(observer(CreateTeamModal))

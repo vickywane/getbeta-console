@@ -7,10 +7,33 @@ const UserContext = React.createContext({
 
 const TabState = {
   id: 1,
+  showEventDetails: true,
   activeTab: "detail",
   active: true,
 }
 
-const TabContext = React.createContext(TabState)
+const PeopleTabState = {
+  id: 1,
+  activeTab: "attendees",
+  active: true,
+}
 
-export { UserContext, TabContext, TabState }
+const AdminTabState = {
+  id: 1,
+  activeTab: "mobile",
+  active: false,
+}
+
+const PeopleTabContext = React.createContext(PeopleTabState)
+const TabContext = React.createContext(TabState)
+const AdminContext = React.createContext(AdminTabState)
+
+export {
+  PeopleTabContext,
+  AdminTabState,
+  AdminContext,
+  PeopleTabState,
+  UserContext,
+  TabContext,
+  TabState,
+}

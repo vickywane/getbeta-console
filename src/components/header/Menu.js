@@ -2,7 +2,7 @@ import React from "react"
 import { StyledMenu, Hover } from "../../styles/navigation"
 import { FiX } from "react-icons/fi"
 
-const Menu = ({ open, ...props }) => {
+const Notifications = ({ open, ...props }) => {
   const isHidden = open ? true : false
   const tabIndex = isHidden ? 0 : -1
 
@@ -16,8 +16,9 @@ const Menu = ({ open, ...props }) => {
   return (
     <StyledMenu open={open} aria-hidden={!isHidden} {...props}>
       <Hover white>
-        <FiX style={{ fontSize: "1.7em" }} />{" "}
+        <FiX style={{ fontSize: "1.7em" }} />
       </Hover>
+
       <div>
         {data.map(({ id, name }) => {
           return (
@@ -32,4 +33,4 @@ const Menu = ({ open, ...props }) => {
   )
 }
 
-export default Menu
+export default Notifications

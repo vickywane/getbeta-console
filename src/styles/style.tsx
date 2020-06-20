@@ -3,18 +3,22 @@ import posed from "react-pose"
 import media from "styled-media-query"
 import { Image, Modal } from "react-bootstrap"
 
+import img from "../assets/images/test.png"
+
 // Todo: Refactor & compress file !!
 
 const Head = styled.div`
-  padding: 1em 1.5rem;
-  border-bottom: 1px solid grey;
-  background: #444444;
-  color: #fff;
+  padding: ${props => (props.header ? " 1em 0.5rem" : "1em 1.5rem")};
+  border-bottom: 0.3px solid #5f6368;
+  background: ${props => (props.header ? "#fbfbfb" : "#444444")};
+  color: ${props => (props.header ? "#000" : "#fff")};
+  display: flex;
+  justify-content: ${props => (props.noFlex ? null : "space-between")};
   ${media.lessThan("large")`
-  padding: 1em 1rem;
+  padding: ${props => (props.header ? " 0.7em 0.5rem" : "1em 1rem")};
   `};
 `
-
+// filter: Blur ? "grayscale(80%) blur(2px)" : "grayscale(0%) blur(0px)",
 const Body = styled.div`
   padding: 1em;
 `
@@ -53,10 +57,20 @@ const Bounce = posed.div({
   },
 })
 
+const List = styled.li`
+  list-style: none;
+`
+
+// background: ${props => (props.grey ? "#F3F3F3" : "transparent")};
 const Contain = styled.div`
-  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "1rem 5rem")}
-  background:  ${props => (props.grey ? "#F3F3F3" : "transparent")}
-  box-shadow: ${props => (props.bottomShadow ? "0px 1px 3px grey" : null)} ;
+  background-image: url(${props => props.img});
+  background-position: center;
+  filter: ${props => (props.filtered ? "grayscale(80%) blur(2px)" : null)};
+  padding: ${props => (props.bottomPadding ? "2rem 3rem" : "0rem 5rem")};
+  box-shadow: ${props => (props.bottomShadow ? "0px 1px 3px grey" : null)};
+  ${media.lessThan("huge")`
+  padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0.5em 2rem")} ;
+  `};
   ${media.lessThan("large")`
   padding: ${props => (props.bottomPadding ? "1rem 3rem" : "0.5em 1.5rem")} ;
   `};
@@ -79,6 +93,13 @@ const Detail = styled.div`
 const Hover = styled.div`
   cursor: pointer;
   color: ${props => (props.white ? "#fff" : null)};
+  margin: ${props => (props.margined ? "0rem 0.8rem" : null)};
+  padding: ${props => (props.margined ? "0.7rem 0.8rem" : null)};
+  transition: all 200ms;
+  border-radius: ${props => (props.borderedRound ? "50%" : null)};
+  &: hover {
+    background: ${props => props.background};
+  }
 `
 
 const ModalInput = styled.input`
@@ -94,12 +115,13 @@ const Input = styled.input`
   padding: 0.7em 1.5rem;
   display : flex;
   flex: 1;
+  font-family: calibri;
   border: ${props => (props.unbordered ? "0px" : " 1px solid grey")};
   outline: 0px;
   color: ${props => (props.white ? "#fff" : "#000")}
   margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
   padding-left: 10px;
-  border-radius: 4px;
+  border-radius: 3px;
   font-size: 1.1rem;
   transition: all 300ms;
   background: ${props => (props.transparent ? "transparent" : null)};
@@ -116,7 +138,9 @@ const Input = styled.input`
   width: ${props => (props.wide ? "52rem" : "auto")};
   `};
   &: hover {
-    border: 1px solid blue;
+    box-shadow: ${props =>
+      props.unbordered ? null : "1px 1px 1px 1px #084482"} ;
+    border: ${props => (props.unbordered ? null : "1px solid #084482")}  ;
   }
 `
 
@@ -149,24 +173,24 @@ const FormInput = styled.input`
 const BigInput = styled.textarea`
   padding: 1.5rem 1.5rem;
   margin: 0.5rem 1rem;
-  height: 20vh;
+  height: 25vh;
   display: flex;
   flex: 1;
-  width: ${props => (props.small ? "auto" : "50rem")};
+  width: ${props => (props.small ? "auto" : "auto")};
   border-radius: 7px;
-  border: 1px solid black;
+  border: 1px solid grey;
   outline: 0px;
   font-size: 1.1rem;
   ${media.lessThan("large")`
-  width: ${props => (props.small ? "auto" : "43rem")};
+  width: ${props => (props.small ? "auto" : "auto")};
   font-size: 1.1rem;
   `};
   ${media.lessThan("medium")`
- width: ${props => (props.small ? "auto" : "35rem")};
+ width: ${props => (props.small ? "auto" : "auto")};
   font-size: 1rem;
   `};
   ${media.lessThan("small")`
-  width: ${props => (props.small ? "auto" : "25rem")};
+  width: ${props => (props.small ? "auto" : "auto")};
   font-size: 1rem;
   `};
 `
@@ -175,7 +199,7 @@ const Text: any = styled.p`
   font-family: calibri;
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.2rem" : "1.3rem")};
-  color: ${props => (props.white ? "white" : "black")};
+  color: ${props => props.color};
   font-weight: ${props => (props.bold ? "600" : "normal")};
 `
 
@@ -229,14 +253,16 @@ const Title = styled.h5`
   font-family: calibri;
   padding-left: ${props => (props.small ? "3px" : "15px")};
   padding-right: 10px;
+  cursor : ${props => (props.pointer ? "pointer" : null)}
+  color: ${props => (props.active ? "#FF5F00" : "")};
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: ${props => (props.small ? "1.7rem" : "2rem")};
+  font-size: ${props => (props.small ? "1.6rem" : "2rem")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
   ${media.lessThan("large")`
-  font-size: ${props => (props.small ? "1.6em" : "2em")};
+  font-size: ${props => (props.small ? "1.5em" : "2em")};
   `};
   ${media.lessThan("medium")`
-  font-size: ${props => (props.small ? "1.5em" : "2em")};
+  font-size: ${props => (props.small ? "1.4em" : "2em")};
 `};
   ${media.lessThan("small")`
   font-size: ${props => (props.small ? "1.3em" : "2em")};
@@ -245,8 +271,9 @@ const Title = styled.h5`
 
 const Label = styled.label`
 padding-left: 10px
+font-family: calibri;
 font-weight: 500;
-font-size: ${props => (props.small ? "1.2em" : "1.3em")};
+font-size: ${props => (props.small ? "1.4em" : "1.3em")};
 ${media.lessThan("large")`
 font-size: ${props => (props.small ? "1.1em" : "1.3em")};
   `};
@@ -260,8 +287,16 @@ font-size: ${props => (props.small ? "1.1em" : "1.3em")};
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-gap: 2.5rem 1.5rem;
+  ${media.lessThan("huge")`
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+     grid-gap: 2rem 1rem;
+  `};
+  ${media.lessThan("large")`
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      grid-gap: 2rem 1rem;
+  `};
 `
 
 const CustomImage = styled(Image)`
@@ -286,36 +321,44 @@ const GalleryGrid = styled.div`
 
 const Card = styled.div`
   place-items: center;
-  width: ${props => (props.team ? "22em" : "23em")};
+  width: ${props => (props.team ? "22em" : "30em")};
   border-radius: ${props => (props.team ? "7px" : "5px")};
-  padding: 1rem 0.5rem;
-  margin : 1rem
+  padding: 0.7rem 0.5rem;
+  margin: 1rem;
   box-shadow: 0px 2px 6px grey;
   background: transparent;
   color: black;
   cursor: pointer;
+  height: auto;
   ${media.lessThan("large")`
-    margin : 0.7rem
-      height: ${props => (props.team ? "20vh" : "33vh")};
-    width: ${props => (props.team ? "22em" : "20em")};
+    margin : 0.7rem;
+    height: ${props => (props.team ? "auto" : "auto")};
+    width: ${props => (props.team ? "22em" : "25em")};
   `};
   ${media.lessThan("medium")`
-    margin : 0.7rem
-   height: ${props => (props.team ? "20vh" : "26vh")};
-  width: ${props => (props.team ? "22em" : "17em")};
+    margin : 0.7rem;
+    height: ${props => (props.team ? "auto" : "auto")};
+    width: ${props => (props.team ? "22em" : "28em")};
 `};
   ${media.lessThan("small")`
-      height: ${props => (props.team ? "20vh" : "23vh")};
-      width: ${props => (props.team ? "22em" : "15em")};
+    height: ${props => (props.team ? "auto" : "auto")};
+    width: ${props => (props.team ? "22em" : "15em")};
 `};
 `
 
 const Items = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-gap: 1rem 1rem;
+  ${media.lessThan("huge")`
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+`};
+  ${media.lessThan("large")`
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+`};
   ${media.lessThan("medium")`
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  padding : 0rem 3rem;
 `};
 `
 
@@ -328,7 +371,7 @@ const Notification = styled.div`
 const Switch = styled.div`
   padding: 0rem 0rem;
   border: 2.5px solid #401364;
-  width: ${props => (props.two ? "29rem" : "36rem")};
+  width: auto;
   background: transparent;
   transition: transform 2s;
   border-radius: 6px;
@@ -336,17 +379,17 @@ const Switch = styled.div`
     transform: ease-in;
   }
   ${media.lessThan("large")`
-    width:  ${props => (props.two ? "29.5rem" : "36rem")};
+    width:   auto;
     border-radius: 2.5px;
     border: 1.5px solid #401364;
   `};
   ${media.lessThan("medium")`
-    width:  ${props => (props.two ? "20.5rem" : "24rem")};
+    width:  auto;
     border-radius: 2.5px;
   border: 1.5px solid #401364;
 `};
   ${media.lessThan("small")`
-   width: 19rem;
+   width:  auto;
     border-radius: 2.5px;
   border: 1px solid #401364;
 `};
@@ -374,23 +417,29 @@ const SwitchBtn = styled.button`
 `
 
 const InputBox = styled.div`
-  padding: ${props => (props.modal ? "0.5rem 2rem" : "0rem 1rem")};
+  padding: ${props => (props.padded ? "0.5rem 2rem" : "0rem 1rem")};
   border: ${props => (props.modal ? "1px solid #000" : "1px solid #fff")};
   border-radius: 5px;
   height: auto;
+  width: auto;
 `
 
 // HEADER STYLES =================>
 const Header = styled.nav`
-  padding: 0.3em 3rem;
+  padding: 0.1em 3rem;
   background: #444444;
+  height : 8vh
   position: fixed;
   width: 100%;
+  ${media.lessThan("large")`
+   padding: 0.7rem 2rem;
+`};
   ${media.lessThan("medium")`
-          padding: 0.1rem 1rem;
+    padding: 0.1rem 1rem;
+    height : 7vh
 `};
   ${media.lessThan("small")`
-            padding: 0.1rem 1rem;
+     padding: 0.1rem 1rem;
 `};
 `
 
@@ -405,10 +454,6 @@ const FormCard = styled.div`
   padding: 0rem 0.5rem;
   background: #fff;
   border-radius: 5px;
-`
-
-const List = styled.ul`
-  list-style: none;
 `
 
 const Border = styled.div`
@@ -430,9 +475,21 @@ const CustomModal = styled(Modal)`
 const ScheduleCard = styled.div`
   background: #fff;
   box-shadow: 0px 3px 4px grey;
-  width: ${props => (props.talk ? "25rem" : "100%")};
+  width: ${props => (props.talk ? "27.5rem" : "100%")};
   margin: ${props => (props.talk ? "0ren 1ren" : null)};
   padding: ${props => (props.padded ? "1rem" : null)};
+  ${media.lessThan("huge")`
+    width: ${props => (props.talk ? "25rem" : "100%")};
+    margin: ${props => (props.talk ? "0ren 1ren" : null)};
+  `};
+  ${media.lessThan("large")`
+    width: ${props => (props.talk ? "20rem" : "100%")};
+   margin: ${props => (props.talk ? "0ren 0.5ren" : null)};
+  `};
+  ${media.lessThan("medium")`
+    width: ${props => (props.talk ? "25rem" : "100%")};
+     margin: ${props => (props.talk ? "0ren 1ren" : null)};
+  `};
 `
 
 const FormBody = styled.div`
@@ -456,6 +513,7 @@ const BigTitle = styled.h2`
   font-size: ${props => (props.small ? "1.8em" : "2.5em")};
   text-align: ${props => (props.center ? "center" : null)};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
+  color: #0e2f5a;
   ${media.lessThan("large")`
       font-size: ${props => (props.small ? "1.8em" : "2.1em")};
   `};
@@ -468,8 +526,7 @@ font-size: ${props => (props.small ? "1.3em" : "1.6em")};
 `
 
 const MyCard = styled.div`
-  padding: 1rem 1rem;
-  width: 38rem;
+  width: 50rem;
   box-shadow: 0px 2px 6px grey;
   border-radius: 10px;
   border: 0px;
@@ -478,8 +535,14 @@ const MyCard = styled.div`
   position: absolute;
   margin: ${props => (props.center ? "4rem 0rem" : "1rem 10rem")};
   transition: ease-in-out 700ms;
+  ${media.lessThan("huge")`
+       width: 45rem;
+  `};
+  ${media.lessThan("large")`
+       width: 40rem;
+  `};
   ${media.lessThan("medium")`
-  width: 33rem;
+     width: 33rem;
   `};
 `
 
@@ -493,9 +556,12 @@ const Tab = styled.div`
 const TabColumn = styled.div`
   font-family: calibri;
   text-align: center;
+  display: flex;
   font-size: 1.3rem;
-  padding: 0.5rem 2rem;
+  padding: 0rem 0.5rem;
+  margin: 0rem 0.5rem;
   transition: all 200ms;
+  color: ${props => (props.active ? "#0e2f5a" : "black")}
   margin: 0rem 1rem;
   font-weight: ${props => (props.active ? "600" : "normal")};
   border-bottom: ${props => (props.active ? "4px solid blue" : "0px")};
@@ -506,6 +572,38 @@ const TabColumn = styled.div`
   }
 `
 
+const TextEditor = styled.div`
+    display: flex;
+    flex-direction : column
+    border-radius : 7px;
+    flex: 1;
+    width  : auto
+    height : 30vh;
+    border: 2px solid grey;
+    margin : 1rem 1rem;
+    textarea {
+      border : 0px ;
+      padding  : 1rem 1rem
+      outline : 0px; 
+      width: auto;
+      font-size : 1.1rem
+      height: auto;
+      display : flex;
+      border-radius: 5px 5px 0px 0px;
+      flex : 1;
+    }
+    div {
+      border-top : 2px dashed #0e2f5a;
+      padding : 1rem 1rem;
+      display : flex;
+      font-size : 1.1rem;
+      font-family : calibri;
+     border-radius: 0px 0px 5px 5px;
+      justify-content  : center;
+      background : #fbfbfb;
+    }
+  `
+
 export {
   Tab,
   TabColumn,
@@ -513,6 +611,7 @@ export {
   BigTitle,
   FormBody,
   ScheduleCard,
+  TextEditor,
   CustomModal,
   Border,
   FormCard,

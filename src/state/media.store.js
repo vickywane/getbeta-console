@@ -1,22 +1,33 @@
-import { action, observable, decorate } from "mobx";
+import { action, observable, decorate } from "mobx"
 
 class MediaStore {
-  Empty = true;
+  Empty = true
+
+  UploadModal = false
+
+  openUploadModal = () => {
+    this.UploadModal = true
+  }
+
+  closeUploadModal = () => {
+    this.UploadModal = false
+  }
+
   items = [
     {
       id: 1,
       name: "",
-      url: ""
-    }
-  ];
+      url: "",
+    },
+  ]
 
-  itemsNo = null;
+  itemsNo = null
 
   AddItem = () => {
-    this.empty = false;
-  };
+    this.empty = false
+  }
 
-  DeleteItem = () => {};
+  DeleteItem = () => {}
 }
 
 const DecoratedMediaStore = decorate(MediaStore, {
@@ -24,12 +35,16 @@ const DecoratedMediaStore = decorate(MediaStore, {
   Empty: observable,
   itemsNo: observable,
   items: observable,
+  UploadModal: observable,
 
   //actions
   AddItems: action,
-  DeleteItems: action
-});
+  DeleteItems: action,
 
-const store = new DecoratedMediaStore();
+  openUploadModal: action,
+  closeUploadModal: action,
+})
 
-export default store;
+const store = new DecoratedMediaStore()
+
+export default store

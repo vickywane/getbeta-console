@@ -138,12 +138,8 @@ const Authentication = (props): JSX.Element => {
           </CSSTransition>
           <div>
             <hr />
-            <p style={{ textAlign: "center", fontSize: "1.2em" }}>
-              {authState === "Login" ? "Login" : "Create Account"} with{" "}
-            </p>
-
-            <OAuth URL={API_URL} />
-          </div>{" "}
+            <OAuth authState={authState} URL={API_URL} />
+          </div>
         </div>
       </StyledCard>
     </Flex>

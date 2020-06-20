@@ -4,25 +4,59 @@ import Flex from "styled-flex-component"
 import { FiSettings, FiSearch } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 import { CSSTransition } from "react-transition-group"
+import styled from "styled-components"
+import media from "styled-media-query"
 
 import {
   Hover,
   Header as Head,
   HeaderLinks,
-  InputBox,
-  Input,
   Text,
+  InputBox,
 } from "../../styles/style"
+import { StyledSetting, StyledSearch } from "../../styles/navigation"
 import { SettingsPane } from "../"
-import { Burger, Menu } from "./"
+import { Burger, Notification } from "./"
 import useWindowWidth from "../../hook_style"
 import "../../App.css"
 
+const Input = styled.input`
+  height: 4vh
+  width: 40rem;
+  padding: 0.7em 1.5rem;
+  display : flex;
+  flex: 1;
+  border: 0px
+  outline: 0px;
+  color:  #fff;
+  margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
+  padding-left: 10px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  transition: all 300ms;
+  background: ${props => (props.transparent ? "transparent" : null)};
+    ${media.lessThan("huge")`
+    width: ${props => (props.wide ? "60rem" : "30rem")};
+    `};
+    ${media.lessThan("large")`
+  width: 27rem;
+  height: 3.5vh
+  `};
+  ${media.lessThan("medium")`
+  width: ${props => (props.wide ? "52rem" : "auto")};
+  `};
+  ${media.lessThan("small")`
+  width: ${props => (props.wide ? "52rem" : "auto")};
+  `};
+  &: hover {
+     
+  }
+`
+
 const Header = (props): JSX.Element => {
   const hooks: number = useWindowWidth()
-
   const [SettingsVisibility, setSettingsVisibility] = useState(false)
-
+  const { showSearchBar, searchText } = props
   const { showProfilePane }: any = props.ConsoleStore
   const [open, setOpen] = useState(false)
   const menuId: string = "main-menu"
@@ -44,6 +78,8 @@ const Header = (props): JSX.Element => {
     )
   }
 
+  // console.log(props)
+
   return (
     <div>
       <Head
@@ -61,8 +97,23 @@ const Header = (props): JSX.Element => {
             }}
           >
             <Flex>
-              <Link to="/console" style={{ textDecoration: "none" }}>
-                <HeaderLinks>Oasis</HeaderLinks>
+              <HeaderLinks
+                target={"_blank"}
+                href="https://my-event.netlify.com"
+              >
+                Oasis
+              </HeaderLinks>
+              <Link
+                to="/console"
+                style={{
+                  paddingLeft: "10px",
+                  color: "white",
+                  textDecoration: "none",
+                  fontSize: "1.4em",
+                  paddingTop: "7px",
+                }}
+              >
+                | Home
               </Link>
             </Flex>
 
@@ -77,9 +128,9 @@ const Header = (props): JSX.Element => {
               {props.event}
             </HeaderLinks>
 
-            {props.page === "Search" ? (
+            {showSearchBar ? (
               <div>
-                {hooks >= 900 ? (
+                {hooks >= 1000 ? (
                   <InputBox>
                     <Flex>
                       <Hover style={{ paddingTop: "10px " }}>
@@ -91,7 +142,7 @@ const Header = (props): JSX.Element => {
                       <Input
                         tiny
                         white
-                        placeholder={props.placeholder}
+                        placeholder={searchText}
                         transparent
                         unbordered
                       />
@@ -103,12 +154,18 @@ const Header = (props): JSX.Element => {
 
             {props.middleText ? (
               <Text white bold>
-                {" "}
-                {props.text}{" "}
+                {props.text}
               </Text>
             ) : null}
 
             <Flex>
+              {hooks >= 1000 ? null : (
+                <StyledSearch
+                  onClick={() => {
+                    setSettingsVisibility(!SettingsVisibility)
+                  }}
+                />
+              )}
               <div>
                 <Burger
                   type="Notification"
@@ -116,28 +173,21 @@ const Header = (props): JSX.Element => {
                   setOpen={setOpen}
                   aria-controls={menuId}
                 />
-                <Menu open={open} setOpen={setOpen} id={menuId} />
+                <Notification open={open} setOpen={setOpen} id={menuId} />
               </div>
 
-              <Hover
-                white
-                style={{ padding: "0rem 1rem 0rem 2rem" }}
+              <StyledSetting
                 onClick={() => {
                   setSettingsVisibility(!SettingsVisibility)
                 }}
-              >
-                <FiSettings style={{ fontSize: "1.7rem" }} />{" "}
-              </Hover>
+              />
 
               <CSSTransition
                 timeout={30000}
                 in={SettingsVisibility === true}
                 unmountOnExit={true}
                 classNames={"setting"}
-                onEnter={() => {
-                  // timeout is going by itself
-                  console.log("exit")
-                }}
+                onEnter={() => {}}
               >
                 <SettingsPane />
               </CSSTransition>
@@ -157,7 +207,7 @@ const Header = (props): JSX.Element => {
                   setOpen={setOpen}
                   aria-controls={menuId}
                 />
-                <Menu open={open} setOpen={setOpen} id={menuId} />
+                <Notification open={open} setOpen={setOpen} id={menuId} />
               </div>
             )}
           </Flex>

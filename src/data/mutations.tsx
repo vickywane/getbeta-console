@@ -1,5 +1,8 @@
 import { gql } from "apollo-boost"
 
+// TODO: CHECK IF VALUES RETURNED FORM MUTATIONS ARE
+//       USED IF NOT REMOVE AND LEAVE ONLY ID FIELDS
+
 const CREATE_USER = gql`
   mutation createUser($name: String!, $email: String!, $password: String!) {
     createUser(input: { name: $name, password: $password, email: $email }) {
@@ -14,24 +17,26 @@ const CREATE_USER = gql`
   }
 `
 
-// this should come from mutation variable
-const id = localStorage.getItem("user_id")
-
 const CREATE_EVENT = gql`
   mutation createEvent(
-    # $UserID: ${id}!
+    $UserID: Int!
     $name: String!
     $Email: String!
     $eventType: String!
     $summary: String!
     $alias: String!
     $description: String!
-    $Date: Int!
     $venue: String!
     $website: String!
+    $EventDate: [String]!
+    $isArchived: Boolean!
+    $isLocked: Boolean!
+    $isAcceptingTalks: Boolean!
+    $isAcceptingVolunteers: Boolean!
+    $isVirtual: Boolean!
   ) {
     createEvent(
-      UserID: ${id}
+      UserID: $UserID
       input: {
         name: $name
         Email: $Email
@@ -41,7 +46,12 @@ const CREATE_EVENT = gql`
         venue: $venue
         eventType: $eventType
         summary: $summary
-        Date: $Date
+        isVirtual: $isVirtual
+        EventDate: $EventDate
+        isArchived: $isArchived
+        isLocked: $isLocked
+        isAcceptingTalks: $isAcceptingTalks
+        isAcceptingVolunteers: $isAcceptingVolunteers
       }
     ) {
       name
@@ -51,8 +61,52 @@ const CREATE_EVENT = gql`
       alias
       website
       Email
-      Date
+      EventDate
       bucketLink
+    }
+  }
+`
+
+const UPDATE_EVENT = gql`
+  mutation updateEvent(
+    $id: ID!
+    $name: String
+    $Email: String
+    $eventType: String
+    $summary: String
+    $alias: String
+    $description: String
+    $EventDate: [String]
+    $venue: String
+    $website: String
+    $speakerConduct: String
+    $isVirtual: Boolean
+    $isAcceptingTalks: Boolean
+    $isAcceptingVolunteers: Boolean
+    $isLocked: Boolean
+    $isArchived: Boolean
+  ) {
+    updateEvent(
+      id: $id
+      input: {
+        name: $name
+        Email: $Email
+        website: $website
+        alias: $alias
+        description: $description
+        venue: $venue
+        eventType: $eventType
+        summary: $summary
+        speakerConduct: $speakerConduct
+        EventDate: $EventDate
+        isVirtual: $isVirtual
+        isAcceptingTalks: $isAcceptingTalks
+        isAcceptingVolunteers: $isAcceptingVolunteers
+        isLocked: $isLocked
+        isArchived: $isArchived
+      }
+    ) {
+      name
     }
   }
 `
@@ -67,11 +121,24 @@ const CREATE_TEAM = gql`
 `
 
 const CREATE_TASK = gql`
-  mutation createTask($name: String!, $type: String!, $isCompleted: Boolean!) {
-    createTask(input: { name: $name, type: $type, isCompleted: $isCompleted }) {
-      name
-      type
-      isCompleted
+  mutation createTask(
+    $teamId: Int!
+    $userId: Int!
+    $name: String!
+    $category: String!
+    $isCompleted: Boolean!
+  ) {
+    createTask(
+      teamId: $teamId
+      userId: $userId
+      input: {
+        name: $name
+        category: $category
+        isCompleted: $isCompleted
+        team_id: $teamId
+      }
+    ) {
+      id
     }
   }
 `
@@ -96,11 +163,16 @@ const UPDATE_USER = gql`
     $name: String
     $email: String
     $password: String
-    $role: String
+    $ImgUrl: String
   ) {
     updateUser(
       id: $id
-      input: { name: $name, password: $password, email: $email, role: $role }
+      input: {
+        name: $name
+        password: $password
+        email: $email
+        img_uri: $ImgUrl
+      }
     ) {
       name
       email
@@ -130,17 +202,210 @@ const CREATE_TRACK: any = gql`
       }
     ) {
       id
+    }
+  }
+`
+
+const VOLUNTEER: any = gql`
+  mutation createVolunteer(
+    $UserID: Int!
+    $EventID: Int!
+    $Role: String!
+    $Duration: String
+    $Proposal: String!
+  ) {
+    createVolunteer(
+      UserID: $UserID
+      EventID: $EventID
+      input: { role: $Role, duration: $Duration, volunteer_proposal: $Proposal }
+    ) {
+      role
+      id
+    }
+  }
+`
+
+const ATTEND_EVENT: any = gql`
+  mutation createAttendee($UserId: ID!, $EventId: ID!) {
+    attendEvent(UserID: $UserId, EventID: $EventId) {
+      dateJoined
+    }
+  }
+`
+
+const UPLOAD_EVENT_FILE: any = gql`
+  mutation upload(
+    $file: Upload!
+    $BucketName: String!
+    $Type: String!
+    $EventId: Int
+    $UserId: Int
+  ) {
+    uploadSingleEventFile(
+      BucketName: $BucketName
+      req: { file: $file, eventId: $EventId, type: $Type, userId: $UserId }
+    ) {
+      id
+    }
+  }
+`
+
+const UPLOAD_USER_FILE: any = gql`
+  mutation upload(
+    $file: Upload!
+    $BucketName: String!
+    $Type: String!
+    $UserId: Int
+  ) {
+    uploadSingleUserFile(
+      BucketName: $BucketName
+      req: { file: $file, type: $Type, userId: $UserId }
+    ) {
+      id
+      file_uri
+    }
+  }
+`
+
+const CREATE_CART_CATEGORY: any = gql`
+  mutation createCategory($Name: String!, $EventId: Int!) {
+    createCategory(EventID: $EventId, input: { name: $Name }) {
       name
+      id
+    }
+  }
+`
+
+const ADD_ITEM_INTO_CART = gql`
+  mutation createCartItem(
+    $name: String!
+    $CategoryId: Int!
+    $price: String
+    $quantity: Int!
+    $description: String!
+    $isFree: Boolean!
+  ) {
+    createCartItem(
+      input: {
+        name: $name
+        isFree: $isFree
+        description: $description
+        quantity: $quantity
+        price: $price
+      }
+      CategoryId: $CategoryId
+    ) {
+      id
+    }
+  }
+`
+
+const CREATE_TALK = gql`
+  mutation createTalk(
+    $userId: Int!
+    $title: String!
+    $description: String!
+    $archived: Boolean!
+    $duration: String!
+    $summary: String!
+  ) {
+    createTalk(
+      UserID: $userId
+      input: {
+        title: $title
+        description: $description
+        Archived: $archived
+        duration: $duration
+        summary: $summary
+      }
+    ) {
+      id
+    }
+  }
+`
+
+const SUMBIT_TALK = gql`
+  mutation submitEventTalk(
+    $talkId: Int!
+    $eventId: Int!
+    $isAccepted: Boolean!
+  ) {
+    submitEventTalk(
+      talkId: $talkId
+      eventId: $eventId
+      input: { isAccepted: $isAccepted }
+    ) {
+      id
+    }
+  }
+`
+
+const CREATE_MEETUP_GROUP: any = gql`
+  mutation createMeetupGroup(
+    $leadId: Int!
+    $eventId: Int!
+    $name: String!
+    $alias: String!
+    $location: String!
+  ) {
+    createMeetupGroup(
+      leadId: $leadId
+      eventId: $eventId
+      input: { name: $name, alias: $alias, location: $location }
+    ) {
+      id
+    }
+  }
+`
+
+const DELETE_EVENT: any = gql`
+  mutation deleteEvent($eventId: ID!) {
+    deleteEvent(id: $eventId)
+  }
+`
+
+const DELETE_TALK: any = gql`
+  mutation deleteTalk($talkId: ID!) {
+    deleteTalk(id: $talkId)
+  }
+`
+
+const REVIEW_TALK: any = gql`
+  mutation updateSubmittedTalk(
+    $talkId: Int!
+    $reviewerId: Int!
+    $isAccepted: Boolean!
+    $comment: String
+  ) {
+    updateSubmittedTalk(
+      talkId: $talkId
+      reviewerId: $reviewerId
+      input: { isAccepted: $isAccepted, comment: $comment }
+    ) {
+      isAccepted
     }
   }
 `
 
 export {
+  DELETE_EVENT,
+  REVIEW_TALK,
+  DELETE_TALK,
+  CREATE_TALK,
+  SUMBIT_TALK,
+  CREATE_MEETUP_GROUP,
+  ADD_ITEM_INTO_CART,
+  CREATE_CART_CATEGORY,
+  UPLOAD_EVENT_FILE,
+  UPLOAD_USER_FILE,
   CREATE_EVENT,
   UPDATE_USER,
   CREATE_TASK,
+  VOLUNTEER,
+  UPDATE_EVENT,
   CREATE_TEAM,
   CREATE_USER,
   CREATE_TRACK,
+  ATTEND_EVENT,
   LOGIN_USER,
 }

@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { inject, observer } from "mobx-react"
-import { FiSearch, FiUploadCloud } from "react-icons/fi"
+import { FiSearch, FiUploadCloud, FiX } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
+import { useQuery } from "@apollo/react-hooks"
 
-import { Header, Footer } from "../../components/"
+import { Header, Footer, Loader } from "../../components/"
 import Gallery from "./gallery"
 import {
   Contain,
@@ -15,14 +16,41 @@ import {
   InputBox,
 } from "../../styles/style"
 import useWindowWidth from "../../hook_style"
+import Upload from "./upload"
+import { GET_EVENT } from "../../data/queries"
 
 const mediaTeam = [{ id: 1 }, { id: 2 }, { id: 1 }, { id: 2 }]
 
 const Media = (props): JSX.Element => {
+  const { openUploadModal } = props.MediaStore
+
   const Hooks: number = useWindowWidth()
+  const [modal, showModal] = useState(false)
+
+  const { data, loading, error } = useQuery(GET_EVENT, {
+    variables: {
+      id: props.match.params.id,
+      name: "",
+    },
+  })
+
+  if (loading) {
+    return <Loader type="loading" />
+  }
+
+  if (error) {
+    console.log(error, "error")
+    return <p> error here</p>
+  }
+
+  const { name } = data.event
+
+  const bucketName = props.match.params.name
   return (
     <div>
-      <Header unshadowed options={true} event="|OSCA>Media " />
+      <Header unshadowed options={true} event={name} />
+
+      <Upload bucketName={bucketName} eventId={props.match.params.id} />
 
       <div style={{ backgroundColor: "#401364", color: "#fff" }}>
         <br />
@@ -58,15 +86,14 @@ const Media = (props): JSX.Element => {
           <Flex justifyBetween>
             <Text white> XXXXX files sent to xxx attendees. </Text>
 
-            <Link to={"/upload"} style={{ textDecoration: "none" }}>
+            <Hover onClick={() => openUploadModal()}>
               <Flex>
                 <FiUploadCloud style={{ color: "#fff", fontSize: "2rem" }} />
                 <Text style={{ padding: "0rem 0.7rem" }} white>
-                  {" "}
-                  Upload{" "}
+                  Upload
                 </Text>
               </Flex>
-            </Link>
+            </Hover>
           </Flex>
 
           <div

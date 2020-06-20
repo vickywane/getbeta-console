@@ -5,7 +5,10 @@ import { FiLogOut, FiImage, FiX } from "react-icons/fi"
 import { IoMdClipboard } from "react-icons/io"
 import { Link } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
+import { inject, observer } from "mobx-react"
+import styled from "styled-components"
 
+import TestImg from "../../assets/images/test.png"
 import useWindowWidth from "../../hook_style"
 import {
   Detail,
@@ -13,57 +16,77 @@ import {
   Text,
   Hover,
   BigTitle,
-  MyCard,
+  Section,
+  Head,
 } from "../../styles/style"
 import ChangeProfile from "./editProfile"
 import "../../App.css"
 
+const List = styled.div`
+  li {
+  list-style: none;
+    margin : 0.5rem 0.5rem;
+    padding : 0.5rem 0.5rem
+    justify-content : center;
+    transition: all 300ms;
+    display: flex;
+    &: hover {
+      background : #fafafa;
+     border-radius : 7px;
+      }
+  }    
+`
+
+const ListContainer = styled.div`
+    padding : 0.5rem 0.5rem
+    background : #fafafa;
+    border-radius : 7px ; 
+    border :  2px dashed #401364;
+    box-shadow: 0px 2px 4px #401364;
+`
+
 const Profile = (props): JSX.Element => {
-  const { name, email } = props.User.user
+  const { name, email, attending, bucketName, img_uri } = props.User.user
+  const { editProfile, showEditProfile, closeEditProfile } = props.ModalStore
+  const AttendNo = attending === null ? 0 : attending.length
   const Hooks = useWindowWidth()
-  const [EditProfile, setEditProfile] = React.useState(false)
 
   return (
-    <Contain grey bottomShadow>
+    <Contain img={TestImg} bottomPadding bottomShadow>
       <br />
       <Flex justifyBetween>
         <Flex>
           <Hover
             onClick={() => {
-              setEditProfile(!EditProfile)
+              showEditProfile()
             }}
           >
             <Image
               alt="profile"
-              src={require("../../assets/images/developer.png")}
-              style={{ maxWidth: "8em", maxHeight: "8em" }}
+              src={
+                img_uri === null
+                  ? require("../../assets/images/developer.png")
+                  : img_uri
+              }
+              style={{
+                border: "3px solid #401364",
+                boxShadow: "0px 2px 4px #401364",
+                height: "150px",
+                width: "150px",
+              }}
               roundedCircle
               rounded
               fluid
             />
           </Hover>
-          <CSSTransition
-            timeout={400}
-            classNames={"profile"}
-            in={EditProfile == true}
-            unmountOnExit
-          >
-            <MyCard>
-              <Flex justifyBetween>
-                <Text bold> Edit Profile </Text>
-                <Hover
-                  onClick={() => {
-                    setEditProfile(!EditProfile)
-                  }}
-                  style={{ textAlign: "right" }}
-                >
-                  <FiX style={{ fontSize: "1.8rem" }} />
-                </Hover>
-              </Flex>
-              <hr />
-              <ChangeProfile name={name} email={email} />
-            </MyCard>
-          </CSSTransition>
+
+          <ChangeProfile
+            bucketName={bucketName}
+            name={name}
+            email={email}
+            show={editProfile}
+            close={closeEditProfile}
+          />
 
           <Detail style={{ padding: "0rem 1rem" }}>
             <br />
@@ -74,74 +97,93 @@ const Profile = (props): JSX.Element => {
           </Detail>
         </Flex>
 
-        {Hooks >= 1000 ? (
-          <Flex column>
-            <Link to="/">
-              <Flex>
+        <ListContainer>
+          {Hooks >= 1000 ? (
+            <List>
+              <li>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Flex>
+                    <Hover>
+                      <FiImage style={{ fontSize: "2em" }} />
+                    </Hover>
+
+                    <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
+                      Gallery{" "}
+                    </Text>
+                  </Flex>
+                </Link>
+              </li>
+              <li>
+                <Link to="/drafts" style={{ textDecoration: "none" }}>
+                  <Flex>
+                    <Hover>
+                      <IoMdClipboard style={{ fontSize: "2em" }} />
+                    </Hover>
+
+                    <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
+                      Talk Drafts{" "}
+                    </Text>
+                  </Flex>
+                </Link>
+              </li>
+              <li>
+                <Hover
+                  style={{ color: "#401364" }}
+                  onClick={() => {
+                    props.logout()
+                  }}
+                >
+                  <Flex>
+                    <FiLogOut style={{ fontSize: "2em" }} />
+
+                    <Text style={{ padding: "0rem 1rem" }}>Sign Out </Text>
+                  </Flex>
+                </Hover>
+              </li>
+            </List>
+          ) : (
+            <Flex column>
+              <Link to="/" style={{ textDecoration: "none" }}>
                 <Hover>
                   <FiImage style={{ fontSize: "2em" }} />
                 </Hover>
-
-                <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
-                  Gallery{" "}
-                </Text>
-              </Flex>
-            </Link>
-            <br />
-            <Link to="/talks">
-              <Flex>
+              </Link>
+              <br />
+              <Link to="/drafts" style={{ textDecoration: "none" }}>
                 <Hover>
                   <IoMdClipboard style={{ fontSize: "2em" }} />
                 </Hover>
-
-                <Text style={{ color: "#401364", padding: "0rem 1rem" }}>
-                  {" "}
-                  Talks{" "}
-                </Text>
-              </Flex>
-            </Link>
-            <br />
-            <Hover
-              style={{ color: "#401364" }}
-              onClick={() => {
-                props.logout()
-              }}
-            >
-              <Flex>
+              </Link>
+              <br />
+              <Hover
+                style={{ color: "#401364" }}
+                onClick={() => {
+                  props.logout()
+                }}
+              >
                 <FiLogOut style={{ fontSize: "2em" }} />
-
-                <Text style={{ padding: "0rem 1rem" }}>Sign Out </Text>
-              </Flex>
-            </Hover>
-          </Flex>
-        ) : (
-          <Flex column>
-            <Link to="/">
-              <Hover>
-                <FiImage style={{ fontSize: "2em" }} />
               </Hover>
-            </Link>
-            <br />
-            <Link to="/talks">
-              <Hover>
-                <IoMdClipboard style={{ fontSize: "2em" }} />
-              </Hover>
-            </Link>
-            <br />
-            <Hover
-              style={{ color: "#401364" }}
-              onClick={() => {
-                props.logout()
-              }}
-            >
-              <FiLogOut style={{ fontSize: "2em" }} />
-            </Hover>
-          </Flex>
-        )}
+            </Flex>
+          )}
+        </ListContainer>
       </Flex>
       <br />
+      <br />
+      <Flex>
+        <div style={{ padding: "0rem 1rem" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Text> Watched Events ( 0 ) </Text>
+          </Link>
+        </div>
+
+        <div style={{ padding: "0rem 1rem" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Text> Attending ( {AttendNo} ) </Text>
+          </Link>
+        </div>
+      </Flex>
     </Contain>
   )
 }
 
-export default Profile
+export default inject("ModalStore")(observer(Profile))

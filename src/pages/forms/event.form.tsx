@@ -6,7 +6,11 @@ import "react-datepicker/dist/react-datepicker.css"
 import * as Yup from "yup"
 import { useMutation } from "@apollo/react-hooks"
 import { inject, observer } from "mobx-react"
+import { Redirect, Link } from "react-router-dom"
+import media from "styled-media-query"
+import { FiHome } from "react-icons/fi"
 
+import Existing from "./exsiting-event" // i no sabi spell ;)
 import { CREATE_EVENT } from "../../data/mutations"
 import { CREATE_EVENT_INPUT } from "./formsData"
 import Upload from "../media/upload"
@@ -17,17 +21,18 @@ import {
   Button,
   Label,
   Text,
+  Hover,
   Grid,
+  BigTitle,
   FormBody as Body,
   FormCard as Card,
 } from "../../styles/style"
 import Field from "./fields"
-import media from "styled-media-query"
 
 const UpGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  grid-gap: 2rem 1rem;
+  grid-gap: 2rem 2rem;
   ${media.lessThan("huge")`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -46,24 +51,41 @@ const UpGrid = styled.div`
 `
 
 const CustomCard = styled(Card)`
+  width: 60rem;
+  padding: 10rem;
+  box-shadow: 0px 2px 4px grey;
+  text-align: center;
+  margin: 10rem 0rem;
+  ${media.lessThan("large")`
+    width: 50rem;
+    padding: 5rem;
+  margin: 7rem 0rem;
+  `};
+  ${media.lessThan("medium")`
   width: 30rem;
   padding: 5rem;
   margin: 5rem 1rem;
-  box-shadow: 0px 2px 4px grey;
-  text-align: center;
+  `};
 `
 
 const TypeBox = styled.div`
   padding: 0.5rem 1rem;
   border-radius : 5px
-  border: 1px solid #000;
-  width: 30rem;
+  box-shadow: ${props => (props.active ? "0px 2px 5px #2E73FA" : null)};
+  border: ${props => (props.active ? "1px solid #2E73FA" : "1px solid grey")};
+  width: auto;
+  display: flex;
+  flex: 1;
+  align-items: center;
   margin : 0rem 1rem;
+  transition: all 300ms;
  &: hover {
     cursor: pointer;
+    box-shadow: 0px 2px 5px #2E73FA;
+    border: 1px solid #2E73FA;
   }
   ${media.lessThan("large")`
-  width: 26rem;
+  width: 28rem;
   `};
   ${media.lessThan("medium")`
   width: 30rem;
@@ -80,16 +102,19 @@ const Radio = styled.input`
 
 const CreateEvent = (props): JSX.Element => {
   const { Notify, closeNotify, importPane } = props.PaneStore
-  const [StartDate, setStartDate] = useState(new Date())
+
+  const [EventStartDate, setEventStartDate] = useState(new Date())
+  const [isSingleDate, setSingleDate] = useState(false)
+  const [EndDate, setEndDate] = useState(new Date())
+
   const [Mail, ConfirmMail] = useState(false)
   const [Error, setError] = useState("")
 
-  const handleCalendarChange = date => {
-    setStartDate(date)
-  }
+  const handleCalendarChange = date => {}
 
   const [createEvent, { data }] = useMutation(CREATE_EVENT)
 
+  // Collapsing all into one {kvp state} gives an uncontrolled form err .
   const [Name, setName] = useState("")
   const [Alias, setAlias] = useState("")
   const [Description, setDescription] = useState("")
@@ -97,7 +122,11 @@ const CreateEvent = (props): JSX.Element => {
   const [Summary, setSummary] = useState("")
   const [Venue, setVenue] = useState("")
   const [Email, setEmail] = useState("")
-  const [EventType, setEventType] = useState("Conference")
+  const [EventType, setEventType] = useState("")
+  const [Virtual, setVirtual] = useState(false)
+  const [EventDate, setEventDate] = useState([])
+
+  const [ExistingEvent, createExistingEvent] = useState(false)
 
   let Validation = Yup.object().shape({
     name: Yup.string()
@@ -114,22 +143,29 @@ const CreateEvent = (props): JSX.Element => {
   const SubmitData = () => {
     createEvent({
       variables: {
+        UserID: localStorage.getItem("user_id"),
         name: Name,
         website: Website,
         alias: Alias,
         description: Description,
         Email: Email,
         venue: Venue,
-        Date: 11,
         eventType: EventType,
         summary: Summary,
+        EventDate: EventDate,
+        isVirtual: Virtual,
+        isLocked: false,
+        isArchived: false,
+        isAcceptingTalks: false,
+        isAcceptingVolunteers: false,
       },
     })
       .then(() => {
-        alert("created")
+        ConfirmMail(true)
+        closeNotify()
       })
       .catch(e => {
-        setError(e.graphQLErrors[0].message)
+        console.log(e)
       })
   }
 
@@ -161,298 +197,408 @@ const CreateEvent = (props): JSX.Element => {
     }
   }
 
+  if (data) {
+    setTimeout(() => {
+      return <Redirect to="/console" message="Loggging in" />
+    }, 20000)
+  }
+
   const { first, second, third } = CREATE_EVENT_INPUT
+
+  console.log(EventDate)
 
   return (
     <div style={{ background: "#eeeeee" }}>
       <Header screen="event" name="" unshadowed={true} event={Name} />
-      {!Mail ? (
-        <div>
-          {!importPane ? (
-            <Panes type={"Event-Form-Import"} color="#401364" />
-          ) : null}
-        </div>
-      ) : null}
-      <br />
-      {!importPane ? (
+
+      {!ExistingEvent ? (
         <div>
           {!Mail ? (
-            <Body>
-              <Text style={{ color: "red" }}> {Error} </Text>
-              <Title small bold>
-                Details
-              </Title>
-              <hr />
-
-              <form onSubmit={SubmitData}>
-                <UpGrid>
-                  <Card>
-                    {first.map(({ id, label, placeholder, textarea }) => {
-                      return (
-                        <div key={id}>
-                          <br />
-
-                          <Field
-                            id={label}
-                            name={label}
-                            type={"text"}
-                            textarea={textarea}
-                            value={label == "Event Name" ? Name : Alias}
-                            onChange={e => handleChange(e, label)}
-                            placeholder={placeholder}
-                          />
-                        </div>
-                      )
-                    })}
-                    <br />
-                  </Card>
-                  <Card>
-                    {third.map(({ id, label, placeholder, textarea }) => {
-                      return (
-                        <div key={id}>
-                          <br />
-                          <Field
-                            id={label}
-                            name={label}
-                            type={"text"}
-                            textarea={textarea}
-                            value={
-                              label == "Event Brand Page" ? Website : Email
-                            }
-                            onChange={e => handleChange(e, label)}
-                            placeholder={placeholder}
-                          />
-                        </div>
-                      )
-                    })}
-                    <br />
-                  </Card>
-                </UpGrid>
-                <br /> <br />
-                <UpGrid>
-                  <Card
-                    style={{
-                      boxShadow: "0px 3px 4px grey",
-                      padding: "0rem 0.2rem",
-                    }}
-                  >
-                    <br />
-                    <Field
-                      type="text"
-                      name="Event-Venue"
-                      id="Event-Venue"
-                      onChange={e => handleChange(e, "Event-Venue")}
-                      value={Venue}
-                      textarea={false}
-                      placeholder="City , State , Country"
-                    />
-
-                    <br />
-
-                    <Flex column>
-                      <Label small details>
-                        Event Date{" "}
-                      </Label>
-                      <p
-                        style={{
-                          paddingLeft: "20px",
-                          color: "grey",
-                        }}
-                      >
-                        {" "}
-                        Start Date :{" "}
-                      </p>
-                      <div style={{ textAlign: "center" }}>
-                        <DatePicker
-                          selected={StartDate}
-                          onChange={handleCalendarChange}
-                        />
-                      </div>
-
-                      <p
-                        style={{
-                          paddingLeft: "20px",
-                          color: "grey",
-                        }}
-                      >
-                        {" "}
-                        End Date :{" "}
-                      </p>
-                      <div style={{ textAlign: "center" }}>
-                        <DatePicker
-                          selected={StartDate}
-                          onChange={handleCalendarChange}
-                        />
-                      </div>
-                    </Flex>
-
-                    <br />
-                  </Card>
-
-                  <Card
-                    style={{
-                      boxShadow: "0px 3px 4px grey",
-                      padding: "0rem 0.2rem",
-                    }}
-                  >
-                    <br />
-                    <Flex column>
-                      <Label small details hmtlFor="event-venue">
-                        Event Type
-                      </Label>
-                      <TypeBox>
-                        <Flex>
-                          <Radio type="radio" />
-
-                          <Flex column>
-                            <Text style={{ padding: "0rem 1rem" }}>
-                              <b> Conference Event </b> <br /> Explanation of a
-                              conference event.
-                            </Text>
-                          </Flex>
-                        </Flex>
-                      </TypeBox>
-
-                      <br />
-                      <br />
-
-                      <TypeBox>
-                        <Flex>
-                          <Radio type="radio" />
-
-                          <Flex column>
-                            <Text style={{ padding: "0rem 1rem" }}>
-                              <b> Meetup Event </b> <br /> Explanation of a
-                              meetup event.
-                            </Text>
-                          </Flex>
-                        </Flex>
-                      </TypeBox>
-                    </Flex>
-
-                    <br />
-                  </Card>
-                </UpGrid>
-              </form>
-              <br />
-              <br />
-              <UpGrid>
-                <Card>
-                  {second.map(({ id, label, placeholder, textarea }) => {
-                    return (
-                      <div key={id}>
-                        <br />
-
-                        <Field
-                          id={label}
-                          name={label}
-                          type={"text"}
-                          textarea={textarea}
-                          value={
-                            label == "Event Description" ? Description : Summary
-                          }
-                          onChange={e => handleChange(e, label)}
-                          placeholder={placeholder}
-                        />
-                      </div>
-                    )
-                  })}
+            <div>
+              {!importPane ? (
+                <div>
                   <br />
-                </Card>
-              </UpGrid>
-              <br />
+                  <Panes type={"Event-Form-Import"} color="#401364" />
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+          <br />
+          {!importPane ? (
+            <div>
+              {!Mail ? (
+                <Body>
+                  <BigTitle center bold>
+                    Create {Name.length < 7 ? "Your Event" : Name}
+                  </BigTitle>
 
-              <br />
+                  <Text style={{ color: "red" }}> {Error} </Text>
+                  <br />
 
-              <Card
-                style={{
-                  boxShadow: "0px 3px 4px grey",
-                  padding: "0rem 0.2rem",
-                }}
-              >
-                <br />
-                <div style={{ padding: "0rem 1rem" }}>
                   <Flex justifyBetween>
                     <Title small bold>
-                      Event Media Assets
+                      Details
                     </Title>
-                    <Text> Skip </Text>
+
+                    <Text>
+                      <b
+                        onClick={() => createExistingEvent(true)}
+                        style={{
+                          color: "blue",
+                          fontWeight: 500,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Launch
+                      </b>{" "}
+                      a new iteration of an existing event.
+                    </Text>
                   </Flex>
-                </div>
+                  <hr />
+                  <form onSubmit={SubmitData}>
+                    <UpGrid>
+                      <Card>
+                        {first.map(({ id, label, placeholder, textarea }) => {
+                          return (
+                            <div key={id}>
+                              <br />
 
-                <hr />
-                <Label small> Cover Image </Label>
-                <Grid>
-                  <Upload type="component" unpadded />
+                              <Field
+                                id={label}
+                                name={label}
+                                type={"text"}
+                                textarea={textarea}
+                                value={label == "Event Name" ? Name : Alias}
+                                onChange={e => handleChange(e, label)}
+                                placeholder={placeholder}
+                              />
+                            </div>
+                          )
+                        })}
+                        <br />
+                      </Card>
+                      <Card>
+                        {third.map(({ id, label, placeholder, textarea }) => {
+                          return (
+                            <div key={id}>
+                              <br />
+                              <Field
+                                id={label}
+                                name={label}
+                                type={"text"}
+                                textarea={textarea}
+                                value={
+                                  label == "Event Brand Page" ? Website : Email
+                                }
+                                onChange={e => handleChange(e, label)}
+                                placeholder={placeholder}
+                              />
+                            </div>
+                          )
+                        })}
+                        <br />
+                      </Card>
+                    </UpGrid>
+                    <br /> <br />
+                    <UpGrid>
+                      <Card
+                        style={{
+                          boxShadow: "0px 3px 4px grey",
+                          padding: "0rem 1rem",
+                        }}
+                      >
+                        <br />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          {" "}
+                          .{" "}
+                          <div
+                            style={{ display: "flex", padding: "0rem 0.7rem" }}
+                          >
+                            <input
+                              type="checkbox"
+                              onChange={() => setVirtual(!Virtual)}
+                              style={{
+                                padding: "0.4rem 0.4rem",
+                                margin: "0.5rem 0.3rem",
+                              }}
+                            />
+                            <Label> Make Virtual Event </Label>
+                          </div>
+                        </div>
+                        <Field
+                          type="text"
+                          name={!Virtual ? "Event-Venue" : "Streaming Location"}
+                          id="Event-Venue"
+                          onChange={e =>
+                            handleChange(
+                              e,
+                              !Virtual ? "Event-Venue" : "Streaming Location"
+                            )
+                          }
+                          value={Venue}
+                          textarea={false}
+                          placeholder={
+                            !Virtual
+                              ? "City , State , Country"
+                              : "Office hq or Host Location"
+                          }
+                        />
+                        <br />
 
-                  <div>
-                    <br />
-                    <Text small center>
-                      Event Cover Image.
-                    </Text>
-                    <p
-                      style={{
-                        color: "grey",
-                        fontSize: "1rem",
-                        textAlign: "center",
+                        <Flex column>
+                          <Label small details>
+                            Event Date
+                          </Label>
+
+                          <div
+                            style={{ display: "flex", padding: "0rem 0.7rem" }}
+                          >
+                            <input
+                              type="checkbox"
+                              onChange={() => setSingleDate(!isSingleDate)}
+                              style={{
+                                padding: "0.4rem 0.4rem",
+                                margin: "0.5rem 0.3rem",
+                              }}
+                            />
+                            <Label small> Multiple Days </Label>
+                          </div>
+                          {EventDate.length}
+
+                          {isSingleDate ? (
+                            <div>
+                              <div
+                                style={{ display: "flex", margin: "0rem 1rem" }}
+                              >
+                                <Text small color="grey">
+                                  Start Date :
+                                </Text>
+                                <div style={{ padding: "0rem 1rem" }}>
+                                  <DatePicker
+                                    selected={EventStartDate}
+                                    onChange={date => {
+                                      setEventStartDate(date)
+
+                                      EventDate.push(date)
+                                    }}
+                                  />
+                                </div>
+                              </div>
+
+                              <br />
+
+                              <div
+                                style={{ display: "flex", margin: "0rem 1rem" }}
+                              >
+                                <Text small color="grey">
+                                  End Date :
+                                </Text>
+                                <div style={{ padding: "0rem 1rem" }}>
+                                  <DatePicker
+                                    selected={EndDate}
+                                    onChange={date => {
+                                      setEndDate(date)
+
+                                      EventDate.push(date)
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div
+                              style={{ display: "flex", margin: "0rem 1rem" }}
+                            >
+                              <Text small color="grey">
+                                Date :
+                              </Text>
+                              <div style={{ padding: "0rem 1rem" }}>
+                                <DatePicker
+                                  selected={EventStartDate}
+                                  onChange={date => {
+                                    setEventStartDate(date)
+
+                                    EventDate.push(date)
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </Flex>
+                        <br />
+                      </Card>
+
+                      <Card
+                        style={{
+                          boxShadow: "0px 3px 4px grey",
+                          padding: "0rem 1rem",
+                        }}
+                      >
+                        <br />
+                        <Flex column>
+                          <Label small details hmtlFor="event-venue">
+                            Event Type
+                          </Label>
+                          <Flex justifyCenter>
+                            <TypeBox
+                              active={EventType === "Conference"}
+                              onClick={() => setEventType("Conference")}
+                            >
+                              <Flex column>
+                                <Text bold style={{ padding: "0rem 1rem" }}>
+                                  Conference Event
+                                </Text>
+                                <Text small style={{ padding: "0rem 1rem" }}>
+                                  Events that span a maximum of 5 days. With
+                                  full conference features.
+                                </Text>
+
+                                <Text center small color="grey">
+                                  <a
+                                    href="/"
+                                    style={{
+                                      textDecoration: "none",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    Learn More
+                                  </a>{" "}
+                                  on Oasis Conferences
+                                </Text>
+                              </Flex>
+                            </TypeBox>
+                          </Flex>
+                          <br />
+
+                          <Flex justifyCenter>
+                            <TypeBox
+                              active={EventType === "Meetup"}
+                              onClick={() => setEventType("Meetup")}
+                            >
+                              <Flex column>
+                                <Text bold style={{ padding: "0rem 1rem" }}>
+                                  Meetup Event
+                                </Text>
+                                <Text small style={{ padding: "0rem 1rem" }}>
+                                  Events that are held at freqeunt intervals and
+                                  can span a long time.
+                                </Text>
+
+                                <Text center small color="grey">
+                                  <a
+                                    href="/"
+                                    style={{
+                                      textDecoration: "none",
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    Learn More
+                                  </a>{" "}
+                                  on Oasis Meetups
+                                </Text>
+                              </Flex>
+                            </TypeBox>
+                          </Flex>
+                        </Flex>
+
+                        <br />
+                      </Card>
+                    </UpGrid>
+                  </form>
+                  <br />
+                  <br />
+                  <UpGrid>
+                    <Card>
+                      {second.map(
+                        ({ id, label, limit, placeholder, textarea }) => {
+                          return (
+                            <div key={id}>
+                              <br />
+                              <Field
+                                id={label}
+                                limit={limit}
+                                name={label}
+                                type={"text"}
+                                textarea={textarea}
+                                value={
+                                  label === "Event Description"
+                                    ? Description
+                                    : Summary
+                                }
+                                onChange={e => handleChange(e, label)}
+                                placeholder={placeholder}
+                              />
+                            </div>
+                          )
+                        }
+                      )}
+                      <br />
+                    </Card>
+                  </UpGrid>
+                  <br />
+                  <br />
+                  <div style={{ textAlign: "right" }}>
+                    <Button
+                      onClick={() => {
+                        SubmitData()
                       }}
                     >
-                      A 1070 X 1205 image resolution is recommended
-                    </p>
+                      Proceed To Confirm Support Mail >
+                    </Button>
                   </div>
-                </Grid>
-                <br />
-                <br />
-                <Label small> Logo </Label>
-                <Grid>
-                  <Upload type="component" unpadded />
 
-                  <div>
-                    <br />
-                    <br />
-                    <Text small center>
-                      Event Logo Image.
-                    </Text>
-                    <p
-                      style={{
-                        color: "grey",
-                        fontSize: "1rem",
-                        textAlign: "center",
-                      }}
-                    >
-                      A 1070 X 1205 image resolution is recommended
-                    </p>
-                  </div>
-                </Grid>
-                <br />
-              </Card>
-              <br />
-              <br />
-              <div style={{ textAlign: "right" }}>
-                <Button
-                  onClick={() => {
-                    // ConfirmMail(true);
-                    closeNotify()
-                    SubmitData()
+                  <br />
+                </Body>
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                 >
-                  Proceed To Confirm Support Mail >
-                </Button>
-              </div>
-            </Body>
+                  <CustomCard>
+                    <Text>
+                      An Email Confirmation link has been sent to{" "}
+                      <b> {Email} </b> to verify that an active support email
+                      address is being used for <b> {Name} </b>.
+                    </Text>{" "}
+                    <br />{" "}
+                    <Link to="/console">
+                      <div
+                        onClick={() => {
+                          return (
+                            <Redirect to="/console" message="rerouting in" />
+                          )
+                        }}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <Hover style={{ padding: "0rem 0.7rem" }}>
+                          <FiHome style={{ fontSize: "1.7rem" }} />
+                        </Hover>{" "}
+                        <Text> Back To Console </Text>
+                      </div>{" "}
+                    </Link>
+                  </CustomCard>
+                </div>
+              )}
+            </div>
           ) : (
-            <Flex justifyCenter>
-              <CustomCard>
-                <Text>
-                  An Email Confirmation link has been sent to xxxxxxxxxxxxxxx
-                </Text>
-              </CustomCard>
-            </Flex>
+            <Options />
           )}
         </div>
       ) : (
-        <Options />
+        <Existing />
       )}
+
       <Footer />
     </div>
   )

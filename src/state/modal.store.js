@@ -1,6 +1,36 @@
 import { action, observable, decorate } from "mobx"
 
 class ModalStore {
+  //move this into a seperate store
+  EventId = null
+  EventType = null
+
+  setEventId = (id, type) => {
+    this.EventId = id
+    this.EventType = type
+  }
+  // =================================>
+
+  welcomeEventModal = false
+
+  showWelcomeEventModal = () => {
+    this.welcomeEventModal = true
+  }
+
+  closeWelcomeEventModal = () => {
+    this.welcomeEventModal = false
+  }
+
+  showPapersModal = false
+
+  openPapersModal = () => {
+    this.showPapersModal = true
+  }
+
+  closePapersModal = () => {
+    this.showPapersModal = false
+  }
+
   // checklist modal
   showChecklist = false
 
@@ -86,10 +116,91 @@ class ModalStore {
   closeVolunteerModal = () => {
     this.VolunteerModal = false
   }
+
+  // bug / crash reporter
+  showCrashReporter = false
+  openCrashReporter = () => {
+    this.showCrashReporter = true
+  }
+
+  closeCrashReporter = () => {
+    this.showCrashReporter = false
+  }
+
+  cartItemModal = false
+  openCartItemModal = () => {
+    this.cartItemModal = true
+  }
+
+  closeCartItemModal = () => {
+    this.cartItemModal = false
+  }
+
+  editEventModal = false
+
+  openEditModal = () => {
+    this.editEventModal = true
+  }
+
+  closeEditModal = () => {
+    this.editEventModal = false
+  }
+
+  accessModal = false
+
+  openAccessModal = () => {
+    this.accessModal = true
+  }
+
+  closeAccessModal = () => {
+    this.accessModal = false
+  }
+
+  createTaskModal = false
+  openCreateTaskModal = () => {
+    this.createTaskModal = true
+  }
+
+  closeCreateTaskModal = () => {
+    this.createTaskModal = false
+  }
+
+  editProfile = false
+
+  showEditProfile = () => {
+    this.editProfile = true
+  }
+
+  closeEditProfile = () => {
+    this.editProfile = false
+  }
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
   //observables
+
+  welcomeEventModal: observable,
+  closeWelcomeEventModal: action,
+  openWelcomeEventModal: action,
+
+  EventId: observable,
+  setEventId: action,
+
+  showPapersModal: observable,
+  closePapersModal: action,
+  openPapersModal: action,
+
+  editProfile: observable,
+  showEditProfile: action,
+  closeEditProfile: action,
+
+  createTaskModal: observable,
+  openCreateTaskModal: action,
+  closeCreateTaskModal: action,
+
+  accessModal: observable,
+  openAccessModal: action,
+  closeAccessModal: action,
 
   // checklist ------------>
   showChecklist: observable,
@@ -133,6 +244,18 @@ const DecoratedModalStore = decorate(ModalStore, {
   VolunteerModal: observable,
   openVolunteerModal: action,
   closeVolunteerModal: action,
+
+  showCrashReporter: observable,
+  openCrashReporter: action,
+  closeCrashReporter: action,
+
+  cartItemModal: observable,
+  openCartItemModal: action,
+  closeCartItemModal: action,
+
+  editEventModal: observable,
+  openEditModal: action,
+  closeEditModal: action,
 })
 
 const store = new DecoratedModalStore()

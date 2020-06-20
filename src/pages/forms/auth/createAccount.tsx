@@ -4,6 +4,7 @@ import Flex from "styled-flex-component"
 import { useMutation, useQuery } from "@apollo/react-hooks"
 import { Redirect } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
+import { FiUser, FiMail, FiLock } from "react-icons/fi"
 
 import { AuthInput } from "../formsData"
 import Fields from "../fields"
@@ -78,7 +79,15 @@ const CreateAccount = (props): JSX.Element => {
                 <Fields
                   onChange={e => handleChange(e, label)}
                   type={type}
+                  showIcon
                   id={id}
+                  Icon={
+                    label === "Name" ? (
+                      <FiUser style={{ fontSize: "1.7rem" }} />
+                    ) : (
+                      <FiMail style={{ fontSize: "1.7rem" }} />
+                    )
+                  }
                   value={label === "Name" ? Name : Email}
                   name={label}
                   placeholder={placeholder}
@@ -99,6 +108,14 @@ const CreateAccount = (props): JSX.Element => {
                   onChange={e => handleChange(e, label)}
                   type={type}
                   id={id}
+                  showIcon
+                  Icon={
+                    label === "Name" ? (
+                      <FiLock style={{ fontSize: "1.7rem" }} />
+                    ) : (
+                      <FiLock style={{ fontSize: "1.7rem" }} />
+                    )
+                  }
                   value={label === "Password" ? Password : ConfirmPassword}
                   name={label}
                   placeholder={placeholder}

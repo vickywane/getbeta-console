@@ -20,12 +20,14 @@ const CREATE_EVENT_INPUT: any = {
       label: "Event Description",
       placeholder: "Description of your event",
       textarea: true,
+      limit: 1500,
     },
     {
       id: 4,
       label: "Event Summary",
       placeholder: "Try summarize your event in few lines",
       textarea: false,
+      limit: 150,
     },
   ],
   third: [
@@ -61,13 +63,13 @@ const CreateAccountFields = [
     id: 3,
     label: "Password",
     type: "password",
-    placeholder: "Your Preferred Password",
+    placeholder: "* * * * * * * * * * * * * * * *",
   },
   {
     id: 4,
     label: "Confirm Password",
     type: "password",
-    placeholder: "Confirm Your Password",
+    placeholder: "* * * * * * * * * * * * * * *",
   },
 ]
 
@@ -112,7 +114,7 @@ const AuthInput = {
       id: 1,
       label: "Name",
       type: "text",
-      placeholder: "Your Desired Username",
+      placeholder: "Firstname and Lastname",
     },
     {
       id: 2,
@@ -152,10 +154,99 @@ const TeamInput = [
   },
 ]
 
+const ADD_CART_INPUT = [
+  {
+    id: 1,
+    label: "Item Name",
+    type: "text",
+    placeholder: "Product Item Name",
+  },
+  {
+    id: 2,
+    label: "Item Description",
+    type: "text",
+    placeholder: "One line description about this item",
+  },
+]
+
+const CREATE_TASK = [
+  {
+    id: 1,
+    label: "Task",
+    type: "text",
+    placeholder: "Description of the intended task",
+  },
+  {
+    id: 1,
+    label: "Task Category",
+    type: "text",
+    placeholder: "Task category. E.g Design for design related tasks",
+  },
+]
+
+const CREATE_TALK_DRAFT: any = [
+  {
+    id: 1,
+    label: "Draft Title",
+    placeholder: "This can be the title of a planned talk",
+    type: "text",
+    textarea: false,
+  },
+  {
+    id: 3,
+    label: "Draft Summary",
+    placeholder: "A short summary of your draft used as preview",
+    textarea: false,
+    type: "text",
+  },
+  {
+    id: 4,
+    label: "Draft Content",
+    placeholder:
+      "What is this talk about? \n\n Who is the target audience of this talk? \n  ",
+    textarea: true,
+    type: "text",
+  },
+]
+
+const CREATE_MEETUP_GROUP: any = [
+  {
+    id: 1,
+    label: "Meetup Group Name",
+    placeholder: "Meetup Group Name",
+    type: "text",
+    textarea: false,
+  },
+  {
+    id: 2,
+    label: "Meetup Group Alias",
+    placeholder: "Meetup Group Alias",
+    type: "text",
+    textarea: false,
+  },
+]
+
+const TALK_GUIDELINE = [
+  {
+    id: 1,
+    label: "Speakers Code of Conduct",
+    placeholder:
+      "Event Code of Conduct to be abided to by speakes during the event.",
+    type: "text",
+    textarea: true,
+    limit: 1500,
+  },
+]
+
 export {
+  TALK_GUIDELINE,
+  CREATE_MEETUP_GROUP,
+  CREATE_TALK_DRAFT,
+  CREATE_TASK,
   TrackInputs,
   CREATE_EVENT_INPUT,
   CreateAccountFields,
   AuthInput,
   TeamInput,
+  ADD_CART_INPUT,
 }

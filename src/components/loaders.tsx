@@ -1,23 +1,40 @@
 import React from "react"
+import { Spinner } from "react-bootstrap"
 
 import { Header, Footer } from "./"
+import { Title, Text, BigTitle } from "../styles/style"
 
 const Loader = (props): JSX.Element => {
-  const { type } = props
+  const { type, error, path } = props
+
   switch (type) {
     case "loading":
       return (
         <div>
           <Header />
-          <br /> <br /> <br />
-          <br />,{" "}
-          <h2
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br /> <br /> <br /> <br />
+          <br />
+          <div
             style={{
-              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Data is Loading{" "}
-          </h2>
+            <Spinner variant="primary" animation="grow" role="loading" />
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
           <br />
           <br />
           <br />
@@ -27,6 +44,54 @@ const Loader = (props): JSX.Element => {
       )
 
     case "error":
+      switch (error) {
+        case "pg: no rows in result set":
+          switch (path) {
+            case "user":
+              return (
+                <div>
+                  <Header />
+                  <br /> <br /> <br />
+                  <br /> <br /> <br /> <br />
+                  <br />
+                  <BigTitle center>
+                    Ooops!!! <br /> This user does not have an Oasis Account
+                  </BigTitle>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <Footer />
+                </div>
+              )
+
+            case "event":
+              return (
+                <div>
+                  <Header />
+                  <br /> <br /> <br />
+                  <br /> <br /> <br /> <br />
+                  <br />
+                  <BigTitle center>
+                    Ooops!!! <br /> This event has been moved elsewhere or has
+                    been deleted{" "}
+                  </BigTitle>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <Footer />
+                </div>
+              )
+            default:
+              break
+          }
+
+        default:
+          break
+      }
+
+    default:
       return (
         <div>
           <Header />
@@ -47,9 +112,6 @@ const Loader = (props): JSX.Element => {
           <Footer />
         </div>
       )
-
-    default:
-      return <h5> NO LOADING CASE FOUND </h5>
   }
 }
 

@@ -16,7 +16,7 @@ const EventList = props => {
   }
 
   if (loading) {
-    return <Loader loading={true} />
+    return <Loader type="loading" />
   }
   const { events } = data
   const { openVolunteerModal, closeVolunteerModal, EventId } = props.ModalStore
@@ -34,14 +34,16 @@ const EventList = props => {
       <br />
       <Contain>
         <Items>
-          {events.map(({ name, id, summary }) => {
+          {events.map(({ name, id, eventType, summary, createdBy }) => {
             return (
               <Bounce>
                 <EventCard
                   id={id}
                   openVolunteerModal={openVolunteerModal}
                   name={name}
+                  type={eventType}
                   summary={summary}
+                  createdBy={createdBy}
                   volunteerOption={true}
                 />
               </Bounce>

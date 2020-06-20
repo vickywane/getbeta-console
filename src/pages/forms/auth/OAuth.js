@@ -1,14 +1,26 @@
-// Auth logic here would be split into store later
-
 import React, { Component } from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiTwitter } from "react-icons/fi"
 import { IoLogoGoogle } from "react-icons/io"
 
-const Hover = styled.div({
-  cursor: "pointer",
-})
+const Button = styled.button`
+  border: 1px solid grey;
+  padding: 0.8rem 1rem;
+  background: #0e2f5a;
+  display: flex;
+  justify-content: center;
+  width: 30rem;
+  text-align: center;
+  flex: 1;
+  font-size: 1.1rem;
+  margi-top: 10px;
+  border-radius: 5px;
+  div {
+  }
+  &: hover {
+    cursor: pointer;
+  }
+`
 
 export default class OAuth extends Component {
   state = {
@@ -72,20 +84,18 @@ export default class OAuth extends Component {
   closeCard() {
     this.setState({ user: {} })
   }
-
   render() {
+    const { authState } = this.props
     return (
-      <Flex justifyAround>
-        <Hover onClick={this.startAuth.bind(this)}>
-          <FiTwitter style={{ fontSize: "2em" }} />{" "}
-        </Hover>
-        <Hover onClick={this.startAuth.bind(this)}>
-          <IoLogoGoogle style={{ fontSize: "2em" }} />{" "}
-        </Hover>
-        <Hover onClick={this.startAuth.bind(this)}>
-          <IoLogoGoogle style={{ fontSize: "2em" }} />{" "}
-        </Hover>
-      </Flex>
+      <Button>
+        <div
+          style={{ padding: "0rem 1rem" }}
+          onClick={this.startAuth.bind(this)}
+        >
+          <IoLogoGoogle style={{ fontSize: "1.8em" }} />
+        </div>
+        Google {authState === "Login" ? " Account Login" : "Create Account"}
+      </Button>
     )
   }
 }

@@ -4,6 +4,7 @@ import { Card } from "react-bootstrap"
 import Flex from "styled-flex-component"
 import { useMutation, useQuery } from "@apollo/react-hooks"
 import { Redirect } from "react-router-dom"
+import { FiMail, FiLock } from "react-icons/fi"
 
 import { AuthInput } from "../formsData"
 import Fields from "../fields"
@@ -63,8 +64,16 @@ const SignIn = (props): JSX.Element => {
       {Login.map(({ placeholder, label, id, type }) => {
         return (
           <Fields
+            showIcon={true}
             placeholder={placeholder}
             type={type}
+            Icon={
+              label === "Email Address" ? (
+                <FiMail style={{ fontSize: "1.7rem" }} />
+              ) : (
+                <FiLock style={{ fontSize: "1.7rem" }} />
+              )
+            }
             textarea={false}
             value={label === "Email Address" ? Email : Password}
             name={label}

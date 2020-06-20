@@ -13,12 +13,15 @@ import {
   Media,
   Documentation,
   Team,
-  Deck,
+  Drafts,
+  Draft,
   ScheduledTalks,
   Mobile,
-  Talks,
+  Editor,
+  SubmitTalk,
   Upload,
   Preferences,
+  Stream,
   TaskForm,
   TeamForm,
   Schedule,
@@ -59,15 +62,20 @@ function App(props): JSX.Element {
           path="/list"
           component={EventList}
         />
-
         <Protected
           authenticated={authenticated}
-          path="/media"
-          component={Media}
+          path="/submit-talk/:id"
+          component={SubmitTalk}
         />
         <Protected
           authenticated={authenticated}
-          path="/event/:id"
+          path="/media/:id/:name"
+          component={Media}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/:eventType/:id"
           component={Event}
         />
 
@@ -79,14 +87,20 @@ function App(props): JSX.Element {
 
         <Protected
           authenticated={authenticated}
-          path="/talks"
-          component={Talks}
+          path="/drafts"
+          component={Drafts}
         />
 
         <Protected
           authenticated={authenticated}
-          path="/deck"
-          component={Deck}
+          path="/tallks/:id"
+          component={Draft}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/editor"
+          component={Editor}
         />
 
         <Protected
@@ -97,13 +111,19 @@ function App(props): JSX.Element {
 
         <Protected
           authenticated={authenticated}
+          path="/stream"
+          component={Stream}
+        />
+
+        <Protected
+          authenticated={authenticated}
           path="/settings"
           component={Preferences}
         />
 
         <Protected
           authenticated={authenticated}
-          path="/upload"
+          path="/upload/:name"
           component={Upload}
         />
 
@@ -121,13 +141,7 @@ function App(props): JSX.Element {
 
         <Protected
           authenticated={authenticated}
-          path="/schedule"
-          component={Schedule}
-        />
-
-        <Protected
-          authenticated={authenticated}
-          path="/event-talks"
+          path="/event-talks/"
           component={ScheduledTalks}
         />
       </Switch>

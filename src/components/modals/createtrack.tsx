@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Modal } from "react-bootstrap"
 import { inject, observer } from "mobx-react"
-import { FiX, FiSend } from "react-icons/fi"
+import { FiX, FiSend, FiBook } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import { useMutation } from "@apollo/react-hooks"
 
@@ -33,10 +33,10 @@ const CreateTrackModal = props => {
         setName(value)
         break
       case "Track Description":
-        setSummary(value)
+        setDescription(value)
         break
       case "Track Summary":
-        setDescription(value)
+        setSummary(value)
         break
       case "Track Duration":
         setDuration(value)
@@ -65,48 +65,61 @@ const CreateTrackModal = props => {
 
   return (
     <Modal
-      size="lg"
+      size="xl"
       style={{ marginTop: "5%" }}
       onHide={() => closeCreateTrack()}
       show={showCreateTrack}
     >
-      <Head>
-        <Flex justifyBetween>
-          <Section> Create New Track</Section>
+      <div style={{ display: "grid", gridTemplateColumns: "5rem auto" }}>
+        <div
+          style={{
+            padding: "1rem 1rem",
+            height: "auto",
 
-          <Hover onClick={() => closeCreateTrack()}>
-            <FiX style={{ fontSize: "1.75em" }} />
-          </Hover>
-        </Flex>
-      </Head>
-
-      <Body>
-        {TrackInputs.map(({ id, placeholder, label, type }) => {
-          return (
-            <Field
-              onChange={e => onChange(e, label)}
-              id={id}
-              placeholder={placeholder}
-              name={label}
-              type={type}
-              textarea={false}
-            />
-          )
-        })}
-      </Body>
-      <br />
-      <Flex justifyCenter>
-        <Button
-          onClick={() => {
-            Submit()
+            width: "auto",
+            background: "#0e2f5a",
           }}
-          long
         >
-          Create Track{" "}
-        </Button>
-      </Flex>
+          <FiBook style={{ fontSize: "2rem", color: "#fff" }} />
+        </div>
 
-      <br />
+        <div>
+          <Head>
+            <Section> Create New Track</Section>
+
+            <Hover onClick={() => closeCreateTrack()}>
+              <FiX style={{ fontSize: "1.75em" }} />
+            </Hover>
+          </Head>
+          <Body>
+            {TrackInputs.map(({ id, placeholder, label, type }) => {
+              return (
+                <Field
+                  onChange={e => onChange(e, label)}
+                  id={id}
+                  placeholder={placeholder}
+                  name={label}
+                  type={type}
+                  textarea={false}
+                />
+              )
+            })}
+          </Body>
+          <br />
+          <Flex justifyCenter>
+            <Button
+              onClick={() => {
+                Submit()
+              }}
+              long
+            >
+              Create Track{" "}
+            </Button>
+          </Flex>
+
+          <br />
+        </div>
+      </div>
     </Modal>
   )
 }
