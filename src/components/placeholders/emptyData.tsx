@@ -1,4 +1,5 @@
 import React from "react"
+import ReactMarkdown from 'react-markdown'
 
 import { Text } from "../../styles/style"
 
@@ -18,9 +19,12 @@ const EmptyData = (props: CustomProps) => {
       <br />
       <br />
       <br />
-      <Text center color="grey">
-        {message}{" "}
-      </Text>
+
+
+<div style={{textAlign : 'center' , fontSize : '1.2rem' , color : 'grey' }} >
+      <ReactMarkdown source={message}   />
+ </div>
+
 
       <Text center color="grey">
         <a href={link}> Learn More </a> about {feature} on <b> Oasis </b>

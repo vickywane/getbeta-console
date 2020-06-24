@@ -1,12 +1,21 @@
 import React, { useState } from "react"
 import { Modal } from "react-bootstrap"
 import { inject, observer } from "mobx-react"
-import { FiX, FiSend, FiEdit } from "react-icons/fi"
+import {
+  FiX,
+  FiSend,
+  FiEdit,
+  FiFacebook,
+  FiTwitter,
+  FiInstagram,
+} from "react-icons/fi"
 import Flex from "styled-flex-component"
 import { useMutation } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
+import styled from "styled-components"
 
 import Media from "./media"
+import SponsorsControl from "./sponsors.control"
 import {
   Hover,
   Head,
@@ -23,21 +32,31 @@ import { UPDATE_EVENT } from "../../data/mutations"
 import { CREATE_EVENT_INPUT } from "../../pages/forms/formsData"
 import Field from "../../pages/forms/fields"
 
-const EditEvent = props => {
-  const { editEventModal, closeEditModal } = props.ModalStore
-  const { eventData } = props
+const CInput = styled.div`
+  display: flex;
+  padding: 0rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  input {
+    width: 27rem;
+    border: 0px;
+    height: auto;
+    padding: 0.5rem 1.5rem;
+    outline: 0px;
+  }
+`
 
+const InputGrid = styled.div`
+  display: grid;
+  grid-gap: 3rem 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+`
+
+const EditEvent = (props): JSX.Element => {
   const [ActiveColumn, setActiveColumn] = useState("forms")
 
-  const [Name, setName] = useState("")
-  const [Alias, setAlias] = useState("")
-  const [Description, setDescription] = useState("")
-  const [Website, setWebsite] = useState("")
-  const [Summary, setSummary] = useState("")
-  const [Venue, setVenue] = useState("")
-  const [NewEmail, setEmail] = useState("")
-  const [EventType, setEventType] = useState("")
-
+  const { editEventModal, closeEditModal } = props.ModalStore
+  const { eventData } = props
   const {
     id,
     name,
@@ -46,8 +65,27 @@ const EditEvent = props => {
     website,
     Email,
     description,
+    venue,
+    isVirtual,
+    speakerConduct, // null when not updated
+    confirmedEmail,
+    isArchived,
+    isLocked,
+    EventDate, // null
+    isAcceptingVolunteers,
+    isAcceptingTalks,
     summary,
   } = eventData.event
+
+  const [Name, setName] = useState<string>(name)
+  const [Alias, setAlias] = useState<string>(alias)
+  const [Description, setDescription] = useState<string>(description)
+  const [Website, setWebsite] = useState<string>(website)
+  const [Summary, setSummary] = useState<string>(summary)
+  const [Venue, setVenue] = useState<string>(venue)
+  const [NewEmail, setEmail] = useState<string>(Email)
+  const [EventType, setEventType] = useState<string>(eventType)
+
   const { first, second, third } = CREATE_EVENT_INPUT
   const [updateEvent, { data }] = useMutation(UPDATE_EVENT)
 
@@ -80,6 +118,26 @@ const EditEvent = props => {
   }
 
   const SubmitData = () => {
+    console.table([
+      id,
+      name,
+      eventType,
+      alias,
+      website,
+      Email,
+      description,
+      venue,
+      isVirtual,
+      speakerConduct, // is undefined
+      confirmedEmail, // is undefined
+      isArchived,
+      isLocked,
+      EventDate,
+      isAcceptingVolunteers, // is undefined
+      isAcceptingTalks,
+      summary,
+    ])
+
     updateEvent({
       variables: {
         id: id,
@@ -90,8 +148,15 @@ const EditEvent = props => {
         Email: NewEmail,
         venue: Venue,
         Date: 11,
+        isVirtual: isVirtual,
+        isLocked: isLocked,
+        isArchived: isArchived,
+        isAcceptingVolunteers: isAcceptingVolunteers,
+        speakerConduct: speakerConduct,
+        confirmedEmail: confirmedEmail,
         eventType: EventType,
         summary: Summary,
+        EventDate: EventDate,
       },
     })
       .then(() => {
@@ -106,15 +171,19 @@ const EditEvent = props => {
   return (
     <div>
       <Head style={{ padding: "1.5rem 0rem" }} header>
-        <Flex>
-          <Hover style={{ padding: "0rem 1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Hover style={{ padding: "0rem 0.7rem" }}>
             <FiEdit style={{ fontSize: "1.75em" }} />
           </Hover>
 
-          <Section>
-            Edit {name} {eventType}
-          </Section>
-        </Flex>
+          <Section>Edit {eventType}</Section>
+        </div>
 
         <Tab>
           <TabColumn
@@ -132,7 +201,7 @@ const EditEvent = props => {
           </TabColumn>
 
           <TabColumn
-            onClick={() => setActiveColumn("media")}
+            onClick={() => setActiveColumn("sponsors")}
             active={ActiveColumn === "sponsors"}
           >
             Event Sponsors
@@ -189,31 +258,59 @@ const EditEvent = props => {
               )
             })}
 
-            <Section>Media Links</Section>
-            <Flex justifyBetween>
-              <Label>
-                Facebook
-                <div>
-                  {" "}
-                  <input placeholder="Facebook" />
-                </div>
-              </Label>
-              <Label>
-                Twitter
-                <div>
-                  {" "}
-                  <input placeholder="Twitter" />
-                </div>
-              </Label>
-              <Label>
-                Instagran
-                <div>
-                  {" "}
-                  <input placeholder="Instagran" />
-                </div>
-              </Label>
-            </Flex>
+            <Body>
+              <Section>Media Links</Section>
+              <br />
+
+              <InputGrid>
+                <CInput>
+                  <Hover
+                    style={{
+                      padding: "0.6rem 0.5rem",
+                      background: "#fbfbfb",
+                      color: "#0e2f5a",
+                      borderRadius: "5px 0px 0px 5px",
+                    }}
+                  >
+                    <FiTwitter style={{ fontSize: "1.7rem" }} />{" "}
+                  </Hover>
+
+                  <input placeholder="Twitter profile url" />
+                </CInput>
+
+                <CInput>
+                  <Hover
+                    style={{
+                      padding: "0.6rem 0.5rem",
+                      background: "#fbfbfb",
+                      color: "#0e2f5a",
+                      borderRadius: "5px 0px 0px 5px",
+                    }}
+                  >
+                    <FiFacebook style={{ fontSize: "1.7rem" }} />{" "}
+                  </Hover>
+
+                  <input placeholder="Facebook profile url" />
+                </CInput>
+
+                <CInput>
+                  <Hover
+                    style={{
+                      padding: "0.6rem 0.5rem",
+                      background: "#fbfbfb",
+                      color: "#0e2f5a",
+                      borderRadius: "5px 0px 0px 5px",
+                    }}
+                  >
+                    <FiInstagram style={{ fontSize: "1.7rem" }} />{" "}
+                  </Hover>
+
+                  <input placeholder="Instagram profile url" />
+                </CInput>
+              </InputGrid>
+            </Body>
           </Body>
+
           <Flex justifyCenter>
             <Button onClick={() => SubmitData()} long>
               Update Event
@@ -226,6 +323,13 @@ const EditEvent = props => {
         <Media eventId={id} />
       </CSSTransition>
 
+      <CSSTransition
+        timeout={300}
+        unmountOnExit
+        in={ActiveColumn === "sponsors"}
+      >
+        <SponsorsControl eventId={id} />
+      </CSSTransition>
       <br />
     </div>
   )

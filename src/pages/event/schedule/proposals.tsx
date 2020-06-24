@@ -7,6 +7,7 @@ import { Modal } from "react-bootstrap"
 import { inject, observer } from "mobx-react"
 import { useMutation } from "@apollo/react-hooks"
 
+import { EmptyData } from "../../../components/placeholders/"
 import { Loader, Panes, Header, Footer } from "../../../components/"
 import {
   Grid,
@@ -14,6 +15,7 @@ import {
   ScheduleCard,
   Button,
   Notification,
+  Label,
   Text,
   Hover,
   Head,
@@ -38,14 +40,24 @@ const CustomImage = styled.img`
 const ProposalContainer = styled.div`
   border: 1px solid grey;
   border-radius: 5px;
-  margin: 2rem 1rem;
+  margin: 2rem 4rem;
   transition: all 300ms;
+  ${media.lessThan("huge")`
+    margin: 2rem 3rem;
+  `};
+   ${media.lessThan("large")`
+    margin: 2rem 2rem;
+  `};
+   ${media.lessThan("medium")`
+    margin: 2rem 1rem;
+  `};
 `
 
 const Message = styled.div`
-  display: flex
-    justify-content :space-between  
-    input {
+  display: flex;
+  margin: 0rem 1rem;
+  justify-content: space-between;
+  input {
     border: 1px solid grey;
     padding: 0.7rem 1rem;
     display: flex;
@@ -80,10 +92,11 @@ const Proposals = props => {
   const [Proposal, OpenProposal] = React.useState<boolean>(false)
   const [Feedback, setFeedback] = React.useState<boolean>(false)
   const [Comment, setComment] = React.useState<string>("")
+  const [isAccepted, setAccepted] = React.useState<boolean>(false)
 
   const [updateSubmittedTalk, { loading }] = useMutation(REVIEW_TALK)
 
-  const { getEventTalks } = props.data
+  const { talk } = props.data.event
 
   const acceptTalk = id => {
     updateSubmittedTalk({
@@ -91,10 +104,12 @@ const Proposals = props => {
         talkId: id,
         reviewerId: localStorage.getItem("user_id"),
         comment: Comment,
-        isAccepted: true,
+        isAccepted: isAccepted,
       },
     })
-      .then(() => setFeedback(true))
+      .then(() => {
+        setFeedback(true)
+      })
       .catch(e => console.log(e))
   }
 
@@ -104,7 +119,7 @@ const Proposals = props => {
         talkId: id,
         reviewerId: localStorage.getItem("user_id"),
         comment: Comment,
-        isAccepted: false,
+        isAccepted: isAccepted,
       },
     })
       .then(() => setFeedback(true))
@@ -115,6 +130,11 @@ const Proposals = props => {
     setTimeout(() => setFeedback(false), 5000)
   }
 
+  // filters for only unapproved drafts
+  const filtered = talk === null ? null : talk.filter(talk => !talk.isAccepted)
+  console.log(filtered, "filter")
+  
+
   return (
     <div>
       <Button onClick={() => openPapersModal()}>
@@ -122,140 +142,159 @@ const Proposals = props => {
       </Button>
 
       <Body>
-        {getEventTalks.map(({ dateSubmitted, draft, id }) => {
-          return draft.map(
-            ({ name, speaker, duration, summary, description, title }) => {
-              return (
-                <ProposalContainer key={id}>
-                  {Feedback && (
-                    <div
+        {talk === null ? (
+          <EmptyData
+            message={
+              "This Event currently has no submitted proposals \n You can accept draft submissions from your Access Management Pane."
+            }
+            feature="Community Support"
+            link="https://event.co"
+          />
+        ) : (
+          talk.map(({ dateSubmitted, draft, id }) => {
+            return draft.map(
+              ({ name, speaker, duration, summary, description, title }) => {
+                return (
+                  <ProposalContainer key={id}>
+                    {Feedback && (
+                      <div
+                        style={{
+                          color: "#fff",
+                          background: "#0e2f5a",
+                          padding: "0.3rem 1rem",
+                          display: "flex",
+                          justifyContent: "center",
+                          borderRadius: "5px 5px 0px 0px",
+                        }}
+                      >
+                        {isAccepted ? (
+                          <Text center color="white">
+                            This talk has now been accepted and would be added
+                            to your Approved Talks.
+                          </Text>
+                        ) : (
+                          <div>
+                            <Text center> Feedback has been sent to </Text>
+                            {speaker.map(name => {
+                              return (
+                                <Text style={{ padding: "0rem 0.4rem" }}>
+                                  {name.name}
+                                </Text>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <Body
                       style={{
-                        color: "#fff",
-                        background: "#0e2f5a",
-                        padding: "0.3rem 1rem",
+                        padding: "0.5rem 0.5rem",
                         display: "flex",
-                        justifyContent: "center",
-                        borderRadius: "5px 5px 0px 0px",
+                        justifyContent: "space-between",
+                        background: "#fbfbfb",
+                        borderRadius: "5px 5px 5px 0px",
                       }}
                     >
-                      <Text center> Feedback has been sent to </Text>
                       {speaker.map(name => {
                         return (
-                          <Text style={{ padding: "0rem 0.4rem" }}>
-                            {name.name}
-                          </Text>
+                          <Flex>
+                            <img
+                              alt="user"
+                              style={{
+                                height: "5.5vh",
+                                width: "5rem",
+                                padding: "0rem 0.7rem",
+                              }}
+                              src={require("../../../assets/images/developer.png")}
+                            />
+
+                            <Text style={{ padding: "0.5rem 0rem" }}>
+                              {name.name}{" "}
+                            </Text>
+                          </Flex>
                         )
                       })}
-                    </div>
-                  )}
-                  <Body
-                    style={{
-                      padding: "0.5rem 0.5rem",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      background: "#fbfbfb",
-                      borderRadius: "5px 5px 5px 0px",
-                    }}
-                  >
-                    {speaker.map(name => {
-                      return (
-                        <Flex>
-                          <img
-                            alt="user"
-                            style={{
-                              height: "5.5vh",
-                              width: "5rem",
-                              padding: "0rem 0.7rem",
-                            }}
-                            src={require("../../../assets/images/developer.png")}
-                          />
 
-                          <Text style={{ padding: "0.5rem 0rem" }}>
-                            {" "}
-                            {name.name}{" "}
-                          </Text>
-                        </Flex>
-                      )
-                    })}
-
-                    <Flex>
-                      <Hover style={{ padding: "0rem 0.7rem" }}>
-                        <FiClock
-                          style={{ fontSize: "1.5rem", color: "grey" }}
-                        />
-                      </Hover>
-                      {`${duration} mins`}
-                    </Flex>
-                  </Body>
-
-                  <Body>
-                    <Body>
-                      {" "}
-                      <Title small center>
-                        {title}
-                      </Title>{" "}
-                      <br />
-                      <Text small center color={!Proposal ? "grey" : "black"}>
-                        {!Proposal ? summary : description}
-                      </Text>
-                      <br />
-                      {OpenProposal && (
-                        <Message>
-                          <input
-                            value={Comment}
-                            onChange={e => setComment(e.target.value)}
-                            placeholder={"Leave a comment"}
-                            type={"text"}
-                          />
-
-                          <div onClick={() => addReview(id)}>
-                            <FiSend
-                              style={{ color: "#0e2f5a", fontSize: "1.7rem" }}
-                            />
-                          </div>
-                        </Message>
-                      )}
-                    </Body>
-                    <br />
-                    <Flex justifyBetween>
                       <Flex>
                         <Hover style={{ padding: "0rem 0.7rem" }}>
-                          <FiCalendar style={{ fontSize: "1.7rem" }} />
+                          <FiClock
+                            style={{ fontSize: "1.5rem", color: "grey" }}
+                          />
                         </Hover>
-
-                        <Text small color="grey">
-                          {dateSubmitted}
-                        </Text>
+                        {duration}
                       </Flex>
+                    </Body>
 
-                      {!Proposal ? (
-                        <Button onClick={() => OpenProposal(true)}>
-                          View Draft Proposal
-                        </Button>
-                      ) : (
+                    <Body>
+                      <Body>
+                        <Title small center>
+                          {title}
+                        </Title>{" "}
+                        <br />
+                        <Text small center color={!Proposal ? "grey" : "black"}>
+                          {!Proposal ? summary : description}
+                        </Text>
+                        <br />
+                        {Proposal && (
+                          <Message>
+                            <input
+                              value={Comment}
+                              onChange={e => setComment(e.target.value)}
+                              placeholder={"Leave a comment"}
+                              type={"text"}
+                            />
+                            <div onClick={() => addReview(id)}>
+                              <FiSend
+                                style={{ color: "#0e2f5a", fontSize: "1.7rem" }}
+                              />
+                            </div>
+                          </Message>
+                        )}
+                      </Body>
+                      <br />
+                      <Flex justifyBetween>
                         <Flex>
-                          <Button onClick={() => {}}>Request Changes</Button>
+                          <Hover style={{ padding: "0rem 0.7rem" }}>
+                            <FiCalendar style={{ fontSize: "1.7rem" }} />
+                          </Hover>
 
-                          <Button
-                            onClick={() => {
-                              acceptTalk(id)
-                            }}
-                          >
-                            Accept Draft Proposal
-                          </Button>
-
-                          <Button onClick={() => {}}>
-                            Reject Draft Proposal{" "}
-                          </Button>
+                          <Text small color="grey">
+                            {dateSubmitted}
+                          </Text>
                         </Flex>
-                      )}
-                    </Flex>{" "}
-                  </Body>
-                </ProposalContainer>
-              )
-            }
-          )
-        })}
+
+                        {!Proposal ? (
+                          <Button onClick={() => OpenProposal(true)}>
+                            View Draft Proposal
+                          </Button>
+                        ) : (
+                          <Flex>
+                            <Button
+                              onClick={() => {
+                                setAccepted(true)
+                                acceptTalk(id)
+                              }}
+                            >
+                              Accept Draft Proposal
+                            </Button>
+
+                            <Button
+                              onClick={() => {
+                                setAccepted(false)
+                              }}
+                            >
+                              Reject Draft Proposal{" "}
+                            </Button>
+                          </Flex>
+                        )}
+                      </Flex>{" "}
+                    </Body>
+                  </ProposalContainer>
+                )
+              }
+            )
+          })
+        )}
       </Body>
     </div>
   )

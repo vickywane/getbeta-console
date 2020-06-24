@@ -21,7 +21,6 @@ const List = styled.li`
   display: flex;
   padding: 1rem 1rem;
   margin: 1.5rem 0rem;
-  justify-content: space-between;
   box-shadow: 0px 1px 2px grey;
 `
 
@@ -40,29 +39,51 @@ const MeetupGroupCard = props => {
     showAprrovalStatus,
     volunteerOption,
     event,
-    openVolunteerModal,
   } = props
   const { setEventId } = props.ModalStore
   const [optionVisibility, setOptionVisibility] = useState(false)
 
   return (
     <List>
-      <div style={{ display: "flex" }}>
-        <img
-          alt="group"
-          style={{
-            height: "auto",
-            maxWidth: "15%",
-            padding: "0rem 1rem",
-          }}
-          src={require("../../assets/images/developer.png")}
-        />
+      <img
+        alt="group"
+        style={{
+          height: "85px",
+          width: "85px",
+          margin: "0.5rem 1rem",
+        }}
+        src={require("../../assets/images/developer.png")}
+      />
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Title small onClick={() => setEventId(id)} key={id}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Title
+            center
+            small
+            style={{ color: "#0e2f5a",  marginLeft: "10rem", cursor: "pointer" }}
+            onClick={() => setEventId(id)}
+            key={id}
+          >
             {name}
           </Title>
-          <br />
+
+          <Hover style={{ marginLeft: "12rem" }}>
+            <FiMoreVertical style={{ fontSize: "1.7rem" }} />
+          </Hover>
+        </div>
+<br />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div style={{ display: "flex" }}>
             <div style={{ display: "flex" }}>
               <Hover style={{ padding: "0rem 0.7rem" }}>
@@ -77,11 +98,18 @@ const MeetupGroupCard = props => {
               <Text small> 2000 </Text>
             </div>
           </div>
+
+          <img
+            alt="group"
+            style={{
+              height: "55px",
+              width: "55px",
+              margin: "0rem 0.5rem",
+            }}
+            src={require("../../assets/images/developer.png")}
+          />
         </div>
       </div>
-      <Hover>
-        <FiMoreVertical style={{ fontSize: "1.7rem" }} />
-      </Hover>
     </List>
   )
 }

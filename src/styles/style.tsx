@@ -110,9 +110,9 @@ const ModalInput = styled.input`
 `
 
 const Input = styled.input`
-  height: ${props => (props.long ? "10vh" : "40px")};
+  height: ${props => (props.long ? "10vh" : "43px")};
   width: auto;
-  padding: 0.7em 1.5rem;
+  padding: 1em 1.5rem;
   display : flex;
   flex: 1;
   font-family: calibri;
@@ -175,6 +175,8 @@ const BigInput = styled.textarea`
   margin: 0.5rem 1rem;
   height: 25vh;
   display: flex;
+  line-height : 1.9rem;
+  word-spacing : 0.3rem;
   flex: 1;
   width: ${props => (props.small ? "auto" : "auto")};
   border-radius: 7px;

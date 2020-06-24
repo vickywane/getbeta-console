@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { FiX, FiClock } from "react-icons/fi"
+import { AiOutlineHistory} from "react-icons/ai"
 
 import { Hover, Head, Title, Text, Section, Button } from "../../styles/style"
 
@@ -33,14 +34,19 @@ const Timeline = props => {
       {Visibility ? (
         <div>
           <Head header style={{ padding: "1.4rem 0.5rem" }}>
-            <div style={{ display: "flex" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <Hover style={{ padding: "0rem 0.5rem" }}>
-                <FiClock style={{ fontSize: "1.7rem" }} />
+                <AiOutlineHistory style={{ fontSize: "1.8rem" }} />
               </Hover>
               <Title style={{ color: "#0e2f5a" }} small>
-                Timeline{" "}
+                Timeline
               </Title>
-            </div>{" "}
+            </div>
           </Head>
           <br />
 

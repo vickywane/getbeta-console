@@ -538,6 +538,8 @@ const CreateEvent = (props): JSX.Element => {
                         }
                       )}
                       <br />
+                      <Text color="grey"  center > I agree to Oasis's <a href="/" >Terms Of Use  </a>.  </Text>
+                      <br />
                     </Card>
                   </UpGrid>
                   <br />

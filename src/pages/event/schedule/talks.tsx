@@ -40,9 +40,14 @@ const CustomImage = styled.img`
 const Talks = props => {
   const { eventId } = props
   const WindowWidth = useWindowWidth()
-  const { getEventTalks } = props.talk
+  const { talk } = props.talk.event
+  console.log(props.talk.event , "talks")
 
   const [HoveredUserDetail, showHoveredUserDetail] = React.useState(false)
+
+    // filters for only approved talks
+  const filtered = talk === null ? null : talk.filter(talk => talk.isAccepted)
+  console.log(filtered  , "filter")
 
   return (
     <div>
@@ -56,21 +61,21 @@ const Talks = props => {
         <Flex justifyBetween>
           <Text> Talks </Text>
           <Text small style={{ color: "grey" }}>
-            Showing {getEventTalks.length} results.
+            Showing {filtered.length} results.
           </Text>
         </Flex>
       </div>
       <br />
 
       <Grid>
-        {getEventTalks === null ? (
+        {filtered.length === 0 ? (
           <EmptyData
             message="This Event currently has no approved talks"
             feature="Community Support"
             link="https://event.co"
           />
         ) : (
-          getEventTalks.map(({ dateSubmitted, draft }) => {
+          filtered.map(({ dateSubmitted, draft }) => {
             return draft.map(({ title, summary, id, speaker }) => {
               return (
                 <TalkCard style={{ marginLeft: "2rem" }} talk key={id}>

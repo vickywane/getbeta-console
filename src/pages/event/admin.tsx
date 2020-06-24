@@ -202,8 +202,6 @@ const Admin = props => {
           <br />
           <br />
           <br />
-          <br />
-          <br />
           <Tab
             onClick={() => {
               dispatch({ type: "SWITCH_BUG" })

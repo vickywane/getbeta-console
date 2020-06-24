@@ -4,13 +4,20 @@ import { Modal } from "react-bootstrap"
 import { FcCustomerSupport } from "react-icons/fc"
 import styled from "styled-components"
 
-import { Contain, Text, Body, Button, Title, Hover } from "../../styles/style"
+import {
+  Contain,
+  Text,
+  Body,
+  Button,
+  Title,
+  Hover,
+  Label,
+} from "../../styles/style"
 
 const Items = styled.div`
   padding : 0rem 1rem
   li {
     margin : 1rem 0rem
-    list-style: none
   }
 `
 
@@ -19,12 +26,12 @@ const EventModal = props => {
 
   return (
     <Modal
-      size="lg"
+      size="xl"
       onHide={() => closeWelcomeEventModal()}
       style={{ marginTop: "3rem" }}
       show={welcomeEventModal}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "5rem 90%" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
         <div
           style={{
             padding: "1rem 1rem",
@@ -50,42 +57,56 @@ const EventModal = props => {
               Skip
             </Text>
             <br />
-            <Title bold> New Oasis Event Prep Up! </Title>
-            <hr />
-            <Text style={{ padding: "0rem 1rem" }}>
+
+            <div style={{display : 'flex' , justifyContent : 'center'}} >
+            <img alt="Congratulations" src={require("../../assets/ssvg/calendar.svg")}  style={{height : "auto"  , maxWidth : '10%'}}  />
+            </div>
+
+            <Title center bold>
+              Congratulations On Your New Event!{" "}
+            </Title>
+
+            <Text center small style={{ padding: "0rem 1rem" }}>
               We are stoked and excited watching you plan and launch your next
               event with Oasis. <br /> <br />
-              Inorder to help you make the best of Oasis, here is rundown of the
-              awesomeness that Oasis has to offer!
+            </Text>
+            <hr />
+
+            <Text small center style={{ padding: "0rem 1rem" }}>
+              Here is quick rundown of things we would like you to take note of
+              while using your Oasis console.
+            </Text>
+
+            <br />
+            <Title small>Default Actions</Title>
+            <hr />
+            <Text>
+              We believe it takes a period of time to properly plan an event.
+              Hence , Oasis steps in while you make your arrangements. Here are
+              default actions taken;
             </Text>
 
             <Items>
               <li>
-                <Text small> Edit Event</Text>
+                <Text small>
+                  Volunteer Support is closed until event details have been
+                  finalised.
+                </Text>
               </li>
 
               <li>
-                <Text small> Acess Management</Text>
+                <Text small>
+                  Talk submissions are closed until the Call For Speakers
+                  support is configured and a Code of Conduct for Speakers is
+                  added.
+                </Text>
               </li>
 
               <li>
-                <Text small> Mobile Interface</Text>
-              </li>
-
-              <li>
-                <Text small> Invitations </Text>{" "}
-              </li>
-
-              <li>
-                <Text small> Team Support</Text>
-              </li>
-
-              <li>
-                <Text small> Event Schedule</Text>
-              </li>
-
-              <li>
-                <Text small> Store </Text>
+                <Text small>
+                  Event Details would not be visible until a selected mobile
+                  interface is choosen{" "}
+                </Text>
               </li>
             </Items>
 

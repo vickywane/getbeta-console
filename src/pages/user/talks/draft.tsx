@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi"
 import styled from "styled-components"
 import { useQuery, useMutation } from "@apollo/react-hooks"
+import ReactMarkdown from "react-markdown"
 
 import { Header, Footer, Loader } from "../../../components/"
 import { GET_TALK } from "../../../data/queries"
@@ -27,6 +28,10 @@ import {
 
 const List = styled.li`
   list-style: none;
+`
+
+const Padded = styled(Contain)`
+  padding: 2rem 15rem;
 `
 
 const Draft = (props): JSX.Element => {
@@ -70,47 +75,46 @@ const Draft = (props): JSX.Element => {
         </Flex>
       </Head>
       <br />
-      <Contain>
-        <Contain>
-          <BigTitle center> {title}</BigTitle>
-          <Flex justifyBetween>
-            <Flex>
-              <Hover style={{ padding: "0rem 0.7rem", color: "grey" }}>
-                <FiCalendar style={{ fontSize: "1.8rem" }} />
-              </Hover>
+      <Padded>
+        <BigTitle center> {title}</BigTitle>
+        <Flex justifyBetween>
+          <Flex>
+            <Hover style={{ padding: "0rem 0.7rem", color: "grey" }}>
+              <FiCalendar style={{ fontSize: "1.8rem" }} />
+            </Hover>
 
-              <Text small color="grey">
-                {createdAt}{" "}
-              </Text>
-            </Flex>
-
-            <Flex>
-              <Hover style={{ padding: "0rem 0.7rem", color: "grey" }}>
-                <FiClock style={{ fontSize: "1.8rem" }} />
-              </Hover>
-
-              <Text small color="grey">
-                {duration}{" "}
-              </Text>
-            </Flex>
+            <Text small color="grey">
+              {createdAt}{" "}
+            </Text>
           </Flex>
-          <br />
-          <div
-            style={{
-              padding: "1rem 1rem",
-              margin: "2rem 0.5rem",
-              borderLeft: "5px solid  #0e2f5a ",
-              background: "#fbfbfb",
-            }}
-          >
-            <Text center> {summary}</Text> <br />
-          </div>
 
-          <br />
+          <Flex>
+            <Hover style={{ padding: "0rem 0.7rem", color: "grey" }}>
+              <FiClock style={{ fontSize: "1.8rem" }} />
+            </Hover>
 
-          <Text small> {description}</Text>
-        </Contain>
-      </Contain>
+            <Text small color="grey">
+              {duration}{" "}
+            </Text>
+          </Flex>
+        </Flex>
+        <br />
+        <div
+          style={{
+            padding: "1rem 1rem",
+            margin: "2rem 0.5rem",
+            borderLeft: "5px solid  #0e2f5a ",
+            background: "#fbfbfb",
+          }}
+        >
+          <Text center> {summary}</Text> <br />
+        </div>
+
+        <br />
+
+        <ReactMarkdown source={description} />
+        <Text small> {description}</Text>
+      </Padded>
     </div>
   )
 }

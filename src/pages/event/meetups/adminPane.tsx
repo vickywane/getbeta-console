@@ -26,8 +26,6 @@ const Head = styled.div`
   display: flex;
   box-shadow: 0px 1px 3px grey;
   justify-content: center;
-  h5 {
-  }
 `
 
 const List = styled.li`
@@ -52,6 +50,10 @@ const Tab = styled.div`
     cursor : pointer;
     border-left: 4px solid grey;
   }
+  ${media.lessThan("large")`
+    margin : 0.7rem 0.2rem;
+    padding : 0.5rem 0.2rem
+  `};
 `
 
 const Admin = props => {

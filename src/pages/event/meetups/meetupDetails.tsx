@@ -88,29 +88,12 @@ const MeetupDetails = (props): JSX.Element => {
   } = data.event
   const { showEventDetails } = props.state
 
-  const animate = () => {
-    let width = 20
-
-    if (width === 20) {
-      setTimeout(() => {
-        width = 25
-        console.log(width)
-      }, 3000)
-    }
-
-    if (width === 25) {
-      setTimeout(() => {
-        width = 20
-        console.log(width)
-      }, 6000)
-    }
-
-    window.requestAnimationFrame(animate)
-    return width
-  }
-
+  // const animate = () => {
+  //   window.requestAnimationFrame(animate)
+  //   return width
+  // }
   // animate()
-
+console.log(meetupGroupLength)
   return (
     <div>
       {showEventDetails ? (

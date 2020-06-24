@@ -133,8 +133,10 @@ const GET_EVENT: any = gql`
       isLocked
       isArchived
       isAcceptingTalks
+     isAcceptingVolunteers,
       isVirtual
       confirmedEmail
+      speakerConduct
       eventType
       actions
       EventDate
@@ -339,21 +341,29 @@ const GET_CATEGORY = gql`
 `
 
 const GET_EVENT_TALK = gql`
-  query getEventTalks($eventId: Int!, $approved: Boolean!, $limit: Int) {
-    getEventTalks(eventId: $eventId, areApproved: $approved, Limit: $limit) {
-      dateSubmitted
-      id
-      draft {
-        title
-        duration
+  query GET_EVENT($eventId: Int!, $name: String!) {
+    event(id: $eventId, name: $name) {
+      talk {
         id
+        dateSubmitted
+        isAccepted
+        draft {
+          id
+          title
+          duration
+          summary
+          speaker {
+            id
+            name
+            email
+          }
+        }
+      }
+      tracks {
+        id
+        name
         summary
         duration
-        description
-        speaker {
-          id
-          name
-        }
       }
     }
   }

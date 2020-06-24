@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 import media from "styled-media-query"
+import { FixedSizeList as List } from "react-window"
 
 import Scheduel from "./schedule/schedule"
 import EditEvent from "./editEvent"
@@ -150,146 +151,180 @@ const Event = (props): JSX.Element => {
                 openAccessModal={openAccessModal}
               />
             ) : (
-              <MeetupAdmin
-                Width={Hooks}
-                openCrashReporter={openCrashReporter}
-                openEditModal={openEditModal}
-                state={state}
-                dispatch={dispatch}
-                openAccessModal={openAccessModal}
-              />
-            )
-          ) : null}
-
-          <AdminContext.Provider value={AdminTabState}>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "dashboard"}
-            >
-              <div style={{ overflow: "hidden" }}>
-                {meetupGroupLength > 1 ? null : (
-                  <AttendPane event={data.event} />
-                )}
-
-                {EventType === "Conference" ? (
-                  <Contain img={TestImg} grey>
-                    <EventDetails
-                      state={staate}
-                      permissio={permission}
-                      data={data}
-                      meetupGroupLength={meetupGroupLength}
-                      dispatch={dispaatch}
-                      eventType={EventType}
-                      currentWindowSize={Hooks}
-                      openEditModal={openEditModal}
-                    />
-                  </Contain>
-                ) : (
-                  <MeetupDetails
-                    state={staate}
-                    permissio={permission}
-                    data={data}
-                    meetupGroupLength={meetupGroupLength}
-                    dispatch={dispaatch}
-                    eventType={EventType}
-                    currentWindowSize={Hooks}
+              <div>
+                {meetupGroupLength > 0 ? (
+                  <MeetupAdmin
+                    Width={Hooks}
+                    openCrashReporter={openCrashReporter}
                     openEditModal={openEditModal}
-                  />
-                )}
-                <Contain grey bottomShadow>
-                  {EventType === "Conference" ? (
-                    <EventTabs
-                      eventType={EventType}
-                      state={staate}
-                      dispatch={dispaatch}
-                    />
-                  ) : (
-                    <MeetupTab
-                      eventType={EventType}
-                      state={staate}
-                      dispatch={dispaatch}
-                    />
-                  )}
-                </Contain>
-
-                {EventType === "Conference" ? (
-                  <ConferenceTab
-                    openContact={openContactModal}
-                    state={staate}
-                    data={data}
+                    state={state}
+                    dispatch={dispatch}
+                    openAccessModal={openAccessModal}
                   />
                 ) : (
-                  <MeetupTabComponents
-                    openContact={openContactModal}
-                    state={staate}
-                    data={data}
+                  <Admin
+                    Width={Hooks}
+                    openCrashReporter={openCrashReporter}
+                    openEditModal={openEditModal}
+                    state={state}
+                    meetupGroupLength={meetupGroupLength}
+                    dispatch={dispatch}
+                    openAccessModal={openAccessModal}
                   />
                 )}
               </div>
-            </CSSTransition>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "mobile"}
-            >
-              <Mobile />
-            </CSSTransition>{" "}
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "invitation"}
-            >
-              <Overview data={data} />
-            </CSSTransition>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "schedule"}
-            >
-              <Schedule data={data} />
-            </CSSTransition>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "edit"}
-            >
-              <EditEvent eventData={data} />
-            </CSSTransition>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "access"}
-            >
-              <Access />
-            </CSSTransition>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "team"}
-            >
-              <TeamList data={data.event} />
-            </CSSTransition>
-            <CSSTransition
-              timeout={300}
-              className={""}
-              unmountOnExit
-              in={state.activeTab === "store"}
-            >
-              <Store data={data} />
-            </CSSTransition>
-          </AdminContext.Provider>
+            )
+          ) : null}
+
+          <div  style={{height : window.innerHeight - 80 , overflow : 'auto' }} >
+            <AdminContext.Provider value={AdminTabState}>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "dashboard"}
+              >
+                <div style={{ overflow: "hidden" }}>
+                  {meetupGroupLength > 0 ? null : (
+                    <AttendPane event={data.event} />
+                  )}
+
+                  {EventType === "Conference" ? (
+                    <Contain img={TestImg} grey>
+                      <EventDetails
+                        state={staate}
+                        permissio={permission}
+                        data={data}
+                        meetupGroupLength={meetupGroupLength}
+                        dispatch={dispaatch}
+                        eventType={EventType}
+                        currentWindowSize={Hooks}
+                        openEditModal={openEditModal}
+                      />
+                    </Contain>
+                  ) : (
+                    <div>
+                      {meetupGroupLength > 0 ? (
+                        <Contain grey>
+                          <MeetupDetails
+                            state={staate}
+                            permissio={permission}
+                            data={data}
+                            meetupGroupLength={meetupGroupLength}
+                            dispatch={dispaatch}
+                            eventType={EventType}
+                            currentWindowSize={Hooks}
+                            openEditModal={openEditModal}
+                          />
+                        </Contain>
+                      ) : (
+                        <Contain grey img={TestImg}>
+                          <EventDetails
+                            state={staate}
+                            permissio={permission}
+                            data={data}
+                            meetupGroupLength={meetupGroupLength}
+                            dispatch={dispaatch}
+                            eventType={EventType}
+                            currentWindowSize={Hooks}
+                            openEditModal={openEditModal}
+                          />
+                        </Contain>
+                      )}
+                    </div>
+                  )}
+                  <Contain grey bottomShadow>
+                    {EventType === "Conference" ? (
+                      <EventTabs
+                        eventType={EventType}
+                        state={staate}
+                        dispatch={dispaatch}
+                      />
+                    ) : (
+                      <MeetupTab
+                        eventType={EventType}
+                        state={staate}
+                        dispatch={dispaatch}
+                      />
+                    )}
+                  </Contain>
+
+                  {EventType === "Conference" ? (
+                    <ConferenceTab
+                      openContact={openContactModal}
+                      state={staate}
+                      data={data}
+                    />
+                  ) : (
+                    <MeetupTabComponents
+                      openContact={openContactModal}
+                      state={staate}
+                      data={data}
+                    />
+                  )}
+                </div>
+              </CSSTransition>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "mobile"}
+              >
+                <Mobile />
+              </CSSTransition>{" "}
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "invitation"}
+              >
+                <Overview data={data} />
+              </CSSTransition>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "schedule"}
+              >
+                <Schedule data={data} />
+              </CSSTransition>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "edit"}
+              >
+                <EditEvent eventData={data} />
+              </CSSTransition>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "access"}
+              >
+                <Access />
+              </CSSTransition>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "team"}
+              >
+                <TeamList data={data.event} />
+              </CSSTransition>
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "store"}
+              >
+                <Store data={data} />
+              </CSSTransition>
+            </AdminContext.Provider>
+          </div>
 
           {Hooks >= 1500 ? <Timeline eventData={data.event} /> : null}
         </EventGrid>
-        <Footer />
       </TabContext.Provider>
     )
   }

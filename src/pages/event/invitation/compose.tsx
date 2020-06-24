@@ -1,19 +1,20 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiLink } from "react-icons/fi"
+import { FiLink, FiAlertCircle } from "react-icons/fi"
 import media from "styled-media-query"
+import Markdown from "react-markdown"
 
 import { Body, Text, Hover, Title, Tab, TabColumn } from "../../../styles/style"
 
 const Input = styled.input`
-	width : 40rem;
-	margin : 0rem 1rem;
-	padding : 0.8rem 1rem;
-	border: 1px solid grey;
-	outline : 0px;
-	border-radius : 5px
-	height : auto;
+  width : 40rem;
+  margin : 0rem 1rem;
+  padding : 0.8rem 1rem;
+  border: 1px solid grey;
+  outline : 0px;
+  border-radius : 5px
+  height : auto;
 `
 
 const BigInput = styled.textarea`
@@ -37,35 +38,35 @@ const Message = styled.div`
   padding: 0.5rem 2rem;
   margin: 0rem 5rem;
   ${media.lessThan("huge")`
-		padding: 0.5rem 3rem;
-		margin: 0rem 3rem;
-	`};
+    padding: 0.5rem 3rem;
+    margin: 0rem 3rem;
+  `};
   ${media.lessThan("large")`
-		padding: 0.5rem 2rem;
-	margin: 0rem 2rem;
-	`};
+    padding: 0.5rem 2rem;
+  margin: 0rem 2rem;
+  `};
   ${media.lessThan("medium")`
-		padding: 0.5rem 0.5rem;
-		margin: 0rem 0.5rem;
-	`}
+    padding: 0.5rem 0.5rem;
+    margin: 0rem 0.5rem;
+  `}
 `
 
 const Grid = styled.div`
-	display: grid;
-	grid-gap : 1rem 1rem;
-	margin : 1rem 0rem
-	grid-template-columns: 70% 30%;
-	${media.lessThan("large")`
-		display : flex;
-		flex-direction: column;
-		div {
-			margin : 1rem 0rem
-		}
-	`}
+  display: grid;
+  grid-gap : 1rem 1rem;
+  margin : 1rem 0rem
+  grid-template-columns: 70% 30%;
+  ${media.lessThan("large")`
+    display : flex;
+    flex-direction: column;
+    div {
+      margin : 1rem 0rem
+    }
+  `}
 `
 
 const Placeholder =
-  "Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate   "
+  "Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate \n Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate Invitation To Join Concatenate   "
 
 const Compose = props => {
   const [Email, setEmail] = useState("")
@@ -124,9 +125,14 @@ const Compose = props => {
       </div>
 
       <br />
-      <Text center color="grey">
-        Touch Message Body to edit message{" "}
-      </Text>
+      <div style={{display : 'flex' , justifyContent : 'center'  , color : "grey"}} >
+        <Hover style={{ padding: "0rem 0.5rem" }}>
+          <FiAlertCircle style={{ fontSize: "1.7rem" }} />
+        </Hover>
+        <Text center >
+          Touch Message Body to edit message{" "}
+        </Text> 
+      </div>
 
       <Message>
         <br />
@@ -143,14 +149,18 @@ const Compose = props => {
         </Title>
 
         {!Write ? (
-          <Text
+          <div
             onClick={() => setWrite(true)}
-            style={{ cursor: "pointer", lineHeight: "2rem" }}
-            center
-            color="grey"
+            style={{
+              color: "grey",
+              textAlign: "center",
+              cursor: "pointer",
+              lineHeight: "2rem",
+              fontSize: "1.2rem",
+            }}
           >
-            {Placeholder}
-          </Text>
+            <Markdown source={Placeholder} />
+          </div>
         ) : (
           <div>
             <BigInput placeholder="Invitation Email Content" />

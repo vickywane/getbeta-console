@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { inject, observer } from "mobx-react"
 import { CSSTransition } from "react-transition-group"
-import { FiClock, FiMoreVertical } from "react-icons/fi"
+import { FiClock, FiMoreVertical , FiSearch } from "react-icons/fi"
 
 import Proposals from "./proposals"
 import Talks from "./talks"
@@ -39,8 +39,7 @@ const Schedule = props => {
   const { data, loading, error } = useQuery(GET_EVENT_TALK, {
     variables: {
       eventId: id,
-      approved: TalkApproval,
-      limit: 10,
+      name: "",
     },
   })
 
@@ -53,7 +52,7 @@ const Schedule = props => {
   }
 
   if (data) {
-    const { draft, id } = data.getEventTalks
+    const { draft, id } = data.event
 
     const userId = localStorage.getItem("user_id")
     const creator = createdBy === null ? 1 : createdBy[0].id
@@ -103,7 +102,15 @@ const Schedule = props => {
                 {ActiveView === "Overview" ? (
                   <Body>
                     <Flex justifyBetween>
-                      <p> Search box here </p>
+                      <Button transparent >
+                        <Flex>
+                            <Hover style={{padding : '0rem 0.5rem'}} >
+                              <FiSearch style={{fontSize  :  "1.7rem"}} />
+                            </Hover>
+
+                            Search Track
+                        </Flex>
+                      </Button>
 
                       <Button
                         onClick={() => {

@@ -60,12 +60,11 @@ const Access = props => {
       show={accessModal}
       onHide={closeAccessModal}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "5rem 90%" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
         <div
           style={{
             padding: "1rem 1rem",
             height: "auto",
-
             width: "auto",
             background: "#0e2f5a",
           }}
@@ -82,10 +81,10 @@ const Access = props => {
           </Head>
 
           <Body>
-            <Title small> Accept Attendees </Title>
+            <Title small> Community Involvement </Title>
             <hr />
             <Flex justifyBetween>
-              <Text style={{ padding: "0rem 1rem" }}>
+              <Text small style={{ padding: "0rem 0.5rem" }}>
                 Allow viewers to register for event
               </Text>
 
@@ -101,7 +100,7 @@ const Access = props => {
             <Title small> Event Console Access </Title>
             <hr />
             <Flex justifyBetween>
-              <Text style={{ padding: "0rem 1rem" }}>
+              <Text small  style={{ padding: "0rem 0.5rem" }}>
                 Grant Console Access to volunteers
               </Text>
 
@@ -112,10 +111,8 @@ const Access = props => {
               />
             </Flex>
 
-            <br />
-
             <Flex justifyBetween>
-              <Text style={{ padding: "0rem 1rem" }}>Grant Console Access</Text>
+              <Text small style={{ padding: "0rem 0.5rem" }}>Grant Console Access</Text>
 
               <Text small style={{ cursor: "pointer", color: "blue" }}>
                 Grant Permission
@@ -128,7 +125,7 @@ const Access = props => {
             <hr />
 
             <Flex justifyBetween>
-              <Text style={{ padding: "0rem 1rem" }}>
+              <Text small style={{ padding: "0rem 0.5rem" }}>
                 Hide list of volunteers and attendees tab.
               </Text>
 
@@ -145,7 +142,7 @@ const Access = props => {
             <hr />
 
             <Flex justifyBetween>
-              <Text style={{ padding: "0rem 1rem" }} small>
+              <Text  style={{ padding: "0rem 0.5rem" }} small>
                 Lock event details on mobile device until event date.
               </Text>
 

@@ -4,6 +4,7 @@ import Flex from "styled-flex-component"
 import { FiCamera, FiX } from "react-icons/fi"
 import Dropzone, { useDropzone } from "react-dropzone"
 import { useMutation } from "@apollo/react-hooks"
+import { Modal } from "react-bootstrap"
 
 import {
   Hover,
@@ -34,6 +35,9 @@ const TipBody = styled.div`
 
 const Media = props => {
   const [Tip, showTip] = useState(true)
+
+  const [Pallete, OpenPallete] = useState(false)
+
   const [uploading, setUploading] = useState({
     cardImg: false,
     coverImg: false,
@@ -78,6 +82,30 @@ const Media = props => {
 
   return (
     <div>
+      <Modal
+        style={{ marginTop: "2rem" }}
+        show={Pallete}
+        onHide={() => OpenPallete(false)}
+      >
+        <Body>
+          <Flex justifyBetween>
+            <Section> Color Picker </Section>{" "}
+            <Hover onClick={() => OpenPallete(false)}>
+              <FiX style={{ fontSize: "1.7rem" }} />
+            </Hover>
+          </Flex>
+          <br />
+          <Text center> Pick colors from this color picker </Text>
+          <input
+            placeholder="Hex Code. E.g #00000"
+            type="number"
+            onChange={e => console.log(e)}
+          />
+
+          <br />
+        </Body>
+      </Modal>
+
       <Contain
         img={DefaultImg}
         style={{ height: "30vh" }}
@@ -109,11 +137,17 @@ const Media = props => {
         ) : null}
       </Contain>
       <br />
+      <br />
 
       <Body>
-        <Section small style={{ padding: "0rem 1rem" }}>
-          Event Image Thumbnails
-        </Section>
+        <Flex justifyBetween>
+          <Section small style={{ padding: "0rem 1rem" }}>
+            Event Image Thumbnails
+          </Section>
+
+          <Button>Upload Image</Button>
+        </Flex>
+
         <hr />
         <Body
           style={{ background: "#fbfbfb", border: "3px dashed grey" }}
@@ -148,9 +182,15 @@ const Media = props => {
         </Body>
 
         <br />
-        <Section small style={{ padding: "0rem 1rem" }}>
-          Display Card Images
-        </Section>
+        <br />
+        <Flex justifyBetween>
+          <Section small style={{ padding: "0rem 1rem" }}>
+            Display Card Images
+          </Section>
+
+          <Button>Upload Image</Button>
+        </Flex>
+
         <hr />
 
         <Body
@@ -182,11 +222,28 @@ const Media = props => {
             </div>
           )}
         </Body>
-      </Body>
 
-      <Flex justifyCenter>
-        <Button> Upload Media Assets </Button>
-      </Flex>
+        <br />
+        <br />
+
+        <Flex justifyBetween>
+          <Section small style={{ padding: "0rem 1rem" }}>
+            Color Schemes
+          </Section>
+
+          <Button onClick={() => OpenPallete(true)}> Open Color Palette</Button>
+        </Flex>
+
+        <hr />
+        <Body>
+          <Text center>
+            Color scheme and accent used for your event are generated from
+            uploaded images. <br /> You can however change the images used while
+            colors picked from your images would serve as a fallback while your
+            saved data is being loaded.
+          </Text>
+        </Body>
+      </Body>
     </div>
   )
 }

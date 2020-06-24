@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiLink, FiExternalLink } from "react-icons/fi"
+import { FiLink, FiExternalLink, FiPlus, FiX } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 
 import { EmptyData } from "../../../components/placeholders/"
@@ -12,22 +12,68 @@ import {
   Title,
   Head,
   Section,
+  Button,
   Tab,
   TabColumn,
 } from "../../../styles/style"
+import useWindowWidth from "../../../hook_style"
 
 import Compose from "./compose"
 
+const CustomButton = styled(Button)`
+  height : 50px;
+  border-radius : 50px;
+  outline  : 0px;
+`
+
 const Overview = props => {
-  const [ActiveColumn, setActiveColumn] = useState("overview")
+  const [ActiveColumn, setActiveColumn] = useState("compose")
   const { name, id } = props.data.event
+
+  const Width = useWindowWidth()
 
   return (
     <div>
       <Head header>
         <Section style={{ padding: "0.5rem 0rem" }} small>
-          Invitations{" "}
+          Invitations
         </Section>
+
+        {Width >= 1050 ? (
+          <div
+            style={{
+              margin: "0.2rem 0rem",
+              display: "flex",
+              border: "2px solid #0e2f5a",
+              borderRadius: "5px",
+            }}
+          >
+            <div
+              style={{
+                borderRadius: "5px 5px 0px 0px",
+                background: "#fbfbfb",
+                padding: "0rem 2rem",
+              }}
+            >
+              <Text small style={{ paddingTop: "2px" }}>
+                <code> {window.location.href} </code>
+              </Text>
+            </div>
+
+            <div
+              style={{
+                cursor: "pointer",
+                padding: "0.3rem 0.8rem",
+                background: "#0e2f5a",
+                color: "#fff",
+              }}
+            >
+              <FiExternalLink style={{ fontSize: "1.6rem" }} />
+            </div>
+          </div>
+        ) : (
+          <Button> Share Event Link </Button>
+        )}
 
         <Tab>
           <TabColumn
@@ -35,13 +81,6 @@ const Overview = props => {
             active={ActiveColumn === "overview"}
           >
             Overview
-          </TabColumn>
-
-          <TabColumn
-            onClick={() => setActiveColumn("compose")}
-            active={ActiveColumn === "compose"}
-          >
-            Compose
           </TabColumn>
 
           <TabColumn
@@ -72,81 +111,25 @@ const Overview = props => {
             unmountOnExit
             timeout={300}
           >
-            <div
-              style={{
-                display: "flex",
-                verticalAlign: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div>
-                <Flex justifyCenter>
-                  <div
-                    style={{
-                      display: "flex",
-                      border: "2px solid #0e2f5a",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <div
-                      style={{ background: "#fbfbfb", padding: "0rem 2rem" }}
-                    >
-                      <Text small style={{ paddingTop: "7px" }}>
-                        {" "}
-                        <code>http://localhost:3000/Conference/933564100</code>
-                      </Text>
-                    </div>
-
-                    <div
-                      style={{
-                        cursor: "pointer",
-                        padding: "0.5rem 1rem",
-                        background: "#0e2f5a",
-                        color: "#fff",
-                      }}
-                    >
-                      <FiExternalLink style={{ fontSize: "1.8rem" }} />
-                    </div>
-                  </div>
-                </Flex>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <Title small center>
-                  You have not sent any invitation out yet.{" "}
-                </Title>
-                <br />
-                <Text center> Don't know get started? </Text>
-                <Text center>
-                  <b
-                    style={{
-                      textDecoration: "underline",
-                      fontWeight: 550,
-                      padding: "0rem 0.7rem",
-                      cursor: "pointer",
-                      color: "blue",
-                    }}
-                    onClick={() => setActiveColumn("compose")}
-                  >
-                    Compose
-                  </b>
-                  an invitation with Pre-made invitation templates{" "}
-                </Text>
-
-                <Text color="grey" center>
-                  <a
-                    style={{ textDecoration: "none" }}
-                    href="https://my_event.netlify.com"
-                    target="_blank"
-                  >
-                    Learn More{" "}
-                  </a>
-                  about the <b> Invitations </b> feature on Oasis{" "}
-                </Text>
+            <div>
+              <div style={{ textAlign: "right" }}>
+                <CustomButton onClick={() => setActiveColumn("compose")}>
+                  <Flex>
+                    <Hover style={{ padding: "0rem 0.5rem" }}>
+                      <FiPlus style={{ fontSize: "1.7rem" }} />
+                    </Hover>
+                    Compose Invitation
+                  </Flex>
+                </CustomButton>
               </div>
+
+              <EmptyData
+                message={
+                  "No Invitation has been sent yet within this event. \n \n You can compose invitations quickly by using **Pre-made invitation templates**. "
+                }
+                feature={"Invitation"}
+                link={"https://my-event.netlify.com"}
+              />
             </div>
           </CSSTransition>
 
@@ -155,7 +138,20 @@ const Overview = props => {
             unmountOnExit
             timeout={300}
           >
-            <Compose eventName={name} />
+            <div>
+              <div style={{ textAlign: "right" }}>
+                <CustomButton onClick={() => setActiveColumn("overview")}>
+                  <Flex>
+                    <Hover style={{ padding: "0rem 0.5rem" }}>
+                      <FiX style={{ fontSize: "1.7rem" }} />
+                    </Hover>
+                    Cancel Composition
+                  </Flex>
+                </CustomButton>
+              </div>
+              <br />
+              <Compose eventName={name} />
+            </div>
           </CSSTransition>
         </Body>
       </Body>
