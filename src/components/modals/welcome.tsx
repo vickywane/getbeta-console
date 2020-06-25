@@ -30,7 +30,7 @@ const Welcome = props => {
     >
       <Flex justifyCenter>
         <MyCard center>
-          <div style={{ display: "grid", gridTemplateColumns: "5rem 90%" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
             <div
               style={{
                 padding: "1rem 1rem",
@@ -43,21 +43,31 @@ const Welcome = props => {
             </div>
 
             <div>
-              <br />
               <Text
                 onClick={() => closeWelcomeModal(!showWelcomeModal)}
                 color="grey"
                 style={{
                   textAlign: "right",
                   cursor: "pointer",
-                  padding: "0rem 1rem",
+                  padding: "2rem 2rem",
                 }}
               >
                 Skip
               </Text>
 
               <Title bold>Hi There, </Title>
+
+              <Flex justifyCenter>
+                <img
+                  alt="Congratulations hat"
+                  style={{ height: "auto", maxWidth: "25%" }}
+                  src={require("../../assets/images/party-hat.png")}
+                />
+              </Flex>
               <Body>
+                <Title center bold>
+                  Welcome To Oasis 
+                </Title>
                 <Text small>
                   Welcome to the Oasis, here are our terms and conditions here
                   are our terms and conditions here are our terms and conditions
@@ -68,19 +78,13 @@ const Welcome = props => {
                   are our terms and conditions here are our terms and conditions
                   here are our terms and conditions here are our terms and
                   <br />
-                  <br />
-                  Welcome to the Oasis, here are our terms and conditions here
-                  are our terms and conditions here are our terms and conditions
-                  here are our terms and conditions here are our terms and
                 </Text>
               </Body>
 
               <Flex justifyCenter>
                 <Button
                   long
-                  onClick={() => {
-                    setShow(!show)
-                  }}
+                    onClick={() => closeWelcomeModal(!showWelcomeModal)}
                 >
                   I understand{" "}
                 </Button>

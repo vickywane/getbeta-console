@@ -55,7 +55,7 @@ const Access = props => {
 
   return (
     <Modal
-      size="lg"
+      size="xl"
       style={{ marginTop: "3rem" }}
       show={accessModal}
       onHide={closeAccessModal}
@@ -74,7 +74,7 @@ const Access = props => {
 
         <div>
           <Head>
-            <Section> Access Management </Section>
+            <Section>  Event Actions </Section>
             <Hover onClick={() => closeAccessModal()}>
               <FiX style={{ fontSize: "1.8rem" }} />
             </Hover>
@@ -144,6 +144,34 @@ const Access = props => {
             <Flex justifyBetween>
               <Text  style={{ padding: "0rem 0.5rem" }} small>
                 Lock event details on mobile device until event date.
+              </Text>
+
+              <Switch
+                color={"#120B6A"}
+                handleClick={switchClick}
+                name="lock-event"
+              />
+            </Flex>
+          </Body>
+
+           <Body>
+            <Title small> Actions </Title>
+            <hr />
+
+            <Flex justifyBetween>
+              <Text  style={{ padding: "0rem 0.5rem" }} small>
+                Delete Event. This Irrevisble, we advise you archive your event and pull out of archive later!
+              </Text>
+
+              <Switch
+                color={"#120B6A"}
+                handleClick={switchClick}
+                name="lock-event"
+              />
+            </Flex>
+            <Flex justifyBetween>
+              <Text  style={{ padding: "0rem 0.5rem" }} small>
+                Archive Event. Suspend your event until a later time.
               </Text>
 
               <Switch

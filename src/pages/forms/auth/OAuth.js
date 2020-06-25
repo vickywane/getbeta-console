@@ -4,8 +4,8 @@ import Flex from "styled-flex-component"
 import { IoLogoGoogle } from "react-icons/io"
 
 const Button = styled.button`
-  border: 1px solid grey;
-  padding: 0.8rem 1rem;
+  border: 0px;
+  padding: 0.6rem 1rem;
   background: #0e2f5a;
   display: flex;
   justify-content: center;
@@ -13,10 +13,8 @@ const Button = styled.button`
   text-align: center;
   flex: 1;
   font-size: 1.1rem;
-  margi-top: 10px;
+  margin-top: 5px;
   border-radius: 5px;
-  div {
-  }
   &: hover {
     cursor: pointer;
   }
@@ -92,7 +90,7 @@ export default class OAuth extends Component {
           style={{ padding: "0rem 1rem" }}
           onClick={this.startAuth.bind(this)}
         >
-          <IoLogoGoogle style={{ fontSize: "1.8em" }} />
+          <IoLogoGoogle style={{ fontSize: "1.6em" }} />
         </div>
         Google {authState === "Login" ? " Account Login" : "Create Account"}
       </Button>

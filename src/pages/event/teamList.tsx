@@ -6,10 +6,32 @@ import { FiChevronRight, FiUser } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 import { IoIosPeople } from "react-icons/io"
+import { FiArrowLeft } from "react-icons/fi"
 
 import Team from "./team"
-import { Text, Button, Body, Title, Hover } from "../../styles/style"
+import {
+  Text,
+  Button,
+  Body,
+  Title,
+  Hover,
+  Head,
+  Section,
+} from "../../styles/style"
 import { TeamModal } from "../../components/modals/"
+import { EmptyData } from "../../components/placeholders/"
+
+const HoverCircle = styled(Hover)`
+  padding : 0.6rem 0.7rem;
+  border-radius : 50%
+   background : transparent;
+    color : #0e2f5a;
+    transition : all 300ms;
+   &: hover {
+    background : #0e2f5a;
+    color : #fff;
+   }
+`
 
 const TeamList = (props): JSX.Element => {
   const { openTeamModal, closeTeamModal } = props.ModalStore
@@ -18,86 +40,95 @@ const TeamList = (props): JSX.Element => {
   const [ActiveView, setView] = useState("list")
   const [TeamId, setTeamId] = useState(null)
 
-  const List = styled.li`
+  const List = styled.div`
     list-style: none;
-    padding : 0rem 1rem
-    margin : 0.5rem 3rem
-    div {
+    padding: 0rem 1rem;
+    li {
+      list-style: none;
       display: flex;
       justify-content: space-between;
-      margin: 0.5rem 0.4rem;
+      margin: 1rem 0.4rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid grey;
+      border-radius: 7px;
     }
   `
 
   return (
     <div>
+      <Head style={{ padding: "1rem 1rem" }} header>
+        {ActiveView !== "list" ? (
+          <Flex>
+            <HoverCircle onClick={() => setView("list")}  >
+              <FiArrowLeft style={{ fontSize: "1.7rem" }} />
+            </HoverCircle>
+
+            <Section
+              style={{
+                padding: "0.6rem 0.2rem",
+              }}
+            >
+              {ActiveView}
+            </Section>
+          </Flex>
+        ) : (
+          <Section
+            style={{
+              padding: "0.6rem 0.2rem",
+            }}
+          >
+            Team Support
+          </Section>
+        )}
+
+        <Button
+          onClick={() => {
+            openTeamModal()
+          }}
+        >
+          Create Team
+        </Button>
+      </Head>
       <TeamModal EventID={id} close={closeTeamModal} type={"Team"} />
 
       <CSSTransition timeout={300} unmountOnExit in={ActiveView === "list"}>
-        {teams === null ? (
-          <div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <Title small center>
-              You do not have any team yet{" "}
-            </Title>
-            <br />
-            <Text center>
-              Use the
-              <b
-                style={{
-                  textDecoration: "underline",
-                  fontWeight: 500,
-                  padding: "0rem 0.7rem",
-                  cursor: "pointer",
-                  color: "blue",
-                }}
-                onClick={() => openTeamModal()}
-              >
-                Create Team
-              </b>
-              button to create your first team.
-            </Text>
+        <Body>
+          {teams === null ? (
+            <div>
+              <Text center>
+                Use the
+                <b
+                  style={{
+                    textDecoration: "underline",
+                    fontWeight: 500,
+                    padding: "0rem 0.7rem",
+                    cursor: "pointer",
+                    color: "blue",
+                  }}
+                  onClick={() => openTeamModal()}
+                >
+                  Create Team
+                </b>
+                button to create your first team.
+              </Text>
 
-            <Text color="grey" center>
-              <a
-                style={{ textDecoration: "none" }}
-                href="https://my_event.netlify.com"
-                target="_blank"
-              >
-                Learn More{" "}
-              </a>
-              about the <b> Collaboration </b> feature on Oasis{" "}
-            </Text>
-          </div>
-        ) : (
-          <Body>
-            {" "}
-            <br />
-            <Flex justifyBetween>
-              <h5> Teams </h5>
-
-              <Button
-                onClick={() => {
-                  openTeamModal()
-                }}
-              >
-                Create Team
-              </Button>
-            </Flex>
-            <hr />
-            <List style={{ listStyle: "none" }}>
+              <EmptyData
+                message={
+                  " There are no created teams within this event \n Use the **Create Team** to get started with creating your first team."
+                }
+                link="https://event.com"
+                feature="Collaboration"
+              />
+            </div>
+          ) : (
+            <List>
               {teams.map(({ id, name }) => {
                 return (
-                  <div key={id}>
+                  <li key={id}>
                     <img
                       alt="team sketch"
                       src={require("../../assets/images/developer.png")}
-                      style={{ maxWidth: "3.2em", maxHeight: "3.2em" }}
+                      style={{ height: "70px", width: "70px" }}
                     />
 
                     <Title
@@ -105,7 +136,7 @@ const TeamList = (props): JSX.Element => {
                       center
                       onClick={() => {
                         setTeamId(id)
-                        setView("team")
+                        setView(name)
                       }}
                       bold
                       style={{ fontWeight: "normal", cursor: "pointer" }}
@@ -120,24 +151,19 @@ const TeamList = (props): JSX.Element => {
                         </Hover>
 
                         <Text small color="grey">
-                          {" "}
-                          12{" "}
+                          12
                         </Text>
                       </Flex>
-
-                      <Hover style={{ padding: "0rem 0.7rem" }}>
-                        <FiChevronRight style={{ fontSize: "2rem" }} />
-                      </Hover>
                     </Flex>
-                  </div>
+                  </li>
                 )
               })}
             </List>
-          </Body>
-        )}
+          )}
+        </Body>
       </CSSTransition>
 
-      <CSSTransition in={ActiveView === "team"} timeout={300} unmountOnExit>
+      <CSSTransition in={ActiveView !== "list"} timeout={300} unmountOnExit>
         <Team TeamId={TeamId} />
       </CSSTransition>
     </div>

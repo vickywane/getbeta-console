@@ -51,7 +51,7 @@ const CREATE_EVENT = gql`
         isArchived: $isArchived
         isLocked: $isLocked
         isAcceptingTalks: $isAcceptingTalks
-        isAcceptingVolunteers: $isAcceptingVolunteers
+        isAcceptingVolunteers: $isAcceptingVolunteers#
       }
     ) {
       name

@@ -101,7 +101,6 @@ const Admin = props => {
     <Window>
       <div>
         <br />
-        <br />
 
         <List>
           <Tab
@@ -136,9 +135,9 @@ const Admin = props => {
           >
             <T style={{ padding: "0rem 1rem" }}>
               <IoMdConstruct style={{ fontSize: "1.7rem" }} />
-              {Width <= 1200 ? <Info>Access Management</Info> : null}
+              {Width <= 1200 ? <Info>Event Actions</Info> : null}
             </T>
-            {Width >= 1200 ? "Access Management " : null}
+            {Width >= 1200 ? "Event Actions " : null}
           </Tab>
           <Tab
             onClick={() => dispatch({ type: "SWITCH_MOBILE" })}
@@ -194,10 +193,6 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Event Store" : null}
           </Tab>
-          <br />
-          <br />
-          <br />
-          <br />
           <br />
           <br />
           <br />

@@ -14,7 +14,7 @@ import Existing from "./exsiting-event" // i no sabi spell ;)
 import { CREATE_EVENT } from "../../data/mutations"
 import { CREATE_EVENT_INPUT } from "./formsData"
 import Upload from "../media/upload"
-import { Header, Footer, Panes } from "../../components/"
+import { Header, Footer, Panes, Checkbox } from "../../components/"
 import Options from "../imports/createEvent/eventoptions.import"
 import {
   Title,
@@ -101,12 +101,10 @@ const Radio = styled.input`
 `
 
 const CreateEvent = (props): JSX.Element => {
+  // page state
   const { Notify, closeNotify, importPane } = props.PaneStore
-
-  const [EventStartDate, setEventStartDate] = useState(new Date())
-  const [isSingleDate, setSingleDate] = useState(false)
-  const [EndDate, setEndDate] = useState(new Date())
-
+  const [ExistingEvent, createExistingEvent] = useState(false)
+  const [Terms, agreeTerms] = useState<boolean>(false)
   const [Mail, ConfirmMail] = useState(false)
   const [Error, setError] = useState("")
 
@@ -114,7 +112,8 @@ const CreateEvent = (props): JSX.Element => {
 
   const [createEvent, { data }] = useMutation(CREATE_EVENT)
 
-  // Collapsing all into one {kvp state} gives an uncontrolled form err .
+  // Collapsing all into one {k.v.p state} gives an uncontrolled form err .
+  // Form data state
   const [Name, setName] = useState("")
   const [Alias, setAlias] = useState("")
   const [Description, setDescription] = useState("")
@@ -126,7 +125,9 @@ const CreateEvent = (props): JSX.Element => {
   const [Virtual, setVirtual] = useState(false)
   const [EventDate, setEventDate] = useState([])
 
-  const [ExistingEvent, createExistingEvent] = useState(false)
+  const [EventStartDate, setEventStartDate] = useState(new Date())
+  const [isSingleDate, setSingleDate] = useState(false)
+  const [EndDate, setEndDate] = useState(new Date())
 
   let Validation = Yup.object().shape({
     name: Yup.string()
@@ -194,6 +195,22 @@ const CreateEvent = (props): JSX.Element => {
         break
       default:
         console.log(label)
+    }
+  }
+
+  const handleCheckBox = (value, label) => {
+    switch (label) {
+      case "Terms":
+        agreeTerms(!Terms)
+        break
+      case "isVirtual":
+        setVirtual(!Virtual)
+        break
+      case "isSingleDate":
+        setSingleDate(!isSingleDate)
+        break
+      default:
+        break
     }
   }
 
@@ -319,13 +336,9 @@ const CreateEvent = (props): JSX.Element => {
                           <div
                             style={{ display: "flex", padding: "0rem 0.7rem" }}
                           >
-                            <input
-                              type="checkbox"
-                              onChange={() => setVirtual(!Virtual)}
-                              style={{
-                                padding: "0.4rem 0.4rem",
-                                margin: "0.5rem 0.3rem",
-                              }}
+                            <Checkbox
+                              name="isVirtual"
+                              handleClick={handleCheckBox}
                             />
                             <Label> Make Virtual Event </Label>
                           </div>
@@ -358,18 +371,20 @@ const CreateEvent = (props): JSX.Element => {
                           <div
                             style={{ display: "flex", padding: "0rem 0.7rem" }}
                           >
-                            <input
-                              type="checkbox"
-                              onChange={() => setSingleDate(!isSingleDate)}
+                            <Checkbox
+                              name="isSingleDate"
+                              handleClick={handleCheckBox}
+                            />
+                            <Label
                               style={{
                                 padding: "0.4rem 0.4rem",
                                 margin: "0.5rem 0.3rem",
                               }}
-                            />
-                            <Label small> Multiple Days </Label>
+                              small
+                            >
+                              Multiple Days
+                            </Label>
                           </div>
-                          {EventDate.length}
-
                           {isSingleDate ? (
                             <div>
                               <div
@@ -498,7 +513,7 @@ const CreateEvent = (props): JSX.Element => {
                                     }}
                                   >
                                     Learn More
-                                  </a>{" "}
+                                  </a>
                                   on Oasis Meetups
                                 </Text>
                               </Flex>
@@ -538,7 +553,21 @@ const CreateEvent = (props): JSX.Element => {
                         }
                       )}
                       <br />
-                      <Text color="grey"  center > I agree to Oasis's <a href="/" >Terms Of Use  </a>.  </Text>
+
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <Checkbox handleClick={handleCheckBox} name="Terms" />
+
+                        <Text
+                          style={{ padding: "0rem 1rem" }}
+                          color="grey"
+                          center
+                        >
+                          I have read and i agree to Oasis's
+                          <a href="/">Terms Of Use </a>.{" "}
+                        </Text>
+                      </div>
                       <br />
                     </Card>
                   </UpGrid>
@@ -546,6 +575,8 @@ const CreateEvent = (props): JSX.Element => {
                   <br />
                   <div style={{ textAlign: "right" }}>
                     <Button
+                    transparent={!Terms}
+                    disabled={!Terms}
                       onClick={() => {
                         SubmitData()
                       }}
@@ -568,8 +599,8 @@ const CreateEvent = (props): JSX.Element => {
                       An Email Confirmation link has been sent to{" "}
                       <b> {Email} </b> to verify that an active support email
                       address is being used for <b> {Name} </b>.
-                    </Text>{" "}
-                    <br />{" "}
+                    </Text>
+                    <br />
                     <Link to="/console">
                       <div
                         onClick={() => {
@@ -585,9 +616,9 @@ const CreateEvent = (props): JSX.Element => {
                       >
                         <Hover style={{ padding: "0rem 0.7rem" }}>
                           <FiHome style={{ fontSize: "1.7rem" }} />
-                        </Hover>{" "}
+                        </Hover>
                         <Text> Back To Console </Text>
-                      </div>{" "}
+                      </div>
                     </Link>
                   </CustomCard>
                 </div>

@@ -308,6 +308,8 @@ const EditEvent = (props): JSX.Element => {
                   <input placeholder="Instagram profile url" />
                 </CInput>
               </InputGrid>
+
+              <br />
             </Body>
           </Body>
 

@@ -110,7 +110,7 @@ const ModalInput = styled.input`
 `
 
 const Input = styled.input`
-  height: ${props => (props.long ? "10vh" : "43px")};
+  height: ${props => (props.long ? "10vh" : "40px")};
   width: auto;
   padding: 1em 1.5rem;
   display : flex;

@@ -2,7 +2,6 @@ import React from "react"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
 import { GiChecklist } from "react-icons/gi"
-import { FiArrowLeft } from "react-icons/fi"
 import { useQuery } from "@apollo/react-hooks"
 
 import { Panes, Loader } from "../../components/"
@@ -28,41 +27,18 @@ const Team = (props): JSX.Element => {
   }
 
   if (loading) {
-    return <Loader type="loading" />
+    return <Text center >  Loading .... </Text>
   }
   const { goal, name, createdBy, members, tasks, id } = data.team
   const createdByName = createdBy[0].name
 
   return (
     <div>
-      {Notify ? <Panes type={"Team"} color="#401364" /> : null}
       <TaskModal
         teamId={id}
         show={createTaskModal}
         close={closeCreateTaskModal}
       />
-      <div
-        style={{
-          padding: "0.7rem 1rem",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex" }}>
-          <Hover
-            background="black"
-            borderedRound
-            margined
-            style={{ padding: "0rem 1rem" }}
-          >
-            <FiArrowLeft style={{ fontSize: "1.7rem" }} />
-          </Hover>
-
-          <Title small center bold>
-            {name}
-          </Title>
-        </div>
-      </div>
 
       <br />
       <Contain>
@@ -86,35 +62,7 @@ const Team = (props): JSX.Element => {
               </Title>
 
               <Flex>
-                <img
-                  alt={"integration-type"}
-                  src={require("../../assets/images/GitHub.png")}
-                  style={{
-                    padding: "0rem 0.3rem",
-                    height: "auto",
-                    maxWidth: "4rem",
-                  }}
-                />
-
-                <img
-                  alt={"integration-type"}
-                  src={require("../../assets/images/GitHub.png")}
-                  style={{
-                    padding: "0rem 0.3rem",
-                    height: "auto",
-                    maxWidth: "4rem",
-                  }}
-                />
-
-                <img
-                  alt={"integration-type"}
-                  src={require("../../assets/images/GitHub.png")}
-                  style={{
-                    padding: "0rem 0.3rem",
-                    height: "auto",
-                    maxWidth: "4rem",
-                  }}
-                />
+                <Text color="grey" center > Add Integrations </Text>
               </Flex>
             </Flex>
 
