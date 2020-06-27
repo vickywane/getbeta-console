@@ -93,12 +93,19 @@ const MeetupDetails = (props): JSX.Element => {
   //   return width
   // }
   // animate()
-console.log(meetupGroupLength)
+  console.log(meetupGroupLength)
   return (
     <div>
       {showEventDetails ? (
         <div>
-          <div style={{ marginTop: "1rem", height: "45vh", display: "flex" }}>
+          <div
+            style={{
+              overflow: "auto",
+              marginTop: "1rem",
+              height: "45vh",
+              display: "flex",
+            }}
+          >
             {meetupGroups === null
               ? null
               : meetupGroups.map(({ summary, alias, location }) => {
@@ -148,6 +155,7 @@ console.log(meetupGroupLength)
                       <div
                         style={{
                           display: "flex",
+                          overflow: "auto",
                           justifyContent: "space-between ",
                         }}
                       >

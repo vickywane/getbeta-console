@@ -27,6 +27,7 @@ const GET_USER: any = gql`
         eventType
         venue
         alias
+        isVirtual
         dateCreated
         summary
         description
@@ -73,6 +74,8 @@ const GET_USER_TALKS: any = gql`
       talks {
         id
         title
+        summary
+        createdAt
       }
     }
   }
@@ -133,13 +136,20 @@ const GET_EVENT: any = gql`
       isLocked
       isArchived
       isAcceptingTalks
-     isAcceptingVolunteers,
+      isAcceptingVolunteers
+      isAcceptingAttendees
       isVirtual
       confirmedEmail
       speakerConduct
       eventType
+      mediaLinks
       actions
       EventDate
+      sponsors {
+        id
+        name
+        isOrganization
+      }
       createdBy {
         name
         email
@@ -148,6 +158,11 @@ const GET_EVENT: any = gql`
       teams {
         id
         name
+        createdAt
+        goal
+        tasks {
+          id
+        }
       }
       tracks {
         id
@@ -352,6 +367,7 @@ const GET_EVENT_TALK = gql`
           title
           duration
           summary
+          description
           speaker {
             id
             name

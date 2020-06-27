@@ -4,6 +4,7 @@ import Flex from "styled-flex-component"
 import { FiX } from "react-icons/fi"
 import { Modal } from "react-bootstrap"
 
+import { EmptyData } from "../../../components/placeholders"
 import MeetupGroupCard from "../../../components/cards/meetupGroupCard"
 import CreateGroup from "./createGroup"
 import {
@@ -65,12 +66,11 @@ const Groups = props => {
       <br />
 
       {meetupGroups === null ? (
-        <div>
-          <br />
-          <Text color="grey" center>
-            No Groups Created Yet!{" "}
-          </Text>
-        </div>
+        <EmptyData
+          message={`This event currently has no launched **Meetup Group**. \n \n Meetup Groups are a way to manage groups of your event across multiple regions`}
+          link="https://event.com"
+          feature="Meetup Groups"
+        />
       ) : (
         meetupGroups.map(({ name, id, createdAt, location }) => {
           return (

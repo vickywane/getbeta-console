@@ -27,6 +27,7 @@ const EditProfile = props => {
   const [Name, setName] = React.useState("")
   const [Email, setEmail] = React.useState("")
   const [File, setFile] = React.useState(null)
+
   const [FileDetails, setFileDetails] = React.useState({
     fileName: "",
     fileSize: null,
@@ -36,9 +37,7 @@ const EditProfile = props => {
   const [updateUser, { loading }] = useMutation(UPDATE_USER)
 
   React.useEffect(() => {
-    data === undefined
-      ? console.log("entered component")
-      : updateUser({
+    data !== undefined && updateUser({
           variables: {
             id: localStorage.getItem("user_id"),
             name: Name.length < 7 ? name : Name,
@@ -65,9 +64,7 @@ const EditProfile = props => {
       .catch(e => {
         alert(JSON.stringify(e))
       })
-      .then(() => {
-        console.log("updated details")
-      })
+      .then(() => close())
   }
 
   const onDrop = React.useCallback(([file]) => {
@@ -147,8 +144,8 @@ const EditProfile = props => {
                   <img
                     src={require("../../assets/images/developer.png")}
                     style={{
-                      width: "8rem",
-                      height: "12vh",
+                      width: "120px",
+                      height: "120px",
                     }}
                     alt="user"
                   />

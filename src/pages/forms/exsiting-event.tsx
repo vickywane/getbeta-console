@@ -8,6 +8,7 @@ import { FiUser } from "react-icons/fi"
 import UpdateEvent from "./updateExistingEvent"
 import { Text, Body, Title, BigTitle, Button, Hover } from "../../styles/style"
 import { Loader } from "../../components/"
+import { EmptyData } from "../../components/placeholders"
 import { GET_USER_EVENTS } from "../../data/queries"
 import Field from "./fields"
 
@@ -78,36 +79,48 @@ const Existing = props => {
         >
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Container>
-              <Field
-                id={1}
-                name={"Existing Event Name"}
-                type={"text"}
-                textarea={false}
-                value={Name}
-                onChange={e => handleChange(e, "Existing Event Name")}
-                placeholder={"Name of Existing Event"}
-              />
+              {events === null ? (
+                <EmptyData
+                  message={`You do not have any existing event. \n \n If you would like to launch a new iteration of an event not created by you , you would need to request for a full console access from the event organizer.`}
+                  feature="Semantic Event Versioning"
+                  link="https://event.com"
+                />
+              ) : (
+                <div>
+                  <Field
+                    id={1}
+                    name={"Existing Event Name"}
+                    type={"text"}
+                    textarea={false}
+                    value={Name}
+                    onChange={e => handleChange(e, "Existing Event Name")}
+                    placeholder={"Name of Existing Event"}
+                  />
 
-              <Title small> Your Events </Title>
+                  <Title small> Your Events </Title>
+                </div>
+              )}
+
               <hr />
-              {events.map(({ name, id, venue }) => {
-                return (
-                  <List>
-                    <Title
-                      small
-                      onClick={() => {
-                        setEventDetail({ eventName: name, eventId: id })
-                        setActiveView("update-event")
-                      }}
-                      key={id}
-                    >
-                      {name}
-                    </Title>
+              {events !== null &&
+                events.map(({ name, id, venue }) => {
+                  return (
+                    <List>
+                      <Title
+                        small
+                        onClick={() => {
+                          setEventDetail({ eventName: name, eventId: id })
+                          setActiveView("update-event")
+                        }}
+                        key={id}
+                      >
+                        {name}
+                      </Title>
 
-                    <Button> Update Event </Button>
-                  </List>
-                )
-              })}
+                      <Button> Update Event </Button>
+                    </List>
+                  )
+                })}
               <br />
             </Container>
           </div>

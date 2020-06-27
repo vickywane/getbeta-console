@@ -11,6 +11,7 @@ import { TeamInput } from "../../pages/forms/formsData"
 import Field from "../../pages/forms/fields"
 import {
   Hover,
+  Title,
   Head,
   Section,
   Body,
@@ -42,21 +43,23 @@ const BugModal = props => {
   return (
     <Modal
       size="xl"
-      style={{ marginTop: "5%" }}
+      style={{ marginTop: "3rem" }}
       onHide={() => closeCrashReporter()}
       show={showCrashReporter}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "5rem auto" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
         <div
           style={{
-            padding: "1rem 1rem",
+            display: "flex",
+            justifyContent: "center",
+            padding: "1rem 0rem",
             height: "auto",
             width: "auto",
             color: "#fff",
             background: "#0e2f5a",
           }}
         >
-          <IoIosBug style={{ fontSize: "1.8rem" }} />
+          <IoIosBug style={{ fontSize: "1.7rem" }} />
         </div>
 
         <div>
@@ -69,37 +72,32 @@ const BugModal = props => {
           </Head>
 
           <Body>
+            <Title center>Ooops, A Bug?</Title>
             <Text center>
-              We have created this form so you can send any encountered issues
-              to us. <br /> We will use this report to investigate and fix this
-              issue.
-            </Text>
-            <br />
-            <Text color="grey" small center>
-              A response feedback would be sent to your email while a fix is
-              ongoing.
+              Please use this form to send encountered errors to us. Will use it
+              to investigate and fix the bug.
             </Text>
 
             <Flex>
               <Label small style={{ padding: "0rem 0.5rem" }}>
-                {" "}
                 Issue Category
+                <div style={{ margin: "1rem 0.7rem" }}>
+                  <select>
+                    <option> Edit Event Feature </option>
+                    <option> Access Management Feature </option>
+                    <option> Invitation Feature</option>
+                    <option> Mobile Feature </option>
+                    <option> Teams Feature</option>
+                    <option> Shop Feature </option>
+                  </select>
+                </div>
               </Label>
-              <select>
-                <option> Edit Event Feature </option>
-                <option> Access Management Feature </option>
-                <option> Invitation Feature</option>
-                <option> Mobile Feature </option>
-                <option> Teams Feature</option>
-                <option> Shop Feature </option>
-              </select>
             </Flex>
-            <br />
             <Field
               id={1}
               onChange={(e: string) => onChange(e, "Issue Description")}
               placeholder={
-                "Your Description of what went wrong, when it went wrong and how it went wrong"
+                "A description of what went wrong. This would go a long way in helping us fix this issue."
               }
               limit={1500}
               name={"Issue Description"}
@@ -118,7 +116,10 @@ const BugModal = props => {
               Create Bug Ticket
             </Button>
           </Flex>
-
+          <Text color="grey" small center>
+            A response feedback would be sent to your email while a fix is
+            ongoing.
+          </Text>
           <br />
         </div>
       </div>

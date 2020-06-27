@@ -6,15 +6,13 @@ import media from "styled-media-query"
 import { FiPhone } from "react-icons/fi"
 import Schedule from "../../pages/event/schedule/schedule"
 import Groups from "./meetups/groups"
-import Shop from "../../pages/event/store/shop"
+import Archive from "../../pages/event/archive/overview"
 import Detail from "../../components/detail"
 
 import { Contain } from "../../styles/style"
 
 const MeetupTabComponents = (props): JSX.Element => {
   const { state, data, openContact } = props
-
-  console.log(data)
 
   return (
     <Contain>
@@ -50,8 +48,8 @@ const MeetupTabComponents = (props): JSX.Element => {
         in={state.activeTab === "shop"}
         classNames={""}
         unmountOnExit
-      >
-        <Shop data={data} />
+      > 
+        <Archive screen="event" data={data} />
       </CSSTransition>
     </Contain>
   )

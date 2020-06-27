@@ -2,14 +2,14 @@ import * as React from "react"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
 import { useQuery } from "@apollo/react-hooks"
-import { FiSearch, FiClock } from "react-icons/fi"
+import { FiSearch, FiClock, FiCopy } from "react-icons/fi"
 import media from "styled-media-query"
 
-import { Loader, Panes, Header, Footer } from "../../../components/"
+import { Loader, Panes, Header, Footer, Tip } from "../../../components/"
 import { EmptyData } from "../../../components/placeholders/"
 import { ProfileCard } from "../../../components/cards/"
 import { Grid, Body, Text, Hover, Title } from "../../../styles/style"
-import { TalkCard } from "../../../styles/cards"
+import { TalkCard, TrackCard } from "../../../styles/cards"
 import useWindowWidth from "../../../hook_style"
 import { TALKS, GET_EVENT_TALKS } from "../../../data/queries"
 import Img from "../../../assets/images/developer.png"
@@ -37,38 +37,91 @@ const CustomImage = styled.img`
   `};
 `
 
+const TrackBody = styled.div`
+    margin : 0.5rem 1rem
+    display : flex
+    padding : 1rem 0rem;
+    border-bottom : 1px solid grey;
+    li {
+      margin: 0rem 1rem
+      list-style : none
+    }
+  `
+
 const Talks = props => {
   const { eventId } = props
   const WindowWidth = useWindowWidth()
-  const { talk } = props.talk.event
-  console.log(props.talk.event , "talks")
+  const { talk, tracks } = props.talk.event
 
+  const [Tracks, showTracks] = React.useState(false)
   const [HoveredUserDetail, showHoveredUserDetail] = React.useState(false)
 
-    // filters for only approved talks
+  const [TrackKey, setTrackKey] = React.useState<number>(null)
+
+  // filters for only approved talks
   const filtered = talk === null ? null : talk.filter(talk => talk.isAccepted)
-  console.log(filtered  , "filter")
+  console.log(filtered, "filter")
+
+  const handleDrag = e => {
+    e.preventDefault()
+
+    console.log("dragged")
+  }
 
   return (
     <div>
-      <div
-        style={{
-          borderBottom: "0.7px solid grey",
-          padding: "0rem 2rem",
-          textAlign: "right",
-        }}
-      >
-        <Flex justifyBetween>
-          <Text> Talks </Text>
-          <Text small style={{ color: "grey" }}>
-            Showing {filtered.length} results.
-          </Text>
-        </Flex>
-      </div>
-      <br />
+      {filtered !== null && (
+        <Tip
+          message="Drag talk cards and drop into tracks to sort them"
+          timeout={5000}
+          icon1={<FiCopy style={{ fontSize: "1.6rem" }} />}
+        />
+      )}
+
+      {Tracks && tracks !== null && (
+        <TrackBody
+          style={{
+            transition: "all 300ms",
+          }}
+          onDragEnter={e => console.log("onDragEnter")}
+          onDragLeave={e => {
+            setTrackKey(null)
+
+            setTimeout(() => {
+              showTracks(false)
+            }, 5000)
+          }}
+        >
+          {tracks.map(({ id, name }) => {
+            return (
+              <li
+                key={id}
+                onDragOver={e => {
+                  setTrackKey(id)
+                }}
+                style={{
+                  transition: "all 300ms",
+                  border: TrackKey === id ? "3px dashed red" : null,
+                }}
+              >
+                <TrackCard borderRadius="5px" color={"#7366E6"}>
+                  <br />
+                  <Hover>
+                    <Title small center bold>
+                      {name}
+                    </Title>
+                  </Hover>
+                  <br />
+                </TrackCard>
+              </li>
+            )
+          })}
+          <br />
+        </TrackBody>
+      )}
 
       <Grid>
-        {filtered.length === 0 ? (
+        {filtered === null ? (
           <EmptyData
             message="This Event currently has no approved talks"
             feature="Community Support"
@@ -78,7 +131,18 @@ const Talks = props => {
           filtered.map(({ dateSubmitted, draft }) => {
             return draft.map(({ title, summary, id, speaker }) => {
               return (
-                <TalkCard style={{ marginLeft: "2rem" }} talk key={id}>
+                <TalkCard
+                  draggable
+                  onDragStart={e => {
+                    showTracks(true)
+                  }}
+                  onDrag={e => handleDrag(e)}
+                  onDrop={e => showTracks(false)}
+                  onDragOver={e => e.preventDefault()}
+                  style={{ marginLeft: "2rem" }}
+                  talk
+                  key={id}
+                >
                   <Flex justifyBetween>
                     <Hover style={{ display: "flex" }}>
                       <FiClock style={{ fontSize: "1.5rem" }} />

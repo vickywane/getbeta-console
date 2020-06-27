@@ -7,14 +7,19 @@ import {
   FiAlignJustify,
   FiLayers,
 } from "react-icons/fi"
-
+import { GrArchive } from "react-icons/gr"
 import { FiChevronUp, FiChevronDown } from "react-icons/fi"
 import { Tab, TabColumn } from "../../styles/style"
 import { Hover } from "../../styles/style"
 
 // TODO : This component should be a reusable component using props!
 const MeetupTabs = props => {
-  const { dispatch, state } = props
+  const { dispatch, state, data } = props
+
+  const meetups = data.event.meetupGroups
+
+  const MeetupsLength = meetups === null ? 0 : meetups.length
+
   return (
     <div
       style={{
@@ -78,17 +83,31 @@ const MeetupTabs = props => {
           </Hover>
           Meetings
         </TabColumn>
-        <TabColumn
-          active={state.activeTab === "shop"}
-          onClick={() => {
-            dispatch({ type: "SWITCH_SHOP" })
-          }}
-        >
-          <Hover style={{ padding: "0rem 1rem" }}>
-            <FiShoppingCart style={{ fontSize: "1.7rem" }} />
-          </Hover>
-          Shop
-        </TabColumn>
+        {MeetupsLength > 0 ? (
+          <TabColumn
+            active={state.activeTab === "shop"}
+            onClick={() => {
+              dispatch({ type: "SWITCH_SHOP" })
+            }}
+          >
+            <Hover style={{ padding: "0rem 1rem" }}>
+              <GrArchive style={{ fontSize: "1.7rem" }} />
+            </Hover>
+            Event Archive
+          </TabColumn>
+        ) : (
+          <TabColumn
+            active={state.activeTab === "shop"}
+            onClick={() => {
+              dispatch({ type: "SWITCH_SHOP" })
+            }}
+          >
+            <Hover style={{ padding: "0rem 1rem" }}>
+              <FiShoppingCart style={{ fontSize: "1.7rem" }} />
+            </Hover>
+            Shop
+          </TabColumn>
+        )}
       </Tab>
       .
     </div>

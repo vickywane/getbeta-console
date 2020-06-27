@@ -142,16 +142,16 @@ const Proposals = props => {
       </Button>
 
       <Body>
-        {talk === null ? (
+        {filtered === null ? (
           <EmptyData
             message={
-              "This Event currently has no submitted proposals \n You can accept draft submissions from your Access Management Pane."
+            `This Event currently has no submitted proposals. \n \n  You can accept draft submissions from your Access Management Pane.`
             }
             feature="Community Support"
             link="https://event.co"
           />
         ) : (
-          talk.map(({ dateSubmitted, draft, id }) => {
+          filtered.map(({ dateSubmitted, draft, id }) => {
             return draft.map(
               ({ name, speaker, duration, summary, description, title }) => {
                 return (

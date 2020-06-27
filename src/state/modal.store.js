@@ -11,7 +11,7 @@ class ModalStore {
   }
   // =================================>
 
-  welcomeEventModal = true
+  welcomeEventModal = false
 
   showWelcomeEventModal = () => {
     this.welcomeEventModal = true
@@ -90,7 +90,7 @@ invite = false
   }
 
   // welcome modal
-  showWelcomeModal = true
+  showWelcomeModal = false
 
   closeWelcomeModal = () => {
     this.showWelcomeModal = false

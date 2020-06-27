@@ -6,6 +6,7 @@ import {
   FiList,
   FiImage,
   FiSmartphone,
+  FiCast,
   FiLink2,
   FiMail,
   FiInstagram,
@@ -30,13 +31,13 @@ import {
 import EventTabs from "./eventTab"
 import { UserContext } from "../../state/context/contextState"
 
-const HoverCircle = styled.div`
-  padding: 0.5rem 0rem;
+const HoverCircle = styled(Hover)`
+  padding: 1.2rem 1.5rem;
   margin: 0.2rem 0.7rem;
   border-radius: 50%;
-  border: 1px solid grey;
   transition: all 350ms;
   &: hover {
+    border: 1px solid grey;
     background: #fbfbfb;
   }
 `
@@ -57,16 +58,33 @@ const EventDetails = (props): JSX.Element => {
     summary,
     venue,
     website,
+    mediaLinks,
     id,
     bucketName,
     dateCreated,
+    isVirtual,
   } = data.event
   const { showEventDetails } = props.state
 
+  const MediaLink = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    li {
+      margin: 0rem 0.5rem;
+      list-style: none;
+      a {
+        text-align: center;
+      }
+    }
+  `
+
+  console.log(mediaLinks , "media")
+
   return (
-    <div>
+    <div style={{ transition: "all 500ms" }}>
       {showEventDetails ? (
-        <div>
+        <div style={{ transition: "all 500ms" }}>
           {permission ? (
             <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
               <Hover onClick={() => dispatch({ type: "SWITCH_EDIT" })}>
@@ -81,6 +99,7 @@ const EventDetails = (props): JSX.Element => {
               return (
                 <div
                   style={{
+                    transition: "all 500ms",
                     display: "flex",
                     justifyContent: "space-between ",
                   }}
@@ -135,35 +154,41 @@ const EventDetails = (props): JSX.Element => {
 
                           <Text center> {summary} </Text>
 
-                          <Flex justifyCenter>
-                            <Flex>
-                              <a href="/" target="_blank">
-                                <HoverCircle>
-                                  <Hover margined>
+                          <MediaLink>
+                            {mediaLinks !== null && mediaLinks[0] !== "" && (
+                              <li>
+                                <a href={`${mediaLinks[0]}`} target="_blank">
+                                  <HoverCircle>
                                     <FiInstagram
                                       style={{ fontSize: "1.8rem" }}
                                     />
-                                  </Hover>
-                                </HoverCircle>
-                              </a>
-                              <a href="/" target="_blank">
-                                <HoverCircle>
-                                  <Hover margined>
+                                  </HoverCircle>
+                                </a>
+                              </li>
+                            )}
+
+                            {mediaLinks !== null && mediaLinks[1] !== "" && (
+                              <li>
+                                <a href={`${mediaLinks[1]}`} target="_blank">
+                                  <HoverCircle>
                                     <FiTwitter style={{ fontSize: "1.8rem" }} />
-                                  </Hover>
-                                </HoverCircle>
-                              </a>
-                              <a href="/" target="_blank">
-                                <HoverCircle>
-                                  <Hover margined>
+                                  </HoverCircle>
+                                </a>
+                              </li>
+                            )}
+
+                            {mediaLinks !== null && mediaLinks[2] !== "" && (
+                              <li>
+                                <a href={`${mediaLinks[2]}`} target="_blank">
+                                  <HoverCircle>
                                     <FiFacebook
                                       style={{ fontSize: "1.8rem" }}
                                     />
-                                  </Hover>
-                                </HoverCircle>
-                              </a>
-                            </Flex>
-                          </Flex>
+                                  </HoverCircle>
+                                </a>
+                              </li>
+                            )}
+                          </MediaLink>
 
                           {currentWindowSize >= 650 ? (
                             <Flex justifyBetween>
@@ -211,7 +236,12 @@ const EventDetails = (props): JSX.Element => {
 
           <Flex justifyBetween>
             <Flex>
-              <GoLocation style={{ fontSize: "1.5em" }} />
+              {isVirtual ? (
+                <FiCast style={{ fontSize: "1.6em" }} />
+              ) : (
+                <GoLocation style={{ fontSize: "1.6em" }} />
+              )}
+
               <Text small style={{ paddingLeft: "7px" }}>
                 {meetupGroupLength > 1 ? "Global" : venue}
               </Text>

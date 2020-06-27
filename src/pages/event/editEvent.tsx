@@ -61,6 +61,7 @@ const EditEvent = (props): JSX.Element => {
     id,
     name,
     eventType,
+    sponsors,
     alias,
     website,
     Email,
@@ -70,11 +71,13 @@ const EditEvent = (props): JSX.Element => {
     speakerConduct, // null when not updated
     confirmedEmail,
     isArchived,
+    mediaLinks,
     isLocked,
     EventDate, // null
     isAcceptingVolunteers,
     isAcceptingTalks,
     summary,
+    isAcceptingAttendees,
   } = eventData.event
 
   const [Name, setName] = useState<string>(name)
@@ -85,6 +88,16 @@ const EditEvent = (props): JSX.Element => {
   const [Venue, setVenue] = useState<string>(venue)
   const [NewEmail, setEmail] = useState<string>(Email)
   const [EventType, setEventType] = useState<string>(eventType)
+
+  const [FBMediaLinks, addFBMediaLink] = useState<string>(
+    mediaLinks === null ? "" : mediaLinks[0]
+  )
+  const [TWMediaLinks, addTWMediaLink] = useState<string>(
+    mediaLinks === null ? "" : mediaLinks[1]
+  )
+  const [INSMediaLinks, addINSMediaLink] = useState<string>(
+    mediaLinks === null ? "" : mediaLinks[2]
+  )
 
   const { first, second, third } = CREATE_EVENT_INPUT
   const [updateEvent, { data }] = useMutation(UPDATE_EVENT)
@@ -118,6 +131,10 @@ const EditEvent = (props): JSX.Element => {
   }
 
   const SubmitData = () => {
+    let LinksArr = []
+
+    LinksArr.push(FBMediaLinks, TWMediaLinks, INSMediaLinks)
+
     console.table([
       id,
       name,
@@ -129,12 +146,14 @@ const EditEvent = (props): JSX.Element => {
       venue,
       isVirtual,
       speakerConduct, // is undefined
-      confirmedEmail, // is undefined
+      confirmedEmail,
       isArchived,
       isLocked,
-      EventDate,
+      LinksArr,
+      EventDate, // null
       isAcceptingVolunteers, // is undefined
       isAcceptingTalks,
+      isAcceptingAttendees,
       summary,
     ])
 
@@ -149,14 +168,17 @@ const EditEvent = (props): JSX.Element => {
         venue: Venue,
         Date: 11,
         isVirtual: isVirtual,
+        mediaLinks: LinksArr,
         isLocked: isLocked,
         isArchived: isArchived,
         isAcceptingVolunteers: isAcceptingVolunteers,
+        isAcceptingTalks: isAcceptingTalks,
+        isAcceptingAttendees: isAcceptingAttendees,
         speakerConduct: speakerConduct,
         confirmedEmail: confirmedEmail,
         eventType: EventType,
         summary: Summary,
-        EventDate: EventDate,
+        EventDate: [EventDate],
       },
     })
       .then(() => {
@@ -170,7 +192,7 @@ const EditEvent = (props): JSX.Element => {
 
   return (
     <div>
-      <Head style={{ padding: "1.5rem 0rem" }} header>
+      <Head style={{ paddingTop: "1.5rem" }} header>
         <div
           style={{
             display: "flex",
@@ -275,7 +297,12 @@ const EditEvent = (props): JSX.Element => {
                     <FiTwitter style={{ fontSize: "1.7rem" }} />{" "}
                   </Hover>
 
-                  <input placeholder="Twitter profile url" />
+                  <input
+                    type="url"
+                    value={TWMediaLinks}
+                    onChange={e => addTWMediaLink(e.target.value)}
+                    placeholder="Twitter profile url"
+                  />
                 </CInput>
 
                 <CInput>
@@ -287,10 +314,15 @@ const EditEvent = (props): JSX.Element => {
                       borderRadius: "5px 0px 0px 5px",
                     }}
                   >
-                    <FiFacebook style={{ fontSize: "1.7rem" }} />{" "}
+                    <FiFacebook style={{ fontSize: "1.7rem" }} />
                   </Hover>
 
-                  <input placeholder="Facebook profile url" />
+                  <input
+                    type="url"
+                    value={FBMediaLinks}
+                    onChange={e => addFBMediaLink(e.target.value)}
+                    placeholder="Facebook profile url"
+                  />
                 </CInput>
 
                 <CInput>
@@ -302,10 +334,15 @@ const EditEvent = (props): JSX.Element => {
                       borderRadius: "5px 0px 0px 5px",
                     }}
                   >
-                    <FiInstagram style={{ fontSize: "1.7rem" }} />{" "}
+                    <FiInstagram style={{ fontSize: "1.7rem" }} />
                   </Hover>
 
-                  <input placeholder="Instagram profile url" />
+                  <input
+                    type="url"
+                    value={INSMediaLinks}
+                    onChange={e => addINSMediaLink(e.target.value)}
+                    placeholder="Instagram profile url"
+                  />
                 </CInput>
               </InputGrid>
 
@@ -330,7 +367,7 @@ const EditEvent = (props): JSX.Element => {
         unmountOnExit
         in={ActiveColumn === "sponsors"}
       >
-        <SponsorsControl eventId={id} />
+        <SponsorsControl sponsors={sponsors} eventId={id} />
       </CSSTransition>
       <br />
     </div>

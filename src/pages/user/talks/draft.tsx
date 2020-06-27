@@ -5,7 +5,7 @@ import {
   FiMail,
   FiClock,
   FiCheck,
-  FiCalendar,
+  FiCalendar, FiEdit , 
   FiArrowLeft,
 } from "react-icons/fi"
 import styled from "styled-components"
@@ -52,6 +52,10 @@ const Draft = (props): JSX.Element => {
     return <Loader type={"loading"} />
   }
 
+  // window.onscroll = () => {
+  //   alert('scrolled')
+  // }
+
   const {
     title,
     id,
@@ -64,7 +68,7 @@ const Draft = (props): JSX.Element => {
   } = data.talk
   return (
     <div key={id}>
-      <Head header>
+      <Head header  style={{padding : '1.5rem 2rem'}} >
         <Flex>
           <Link to="/drafts">
             <Hover style={{ padding: "0rem 0.7rem" }}>
@@ -72,6 +76,15 @@ const Draft = (props): JSX.Element => {
             </Hover>
           </Link>
           <Section>Drafts</Section>
+        </Flex>
+
+         <Flex>
+          <Link to="/drafts">
+            <Hover style={{ padding: "0rem 0.7rem" }}>
+              <FiEdit style={{ fontSize: "1.8rem" }} />
+            </Hover>
+          </Link>
+          <Section>Edit</Section>
         </Flex>
       </Head>
       <br />
@@ -107,13 +120,17 @@ const Draft = (props): JSX.Element => {
             background: "#fbfbfb",
           }}
         >
-          <Text center> {summary}</Text> <br />
+          <Text>
+            <ReactMarkdown source={summary} />     
+           </Text>
+          <br />
         </div>
 
         <br />
 
-        <ReactMarkdown source={description} />
-        <Text small> {description}</Text>
+        <Text>
+          <ReactMarkdown source={description} />{" "}
+        </Text>
       </Padded>
     </div>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { GoLocation } from "react-icons/go"
-import { FiCalendar, FiMoreVertical, FiBookmark } from "react-icons/fi"
+import { FiCalendar, FiMoreVertical, FiBookmark, FiCast } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
 import { CSSTransition } from "react-transition-group"
@@ -18,7 +18,26 @@ const Contain = styled.div`
   height: auto;
 `
 
-const EventCard = props => {
+interface CardProperties {
+  location?: string
+  name: string
+  id?: string
+  summary?: string
+  role?: string
+  created?: string
+  venue?: string
+  volunteerScreen?: string
+  isVirtual?: string
+  approvalStatus?: string
+  type: string
+  showAprrovalStatus?: boolean
+  volunteerOption?: string
+  event?: string
+  createdBy?: string
+  openVolunteerModal?: any
+}
+
+const EventCard = (props): JSX.Element => {
   const {
     location,
     name,
@@ -28,6 +47,7 @@ const EventCard = props => {
     created,
     venue,
     volunteerScreen,
+    isVirtual,
     approvalStatus,
     type,
     showAprrovalStatus,
@@ -122,14 +142,23 @@ const EventCard = props => {
         </Text>
         {location && (
           <Flex justifyBetween>
-            <Flex>
-              <GoLocation style={{ fontSize: "1.5rem" }} />
+            {isVirtual ? (
+              <Flex>
+                <FiCast style={{ fontSize: "1.5rem" }} />
 
-              <Text center small style={{ padding: "0rem 0.5rem" }}>
-                {venue}
-              </Text>
-            </Flex>
+                <Text center small style={{ padding: "0rem 0.5rem" }}>
+                  {venue}
+                </Text>
+              </Flex>
+            ) : (
+              <Flex>
+                <GoLocation style={{ fontSize: "1.5rem" }} />
 
+                <Text center small style={{ padding: "0rem 0.5rem" }}>
+                  {venue}
+                </Text>
+              </Flex>
+            )}
             <Flex>
               <FiCalendar style={{ fontSize: "1.5rem" }} />
 

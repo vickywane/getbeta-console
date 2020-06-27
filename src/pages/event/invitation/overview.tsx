@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
-import { FiLink, FiExternalLink, FiPlus, FiX } from "react-icons/fi"
+import { FiLink, FiCopy, FiPlus, FiX } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 
 import { EmptyData } from "../../../components/placeholders/"
@@ -27,7 +27,7 @@ const CustomButton = styled(Button)`
 `
 
 const Overview = props => {
-  const [ActiveColumn, setActiveColumn] = useState("compose")
+  const [ActiveColumn, setActiveColumn] = useState("overview")
   const { name, id } = props.data.event
 
   const Width = useWindowWidth()
@@ -68,7 +68,7 @@ const Overview = props => {
                 color: "#fff",
               }}
             >
-              <FiExternalLink style={{ fontSize: "1.6rem" }} />
+              <FiCopy style={{ fontSize: "1.6rem" }} />
             </div>
           </div>
         ) : (

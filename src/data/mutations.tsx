@@ -31,6 +31,7 @@ const CREATE_EVENT = gql`
     $EventDate: [String]!
     $isArchived: Boolean!
     $isLocked: Boolean!
+    $mediaLinks: [String!]
     $isAcceptingTalks: Boolean!
     $isAcceptingVolunteers: Boolean!
     $isVirtual: Boolean!
@@ -45,13 +46,14 @@ const CREATE_EVENT = gql`
         description: $description
         venue: $venue
         eventType: $eventType
+        mediaLinks: $mediaLinks
         summary: $summary
         isVirtual: $isVirtual
         EventDate: $EventDate
         isArchived: $isArchived
         isLocked: $isLocked
         isAcceptingTalks: $isAcceptingTalks
-        isAcceptingVolunteers: $isAcceptingVolunteers#
+        isAcceptingVolunteers: $isAcceptingVolunteers #
       }
     ) {
       name
@@ -81,8 +83,10 @@ const UPDATE_EVENT = gql`
     $website: String
     $speakerConduct: String
     $isVirtual: Boolean
+    $mediaLinks: [String!]
     $isAcceptingTalks: Boolean
     $isAcceptingVolunteers: Boolean
+    $isAcceptingAttendees: Boolean
     $isLocked: Boolean
     $isArchived: Boolean
   ) {
@@ -95,11 +99,13 @@ const UPDATE_EVENT = gql`
         alias: $alias
         description: $description
         venue: $venue
+        mediaLinks: $mediaLinks
         eventType: $eventType
         summary: $summary
         speakerConduct: $speakerConduct
         EventDate: $EventDate
         isVirtual: $isVirtual
+        isAcceptingAttendees: $isAcceptingAttendees
         isAcceptingTalks: $isAcceptingTalks
         isAcceptingVolunteers: $isAcceptingVolunteers
         isLocked: $isLocked
@@ -383,6 +389,22 @@ const REVIEW_TALK: any = gql`
       input: { isAccepted: $isAccepted, comment: $comment }
     ) {
       isAccepted
+    }
+  }
+`
+
+export const ADD_EVENT_SPONSOR: any = gql`
+  mutation createSponsor(
+    $eventID: Int!
+    $name: String!
+    $isOrganization: Boolean!
+    $type: String!
+  ) {
+    createSponsor(
+      eventID: $eventID
+      input: { name: $name, type: $type, isOrganization: $isOrganization }
+    ) {
+      id
     }
   }
 `

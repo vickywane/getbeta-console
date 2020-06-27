@@ -190,7 +190,7 @@ const Event = (props): JSX.Element => {
                   )}
 
                   {EventType === "Conference" ? (
-                    <Contain img={TestImg} grey>
+                    <Contain style={{transition : 'all 300ms'}} img={TestImg} grey>
                       <EventDetails
                         state={staate}
                         permissio={permission}
@@ -205,7 +205,7 @@ const Event = (props): JSX.Element => {
                   ) : (
                     <div>
                       {meetupGroupLength > 0 ? (
-                        <Contain grey>
+                        <Contain grey style={{transition : 'all 300ms'}} >
                           <MeetupDetails
                             state={staate}
                             permissio={permission}
@@ -218,7 +218,7 @@ const Event = (props): JSX.Element => {
                           />
                         </Contain>
                       ) : (
-                        <Contain grey img={TestImg}>
+                        <Contain grey img={TestImg} style={{transition : 'all 300ms'}} >
                           <EventDetails
                             state={staate}
                             permissio={permission}
@@ -242,6 +242,7 @@ const Event = (props): JSX.Element => {
                       />
                     ) : (
                       <MeetupTab
+                        data={data}
                         eventType={EventType}
                         state={staate}
                         dispatch={dispaatch}

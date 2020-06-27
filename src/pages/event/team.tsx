@@ -3,11 +3,38 @@ import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
 import { GiChecklist } from "react-icons/gi"
 import { useQuery } from "@apollo/react-hooks"
+import styled from "styled-components"
 
 import { Panes, Loader } from "../../components/"
 import { TaskModal } from "../../components/modals/"
-import { Text, Title, Contain, Button, List, Hover } from "../../styles/style"
+import {
+  Text,
+  Title,
+  Contain,
+  Button,
+  List,
+  Hover,
+  Body,
+} from "../../styles/style"
 import { TEAM } from "../../data/queries"
+
+const StyledList = styled(List)`
+  padding: 1rem 1rem;
+  li {
+    margin: 1rem 0.5rem;
+    flex-direction: column;
+    box-shadow: 0px 2px 3px grey;
+    padding: 0.7rem 1rem;
+    div {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+`
+
+const Progress = styled.div`
+  
+`
 
 const Team = (props): JSX.Element => {
   const {
@@ -27,7 +54,7 @@ const Team = (props): JSX.Element => {
   }
 
   if (loading) {
-    return <Text center >  Loading .... </Text>
+    return <Text center> Loading .... </Text>
   }
   const { goal, name, createdBy, members, tasks, id } = data.team
   const createdByName = createdBy[0].name
@@ -41,7 +68,7 @@ const Team = (props): JSX.Element => {
       />
 
       <br />
-      <Contain>
+      <Body>
         <Flex justifyBetween>
           <Flex column>
             <br />
@@ -62,7 +89,10 @@ const Team = (props): JSX.Element => {
               </Title>
 
               <Flex>
-                <Text color="grey" center > Add Integrations </Text>
+                <Text color="grey" center>
+                  {" "}
+                  Add Integrations{" "}
+                </Text>
               </Flex>
             </Flex>
 
@@ -72,10 +102,8 @@ const Team = (props): JSX.Element => {
         </Flex>
 
         <Text center> {goal} </Text>
-
         <hr />
 
-        <br />
         <Flex justifyBetween>
           <Flex justifyCenter>
             <Flex>
@@ -92,7 +120,7 @@ const Team = (props): JSX.Element => {
         </Flex>
 
         <br />
-        <List>
+        <StyledList>
           {tasks === null ? (
             <div>
               <Text center color="grey">
@@ -100,14 +128,14 @@ const Team = (props): JSX.Element => {
                 <br />
                 <br />
                 You currently do not have any task. <br /> Tasks are a great way
-                to manage what is being done by your team{" "}
-              </Text>{" "}
+                to manage what is being done by your event team.
+              </Text>
             </div>
           ) : (
             tasks.map(({ id, name, createdAt, category, createdBy }) => {
               return (
                 <li key={id}>
-                  <Flex justifyBetween>
+                  <div style={{ justifyContent: "space-between" }}>
                     {createdBy === null ? (
                       <Text> Admin </Text>
                     ) : (
@@ -116,19 +144,21 @@ const Team = (props): JSX.Element => {
                       })
                     )}
 
-                    <Flex column>
-                      <Text center> {category} </Text>
-                      <Title small> {name} </Title>
-                    </Flex>
+                    <Title small> #{name} </Title>
                     <Text> {createdAt} </Text>
-                  </Flex>
+                  </div>
+
                   <br />
+                  <div style={{ justifyContent: "space-between" }}>
+                    <Text center> {category} </Text>
+                    <Text center> {category} </Text>
+                  </div>
                 </li>
               )
             })
           )}
-        </List>
-      </Contain>
+        </StyledList>
+      </Body>
     </div>
   )
 }

@@ -112,7 +112,7 @@ const ModalInput = styled.input`
 const Input = styled.input`
   height: ${props => (props.long ? "10vh" : "40px")};
   width: auto;
-  padding: 1em 1.5rem;
+  padding: 0.8em 1.5rem;
   display : flex;
   flex: 1;
   font-family: calibri;
@@ -173,7 +173,7 @@ const FormInput = styled.input`
 const BigInput = styled.textarea`
   padding: 1.5rem 1.5rem;
   margin: 0.5rem 1rem;
-  height: 25vh;
+  height: 35vh;
   display: flex;
   line-height : 1.9rem;
   word-spacing : 0.3rem;
@@ -256,7 +256,7 @@ const Title = styled.h5`
   padding-left: ${props => (props.small ? "3px" : "15px")};
   padding-right: 10px;
   cursor : ${props => (props.pointer ? "pointer" : null)}
-  color: ${props => (props.active ? "#FF5F00" : "")};
+  color: ${props => (props.active ? "#FF5F00" : "#0e2f5a")};
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.6rem" : "2rem")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
@@ -400,8 +400,8 @@ const Switch = styled.div`
 const SwitchBtn = styled.button`
   padding: 0.6rem 4rem;
   border: 0px;
-  background: transparent;
-  color: #401364;
+  background: ${props => props.active ?  "#401364" : "transparent"};
+  color: ${props => props.active ?  "#fff" : "#401364"};
   outline: none;
   font-weight: bold;
   transition: all 600ms;
@@ -528,7 +528,7 @@ font-size: ${props => (props.small ? "1.3em" : "1.6em")};
 `
 
 const MyCard = styled.div`
-  width: 50rem;
+  width: 45rem;
   box-shadow: 0px 2px 6px grey;
   border-radius: 10px;
   border: 0px;
@@ -580,9 +580,9 @@ const TextEditor = styled.div`
     border-radius : 7px;
     flex: 1;
     width  : auto
-    height : 30vh;
-    border: 2px solid grey;
-    margin : 1rem 1rem;
+    height : 40vh;
+    border: 1px solid grey;
+    margin : 0.5rem 1rem;
     textarea {
       border : 0px ;
       padding  : 1rem 1rem
@@ -595,7 +595,7 @@ const TextEditor = styled.div`
       flex : 1;
     }
     div {
-      border-top : 2px dashed #0e2f5a;
+      border-top : 1px dashed #0e2f5a;
       padding : 1rem 1rem;
       display : flex;
       font-size : 1.1rem;

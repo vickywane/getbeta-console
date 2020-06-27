@@ -31,14 +31,21 @@ const Grid = styled.div`
 
 const Details = props => {
   const { name } = props.data.createdBy[0]
-  const { description, teams, volunteer, tracks, eventType } = props.data
+  const {
+    description,
+    teams,
+    volunteer,
+    tracks,
+    eventType,
+    sponsors,
+    meetupGroups,
+  } = props.data
 
   const Type = eventType === "Conference"
 
   return (
     <div>
-      {" "}
-      <Sponsors />
+      <Sponsors sponsor={sponsors} />
       <br />
       <Grid>
         <a href="#organizer" style={{ textDecoration: "none" }}>
@@ -60,7 +67,16 @@ const Details = props => {
             </div>
 
             <Flex column>
-              <Title small> {tracks === null ? "0" : tracks.length} </Title>
+              <Title small>
+                {Type
+                  ? tracks === null
+                    ? "0"
+                    : tracks.length
+                  : meetupGroups === null
+                  ? "0"
+                  : meetupGroups.length} 
+              </Title>
+
               <Text color="grey">{Type ? "Tracks" : "Meetup Groups"}</Text>
             </Flex>
           </Box>
@@ -95,12 +111,12 @@ const Details = props => {
       <Title style={{ textAlign: "right" }} small>
         Organized by <b> {name} </b>
       </Title>
-      <Body>
+
+      <div>
         <Title id="sponsors" small>
           Synopsis
         </Title>
         <Text> {description} </Text>
-        <br />
         <br />
 
         <Title id="about" small>
@@ -108,12 +124,11 @@ const Details = props => {
         </Title>
         <Text> {description} </Text>
         <br />
-        <br />
         <Title id="organizer" small>
           Synopsis
         </Title>
         <Text> {description} </Text>
-      </Body>
+      </div>
     </div>
   )
 }

@@ -224,6 +224,13 @@ const CREATE_MEETUP_GROUP: any = [
     type: "text",
     textarea: false,
   },
+  {
+    id: 3,
+    label: "Meetup Group Region",
+    placeholder: "Meetup Region",
+    type: "text",
+    textarea: false,
+  },
 ]
 
 const TALK_GUIDELINE = [
@@ -235,6 +242,23 @@ const TALK_GUIDELINE = [
     type: "text",
     textarea: true,
     limit: 1500,
+  },
+]
+
+export const SPONSOR_INPUT: any = [
+  {
+    id: 1,
+    label: "Sponsor Name",
+    placeholder: "Sponsor Name",
+    type: "text",
+    textarea: false,
+  },
+  {
+    id: 2,
+    label: "Sponsor Email Address",
+    placeholder: "Email Address",
+    type: "text",
+    textarea: false,
   },
 ]
 

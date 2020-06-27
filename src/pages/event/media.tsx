@@ -20,22 +20,9 @@ import {
   Button,
 } from "../../styles/style"
 import DefaultImg from "../../assets/images/test.png"
-
-const TipBody = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  background: #fbfbfb;
-  width: 33rem;
-  transition: all 400ms;
-  color: #0e2f5a;
-  border-radius: 10px;
-  box-shadow: 0px 1px 3px grey;
-`
-
+import { Tip } from "../../components/"
+ 
 const Media = props => {
-  const [Tip, showTip] = useState(true)
-
   const [Pallete, OpenPallete] = useState(false)
 
   const [uploading, setUploading] = useState({
@@ -113,28 +100,12 @@ const Media = props => {
       >
         <br />
         <Section style={{ padding: "0rem 0.1rem" }}>Event Cover Image</Section>
-        {Tip ? (
-          <Flex justifyCenter>
-            <TipBody>
-              <Text style={{ padding: "0rem 1rem" }}>
-                Drag 'n' drop images or select image{" "}
-              </Text>
 
-              <Flex>
-                <Hover style={{ padding: "0.3rem 1rem" }}>
-                  <FiCamera style={{ fontSize: "1.7rem" }} />
-                </Hover>
-
-                <Hover style={{ padding: "0.3rem 0.1rem" }}>
-                  <FiX
-                    onClick={() => showTip(false)}
-                    style={{ fontSize: "1.6rem" }}
-                  />
-                </Hover>
-              </Flex>
-            </TipBody>
-          </Flex>
-        ) : null}
+        <Tip
+          message={"Drag 'n' drop images to upload"}
+          icon1={<FiCamera style={{fontSize : '1.8rem'}} />}
+          icon2={<FiX style={{fontSize : '1.8rem'}} />}
+        />
       </Contain>
       <br />
       <br />

@@ -66,7 +66,7 @@ const EventModal = props => {
               Congratulations On Your New Event!{" "}
             </Title>
 
-            <Text center small style={{ padding: "0rem 1rem" }}>
+            <Text center style={{ padding: "0rem 1rem" }}>
               We are stoked and excited watching you plan and launch your next
               event with Oasis. <br /> <br />
             </Text>
@@ -82,8 +82,7 @@ const EventModal = props => {
             <hr />
             <Text>
               We believe it takes a period of time to properly plan an event.
-              Hence , Oasis steps in while you make your arrangements. Here are
-              default actions taken;
+              Hence , Oasis steps in while you make your arrangements. The following default actions can be changed from your <b> Event Actions </b> pane.
             </Text>
 
             <Items>

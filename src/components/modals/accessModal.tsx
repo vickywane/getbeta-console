@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import { Modal } from "react-bootstrap"
-import { FiX, FiPlus } from "react-icons/fi"
+import { FiX, FiPlus, FiAlertCircle, FiLock, FiEye } from "react-icons/fi"
+import { GrArchive } from "react-icons/gr"
 import { IoMdConstruct } from "react-icons/io"
 import Flex from "styled-flex-component"
 import { useMutation } from "@apollo/react-hooks"
+import styled from "styled-components"
 
 import {
   Hover,
@@ -12,41 +14,55 @@ import {
   Section,
   Button,
   Head,
-  Body,
+  Body as Bod,
 } from "../../styles/style"
-
 import { Switch } from "../../components/"
+
+const Body = styled(Bod)`
+  padding: 0.5rem 1.5rem;
+`
+
 const Access = props => {
   const { accessModal, closeAccessModal } = props
   const [HideActive, setHideActive] = useState<boolean>(false)
   const [LockActive, setLockActive] = useState<boolean>(false)
   const [VolunteerAcessActive, setVolunteerTab] = useState<boolean>(false)
 
+  const [Delete, setDelete] = useState<boolean>(false)
+
   const switchClick = (value, name) => {
     switch (name) {
       case "accept-attendees":
         if (value === "on") {
           setHideActive(true)
+        } else {
+          setHideActive(false)
         }
-
         break
       case "access":
         if (value === "on") {
           setHideActive(true)
+        } else {
+          setHideActive(true)
         }
-
         break
       case "hide-tab":
         if (value === "on") {
           setLockActive(true)
+        } else {
+          setLockActive(false)
         }
-
         break
       case "lock-event":
         if (value === "on") {
           setVolunteerTab(true)
+        } else {
+          setVolunteerTab(false)
         }
 
+        break
+      case "delete-event":
+        setDelete(!Delete)
         break
       default:
         break
@@ -74,7 +90,7 @@ const Access = props => {
 
         <div>
           <Head>
-            <Section>  Event Actions </Section>
+            <Section> Event Actions </Section>
             <Hover onClick={() => closeAccessModal()}>
               <FiX style={{ fontSize: "1.8rem" }} />
             </Hover>
@@ -100,7 +116,7 @@ const Access = props => {
             <Title small> Event Console Access </Title>
             <hr />
             <Flex justifyBetween>
-              <Text small  style={{ padding: "0rem 0.5rem" }}>
+              <Text small style={{ padding: "0rem 0.5rem" }}>
                 Grant Console Access to volunteers
               </Text>
 
@@ -112,7 +128,9 @@ const Access = props => {
             </Flex>
 
             <Flex justifyBetween>
-              <Text small style={{ padding: "0rem 0.5rem" }}>Grant Console Access</Text>
+              <Text small style={{ padding: "0rem 0.5rem" }}>
+                Grant Console Access
+              </Text>
 
               <Text small style={{ cursor: "pointer", color: "blue" }}>
                 Grant Permission
@@ -125,9 +143,19 @@ const Access = props => {
             <hr />
 
             <Flex justifyBetween>
-              <Text small style={{ padding: "0rem 0.5rem" }}>
-                Hide list of volunteers and attendees tab.
-              </Text>
+              <div
+                style={{
+                  padding: "0rem 0.3rem",
+                  display: "flex",
+                }}
+              >
+                <Hover>
+                  <FiEye style={{ fontSize: "1.7rem" }} />
+                </Hover>
+                <Text small style={{ padding: "0rem 0.5rem" }}>
+                  Hide list of volunteers and attendees tab.
+                </Text>
+              </div>
 
               <Switch
                 color={"#120B6A"}
@@ -142,10 +170,19 @@ const Access = props => {
             <hr />
 
             <Flex justifyBetween>
-              <Text  style={{ padding: "0rem 0.5rem" }} small>
-                Lock event details on mobile device until event date.
-              </Text>
-
+              <div
+                style={{
+                  padding: "0rem 0.3rem",
+                  display: "flex",
+                }}
+              >
+                <Hover>
+                  <FiLock style={{ fontSize: "1.7rem" }} />
+                </Hover>
+                <Text style={{ padding: "0rem 0.5rem" }} small>
+                  Lock event details on mobile device until event date.
+                </Text>
+              </div>
               <Switch
                 color={"#120B6A"}
                 handleClick={switchClick}
@@ -154,26 +191,50 @@ const Access = props => {
             </Flex>
           </Body>
 
-           <Body>
+          <Body>
             <Title small> Actions </Title>
             <hr />
 
             <Flex justifyBetween>
-              <Text  style={{ padding: "0rem 0.5rem" }} small>
-                Delete Event. This Irrevisble, we advise you archive your event and pull out of archive later!
-              </Text>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <div
+                  style={{
+                    padding: "0rem 0.3rem",
+                    display: "flex",
+                  }}
+                >
+                  <Hover>
+                    <FiAlertCircle
+                      style={{ fontSize: "1.7rem", color: "red" }}
+                    />
+                  </Hover>
+                  <Text style={{ padding: "0rem 0.5rem" }} small>
+                    Delete Your Event. We advise you archive your event and pull
+                    out of archive later!
+                  </Text>
+                </div>
+              </div>
 
               <Switch
-                color={"#120B6A"}
+                color={"red"}
                 handleClick={switchClick}
-                name="lock-event"
+                name="delete-event"
               />
             </Flex>
             <Flex justifyBetween>
-              <Text  style={{ padding: "0rem 0.5rem" }} small>
-                Archive Event. Suspend your event until a later time.
-              </Text>
-
+              <div
+                style={{
+                  padding: "0rem 0.3rem",
+                  display: "flex",
+                }}
+              >
+                <Hover>
+                  <GrArchive style={{ fontSize: "1.7rem", color: "red" }} />
+                </Hover>{" "}
+                <Text style={{ padding: "0rem 0.5rem" }} small>
+                  Archive Event. Suspend your event until a later time.
+                </Text>
+              </div>
               <Switch
                 color={"#120B6A"}
                 handleClick={switchClick}
@@ -181,7 +242,6 @@ const Access = props => {
               />
             </Flex>
           </Body>
-          <br />
         </div>
       </div>
     </Modal>

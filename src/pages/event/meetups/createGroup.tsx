@@ -42,6 +42,9 @@ const CreateGroup = props => {
       case "Meetup Group Alias":
         setAlias(value)
         break
+      case "Meetup Group Region":
+          setLocation(value)
+        break  
       default:
         break
     }
@@ -54,7 +57,7 @@ const CreateGroup = props => {
         eventId: eventId,
         name: Name,
         alias: Alias,
-        location: "Nigeria",
+        location: Location,
       },
     })
       .then(() => alert("Created"))
@@ -62,7 +65,7 @@ const CreateGroup = props => {
   }
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "5rem 90%" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
       <div
         style={{
           padding: "1rem 1rem",
@@ -77,13 +80,12 @@ const CreateGroup = props => {
       <Body>
         <Title bold> New Meetup Group </Title>
         <Text small style={{ padding: "0rem 1rem" }}>
-          Meetup groups are the are the are the are the are the are the are the
-          are the are the are the are the are the are the e the are the are the
-          are the are the are the e the are the are the are the are the are the
-          real deal deal dela{" "}
+          Meetup groups are a way to manage multiple groups of your event across
+          multiple regions. A meetup group inherits the properties of the parent
+          event. Control of a meetup group is passed to the team lead who
+          manages the group.
         </Text>
 
-        <br />
         {CREATE_MEETUP_GROUP_DATA.map(({ id, placeholder, label, type }) => {
           return (
             <Fields
@@ -96,14 +98,13 @@ const CreateGroup = props => {
             />
           )
         })}
-        <br />
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Hover style={{ padding: "0.1rem 0.5rem" }}>
             <FiAlertCircle style={{ fontSize: "1.7rem", color: "grey" }} />
           </Hover>
 
-          <Text small color="grey">
+          <Text center small color="grey">
             Launching <b> Meetup Groups </b> changes the outlook of your Meetup
             inorder to depict multiple groups.
           </Text>

@@ -9,7 +9,7 @@ import People from "../../pages/event/people/people"
 import Shop from "../../pages/event/store/shop"
 import Detail from "../detail"
 
-import { Contain } from "../../styles/style"
+import { Body } from "../../styles/style"
 
 const FAB = styled.div`
   padding: 1rem 1rem;
@@ -29,7 +29,7 @@ const FAB = styled.div`
 const ConferenceTab = (props): JSX.Element => {
   const { state, data, openContact } = props
   return (
-    <Contain>
+    <Body>
       <FAB onClick={() => openContact()}>
         <FcCustomerSupport style={{ fontSize: "2.7rem" }} />
       </FAB>
@@ -72,7 +72,7 @@ const ConferenceTab = (props): JSX.Element => {
       >
         <Shop data={data} />
       </CSSTransition>
-    </Contain>
+    </Body>
   )
 }
 

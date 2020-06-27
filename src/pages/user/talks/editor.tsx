@@ -18,20 +18,39 @@ import {
   Title,
   BigTitle,
   BigInput,
+  Input,
   Hover,
 } from "../../../styles/style"
 
+const StyledField = styled(Input)`
+  width: 30rem;
+`
+
+const TagBody = styled.div`
+  display: flex;
+  overflow : auto
+  li {
+    text-align : center
+    padding: 0.7rem 2rem;
+    background: #5f6368;
+    color: #fff;
+    border-radius: 30px;
+    list-style: none;
+    margin: 0rem 1rem;
+  }
+`
+
 const Editor = props => {
   const [Title, setTitle] = useState("")
-  const [Tags, setTags] = useState({ tag: ["Backend", "DevOps"] })
+  const [Tags, setTags] = useState(new Array)
   const [Tag, setTag] = useState("")
   const [Content, setContent] = useState("")
   const [Summary, setSummary] = useState("")
   const [Description, setDescription] = useState("")
   const [Duration, setDuration] = useState("")
+  const [TagValue, addTagValue] = useState("")
 
   const [createTalk, { data, loading }] = useMutation(CREATE_TALK)
-  //TODO Use legends for the tag box
   function handleChange(value: string, label: string) {
     switch (label) {
       case "Draft Title":
@@ -40,6 +59,8 @@ const Editor = props => {
         setSummary(value)
       case "Draft Description":
         setDescription(value)
+      case "Tags":
+        addTagValue(value)
       default:
         break
     }
@@ -52,7 +73,7 @@ const Editor = props => {
         title: Title,
         summary: Summary,
         description: Description,
-        duration: Duration, // change to Duration type string
+        duration: Duration,
         archived: false,
       },
     })
@@ -60,6 +81,11 @@ const Editor = props => {
         alert("created")
       })
       .catch(e => console.log(e))
+  }
+
+  const addTag = () => {
+    alert("pressed")
+    setTags([TagValue])
   }
 
   return (
@@ -101,46 +127,46 @@ const Editor = props => {
 
             <br />
             <div>
-              <Label small> Tags </Label> <hr />
-              <div style={{ display: "flex" }}>
-                {Tags.tag.map(string => {
-                  return (
-                    <Text style={{ padding: "0rem 0.7rem" }}> {string} </Text>
-                  )
+
+              {JSON.stringify(Tags)}
+
+              <TagBody>
+                {Tags.map(string => {
+                  return <li> {string} </li>
                 })}
-              </div>
-              <input
-                placeholder="add tag name"
+              </TagBody>
+              <hr />
+              <Fields
+                id={4}
+                name="Tags"
+                textarea={false}
+                placeholder="Value tags from draft content"
                 type="text"
-                value={Tag}
-                onChange={e => setTag(e.target.value)}
+                value={TagValue}
+                onChange={e => handleChange(e, "Tags")}
               />
-              <Button
-                onClick={() => {
-                  console.log(Tag)
-                  // setTags.tag.push(Tag)
-                  setTags({ tag: [Tag] })
-                }}
-              >
-                Add Tag
-              </Button>
+              <Button onClick={() => addTag()}>Add Tag</Button>
             </div>
-
-            <select
-              style={{ padding: "0.7rem 1rem" }}
-              onChange={e => {
-                setDuration(e.target.value)
-              }}
-            >
-              <option value="10 mins">10 mins</option>
-              <option value="20 mins">20 mins</option>
-              <option value="30 mins">30 mins</option>
-              <option value="40 mins">40 mins</option>
-              <option value="50 mins">50 mins</option>
-              <option value="60 mins">60 mins</option>
-            </select>
-
-            {Duration}
+            <br />
+            <Label>
+              Estimated Draft Duration
+              <br />
+              <div>
+                <select
+                  style={{ margin: "0.6rem 0.4rem", padding: "0.5rem 1rem" }}
+                  onChange={e => {
+                    setDuration(e.target.value)
+                  }}
+                >
+                  <option value="10 mins">10 mins</option>
+                  <option value="20 mins">20 mins</option>
+                  <option value="30 mins">30 mins</option>
+                  <option value="40 mins">40 mins</option>
+                  <option value="50 mins">50 mins</option>
+                  <option value="60 mins">60 mins</option>
+                </select>
+              </div>
+            </Label>
           </Body>
 
           <Flex justifyCenter>

@@ -71,7 +71,6 @@ const AddItem = props => {
       },
     })
       .then(() => {
-        alert("Created")
         closeModal()
       })
       .catch(e => console.log(e))

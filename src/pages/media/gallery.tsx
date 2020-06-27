@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import Flex from "styled-flex-component"
 import { FiClock } from "react-icons/fi"
@@ -31,7 +31,7 @@ const Section = styled.div`
 const Head = styled.div`
   color : #000
   padding  : 0.2em 1rem; 
-  border-bottom : 1px solid grey;
+  border-bottom : 3px dashed #401364;
 `
 
 const Box = styled.div`
@@ -64,6 +64,8 @@ const Images = [
 ]
 
 const Overview = (props): JSX.Element => {
+  const [ActiveView, setActiveView] = useState<string>("images")
+
   return (
     <div>
       <br />
@@ -72,16 +74,31 @@ const Overview = (props): JSX.Element => {
         <Switch>
           <Flex>
             <Flex>
-              <SwitchBtn> Images </SwitchBtn>
+              <SwitchBtn
+                active={ActiveView === "images"}
+                onClick={() => setActiveView("images")}
+              >
+                Images 
+              </SwitchBtn>
               <div style={{ borderRight: "4px solid  #401364" }} />
             </Flex>
 
             <Flex>
-              <SwitchBtn> Videos </SwitchBtn>
+              <SwitchBtn
+                onClick={() => setActiveView("videos")}
+                active={ActiveView === "videos"}
+              >
+                Videos 
+              </SwitchBtn>
               <div style={{ borderRight: "4px solid  #401364" }} />
             </Flex>
 
-            <SwitchBtn> Slides </SwitchBtn>
+            <SwitchBtn
+              active={ActiveView === "slides"}
+              onClick={() => setActiveView("slides")}
+            >
+              Slides 
+            </SwitchBtn>
           </Flex>
         </Switch>
       </Flex>

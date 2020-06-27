@@ -4,7 +4,9 @@ import styled from "styled-components"
 import { FiPlus, FiX } from "react-icons/fi"
 import { Modal } from "react-bootstrap"
 import { useMutation } from "@apollo/react-hooks"
+import { CSSTransition } from "react-transition-group"
 
+import Fields from "../../forms/fields"
 import {
   Hover,
   Title,
@@ -15,33 +17,10 @@ import {
   Head,
   Contain,
 } from "../../../styles/style"
+import { EmptyData } from "../../../components/placeholders/"
 import ProductItem from "./productItem"
 import { CREATE_CART_CATEGORY } from "../../../data/mutations"
 import AddItemModal from "./addItemModal"
-
-const Item = [
-  {
-    id: 1,
-    name: "Blue Collaborative Sweat Shirt",
-    price: "$80",
-  },
-  {
-    id: 2,
-    name: "White Collaborative Sweat Shirt",
-    price: "FREE",
-  },
-  {
-    id: 3,
-    name: "Blue Google Cloud Sweat Shirt",
-    price: "£30",
-  },
-
-  {
-    id: 4,
-    name: "White Google Cloud Platform Sweat Shirt",
-    price: "$25.00",
-  },
-]
 
 const Block = styled.div`
   padding : 0.6rem 0.7rem
@@ -62,139 +41,142 @@ const Input = styled.input`
 `
 
 const Products = props => {
-  const [Name, setName] = useState("")
-  const [categoryId, setcategoryId] = useState(null)
-  const [categoryName, setCategoryName] = useState("")
+  const [Name, setName] = useState<string>("")
+
+  const [ActiveView, setActiveView] = useState<string>("")
+
+  const { cartItemModal, closeCartItemModal } = props
+
+  const [categoryId, setcategoryId] = useState<number>(null)
+  const [categoryName, setCategoryName] = useState<string>("")
   const [createCategory, { data, loading, error }] = useMutation(
     CREATE_CART_CATEGORY
   )
 
   const [Category, setCategory] = useState(false)
   const { id, cart_items_category } = props.data.event
-  const { cartItemModal, closeCartItemModal } = props
 
   useEffect(() => {
     setcategoryId(
       cart_items_category === null ? null : cart_items_category[0].id
     )
   }, ["t"])
-  console.log(cart_items_category, "pro")
+
+  const onChange = (value, label) => {
+    switch (label) {
+      case "Category Name":
+        setName(value)
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div>
       <AddItemModal
         visibility={cartItemModal}
-        categoryId={categoryId}
         closeModal={closeCartItemModal}
+        categoryId={categoryId}
       />
-      <Modal
-        onHide={() => setCategory(!Category)}
-        style={{ margin: "2rem 0rem" }}
-        show={Category}
+
+      <CSSTransition
+        in={ActiveView === "create"}
+        timeout={300}
+        classNames={""}
+        unmountOnExit
       >
-        <Head>
-          <Section> New Category </Section>
-
-          <Hover onClick={() => setCategory(!Category)}>
-            <FiX style={{ fontSize: "1.7rem" }} />
-          </Hover>
-        </Head>
-        <br />
-        <Flex justifyCenter>
-          <Label small>
-            Category Name
-            <div>
-              <br />
-              <Input
-                type="text"
-                onChange={e => {
-                  setName(e.target.value)
-                }}
-                placeholder="Category Name"
-              />
-            </div>
-          </Label>
-        </Flex>
-
-        <br />
-
-        <Button
-          onClick={() => {
-            createCategory({
-              variables: {
-                Name: Name,
-                EventId: id,
-              },
-            })
-              .then(() => alert("created"))
-              .catch(e => console.log(e))
-          }}
-        >
-          Create Category{" "}
-        </Button>
-        <br />
-      </Modal>
-
-      {cart_items_category === null ? (
         <div>
-          <br />
-          <br />
-          <br />
-          <Text color="grey" center>
-            You Have No Categories yet. <br /> Create one below to get started.
-          </Text>
-          <Hover
-            style={{ textAlign: "center" }}
-            onClick={() => setCategory(!Category)}
+          <Fields
+            onChange={e => onChange(e, "Category Name")}
+            id={1}
+            placeholder={"Cart category name e.g Swags "}
+            name={"Category Name"}
+            type={"text"}
+            textarea={false}
+          />
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
           >
-            <FiPlus style={{ fontSize: "2rem" }} />
-          </Hover>
-          <br /> <br />{" "}
-          <Text color="grey" center>
-            <a
-              style={{ textDecoration: "none" }}
-              href="https://my_event.netlify.com"
-              target="_blank"
+            <Button
+              style={{ margin: "0rem 1rem" }}
+              onClick={() => {
+                createCategory({
+                  variables: {
+                    Name: Name,
+                    EventId: id,
+                  },
+                })
+                  .then(() => setActiveView(""))
+                  .catch(e => console.log(e))
+              }}
             >
-              Learn More{" "}
-            </a>
-            about the <b> Invitations </b> feature on Oasis{" "}
-          </Text>
-          <br />
-          <br />
-        </div>
-      ) : (
-        <div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ display: "flex" }}>
-              {cart_items_category.map(({ id, name }) => {
-                return (
-                  <Block
-                    actve={categoryName === name}
-                    onClick={() => {
-                      setcategoryId(id)
-                      setCategoryName(name)
-                    }}
-                    key={id}
-                  >
-                    {name}
-                  </Block>
-                )
-              })}
-            </div>
+              Create Category
+            </Button>
 
-            <Hover onClick={() => setCategory(!Category)}>
+            <Button onClick={() => setActiveView("")}>Cancel</Button>
+          </div>
+        </div>
+      </CSSTransition>
+
+      <CSSTransition
+        in={ActiveView !== "create"}
+        timeout={300}
+        classNames={""}
+        unmountOnExit
+      >
+        {cart_items_category === null ? (
+          <div>
+            <Hover
+              style={{ textAlign: "center" }}
+              onClick={() => setActiveView("create")}
+            >
               <FiPlus style={{ fontSize: "2rem" }} />
             </Hover>
+            <EmptyData
+              message={`This event has no item within its cart. \n\n Cart items are placed within categories. \n\n Use the **Plus** button to create a new cart category and then add items to the category.`}
+              link="http://event.com"
+              feature="E-commerce"
+            />
           </div>
-          <hr />
+        ) : (
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex" }}>
+                {cart_items_category.map(({ id, name }) => {
+                  return (
+                    <Block
+                      actve={categoryName === name}
+                      onClick={() => {
+                        setcategoryId(id)
+                        setCategoryName(name)
+                      }}
+                      key={id}
+                    >
+                      {name}
+                    </Block>
+                  )
+                })}
+              </div>
 
-          <ProductItem
-            categoryName={categoryName}
-            categoryId={categoryId}
-            screen={"store"}
-          />
-        </div>
-      )}
+              <Hover onClick={() => setActiveView("create")}>
+                <FiPlus style={{ fontSize: "2rem" }} />
+              </Hover>
+            </div>
+            <hr />
+
+            <ProductItem
+              categoryName={categoryName}
+              categoryId={categoryId}
+              screen={"store"}
+            />
+          </div>
+        )}
+      </CSSTransition>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 
+import Field from '../forms/fields'
 import { Header, Footer, Loader } from "../../components/"
 import Gallery from "./gallery"
 import {
@@ -70,7 +71,7 @@ const Media = (props): JSX.Element => {
                     unmargined
                     unbordered
                     transparent
-                    placeholder="Search a file"
+                    placeholder="Search for a file"
                   />
                 </Flex>
               </InputBox>
@@ -114,8 +115,8 @@ const Media = (props): JSX.Element => {
                     <img
                       alt="media"
                       style={{
-                        height: "auto",
-                        maxWidth: "4rem",
+                        height: "70px",
+                        width: "70px",
                         margin: "0.5rem 1rem",
                       }}
                       src={require("../../assets/images/developer.png")}

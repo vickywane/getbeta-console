@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components"
 
 const SwitchContainer = styled.input`
+	margin  : 0.5rem 0rem;
 	border: none;
 	-webkit-appearance: none;
 	width: 75px;
@@ -18,11 +19,13 @@ const SwitchContainer = styled.input`
 	:after {
 		content: "";
 		position: absolute;
-		width: 40px;
-		height: 41px;
+		width: 38px;
+		height: 37px;
 		border-radius: 50%;
 		top: 0;
 		left: 0;
+		transition : all 300ms;
+		margin-left : ${props => (props.active ? "40px" : "0px")}; 
 		background: #fbfbfb;
 	}
 `
@@ -38,8 +41,6 @@ const Switch = (props: properties) => {
 
 	function handleChange(e, name) {
 		e.preventDefault()
-
-		// console.log(e.target.value, "event")
 
 		const { value } = e.target
 

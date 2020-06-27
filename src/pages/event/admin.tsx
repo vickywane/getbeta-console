@@ -9,6 +9,9 @@ import {
   IoIosPeople,
   IoMdConstruct,
 } from "react-icons/io"
+
+import { GrSchedules } from "react-icons/gr"
+
 import media from "styled-media-query"
 import { Link } from "react-router-dom"
 
@@ -54,24 +57,24 @@ const Tab = styled.div`
 } 
   ${media.lessThan("large")`
   border-left:  ${props => (props.active ? "4px solid #0e2f5a;" : null)}; 
-     padding : 0.5rem 0.1rem 
-     margin : 0.7rem 0.1rem;
+     padding : 0.4rem 0.1rem 
+     margin : 0.4rem 0.1rem;
 `}
 `
 
 const Info = styled.div`
-  position : relative;
+  position: relative;
   height: auto;
-  width : 13rem;
-  align-items: center
-  display : flex
-  justify-content : center
-  text-align : center;
-  background : #0e2f5a;
-  padding : 0.6rem 1rem;
-  margin-left : 1.2rem;
-  color : #fff;
-  border-radius : 0px 5px 5px 0px
+  width: 13rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background: #0e2f5a;
+  padding: 0.5rem 1rem;
+  margin-left: 1.2rem;
+  color: #fff;
+  border-radius: 0px 5px 5px 0px;
 `
 
 const T = styled.div`
@@ -177,7 +180,7 @@ const Admin = props => {
             active={state.activeTab === "schedule"}
           >
             <T style={{ padding: "0rem 1rem" }}>
-              <FiBook style={{ fontSize: "1.8rem" }} />
+              <GrSchedules style={{ fontSize: "1.8rem", color: "grey" }} />
               {Width <= 1200 ? <Info>Schedule</Info> : null}
             </T>
             {Width >= 1200 ? "Event Schedule" : null}
@@ -208,7 +211,7 @@ const Admin = props => {
               <IoIosBug style={{ fontSize: "1.8rem" }} />
               {Width <= 1200 ? <Info>Preview</Info> : null}
             </T>
-            {Width >= 1300 ? "Report Bug" : null}
+            {Width >= 1200 ? "Report Bug" : null}
           </Tab>
         </List>
       </div>

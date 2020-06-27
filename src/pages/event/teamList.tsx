@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
-import { FiChevronRight, FiUser } from "react-icons/fi"
+import { FiChevronRight, FiUser, FiClock, FiMoreVertical } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
-import { IoIosPeople } from "react-icons/io"
+import { IoIosPeople, IoIosListBox } from "react-icons/io"
 import { FiArrowLeft } from "react-icons/fi"
 
 import Team from "./team"
@@ -33,6 +33,30 @@ const HoverCircle = styled(Hover)`
    }
 `
 
+const List = styled.div`
+  list-style: none;
+  padding: 0rem 1rem;
+  li {
+    box-shadow: 0px 2px 3px grey;
+    list-style: none;
+    display: flex;
+    margin: 2rem 0.4rem;
+    padding: 0.7rem 1rem;
+    flex-direction: column;
+    border-left: 8px solid #0e2f5a;
+    border-radius: 7px;
+    div {
+      display: flex;
+      flex-direction: row;
+      img {
+        height: 50px;
+        width: 50px;
+        margin: 0rem 0.8rem;
+      }
+    }
+  }
+`
+
 const TeamList = (props): JSX.Element => {
   const { openTeamModal, closeTeamModal } = props.ModalStore
   const { teams, id } = props.data
@@ -40,26 +64,12 @@ const TeamList = (props): JSX.Element => {
   const [ActiveView, setView] = useState("list")
   const [TeamId, setTeamId] = useState(null)
 
-  const List = styled.div`
-    list-style: none;
-    padding: 0rem 1rem;
-    li {
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      margin: 1rem 0.4rem;
-      padding: 0.7rem 1rem;
-      border: 1px solid grey;
-      border-radius: 7px;
-    }
-  `
-
   return (
     <div>
       <Head style={{ padding: "1rem 1rem" }} header>
         {ActiveView !== "list" ? (
           <Flex>
-            <HoverCircle onClick={() => setView("list")}  >
+            <HoverCircle onClick={() => setView("list")}>
               <FiArrowLeft style={{ fontSize: "1.7rem" }} />
             </HoverCircle>
 
@@ -95,26 +105,9 @@ const TeamList = (props): JSX.Element => {
         <Body>
           {teams === null ? (
             <div>
-              <Text center>
-                Use the
-                <b
-                  style={{
-                    textDecoration: "underline",
-                    fontWeight: 500,
-                    padding: "0rem 0.7rem",
-                    cursor: "pointer",
-                    color: "blue",
-                  }}
-                  onClick={() => openTeamModal()}
-                >
-                  Create Team
-                </b>
-                button to create your first team.
-              </Text>
-
               <EmptyData
                 message={
-                  " There are no created teams within this event \n Use the **Create Team** to get started with creating your first team."
+                  "There are no created teams within this event. \n \n Use the **Create Team** to get started with creating your first team."
                 }
                 link="https://event.com"
                 feature="Collaboration"
@@ -122,39 +115,78 @@ const TeamList = (props): JSX.Element => {
             </div>
           ) : (
             <List>
-              {teams.map(({ id, name }) => {
+              {teams.map(({ id, name, createdAt, goal, tasks }) => {
                 return (
                   <li key={id}>
-                    <img
-                      alt="team sketch"
-                      src={require("../../assets/images/developer.png")}
-                      style={{ height: "70px", width: "70px" }}
-                    />
+                    <div style={{ justifyContent: "space-between" }}>
+                      <div style={{ flexDirection: "column" }}>
+                        <Title
+                          small
+                          center
+                          onClick={() => {
+                            setTeamId(id)
+                            setView(name)
+                          }}
+                          bold
+                          style={{ fontWeight: "normal", cursor: "pointer" }}
+                        >
+                          {name}
+                        </Title>
 
-                    <Title
-                      small
-                      center
-                      onClick={() => {
-                        setTeamId(id)
-                        setView(name)
-                      }}
-                      bold
-                      style={{ fontWeight: "normal", cursor: "pointer" }}
-                    >
-                      {name}
-                    </Title>
+                        <div style={{color : 'grey'}}  >
+                          <Hover style={{ padding: "0rem 0.3rem" }}>
+                            <FiClock style={{ fontSize: "1.7rem" }} />
+                          </Hover>
 
-                    <Flex>
-                      <Flex>
+                          <Text small >
+                            {createdAt}
+                          </Text>
+                        </div>
+                      </div>
+
+                      <div>
                         <Hover style={{ padding: "0rem 0.3rem" }}>
-                          <IoIosPeople style={{ fontSize: "1.8rem" }} />
+                          <FiMoreVertical style={{ fontSize: "1.7rem" }} />
                         </Hover>
+                      </div>
+                    </div>
 
-                        <Text small color="grey">
-                          12
+                    <Text small center>
+                      {goal}
+                    </Text>
+
+                    <br />
+                    <div style={{ justifyContent: "space-between" }}>
+                      <div
+                        style={{
+                          color: "grey",
+                        }}
+                      >
+                        <Hover>
+                          <IoIosListBox style={{ fontSize: "1.8rem" }} />
+                        </Hover>
+                        <Text style={{ padding: "0rem 0.6rem" }} small>
+                          {tasks !== null ? tasks.length : "0"} tasks Availabele
                         </Text>
-                      </Flex>
-                    </Flex>
+                      </div>
+
+                      <div>
+                        <img
+                          alt="members"
+                          src={require("../../assets/images/developer.png")}
+                        />
+
+                        <img
+                          alt="members"
+                          src={require("../../assets/images/developer.png")}
+                        />
+
+                        <img
+                          alt="members"
+                          src={require("../../assets/images/developer.png")}
+                        />
+                      </div>
+                    </div>
                   </li>
                 )
               })}

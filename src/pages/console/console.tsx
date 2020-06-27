@@ -65,11 +65,7 @@ const Console = (props): JSX.Element => {
             <Flex>
               <Flex>
                 <SwitchBtn
-                  style={{
-                    background:
-                      activeSection === "organized" ? "#401364" : "transparent",
-                    color: activeSection === "organized" ? "#fff" : "#401364",
-                  }}
+                  active={activeSection === "organized"}
                   onClick={() => {
                     setActiveSection("organized")
                   }}
@@ -81,26 +77,19 @@ const Console = (props): JSX.Element => {
 
               <Flex>
                 <SwitchBtn
-                  style={{
-                    background:
-                      activeSection === "volunteer" ? "#401364" : "transparent",
-                    color: activeSection === "volunteer" ? "#fff" : "#401364",
-                  }}
+                color ="#0e2f5a"
+                  active={activeSection === "volunteer"}
                   onClick={() => {
                     setActiveSection("volunteer")
                   }}
                 >
-                  Volunteering{" "}
+                  Volunteering 
                 </SwitchBtn>
                 <div style={{ borderRight: "4px solid  #401364" }} />
               </Flex>
 
               <SwitchBtn
-                style={{
-                  background:
-                    activeSection === "explore" ? "#401364" : "transparent",
-                  color: activeSection === "explore" ? "#fff" : "#401364",
-                }}
+                active={activeSection === "explore"}
                 onClick={() => {
                   setActiveSection("explore")
                 }}

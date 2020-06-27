@@ -52,11 +52,20 @@ const Schedule = props => {
   }
 
   if (data) {
-    const { draft, id } = data.event
+    const { draft, id , talk } = data.event
 
     const userId = localStorage.getItem("user_id")
     const creator = createdBy === null ? 1 : createdBy[0].id
     const permission = creator == userId
+
+
+    console.log(data.event.talk)
+    const TracksNo = tracks === null ? "0" : tracks.length
+    const ApprovedTalks = talk === null ? "0" : talk.filter(talk => talk.isAccepted)
+    const UnApprovedTalks = talk === null ? "0" : talk.filter(talk => !talk.isAccepted)
+
+    console.table([ApprovedTalks , UnApprovedTalks])
+
 
     return (
       <div>
@@ -74,7 +83,7 @@ const Schedule = props => {
                       active={ActiveView === "Overview"}
                       onClick={() => setActiveView("Overview")}
                     >
-                      Tracks
+                      Tracks ( {TracksNo} )
                     </TabColumn>
 
                     <TabColumn
@@ -84,7 +93,7 @@ const Schedule = props => {
                         setActiveView("Talks")
                       }}
                     >
-                      Approved Talks
+                      Approved Talks ( {ApprovedTalks} )
                     </TabColumn>
 
                     <TabColumn
@@ -94,7 +103,7 @@ const Schedule = props => {
                         setActiveView("Proposals")
                       }}
                     >
-                      Talk Proposals
+                      Talk Proposals ( {UnApprovedTalks} )
                     </TabColumn>
                   </Tab>
                 </Head>
@@ -169,7 +178,7 @@ const Schedule = props => {
               <Grid>
                 {tracks.map(({ id, duration, name, summary }) => {
                   return (
-                    <TrackCard color={"#7366E6"} padded key={id}>
+                    <TrackCard  borderRadius ="0px 0px 90px 0px" color={"#7366E6"} padded key={id}>
                       <div
                         style={{
                           display: "flex",
@@ -222,7 +231,7 @@ const Schedule = props => {
               timeout={300}
               classNames={""}
             >
-              <Talks talk={data} eventId={id} />
+              <Talks  talk={data} eventId={id} />
             </CSSTransition>
 
             <CSSTransition

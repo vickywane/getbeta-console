@@ -9,6 +9,14 @@ import { inject, observer } from "mobx-react"
 import { Redirect, Link } from "react-router-dom"
 import media from "styled-media-query"
 import { FiHome } from "react-icons/fi"
+import {
+  FiX,
+  FiSend,
+  FiEdit,
+  FiFacebook,
+  FiTwitter,
+  FiInstagram,
+} from "react-icons/fi"
 
 import Existing from "./exsiting-event" // i no sabi spell ;)
 import { CREATE_EVENT } from "../../data/mutations"
@@ -52,19 +60,24 @@ const UpGrid = styled.div`
 
 const CustomCard = styled(Card)`
   width: 60rem;
-  padding: 10rem;
+  padding: 6rem;
   box-shadow: 0px 2px 4px grey;
   text-align: center;
-  margin: 10rem 0rem;
+  margin: 8rem 0rem;
+  ${media.lessThan("huge")`
+    width: 45rem;
+    padding: 3rem;
+    margin: 5rem 0rem;
+  `};
   ${media.lessThan("large")`
-    width: 50rem;
-    padding: 5rem;
-  margin: 7rem 0rem;
+    width: 40rem;
+    padding: 3rem;
+  margin: 4rem 0rem;
   `};
   ${media.lessThan("medium")`
-  width: 30rem;
-  padding: 5rem;
-  margin: 5rem 1rem;
+  width: 28rem;
+  padding: 2rem;
+  margin: 8rem 1rem;
   `};
 `
 
@@ -100,13 +113,34 @@ const Radio = styled.input`
   padding: 1rem 0.5rem;
 `
 
+const CInput = styled.div`
+  display: flex;
+  padding: 0rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin: 0rem 1.5rem;
+  input {
+    width: 27rem;
+    border: 0px;
+    height: auto;
+    padding: 0.5rem 1.5rem;
+    outline: 0px;
+  }
+`
+
+const InputGrid = styled.div`
+  display: grid;
+  grid-gap: 1.5rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+`
+
 const CreateEvent = (props): JSX.Element => {
   // page state
   const { Notify, closeNotify, importPane } = props.PaneStore
   const [ExistingEvent, createExistingEvent] = useState(false)
   const [Terms, agreeTerms] = useState<boolean>(false)
-  const [Mail, ConfirmMail] = useState(false)
-  const [Error, setError] = useState("")
+  const [Mail, ConfirmMail] = useState<boolean>(false)
+  const [Error, setError] = useState<string>("")
 
   const handleCalendarChange = date => {}
 
@@ -114,20 +148,24 @@ const CreateEvent = (props): JSX.Element => {
 
   // Collapsing all into one {k.v.p state} gives an uncontrolled form err .
   // Form data state
-  const [Name, setName] = useState("")
-  const [Alias, setAlias] = useState("")
-  const [Description, setDescription] = useState("")
-  const [Website, setWebsite] = useState("")
-  const [Summary, setSummary] = useState("")
-  const [Venue, setVenue] = useState("")
-  const [Email, setEmail] = useState("")
-  const [EventType, setEventType] = useState("")
-  const [Virtual, setVirtual] = useState(false)
-  const [EventDate, setEventDate] = useState([])
+  const [Name, setName] = useState<string>("")
+  const [Alias, setAlias] = useState<string>("")
+  const [Description, setDescription] = useState<string>("")
+  const [Website, setWebsite] = useState<string>("")
+  const [Summary, setSummary] = useState<string>("")
+  const [Venue, setVenue] = useState<string>("")
+  const [Email, setEmail] = useState<string>("")
+  const [EventType, setEventType] = useState<string>("")
+  const [Virtual, setVirtual] = useState<boolean>(false)
+  const [EventDate, setEventDate] = useState<any>([])
 
-  const [EventStartDate, setEventStartDate] = useState(new Date())
-  const [isSingleDate, setSingleDate] = useState(false)
+  const [EventStartDate, setEventStartDate] = useState<any>(new Date())
+  const [isSingleDate, setSingleDate] = useState<boolean>(false)
   const [EndDate, setEndDate] = useState(new Date())
+
+  const [FBMediaLinks, addFBMediaLink] = useState<string>("")
+  const [TWMediaLinks, addTWMediaLink] = useState<string>("")
+  const [INSMediaLinks, addINSMediaLink] = useState<string>("")
 
   let Validation = Yup.object().shape({
     name: Yup.string()
@@ -142,6 +180,9 @@ const CreateEvent = (props): JSX.Element => {
   })
 
   const SubmitData = () => {
+    let MediaLinksArray = []
+    MediaLinksArray.push(FBMediaLinks, TWMediaLinks, INSMediaLinks)
+
     createEvent({
       variables: {
         UserID: localStorage.getItem("user_id"),
@@ -156,6 +197,7 @@ const CreateEvent = (props): JSX.Element => {
         EventDate: EventDate,
         isVirtual: Virtual,
         isLocked: false,
+        mediaLinks: MediaLinksArray,
         isArchived: false,
         isAcceptingTalks: false,
         isAcceptingVolunteers: false,
@@ -193,6 +235,9 @@ const CreateEvent = (props): JSX.Element => {
       case "Event-Venue":
         setVenue(value)
         break
+      case "Streaming Location":
+        setVenue(value)
+        break
       default:
         console.log(label)
     }
@@ -222,8 +267,6 @@ const CreateEvent = (props): JSX.Element => {
 
   const { first, second, third } = CREATE_EVENT_INPUT
 
-  console.log(EventDate)
-
   return (
     <div style={{ background: "#eeeeee" }}>
       <Header screen="event" name="" unshadowed={true} event={Name} />
@@ -242,7 +285,7 @@ const CreateEvent = (props): JSX.Element => {
           ) : null}
           <br />
           {!importPane ? (
-            <div>
+            <div style={{ height: Mail && window.innerHeight - 177 }}>
               {!Mail ? (
                 <Body>
                   <BigTitle center bold>
@@ -377,14 +420,15 @@ const CreateEvent = (props): JSX.Element => {
                             />
                             <Label
                               style={{
-                                padding: "0.4rem 0.4rem",
-                                margin: "0.5rem 0.3rem",
+                                padding: "0rem 0.4rem",
+                                margin: "0rem 0.3rem",
                               }}
                               small
                             >
                               Multiple Days
                             </Label>
                           </div>
+                          <br />
                           {isSingleDate ? (
                             <div>
                               <div
@@ -552,8 +596,70 @@ const CreateEvent = (props): JSX.Element => {
                           )
                         }
                       )}
-                      <br />
 
+                      <Label> Media Links </Label>
+                      <InputGrid>
+                        <CInput>
+                          <Hover
+                            style={{
+                              padding: "0.6rem 0.5rem",
+                              background: "#fbfbfb",
+                              color: "#0e2f5a",
+                              borderRadius: "5px 0px 0px 5px",
+                            }}
+                          >
+                            <FiTwitter style={{ fontSize: "1.7rem" }} />{" "}
+                          </Hover>
+
+                          <input
+                            type="url"
+                            value={TWMediaLinks}
+                            onChange={e => addTWMediaLink(e.target.value)}
+                            placeholder="Twitter profile url"
+                          />
+                        </CInput>
+
+                        <CInput>
+                          <Hover
+                            style={{
+                              padding: "0.6rem 0.5rem",
+                              background: "#fbfbfb",
+                              color: "#0e2f5a",
+                              borderRadius: "5px 0px 0px 5px",
+                            }}
+                          >
+                            <FiFacebook style={{ fontSize: "1.7rem" }} />{" "}
+                          </Hover>
+
+                          <input
+                            type="url"
+                            value={FBMediaLinks}
+                            onChange={e => addFBMediaLink(e.target.value)}
+                            placeholder="Facebook profile url"
+                          />
+                        </CInput>
+
+                        <CInput>
+                          <Hover
+                            style={{
+                              padding: "0.6rem 0.5rem",
+                              background: "#fbfbfb",
+                              color: "#0e2f5a",
+                              borderRadius: "5px 0px 0px 5px",
+                            }}
+                          >
+                            <FiInstagram style={{ fontSize: "1.7rem" }} />{" "}
+                          </Hover>
+
+                          <input
+                            type="url"
+                            value={INSMediaLinks}
+                            onChange={e => addINSMediaLink(e.target.value)}
+                            placeholder="Instagram profile url"
+                          />
+                        </CInput>
+                      </InputGrid>
+                      <br />
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
                       >
@@ -575,8 +681,8 @@ const CreateEvent = (props): JSX.Element => {
                   <br />
                   <div style={{ textAlign: "right" }}>
                     <Button
-                    transparent={!Terms}
-                    disabled={!Terms}
+                      transparent={!Terms}
+                      disabled={!Terms}
                       onClick={() => {
                         SubmitData()
                       }}
@@ -595,11 +701,21 @@ const CreateEvent = (props): JSX.Element => {
                   }}
                 >
                   <CustomCard>
+                    <Flex justifyCenter>
+                      <img
+                        alt="email"
+                        style={{}}
+                        src={require("../../assets/ssvg/Email.svg")}
+                      />
+                    </Flex>
+
+                    <br />
                     <Text>
                       An Email Confirmation link has been sent to{" "}
                       <b> {Email} </b> to verify that an active support email
                       address is being used for <b> {Name} </b>.
                     </Text>
+                    <br />
                     <br />
                     <Link to="/console">
                       <div

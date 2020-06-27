@@ -60,6 +60,7 @@ const Organizing = (props): JSX.Element => {
                   eventType,
                   name,
                   summary,
+                  isVirtual, 
                   createdBy,
                   venue,
                 }) => {
@@ -71,6 +72,7 @@ const Organizing = (props): JSX.Element => {
                         type={eventType}
                         createdBy={createdBy}
                         created={dateCreated}
+                        isVirtual={isVirtual}
                         venue={venue}
                         location={true}
                         summary={summary}
