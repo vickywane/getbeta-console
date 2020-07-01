@@ -20,8 +20,10 @@ import {
   Editor,
   SubmitTalk,
   Upload,
+  ResetPassword,
   Preferences,
   Stream,
+  Reminders,
   TaskForm,
   TeamForm,
   Schedule,
@@ -38,12 +40,19 @@ function App(props): JSX.Element {
   if (Hooks <= 550) {
     return <ResolutionError />
   }
+
+  // since auth has not been perfectly setup
+  if (localStorage.getItem("user_id") === null) {
+    return <Signin />
+  }
+
   return (
     <Router history={History}>
       <GlobalStyles />
       <Switch>
         <Route exact path="/" component={Documentation} />
         <Route path="/login" component={Signin} />
+        <Route path="/reset" component={ResetPassword} />
 
         <Protected
           authenticated={authenticated}
@@ -143,6 +152,12 @@ function App(props): JSX.Element {
           authenticated={authenticated}
           path="/event-talks/"
           component={ScheduledTalks}
+        />
+
+        <Protected
+          authenticated={authenticated}
+          path="/reminders"
+          component={Reminders}
         />
       </Switch>
     </Router>

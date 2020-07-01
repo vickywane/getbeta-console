@@ -36,11 +36,27 @@ const HoverCircle = styled(Hover)`
   margin: 0.2rem 0.7rem;
   border-radius: 50%;
   transition: all 350ms;
+  border: 1px solid grey;
   &: hover {
-    border: 1px solid grey;
     background: #fbfbfb;
   }
 `
+
+  const MediaLink = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    li {
+      margin: 0rem 0.5rem;
+      list-style: none;
+      a {
+        text-align: center;
+      }
+      &: hover {
+      color : ${props => props.hoverColor}
+      }
+    }
+  `
 
 const EventDetails = (props): JSX.Element => {
   const { openChecklist, openPeople, openEditModal } = props.ModalStore
@@ -66,20 +82,6 @@ const EventDetails = (props): JSX.Element => {
   } = data.event
   const { showEventDetails } = props.state
 
-  const MediaLink = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    li {
-      margin: 0rem 0.5rem;
-      list-style: none;
-      a {
-        text-align: center;
-      }
-    }
-  `
-
-  console.log(mediaLinks , "media")
 
   return (
     <div style={{ transition: "all 500ms" }}>
@@ -156,9 +158,9 @@ const EventDetails = (props): JSX.Element => {
 
                           <MediaLink>
                             {mediaLinks !== null && mediaLinks[0] !== "" && (
-                              <li>
+                              <li  >
                                 <a href={`${mediaLinks[0]}`} target="_blank">
-                                  <HoverCircle>
+                                  <HoverCircle hoverColor="red"  >
                                     <FiInstagram
                                       style={{ fontSize: "1.8rem" }}
                                     />
@@ -168,9 +170,9 @@ const EventDetails = (props): JSX.Element => {
                             )}
 
                             {mediaLinks !== null && mediaLinks[1] !== "" && (
-                              <li>
+                              <li >
                                 <a href={`${mediaLinks[1]}`} target="_blank">
-                                  <HoverCircle>
+                                  <HoverCircle hoverColor="blue" >
                                     <FiTwitter style={{ fontSize: "1.8rem" }} />
                                   </HoverCircle>
                                 </a>

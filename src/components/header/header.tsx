@@ -85,7 +85,6 @@ const Header = (props): JSX.Element => {
       <Head
         style={{
           boxShadow: props.unshadowed ? null : "0px 5px 5px grey",
-          paddingTop: "1%",
         }}
       >
         {hooks >= 720 ? (
@@ -96,7 +95,7 @@ const Header = (props): JSX.Element => {
               justifyContent: "space-between",
             }}
           >
-            <Flex>
+            <div style={{display : 'flex', justifyContent : 'center' , alignItems: 'center' }} >
               <HeaderLinks
                 target={"_blank"}
                 href="https://my-event.netlify.com"
@@ -115,7 +114,7 @@ const Header = (props): JSX.Element => {
               >
                 | Home
               </Link>
-            </Flex>
+            </div>
 
             <HeaderLinks
               style={{

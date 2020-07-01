@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { GoLocation } from "react-icons/go"
 import { FiCalendar, FiMoreVertical, FiBookmark, FiCast } from "react-icons/fi"
@@ -11,17 +11,18 @@ import { Card, Text, Button, Hover } from "../../styles/style"
 import EventCardOption from "./eventcard.options"
 import "../../App.css"
 
-//Todo : Create a proper ts interface here
 const Contain = styled.div`
   background-image: url(${props => props.img});
   width: 25rem;
   height: auto;
 `
 
+//Todo : Create a proper ts interface here
 interface CardProperties {
   location?: string
   name: string
   id?: string
+  meetupGroups: any
   summary?: string
   role?: string
   created?: string
@@ -49,6 +50,8 @@ const EventCard = (props): JSX.Element => {
     volunteerScreen,
     isVirtual,
     approvalStatus,
+    screen,
+    meetupGroups,
     type,
     showAprrovalStatus,
     volunteerOption,
@@ -58,10 +61,34 @@ const EventCard = (props): JSX.Element => {
   } = props
 
   const [optionVisibility, setOptionVisibility] = useState(false)
+  const [EventAuthorId, setEventAuthorId] = useState<number>(null)
+
+  useEffect(() => {
+    switch (screen) {
+      case "organizing":
+        setEventAuthorId(createdBy[0].id)
+        break
+
+      case "Volunteering":
+        event.map(id => setEventAuthorId(id.author_id))
+        break
+
+      case "event-list":
+      console.log(createdBy , "list")
+        setEventAuthorId(createdBy !== null && createdBy[0].id)
+        break
+
+      default:
+        break
+    }
+  }, [event])
 
   const userId = localStorage.getItem("user_id")
-  const creator = createdBy === null ? 1 : createdBy[0].id
-  const permission = creator == userId
+  const creator = EventAuthorId !== null && EventAuthorId
+
+  // casting into str... overlap err
+  const permission = String(creator) === userId
+  console.log(permission)
 
   return (
     <Card key={id}>
@@ -187,13 +214,18 @@ const EventCard = (props): JSX.Element => {
           </Flex>
         )}
         {volunteerOption && (
-          <Button onClick={() => openVolunteerModal(id)} long transparent>
+          <Button
+            onClick={() => openVolunteerModal(id)}
+            long
+            disabled={permission}
+            transparent={permission}
+          >
             Volunteer
           </Button>
         )}
       </div>
 
-      {type === "Meetup" && (
+      {meetupGroups > 0 && type === "Meetup" && (
         <div
           style={{
             fontSize: "1.1rem",

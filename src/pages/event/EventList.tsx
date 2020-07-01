@@ -39,6 +39,7 @@ const EventList = props => {
               <Bounce>
                 <EventCard
                   id={id}
+                  screen="event-list"
                   openVolunteerModal={openVolunteerModal}
                   name={name}
                   type={eventType}

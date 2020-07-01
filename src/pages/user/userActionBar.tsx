@@ -2,12 +2,12 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { FiHome, FiLogOut, FiImage, FiX   , FiUser} from "react-icons/fi"
-import { IoIosPaper } from "react-icons/io"
+import { IoIosPaper , IoIosAlarm} from "react-icons/io"
 
 import { Hover, Body as Bod } from "../../styles/style"
 
 const Body = styled(Bod)`
-	padding: 0.8em 1.6rem;
+	padding: 0.8em 1.4rem;
 	display: flex;
 	background: #401364;
 	flex-direction: column;
@@ -21,13 +21,13 @@ const Body = styled(Bod)`
 `
 
 const ActionBar = (props): JSX.Element => {
-	const { screen } = props
+	const { screen , logout } = props
 
 	return (
 		<Body>
 			{screen !== "profile" && (
 				<li>
-					<Link to="/console" style={{ textDecoration: "none" }}>
+					<Link to="/console"  style={{ borderBottom: screen === "reminders" && "3px dashed #fff" }}>
 						<Hover>
 							<FiUser style={{ fontSize: "2em" }} />
 						</Hover>
@@ -51,11 +51,19 @@ const ActionBar = (props): JSX.Element => {
 				</Link>
 			</li>
 
+			<li style={{ borderBottom: screen === "reminders" && "3px dashed #fff" }}>
+				<Link to="/reminders" style={{ textDecoration: "none" }}>
+					<Hover>
+						<IoIosAlarm style={{ fontSize: "2em" }} />
+					</Hover>
+				</Link>
+			</li>
+
 			{screen === "profile" && (
 				<li>
 					<Hover
 						onClick={() => {
-							props.logout()
+							logout()
 						}}
 					>
 						<FiLogOut style={{ fontSize: "2em" }} />

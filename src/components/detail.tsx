@@ -45,6 +45,7 @@ const Details = props => {
 
   return (
     <div>
+    <div style={{background : 'transparent'}} >
       <Sponsors sponsor={sponsors} />
       <br />
       <Grid>
@@ -111,6 +112,7 @@ const Details = props => {
       <Title style={{ textAlign: "right" }} small>
         Organized by <b> {name} </b>
       </Title>
+      </div>
 
       <div>
         <Title id="sponsors" small>

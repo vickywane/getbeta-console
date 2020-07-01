@@ -53,6 +53,8 @@ const AttendPane = (props): JSX.Element => {
     isAcceptingTalks,
   } = props.event
 
+  const { permission } = props
+
   const { openPapersModal } = props.ModalStore
   const [showNotice, setNotice] = React.useState(true)
   const [Accepted, setAccepted] = React.useState(true)
@@ -86,8 +88,105 @@ const AttendPane = (props): JSX.Element => {
 
   const word = eventType === "Conference" ? "attend" : "join"
 
-  switch (Mail) {
+  switch (permission) {
     case true:
+      switch (Mail) {
+        case true:
+          switch (isAcceptingTalks) {
+            case true:
+              return (
+                <div style={{ transition: "all 300ms" }}>
+                  {showNotice && (
+                    <Notice style={{ color: "#0e2f5a" }}>
+                      <div style={{ display: "flex" , justifyContent : 'center' }}>
+                        <Text center>
+                          Drafts proposals for talks are currently being
+                          submitted for this event.
+                        </Text>
+                      </div>
+
+                      <Hover
+                        onClick={() => setNotice(false)}
+                        style={{ padding: "0rem 0.7rem" }}
+                      >
+                        <FiX style={{ fontSize: "1.8rem" }} />
+                      </Hover>
+                    </Notice>
+                  )}
+                </div>
+              )
+
+            case false:
+              return (
+                <div style={{ transition: "all 300ms" }}>
+                  {showNotice ? (
+                    <Notice style={{ color: "#0e2f5a" }}>
+                      <div style={{ display: "flex" }}>
+                        <Hover style={{ padding: "0.5rem 0.3rem" }}>
+                          <FiAlertCircle style={{ fontSize: "1.8rem" }} />
+                        </Hover>
+                        <Text style={{ margin: "0.5rem 0.3rem" }}>
+                          Call For Speakers for this event is currently closed.
+                        </Text>
+                      </div>
+
+                      <div style={{ display: "flex" }}>
+                        <Button onClick={() => openPapersModal()}>
+                          Configure Talks
+                        </Button>
+
+                        <Hover
+                          onClick={() => setNotice(false)}
+                          style={{ padding: "0rem 0.7rem" }}
+                        >
+                          <FiX style={{ fontSize: "1.8rem" }} />
+                        </Hover>
+                      </div>
+                    </Notice>
+                  ) : null}
+                </div>
+              )
+
+            default:
+              break
+          }
+
+        case false:
+          return (
+            <div style={{ transition: "all 300ms" }}>
+              {showNotice ? (
+                <Notice center style={{ color: "#0e2f5a" }}>
+                  <div style={{ display: "flex" }}>
+                    <Hover style={{ padding: "0.5rem 0.3rem" }}>
+                      <FiAlertCircle
+                        style={{ color: "red", fontSize: "1.8rem" }}
+                      />
+                    </Hover>
+                    <Text style={{ margin: "0.5rem 0.3rem" }}>
+                      Support Email Address for this event hasn't been verified
+                    </Text>
+                  </div>
+
+                  <Text
+                    onClick={() => setMail(!Mail)}
+                    style={{
+                      cursor: "pointer ",
+                      margin: "0.5rem 1rem",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    Resend Mail
+                  </Text>
+                </Notice>
+              ) : null}
+            </div>
+          )
+
+        default:
+          break
+      }
+
+    case false:
       switch (isAcceptingTalks) {
         case true:
           return (
@@ -192,28 +291,79 @@ const AttendPane = (props): JSX.Element => {
           return (
             <div style={{ transition: "all 300ms" }}>
               {showNotice ? (
-                <Notice style={{ color: "#0e2f5a" }}>
-                  <div style={{ display: "flex" }}>
-                    <Hover style={{ padding: "0.5rem 0.3rem" }}>
-                      <FiAlertCircle style={{ fontSize: "1.8rem" }} />
-                    </Hover>
-                    <Text style={{ margin: "0.5rem 0.3rem" }}>
-                      Call For Speakers for this event is currently closed.
-                    </Text>
-                  </div>
+                <div>
+                  {Hooks >= 1200 ? (
+                    <Notice style={{ color: "#0e2f5a" }}>
+                      <div style={{ display: "flex" }}>
+                        <img
+                          alt={"waving-hand"}
+                          src={require("../../assets/images/waving.png")}
+                        />
+                        <Text style={{ margin: "0.5rem 1rem" }}>
+                          Hi, would you like to attend the {"  "}
+                          <b style={{ fontWeight: 600 }}>
+                            {Hooks >= 1200 ? ` ${alias}` : ` ${name}  `}
+                          </b>
+                          {` ${eventType}`}?
+                        </Text>
+                      </div>
 
-                  <div style={{ display: "flex" }}>
-                    <Button onClick={() => openPapersModal()}>
-                      Configure Talks
-                    </Button>
+                      <div style={{ display: "flex" }}>
+                        <Button onClick={() => attend()}>
+                          Yes, I'm attending
+                        </Button>
 
-                    <Hover
-                      onClick={() => setNotice(false)}
-                      style={{ padding: "0rem 0.7rem" }}
+                        <Button onClick={() => setNotice(false)}>
+                          Not Sure, Watch Event
+                        </Button>
+                      </div>
+                    </Notice>
+                  ) : (
+                    <Notice
+                      style={{ display: "flex", justifyContent: "center" }}
                     >
-                      <FiX style={{ fontSize: "1.8rem" }} />
-                    </Hover>
-                  </div>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          alt={"waving-hand"}
+                          src={require("../../assets/images/waving.png")}
+                        />
+
+                        <div style={{ padding: "0rem 1rem" }}>
+                          <Text>
+                            Hi, would you like to {word} the
+                            <b style={{ fontWeight: 500 }}>{` ${name} `}</b>
+                            {` ${eventType} `} ?
+                          </Text>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <div style={{ display: "flex" }}>
+                              <Button onClick={() => attend()}>
+                                Yes, I'm attending
+                              </Button>
+
+                              <Button onClick={() => setNotice(false)}>
+                                Not Sure, Watch Event
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Notice>
+                  )}
+                </div>
+              ) : null}
+
+              {!Accepted ? (
+                <Notice>
+                  <Text center>
+                    We look forward to seeing you on {dateCreated} for the{" "}
+                    {name}.
+                  </Text>
                 </Notice>
               ) : null}
             </div>
@@ -222,35 +372,6 @@ const AttendPane = (props): JSX.Element => {
         default:
           break
       }
-
-    case false:
-      return (
-        <div style={{ transition: "all 300ms" }}>
-          {showNotice ? (
-            <Notice center style={{ color: "#0e2f5a" }}>
-              <div style={{ display: "flex" }}>
-                <Hover style={{ padding: "0.5rem 0.3rem" }}>
-                  <FiAlertCircle style={{ color: "red", fontSize: "1.8rem" }} />
-                </Hover>
-                <Text style={{ margin: "0.5rem 0.3rem" }}>
-                  Support Email Address for this event hasn't been verified
-                </Text>
-              </div>
-
-              <Text
-                onClick={() => setMail(!Mail)}
-                style={{
-                  cursor: "pointer ",
-                  margin: "0.5rem 1rem",
-                  textDecoration: "underline",
-                }}
-              >
-                Resend Mail
-              </Text>
-            </Notice>
-          ) : null}
-        </div>
-      )
 
     default:
       break

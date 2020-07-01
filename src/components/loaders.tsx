@@ -5,13 +5,13 @@ import { Header, Footer } from "./"
 import { Title, Text, BigTitle } from "../styles/style"
 
 const Loader = (props): JSX.Element => {
-  const { type, error, path } = props
+  const { type, error, path, inComponent } = props
 
   switch (type) {
     case "loading":
       return (
         <div>
-          <Header />
+          {!inComponent && <Header />}
           <br />
           <br />
           <br />
@@ -39,7 +39,8 @@ const Loader = (props): JSX.Element => {
           <br />
           <br />
           <br />
-          <Footer />
+          {!inComponent && <Footer />}
+          <br />
         </div>
       )
 
@@ -94,7 +95,7 @@ const Loader = (props): JSX.Element => {
     default:
       return (
         <div>
-          <Header />
+          {!inComponent && <Header />}
           <br /> <br /> <br />
           <br />,{" "}
           <h2
@@ -109,7 +110,7 @@ const Loader = (props): JSX.Element => {
           <br />
           <br />
           <br />
-          <Footer />
+          {!inComponent && <Footer />}
         </div>
       )
   }

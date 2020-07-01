@@ -47,81 +47,64 @@ const BugModal = props => {
       onHide={() => closeCrashReporter()}
       show={showCrashReporter}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            padding: "1rem 0rem",
-            height: "auto",
-            width: "auto",
-            color: "#fff",
-            background: "#0e2f5a",
-          }}
-        >
-          <IoIosBug style={{ fontSize: "1.7rem" }} />
+      <div>
+        <div style={{ display : 'flex' , justifyContent : "space-beween", padding  : "1rem 1rem" }}>
+          <Section> Report Bug</Section>
+
+          <Hover onClick={() => closeCrashReporter()}>
+            <FiX style={{ fontSize: "1.75em" }} />
+          </Hover>
         </div>
 
-        <div>
-          <Head>
-            <Section> Report Bug</Section>
-
-            <Hover onClick={() => closeCrashReporter()}>
-              <FiX style={{ fontSize: "1.75em" }} />
-            </Hover>
-          </Head>
-
-          <Body>
-            <Title center>Ooops, A Bug?</Title>
-            <Text center>
-              Please use this form to send encountered errors to us. Will use it
-              to investigate and fix the bug.
-            </Text>
-
-            <Flex>
-              <Label small style={{ padding: "0rem 0.5rem" }}>
-                Issue Category
-                <div style={{ margin: "1rem 0.7rem" }}>
-                  <select>
-                    <option> Edit Event Feature </option>
-                    <option> Access Management Feature </option>
-                    <option> Invitation Feature</option>
-                    <option> Mobile Feature </option>
-                    <option> Teams Feature</option>
-                    <option> Shop Feature </option>
-                  </select>
-                </div>
-              </Label>
-            </Flex>
-            <Field
-              id={1}
-              onChange={(e: string) => onChange(e, "Issue Description")}
-              placeholder={
-                "A description of what went wrong. This would go a long way in helping us fix this issue."
-              }
-              limit={1500}
-              name={"Issue Description"}
-              type={"text"}
-              textarea={true}
-            />
-          </Body>
-          <br />
-          <Flex justifyCenter>
-            <Button
-              onClick={() => {
-                Submit()
-              }}
-              long
-            >
-              Create Bug Ticket
-            </Button>
-          </Flex>
-          <Text color="grey" small center>
-            A response feedback would be sent to your email while a fix is
-            ongoing.
+        <Body>
+          <Text center>
+            Please use this form to send encountered errors to us. Will use it
+            to investigate and fix the bug.
           </Text>
-          <br />
-        </div>
+
+          <Flex>
+            <Label small style={{ padding: "0rem 0.5rem" }}>
+              Issue Category
+              <div style={{ margin: "1rem 0.7rem" }}>
+                <select>
+                  <option> Edit Event Feature </option>
+                  <option> Access Management Feature </option>
+                  <option> Invitation Feature</option>
+                  <option> Mobile Feature </option>
+                  <option> Teams Feature</option>
+                  <option> Shop Feature </option>
+                </select>
+              </div>
+            </Label>
+          </Flex>
+          <Field
+            id={1}
+            onChange={(e: string) => onChange(e, "Issue Description")}
+            placeholder={
+              "A description of what went wrong. This would go a long way in helping us fix this issue."
+            }
+            limit={1500}
+            name={"Issue Description"}
+            type={"text"}
+            textarea={true}
+          />
+        </Body>
+        <br />
+        <Flex justifyCenter>
+          <Button
+            onClick={() => {
+              Submit()
+            }}
+            long
+          >
+            Create Bug Ticket
+          </Button>
+        </Flex>
+        <Text color="grey" small center>
+          A response feedback would be sent to your email while a fix is
+          ongoing.
+        </Text>
+        <br />
       </div>
     </Modal>
   )

@@ -11,6 +11,39 @@ class ModalStore {
   }
   // =================================>
 
+  showInvitationInstruction = true
+
+
+  openInvitationInstruction = () => {
+    this.showInvitationInstruction = true
+  }
+
+  closeInvitationInstruction = () => {
+    this.showInvitationInstruction = false
+  }
+
+  showTaskDetail = false
+
+  openTaskDetail = () => {
+    console.log("invoked")
+    this.showTaskDetail = true
+  }
+
+  closeTaskDetail = () => {
+    this.showTaskDetail = false
+  }
+
+  //
+  showTeamInstruction = false
+
+  openTeamInstruction = () => {
+    this.showTeamInstruction = true
+  }
+
+  closeTeamInstruction = () => {
+    this.showTeamInstruction = false
+  }
+
   welcomeEventModal = false
 
   showWelcomeEventModal = () => {
@@ -23,6 +56,19 @@ class ModalStore {
 
   showPapersModal = false
 
+  // WelcomeMeetupGroupsModal
+
+  WelcomeMeetupGroupsModal = false
+
+  showWelcomeMeetupGroupsModal = () => {
+    this.WelcomeMeetupGroupsModal = true
+  }
+
+  closeWelcomeMeetupGroupsModal = () => {
+    this.WelcomeMeetupGroupsModal = false
+  }
+
+  // =>
   openPapersModal = () => {
     this.showPapersModal = true
   }
@@ -44,7 +90,7 @@ class ModalStore {
 
   // people modal
   showPeople = false
-invite = false
+  invite = false
   search = false
 
   openPeople = () => {
@@ -177,7 +223,23 @@ invite = false
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
+
+  showInvitationInstruction : observable, 
+  closeInvitationInstruction : observable, 
+  openInvitationInstruction: observable, 
+
+  showTaskDetail: observable,
+  closeTaskDetail: action,
+  openTaskDetail: action,
+
   //observables
+  showTeamInstruction: observable,
+  closeTeamInstruction: action,
+  openTeamInstruction: action,
+
+  WelcomeMeetupGroupsModal: observable,
+  closeWelcomeMeetupGroupsModal: action,
+  showWelcomeMeetupGroupsModal: action,
 
   welcomeEventModal: observable,
   closeWelcomeEventModal: action,

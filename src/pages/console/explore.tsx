@@ -44,6 +44,7 @@ const Explore = props => {
                 name,
                 summary,
                 venue,
+                meetupGroups
               }) => {
                 return (
                   <Bounce>
@@ -53,6 +54,7 @@ const Explore = props => {
                       type={eventType}
                       created={dateCreated}
                       createdBy={createdBy}
+                      meetupGroups={meetupGroups !== null && 0}
                       venue={venue}
                       location={true}
                       summary={summary}

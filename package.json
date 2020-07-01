@@ -82,5 +82,18 @@
     "@types/yup": "^0.28.0",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
-  }
+  },
+  "description": "<p> Oasis User Management console created with `Create-React-App` </p>",
+  "main": "jest.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fundry/event-console.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fundry/event-console/issues"
+  },
+  "homepage": "https://github.com/fundry/event-console#readme"
 }

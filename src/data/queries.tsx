@@ -22,6 +22,7 @@ const GET_USER: any = gql`
       img_uri
       bucketName
       events {
+        author_id
         id
         name
         eventType
@@ -35,13 +36,18 @@ const GET_USER: any = gql`
           name
           id
         }
+        meetupGroups {
+          id
+        }
       }
       volunteering {
         role
         id
         duration
         event {
+          author_id
           venue
+          eventType
           id
           name
         }
@@ -76,6 +82,7 @@ const GET_USER_TALKS: any = gql`
         title
         summary
         createdAt
+        updatedAt
       }
     }
   }
@@ -218,6 +225,9 @@ const EVENTS: any = gql`
       venue
       eventType
       description
+      meetupGroups {
+        id
+      }
     }
   }
 `
@@ -237,6 +247,7 @@ const TEAM: any = gql`
       id
       name
       goal
+      createdAt
       createdBy {
         name
       }
@@ -248,8 +259,11 @@ const TEAM: any = gql`
         id
       }
       tasks {
+        id
+
         name
         category
+        status
         createdAt
         createdBy {
           id
@@ -397,7 +411,23 @@ const GET_EVENT_MEETUP_GROUP: any = gql`
   }
 `
 
+const GET_TASK: any = gql`
+  query get_task($id: Int!) {
+    task(id: $id) {
+      id
+      name
+      category
+      status
+      createdAt
+      comment_id
+      author_id
+      team_id
+    }
+  }
+`
+
 export {
+  GET_TASK,
   GET_EVENT_TALK,
   GET_USER_TALKS,
   GET_CATEGORY,

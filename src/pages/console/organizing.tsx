@@ -27,9 +27,7 @@ const Organizing = (props): JSX.Element => {
         classNames={"slider"}
         unmountOnExit
         in={activeSection === "organized"}
-        onEnter={() => {
-          console.log("am in")
-        }}
+        onEnter={() => { }}
       >
         <div>
           <Flex justifyBetween>
@@ -63,16 +61,19 @@ const Organizing = (props): JSX.Element => {
                   isVirtual, 
                   createdBy,
                   venue,
+                  meetupGroups
                 }) => {
                   return (
                     <Bounce>
                       <EventCard
                         id={id}
+                        screen="organizing"
                         name={name}
                         type={eventType}
                         createdBy={createdBy}
                         created={dateCreated}
                         isVirtual={isVirtual}
+                        meetupGroups={meetupGroups === null ? 0  :  meetupGroups.length}
                         venue={venue}
                         location={true}
                         summary={summary}

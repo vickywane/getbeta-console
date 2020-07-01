@@ -7,6 +7,37 @@ import img from "../assets/images/test.png"
 
 // Todo: Refactor & compress file !!
 
+export const MessageInputBody = styled.div`
+  display: flex;
+  margin: 0rem 1rem;
+  justify-content: space-between;
+  input {
+    border: 1px solid grey;
+    padding: 0.7rem 1rem;
+    display: flex;
+    font-size: 1rem;
+    flex: 1;
+    width: auto;
+    margin: 0rem 1rem;
+    height: auto;
+    outline: 0px;
+    border-radius: 5px;
+  }
+  div {
+    border: 1px solid grey;
+    border-radius: 50%;
+    margin: 0rem 0.5rem;
+    padding: 0.7rem 0.7rem;
+  }
+  &: hover {
+    div {
+      cursor: pointer;
+      background: #fbfbfb;
+    }
+  }
+`
+
+
 const Head = styled.div`
   padding: ${props => (props.header ? " 1em 0.5rem" : "1em 1.5rem")};
   border-bottom: 0.3px solid #5f6368;
@@ -428,9 +459,9 @@ const InputBox = styled.div`
 
 // HEADER STYLES =================>
 const Header = styled.nav`
-  padding: 0.1em 3rem;
+  padding: 0.7em 3rem;
   background: #444444;
-  height : 8vh
+  height : 8vh;
   position: fixed;
   width: 100%;
   ${media.lessThan("large")`

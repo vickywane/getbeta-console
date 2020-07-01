@@ -132,7 +132,8 @@ const CREATE_TASK = gql`
     $userId: Int!
     $name: String!
     $category: String!
-    $isCompleted: Boolean!
+    $status: String!
+    $priority: String!
   ) {
     createTask(
       teamId: $teamId
@@ -140,7 +141,8 @@ const CREATE_TASK = gql`
       input: {
         name: $name
         category: $category
-        isCompleted: $isCompleted
+        status: $status
+        priority: $priority
         team_id: $teamId
       }
     ) {

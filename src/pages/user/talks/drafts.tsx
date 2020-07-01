@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import {
   FiMail,
   FiClock,
+  FiEdit,
   FiCheck,
   FiMoreVertical,
   FiTrash2,
@@ -85,9 +86,7 @@ const Talks = (): JSX.Element => {
   }, [data])
 
   const updateDraftId = () => {
-    data.user.talks === null
-      ? console.log("updating")
-      : setDraftId(data.user.talks[0].id)
+    data.user.talks !== null && setDraftId(data.user.talks[0].id)
   }
 
   const deletATalk = id => {
@@ -141,7 +140,7 @@ const Talks = (): JSX.Element => {
               <div>
                 <br />
                 <br />
-              
+
                 <Flex justifyCenter>
                   <Link to="/editor">
                     <Button long> Create A New Draft </Button>
@@ -158,17 +157,14 @@ const Talks = (): JSX.Element => {
                 <Body>
                   <Flex justifyBetween>
                     <Title small>
-                      {" "}
-                      Personal Drafts ( {talks === null
-                        ? null
-                        : talks.length} ){" "}
+                      Personal Drafts ( {talks === null ? null : talks.length} )
                     </Title>
 
                     <Link to="/editor">
                       <Button>
                         <Flex>
                           <Hover style={{ padding: "0rem 0.7rem" }}>
-                            <FiPlus style={{ fontSize: "1.6rem" }} />{" "}
+                            <FiPlus style={{ fontSize: "1.6rem" }} />
                           </Hover>
                           Create A New Draft
                         </Flex>
@@ -177,75 +173,107 @@ const Talks = (): JSX.Element => {
                   </Flex>
                 </Body>
 
-                {talks.map(({ id, title, reviewed, createdAt, summary }) => {
-                  return (
-                    <List key={id}>
-                      <Body
-                        bottomPadding
-                        style={{ display: "flex", flexDirection: "column" }}
-                      >
-                        <Flex justifyBetween>
-                          <img alt={"draft image"} />
-
-                          <Hover
-                            onClick={() => {
-                              setDraftId(id)
-                              setActivePage("draft")
-                            }}
-                            style={{ textDecoration: "none" }}
+                <Body
+                  style={{ height: window.innerHeight - 280, overflow: "auto" }}
+                >
+                  {talks.map(
+                    ({
+                      id,
+                      updatedAt,
+                      title,
+                      reviewed,
+                      createdAt,
+                      summary,
+                    }) => {
+                      return (
+                        <List key={id}>
+                          <Body
+                            bottomPadding
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
-                            <Title style={{ color: "#0e2f5a" }} small center>
-                              {title}
-                            </Title>
-                          </Hover>
-
-                          {Hooks >= 1000 ? (
-                            <Flex>
-                              <Hover style={{ paddingLeft: "15px" }}>
-                                {reviewed ? (
-                                  <FiClock style={{ fontSize: "1.7rem" }} />
-                                ) : (
-                                  <FiCheck style={{ fontSize: "1.8rem" }} />
-                                )}
-                              </Hover>
-
+                            <Flex justifyBetween>
+                              {Hooks >= 1000 && <img alt={"draft image"} />}
                               <Hover
-                                onClick={() => deletATalk(id)}
-                                style={{ paddingLeft: "15px" }}
+                                onClick={() => {
+                                  setDraftId(id)
+                                  setActivePage("draft")
+                                }}
+                                style={{ textDecoration: "none" }}
                               >
-                                <FiTrash2 style={{ fontSize: "1.7rem" }} />
+                                <Title
+                                  style={{ color: "#0e2f5a" }}
+                                  small
+                                  center
+                                >
+                                  {title}
+                                </Title>
                               </Hover>
+
+                              {Hooks >= 1000 ? (
+                                <Flex>
+                                  <Hover style={{ paddingLeft: "15px" }}>
+                                    {reviewed ? (
+                                      <FiClock style={{ fontSize: "1.7rem" }} />
+                                    ) : (
+                                      <FiCheck style={{ fontSize: "1.8rem" }} />
+                                    )}
+                                  </Hover>
+
+                                  <Hover
+                                    onClick={() => deletATalk(id)}
+                                    style={{ paddingLeft: "15px" }}
+                                  >
+                                    <FiTrash2 style={{ fontSize: "1.7rem" }} />
+                                  </Hover>
+                                </Flex>
+                              ) : (
+                                <Hover>
+                                  <FiMoreVertical
+                                    style={{ fontSize: "1.8rem" }}
+                                  />
+                                </Hover>
+                              )}
                             </Flex>
-                          ) : (
-                            <Hover>
-                              <FiMoreVertical style={{ fontSize: "1.8rem" }} />{" "}
-                            </Hover>
-                          )}
-                        </Flex>
-                        <br />
+                            <br />
 
-                        <div style={{ color: "grey", display: "flex" }}>
-                          <Hover style={{ padding: "0rem 0.7rem" }}>
-                            <FiClock style={{ fontSize: "1.7rem" }} />{" "}
-                          </Hover>
-                          <Text small> {createdAt} </Text>
-                        </div>
-                        <Text center color="grey"> {summary} </Text>
+                            <div style={{ color: "grey", display: "flex" }}>
+                              <Hover style={{ padding: "0rem 0.7rem" }}>
+                                <FiClock style={{ fontSize: "1.7rem" }} />
+                              </Hover>
+                              <Text small> {createdAt} </Text>
+                            </div>
+                            <Text center color="grey">
+                              {summary}
+                            </Text>
 
-                        <TagBody>
-                          <li>Testing</li>
-                          <li>Q & A</li>
-                          <li>Performance</li>
-                          <li>Test</li>
-                        </TagBody>
-                      </Body>
-                    </List>
-                  )
-                })}
+                            <TagBody>
+                              <li>Testing</li>
+                              <li>Q & A</li>
+                              <li>Performance</li>
+                              <li>Test</li>
+                            </TagBody>
+                            <br />
+
+                            <div style={{ color: "grey", display: "flex" }}>
+                              <Hover style={{ padding: "0rem 0.5rem" }}>
+                                <FiEdit style={{ fontSize: "1.7rem" }} />
+                              </Hover>
+                              <Text small> Updated : </Text>
+
+                              <Text style={{ padding: "0rem 1rem" }} small>
+                                {updatedAt}{" "}
+                              </Text>
+                            </div>
+                          </Body>
+                        </List>
+                      )
+                    }
+                  )}
+
+                  <br />
+                </Body>
               </div>
             )}
-
-            <br />
           </div>
         </Body>
       </CSSTransition>

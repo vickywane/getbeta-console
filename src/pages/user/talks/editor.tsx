@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/react-hooks"
 import { FiArrowLeft } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
-
-import { Link } from "react-router-dom"
+ 
+import { Link , Redirect } from "react-router-dom"
 import Fields from "../../forms/fields"
 import { CREATE_TALK_DRAFT } from "../../forms/formsData"
 import { Header, Footer, Loader } from "../../../components/"
@@ -78,7 +78,7 @@ const Editor = props => {
       },
     })
       .then(() => {
-        alert("created")
+        return <Redirect to="/drafts" message="Moving to draft." />
       })
       .catch(e => console.log(e))
   }

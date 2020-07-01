@@ -22,6 +22,7 @@ import {
 const CreateTaskModal = props => {
   const [Name, setName] = useState("")
   const [Category, setCategory] = useState("")
+  const [Priority, setPriority] = useState("")
 
   const { teamId } = props
 
@@ -32,6 +33,9 @@ const CreateTaskModal = props => {
         break
       case "Task Category":
         setCategory(value)
+        break
+       case "Task Priority":
+        setPriority(value)
         break
       default:
         break
@@ -45,12 +49,13 @@ const CreateTaskModal = props => {
         teamId: teamId,
         userId: localStorage.getItem("user_id"),
         name: Name,
+        priority: Priority,
         category: Category,
-        isCompleted: false,
+        status: "IDLE",
       },
     })
-      .catch(e => console.log(e))
       .then(() => close())
+      .catch(e => console.log(e))
   }
 
   const { show, close } = props

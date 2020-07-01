@@ -8,11 +8,14 @@ import styled from "styled-components"
 import { IoIosPeople, IoIosListBox } from "react-icons/io"
 import { FiArrowLeft } from "react-icons/fi"
 
+import TeamInstruction from "./people/teamInstructionModal"
 import Team from "./team"
 import {
   Text,
   Button,
   Body,
+  TabColumn,
+  Tab,
   Title,
   Hover,
   Head,
@@ -20,6 +23,7 @@ import {
 } from "../../styles/style"
 import { TeamModal } from "../../components/modals/"
 import { EmptyData } from "../../components/placeholders/"
+import Volunteer from "./people/volunteer.list"
 
 const HoverCircle = styled(Hover)`
   padding : 0.6rem 0.7rem;
@@ -61,15 +65,25 @@ const TeamList = (props): JSX.Element => {
   const { openTeamModal, closeTeamModal } = props.ModalStore
   const { teams, id } = props.data
 
-  const [ActiveView, setView] = useState("list")
-  const [TeamId, setTeamId] = useState(null)
+  const [ActiveView, setView] = useState<string>("Overview") // Overview
+  const [TeamId, setTeamId] = useState<number>(null)
+  const [TeamName, setTeamName] = useState<string>("Overview")
+  const [TabView, setTabView] = useState<string>("Teams")
+  const [Volunteers, showVolunteers] = useState<boolean>(false)
 
   return (
     <div>
       <Head style={{ padding: "1rem 1rem" }} header>
-        {ActiveView !== "list" ? (
+        <TeamInstruction />
+
+        {ActiveView !== "Overview" ? (
           <Flex>
-            <HoverCircle onClick={() => setView("list")}>
+            <HoverCircle
+              onClick={() => {
+                setView("Overview")
+                setTabView("Teams")
+              }}
+            >
               <FiArrowLeft style={{ fontSize: "1.7rem" }} />
             </HoverCircle>
 
@@ -78,7 +92,7 @@ const TeamList = (props): JSX.Element => {
                 padding: "0.6rem 0.2rem",
               }}
             >
-              {ActiveView}
+              {TeamName}
             </Section>
           </Flex>
         ) : (
@@ -91,103 +105,138 @@ const TeamList = (props): JSX.Element => {
           </Section>
         )}
 
-        <Button
-          onClick={() => {
-            openTeamModal()
-          }}
-        >
-          Create Team
-        </Button>
+        <Tab>
+          <TabColumn
+            onClick={() => setView("Teams")}
+            active={TabView === "Teams"}
+          >
+            Teams
+          </TabColumn>
+
+          <TabColumn
+            onClick={() => {
+              showVolunteers(true)
+              setView("Volunteers")
+              setTabView("Volunteers")
+            }}
+            active={TabView === "Volunteers"}
+          >
+            Volunteers
+          </TabColumn>
+        </Tab>
       </Head>
+
       <TeamModal EventID={id} close={closeTeamModal} type={"Team"} />
 
-      <CSSTransition timeout={300} unmountOnExit in={ActiveView === "list"}>
+      <CSSTransition timeout={300} unmountOnExit in={ActiveView === "Overview"}>
         <Body>
           {teams === null ? (
             <div>
+              <div style={{ textAlign: "right" }}>
+                <Button
+                  onClick={() => {
+                    openTeamModal()
+                  }}
+                >
+                  Create Team
+                </Button>
+              </div>
+
               <EmptyData
                 message={
                   "There are no created teams within this event. \n \n Use the **Create Team** to get started with creating your first team."
                 }
                 link="https://event.com"
-                feature="Collaboration"
+                feature="Collaborations"
               />
             </div>
           ) : (
             <List>
+              <div style={{ textAlign: "right" }}>
+                <Button
+                  onClick={() => {
+                    openTeamModal()
+                  }}
+                >
+                  Create Team
+                </Button>
+              </div>
+
               {teams.map(({ id, name, createdAt, goal, tasks }) => {
                 return (
-                  <li key={id}>
-                    <div style={{ justifyContent: "space-between" }}>
-                      <div style={{ flexDirection: "column" }}>
-                        <Title
-                          small
-                          center
-                          onClick={() => {
-                            setTeamId(id)
-                            setView(name)
-                          }}
-                          bold
-                          style={{ fontWeight: "normal", cursor: "pointer" }}
-                        >
-                          {name}
-                        </Title>
+                  <div>
+                    <li key={id}>
+                      <div style={{ justifyContent: "space-between" }}>
+                        <div style={{ flexDirection: "column" }}>
+                          <Title
+                            small
+                            center
+                            onClick={() => {
+                              setTeamId(id)
+                              setTeamName(name)
+                              setView("Teams")
+                            }}
+                            bold
+                            style={{ fontWeight: "normal", cursor: "pointer" }}
+                          >
+                            {name}
+                          </Title>
 
-                        <div style={{color : 'grey'}}  >
+                          <div style={{ color: "grey" }}>
+                            <Hover style={{ padding: "0rem 0.3rem" }}>
+                              <FiClock style={{ fontSize: "1.7rem" }} />
+                            </Hover>
+
+                            <Text small>{createdAt}</Text>
+                          </div>
+                        </div>
+
+                        <div>
                           <Hover style={{ padding: "0rem 0.3rem" }}>
-                            <FiClock style={{ fontSize: "1.7rem" }} />
+                            <FiMoreVertical style={{ fontSize: "1.7rem" }} />
                           </Hover>
-
-                          <Text small >
-                            {createdAt}
-                          </Text>
                         </div>
                       </div>
 
-                      <div>
-                        <Hover style={{ padding: "0rem 0.3rem" }}>
-                          <FiMoreVertical style={{ fontSize: "1.7rem" }} />
-                        </Hover>
+                      <Text small center>
+                        {goal}
+                      </Text>
+
+                      <br />
+                      <div style={{ justifyContent: "space-between" }}>
+                        <div
+                          style={{
+                            color: "grey",
+                          }}
+                        >
+                          <Hover>
+                            <IoIosListBox style={{ fontSize: "1.8rem" }} />
+                          </Hover>
+                          <Text style={{ padding: "0rem 0.6rem" }} small>
+                            {tasks !== null ? tasks.length : "0"} tasks
+                            Availabele
+                          </Text>
+                        </div>
+
+                        <div>
+                          <img
+                            alt="members"
+                            src={require("../../assets/images/developer.png")}
+                          />
+
+                          <img
+                            alt="members"
+                            src={require("../../assets/images/developer.png")}
+                          />
+
+                          <img
+                            alt="members"
+                            src={require("../../assets/images/developer.png")}
+                          />
+                        </div>
                       </div>
-                    </div>
-
-                    <Text small center>
-                      {goal}
-                    </Text>
-
-                    <br />
-                    <div style={{ justifyContent: "space-between" }}>
-                      <div
-                        style={{
-                          color: "grey",
-                        }}
-                      >
-                        <Hover>
-                          <IoIosListBox style={{ fontSize: "1.8rem" }} />
-                        </Hover>
-                        <Text style={{ padding: "0rem 0.6rem" }} small>
-                          {tasks !== null ? tasks.length : "0"} tasks Availabele
-                        </Text>
-                      </div>
-
-                      <div>
-                        <img
-                          alt="members"
-                          src={require("../../assets/images/developer.png")}
-                        />
-
-                        <img
-                          alt="members"
-                          src={require("../../assets/images/developer.png")}
-                        />
-
-                        <img
-                          alt="members"
-                          src={require("../../assets/images/developer.png")}
-                        />
-                      </div>
-                    </div>
-                  </li>
+                    </li>
+                  </div>
                 )
               })}
             </List>
@@ -195,8 +244,21 @@ const TeamList = (props): JSX.Element => {
         </Body>
       </CSSTransition>
 
-      <CSSTransition in={ActiveView !== "list"} timeout={300} unmountOnExit>
+      <CSSTransition
+        classNames={""}
+        in={ActiveView === "Teams"}
+        timeout={300}
+        unmountOnExit
+      >
         <Team TeamId={TeamId} />
+      </CSSTransition>
+
+      <CSSTransition
+        in={ActiveView === "Volunteers"}
+        timeout={300}
+        unmountOnExit
+      >
+        <Volunteer />
       </CSSTransition>
     </div>
   )

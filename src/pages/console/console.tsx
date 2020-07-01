@@ -51,7 +51,7 @@ const Console = (props): JSX.Element => {
   if (loading) {
     return <Loader type={"loading"} />
   }
-
+  console.log(data.user.volunteering)
   return (
     <div>
       <Header showSearchBar searchText="Search Home Console" />

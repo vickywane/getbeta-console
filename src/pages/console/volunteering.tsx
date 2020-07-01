@@ -20,8 +20,6 @@ import EventCard from "../../components/cards/EventCard"
 const Organizing = (props): JSX.Element => {
   const { activeSection, eventVolunteered, data } = props
 
-  console.log(eventVolunteered)
-
   return (
     <CSSTransition
       timeout={900}
@@ -57,14 +55,18 @@ const Organizing = (props): JSX.Element => {
             />
           ) : (
             eventVolunteered.map(
-              ({ event, role, id, name, duration, text }) => {
+              ({ event, role, id, name, eventType,  createdBy ,  duration, text , meetupGroups }) => {
                 return (
                   <Bounce key={id}>
                     <EventCard
                       role={role}
                       volunteerScreen={true}
                       event={event}
-                      id={data.user.volunteering[0].event[0].id}
+                      screen="Volunteering"
+                      type={event[0].eventType}
+                      createdBy={createdBy}
+                      meetupGroups={meetupGroups !== null && 0}
+                      id={data.user.volunteering[0].event[0].author_id}
                       venue={data.user.volunteering[0].event[0].venue}
                       showAprrovalStatus={true}
                       approvalStatus={"PENDING"}

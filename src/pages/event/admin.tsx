@@ -21,7 +21,7 @@ const Window = styled.div`
   width: auto;
   height: ${window.innerHeight};
   background: #fbfbfb;
-  border-right: 0.3px solid #5f6368;
+  border-right: 0.3px solid #C0C0C0;
 `
 
 const Head = styled.div`
@@ -172,7 +172,7 @@ const Admin = props => {
               <IoIosPeople style={{ fontSize: "1.8rem" }} />
               {Width <= 1200 ? <Info>Teams</Info> : null}
             </T>
-            {Width >= 1200 ? "Team Support" : null}
+            {Width >= 1200 ? "Event Support" : null}
           </Tab>
 
           <Tab
@@ -180,7 +180,7 @@ const Admin = props => {
             active={state.activeTab === "schedule"}
           >
             <T style={{ padding: "0rem 1rem" }}>
-              <GrSchedules style={{ fontSize: "1.8rem", color: "grey" }} />
+              <GrSchedules style={{ fontSize: "1.7rem", color: "grey" }} />
               {Width <= 1200 ? <Info>Schedule</Info> : null}
             </T>
             {Width >= 1200 ? "Event Schedule" : null}

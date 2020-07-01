@@ -19,6 +19,7 @@ import Admin from "./admin"
 import Access from "./access/acess"
 import Team from "./team"
 import Overview from "./invitation/overview"
+import Archive from "./archive/itetations"
 
 import EventModal from "./eventModal"
 import { Loader, Header, Footer } from "../../components/"
@@ -57,10 +58,11 @@ const EventGrid = styled.div`
   display: grid;
   grid-gap: 0rem;
   grid-template-columns: ${props =>
-    props.permission ? "18rem auto 22rem" : "auto 20rem"} ;
+    props.permission ? "16rem auto 21rem" : "auto 23rem"} ;
   transition  : all 300ms;
   ${media.lessThan("huge")`
-  grid-template-columns: ${props => (props.permission ? "23% 77%" : "78% 22%")};
+      grid-template-columns: ${props =>
+        props.permission ? "16rem auto" : "78% auto"};
 `} 
   ${media.lessThan("large")`
  grid-template-columns: ${props => (props.permission ? "5rem auto" : "100%")};
@@ -123,6 +125,8 @@ const Event = (props): JSX.Element => {
     const meetupGroupLength =
       data.event.meetupGroups === null ? 0 : data.event.meetupGroups.length
 
+      console.log(EventType)
+
     return (
       <TabContext.Provider value={TabState}>
         <Header event={Hooks >= 900 ? data.event.name : data.event.alias} />
@@ -176,7 +180,7 @@ const Event = (props): JSX.Element => {
             )
           ) : null}
 
-          <div  style={{height : window.innerHeight - 80 , overflow : 'auto' }} >
+          <div style={{ height: window.innerHeight - 80, overflow: "auto" }}>
             <AdminContext.Provider value={AdminTabState}>
               <CSSTransition
                 timeout={300}
@@ -186,11 +190,15 @@ const Event = (props): JSX.Element => {
               >
                 <div style={{ overflow: "hidden" }}>
                   {meetupGroupLength > 0 ? null : (
-                    <AttendPane event={data.event} />
+                    <AttendPane permission={permission} event={data.event} />
                   )}
 
                   {EventType === "Conference" ? (
-                    <Contain style={{transition : 'all 300ms'}} img={TestImg} grey>
+                    <Contain
+                      style={{ transition: "all 300ms" }}
+                      img={TestImg}
+                      grey
+                    >
                       <EventDetails
                         state={staate}
                         permissio={permission}
@@ -205,10 +213,10 @@ const Event = (props): JSX.Element => {
                   ) : (
                     <div>
                       {meetupGroupLength > 0 ? (
-                        <Contain grey style={{transition : 'all 300ms'}} >
+                        <Contain grey style={{ transition: "all 300ms" }}>
                           <MeetupDetails
                             state={staate}
-                            permissio={permission}
+                            permission={permission}
                             data={data}
                             meetupGroupLength={meetupGroupLength}
                             dispatch={dispaatch}
@@ -218,7 +226,11 @@ const Event = (props): JSX.Element => {
                           />
                         </Contain>
                       ) : (
-                        <Contain grey img={TestImg} style={{transition : 'all 300ms'}} >
+                        <Contain
+                          grey
+                          img={TestImg}
+                          style={{ transition: "all 300ms" }}
+                        >
                           <EventDetails
                             state={staate}
                             permissio={permission}
@@ -272,7 +284,7 @@ const Event = (props): JSX.Element => {
                 in={state.activeTab === "mobile"}
               >
                 <Mobile />
-              </CSSTransition>{" "}
+              </CSSTransition>
               <CSSTransition
                 timeout={300}
                 className={""}
@@ -321,10 +333,25 @@ const Event = (props): JSX.Element => {
               >
                 <Store data={data} />
               </CSSTransition>
+
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "archive"}
+              >
+                <Archive data={data} />
+              </CSSTransition>
             </AdminContext.Provider>
           </div>
 
-          {Hooks >= 1500 ? <Timeline eventData={data.event} /> : null}
+          {Hooks >= 1500 && (
+            <Timeline
+              state={state}
+              dispatch={dispatch}
+              eventData={data.event}
+            />
+          )}
         </EventGrid>
       </TabContext.Provider>
     )

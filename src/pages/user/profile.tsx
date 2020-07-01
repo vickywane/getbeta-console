@@ -24,6 +24,8 @@ import "../../App.css"
 const Profile = (props): JSX.Element => {
   const { name, email, attending, bucketName, img_uri } = props.User.user
   const { editProfile, showEditProfile, closeEditProfile } = props.ModalStore
+  const { LogOut } = props.AuthStore
+
   const AttendNo = attending === null ? 0 : attending.length
   const Hooks = useWindowWidth()
 
@@ -73,7 +75,7 @@ const Profile = (props): JSX.Element => {
           </Detail>
         </Flex>
 
-        <ActionBar screen="profile"  />
+        <ActionBar logout={LogOut} screen="profile"  />
 
       </Flex>
       <Flex>
@@ -93,4 +95,4 @@ const Profile = (props): JSX.Element => {
   )
 }
 
-export default inject("ModalStore")(observer(Profile))
+export default inject("ModalStore" , "AuthStore" )(observer(Profile))

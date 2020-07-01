@@ -70,6 +70,9 @@ export const AdminTabReducer = (state: any, action: any) => {
     case "SWITCH_STORE":
       return { ...state, active: true, activeTab: "store" }
       break
+    case "OPEN_ARCHIVE":
+      return { ...state, active: true, activeTab: "archive" }
+      break
     default:
       break
   }

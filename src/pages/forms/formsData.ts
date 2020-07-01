@@ -137,6 +137,22 @@ const AuthInput = {
       placeholder: "Confirm Your Password",
     },
   ],
+  ChangePassword : [
+    {
+      id: 1,
+      label: "Account Password",
+      type: "password",
+      textarea : false,
+      placeholder: "New Account Password",
+    },
+    {
+      id: 2,
+      label: "Confirm  Password",
+      type: "password",
+      textarea : false,
+      placeholder: "Confirm Account Password",
+    },
+  ]
 }
 
 const TeamInput = [
@@ -177,10 +193,16 @@ const CREATE_TASK = [
     placeholder: "Description of the intended task",
   },
   {
-    id: 1,
+    id: 2,
     label: "Task Category",
     type: "text",
     placeholder: "Task category. E.g Design for design related tasks",
+  },
+   {
+    id: 3,
+    label: "Task Priority",
+    type: "text",
+    placeholder: "Task Priority",
   },
 ]
 

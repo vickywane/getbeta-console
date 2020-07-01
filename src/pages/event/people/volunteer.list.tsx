@@ -62,7 +62,7 @@ const Volunteers = props => {
             <Text style={{ fontWeight: "550" }}>Action</Text>
           </Head>
 
-          {volunteer.map(
+          { volunteer !== undefined && volunteer.map(
             ({
               id,
               name,

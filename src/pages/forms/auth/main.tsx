@@ -6,10 +6,11 @@ import { inject, observer } from "mobx-react"
 import { useMutation, useQuery } from "@apollo/react-hooks"
 import { Redirect } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
+
 // import io from "socket.io-client"
 import { CREATE_USER, LOGIN_USER } from "../../../data/mutations"
 import { Input, Button, Title, Text, Label } from "../../../styles/style"
-
+import Fields from "../fields"
 import SignIn from "./signin"
 import CreateAccount from "./createAccount"
 
@@ -29,8 +30,12 @@ const Authentication = (props): JSX.Element => {
   const { AuthUser, Login, authState, setAuthState }: any = props.AuthStore
 
   // input states
-  const [Email, setEmail] = useState("")
+  const [ResetEmail, setEmail] = useState("")
   const [Error, setError] = useState("")
+
+  const onChange = (value, label) => {
+      setEmail(value)
+  }
 
   return (
     <Flex justifyCenter>
@@ -38,10 +43,6 @@ const Authentication = (props): JSX.Element => {
         <Title center small bold>
           Oasis Management Console
         </Title>
-        <Title center small>
-          {authState === "Login" ? "Login" : "Create Account"}
-        </Title>
-
         <br />
         <Flex justifyCenter>
           <Button long transparent center>
@@ -77,13 +78,19 @@ const Authentication = (props): JSX.Element => {
                   justifyContent: "center",
                 }}
               >
-                A <b> Tempoary 5 minute </b> valid reset link would be sent to
-                the inputed email address.
+                A <b> Tempoary 12 minute </b>  reset link would be sent to
+                your email address used in creating your Oasis Account.
               </Text>
-              <Label small> Email Address</Label>
-              <div>
-                <Input type="email" placeholder="Email Address" />
-              </div>
+
+              <Fields
+                textarea={false}
+                id={1}
+                name="Reset Email Address "
+                type="email"
+                placeholder="Account Email Address"
+                value={ResetEmail}
+                onChange={e => onChange(e, "Reset Email Address")}
+              />
               <br />
 
               <Flex justifyCenter>

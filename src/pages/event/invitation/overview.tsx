@@ -5,6 +5,7 @@ import { FiLink, FiCopy, FiPlus, FiX } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 
 import { EmptyData } from "../../../components/placeholders/"
+import { InvitationInstruction } from "../../../components/modals/"
 import {
   Body,
   Text,
@@ -34,6 +35,7 @@ const Overview = props => {
 
   return (
     <div>
+    <InvitationInstruction />
       <Head header>
         <Section style={{ padding: "0.5rem 0rem" }} small>
           Invitations

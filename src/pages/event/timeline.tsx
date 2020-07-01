@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { FiX, FiClock } from "react-icons/fi"
-import { AiOutlineHistory} from "react-icons/ai"
+import { AiOutlineHistory } from "react-icons/ai"
 
 import { Hover, Head, Title, Text, Section, Button } from "../../styles/style"
 
@@ -25,13 +25,13 @@ const Circle = styled.div`
 
 const Timeline = props => {
   const [Visibility, setVisibility] = useState(true)
+  const { state, dispatch } = props
 
-  const { actions, dateCreated, eventType } = props.eventData
+  const {  actions, dateCreated, eventType } = props.eventData
 
-  console.log(props.eventData)
   return (
     <Window show={Visibility}>
-      {Visibility ? (
+      {Visibility && (
         <div>
           <Head header style={{ padding: "1.4rem 0.5rem" }}>
             <div
@@ -50,30 +50,41 @@ const Timeline = props => {
           </Head>
           <br />
 
-          {actions === null ? (
-            <Text center> Event created on {dateCreated} </Text>
-          ) : (
-            actions.map(name => {
-              return (
-                <List key={Math.random()}>
-                  <Text
-                    small
-                    color="#0e2f5a"
-                    style={{ padding: "0rem 0.5rem" }}
-                  >
-                    {name}{" "}
-                  </Text>
-                </List>
-              )
-            })
-          )}
+          <div style={{ overflow: "auto", height: window.innerHeight - 270 }}>
+            {actions === null ? (
+              <Text center> Event created on {dateCreated} </Text>
+            ) : (
+              actions.map(name => {
+                return (
+                  <List key={Math.random()}>
+                    <Text
+                      small
+                      color="#0e2f5a"
+                      style={{ padding: "0rem 0.5rem" }}
+                    >
+                      {name}{" "}
+                    </Text>
+                  </List>
+                )
+              })
+            )}
+          </div>
         </div>
-      ) : null}
+      )}
 
       <br />
       {eventType === "Meetup" ? null : (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Button> View Previous Iterations </Button>{" "}
+          <Button
+            onClick={() => {
+              dispatch({
+                type: "OPEN_ARCHIVE",
+              })
+            }}
+            long
+          >
+            View Event Archive{" "}
+          </Button>{" "}
         </div>
       )}
     </Window>
