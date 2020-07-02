@@ -315,12 +315,13 @@ const TALKS: any = gql`
 `
 
 const GET_VOLUNTEERS: any = gql`
-  query get_volunteers {
-    volunteers {
+  query get_volunteers($eventId : Int!) {
+    volunteers(EventID : $eventId ) {
       role
       approvalStatus
       duration
-      user_description
+      volunteer_proposal
+      dateApplied
       user {
         name
       }

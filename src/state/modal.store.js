@@ -11,7 +11,7 @@ class ModalStore {
   }
   // =================================>
 
-  showInvitationInstruction = true
+  showInvitationInstruction = false
 
 
   openInvitationInstruction = () => {

@@ -20,7 +20,7 @@ const PeopleTabState = {
 
 const AdminTabState = {
   id: 1,
-  activeTab: "team",
+  activeTab: "mobile",
   active: false,
 }
 

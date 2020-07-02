@@ -40,7 +40,7 @@ export const MessageInputBody = styled.div`
 
 const Head = styled.div`
   padding: ${props => (props.header ? " 1em 0.5rem" : "1em 1.5rem")};
-  border-bottom: 0.3px solid #5f6368;
+  border-bottom: 0.3px solid #C0C0C0;
   background: ${props => (props.header ? "#fbfbfb" : "#444444")};
   color: ${props => (props.header ? "#000" : "#fff")};
   display: flex;

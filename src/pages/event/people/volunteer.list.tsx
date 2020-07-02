@@ -10,10 +10,8 @@ import { EmptyData } from "../../../components/placeholders"
 
 const List = styled.li`
   list-style: none;
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 0rem;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
 `
 
 const Background = styled.div`
@@ -30,86 +28,113 @@ const Background = styled.div`
 `
 
 const Head = styled.div`
-  padding: 0.5rem 1rem;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  p {
+    text-align: center;
+    font-size: 1.4rem;
+  }
 `
 
 const Volunteers = props => {
-  // const { data, loading, error } = useQuery(GET_VOLUNTEERS)
+  const { eventId } = props
+  const { data, loading, error } = useQuery(GET_VOLUNTEERS, {
+    variables: {
+      eventId: eventId,
+    },
+  })
 
-  const { volunteer } = props
+  if (error) {
+    console.log(error)
+    return <p> an error </p>
+  }
 
-  return (
-    <div>
-      {volunteer === null ? (
-        <EmptyData
-          link={"https://my-event.netlify.com"}
-          feature={"Volunteers Support"}
-          message={"This Event currently has no Volunteers."}
-        />
-      ) : (
-        <div>
-          <Head>
-            <Text style={{ fontWeight: "550" }}>Name</Text>
+  if (loading) {
+    return <p>loading </p>
+  }
 
-            <Text style={{ fontWeight: "550" }}>Role</Text>
+  if (data) {
+    const { volunteers } = data
+    return (
+      <Body>
+        {volunteers === null ? (
+          <EmptyData
+            link={"https://my-event.netlify.com"}
+            feature={"Volunteers Support"}
+            message={"This Event currently has no Volunteers."}
+          />
+        ) : (
+          <div>
+            <Head>
+              <Text style={{ fontWeight: "550" }}>Name</Text>
 
-            <Text style={{ fontWeight: "550" }}>Status</Text>
+              <Text style={{ fontWeight: "550" }}>Role</Text>
 
-            <Text style={{ fontWeight: "550" }}>Applied</Text>
+              <Text style={{ fontWeight: "550" }}>Status</Text>
 
-            <Text style={{ fontWeight: "550" }}>Action</Text>
-          </Head>
+              <Text style={{ fontWeight: "550" }}>Applied</Text>
 
-          { volunteer !== undefined && volunteer.map(
-            ({
-              id,
-              name,
-              role,
-              user,
-              approvalStatus,
-              duration,
-              dateApplied,
-            }) => {
-              return (
-                <List key={id}>
-                  {user.map(({ name }) => {
-                    return <Text center> {name} </Text>
-                  })}
+              <Text style={{ fontWeight: "550" }}>Action</Text>
+            </Head>
+            <hr />
+            {volunteers === null ? (
+              <EmptyData
+                message="This event currently has no volunteers"
+                link="event.com"
+                feature="Collaboration"
+              />
+            ) : (
+              volunteers.map(
+                ({
+                  id,
+                  name,
+                  role,
+                  user,
+                  approvalStatus,
+                  duration,
+                  dateApplied,
+                }) => {
+                  return (
+                    <List key={id}>
+                      {user.map(({ name }) => {
+                        return <Text center> {name} </Text>
+                      })}
 
-                  <Text center> {role} </Text>
+                      <Text center> {role} </Text>
 
-                  <Background
-                    background={
-                      approvalStatus === "Approved" ? "#94F471" : "#DE4538"
-                    }
-                  >
-                    <Text center white>
-                      {" "}
-                      {approvalStatus}{" "}
-                    </Text>
-                  </Background>
+                      <Background
+                        background={
+                          approvalStatus === "Approved" ? "#94F471" : "#DC143C"
+                        }
+                      >
+                        <Text center color="white">
+                          {approvalStatus}{" "}
+                        </Text>
+                      </Background>
 
-                  <Text center> {dateApplied} </Text>
+                      <Text center> {dateApplied} </Text>
 
-                  <Flex>
-                    <Hover margined borderedRound background="#94F471">
-                      <FiCheck style={{ fontSize: "2rem" }} />
-                    </Hover>
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <Hover margined borderedRound background="#94F471">
+                          <FiCheck style={{ fontSize: "2rem" }} />
+                        </Hover>
 
-                    <Hover margined borderedRound background="#DE4538">
-                      <FiX style={{ fontSize: "2rem" }} />
-                    </Hover>
-                  </Flex>
-                </List>
+                        <Hover margined borderedRound background="#DC143C">
+                          <FiX style={{ fontSize: "2rem" }} />
+                        </Hover>
+                      </div>
+                    </List>
+                  )
+                }
               )
-            }
-          )}
-        </div>
-      )}
-    </div>
-  )
+            )}
+          </div>
+        )}
+      </Body>
+    )
+  }
 }
 
 export default Volunteers

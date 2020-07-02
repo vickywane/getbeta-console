@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap"
 import styled from "styled-components"
 import { FiX } from "react-icons/fi"
 
-import { Body, Text, Hover, Title, Button } from "../../../styles/style"
+import { Body as Bod, Text, Hover, Title, Button } from "../../../styles/style"
 
 const List = styled.div`
 	h4 {
@@ -25,6 +25,10 @@ const List = styled.div`
 	}
 `
 
+const Body = styled(Bod)`
+	padding: 0.7rem 1.5rem;
+`
+
 const InvitationModalInstruction = (props): JSX.Element => {
 	const {
 		showInvitationInstruction,
@@ -39,67 +43,63 @@ const InvitationModalInstruction = (props): JSX.Element => {
 			style={{ marginTop: "3rem" }}
 		>
 			<Body>
-				<Hover
-					onClick={() => closeInvitationInstruction()}
-					style={{ textAlign: "right" }}
-				>
-					<FiX style={{ fontSize: "1.7rem" }} />
+				<Hover style={{ textAlign: "right" }}>
+					<Text onClick={() => closeInvitationInstruction()} small color="grey">
+						Skip{" "}
+					</Text>
 				</Hover>
 
-				<Body>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "center",
+					}}
+				>
 					<div
 						style={{
 							display: "flex",
-							flexDirection: "column",
 							justifyContent: "center",
 						}}
 					>
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-							}}
-						>
-							<img
-								alt="email"
-								src={require("../../../assets/ssvg/Email.svg")}
-								style={{ maxWidth: "16%" }}
-							/>
-						</div>
-						<Title center small>
-							Custom Event Invitations{" "}
-						</Title>
+						<img
+							alt="email"
+							src={require("../../../assets/ssvg/Email.svg")}
+							style={{ maxWidth: "16%" }}
+						/>
 					</div>
-					<Text small center>
-						Send , compose custom event emails to invitees for your event
-						invitees for your event invitees for your event invitees for your
-						event invitees for your event.
-					</Text>
-					<br />
-					<List>
-						<h4>Recommended Invitations :</h4>
-						<hr />
+					<Title center small>
+						Custom Event Invitations{" "}
+					</Title>
+				</div>
+				<Text small center>
+					Send, Compose and monitor email invitations sent to your event
+					attendees. You could even broadcast hundred of mails or add them to a
+					list.
+				</Text>
+				<List>
+					<h4>Recommended Invitations :</h4>
+					<hr />
 
-						<li>
-							<h5>Attendees Invitations</h5>
-							<Text small> Send invitations to attendees and peple </Text>
-						</li>
+					<li>
+						<h5>Attendees Invitations</h5>
+						<Text small> Send invitations to attendees and peple </Text>
+					</li>
 
-						<li>
-							<h5>Attendees Invitations</h5>
-							<Text small> Send email invitations to some people </Text>
-						</li>
+					<li>
+						<h5>Attendees Invitations</h5>
+						<Text small> Send email invitations to some people </Text>
+					</li>
 
-						<li>
-							<h5>Attendees Invitations</h5>
-							<Text small> Send email invitations to some people </Text>
-						</li>
-					</List>
+					<li>
+						<h5>Attendees Invitations</h5>
+						<Text small> Send email invitations to some people </Text>
+					</li>
+				</List>
 
-					<div style={{ display: "flex", justifyContent: "center" }}>
-						<Button long>Create Sample Invitations</Button>
-					</div>
-				</Body>
+				<div style={{ display: "flex", justifyContent: "center" }}>
+					<Button long>Create Sample Invitations</Button>
+				</div>
 			</Body>
 		</Modal>
 	)

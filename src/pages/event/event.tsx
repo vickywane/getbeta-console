@@ -4,25 +4,20 @@ import { useQuery } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 import media from "styled-media-query"
-import { FixedSizeList as List } from "react-window"
 
-import Scheduel from "./schedule/schedule"
 import EditEvent from "./editEvent"
-import Activity from "./Activity"
 import TeamList from "./teamList"
 import Schedule from "./schedule/schedule"
-import People from "./people/people"
 import EventTabs from "./eventTab"
 import MeetupTab from "./meetupTab"
 import Timeline from "./timeline"
 import Admin from "./admin"
 import Access from "./access/acess"
-import Team from "./team"
 import Overview from "./invitation/overview"
 import Archive from "./archive/itetations"
 
 import EventModal from "./eventModal"
-import { Loader, Header, Footer } from "../../components/"
+import { Loader, Header } from "../../components/"
 import MeetupTabComponents from "./meetupTabComponents"
 import MeetupAdmin from "./meetups/adminPane"
 import ConferenceTab from "../../components/tabs/conference.tab"
@@ -38,7 +33,6 @@ import {
 import AttendPane from "../../components/panes/attend.pane"
 import useWindowWidth from "../../hook_style"
 import {
-  UserContext,
   TabContext,
   AdminContext,
   AdminTabState,

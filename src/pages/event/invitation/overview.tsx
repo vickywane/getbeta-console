@@ -22,9 +22,9 @@ import useWindowWidth from "../../../hook_style"
 import Compose from "./compose"
 
 const CustomButton = styled(Button)`
-  height : 50px;
-  border-radius : 50px;
-  outline  : 0px;
+  height: 50px;
+  border-radius: 50px;
+  outline: 0px;
 `
 
 const Overview = props => {
@@ -35,7 +35,7 @@ const Overview = props => {
 
   return (
     <div>
-    <InvitationInstruction />
+      <InvitationInstruction />
       <Head header>
         <Section style={{ padding: "0.5rem 0rem" }} small>
           Invitations
@@ -58,11 +58,18 @@ const Overview = props => {
               }}
             >
               <Text small style={{ paddingTop: "2px" }}>
-                <code> {window.location.href} </code>
+                <code
+                  onCopy={e => {
+                    alert(e.target)
+                  }}
+                >
+                  {window.location.href}{" "}
+                </code>
               </Text>
             </div>
 
             <div
+              onClick={() => alert("copied")}
               style={{
                 cursor: "pointer",
                 padding: "0.3rem 0.8rem",
@@ -95,67 +102,63 @@ const Overview = props => {
       </Head>
 
       <Body>
-        <Body>
-          <CSSTransition
-            in={ActiveColumn === "draft"}
-            unmountOnExit
-            timeout={300}
-          >
+        <CSSTransition
+          in={ActiveColumn === "draft"}
+          unmountOnExit
+          timeout={300}
+        >
+          <EmptyData
+            message={"This Event currently has no saved invitation drafts"}
+            feature={"Invitation"}
+            link={"https://my-event.netlify.com"}
+          />
+        </CSSTransition>
+
+        <CSSTransition
+          in={ActiveColumn === "overview"}
+          unmountOnExit
+          timeout={300}
+        >
+          <div>
+            <div style={{ textAlign: "right" }}>
+              <CustomButton onClick={() => setActiveColumn("compose")}>
+                <Flex>
+                  <Hover style={{ padding: "0rem 0.5rem" }}>
+                    <FiPlus style={{ fontSize: "1.7rem" }} />
+                  </Hover>
+                  Compose Invitation
+                </Flex>
+              </CustomButton>
+            </div>
+
             <EmptyData
-              message={"This Event currently has no saved invitation drafts"}
+              message={
+                "No Invitation has been sent yet within this event. \n \n You can compose invitations quickly by using **Pre-made invitation templates**. "
+              }
               feature={"Invitation"}
               link={"https://my-event.netlify.com"}
             />
-          </CSSTransition>
+          </div>
+        </CSSTransition>
 
-          <CSSTransition
-            in={ActiveColumn === "overview"}
-            unmountOnExit
-            timeout={300}
-          >
-            <div>
-              <div style={{ textAlign: "right" }}>
-                <CustomButton onClick={() => setActiveColumn("compose")}>
-                  <Flex>
-                    <Hover style={{ padding: "0rem 0.5rem" }}>
-                      <FiPlus style={{ fontSize: "1.7rem" }} />
-                    </Hover>
-                    Compose Invitation
-                  </Flex>
-                </CustomButton>
-              </div>
-
-              <EmptyData
-                message={
-                  "No Invitation has been sent yet within this event. \n \n You can compose invitations quickly by using **Pre-made invitation templates**. "
-                }
-                feature={"Invitation"}
-                link={"https://my-event.netlify.com"}
-              />
+        <CSSTransition
+          in={ActiveColumn === "compose"}
+          unmountOnExit
+          timeout={300}
+        >
+          <div>
+            <div style={{ textAlign: "right" }}>
+              <Hover
+                onClick={() => setActiveColumn("overview")}
+                style={{ padding: "0rem 0.5rem" }}
+              >
+                <FiX style={{ fontSize: "1.7rem" }} />
+              </Hover>
             </div>
-          </CSSTransition>
-
-          <CSSTransition
-            in={ActiveColumn === "compose"}
-            unmountOnExit
-            timeout={300}
-          >
-            <div>
-              <div style={{ textAlign: "right" }}>
-                <CustomButton onClick={() => setActiveColumn("overview")}>
-                  <Flex>
-                    <Hover style={{ padding: "0rem 0.5rem" }}>
-                      <FiX style={{ fontSize: "1.7rem" }} />
-                    </Hover>
-                    Cancel Composition
-                  </Flex>
-                </CustomButton>
-              </div>
-              <br />
-              <Compose eventName={name} />
-            </div>
-          </CSSTransition>
-        </Body>
+            <br />
+            <Compose eventName={name} />
+          </div>
+        </CSSTransition>
       </Body>
     </div>
   )

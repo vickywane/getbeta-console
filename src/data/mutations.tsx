@@ -378,6 +378,13 @@ const DELETE_TALK: any = gql`
   }
 `
 
+const DELETE_TEAM: any = gql`
+  mutation deleteTeam($teamId: ID!) {
+    deleteTeam(id: $teamId)
+  }
+`
+
+
 const REVIEW_TALK: any = gql`
   mutation updateSubmittedTalk(
     $talkId: Int!
@@ -414,7 +421,7 @@ export const ADD_EVENT_SPONSOR: any = gql`
 export {
   DELETE_EVENT,
   REVIEW_TALK,
-  DELETE_TALK,
+  DELETE_TALK, DELETE_TEAM , 
   CREATE_TALK,
   SUMBIT_TALK,
   CREATE_MEETUP_GROUP,

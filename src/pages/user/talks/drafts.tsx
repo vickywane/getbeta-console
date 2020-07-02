@@ -37,15 +37,18 @@ const List = styled.li`
   background : #fff;
   border-radius : 5px
   box-shadow: 0px 2px 3px grey;
-  margin : 2rem 10rem;
+  margin : 3rem 10rem;
   ${media.lessThan("huge")`
       margin : 2rem 2rem;
   `};
   ${media.lessThan("large")`
-      margin : 1.5rem 2rem;
+      margin : 2rem 2rem;
   `};
   ${media.lessThan("medium")`
-      margin : 1.5rem 2rem;
+    box-shadow: 0px 1px 2px grey;
+    padding : 0.5rem 0.5rem;
+    width : 37rem
+      margin : 2rem 0rem;
   `}
 `
 
@@ -65,10 +68,29 @@ const TagBody = styled.div`
     list-style: none;
     margin: 0rem 1rem;
   }
+  ${media.lessThan("medium")`
+    margin: 0rem 0.5rem;
+  `}
+`
+
+const DraftGrid = styled.div`
+  display: grid;
+  grid-template-columns: 6rem auto;
+  ${media.lessThan("huge")`
+    grid-template-columns: 5rem auto;
+  `}
+  ${media.lessThan("large")`
+    grid-template-columns: 4rem auto;
+  `}
+  ${media.lessThan("medium")`
+  display: flex
+  flex-direction : column
+  align-items : center
+  `}
 `
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState("drafts")
+  const [ActivePage, setActivePage] = useState("drafts") // drafts
   const [draftId, setDraftId] = useState(null)
   const Hooks = useWindowWidth()
 
@@ -82,7 +104,7 @@ const Talks = (): JSX.Element => {
   const [deleteTalk, {}] = useMutation(DELETE_TALK)
 
   useEffect(() => {
-    data === undefined ? console.log("entered talks") : updateDraftId()
+    data !== undefined && updateDraftId()
   }, [data])
 
   const updateDraftId = () => {
@@ -121,11 +143,14 @@ const Talks = (): JSX.Element => {
         page={"Search"}
         searchText={"Search For A Draft"}
       />
-      <br />
+
+      { Hooks >= 700 &&   <br />  }
+
+      
 
       <CSSTransition unmountOnExit in={ActivePage === "drafts"} timeout={300}>
         <Body style={{ background: "#fbfbfb" }} bottomHover>
-          <div style={{ display: "grid", gridTemplateColumns: "5rem auto" }}>
+          <DraftGrid>
             <div
               style={{
                 display: "flex",
@@ -143,7 +168,8 @@ const Talks = (): JSX.Element => {
 
                 <Flex justifyCenter>
                   <Link to="/editor">
-                    <Button long> Create A New Draft </Button>
+                         { Hooks >= 700 ?  "Create A New Draft"   : "New Draft" }
+                   
                   </Link>
                 </Flex>
                 <EmptyData
@@ -166,7 +192,7 @@ const Talks = (): JSX.Element => {
                           <Hover style={{ padding: "0rem 0.7rem" }}>
                             <FiPlus style={{ fontSize: "1.6rem" }} />
                           </Hover>
-                          Create A New Draft
+                          { Hooks >= 700 ?  "Create A New Draft"   : "New Draft" }
                         </Flex>
                       </Button>
                     </Link>
@@ -274,7 +300,7 @@ const Talks = (): JSX.Element => {
                 </Body>
               </div>
             )}
-          </div>
+          </DraftGrid>
         </Body>
       </CSSTransition>
 

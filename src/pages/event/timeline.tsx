@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { FiX, FiClock } from "react-icons/fi"
+import { FiX, FiClock ,  FiArchive } from "react-icons/fi"
 import { AiOutlineHistory } from "react-icons/ai"
 
 import { Hover, Head, Title, Text, Section, Button } from "../../styles/style"
@@ -9,7 +9,7 @@ const Window = styled.div`
   width: auto;
   height: ${window.innerHeight};
   background: #fbfbfb;
-  border-left: 0.3px solid #5f6368;
+  border-left: 0.3px solid #C0C0C0;
 `
 
 const List = styled.li`
@@ -83,8 +83,13 @@ const Timeline = props => {
             }}
             long
           >
+          <div style={{display : 'flex'}} >
+          <Hover style={{margin : '0rem 0.7rem'}} >
+            <FiArchive style={{fontSize : '1.5rem'}} />            
+          </Hover>
             View Event Archive{" "}
-          </Button>{" "}
+            </div>
+          </Button>
         </div>
       )}
     </Window>

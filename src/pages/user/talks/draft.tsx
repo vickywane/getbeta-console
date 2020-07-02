@@ -5,13 +5,15 @@ import {
   FiMail,
   FiClock,
   FiCheck,
-  FiCalendar, FiEdit , 
+  FiCalendar,
+  FiEdit,
   FiArrowLeft,
 } from "react-icons/fi"
+import { GrAttachment } from "react-icons/gr"
 import styled from "styled-components"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import ReactMarkdown from "react-markdown"
-
+ 
 import { Header, Footer, Loader } from "../../../components/"
 import { GET_TALK } from "../../../data/queries"
 import {
@@ -31,7 +33,7 @@ const List = styled.li`
 `
 
 const Padded = styled(Contain)`
-  padding: 2rem 15rem;
+  padding: 1rem 15rem;
 `
 
 const Draft = (props): JSX.Element => {
@@ -39,7 +41,7 @@ const Draft = (props): JSX.Element => {
 
   const { loading, error, data } = useQuery(GET_TALK, {
     variables: {
-      id: draftId,
+      id: draftId  //78949600, // 
     },
   })
 
@@ -68,7 +70,7 @@ const Draft = (props): JSX.Element => {
   } = data.talk
   return (
     <div key={id}>
-      <Head header  style={{padding : '1.5rem 2rem'}} >
+      <Head header style={{ padding: "1.5rem 2rem" }}>
         <Flex>
           <Link to="/drafts">
             <Hover style={{ padding: "0rem 0.7rem" }}>
@@ -78,22 +80,32 @@ const Draft = (props): JSX.Element => {
           <Section>Drafts</Section>
         </Flex>
 
-         <Flex>
-          <Link to="/drafts">
-            <Hover style={{ padding: "0rem 0.7rem" }}>
-              <FiEdit style={{ fontSize: "1.8rem" }} />
-            </Hover>
-          </Link>
-          <Section>Edit</Section>
+        <Flex>
+          <div style={{ display: "flex", margin: "0rem 1rem" }}>
+            <Link to="/drafts">
+              <Hover style={{ padding: "0rem 0.7rem" }}>
+                <FiEdit style={{ fontSize: "1.7rem" }} />
+              </Hover>
+            </Link>
+            <Section>Edit</Section>
+          </div>
+
+          <div style={{ display: "flex", margin: "0rem 1rem" }}>
+            <Link to="/drafts">
+              <Hover style={{ padding: "0rem 0.7rem" }}>
+                <FiEdit style={{ fontSize: "1.7rem" }} />
+              </Hover>
+            </Link>
+            <Section>Reviews</Section>
+          </div>
         </Flex>
       </Head>
-      <br />
+
       <Padded>
-        <BigTitle center> {title}</BigTitle>
         <Flex justifyBetween>
           <Flex>
-            <Hover style={{ padding: "0rem 0.7rem", color: "grey" }}>
-              <FiCalendar style={{ fontSize: "1.8rem" }} />
+            <Hover style={{ padding: "0rem 0.5rem", color: "grey" }}>
+              <FiCalendar style={{ fontSize: "1.7rem" }} />
             </Hover>
 
             <Text small color="grey">
@@ -102,8 +114,8 @@ const Draft = (props): JSX.Element => {
           </Flex>
 
           <Flex>
-            <Hover style={{ padding: "0rem 0.7rem", color: "grey" }}>
-              <FiClock style={{ fontSize: "1.8rem" }} />
+            <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
+              <FiClock style={{ fontSize: "1.7rem" }} />
             </Hover>
 
             <Text small color="grey">
@@ -111,7 +123,9 @@ const Draft = (props): JSX.Element => {
             </Text>
           </Flex>
         </Flex>
+
         <br />
+        <BigTitle> {title}</BigTitle>
         <div
           style={{
             padding: "1rem 1rem",
@@ -121,16 +135,35 @@ const Draft = (props): JSX.Element => {
           }}
         >
           <Text>
-            <ReactMarkdown source={summary} />     
-           </Text>
-          <br />
+            <ReactMarkdown source={summary} />
+          </Text>
         </div>
-
-        <br />
 
         <Text>
           <ReactMarkdown source={description} />{" "}
         </Text>
+        <br />
+
+        <div
+          style={{
+            padding: "1rem 1rem",
+            margin: "2rem 0.5rem",
+            background: "#fbfbfb",
+          }}
+        >
+          <Flex>
+            <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
+              <GrAttachment style={{ fontSize: "1.6rem" }} />
+            </Hover>
+
+            <Section>Attachments ( 0 Kb )</Section>
+          </Flex>
+
+          <Text small center color="grey">
+            {" "}
+            No file has been attached to this talk draft.{" "}
+          </Text>
+        </div>
       </Padded>
     </div>
   )

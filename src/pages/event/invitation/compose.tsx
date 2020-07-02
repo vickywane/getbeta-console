@@ -36,7 +36,7 @@ const Message = styled.div`
   flex: 1;
   border-radius: 5px;
   padding: 0.5rem 2rem;
-  margin: 0rem 5rem;
+  margin: 0rem 3rem;
   ${media.lessThan("huge")`
     padding: 0.5rem 3rem;
     margin: 0rem 3rem;
