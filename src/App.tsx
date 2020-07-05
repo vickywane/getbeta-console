@@ -41,11 +41,6 @@ function App(props): JSX.Element {
     return <ResolutionError />
   }
 
-  // since auth has not been perfectly setup
-  if (localStorage.getItem("user_id") === null) {
-    return <Signin />
-  }
-
   return (
     <Router history={History}>
       <GlobalStyles />

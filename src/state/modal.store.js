@@ -136,7 +136,7 @@ class ModalStore {
   }
 
   // welcome modal
-  showWelcomeModal = true
+  @persist showWelcomeModal = true
 
   closeWelcomeModal = () => {
     this.showWelcomeModal = false
@@ -320,6 +320,7 @@ const DecoratedModalStore = decorate(ModalStore, {
 })
 
 export const store =  new DecoratedModalStore()
+hydrate('modal-store', store).then(() => console.log('modal-store has been hydrated'))
 // hydrate("modal-nstore", store)
   // .then(() => console.log("hydrated"))
   // .catch(e => console.log(e))
