@@ -13,7 +13,7 @@ class ModalStore {
   }
   // =================================>
 
-  showInvitationInstruction = false
+  showInvitationInstruction = true
 
   openInvitationInstruction = () => {
     this.showInvitationInstruction = true
@@ -34,7 +34,7 @@ class ModalStore {
   }
 
   //
-  showTeamInstruction = false
+  showTeamInstruction = true
 
   openTeamInstruction = () => {
     this.showTeamInstruction = true
@@ -44,7 +44,7 @@ class ModalStore {
     this.showTeamInstruction = false
   }
 
-  welcomeEventModal = false
+  welcomeEventModal = true
 
   showWelcomeEventModal = () => {
     this.welcomeEventModal = true
@@ -58,7 +58,7 @@ class ModalStore {
 
   // WelcomeMeetupGroupsModal
 
-  WelcomeMeetupGroupsModal = false
+  WelcomeMeetupGroupsModal = true
 
   showWelcomeMeetupGroupsModal = () => {
     this.WelcomeMeetupGroupsModal = true
