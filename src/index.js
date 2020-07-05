@@ -18,6 +18,8 @@ const theme = {
 
 ReactDOM.render(<Main />, document.getElementById("root"))
 
+console.log(process.env.REACT_APP_GRAPHQL_ENDPOINT)
+
 export default Main
 
 // If you want your app to work offline and load faster, you can change

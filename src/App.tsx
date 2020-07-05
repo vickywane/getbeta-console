@@ -33,7 +33,10 @@ import { GlobalStyles } from "./styles/global"
 import { ResolutionError } from "./components/"
 
 const History = createBrowserHistory()
-function App(props): JSX.Element {
+
+console.log(process.env.REACT_APP_GRAPHQL_ENDPOINT)
+
+const App = (props): JSX.Element => {
   const { authenticated } = props.AuthStore
   const Hooks = useWindowWidth()
 
