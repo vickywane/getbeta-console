@@ -1,9 +1,11 @@
 import { action, observable, decorate } from "mobx"
+import { hydrate, persist } from "mobx-persist"
 
 class ModalStore {
   //move this into a seperate store
   EventId = null
   EventType = null
+
 
   setEventId = (id, type) => {
     this.EventId = id
@@ -13,19 +15,17 @@ class ModalStore {
 
   showInvitationInstruction = false
 
-
   openInvitationInstruction = () => {
     this.showInvitationInstruction = true
   }
 
   closeInvitationInstruction = () => {
     this.showInvitationInstruction = false
-  }
+}
 
   showTaskDetail = false
 
   openTaskDetail = () => {
-    console.log("invoked")
     this.showTaskDetail = true
   }
 
@@ -136,7 +136,7 @@ class ModalStore {
   }
 
   // welcome modal
-  showWelcomeModal = false
+  showWelcomeModal = true
 
   closeWelcomeModal = () => {
     this.showWelcomeModal = false
@@ -164,7 +164,7 @@ class ModalStore {
   }
 
   // bug / crash reporter
-  showCrashReporter = false
+  showCrashReporter = true
   openCrashReporter = () => {
     this.showCrashReporter = true
   }
@@ -223,10 +223,9 @@ class ModalStore {
 }
 
 const DecoratedModalStore = decorate(ModalStore, {
-
-  showInvitationInstruction : observable, 
-  closeInvitationInstruction : observable, 
-  openInvitationInstruction: observable, 
+  showInvitationInstruction: observable,
+  closeInvitationInstruction: observable,
+  openInvitationInstruction: observable,
 
   showTaskDetail: observable,
   closeTaskDetail: action,
@@ -320,6 +319,9 @@ const DecoratedModalStore = decorate(ModalStore, {
   closeEditModal: action,
 })
 
-const store = new DecoratedModalStore()
+export const store =  new DecoratedModalStore()
+// hydrate("modal-nstore", store)
+  // .then(() => console.log("hydrated"))
+  // .catch(e => console.log(e))
 
-export default store
+// export default store

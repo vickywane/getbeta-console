@@ -17,28 +17,28 @@ import Overview from "./invitation/overview"
 import Archive from "./archive/itetations"
 
 import EventModal from "./eventModal"
-import { Loader, Header } from "../../components/"
+import { Header, Loader } from "../../components/"
 import MeetupTabComponents from "./meetupTabComponents"
 import MeetupAdmin from "./meetups/adminPane"
 import ConferenceTab from "../../components/tabs/conference.tab"
-import { Contain, Text, Button } from "../../styles/style"
+import { Contain } from "../../styles/style"
 import {
+  AccessModal,
+  BugModal,
   Checklist,
   Contact,
   CreateTrack,
   PapersModal,
-  BugModal,
-  AccessModal,
 } from "../../components/modals/"
 import AttendPane from "../../components/panes/attend.pane"
 import useWindowWidth from "../../hook_style"
 import {
-  TabContext,
   AdminContext,
   AdminTabState,
+  TabContext,
   TabState,
 } from "../../state/context/contextState"
-import { TabReducer, AdminTabReducer } from "../../state/context/reducers"
+import { AdminTabReducer, TabReducer } from "../../state/context/reducers"
 import { GET_EVENT } from "../../data/queries"
 import EventDetails from "./eventdetails"
 import Store from "./store/store"
@@ -52,11 +52,11 @@ const EventGrid = styled.div`
   display: grid;
   grid-gap: 0rem;
   grid-template-columns: ${props =>
-    props.permission ? "16rem auto 21rem" : "auto 23rem"} ;
+  props.permission ? "16rem auto 21rem" : "auto 23rem"} ;
   transition  : all 300ms;
   ${media.lessThan("huge")`
       grid-template-columns: ${props =>
-        props.permission ? "16rem auto" : "78% auto"};
+  props.permission ? "16rem auto" : "78% auto"};
 `} 
   ${media.lessThan("large")`
  grid-template-columns: ${props => (props.permission ? "5rem auto" : "100%")};
@@ -98,7 +98,7 @@ const Event = (props): JSX.Element => {
   })
 
   if (loading) {
-    return <Loader type={"loading"} />
+    return <Loader type={"loading"}/>
   }
 
   if (error) {
@@ -119,19 +119,17 @@ const Event = (props): JSX.Element => {
     const meetupGroupLength =
       data.event.meetupGroups === null ? 0 : data.event.meetupGroups.length
 
-      console.log(EventType)
-
     return (
       <TabContext.Provider value={TabState}>
-        <Header event={Hooks >= 900 ? data.event.name : data.event.alias} />
+        <Header event={Hooks >= 900 ? data.event.name : data.event.alias}/>
 
-        <br />
-        <EventModal />
-        <Checklist />
-        <PapersModal data={data.event} />
-        <Contact email={data.event.Email} />
-        <CreateTrack EventID={data.event.id} />
-        <BugModal />
+        <br/>
+        <EventModal/>
+        <Checklist/>
+        <PapersModal data={data.event}/>
+        <Contact email={data.event.Email}/>
+        <CreateTrack EventID={data.event.id}/>
+        <BugModal eventId={data.event.id}/>
         <AccessModal
           closeAccessModal={closeAccessModal}
           accessModal={accessModal}
@@ -184,7 +182,7 @@ const Event = (props): JSX.Element => {
               >
                 <div style={{ overflow: "hidden" }}>
                   {meetupGroupLength > 0 ? null : (
-                    <AttendPane permission={permission} event={data.event} />
+                    <AttendPane permission={permission} event={data.event}/>
                   )}
 
                   {EventType === "Conference" ? (
@@ -277,7 +275,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "mobile"}
               >
-                <Mobile />
+                <Mobile/>
               </CSSTransition>
               <CSSTransition
                 timeout={300}
@@ -285,7 +283,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "invitation"}
               >
-                <Overview data={data} />
+                <Overview data={data}/>
               </CSSTransition>
               <CSSTransition
                 timeout={300}
@@ -293,7 +291,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "schedule"}
               >
-                <Schedule data={data} />
+                <Schedule data={data}/>
               </CSSTransition>
               <CSSTransition
                 timeout={300}
@@ -301,7 +299,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "edit"}
               >
-                <EditEvent eventData={data} />
+                <EditEvent eventData={data}/>
               </CSSTransition>
               <CSSTransition
                 timeout={300}
@@ -309,7 +307,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "access"}
               >
-                <Access />
+                <Access/>
               </CSSTransition>
               <CSSTransition
                 timeout={300}
@@ -317,7 +315,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "team"}
               >
-                <TeamList data={data.event} />
+                <TeamList data={data.event}/>
               </CSSTransition>
               <CSSTransition
                 timeout={300}
@@ -325,7 +323,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "store"}
               >
-                <Store data={data} />
+                <Store data={data}/>
               </CSSTransition>
 
               <CSSTransition
@@ -334,7 +332,7 @@ const Event = (props): JSX.Element => {
                 unmountOnExit
                 in={state.activeTab === "archive"}
               >
-                <Archive data={data} />
+                <Archive data={data}/>
               </CSSTransition>
             </AdminContext.Provider>
           </div>

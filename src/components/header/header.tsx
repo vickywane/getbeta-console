@@ -90,6 +90,7 @@ const Header = (props): JSX.Element => {
         {hooks >= 720 ? (
           <div
             style={{
+              fontFamily : "Fira Code Retina",
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
@@ -100,20 +101,22 @@ const Header = (props): JSX.Element => {
                 target={"_blank"}
                 href="https://my-event.netlify.com"
               >
-                Oasis
+                OASIS
               </HeaderLinks>
-              <Link
-                to="/console"
-                style={{
-                  paddingLeft: "10px",
-                  color: "white",
-                  textDecoration: "none",
-                  fontSize: "1.4em",
-                  paddingTop: "7px",
-                }}
-              >
-                | Home
-              </Link>
+
+
+              { props.screen !== "home" && <Link
+                              to="/console"
+                              style={{
+                                paddingLeft: "10px",
+                                color: "white",
+                                textDecoration: "none",
+                                fontSize: "1.4em",
+                              }}
+                            >
+                              | Home
+                            </Link>}
+
             </div>
 
             <HeaderLinks

@@ -9,8 +9,8 @@ import {
   Hover,
   Title,
   Text,
-  Section,
   Head,
+  Section,
   Button,
   Contain,
   Tab,
@@ -18,6 +18,7 @@ import {
 } from "../../../styles/style"
 import ProductItem from "./productItem"
 import Products from "./products"
+import Orders from "./orders"
 
 const List = styled.li`
   list-style: none;
@@ -44,6 +45,12 @@ const Grid = styled.div`
   display : grid;
   grid-gap : 1rem 1rem
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+`
+
+const Heads = styled.li`
+  list-style: none;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
 `
 
 const Store = props => {
@@ -84,7 +91,9 @@ const Store = props => {
         {props.data.event.cart_items_category === null ? (
           <p> . </p>
         ) : (
-          <Button onClick={() => openCartItemModal()}> Add Item</Button>
+          ActiveTab !== "orders" && (
+            <Button onClick={() => openCartItemModal()}> Add Item</Button>
+          )
         )}
       </Head>
 
@@ -108,26 +117,7 @@ const Store = props => {
           unmountOnExit
           classNames={""}
         >
-          <div>
-            <Head>
-              <Text style={{ fontWeight: "550" }}>Name</Text>
-
-              <Text style={{ fontWeight: "550" }}>Item Id</Text>
-
-              <Text style={{ fontWeight: "550" }}>Purchase Date</Text>
-
-              <Text style={{ fontWeight: "550" }}>Quantity</Text>
-              <Text style={{ fontWeight: "550" }}>Price</Text>
-            </Head>
-
-            <Flex justifyBetween>
-              <Text> Somebody S. Somebody </Text>
-              <Text> #264063500 </Text>
-              <Text> 12-12-12 Fri </Text>
-              <Text> 12 </Text>
-              <Text> $125 </Text>
-            </Flex>
-          </div>
+          <Orders />
         </CSSTransition>
       </div>
     </div>

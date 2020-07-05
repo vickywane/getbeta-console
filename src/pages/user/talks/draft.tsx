@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Flex from "styled-flex-component"
 import { Link } from "react-router-dom"
 import {
@@ -7,17 +7,23 @@ import {
   FiCheck,
   FiCalendar,
   FiEdit,
+  FiPlus,
+  FiTrash2,
   FiArrowLeft,
 } from "react-icons/fi"
 import { GrAttachment } from "react-icons/gr"
 import styled from "styled-components"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import ReactMarkdown from "react-markdown"
- 
+import { IoIosPeople } from "react-icons/io"
+
+import Fields from "../../forms/fields"
+import Review from "./review"
 import { Header, Footer, Loader } from "../../../components/"
 import { GET_TALK } from "../../../data/queries"
 import {
   Contain,
+  Input,
   Body,
   Text,
   Head,
@@ -32,19 +38,107 @@ const List = styled.li`
   list-style: none;
 `
 
-const Padded = styled(Contain)`
-  padding: 1rem 15rem;
+const Circle = styled.div`
+  height: 40px;
+  width: 40px;
+  margin: 0.3rem 0.5rem;
+  background-color: ${props => props.background};
+  border-radius: 50%;
+  box-shadow: 0px 1px 2px grey;
+  display: inline-block;
+`
+
+const IdeaCard = styled.div`
+    box-shadow: 0px 2px 4px grey;
+    padding: 1rem 1rem;
+    background: ${props => (props.CardColor ? props.CardColor : "#fff")}
+    border-radius: 7px;
+    margin: 0rem 1rem;
+    transition : all 400ms;
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+  `
+
+const Dashes = styled.div`
+  margin: 0.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  div {
+    width: 1rem;
+    height: 8vh;
+    border-right: 5px dashed grey;
+  }
+`
+
+const HoverCircle = styled(Hover)`
+  background: #c0c0c0;
+  border-radius: 50%;
+  padding: 0.7rem 0.7rem;
+  margin: 0px;
 `
 
 const Draft = (props): JSX.Element => {
+  const [reviewPane, openReviewPane] = useState<boolean>(false)
+  const [isEditing, startEditing] = useState<boolean>(false)
+  const [isEditingCard, startEditingCard] = useState<boolean>(false)
   const { draftId } = props
+
+  const [CardColor, setCardColor] = useState<string>(null)
+  const [CardTextColor, setCardTextColor] = useState<string>(null)
+
+  const Padded = styled(Contain)`
+    tramsition : all 300ms;
+    overflow : auto;
+    height : ${window.innerHeight - 300}
+    padding: ${props => (props.reviewOpen ? "1rem 3rem" : "1rem 15rem")};
+  `
+
+  const Grid = styled.div`
+    display: grid;
+    tramsition: all 300ms;
+    grid-gap: ${props => props.reviewOpen && "0rem 1rem"};
+    grid-template-columns: ${props => props.reviewOpen && "auto 30rem"};
+  `
+
+  const colors = [
+    {
+      color: "red",
+    },
+    {
+      color: "violet",
+    },
+    {
+      color: "green",
+    },
+    {
+      color: "yellow",
+    },
+    {
+      color: "blue",
+    },
+    {
+      color: "white",
+    },
+  ]
+
+  const handleInputs = (value, label) => {
+    switch (label) {
+      case "Draft Title":
+        break
+      case "Draft Body":
+        break
+      default:
+        break
+    }
+  }
 
   const { loading, error, data } = useQuery(GET_TALK, {
     variables: {
-      id: draftId  //78949600, // 
+      id: draftId //176676800
     },
   })
-
   if (error) {
     console.log(error)
     return <Loader type={"error"} />
@@ -54,9 +148,7 @@ const Draft = (props): JSX.Element => {
     return <Loader type={"loading"} />
   }
 
-  // window.onscroll = () => {
-  //   alert('scrolled')
-  // }
+  const ideas = [{ id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }]
 
   const {
     title,
@@ -68,9 +160,32 @@ const Draft = (props): JSX.Element => {
     createdAt,
     duration,
   } = data.talk
+
+  const colorFunc = color => {
+    switch (color) {
+      case "violet":
+        setCardTextColor("#fff")
+        break
+      case "red":
+        setCardTextColor("#fff")
+        break
+      case "blue":
+        setCardTextColor("#fff")
+        break
+        case "yellow":
+        setCardTextColor("#0e2f5a")
+        break
+            case "white":
+        setCardTextColor("#0e2f5a")
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div key={id}>
-      <Head header style={{ padding: "1.5rem 2rem" }}>
+      <Head header style={{ padding: "1rem 0rem 0.1rem 2rem" }}>
         <Flex>
           <Link to="/drafts">
             <Hover style={{ padding: "0rem 0.7rem" }}>
@@ -81,90 +196,187 @@ const Draft = (props): JSX.Element => {
         </Flex>
 
         <Flex>
-          <div style={{ display: "flex", margin: "0rem 1rem" }}>
+          <div
+            onClick={() => startEditing(!isEditing)}
+            style={{ display: "flex", cursor: "pointer", margin: "0rem 1rem" }}
+          >
             <Link to="/drafts">
               <Hover style={{ padding: "0rem 0.7rem" }}>
-                <FiEdit style={{ fontSize: "1.7rem" }} />
+                <FiEdit style={{ fontSize: "1.6rem" }} />
               </Hover>
             </Link>
-            <Section>Edit</Section>
+            <Text>Edit</Text>
           </div>
 
-          <div style={{ display: "flex", margin: "0rem 1rem" }}>
+          <div
+            onClick={() => openReviewPane(!reviewPane)}
+            style={{ cursor: "pointer", display: "flex", margin: "0rem 1rem" }}
+          >
             <Link to="/drafts">
               <Hover style={{ padding: "0rem 0.7rem" }}>
-                <FiEdit style={{ fontSize: "1.7rem" }} />
+                <IoIosPeople style={{ fontSize: "1.7rem" }} />
               </Hover>
             </Link>
-            <Section>Reviews</Section>
+            <Text>Reviews</Text>
           </div>
         </Flex>
       </Head>
 
-      <Padded>
-        <Flex justifyBetween>
-          <Flex>
-            <Hover style={{ padding: "0rem 0.5rem", color: "grey" }}>
-              <FiCalendar style={{ fontSize: "1.7rem" }} />
-            </Hover>
+      <Grid reviewOpen={reviewPane}>
+        <Padded reviewOpen={reviewPane}>
+          <Flex justifyBetween>
+            <Flex>
+              <Hover style={{ padding: "0rem 0.5rem", color: "grey" }}>
+                <FiCalendar style={{ fontSize: "1.7rem" }} />
+              </Hover>
 
-            <Text small color="grey">
-              {createdAt}{" "}
+              <Text small color="grey">
+                {createdAt}
+              </Text>
+            </Flex>
+
+            <Flex>
+              <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
+                <FiClock style={{ fontSize: "1.7rem" }} />
+              </Hover>
+
+              <Text small color="grey">
+                {duration}{" "}
+              </Text>
+            </Flex>
+          </Flex>
+
+          <br />
+
+          {isEditing ? (
+            <Fields
+              name="Draft Title"
+              id={1}
+              placeholder={title}
+              textarea={false}
+              value={title}
+              type="text"
+              onChange={e => handleInputs(e, "Draft Title")}
+            />
+          ) : (
+            <BigTitle> {title}</BigTitle>
+          )}
+
+          <div
+            style={{
+              padding: "1rem 1rem",
+              margin: "2rem 0.5rem",
+              borderLeft: "5px solid  #0e2f5a ",
+              background: "#fbfbfb",
+            }}
+          >
+            <Text>
+              <ReactMarkdown source={summary} />
             </Text>
-          </Flex>
+          </div>
+          <br />
 
-          <Flex>
-            <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
-              <FiClock style={{ fontSize: "1.7rem" }} />
-            </Hover>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex" }}>
+              <Title small> Ideas ( {ideas.length} ) </Title>
 
-            <Text small color="grey">
-              {duration}{" "}
+              <HoverCircle style={{ margin: "0rem 0.5rem" }}>
+                <FiPlus style={{ fontSize: "1.6rem", color: "#fff" }} />
+              </HoverCircle>
+            </div>
+
+            <Button>Sort</Button>
+          </div>
+          <hr />
+          {ideas.map(() => {
+            return (
+              <div>
+                <IdeaCard CardColor={CardColor}>
+                  <div>
+                    <Title style={{ color: "#0e2f5a" }} small>
+                      {" "}
+                      #Introduction{" "}
+                    </Title>
+
+                    <div>
+                      <Hover
+                        onClick={() => startEditingCard(!isEditingCard)}
+                        style={{ margin: "0rem 1rem" }}
+                      >
+                        <FiEdit style={{ fontSize: "1.6rem" }} />
+                      </Hover>
+
+                      <Hover style={{ margin: "0rem 1rem" }}>
+                        <FiTrash2 style={{ fontSize: "1.6rem" }} />
+                      </Hover>
+                    </div>
+                  </div>
+
+                  <hr />
+                  <Text
+                    style={{
+                      textIndent: "30px",
+                      color: CardTextColor === null ? "#000" : CardTextColor,
+                    }}
+                  >
+                    <ReactMarkdown source={description} />
+                  </Text>
+                  {isEditingCard && (
+                    <div>
+                      {colors.map(({  color }) => {
+                        return (
+                          <div>
+                            <hr />
+
+                            <Circle
+                            style={{ border : CardColor === color && '3px solid black'  }}
+                              onClick={() => {
+                                setCardColor(color)
+                                colorFunc(color)
+                              }}
+                              background={color}
+                            />
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                </IdeaCard>
+
+                <Dashes>
+                  <div />
+                  <div />
+                </Dashes>
+              </div>
+            )
+          })}
+
+          <br />
+
+          <div
+            style={{
+              padding: "1rem 1rem",
+              margin: "2rem 0.5rem",
+              background: "#fbfbfb",
+            }}
+          >
+            <Flex>
+              <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
+                <GrAttachment style={{ fontSize: "1.6rem" }} />
+              </Hover>
+
+              <Section>Attachments ( 0 Kb )</Section>
+            </Flex>
+
+            <Text small center color="grey">
+              No file has been attached to this talk draft. <br /> Drag 'n' drop
+              files to upload
             </Text>
-          </Flex>
-        </Flex>
+          </div>
+        </Padded>
 
-        <br />
-        <BigTitle> {title}</BigTitle>
-        <div
-          style={{
-            padding: "1rem 1rem",
-            margin: "2rem 0.5rem",
-            borderLeft: "5px solid  #0e2f5a ",
-            background: "#fbfbfb",
-          }}
-        >
-          <Text>
-            <ReactMarkdown source={summary} />
-          </Text>
-        </div>
-
-        <Text>
-          <ReactMarkdown source={description} />{" "}
-        </Text>
-        <br />
-
-        <div
-          style={{
-            padding: "1rem 1rem",
-            margin: "2rem 0.5rem",
-            background: "#fbfbfb",
-          }}
-        >
-          <Flex>
-            <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
-              <GrAttachment style={{ fontSize: "1.6rem" }} />
-            </Hover>
-
-            <Section>Attachments ( 0 Kb )</Section>
-          </Flex>
-
-          <Text small center color="grey">
-            {" "}
-            No file has been attached to this talk draft.{" "}
-          </Text>
-        </div>
-      </Padded>
+        {reviewPane && <Review />}
+      </Grid>
     </div>
   )
 }

@@ -8,13 +8,8 @@ import Client from "./data/config"
 import App from "./App"
 
 import "./App.css"
-import {
-  ConsoleStore,
-  PaneStore,
-  MediaStore,
-  AuthStore,
-  ModalStore,
-} from "./state/"
+import { ConsoleStore, PaneStore, MediaStore, AuthStore } from "./state/"
+import { store as  ModalStore } from "./state/modal.store"
 
 // i would work on the theming later!!
 const theme = {

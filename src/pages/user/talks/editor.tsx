@@ -107,7 +107,7 @@ const Editor = props => {
           <br />
           <Text style={{ padding: "0rem 1.5rem" }}>
             Drafts can be used as talk proposals when applying to speak during
-            events.
+          events.
           </Text>
           <Body>
             {CREATE_TALK_DRAFT.map(
@@ -127,9 +127,6 @@ const Editor = props => {
 
             <br />
             <div>
-
-              {JSON.stringify(Tags)}
-
               <TagBody>
                 {Tags.map(string => {
                   return <li> {string} </li>
@@ -138,7 +135,7 @@ const Editor = props => {
               <hr />
               <Fields
                 id={4}
-                name="Tags"
+                name="Draft Tags"
                 textarea={false}
                 placeholder="Value tags from draft content"
                 type="text"

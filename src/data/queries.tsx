@@ -1,5 +1,19 @@
 import { gql } from "apollo-boost"
 
+export const GET_USER_REMINDERS: any = gql`
+  query get_user($id: Int!, $name: String!) {
+    user(id: $id, name: $name) {
+      id
+      reminders {
+        name
+        from
+        due
+        id
+      }
+    }
+  }
+`
+
 const USERS: any = gql`
   query users {
     users {
@@ -210,6 +224,20 @@ const GET_EVENT: any = gql`
   }
 `
 
+export const GET_EVENT_ATTENDEES: any = gql`
+  query GET_EVENT($id: Int!, $name: String!) {
+    event(id: $id, name: $name) {
+      attendees {
+        dateJoined
+        user {
+          name
+          email
+        }
+      }
+    }
+  }
+`
+
 const EVENTS: any = gql`
   query events {
     events {
@@ -315,8 +343,8 @@ const TALKS: any = gql`
 `
 
 const GET_VOLUNTEERS: any = gql`
-  query get_volunteers($eventId : Int!) {
-    volunteers(EventID : $eventId ) {
+  query get_volunteers($eventId: Int!) {
+    volunteers(EventID: $eventId) {
       role
       approvalStatus
       duration

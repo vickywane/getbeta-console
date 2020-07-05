@@ -384,7 +384,6 @@ const DELETE_TEAM: any = gql`
   }
 `
 
-
 const REVIEW_TALK: any = gql`
   mutation updateSubmittedTalk(
     $talkId: Int!
@@ -418,10 +417,46 @@ export const ADD_EVENT_SPONSOR: any = gql`
   }
 `
 
+export const CREATE_BUG_REPORT = gql`
+  mutation CreateBugReport(
+    $userId: Int!
+    $eventId: Int!
+    $title: String!
+    $status: String!
+    $description: String!
+  ) {
+    createBugReport(
+      userId: $userId
+      eventId: $eventId
+      input: { title: $title, description: $description, status: $status }
+    ) {
+      id
+    }
+  }
+`
+
+export const CREATE_FEATURE_REQUEST = gql`
+  mutation createFeatureRequest(
+    $userId: Int!
+    $eventId: Int!
+    $title: String!
+    $description: String!
+  ) {
+    createFeatureRequest(
+      userId: $userId
+      eventId: $eventId
+      input: { title: $title, description: $description }
+    ) {
+      id
+    }
+  }
+`
+
 export {
   DELETE_EVENT,
   REVIEW_TALK,
-  DELETE_TALK, DELETE_TEAM , 
+  DELETE_TALK,
+  DELETE_TEAM,
   CREATE_TALK,
   SUMBIT_TALK,
   CREATE_MEETUP_GROUP,

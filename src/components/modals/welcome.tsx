@@ -17,9 +17,10 @@ import {
 
 import "../../App.css"
 
-const Welcome = props => {
+const Welcome = (props): JSX.Element => {
   const { showWelcomeModal, closeWelcomeModal } = props.ModalStore
   const [show, setShow] = React.useState(showWelcomeModal)
+  const { username } = props
 
   return (
     <CSSTransition
@@ -49,34 +50,40 @@ const Welcome = props => {
                 style={{
                   textAlign: "right",
                   cursor: "pointer",
-                  padding: "2rem 2rem",
+                  padding: "1rem 2rem",
                 }}
               >
                 Skip
               </Text>
 
-              <Title bold>Hi There, </Title>
+              <Title bold>Hi {username} , </Title>
 
               <Flex justifyCenter>
                 <img
                   alt="Congratulations hat"
-                  style={{ height: "auto", maxWidth: "25%" }}
+                  style={{ height: "auto", maxWidth: "20%" }}
                   src={require("../../assets/images/party-hat.png")}
                 />
               </Flex>
               <Body>
                 <Title center bold>
-                  Welcome To Oasis 
+                  Welcome To Oasis!
                 </Title>
                 <Text small>
-                  Welcome to the Oasis, here are our terms and conditions here
-                  are our terms and conditions here are our terms and conditions
-                  here are our terms and conditions here are our terms and
+                  We are stoked to see you join Oasis in imporving the event
+                  experience as an end user.
                   <br />
                   <br />
-                  Welcome to the Oasis, here are our terms and conditions here
-                  are our terms and conditions here are our terms and conditions
-                  here are our terms and conditions here are our terms and
+                   We aim to improve events by
+                  providing a means for Small and Large Conferences, Meetups and
+                  groups to leverage our Open Sourced platform in making their
+                  event public and fully managed.
+                  <br />
+
+                  <br />
+                  While not organizing events, you can leverage Oasis to create
+                  and review your personal talk drafts. These drafts can be
+                  submitted to events when applying as a Speaker.
                   <br />
                 </Text>
               </Body>
@@ -84,7 +91,7 @@ const Welcome = props => {
               <Flex justifyCenter>
                 <Button
                   long
-                    onClick={() => closeWelcomeModal(!showWelcomeModal)}
+                  onClick={() => closeWelcomeModal(!showWelcomeModal)}
                 >
                   I understand{" "}
                 </Button>

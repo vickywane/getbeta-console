@@ -13,7 +13,7 @@ const SettingsBody = styled.div`
   position: absolute;
   padding: 0.7rem 0rem;
   box-shadow: 0px 2px 4px grey;
-  margin: 1.1rem 0rem;
+  margin: 1.1rem 0rem
   height: 23vh;
   transform: translateX(-15%);
   border-radius: 6px;

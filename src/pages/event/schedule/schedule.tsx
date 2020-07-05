@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import Flex from "styled-flex-component"
-import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { inject, observer } from "mobx-react"
 import { CSSTransition } from "react-transition-group"
@@ -9,14 +8,12 @@ import { FiClock, FiMoreVertical , FiSearch } from "react-icons/fi"
 import Proposals from "./proposals"
 import Talks from "./talks"
 import { GET_EVENT_TALK } from "../../../data/queries"
-import { Panes, Header, Footer, Loader } from "../../../components/"
 import { EmptyData } from "../../../components/placeholders"
 
 import {
   Grid,
   Text,
   Body,
-  Contain,
   Head,
   Hover,
   Section,
@@ -37,6 +34,7 @@ const Schedule = props => {
   const [TalkApproval, setTalkApproval] = useState(false)
 
   const { data, loading, error } = useQuery(GET_EVENT_TALK, {
+    pollInterval  : 2000,
     variables: {
       eventId: id,
       name: "",
@@ -52,20 +50,18 @@ const Schedule = props => {
   }
 
   if (data) {
+
+    console.log(data)
+
     const { draft, id , talk } = data.event
 
     const userId = localStorage.getItem("user_id")
     const creator = createdBy === null ? 1 : createdBy[0].id
     const permission = creator == userId
 
-
-    console.log(data.event.talk)
     const TracksNo = tracks === null ? "0" : tracks.length
     const ApprovedTalks = talk === null ? "0" : talk.filter(talk => talk.isAccepted)
     const UnApprovedTalks = talk === null ? "0" : talk.filter(talk => !talk.isAccepted)
-
-    console.table([ApprovedTalks , UnApprovedTalks])
-
 
     return (
       <div>
@@ -169,6 +165,9 @@ const Schedule = props => {
           </Body>
         ) : (
           <Body>
+
+            {loading && <p> loading ... </p>}
+
             <CSSTransition
               unmountOnExit
               in={ActiveView === "Overview"}

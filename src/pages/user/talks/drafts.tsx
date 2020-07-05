@@ -14,6 +14,7 @@ import styled from "styled-components"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
 import media from "styled-media-query"
+import { IoIosPeople } from "react-icons/io"
 
 import ActionBar from "../userActionBar"
 import Draft from "./draft"
@@ -90,7 +91,7 @@ const DraftGrid = styled.div`
 `
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState("drafts") // drafts
+  const [ActivePage, setActivePage] = useState("drafts") 
   const [draftId, setDraftId] = useState(null)
   const Hooks = useWindowWidth()
 
@@ -144,9 +145,7 @@ const Talks = (): JSX.Element => {
         searchText={"Search For A Draft"}
       />
 
-      { Hooks >= 700 &&   <br />  }
-
-      
+      {Hooks >= 700 && <br />}
 
       <CSSTransition unmountOnExit in={ActivePage === "drafts"} timeout={300}>
         <Body style={{ background: "#fbfbfb" }} bottomHover>
@@ -168,8 +167,7 @@ const Talks = (): JSX.Element => {
 
                 <Flex justifyCenter>
                   <Link to="/editor">
-                         { Hooks >= 700 ?  "Create A New Draft"   : "New Draft" }
-                   
+                    {Hooks >= 700 ? "Create A New Draft" : "New Draft"}
                   </Link>
                 </Flex>
                 <EmptyData
@@ -192,7 +190,7 @@ const Talks = (): JSX.Element => {
                           <Hover style={{ padding: "0rem 0.7rem" }}>
                             <FiPlus style={{ fontSize: "1.6rem" }} />
                           </Hover>
-                          { Hooks >= 700 ?  "Create A New Draft"   : "New Draft" }
+                          {Hooks >= 700 ? "Create A New Draft" : "New Draft"}
                         </Flex>
                       </Button>
                     </Link>
@@ -280,15 +278,33 @@ const Talks = (): JSX.Element => {
                             </TagBody>
                             <br />
 
-                            <div style={{ color: "grey", display: "flex" }}>
-                              <Hover style={{ padding: "0rem 0.5rem" }}>
-                                <FiEdit style={{ fontSize: "1.7rem" }} />
-                              </Hover>
-                              <Text small> Updated : </Text>
+                            <div
+                              style={{
+                                color: "grey",
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <div style={{ display: "flex" }}>
+                                <Hover style={{ padding: "0rem 0.5rem" }}>
+                                  <FiEdit style={{ fontSize: "1.7rem" }} />
+                                </Hover>
+                                <Text small> Updated : </Text>
 
-                              <Text style={{ padding: "0rem 1rem" }} small>
-                                {updatedAt}{" "}
-                              </Text>
+                                <Text style={{ padding: "0rem 1rem" }} small>
+                                  {updatedAt}{" "}
+                                </Text>
+                              </div>
+
+                              <div style={{ display: "flex" }}>
+                                <Hover >
+                                  <IoIosPeople style={{ fontSize: "1.7rem" }} />
+                                </Hover>
+
+                                <Text style={{ margin: "0rem 0.7rem" }} small>
+                                  No Reviews yet
+                                </Text>
+                              </div>
                             </div>
                           </Body>
                         </List>

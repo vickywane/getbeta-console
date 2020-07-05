@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
 import { FiSearch, FiPlus } from "react-icons/fi"
+import styled from 'styled-components'
 
 import Explore from "./explore"
 import Organizing from "./organizing"
@@ -28,6 +29,11 @@ import { GET_USER } from "../../data/queries"
 import EventCard from "../../components/cards/EventCard"
 import "../../App.css"
 
+const Div  = styled.div`
+    transition: all 400ms;
+    filter: ${props => props.grayed &&  "grayscale(75%) blur(0.7px)"};
+`
+
 const Console = (props): JSX.Element => {
   const { loading, error, data } = useQuery(GET_USER, {
     variables: {
@@ -37,6 +43,7 @@ const Console = (props): JSX.Element => {
   })
   const { LogOut } = props.AuthStore
   const [activeSection, setActiveSection] = useState("organized")
+  const { showWelcomeModal } = props.ModalStore
 
   if (error) {
     return (
@@ -51,12 +58,24 @@ const Console = (props): JSX.Element => {
   if (loading) {
     return <Loader type={"loading"} />
   }
-  console.log(data.user.volunteering)
+
   return (
-    <div>
-      <Header showSearchBar searchText="Search Home Console" />
+    <Div grayed={showWelcomeModal} >
+      <div>
+        <Header screen="home" showSearchBar searchText="Search Home Console" />
+      </div>
+
       <br />
-      <WelcomeModal />
+
+      <div
+        style={{
+          transition: "all 400ms",
+           filter: showWelcomeModal && "grayscale(0px) blur(0px)",
+        }}
+      >
+        <WelcomeModal username={data.user.name} />
+      </div>
+
       <Profile User={data} logout={LogOut} />
       <Contain showImage={true}>
         <br />
@@ -77,13 +96,13 @@ const Console = (props): JSX.Element => {
 
               <Flex>
                 <SwitchBtn
-                color ="#0e2f5a"
+                  color="#0e2f5a"
                   active={activeSection === "volunteer"}
                   onClick={() => {
                     setActiveSection("volunteer")
                   }}
                 >
-                  Volunteering 
+                  Volunteering
                 </SwitchBtn>
                 <div style={{ borderRight: "4px solid  #401364" }} />
               </Flex>
@@ -110,8 +129,9 @@ const Console = (props): JSX.Element => {
         <Explore activeSection={activeSection} />
         <br />
       </Contain>
+
       <Footer />
-    </div>
+    </Div>
   )
 }
 

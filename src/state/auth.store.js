@@ -9,6 +9,7 @@ class AuthStore {
 
     localStorage.setItem("user_id", id)
     localStorage.setItem("user_name", name)
+    localStorage.setItem("welcomeModal", true)
 
     this.authenticated = true
   }

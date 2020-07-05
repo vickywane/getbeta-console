@@ -217,15 +217,7 @@ const CREATE_TALK_DRAFT: any = [
   {
     id: 3,
     label: "Draft Summary",
-    placeholder: "A short summary of your draft used as preview",
-    textarea: false,
-    type: "text",
-  },
-  {
-    id: 4,
-    label: "Draft Content",
-    placeholder:
-      "What is this talk about? \n\n Who is the target audience of this talk? \n  ",
+    placeholder: "A short summary of your entire draft.",
     textarea: true,
     type: "text",
   },
