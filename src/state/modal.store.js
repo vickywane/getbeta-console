@@ -6,7 +6,6 @@ class ModalStore {
   EventId = null
   EventType = null
 
-
   setEventId = (id, type) => {
     this.EventId = id
     this.EventType = type
@@ -21,7 +20,7 @@ class ModalStore {
 
   closeInvitationInstruction = () => {
     this.showInvitationInstruction = false
-}
+  }
 
   showTaskDetail = false
 
@@ -136,7 +135,8 @@ class ModalStore {
   }
 
   // welcome modal
-  @persist showWelcomeModal = true
+  // @persist showWelcomeModal = true
+  showWelcomeModal = true
 
   closeWelcomeModal = () => {
     this.showWelcomeModal = false
@@ -319,10 +319,10 @@ const DecoratedModalStore = decorate(ModalStore, {
   closeEditModal: action,
 })
 
-export const store =  new DecoratedModalStore()
-hydrate('modal-store', store).then(() => console.log('modal-store has been hydrated'))
+export const store = new DecoratedModalStore()
+// hydrate('modal-store', store).then(() => console.log('modal-store has been hydrated'))
 // hydrate("modal-nstore", store)
-  // .then(() => console.log("hydrated"))
-  // .catch(e => console.log(e))
+// .then(() => console.log("hydrated"))
+// .catch(e => console.log(e))
 
 // export default store
