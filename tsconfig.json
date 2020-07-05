@@ -5,7 +5,7 @@
     "jsx": "preserve",
     "lib": ["dom", "es2015", "es2015"],
     "strict": false,
-    "noEmit": false,
+    "noEmit": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
