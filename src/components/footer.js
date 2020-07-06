@@ -3,28 +3,26 @@ import styled from "styled-components"
 import Flex from "styled-flex-component"
 import media from "styled-media-query"
 
+import { Text } from "../styles/style"
+
 const Footer = () => {
   const FooterBody = styled.footer`
     background-color: #5919ab;
     width: 100%;
-    padding-top: 0.5em;
-    p {
-      text-align: center;
-      padding: 0.7%;
-      font-size: 1em;
-      color: #fff;
-    }
+    height : 55px 
+    display : flex;
+    justify-content : center
+    align-items : center
+    padding : 0rem 2rem;
+    color: #fff
   `
 
   return (
     <FooterBody>
-      <p>
-        Copyright © {new Date().getFullYear()}, a subsidiary of the
-        <a href="https://www.fundry.netlify.com"> Fundry Program</a>
-        <br />
-        <a href="/"> Terms of Service </a> or
-        <a href="/"> Privacy Policies </a>
-      </p>
+      <Text>
+        <b> Oasis </b> - Crafted from <a herf="github.com/fundry"> Fundry </a>,
+        Copyright © {new Date().getFullYear()}
+      </Text>
     </FooterBody>
   )
 }

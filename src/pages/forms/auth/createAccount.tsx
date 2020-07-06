@@ -81,6 +81,7 @@ const CreateAccount = (props): JSX.Element => {
                   type={type}
                   showIcon
                   id={id}
+                  key={id}
                   Icon={
                     label === "Name" ? (
                       <FiUser style={{ fontSize: "1.7rem" }} />
@@ -108,6 +109,7 @@ const CreateAccount = (props): JSX.Element => {
                   onChange={e => handleChange(e, label)}
                   type={type}
                   id={id}
+                  key={id}
                   showIcon
                   Icon={
                     label === "Name" ? (

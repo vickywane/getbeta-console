@@ -18,7 +18,7 @@ import OAuth from "./OAuth"
 const StyledCard = styled.div`
   transition: all 400ms;
   padding: 1rem 1rem;
-  margin-top: 5%;
+  margin-top: 3%;
   width: 32rem;
   box-shadow: 0px 4px 7px grey;
 `
@@ -27,21 +27,27 @@ const API_URL: string = process.env.SOCKET_URL
 // const socket: string = io(API_URL)
 
 const Authentication = (props): JSX.Element => {
-  const { AuthUser, Login, authState, setAuthState }: any = props.AuthStore
+  const {
+    AuthUser,
+    Login,
+    authState,
+    setAuthState,
+    authenticated,
+  }: any = props.AuthStore
 
   // input states
   const [ResetEmail, setEmail] = useState("")
   const [Error, setError] = useState("")
 
   const onChange = (value, label) => {
-      setEmail(value)
+    setEmail(value)
   }
 
   return (
     <Flex justifyCenter>
       <StyledCard>
         <Title center small bold>
-          Oasis Management Console
+          Oasis Management Console <br /> Beta Test
         </Title>
         <br />
         <Flex justifyCenter>
@@ -53,7 +59,11 @@ const Authentication = (props): JSX.Element => {
 
         <div>
           <CSSTransition timeout={300} unmountOnExit in={authState === "Login"}>
-            <SignIn setAuthState={setAuthState} AuthUser={AuthUser} />
+            <SignIn
+              authenticated={authenticated}
+              setAuthState={setAuthState}
+              AuthUser={AuthUser}
+            />
           </CSSTransition>
           <CSSTransition
             timeout={300}
@@ -78,8 +88,8 @@ const Authentication = (props): JSX.Element => {
                   justifyContent: "center",
                 }}
               >
-                A <b> Tempoary 12 minute </b>  reset link would be sent to
-                your email address used in creating your Oasis Account.
+                A <b> Tempoary 12 minute </b> reset link would be sent to your
+                email address used in creating your Oasis Account.
               </Text>
 
               <Fields

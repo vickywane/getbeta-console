@@ -20,95 +20,98 @@ const Body = styled(Bod)`
 	opacity: ${props => (props.visible ? "1" : "0")};
 
 	li {
-		margin: 1.3rem 0rem;
+		padding : 0.5rem 0rem
+		margin: 1rem 0rem;
 		list-style: none;
 		color: #fff;
 	}
 `
 
 const RoundedBody = styled(Body)`
-	border-radius: 0px 50px 50px 0px;
+  border-radius: 0px 50px 50px 0px;
 `
 
 const ActionBar = (props): JSX.Element => {
-	const { screen, logout } = props
-	const [BarVisibility, setBarVisibility] = useState(false)
+  const { screen, logout } = props
+  const [BarVisibility, setBarVisibility] = useState(false)
 
-	const Width = useWindowWidth()
+  const Width = useWindowWidth()
 
-	return (
-		<div>
-			{Width >= 700 && (
-				<Body
-					onMouseEnter={() => setBarVisibility(true)}
-					onMouseLeave={() => {
-						setTimeout(() => {
-							setBarVisibility(!BarVisibility)
-						}, 1000)
-					}}
-					visible={Width >= 1000 ? true : BarVisibility}
-					position={Width >= 1000 ? null : "absolute"}
-				>
-					{screen !== "profile" && (
-						<li>
-							<Link
-								to="/console"
-								style={{
-									borderBottom: screen === "reminders" && "3px dashed #fff",
-								}}
-							>
-								<Hover>
-									<FiUser style={{ fontSize: "2em" }} />
-								</Hover>
-							</Link>
-						</li>
-					)}
+  return (
+    <div>
+      {Width >= 700 && (
+        <Body
+          onMouseEnter={() => setBarVisibility(true)}
+          onMouseLeave={() => {
+            setTimeout(() => {
+              setBarVisibility(!BarVisibility)
+            }, 1000)
+          }}
+          visible={Width >= 1000 ? true : BarVisibility}
+          position={Width >= 1000 ? null : "absolute"}
+        >
+          {screen !== "profile" && (
+            <li>
+              <Link
+                to="/console"
+                style={{
+                  borderBottom: screen === "reminders" && "3px dashed #fff",
+                }}
+              >
+                <Hover>
+                  <FiUser style={{ fontSize: "2em" }} />
+                </Hover>
+              </Link>
+            </li>
+          )}
 
-					<li>
-						<Link to="/" style={{ textDecoration: "none" }}>
-							<Hover>
-								<FiImage style={{ fontSize: "2em" }} />
-							</Hover>
-						</Link>
-					</li>
+          <li>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Hover>
+                <FiImage style={{ fontSize: "2em" }} />
+              </Hover>
+            </Link>
+          </li>
 
-					<li
-						style={{ borderBottom: screen === "drafts" && "3px dashed #fff" }}
-					>
-						<Link to="/drafts" style={{ textDecoration: "none" }}>
-							<Hover>
-								<IoIosPaper style={{ fontSize: "2em" }} />
-							</Hover>
-						</Link>
-					</li>
+          <li
+            style={{ borderBottom: screen === "drafts" && "3px dashed #fff" }}
+          >
+            <Link to="/drafts" style={{ textDecoration: "none" }}>
+              <Hover>
+                <IoIosPaper style={{ fontSize: "2em" }} />
+              </Hover>
+            </Link>
+          </li>
 
-					<li
-						style={{
-							borderBottom: screen === "reminders" && "3px dashed #fff",
-						}}
-					>
-						<Link to="/reminders" style={{ textDecoration: "none" }}>
-							<Hover>
-								<IoIosAlarm style={{ fontSize: "2em" }} />
-							</Hover>
-						</Link>
-					</li>
+          <li
+            style={{
+              borderBottom: screen === "reminders" && "3px dashed #fff",
+            }}
+          >
+            <Link to="/reminders" style={{ textDecoration: "none" }}>
+              <Hover>
+                <IoIosAlarm style={{ fontSize: "2em" }} />
+              </Hover>
+            </Link>
+          </li>
 
-					{screen === "profile" && (
-						<li>
-							<Hover
-								onClick={() => {
-									logout()
-								}}
-							>
-								<FiLogOut style={{ fontSize: "2em" }} />
-							</Hover>
-						</li>
-					)}
-				</Body>
-			)}
-		</div>
-	)
+          {screen === "profile" && (
+            <li>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <Hover
+                  onClick={() => {
+                    logout()
+                  }}
+                >
+                  <FiLogOut style={{ fontSize: "2em" }} />
+                </Hover>
+              </Link>
+            </li>
+          )}
+        </Body>
+      )}
+    </div>
+  )
 }
 
 export default ActionBar

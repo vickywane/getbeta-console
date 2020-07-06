@@ -3,16 +3,17 @@ import styled from "styled-components"
 import { Card } from "react-bootstrap"
 import Flex from "styled-flex-component"
 import { useMutation, useQuery } from "@apollo/react-hooks"
-import { Redirect } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 import { FiMail, FiLock } from "react-icons/fi"
 
 import { AuthInput } from "../formsData"
 import Fields from "../fields"
 import { LOGIN_USER } from "../../../data/mutations"
 import { Input, Button, Title, Text, Label } from "../../../styles/style"
+import { Spinner } from "react-bootstrap"
 
 const SignIn = (props): JSX.Element => {
-  const { AuthUser, setAuthState }: any = props
+  const { AuthUser, setAuthState, authenticated }: any = props
 
   // input states
   const [Email, setEmail] = useState("")
@@ -28,7 +29,7 @@ const SignIn = (props): JSX.Element => {
         setPassword(value)
         break
       default:
-        console.log(label)
+        break
     }
   }
 
@@ -51,11 +52,25 @@ const SignIn = (props): JSX.Element => {
   if (data) {
     const details = data.loginUser.user
     AuthUser(details)
-    return <Redirect to="/console" message="Loggging in" />
+
+    if (authenticated) {
+      return <Redirect to="/console" message="Loggging in now " />
+    }
   }
 
   if (loading) {
-    return <h2> Logging in ... </h2>
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "22rem",
+        }}
+      >
+        <Spinner variant="primary" animation="grow" role="loading" />{" "}
+      </div>
+    )
   }
 
   const { Login } = AuthInput
@@ -79,6 +94,7 @@ const SignIn = (props): JSX.Element => {
             name={label}
             onChange={e => handleChange(e, label)}
             id={id}
+            key={id}
           />
         )
       })}

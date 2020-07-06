@@ -1,5 +1,5 @@
 import { action, observable, decorate } from "mobx"
-import { hydrate, persist } from "mobx-persist"
+import { create, persist } from "mobx-persist"
 
 class ModalStore {
   //move this into a seperate store
@@ -135,10 +135,10 @@ class ModalStore {
   }
 
   // welcome modal
-  // @persist showWelcomeModal = true
-  showWelcomeModal = true
+  @persist @observable showWelcomeModal = true
 
   closeWelcomeModal = () => {
+    console.log(this.showWelcomeModal)
     this.showWelcomeModal = false
   }
 
@@ -294,7 +294,7 @@ const DecoratedModalStore = decorate(ModalStore, {
   openTeamModal: action,
   closeTeamModal: action,
 
-  showWelcomeModal: observable,
+  // showWelcomeModal: observable,
   closeWelcomeModal: action,
 
   showCreateTrack: observable,
@@ -319,8 +319,17 @@ const DecoratedModalStore = decorate(ModalStore, {
   closeEditModal: action,
 })
 
+const hydrate = create({
+  storage: localStorage,
+  jsonify: true,
+  // docs say JSONIFY should be false but it doesnt work!!
+})
+
 export const store = new DecoratedModalStore()
-// hydrate('modal-store', store).then(() => console.log('modal-store has been hydrated'))
+hydrate("modal-store", store)
+  .then(() => console.log("modal-store has been hydrated"))
+  .catch(e => console.log(e))
+
 // hydrate("modal-nstore", store)
 // .then(() => console.log("hydrated"))
 // .catch(e => console.log(e))

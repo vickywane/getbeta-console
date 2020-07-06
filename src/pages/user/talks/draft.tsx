@@ -8,6 +8,7 @@ import {
   FiCalendar,
   FiEdit,
   FiPlus,
+  FiX,
   FiTrash2,
   FiArrowLeft,
 } from "react-icons/fi"
@@ -80,9 +81,10 @@ const HoverCircle = styled(Hover)`
 `
 
 const Draft = (props): JSX.Element => {
-  const [reviewPane, openReviewPane] = useState<boolean>(false)
+  const [reviewPane, openReviewPane] = useState<boolean>(true)
   const [isEditing, startEditing] = useState<boolean>(false)
   const [isEditingCard, startEditingCard] = useState<boolean>(false)
+  const [note, addNotes] = useState<boolean>(false)
   const { draftId } = props
 
   const [CardColor, setCardColor] = useState<string>(null)
@@ -99,7 +101,7 @@ const Draft = (props): JSX.Element => {
     display: grid;
     tramsition: all 300ms;
     grid-gap: ${props => props.reviewOpen && "0rem 1rem"};
-    grid-template-columns: ${props => props.reviewOpen && "auto 30rem"};
+    grid-template-columns: ${props => props.reviewOpen && "auto 27rem"};
   `
 
   const colors = [
@@ -136,7 +138,7 @@ const Draft = (props): JSX.Element => {
 
   const { loading, error, data } = useQuery(GET_TALK, {
     variables: {
-      id: draftId //176676800
+      id: draftId, //
     },
   })
   if (error) {
@@ -148,8 +150,6 @@ const Draft = (props): JSX.Element => {
     return <Loader type={"loading"} />
   }
 
-  const ideas = [{ id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }]
-
   const {
     title,
     id,
@@ -159,6 +159,7 @@ const Draft = (props): JSX.Element => {
     tags,
     createdAt,
     duration,
+    notes,
   } = data.talk
 
   const colorFunc = color => {
@@ -172,10 +173,10 @@ const Draft = (props): JSX.Element => {
       case "blue":
         setCardTextColor("#fff")
         break
-        case "yellow":
+      case "yellow":
         setCardTextColor("#0e2f5a")
         break
-            case "white":
+      case "white":
         setCardTextColor("#0e2f5a")
         break
       default:
@@ -223,7 +224,10 @@ const Draft = (props): JSX.Element => {
       </Head>
 
       <Grid reviewOpen={reviewPane}>
-        <Padded reviewOpen={reviewPane}>
+        <Padded
+          style={{ height: window.innerHeight - 210, overflow: "auto" }}
+          reviewOpen={reviewPane}
+        >
           <Flex justifyBetween>
             <Flex>
               <Hover style={{ padding: "0rem 0.5rem", color: "grey" }}>
@@ -246,110 +250,168 @@ const Draft = (props): JSX.Element => {
             </Flex>
           </Flex>
 
-          <br />
+          {!note && (
+            <div>
+              {isEditing ? (
+                <Fields
+                  name="Draft Title"
+                  id={1}
+                  placeholder={title}
+                  textarea={false}
+                  value={title}
+                  type="text"
+                  onChange={e => handleInputs(e, "Draft Title")}
+                />
+              ) : (
+                <BigTitle small={reviewPane}> {title}</BigTitle>
+              )}
 
-          {isEditing ? (
-            <Fields
-              name="Draft Title"
-              id={1}
-              placeholder={title}
-              textarea={false}
-              value={title}
-              type="text"
-              onChange={e => handleInputs(e, "Draft Title")}
-            />
-          ) : (
-            <BigTitle> {title}</BigTitle>
+              <div
+                style={{
+                  padding: "1rem 1rem",
+                  margin: "2rem 0.5rem",
+                  borderLeft: "5px solid  #0e2f5a ",
+                  background: "#fbfbfb",
+                }}
+              >
+                <Text>
+                  <ReactMarkdown source={summary} />
+                </Text>
+              </div>
+            </div>
           )}
 
-          <div
-            style={{
-              padding: "1rem 1rem",
-              margin: "2rem 0.5rem",
-              borderLeft: "5px solid  #0e2f5a ",
-              background: "#fbfbfb",
-            }}
-          >
-            <Text>
-              <ReactMarkdown source={summary} />
-            </Text>
-          </div>
           <br />
 
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex" }}>
-              <Title small> Ideas ( {ideas.length} ) </Title>
+              <Title small> Notes ( {notes.length} ) </Title>
 
-              <HoverCircle style={{ margin: "0rem 0.5rem" }}>
-                <FiPlus style={{ fontSize: "1.6rem", color: "#fff" }} />
+              <HoverCircle
+                onClick={() => addNotes(!note)}
+                style={{ margin: "0rem 0.5rem" }}
+              >
+                {!note ? (
+                  <FiPlus style={{ fontSize: "1.6rem", color: "#fff" }} />
+                ) : (
+                  <FiX style={{ fontSize: "1.6rem", color: "#fff" }} />
+                )}
               </HoverCircle>
             </div>
 
             <Button>Sort</Button>
           </div>
-          <hr />
-          {ideas.map(() => {
-            return (
-              <div>
-                <IdeaCard CardColor={CardColor}>
+
+          {note && (
+            <div>
+              <br />
+              <IdeaCard CardColor={CardColor}>
+                <div>
+                  <Fields
+                    name="Title"
+                    id={1}
+                    placeholder={title}
+                    textarea={false}
+                    value={title}
+                    type="text"
+                    onChange={e => handleInputs(e, "Title")}
+                  />
+
                   <div>
-                    <Title style={{ color: "#0e2f5a" }} small>
-                      {" "}
-                      #Introduction{" "}
-                    </Title>
+                    <Hover
+                      onClick={() => startEditingCard(!isEditingCard)}
+                      style={{ margin: "0rem 1rem" }}
+                    >
+                      <FiEdit style={{ fontSize: "1.6rem" }} />
+                    </Hover>
 
-                    <div>
-                      <Hover
-                        onClick={() => startEditingCard(!isEditingCard)}
-                        style={{ margin: "0rem 1rem" }}
-                      >
-                        <FiEdit style={{ fontSize: "1.6rem" }} />
-                      </Hover>
-
-                      <Hover style={{ margin: "0rem 1rem" }}>
-                        <FiTrash2 style={{ fontSize: "1.6rem" }} />
-                      </Hover>
-                    </div>
+                    <Hover style={{ margin: "0rem 1rem" }}>
+                      <FiTrash2 style={{ fontSize: "1.6rem" }} />
+                    </Hover>
                   </div>
+                </div>
 
-                  <hr />
-                  <Text
-                    style={{
-                      textIndent: "30px",
-                      color: CardTextColor === null ? "#000" : CardTextColor,
-                    }}
-                  >
-                    <ReactMarkdown source={description} />
-                  </Text>
-                  {isEditingCard && (
+                <hr />
+                <Fields
+                  name="Key point"
+                  id={1}
+                  placeholder={title}
+                  textarea={false}
+                  value={title}
+                  type="text"
+                  onChange={e => handleInputs(e, "Key point")}
+                />
+              </IdeaCard>
+              <br />
+            </div>
+          )}
+
+          <hr />
+          {notes !== null &&
+            notes.map(({ id, title, content }) => {
+              return (
+                <div>
+                  <IdeaCard CardColor={CardColor}>
                     <div>
-                      {colors.map(({  color }) => {
-                        return (
-                          <div>
-                            <hr />
+                      <Title style={{ color: "#0e2f5a" }} small>
+                        # {title}
+                      </Title>
 
-                            <Circle
-                            style={{ border : CardColor === color && '3px solid black'  }}
-                              onClick={() => {
-                                setCardColor(color)
-                                colorFunc(color)
-                              }}
-                              background={color}
-                            />
-                          </div>
-                        )
-                      })}
+                      <div>
+                        <Hover
+                          onClick={() => startEditingCard(!isEditingCard)}
+                          style={{ margin: "0rem 1rem" }}
+                        >
+                          <FiEdit style={{ fontSize: "1.6rem" }} />
+                        </Hover>
+
+                        <Hover style={{ margin: "0rem 1rem" }}>
+                          <FiTrash2 style={{ fontSize: "1.6rem" }} />
+                        </Hover>
+                      </div>
                     </div>
-                  )}
-                </IdeaCard>
 
-                <Dashes>
-                  <div />
-                  <div />
-                </Dashes>
-              </div>
-            )
-          })}
+                    <hr />
+                    <Text
+                      style={{
+                        textIndent: "30px",
+                        color: CardTextColor === null ? "#000" : CardTextColor,
+                      }}
+                    >
+                      <ReactMarkdown source={content} />
+                    </Text>
+                    {isEditingCard && (
+                      <div>
+                        {colors.map(({ color }) => {
+                          return (
+                            <div>
+                              <hr />
+
+                              <Circle
+                                style={{
+                                  border:
+                                    CardColor === color && "3px solid black",
+                                }}
+                                onClick={() => {
+                                  setCardColor(color)
+                                  colorFunc(color)
+                                }}
+                                background={color}
+                              />
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </IdeaCard>
+
+                  <Dashes>
+                    <div />
+                    <div />
+                  </Dashes>
+                </div>
+              )
+            })}
 
           <br />
 

@@ -323,6 +323,10 @@ const GET_TALK: any = gql`
       duration
       talkCoverUri
       Archived
+      notes {
+        title
+        content
+      }
     }
   }
 `

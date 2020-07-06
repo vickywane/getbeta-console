@@ -1,20 +1,21 @@
 import { action, observable, decorate } from "mobx"
+import { create, persist } from "mobx-persist"
 
 class AuthStore {
-  authenticated = false
+  @persist @observable authenticated = false
+
   authState = "Login"
 
   AuthUser = details => {
+    this.authenticated = true
     const { id, name } = details
 
     localStorage.setItem("user_id", id)
     localStorage.setItem("user_name", name)
-    localStorage.setItem("welcomeModal", true)
-
-    this.authenticated = true
   }
 
   Login = () => {
+    console.log(this.authenticated)
     this.authenticated = true
   }
 
@@ -44,7 +45,7 @@ class AuthStore {
 
 const DecoratedAuthStore = decorate(AuthStore, {
   //observables
-  authenticated: observable,
+  // authenticated: observable,
   hasEvent: observable,
   hasVolunteer: observable,
   authState: observable,
@@ -54,10 +55,20 @@ const DecoratedAuthStore = decorate(AuthStore, {
   AuthUser: action,
   LogOut: action,
   setEvent: action,
+  getAuthState: action,
   setVolunter: action,
   setAuthState: action,
 })
 
-const store = new DecoratedAuthStore()
+export const store = new DecoratedAuthStore()
 
-export default store
+const hydrate = create({
+  storage: localStorage,
+  jsonify: true,
+})
+
+hydrate("auth-store", store)
+  .then(() => console.log("auth-store has been hydrated"))
+  .catch(e => console.log(e))
+
+// export default store

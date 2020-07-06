@@ -103,7 +103,7 @@ const AuthInput = {
       placeholder: "Your Email Address",
     },
     {
-      id: 2,
+      id: 4,
       label: "Password",
       type: "password",
       placeholder: "Your Password",
@@ -137,22 +137,22 @@ const AuthInput = {
       placeholder: "Confirm Your Password",
     },
   ],
-  ChangePassword : [
+  ChangePassword: [
     {
       id: 1,
       label: "Account Password",
       type: "password",
-      textarea : false,
+      textarea: false,
       placeholder: "New Account Password",
     },
     {
       id: 2,
       label: "Confirm  Password",
       type: "password",
-      textarea : false,
+      textarea: false,
       placeholder: "Confirm Account Password",
     },
-  ]
+  ],
 }
 
 const TeamInput = [
@@ -198,7 +198,7 @@ const CREATE_TASK = [
     type: "text",
     placeholder: "Task category. E.g Design for design related tasks",
   },
-   {
+  {
     id: 3,
     label: "Task Priority",
     type: "text",

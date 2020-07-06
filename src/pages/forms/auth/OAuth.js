@@ -8,6 +8,7 @@ const Button = styled.button`
   padding: 0.6rem 1rem;
   background: #0e2f5a;
   display: flex;
+  color: #fff;
   justify-content: center;
   width: 30rem;
   text-align: center;
