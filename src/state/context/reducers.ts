@@ -1,5 +1,3 @@
-import { useReducer } from "react"
-
 export const TabReducer = (state: any, action: any) => {
   switch (action.type) {
     case "SWITCH_DETAIL":

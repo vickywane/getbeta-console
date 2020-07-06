@@ -93,7 +93,6 @@
   },
   "description": "<p> Oasis User Management console created with `Create-React-App` </p>",
   "main": "jest.config.js",
-  "homepage": "." , 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fundry/event-console.git"
@@ -104,5 +103,5 @@
   "bugs": {
     "url": "https://github.com/fundry/event-console/issues"
   },
-  "homepage": "https://github.com/fundry/event-console#readme"
+  "homepage": "."
 }
