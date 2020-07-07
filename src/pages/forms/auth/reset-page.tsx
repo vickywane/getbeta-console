@@ -85,7 +85,7 @@ const Authentication = (props): JSX.Element => {
 
           <Flex justifyCenter>
             <Button
-              long 
+              long
               disabled={Password !== ConfirmPassord}
               transparent={Password !== ConfirmPassord}
               onClick={() => {

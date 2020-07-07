@@ -22,7 +22,7 @@ export { default as Stream } from "./event/stream/stream"
 export { default as CreateEvent } from "./forms/event.form"
 
 export { default as Signin } from "./forms/auth/main"
-export { default as ResetPassword } from "./forms/auth/reset"
+export { default as ResetPassword } from "./forms/auth/reset-page"
 
 export { default as TaskForm } from "./forms/task.form"
 export { default as TeamForm } from "./forms/team.form"

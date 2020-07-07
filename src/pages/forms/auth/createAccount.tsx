@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks"
 import { Redirect } from "react-router-dom"
 import { CSSTransition } from "react-transition-group"
 import { FiUser, FiMail, FiLock } from "react-icons/fi"
+import { Spinner } from "react-bootstrap"
 
 import { AuthInput } from "../formsData"
 import Fields from "../fields"
@@ -16,14 +17,17 @@ import { Input, Button, Title, Text, Label } from "../../../styles/style"
 const CreateAccount = (props): JSX.Element => {
   const { AuthUser, setAuthState }: any = props
 
-  const [Name, setName] = useState("")
-  const [Email, setEmail] = useState("")
-  const [Password, setPassword] = useState("")
-  const [ConfirmPassword, setConfirmPassword] = useState("")
-  const [Error, setError] = useState("")
-  const [CreationStage, setCreationStage] = useState("1")
+  const [Name, setName] = useState<string>("")
+  const [Email, setEmail] = useState<string>("")
+  const [Password, setPassword] = useState<string>("")
+  const [ConfirmPassword, setConfirmPassword] = useState<string>("")
+  const [Error, setError] = useState<any>(null)
+  const [CreationStage, setCreationStage] = useState<string>("1")
 
-  const handleChange = (value, label) => {
+  const handleChange = (value: string, label: string) => {
+    // LOML
+    setError(null)
+
     switch (label) {
       case "Name":
         setName(value)
@@ -54,7 +58,10 @@ const CreateAccount = (props): JSX.Element => {
         email: Email,
         password: Password,
       },
-    }).catch(e => alert(JSON.stringify(e)))
+    }).catch(e => {
+      setError(e.graphQLErrors[0].message)
+      setCreationStage("1")
+    })
   }
 
   if (data) {
@@ -64,7 +71,18 @@ const CreateAccount = (props): JSX.Element => {
   }
 
   if (loading) {
-    return <h2> Logging in ... </h2>
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "22rem",
+        }}
+      >
+        <Spinner variant="primary" animation="grow" role="loading" />
+      </div>
+    )
   }
 
   const { CreateAccountStage1, CreateAccountStage2 } = AuthInput
@@ -128,17 +146,26 @@ const CreateAccount = (props): JSX.Element => {
           })}
         </div>
       </CSSTransition>
-      <p style={{ color: "red" }}> {Error} </p>
+      <Text color="red" center>
+        {" "}
+        {Error}{" "}
+      </Text>
 
       <div style={{ textAlign: "right" }}>
         <CSSTransition unmountOnExit timeout={200} in={CreationStage === "1"}>
           <Button
             long
             transparent={
-              Name.length < 5 || Email.length < 7 || !Email.includes("@")
+              Name.length < 5 ||
+              Email.length < 7 ||
+              !Email.includes("@") ||
+              Error !== null
             }
             disabled={
-              Name.length < 5 || Email.length < 7 || !Email.includes("@")
+              Name.length < 5 ||
+              Email.length < 7 ||
+              !Email.includes("@") ||
+              Error !== null
             }
             onClick={() => {
               setCreationStage("2")

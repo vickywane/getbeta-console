@@ -14,14 +14,12 @@ const Body = styled(Bod)`
 	flex-direction: column;
 	align-items: center;
 	border-radius: 10px;
-
 	position: ${props => props.absolute};
 	transition: all 300ms;
 	opacity: ${props => (props.visible ? "1" : "0")};
-
 	li {
 		padding : 0.5rem 0rem
-		margin: 1rem 0rem;
+		margin: 0.7rem 0rem;
 		list-style: none;
 		color: #fff;
 	}
