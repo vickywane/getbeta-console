@@ -6,11 +6,11 @@ import Main from "./Main"
 import * as serviceWorker from "./serviceWorker"
 
 // i would work on the theming later!!
-const theme = {
-  primaryDark: null,
-  primaryLight: null,
-  primaryHover: null,
-}
+// const theme = {
+//   primaryDark: null,
+//   primaryLight: null,
+//   primaryHover: null,
+// }
 
 // primaryDark: '#0D0C1D',
 // primaryLight: '#EFFFFA',

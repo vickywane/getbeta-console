@@ -1,8 +1,5 @@
 import { createGlobalStyle } from "styled-components"
 
-// display: flex;
-// justify-content: center;
-// align-items: center;
 export const GlobalStyles = createGlobalStyle`
   html, body {
     margin: 0;
@@ -17,10 +14,11 @@ export const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.primaryDark};
     color: ${({ theme }) => theme.primaryLight};
     text-rendering: optimizeLegibility;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
-  
+  p {
+    font-size : 1.3rem;
+  }
 
   small {
     display: block;
@@ -31,19 +29,3 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 `
-
-// h1 {
-//     font-size: 2rem;
-//     text-align: center;
-//     text-transform: uppercase;
-//   }
-
-//   img {
-//     border-radius: 5px;
-//     height: auto;
-//     width: 10rem;
-//   }
-
-//   div {
-//     text-align: center;
-//   }

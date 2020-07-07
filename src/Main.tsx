@@ -7,6 +7,7 @@ import { UserContext, TabContext, TabState } from "./state/context/contextState"
 import Client from "./data/config"
 import App from "./App"
 
+import { GlobalStyles } from "./styles/global"
 import "./App.css"
 import { store as AuthStore } from "./state/auth.store"
 import { ConsoleStore, PaneStore, MediaStore } from "./state/"
@@ -35,6 +36,8 @@ const Main = () => {
         PaneStore={PaneStore}
       >
         <ThemeProvider theme={theme}>
+          <GlobalStyles />
+
           <App />
         </ThemeProvider>
       </Provider>

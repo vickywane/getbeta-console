@@ -30,7 +30,6 @@ import {
   Schedule,
 } from "./pages/"
 import Protected from "./pages/auth/protectedRoute"
-import { GlobalStyles } from "./styles/global"
 import { ResolutionError } from "./components/"
 
 const History = createBrowserHistory()
@@ -63,7 +62,6 @@ const App = (props): JSX.Element => {
         </div>
       ) : (
         <Router history={History}>
-          <GlobalStyles />
           <Switch>
             <Route exact path="/" component={Documentation} />
             <Route path="/login" component={Signin} />

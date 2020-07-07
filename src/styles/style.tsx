@@ -37,10 +37,9 @@ export const MessageInputBody = styled.div`
   }
 `
 
-
 const Head = styled.div`
   padding: ${props => (props.header ? " 1em 0.5rem" : "1em 1.5rem")};
-  border-bottom: 0.3px solid #C0C0C0;
+  border-bottom: 0.3px solid #c0c0c0;
   background: ${props => (props.header ? "#fbfbfb" : "#444444")};
   color: ${props => (props.header ? "#000" : "#fff")};
   display: flex;
@@ -206,8 +205,8 @@ const BigInput = styled.textarea`
   margin: 0.5rem 1rem;
   height: 35vh;
   display: flex;
-  line-height : 1.9rem;
-  word-spacing : 0.3rem;
+  line-height: 1.9rem;
+  word-spacing: 0.3rem;
   flex: 1;
   width: ${props => (props.small ? "auto" : "auto")};
   border-radius: 7px;
@@ -229,7 +228,6 @@ const BigInput = styled.textarea`
 `
 
 const Text: any = styled.p`
-  font-family: calibri;
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.2rem" : "1.3rem")};
   color: ${props => props.color};
@@ -431,8 +429,8 @@ const Switch = styled.div`
 const SwitchBtn = styled.button`
   padding: 0.6rem 4rem;
   border: 0px;
-  background: ${props => props.active ?  "#401364" : "transparent"};
-  color: ${props => props.active ?  "#fff" : "#401364"};
+  background: ${props => (props.active ? "#401364" : "transparent")};
+  color: ${props => (props.active ? "#fff" : "#401364")};
   outline: none;
   font-weight: bold;
   transition: all 600ms;
@@ -461,7 +459,7 @@ const InputBox = styled.div`
 const Header = styled.nav`
   padding: 0.7em 3rem;
   background: #444444;
-  height : 8vh;
+  height: 8vh;
   position: fixed;
   width: 100%;
   ${media.lessThan("large")`

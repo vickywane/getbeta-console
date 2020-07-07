@@ -6,7 +6,7 @@ import { CSSTransition } from "react-transition-group"
 import { inject, observer } from "mobx-react"
 import styled from "styled-components"
 
-import ActionBar from './userActionBar'
+import ActionBar from "./userActionBar"
 import TestImg from "../../assets/images/test.png"
 import useWindowWidth from "../../hook_style"
 import {
@@ -68,15 +68,14 @@ const Profile = (props): JSX.Element => {
 
           <Detail style={{ padding: "0rem 1rem" }}>
             <br />
-            <BigTitle bold center>
+            <BigTitle style={{ fontFamily: "calibri" }} bold center>
               {name}{" "}
             </BigTitle>
             <Text center> {email} </Text>
           </Detail>
         </Flex>
 
-        <ActionBar logout={LogOut} screen="profile"  />
-
+        <ActionBar logout={LogOut} screen="profile" />
       </Flex>
       <Flex>
         <div style={{ padding: "0rem 1rem" }}>
@@ -95,4 +94,4 @@ const Profile = (props): JSX.Element => {
   )
 }
 
-export default inject("ModalStore" , "AuthStore" )(observer(Profile))
+export default inject("ModalStore", "AuthStore")(observer(Profile))
