@@ -54,6 +54,7 @@ const SignIn = (props): JSX.Element => {
     AuthUser(details)
 
     if (authenticated) {
+      console.log(authenticated)
       return <Redirect to="/console" message="Loggging in now " />
     }
   }
@@ -68,7 +69,7 @@ const SignIn = (props): JSX.Element => {
           height: "22rem",
         }}
       >
-        <Spinner variant="primary" animation="grow" role="loading" />{" "}
+        <Spinner variant="primary" animation="grow" role="loading" />
       </div>
     )
   }
@@ -99,21 +100,24 @@ const SignIn = (props): JSX.Element => {
         )
       })}
 
-      <Text
-        small
-        style={{
-          color: "red",
-          textAlign: "center",
-        }}
-      >
-        {Error}
-      </Text>
+      {Error && (
+        <Text
+          small
+          style={{
+            color: "red",
+            textAlign: "center",
+          }}
+        >
+          {Error}
+        </Text>
+      )}
+
       <Text
         small
         style={{
           color: "blue",
           cursor: "pointer",
-          textAlign: "right",
+          padding: "10px",
         }}
         onClick={() => {
           setAuthState("Forgot Password")
@@ -121,6 +125,7 @@ const SignIn = (props): JSX.Element => {
       >
         Forgot Password ?
       </Text>
+
       <Flex justifyCenter>
         <Button
           long

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import React, { useState } from "react"
 import Flex from "styled-flex-component"
-import { FiSettings, FiSearch } from "react-icons/fi"
+import { FiSearch } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
@@ -55,8 +55,8 @@ const Input = styled.input`
 
 const Header = (props): JSX.Element => {
   const hooks: number = useWindowWidth()
-  const [SettingsVisibility, setSettingsVisibility] = useState(false)
-  const { showSearchBar, searchText } = props
+  const [SettingsVisibility, setSettingsVisibility] = useState<boolean>(false)
+  const { showSearchBar, searchText }: any = props
   const { showProfilePane }: any = props.ConsoleStore
   const [open, setOpen] = useState(false)
   const menuId: string = "main-menu"
@@ -90,33 +90,41 @@ const Header = (props): JSX.Element => {
         {hooks >= 720 ? (
           <div
             style={{
-              fontFamily : "Fira Code Retina",
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
             }}
           >
-            <div style={{display : 'flex', justifyContent : 'center' , alignItems: 'center' }} >
-              <HeaderLinks
-                target={"_blank"}
-                href="https://my-event.netlify.com"
-              >
-                OASIS
-              </HeaderLinks>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h4 style={{ paddingTop: "10px" }}>
+                <HeaderLinks
+                  style={{ textDecoration: "none" }}
+                  target={"_blank"}
+                  href="https://my-event.netlify.com"
+                >
+                  OASIS
+                </HeaderLinks>
+              </h4>
 
-
-              { props.screen !== "home" && <Link
-                              to="/console"
-                              style={{
-                                paddingLeft: "10px",
-                                color: "white",
-                                textDecoration: "none",
-                                fontSize: "1.4em",
-                              }}
-                            >
-                              | Home
-                            </Link>}
-
+              {props.screen !== "home" && (
+                <Link
+                  to="/console"
+                  style={{
+                    paddingLeft: "10px",
+                    color: "white",
+                    textDecoration: "none",
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  | Home
+                </Link>
+              )}
             </div>
 
             <HeaderLinks
@@ -216,7 +224,6 @@ const Header = (props): JSX.Element => {
         )}
       </Head>
 
-      <br />
       <br />
     </div>
   )
