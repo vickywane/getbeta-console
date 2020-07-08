@@ -17,6 +17,7 @@ type CustomProps = {
   name: string
   onChange: any
   value?: string
+  textEditorSize?: string
   disabled?: boolean
   limit?: number
   type: string
@@ -32,6 +33,7 @@ const Fields = (props: CustomProps) => {
     showIcon,
     Icon,
     id,
+    textEditorSize,
     value,
     textarea,
     limit,
@@ -135,7 +137,7 @@ const Fields = (props: CustomProps) => {
             </Text>
           )}
 
-          <TextEditor>
+          <TextEditor small={textEditorSize}>
             <textarea
               onChange={e => handleInputChange(e, name)}
               placeholder={placeholder}

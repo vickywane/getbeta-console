@@ -36,8 +36,6 @@ const Main = () => {
         PaneStore={PaneStore}
       >
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-
           <App />
         </ThemeProvider>
       </Provider>

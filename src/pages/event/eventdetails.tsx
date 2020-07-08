@@ -42,21 +42,21 @@ const HoverCircle = styled(Hover)`
   }
 `
 
-  const MediaLink = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    li {
-      margin: 0rem 0.5rem;
-      list-style: none;
-      a {
-        text-align: center;
-      }
-      &: hover {
-      color : ${props => props.hoverColor}
-      }
+const MediaLink = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  li {
+    margin: 0rem 0.5rem;
+    list-style: none;
+    a {
+      text-align: center;
     }
-  `
+    &: hover {
+      color: ${props => props.hoverColor};
+    }
+  }
+`
 
 const EventDetails = (props): JSX.Element => {
   const { openChecklist, openPeople, openEditModal } = props.ModalStore
@@ -81,7 +81,6 @@ const EventDetails = (props): JSX.Element => {
     isVirtual,
   } = data.event
   const { showEventDetails } = props.state
-
 
   return (
     <div style={{ transition: "all 500ms" }}>
@@ -158,9 +157,9 @@ const EventDetails = (props): JSX.Element => {
 
                           <MediaLink>
                             {mediaLinks !== null && mediaLinks[0] !== "" && (
-                              <li  >
+                              <li>
                                 <a href={`${mediaLinks[0]}`} target="_blank">
-                                  <HoverCircle hoverColor="red"  >
+                                  <HoverCircle hoverColor="red">
                                     <FiInstagram
                                       style={{ fontSize: "1.8rem" }}
                                     />
@@ -170,9 +169,9 @@ const EventDetails = (props): JSX.Element => {
                             )}
 
                             {mediaLinks !== null && mediaLinks[1] !== "" && (
-                              <li >
+                              <li>
                                 <a href={`${mediaLinks[1]}`} target="_blank">
-                                  <HoverCircle hoverColor="blue" >
+                                  <HoverCircle hoverColor="blue">
                                     <FiTwitter style={{ fontSize: "1.8rem" }} />
                                   </HoverCircle>
                                 </a>
@@ -192,19 +191,8 @@ const EventDetails = (props): JSX.Element => {
                             )}
                           </MediaLink>
 
-                          {currentWindowSize >= 650 ? (
-                            <Flex justifyBetween>
-                              <Link to={`/media/${id}/${bucketName}`}>
-                                <Button> Gallery </Button>
-                              </Link>
-                            </Flex>
-                          ) : (
-                            <Flex justifyCenter>
-                              <Hover>
-                                <FiImage style={{ fontSize: "1.8rem" }} />
-                              </Hover>
-                            </Flex>
-                          )}
+                          <br />
+                          <br />
                         </Flex>
                       </div>
                     </Flex>

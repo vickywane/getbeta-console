@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
 import { FiSearch, FiPlus } from "react-icons/fi"
-import styled from 'styled-components'
+import styled from "styled-components"
 
 import Explore from "./explore"
 import Organizing from "./organizing"
@@ -25,13 +25,14 @@ import {
   Title,
 } from "../../styles/style"
 import { GET_USER } from "../../data/queries"
+import useWindowWidth from "../../hook_style"
 
 import EventCard from "../../components/cards/EventCard"
 import "../../App.css"
 
-const Div  = styled.div`
-    transition: all 400ms;
-    filter: ${props => props.grayed &&  "grayscale(75%) blur(0.7px)"};
+const Div = styled.div`
+  transition: all 400ms;
+  filter: ${props => props.grayed && "grayscale(75%) blur(0.7px)"};
 `
 
 const Console = (props): JSX.Element => {
@@ -44,6 +45,7 @@ const Console = (props): JSX.Element => {
   const { LogOut } = props.AuthStore
   const [activeSection, setActiveSection] = useState("organized")
   const { showWelcomeModal } = props.ModalStore
+  const Width = useWindowWidth()
 
   if (error) {
     return (
@@ -60,7 +62,7 @@ const Console = (props): JSX.Element => {
   }
 
   return (
-    <Div grayed={showWelcomeModal} >
+    <Div grayed={showWelcomeModal}>
       <div>
         <Header screen="home" showSearchBar searchText="Search Home Console" />
       </div>
@@ -70,7 +72,7 @@ const Console = (props): JSX.Element => {
       <div
         style={{
           transition: "all 400ms",
-           filter: showWelcomeModal && "grayscale(0px) blur(0px)",
+          filter: showWelcomeModal && "grayscale(0px) blur(0px)",
         }}
       >
         <WelcomeModal username={data.user.name} />
@@ -120,13 +122,18 @@ const Console = (props): JSX.Element => {
         </Flex>
         <br />
 
-        <Organizing activeSection={activeSection} events={data.user.events} />
+        <Organizing
+          width={Width}
+          activeSection={activeSection}
+          events={data.user.events}
+        />
         <Volunteering
+          width={Width}
           data={data}
           eventVolunteered={data.user.volunteering}
           activeSection={activeSection}
         />
-        <Explore activeSection={activeSection} />
+        <Explore width={Width} activeSection={activeSection} />
         <br />
       </Contain>
 

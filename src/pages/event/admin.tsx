@@ -21,7 +21,7 @@ const Window = styled.div`
   width: auto;
   height: ${window.innerHeight};
   background: #fbfbfb;
-  border-right: 0.3px solid #C0C0C0;
+  border-right: 0.3px solid #c0c0c0;
 `
 
 const Head = styled.div`
@@ -47,7 +47,6 @@ const Tab = styled.div`
   padding : 0.5rem 0.5rem
   margin : 0.7rem 0.5rem;
   color: ${props => (props.active ? "#0e2f5a;" : "grey")};
-  font-family: calibri;
   transition : all 300ms; 
   border-left:  ${props => (props.active ? "5px solid #0e2f5a;" : null)}; 
   &: hover {

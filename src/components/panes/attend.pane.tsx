@@ -13,7 +13,7 @@ import useWindowWidth from "../../hook_style"
 import { ATTEND_EVENT, UPDATE_EVENT } from "../../data/mutations"
 
 const Notice = styled.div`
-  padding: 2rem 1rem 1rem 2rem;
+  padding: 1rem 1rem 1rem 2rem;
   text-align: center;
   background: #f3f3f3;
   flex: 1;
@@ -98,7 +98,9 @@ const AttendPane = (props): JSX.Element => {
                 <div style={{ transition: "all 300ms" }}>
                   {showNotice && (
                     <Notice style={{ color: "#0e2f5a" }}>
-                      <div style={{ display: "flex" , justifyContent : 'center' }}>
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         <Text center>
                           Drafts proposals for talks are currently being
                           submitted for this event.

@@ -66,18 +66,17 @@ const CreateTrackModal = props => {
   return (
     <Modal
       size="xl"
-      style={{ marginTop: "5%" }}
+      style={{ marginTop: "3rem" }}
       onHide={() => closeCreateTrack()}
       show={showCreateTrack}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "5rem auto" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
         <div
           style={{
             padding: "1rem 1rem",
             height: "auto",
-
             width: "auto",
-            background: "#0e2f5a",
+            background: "#22263d",
           }}
         >
           <FiBook style={{ fontSize: "2rem", color: "#fff" }} />

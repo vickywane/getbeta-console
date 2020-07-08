@@ -91,7 +91,7 @@ const DraftGrid = styled.div`
 `
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState("drafts") 
+  const [ActivePage, setActivePage] = useState("drafts")
   const [draftId, setDraftId] = useState(null)
   const Hooks = useWindowWidth()
 
@@ -198,7 +198,7 @@ const Talks = (): JSX.Element => {
                 </Body>
 
                 <Body
-                  style={{ height: window.innerHeight - 280, overflow: "auto" }}
+                  style={{ height: window.innerHeight - 250, overflow: "auto" }}
                 >
                   {talks.map(
                     ({
@@ -297,7 +297,7 @@ const Talks = (): JSX.Element => {
                               </div>
 
                               <div style={{ display: "flex" }}>
-                                <Hover >
+                                <Hover>
                                   <IoIosPeople style={{ fontSize: "1.7rem" }} />
                                 </Hover>
 

@@ -13,18 +13,26 @@ import { Input, Button, Title, Text, Label } from "../../../styles/style"
 import Fields from "../fields"
 import SignIn from "./signin"
 import CreateAccount from "./createAccount"
+import ResetField from "./reset-field"
 
 import OAuth from "./OAuth"
 const StyledCard = styled.div`
   transition: all 400ms;
   padding: 1rem 1rem;
-  margin-top: 3%;
   width: 32rem;
-  box-shadow: 0px 4px 7px grey;
+  border-radius : 7px
+  box-shadow: 0px 5px 10px grey;
 `
 
 const API_URL: string = process.env.SOCKET_URL
 // const socket: string = io(API_URL)
+
+const CenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`
 
 const Authentication = (props): JSX.Element => {
   const {
@@ -39,14 +47,10 @@ const Authentication = (props): JSX.Element => {
   const [ResetEmail, setEmail] = useState("")
   const [Error, setError] = useState("")
 
-  const onChange = (value, label) => {
-    setEmail(value)
-  }
-
   return (
-    <Flex justifyCenter>
+    <CenterDiv>
       <StyledCard>
-        <Title center small bold>
+        <Title style={{ color: "#0e2f5a" }} center small bold>
           Oasis Management Console <br /> Beta Test
         </Title>
         <br />
@@ -77,57 +81,9 @@ const Authentication = (props): JSX.Element => {
             unmountOnExit
             in={authState === "Forgot Password"}
           >
-            <div>
-              <br />
-              <Text
-                small
-                center
-                style={{
-                  padding: "0rem 1rem",
-                  width: "30rem",
-                  justifyContent: "center",
-                }}
-              >
-                A <b> Tempoary 12 minute </b> reset link would be sent to your
-                email address used in creating your Oasis Account.
-              </Text>
-
-              <Fields
-                textarea={false}
-                id={1}
-                name="Reset Email Address "
-                type="email"
-                placeholder="Account Email Address"
-                value={ResetEmail}
-                onChange={e => onChange(e, "Reset Email Address")}
-              />
-              <br />
-
-              <Flex justifyCenter>
-                <Button
-                  long
-                  onClick={() => {
-                    console.log("ss")
-                  }}
-                >
-                  Reset Password{" "}
-                </Button>
-              </Flex>
-            </div>
+            <ResetField />
           </CSSTransition>
-          <CSSTransition
-            timeout={300}
-            unmountOnExit
-            in={authState === "SentEmail"}
-          >
-            <div>
-              <br />
-              <Text center small>
-                Email sent to xxx{" "}
-              </Text>
-              <br />
-            </div>
-          </CSSTransition>
+
           <br />
           <CSSTransition timeout={300} unmountOnExit in={authState === "Login"}>
             <Flex justifyCenter>
@@ -153,13 +109,16 @@ const Authentication = (props): JSX.Element => {
               </Flex>
             </Flex>
           </CSSTransition>
-          <div>
-            <hr />
-            <OAuth authState={authState} URL={API_URL} />
-          </div>
+
+          {authState !== "Forgot Password" && (
+            <div>
+              <hr />
+              <OAuth authState={authState} URL={API_URL} />
+            </div>
+          )}
         </div>
       </StyledCard>
-    </Flex>
+    </CenterDiv>
   )
 }
 

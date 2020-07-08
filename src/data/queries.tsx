@@ -324,6 +324,7 @@ const GET_TALK: any = gql`
       talkCoverUri
       Archived
       notes {
+        id
         title
         content
       }

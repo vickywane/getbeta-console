@@ -18,7 +18,6 @@ const Box = styled.div`
   cursor: pointer;
   text-align: center;
   padding: 0.5rem 1rem;
-  font-family: calibri;
   font-size: 1.2rem;
   align-items: center;
 `
@@ -45,91 +44,93 @@ const Details = props => {
 
   return (
     <div>
-    <div style={{background : 'transparent'}} >
-      <Sponsors sponsor={sponsors} />
-      <br />
-      <Grid>
-        <a href="#organizer" style={{ textDecoration: "none" }}>
-          <Box>
-            <div style={{ padding: "0rem 1.5rem" }}>
-              <FiSquare style={{ fontSize: "2.5rem" }} />
-            </div>
+      <div style={{ background: "transparent" }}>
+        <Sponsors sponsor={sponsors} />
+        <br />
+        <Grid>
+          <a href="#organizer" style={{ textDecoration: "none" }}>
+            <Box>
+              <div style={{ padding: "0rem 1.5rem" }}>
+                <FiSquare style={{ fontSize: "2.5rem" }} />
+              </div>
 
-            <Flex column>
-              <Title small>20 </Title>
-              <Text color="grey">{Type ? "Hours" : "Attendance Hours"}</Text>
-            </Flex>
-          </Box>
-        </a>
-        <a href="#organizer" style={{ textDecoration: "none" }}>
-          <Box>
-            <div style={{ padding: "0rem 1.5rem" }}>
-              <FiSquare style={{ fontSize: "2.5rem" }} />
-            </div>
+              <Flex column>
+                <Title small>20 </Title>
+                <Text color="grey">{Type ? "Hours" : "Attendance Hours"}</Text>
+              </Flex>
+            </Box>
+          </a>
+          <a href="#organizer" style={{ textDecoration: "none" }}>
+            <Box>
+              <div style={{ padding: "0rem 1.5rem" }}>
+                <FiSquare style={{ fontSize: "2.5rem" }} />
+              </div>
 
-            <Flex column>
-              <Title small>
-                {Type
-                  ? tracks === null
+              <Flex column>
+                <Title small>
+                  {Type
+                    ? tracks === null
+                      ? "0"
+                      : tracks.length
+                    : meetupGroups === null
                     ? "0"
-                    : tracks.length
-                  : meetupGroups === null
-                  ? "0"
-                  : meetupGroups.length} 
-              </Title>
+                    : meetupGroups.length}
+                </Title>
 
-              <Text color="grey">{Type ? "Tracks" : "Meetup Groups"}</Text>
-            </Flex>
-          </Box>
-        </a>
-        <a href="#organizer" style={{ textDecoration: "none" }}>
-          <Box>
-            <div style={{ padding: "0rem 1.5rem" }}>
-              <FiSquare style={{ fontSize: "2.5rem" }} />
-            </div>
+                <Text color="grey">{Type ? "Tracks" : "Meetup Groups"}</Text>
+              </Flex>
+            </Box>
+          </a>
+          <a href="#organizer" style={{ textDecoration: "none" }}>
+            <Box>
+              <div style={{ padding: "0rem 1.5rem" }}>
+                <FiSquare style={{ fontSize: "2.5rem" }} />
+              </div>
 
-            <Flex column>
-              <Title small>{volunteer === null ? "0" : volunteer.length}</Title>
-              <Text color="grey">{Type ? "Volunteers" : "Facilitators"}</Text>
-            </Flex>
-          </Box>
-        </a>
+              <Flex column>
+                <Title small>
+                  {volunteer === null ? "0" : volunteer.length}
+                </Title>
+                <Text color="grey">{Type ? "Volunteers" : "Facilitators"}</Text>
+              </Flex>
+            </Box>
+          </a>
 
-        <a href="#organizer" style={{ textDecoration: "none" }}>
-          <Box>
-            <div style={{ padding: "0rem 1.5rem" }}>
-              <FiSquare style={{ fontSize: "2.5rem" }} />
-            </div>
+          <a href="#organizer" style={{ textDecoration: "none" }}>
+            <Box>
+              <div style={{ padding: "0rem 1.5rem" }}>
+                <FiSquare style={{ fontSize: "2.5rem" }} />
+              </div>
 
-            <Flex column>
-              <Title small> {teams === null ? "0" : teams.length} </Title>
-              <Text color="grey"> {Type ? "Teams" : "Sponsors"} </Text>
-            </Flex>
-          </Box>
-        </a>
-      </Grid>
-      <br />
-      <Title style={{ textAlign: "right" }} small>
-        Organized by <b> {name} </b>
-      </Title>
+              <Flex column>
+                <Title small> {teams === null ? "0" : teams.length} </Title>
+                <Text color="grey"> {Type ? "Teams" : "Sponsors"} </Text>
+              </Flex>
+            </Box>
+          </a>
+        </Grid>
+        <br />
+        <Title style={{ textAlign: "right" }} small>
+          Organized by <b> {name} </b>
+        </Title>
       </div>
 
-      <div>
+      <div style={{ padding: "1rem 2rem" }}>
         <Title id="sponsors" small>
           Synopsis
         </Title>
-        <Text> {description} </Text>
+        <Text style={{ textIndent: "60px" }}> {description} </Text>
         <br />
 
         <Title id="about" small>
           Synopsis
         </Title>
-        <Text> {description} </Text>
+        <Text style={{ textIndent: "60px" }}> {description} </Text>
         <br />
         <Title id="organizer" small>
           Synopsis
         </Title>
-        <Text> {description} </Text>
+        <Text style={{ textIndent: "60px" }}> {description} </Text>
       </div>
     </div>
   )

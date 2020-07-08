@@ -17,11 +17,14 @@ import styled from "styled-components"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import ReactMarkdown from "react-markdown"
 import { IoIosPeople } from "react-icons/io"
+import { Modal } from "react-bootstrap"
 
+import CreateNote from "./create-note"
 import Fields from "../../forms/fields"
 import Review from "./review"
 import { Header, Footer, Loader } from "../../../components/"
 import { GET_TALK } from "../../../data/queries"
+import { DELETE_NOTE } from "../../../data/mutations"
 import {
   Contain,
   Input,
@@ -80,8 +83,29 @@ const HoverCircle = styled(Hover)`
   margin: 0px;
 `
 
+const colors = [
+  {
+    color: "red",
+  },
+  {
+    color: "violet",
+  },
+  {
+    color: "green",
+  },
+  {
+    color: "yellow",
+  },
+  {
+    color: "blue",
+  },
+  {
+    color: "white",
+  },
+]
+
 const Draft = (props): JSX.Element => {
-  const [reviewPane, openReviewPane] = useState<boolean>(true)
+  const [reviewPane, openReviewPane] = useState<boolean>(false)
   const [isEditing, startEditing] = useState<boolean>(false)
   const [isEditingCard, startEditingCard] = useState<boolean>(false)
   const [note, addNotes] = useState<boolean>(false)
@@ -89,6 +113,7 @@ const Draft = (props): JSX.Element => {
 
   const [CardColor, setCardColor] = useState<string>(null)
   const [CardTextColor, setCardTextColor] = useState<string>(null)
+  const [Visibility, setVisibility] = useState(true)
 
   const Padded = styled(Contain)`
     tramsition : all 300ms;
@@ -104,27 +129,6 @@ const Draft = (props): JSX.Element => {
     grid-template-columns: ${props => props.reviewOpen && "auto 27rem"};
   `
 
-  const colors = [
-    {
-      color: "red",
-    },
-    {
-      color: "violet",
-    },
-    {
-      color: "green",
-    },
-    {
-      color: "yellow",
-    },
-    {
-      color: "blue",
-    },
-    {
-      color: "white",
-    },
-  ]
-
   const handleInputs = (value, label) => {
     switch (label) {
       case "Draft Title":
@@ -134,6 +138,18 @@ const Draft = (props): JSX.Element => {
       default:
         break
     }
+  }
+
+  const [deleteNote, {}] = useMutation(DELETE_NOTE)
+
+  const Delete = (id: number) => {
+    deleteNote({
+      variables: {
+        id: id,
+      },
+    })
+      .then(() => console.log("deleted"))
+      .catch(e => console.log(e))
   }
 
   const { loading, error, data } = useQuery(GET_TALK, {
@@ -186,7 +202,10 @@ const Draft = (props): JSX.Element => {
 
   return (
     <div key={id}>
-      <Head header style={{ padding: "1rem 0rem 0.1rem 2rem" }}>
+      <Head
+        header
+        style={{ marginTop: "15px", padding: "1rem 0rem 0.1rem 2rem" }}
+      >
         <Flex>
           <Link to="/drafts">
             <Hover style={{ padding: "0rem 0.7rem" }}>
@@ -283,68 +302,26 @@ const Draft = (props): JSX.Element => {
 
           <br />
 
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ display: "flex" }}>
-              <Title small> Notes ( {notes.length} ) </Title>
+          {!note && (
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex" }}>
+                <Title small>
+                  {" "}
+                  Notes ( {notes !== null && notes.length} ){" "}
+                </Title>
 
-              <HoverCircle
-                onClick={() => addNotes(!note)}
-                style={{ margin: "0rem 0.5rem" }}
-              >
-                {!note ? (
+                <HoverCircle
+                  onClick={() => addNotes(!note)}
+                  style={{ margin: "0rem 0.5rem" }}
+                >
                   <FiPlus style={{ fontSize: "1.6rem", color: "#fff" }} />
-                ) : (
-                  <FiX style={{ fontSize: "1.6rem", color: "#fff" }} />
-                )}
-              </HoverCircle>
-            </div>
-
-            <Button>Sort</Button>
-          </div>
-
-          {note && (
-            <div>
-              <br />
-              <IdeaCard CardColor={CardColor}>
-                <div>
-                  <Fields
-                    name="Title"
-                    id={1}
-                    placeholder={title}
-                    textarea={false}
-                    value={title}
-                    type="text"
-                    onChange={e => handleInputs(e, "Title")}
-                  />
-
-                  <div>
-                    <Hover
-                      onClick={() => startEditingCard(!isEditingCard)}
-                      style={{ margin: "0rem 1rem" }}
-                    >
-                      <FiEdit style={{ fontSize: "1.6rem" }} />
-                    </Hover>
-
-                    <Hover style={{ margin: "0rem 1rem" }}>
-                      <FiTrash2 style={{ fontSize: "1.6rem" }} />
-                    </Hover>
-                  </div>
-                </div>
-
-                <hr />
-                <Fields
-                  name="Key point"
-                  id={1}
-                  placeholder={title}
-                  textarea={false}
-                  value={title}
-                  type="text"
-                  onChange={e => handleInputs(e, "Key point")}
-                />
-              </IdeaCard>
-              <br />
+                </HoverCircle>
+              </div>
+              .
             </div>
           )}
+
+          {note && <CreateNote talkId={id} />}
 
           <hr />
           {notes !== null &&
@@ -365,7 +342,13 @@ const Draft = (props): JSX.Element => {
                           <FiEdit style={{ fontSize: "1.6rem" }} />
                         </Hover>
 
-                        <Hover style={{ margin: "0rem 1rem" }}>
+                        <Hover
+                          onClick={() => {
+                            alert(id)
+                            Delete(id)
+                          }}
+                          style={{ margin: "0rem 1rem" }}
+                        >
                           <FiTrash2 style={{ fontSize: "1.6rem" }} />
                         </Hover>
                       </div>

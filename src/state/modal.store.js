@@ -33,7 +33,7 @@ class ModalStore {
   }
 
   //
-  showTeamInstruction = true
+  showTeamInstruction = false
 
   openTeamInstruction = () => {
     this.showTeamInstruction = true
@@ -43,7 +43,7 @@ class ModalStore {
     this.showTeamInstruction = false
   }
 
-  welcomeEventModal = true
+  welcomeEventModal = false
 
   showWelcomeEventModal = () => {
     this.welcomeEventModal = true
@@ -57,7 +57,7 @@ class ModalStore {
 
   // WelcomeMeetupGroupsModal
 
-  WelcomeMeetupGroupsModal = true
+  WelcomeMeetupGroupsModal = false
 
   showWelcomeMeetupGroupsModal = () => {
     this.WelcomeMeetupGroupsModal = true
@@ -164,7 +164,7 @@ class ModalStore {
   }
 
   // bug / crash reporter
-  showCrashReporter = true
+  showCrashReporter = false
   openCrashReporter = () => {
     this.showCrashReporter = true
   }

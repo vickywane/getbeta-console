@@ -7,7 +7,7 @@ import img from "../assets/images/test.png"
 
 // Todo: Refactor & compress file !!
 
-export const MessageInputBody = styled.div`
+export const MessageInputBody: any = styled.div`
   display: flex;
   margin: 0rem 1rem;
   justify-content: space-between;
@@ -40,7 +40,7 @@ export const MessageInputBody = styled.div`
 const Head = styled.div`
   padding: ${props => (props.header ? " 1em 0.5rem" : "1em 1.5rem")};
   border-bottom: 0.3px solid #c0c0c0;
-  background: ${props => (props.header ? "#fbfbfb" : "#444444")};
+  background: ${props => (props.header ? "#fbfbfb" : "#401364")};
   color: ${props => (props.header ? "#000" : "#fff")};
   display: flex;
   justify-content: ${props => (props.noFlex ? null : "space-between")};
@@ -145,7 +145,6 @@ const Input = styled.input`
   padding: 0.8em 1.5rem;
   display : flex;
   flex: 1;
-  font-family: calibri;
   border: ${props => (props.unbordered ? "0px" : " 1px solid grey")};
   outline: 0px;
   color: ${props => (props.white ? "#fff" : "#000")}
@@ -281,7 +280,6 @@ const UploadContainer = styled.div`
 `
 
 const Title = styled.h5`
-  font-family: calibri;
   padding-left: ${props => (props.small ? "3px" : "15px")};
   padding-right: 10px;
   cursor : ${props => (props.pointer ? "pointer" : null)}
@@ -302,7 +300,6 @@ const Title = styled.h5`
 
 const Label = styled.label`
 padding-left: 10px
-font-family: calibri;
 font-weight: 500;
 font-size: ${props => (props.small ? "1.4em" : "1.3em")};
 ${media.lessThan("large")`
@@ -426,7 +423,7 @@ const Switch = styled.div`
 `};
 `
 
-const SwitchBtn = styled.button`
+const SwitchBtn = styled.div`
   padding: 0.6rem 4rem;
   border: 0px;
   background: ${props => (props.active ? "#401364" : "transparent")};
@@ -436,6 +433,7 @@ const SwitchBtn = styled.button`
   transition: all 600ms;
   font-size: 1.1rem;
   &: hover {
+    cursor: pointer;
     background: #401364;
     color: #fff;
   }
@@ -448,7 +446,7 @@ const SwitchBtn = styled.button`
 `
 
 const InputBox = styled.div`
-  padding: ${props => (props.padded ? "0.5rem 2rem" : "0rem 1rem")};
+  padding: ${props => (props.padded ? "0.5rem 2rem" : "0.1rem 1rem")};
   border: ${props => (props.modal ? "1px solid #000" : "1px solid #fff")};
   border-radius: 5px;
   height: auto;
@@ -457,27 +455,25 @@ const InputBox = styled.div`
 
 // HEADER STYLES =================>
 const Header = styled.nav`
-  padding: 0.7em 3rem;
-  background: #444444;
-  height: 8vh;
+  padding: 1em 3rem;
+  background: #401364;
   position: fixed;
   width: 100%;
   ${media.lessThan("large")`
-   padding: 0.7rem 2rem;
+   padding: 1rem 2rem;
 `};
   ${media.lessThan("medium")`
-    padding: 0.1rem 1rem;
-    height : 7vh
+    padding: 0.6rem 1rem;
+    height : auto
 `};
   ${media.lessThan("small")`
-     padding: 0.1rem 1rem;
+     padding: 0.6rem 1rem;
 `};
 `
 
 const HeaderLinks = styled.a`
   text-decoration: none;
-  font-size: 2em;
-  font-family: calibri;
+  font-size: 1.8rem;
 `
 
 const FormCard = styled.div`
@@ -585,7 +581,6 @@ const Tab = styled.div`
 `
 
 const TabColumn = styled.div`
-  font-family: calibri;
   text-align: center;
   display: flex;
   font-size: 1.3rem;
@@ -609,7 +604,7 @@ const TextEditor = styled.div`
     border-radius : 7px;
     flex: 1;
     width  : auto
-    height : 40vh;
+    height : ${props => (props.small ? "28vh" : "40vh")} ;
     border: 1px solid grey;
     margin : 0.5rem 1rem;
     textarea {
@@ -628,7 +623,6 @@ const TextEditor = styled.div`
       padding : 1rem 1rem;
       display : flex;
       font-size : 1.1rem;
-      font-family : calibri;
      border-radius: 0px 0px 5px 5px;
       justify-content  : center;
       background : #fbfbfb;

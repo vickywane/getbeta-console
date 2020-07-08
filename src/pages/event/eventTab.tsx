@@ -5,16 +5,26 @@ import {
   FiUsers,
   FiSquare,
   FiAlignJustify,
+  FiImage,
   FiLayers,
 } from "react-icons/fi"
-
+import { Link } from "react-router-dom"
 import { FiChevronUp, FiChevronDown } from "react-icons/fi"
 import { Tab, TabColumn } from "../../styles/style"
 import { Hover } from "../../styles/style"
 
 // TODO : This component should be a reusable component using props!
+
+const Tabs = styled(TabColumn)`
+  color: #22263d;
+`
+
 const EventTabs = props => {
-  const { dispatch, state } = props
+  const { dispatch, state, data } = props
+
+  const { id } = data.event
+
+  const bucketName = "lucid-shirly" // remove later!!!!
   return (
     <div
       style={{
@@ -78,6 +88,19 @@ const EventTabs = props => {
           </Hover>
           Tracks
         </TabColumn>
+
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/media/${id}/${bucketName}`}
+        >
+          <TabColumn style={{ padding: "0.3rem 0rem" }}>
+            <Hover style={{ padding: "0rem 1rem" }}>
+              <FiImage style={{ fontSize: "1.7rem" }} />
+            </Hover>
+            Gallery
+          </TabColumn>
+        </Link>
+
         <TabColumn
           active={state.activeTab === "shop"}
           onClick={() => {

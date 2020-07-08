@@ -12,12 +12,13 @@ import Flex from "styled-flex-component"
 import { Body, Button, Contain, Hover, Text, Title } from "../../styles/style"
 import media from "styled-media-query"
 import { IoIosAlarm } from "react-icons/io"
-import { useQuery } from "@apollo/react-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 
 import ActionBar from "./userActionBar"
 import { Footer, Header, Loader } from "../../components/"
 import { EmptyData } from "../../components/placeholders"
 import { GET_USER_REMINDERS } from "../../data/queries"
+import { DELETE_REMINDER } from "../../data/mutations"
 import CreateReminder from "./createReminder"
 
 const Grid = styled.div`
@@ -67,6 +68,18 @@ const Reminders = (): JSX.Element => {
     variables: { id: localStorage.getItem("user_id"), name: "" },
   })
 
+  const [deleteReminder, {}] = useMutation(DELETE_REMINDER)
+
+  const Delete = (id: number) => {
+    deleteReminder({
+      variables: {
+        id: id,
+      },
+    })
+      .then(() => alert("id"))
+      .catch(e => console.log(e))
+  }
+
   if (error) {
     console.log(error)
     return <Loader type={"error"} />
@@ -115,10 +128,13 @@ const Reminders = (): JSX.Element => {
               }}
             >
               <div style={{ display: "flex" }}>
-                <Text>
-                  Reminders ( {reminders !== null && reminders.length} ){" "}
-                </Text>
-                <HoverCircle onClick={() => createNewReminder(!newReminder)}>
+                {reminders !== null && (
+                  <Text>Reminders ( {reminders.length} )</Text>
+                )}
+                <HoverCircle
+                  style={{ margin: "0rem 1rem" }}
+                  onClick={() => createNewReminder(!newReminder)}
+                >
                   <FiPlus style={{ fontSize: "1.5rem" }} />
                 </HoverCircle>
               </div>
@@ -154,7 +170,10 @@ const Reminders = (): JSX.Element => {
                               <FiEdit style={{ fontSize: "1.5rem" }} />
                             </Hover>
 
-                            <Hover style={{ margin: "0rem 1rem" }}>
+                            <Hover
+                              onClick={() => Delete(id)}
+                              style={{ margin: "0rem 1rem" }}
+                            >
                               <FiTrash2 style={{ fontSize: "1.5rem" }} />
                             </Hover>
                           </div>

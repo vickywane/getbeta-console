@@ -3,6 +3,26 @@ import { gql } from "apollo-boost"
 // TODO: CHECK IF VALUES RETURNED FORM MUTATIONS ARE
 //       USED IF NOT REMOVE AND LEAVE ONLY ID FIELDS
 
+export const DELETE_REMINDER: any = gql`
+  mutation deleteReminder($id: Int!) {
+    deleteReminder(id: $id)
+  }
+`
+
+export const DELETE_NOTE: any = gql`
+  mutation deleteNote($id: Int!) {
+    deleteNote(Id: $id)
+  }
+`
+
+export const CREATE_NOTE: any = gql`
+  mutation createNote($title: String!, $content: String!, $talkId: Int!) {
+    createNote(input: { title: $title, content: $content }, talkId: $talkId) {
+      title
+    }
+  }
+`
+
 export const CREATE_REMINDER: any = gql`
   mutation createReminder(
     $userId: Int!

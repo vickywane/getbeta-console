@@ -87,7 +87,8 @@ const StyledNotification = styled(IoIosNotificationsOutline)`
   border-radius: 50%
   z-index: 10;
   &: hover {
-      background: #000;
+      color : #401364;
+      background: #fff;
       cursor: pointer;
     }
 `
@@ -104,7 +105,8 @@ const StyledSetting = styled(FiSettings)`
   border-radius: 50%
   z-index: 10;
   &: hover {
-      background: #000;
+      color : #401364;
+      background: #fff;
       cursor: pointer;
     }
 `
@@ -121,6 +123,7 @@ const StyledSearch = styled(FiSearch)`
   border-radius: 50%
   z-index: 10;
   &: hover {
+      color : #401364;
       background: #000;
       cursor: pointer;
     }
