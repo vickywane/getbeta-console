@@ -145,7 +145,7 @@ const Draft = (props): JSX.Element => {
   const Delete = (id: number) => {
     deleteNote({
       variables: {
-        id: id,
+        id: 292230686, //id
       },
     })
       .then(() => console.log("deleted"))
@@ -204,7 +204,7 @@ const Draft = (props): JSX.Element => {
     <div key={id}>
       <Head
         header
-        style={{ marginTop: "15px", padding: "1rem 0rem 0.1rem 2rem" }}
+        style={{ marginTop: "25px", padding: "1rem 0rem 0.1rem 2rem" }}
       >
         <Flex>
           <Link to="/drafts">
@@ -216,6 +216,18 @@ const Draft = (props): JSX.Element => {
         </Flex>
 
         <Flex>
+          <div
+            onClick={() => startEditing(!isEditing)}
+            style={{ display: "flex", cursor: "pointer", margin: "0rem 1rem" }}
+          >
+            <Link to="/drafts">
+              <Hover style={{ padding: "0rem 0.7rem" }}>
+                <FiEdit style={{ fontSize: "1.6rem" }} />
+              </Hover>
+            </Link>
+            <Text> Compile Notes </Text>
+          </div>
+
           <div
             onClick={() => startEditing(!isEditing)}
             style={{ display: "flex", cursor: "pointer", margin: "0rem 1rem" }}
@@ -282,7 +294,16 @@ const Draft = (props): JSX.Element => {
                   onChange={e => handleInputs(e, "Draft Title")}
                 />
               ) : (
-                <BigTitle small={reviewPane}> {title}</BigTitle>
+                <div
+                  style={{
+                    padding: "0.7rem 0.7rem",
+
+                    background: "#fff",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <BigTitle small={reviewPane}> {title}</BigTitle>
+                </div>
               )}
 
               <div
@@ -321,7 +342,12 @@ const Draft = (props): JSX.Element => {
             </div>
           )}
 
-          {note && <CreateNote talkId={id} />}
+          {note && (
+            <div style={{ background: "#fbfbfb", padding: "1rem 1rem" }}>
+              {" "}
+              <CreateNote talkId={id} />{" "}
+            </div>
+          )}
 
           <hr />
           {notes !== null &&

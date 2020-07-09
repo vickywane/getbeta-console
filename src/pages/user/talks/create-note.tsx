@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Flex from "styled-flex-component"
 import {
   FiMail,
@@ -69,6 +69,7 @@ const CreateNote = (props): JSX.Element => {
 
   const [Title, setTitle] = useState("")
   const [Content, setContent] = useState("")
+  const [isSaving, setSaving] = useState(false)
 
   const Grid = styled.div`
     display: grid;
@@ -90,6 +91,14 @@ const CreateNote = (props): JSX.Element => {
     }
   }
 
+  useEffect(() => {
+    if (isSaving) {
+      setTimeout(() => {
+        setSaving(false)
+      }, 2000)
+    }
+  }, [isSaving])
+
   const [createNote, { loading }] = useMutation(CREATE_NOTE)
 
   const create = () => {
@@ -107,12 +116,25 @@ const CreateNote = (props): JSX.Element => {
   return (
     <div>
       <IdeaCard>
-        <div style={{ textAlign: "right" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Section> New Note </Section>
+
           <Hover style={{ margin: "0rem 1rem" }}>
             <FiX onClick={() => {}} style={{ fontSize: "1.6rem" }} />
           </Hover>
         </div>
-        <br />
+        <hr />
+        <div
+          style={{
+            justifyContent: "center",
+            opacity: isSaving ? 1 : 0,
+            transition: "all 350ms",
+            display: "flex",
+          }}
+        >
+          <Text color="grey"> Saving Note ... </Text>
+        </div>
+
         <Fields
           name="Title"
           id={1}
@@ -120,18 +142,24 @@ const CreateNote = (props): JSX.Element => {
           textarea={false}
           value={Title}
           type="text"
-          onChange={e => handleInputs(e, "Title")}
+          onChange={e => {
+            handleInputs(e, "Title")
+            setSaving(true)
+          }}
         />
 
         <Fields
-          name="Notes"
+          name="Draft Notes"
           id={1}
-          placeholder={"Your Notes here"}
+          placeholder={"Your Draft Notes here"}
           textarea={true}
           textEditorSize={"small"}
           value={Content}
           type="text"
-          onChange={e => handleInputs(e, "Idea")}
+          onChange={e => {
+            handleInputs(e, "Idea")
+            setSaving(true)
+          }}
         />
       </IdeaCard>
       <br />
@@ -140,7 +168,6 @@ const CreateNote = (props): JSX.Element => {
           create()
         }}
       >
-        {" "}
         Create Note{" "}
       </Button>
       <br />

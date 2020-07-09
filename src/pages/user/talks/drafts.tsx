@@ -91,7 +91,7 @@ const DraftGrid = styled.div`
 `
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState("drafts")
+  const [ActivePage, setActivePage] = useState("draft") //draft
   const [draftId, setDraftId] = useState(null)
   const Hooks = useWindowWidth()
 
