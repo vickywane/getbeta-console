@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/react-hooks"
 import { FiArrowLeft } from "react-icons/fi"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
- 
-import { Link , Redirect } from "react-router-dom"
+
+import { Link, Redirect } from "react-router-dom"
 import Fields from "../../forms/fields"
 import { CREATE_TALK_DRAFT } from "../../forms/formsData"
 import { Header, Footer, Loader } from "../../../components/"
@@ -42,7 +42,7 @@ const TagBody = styled.div`
 
 const Editor = props => {
   const [Title, setTitle] = useState("")
-  const [Tags, setTags] = useState(new Array)
+  const [Tags, setTags] = useState(new Array())
   const [Tag, setTag] = useState("")
   const [Content, setContent] = useState("")
   const [Summary, setSummary] = useState("")
@@ -77,15 +77,17 @@ const Editor = props => {
         archived: false,
       },
     })
-      .then(() => {
-        return <Redirect to="/drafts" message="Moving to draft." />
-      })
+      .then(() => {})
       .catch(e => console.log(e))
   }
 
   const addTag = () => {
     alert("pressed")
     setTags([TagValue])
+  }
+
+  if (data) {
+    return <Redirect to="/drafts" message="Moving to draft." />
   }
 
   return (
@@ -107,15 +109,16 @@ const Editor = props => {
           <br />
           <Text style={{ padding: "0rem 1.5rem" }}>
             Drafts can be used as talk proposals when applying to speak during
-          events.
+            events.
           </Text>
           <Body>
             {CREATE_TALK_DRAFT.map(
-              ({ id, placeholder, label, type, textarea }) => {
+              ({ id, placeholder, label, type, textarea, textEditorSize }) => {
                 return (
                   <Fields
                     id={id}
                     name={label}
+                    textEditorSize={textEditorSize}
                     placeholder={placeholder}
                     type={type}
                     textarea={textarea}

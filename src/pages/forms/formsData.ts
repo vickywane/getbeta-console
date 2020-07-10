@@ -213,12 +213,14 @@ const CREATE_TALK_DRAFT: any = [
     placeholder: "This can be the title of a planned talk",
     type: "text",
     textarea: false,
+    textEditorSize: false,
   },
   {
     id: 3,
     label: "Draft Summary",
     placeholder: "A short summary of your entire draft.",
     textarea: true,
+    textEditorSize: true,
     type: "text",
   },
 ]

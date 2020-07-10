@@ -91,7 +91,7 @@ const DraftGrid = styled.div`
 `
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState("draft") //draft
+  const [ActivePage, setActivePage] = useState("drafts") //draft
   const [draftId, setDraftId] = useState(null)
   const Hooks = useWindowWidth()
 
@@ -285,16 +285,22 @@ const Talks = (): JSX.Element => {
                                 justifyContent: "space-between",
                               }}
                             >
-                              <div style={{ display: "flex" }}>
-                                <Hover style={{ padding: "0rem 0.5rem" }}>
-                                  <FiEdit style={{ fontSize: "1.7rem" }} />
-                                </Hover>
-                                <Text small> Updated : </Text>
+                              {updatedAt === " " ? (
+                                <div style={{ display: "flex" }}>
+                                  <Hover style={{ padding: "0rem 0.5rem" }}>
+                                    <FiEdit style={{ fontSize: "1.7rem" }} />
+                                  </Hover>
+                                  <Text small> Updated : </Text>
 
+                                  <Text style={{ padding: "0rem 1rem" }} small>
+                                    {updatedAt}
+                                  </Text>
+                                </div>
+                              ) : (
                                 <Text style={{ padding: "0rem 1rem" }} small>
-                                  {updatedAt}{" "}
+                                  No updates made yet.
                                 </Text>
-                              </div>
+                              )}
 
                               <div style={{ display: "flex" }}>
                                 <Hover>
