@@ -19,6 +19,7 @@ import {
   ScheduledTalks,
   Mobile,
   Editor,
+  MeetupGroup,
   SubmitTalk,
   Upload,
   ResetPassword,
@@ -66,19 +67,22 @@ const App = (props): JSX.Element => {
             <Route exact path="/" component={Documentation} />
             <Route path="/login" component={Signin} />
             <Route path="/reset" component={ResetPassword} />
-
             <Protected
               authenticated={Authenticated}
               path="/create"
               component={CreateEvent}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/console"
               component={Console}
             />
-
+            // using ":eventType/:id" makes other dynamic // routes come here
+            <Protected
+              authenticated={Authenticated}
+              path="/oasis/:eventType/:id"
+              component={Event}
+            />
             <Protected
               authenticated={Authenticated}
               path="/list"
@@ -94,79 +98,66 @@ const App = (props): JSX.Element => {
               path="/media/:id/:name"
               component={Media}
             />
-
             <Protected
               authenticated={Authenticated}
-              path="/:eventType/:id"
-              component={Event}
+              path="/meetup/:id"
+              component={MeetupGroup}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/team/:id"
               component={Team}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/drafts"
               component={Drafts}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/tallks/:id"
               component={Draft}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/editor"
               component={Editor}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/mobile"
               component={Mobile}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/stream"
               component={Stream}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/settings"
               component={Preferences}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/upload/:name"
               component={Upload}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/create-task"
               component={TaskForm}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/create-team"
               component={TeamForm}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/event-talks/"
               component={ScheduledTalks}
             />
-
             <Protected
               authenticated={Authenticated}
               path="/reminders"

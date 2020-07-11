@@ -46,7 +46,7 @@ const Organizing = (props): JSX.Element => {
     <div>
       <Modal
         show={Visibility}
-        style={{ marginTop: "3rem" }}
+        style={{ marginTop: "2rem" }}
         onHide={() => {
           setVisibility(false)
         }}
@@ -83,16 +83,14 @@ const Organizing = (props): JSX.Element => {
             <Title small> Organizing : </Title>
 
             {width >= 1000 ? (
-              <Link to="#">
-                <Button onClick={() => setVisibility(true)}>
-                  <Flex>
-                    <div style={{ paddingRight: "15px" }}>
-                      <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
-                    </div>{" "}
-                    Create Event{" "}
-                  </Flex>
-                </Button>
-              </Link>
+              <Button onClick={() => setVisibility(true)}>
+                <Flex>
+                  <div style={{ paddingRight: "15px" }}>
+                    <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
+                  </div>{" "}
+                  Create Event{" "}
+                </Flex>
+              </Button>
             ) : (
               <Link to="/create">
                 <Button>

@@ -93,7 +93,7 @@ const MeetupTabs = props => {
             <Hover style={{ padding: "0rem 1rem" }}>
               <GrArchive style={{ fontSize: "1.7rem" }} />
             </Hover>
-            Event Archive
+            Archive
           </TabColumn>
         ) : (
           <TabColumn

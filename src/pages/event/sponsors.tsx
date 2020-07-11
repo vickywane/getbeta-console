@@ -8,19 +8,19 @@ import { Hover, Title, Text, Section } from "../../styles/style"
 const Grid = styled.div`
   display: flex;
   offset: auto;
-  margin: 1.5rem 0rem;
+  margin: ${props => (props.screen ? "0rem 1rem" : "1.5rem 0rem")};
   li {
     list-style: none;
-    margin: 0.3rem 1.5rem;
+    margin: 0.5rem 1.5rem;
   }
 `
 
 const Sponsors = props => {
-  const { sponsor } = props
+  const { sponsor, screen } = props
   return (
     <div>
       {sponsor !== null && (
-        <Grid>
+        <Grid screen>
           {sponsor.map(({ name, id }) => {
             return (
               <li key={id}>

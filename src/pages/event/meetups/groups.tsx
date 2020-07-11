@@ -3,6 +3,8 @@ import styled from "styled-components"
 import Flex from "styled-flex-component"
 import { FiX } from "react-icons/fi"
 import { Modal } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { CSSTransition } from "react-transition-group"
 
 import { EmptyData } from "../../../components/placeholders"
 import MeetupGroupCard from "../../../components/cards/meetupGroupCard"
@@ -24,65 +26,71 @@ const List = styled.li`
 
 const Groups = props => {
   const { id, meetupGroups } = props.data
-  const [Visibility, setVisibility] = useState(false)
+  const [ActiveView, setActiveView] = useState<string>("list")
 
   return (
     <div>
       <br />
-      <Modal
-        show={Visibility}
-        onHide={() => setVisibility(false)}
-        style={{ marginTop: "3rem" }}
-        size="xl"
-      >
-        <Head>
-          <Section>Create Group</Section>
 
-          <Hover
+      {ActiveView !== "create" && (
+        <Flex justifyBetween>
+          <Text color="grey" style={{ textAlign: "right" }}>
+            Showing {meetupGroups === null ? "0" : meetupGroups.length} items{" "}
+          </Text>
+
+          <Button
             onClick={() => {
-              setVisibility(false)
+              setActiveView("create")
             }}
           >
-            <FiX style={{ fontSize: "1.8rem" }} />
-          </Hover>
-        </Head>
-        <CreateGroup eventId={id} />
-      </Modal>
-
-      <Flex justifyBetween>
-        <Text color="grey" style={{ textAlign: "right" }}>
-          Showing {meetupGroups === null ? "0" : meetupGroups.length} items{" "}
-        </Text>
-
-        <Button
-          onClick={() => {
-            setVisibility(true)
-          }}
-        >
-          Launch New Meetup Group{" "}
-        </Button>
-      </Flex>
+            Launch New Meetup Group{" "}
+          </Button>
+        </Flex>
+      )}
 
       <br />
 
-      {meetupGroups === null ? (
-        <EmptyData
-          message={`This event currently has no launched **Meetup Group**. \n \n Meetup Groups are a way to manage groups of your event across multiple regions`}
-          link="https://event.com"
-          feature="Meetup Groups"
-        />
-      ) : (
-        meetupGroups.map(({ name, id, createdAt, location }) => {
-          return (
-            <MeetupGroupCard
-              name={name}
-              id={id}
-              createdAt={createdAt}
-              location={location}
+      <CSSTransition in={ActiveView === "list"} timeout={300} unmountOnExit>
+        <div>
+          {" "}
+          {meetupGroups === null ? (
+            <EmptyData
+              message={`This event currently has no launched **Meetup Group**. \n \n Meetup Groups are a way to manage groups of your event across multiple regions`}
+              link="https://event.com"
+              feature="Meetup Groups"
             />
-          )
-        })
-      )}
+          ) : (
+            meetupGroups.map(({ name, id, createdAt, location }) => {
+              return (
+                <MeetupGroupCard
+                  name={name}
+                  id={id}
+                  createdAt={createdAt}
+                  location={location}
+                />
+              )
+            })
+          )}{" "}
+        </div>
+      </CSSTransition>
+
+      <CSSTransition in={ActiveView === "create"} timeout={300} unmountOnExit>
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Title small>Create Meetup Group</Title>
+
+            <Button
+              onClick={() => {
+                setActiveView("list")
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+          <br />
+          <CreateGroup eventId={id} />
+        </div>
+      </CSSTransition>
     </div>
   )
 }

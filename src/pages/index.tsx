@@ -26,3 +26,5 @@ export { default as ResetPassword } from "./forms/auth/reset-page"
 
 export { default as TaskForm } from "./forms/task.form"
 export { default as TeamForm } from "./forms/team.form"
+
+export { default as MeetupGroup } from "./event/meetups/meetupgroup/main"

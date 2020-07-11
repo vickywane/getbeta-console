@@ -40,7 +40,7 @@ const MeetupGroupCard = props => {
     volunteerOption,
     event,
   } = props
-  const { setEventId } = props.ModalStore
+  // const { setEventId } = props.ModalStore
   const [optionVisibility, setOptionVisibility] = useState(false)
 
   return (
@@ -63,21 +63,26 @@ const MeetupGroupCard = props => {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Title
-            center
-            small
-            style={{ color: "#0e2f5a",  marginLeft: "10rem", cursor: "pointer" }}
-            onClick={() => setEventId(id)}
-            key={id}
-          >
-            {name}
-          </Title>
+          <Link to={`/meetup/${id}`}>
+            <Title
+              center
+              small
+              style={{
+                color: "#0e2f5a",
+                marginLeft: "10rem",
+                cursor: "pointer",
+              }}
+              key={id}
+            >
+              {name}
+            </Title>
+          </Link>
 
           <Hover style={{ marginLeft: "12rem" }}>
             <FiMoreVertical style={{ fontSize: "1.7rem" }} />
           </Hover>
         </div>
-<br />
+        <br />
         <div
           style={{
             display: "flex",

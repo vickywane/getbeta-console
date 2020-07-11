@@ -12,7 +12,7 @@ class ModalStore {
   }
   // =================================>
 
-  showInvitationInstruction = true
+  showInvitationInstruction = false
 
   openInvitationInstruction = () => {
     this.showInvitationInstruction = true

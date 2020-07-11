@@ -434,13 +434,21 @@ const GET_EVENT_TALK = gql`
 `
 
 const GET_EVENT_MEETUP_GROUP: any = gql`
-  query getMeetupGroup {
-    getMeetupGroup(id: 878604100, name: "") {
+  query getMeetupGroup($id: Int!) {
+    getMeetupGroup(id: $id) {
       name
+      description
       createdAt
       summary
       location
       alias
+      event {
+        id
+        eventType
+        alias
+        name
+        actions
+      }
     }
   }
 `

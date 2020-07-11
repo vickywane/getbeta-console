@@ -86,7 +86,6 @@ const MediaLink = styled.div`
 const MeetupDetails = (props): JSX.Element => {
   const Hooks = useWindowWidth()
 
-
   const {
     openChecklist,
     openPeople,
@@ -124,11 +123,8 @@ const MeetupDetails = (props): JSX.Element => {
   // }
   // animate()
 
-  console.log(permission)
-
-
   useEffect(() => {
-    if ( meetupGroupLength > 0 ) {
+    if (meetupGroupLength > 0) {
       permission && showWelcomeMeetupGroupsModal()
     }
   }, [])
@@ -186,17 +182,19 @@ const MeetupDetails = (props): JSX.Element => {
 
             <Body style={{ position: "absolute", marginTop: "14rem" }}>
               <div>
-
-             { Hooks >= 800 && <div>
-                             {permission && (
-                               <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
-                                 <Hover onClick={() => dispatch({ type: "SWITCH_EDIT" })}>
-                                   <FiEdit style={{ fontSize: "2rem" }} />
-                                 </Hover>
-                               </div>
-                             )}
-                           </div>}
-
+                {Hooks >= 800 && (
+                  <div>
+                    {permission && (
+                      <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
+                        <Hover
+                          onClick={() => dispatch({ type: "SWITCH_EDIT" })}
+                        >
+                          <FiEdit style={{ fontSize: "2rem" }} />
+                        </Hover>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <UserContext.Consumer>
                   {user => {

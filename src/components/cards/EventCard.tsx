@@ -74,7 +74,7 @@ const EventCard = (props): JSX.Element => {
         break
 
       case "event-list":
-      console.log(createdBy , "list")
+        console.log(createdBy, "list")
         setEventAuthorId(createdBy !== null && createdBy[0].id)
         break
 
@@ -142,7 +142,7 @@ const EventCard = (props): JSX.Element => {
               return (
                 <div>
                   <Link
-                    to={`/${type}/${id}`}
+                    to={`oasis/${type}/${id}`}
                     style={{ textDecoration: "none" }}
                   >
                     <h4> {name}</h4>
@@ -155,7 +155,7 @@ const EventCard = (props): JSX.Element => {
           </div>
         )}
 
-        <Link to={`/${type}/${id}`} style={{ textDecoration: "none" }}>
+        <Link to={`oasis/${type}/${id}`} style={{ textDecoration: "none" }}>
           <h4> {name}</h4>
         </Link>
 

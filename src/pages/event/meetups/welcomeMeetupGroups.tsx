@@ -17,7 +17,9 @@ import {
 } from "../../../styles/style"
 
 const Items = styled.div`
-  padding: 0rem 1rem li {
+  padding: 0rem 1rem;
+  li {
+    list-style: none;
     margin: 1rem 0rem;
   }
 `
@@ -57,7 +59,6 @@ const WelcomeMeetupGroups = (props): JSX.Element => {
             >
               Skip
             </Text>
-            <br />
 
             <div style={{ display: "flex", justifyContent: "center" }}>
               <img
@@ -78,7 +79,8 @@ const WelcomeMeetupGroups = (props): JSX.Element => {
             <hr />
 
             <Text small center style={{ padding: "0rem 1rem" }}>
-             Launching a new Meetup group within a Meetup event type has therefore made the following changes to your event ;
+              Launching a new Meetup group within a Meetup event type has
+              therefore made the following changes to your event
             </Text>
 
             <br />

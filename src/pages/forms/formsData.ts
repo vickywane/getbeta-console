@@ -234,6 +234,14 @@ const CREATE_MEETUP_GROUP: any = [
     textarea: false,
   },
   {
+    id: 1,
+    label: "Meetup Group Description",
+    placeholder: "Meetup Group Description",
+    type: "text",
+    textarea: true,
+    textEditorSize: true,
+  },
+  {
     id: 2,
     label: "Meetup Group Alias",
     placeholder: "Meetup Group Alias",

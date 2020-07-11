@@ -389,13 +389,19 @@ const CREATE_MEETUP_GROUP: any = gql`
     $leadId: Int!
     $eventId: Int!
     $name: String!
+    $description: String!
     $alias: String!
     $location: String!
   ) {
     createMeetupGroup(
       leadId: $leadId
       eventId: $eventId
-      input: { name: $name, alias: $alias, location: $location }
+      input: {
+        name: $name
+        description: $description
+        alias: $alias
+        location: $location
+      }
     ) {
       id
     }
