@@ -52,6 +52,13 @@ const Items = [
     explaination:
       " Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt cupiditate eligendi.",
   },
+  {
+    id: 4,
+    type: "meetup",
+    name: "Meetup Group",
+    explaination:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt cupiditate eligendi.",
+  },
 ]
 
 const Grid = styled.div`

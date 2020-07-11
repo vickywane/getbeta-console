@@ -83,6 +83,8 @@ const MeetupGroupDetails = (props): JSX.Element => {
   } = data.getMeetupGroup
   const { showEventDetails } = props.state
 
+  const { location } = data.getMeetupGroup
+
   return (
     <div style={{ transition: "all 500ms" }}>
       {showEventDetails ? (
@@ -234,7 +236,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
               )}
 
               <Text small style={{ paddingLeft: "7px" }}>
-                {meetupGroupLength > 1 ? "Global" : venue}
+                {location}
               </Text>
             </Flex>
 
@@ -264,6 +266,8 @@ const MeetupGroupDetails = (props): JSX.Element => {
               </Flex>
             )}
           </Flex>
+
+          <br />
         </div>
       ) : null}
     </div>

@@ -111,8 +111,6 @@ const Admin = props => {
   return (
     <Window>
       <div>
-        <br />
-
         <List>
           <Link
             style={{ textDecoration: "none" }}
@@ -127,7 +125,7 @@ const Admin = props => {
               {Width >= 1200 ? alias : null}
             </Tab>
           </Link>
-
+          <br />
           <Tab
             onClick={() => dispatch({ type: "SWITCH_DASHBOARD" })}
             active={state.activeTab === "dashboard"}
@@ -139,7 +137,6 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Preview" : null}
           </Tab>
-
           <Tab
             onClick={() => {
               dispatch({ type: "SWITCH_EDIT" })
@@ -153,7 +150,6 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Edit Event" : null}
           </Tab>
-
           <Tab
             onClick={() => openAccessModal()}
             active={state.activeTab === "access"}
@@ -164,7 +160,6 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Event Actions " : null}
           </Tab>
-
           <Tab
             onClick={() => dispatch({ type: "SWITCH_INVITATION" })}
             active={state.activeTab === "invitation"}
@@ -175,7 +170,6 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Invitation" : null}
           </Tab>
-
           <Tab
             onClick={() => dispatch({ type: "SWITCH_SCHEDULE" })}
             active={state.activeTab === "schedule"}
@@ -186,7 +180,6 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Event Schedule" : null}
           </Tab>
-
           <Tab
             onClick={() => dispatch({ type: "SWITCH_STORE" })}
             active={state.activeTab === "store"}
@@ -197,6 +190,8 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Event Store" : null}
           </Tab>
+          <br />
+          <br /> <br />
           <br />
           <br />
           <br />
