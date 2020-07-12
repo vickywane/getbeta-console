@@ -19,7 +19,7 @@ import {
 import { UPDATE_SETTINGS } from "../../../data/mutations"
 
 const Items = styled.div`
-  padding: 0rem 1rem;
+  padding: 0rem 0.5rem;
   li {
     margin: 1rem 0rem;
     list-style: none;
@@ -43,6 +43,9 @@ const TeamIntsruction = (props): JSX.Element => {
   const [ModalVisibility, setModalVisibility] = useState(showTeamInstruction)
   const [updateEventSettings, { error }] = useMutation(UPDATE_SETTINGS)
 
+  console.table([props.settings])
+  console.log(eventId)
+
   const Update = (value: boolean) => {
     updateEventSettings({
       variables: {
@@ -55,7 +58,7 @@ const TeamIntsruction = (props): JSX.Element => {
         eventTheme: eventThemeColour,
       },
     })
-      .then(() => setModalVisibility(false))
+      .then(() => setModalVisibility(value))
       .catch(e => console.log(e))
   }
 

@@ -300,7 +300,7 @@ const Title = styled.h5`
 
 const Label = styled.label`
 padding-left: 10px
-font-weight: 500;
+font-weight: 400;
 font-size: ${props => (props.small ? "1.4em" : "1.3em")};
 ${media.lessThan("large")`
 font-size: ${props => (props.small ? "1.1em" : "1.3em")};

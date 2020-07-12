@@ -99,7 +99,7 @@ const TeamList = (props): JSX.Element => {
 
   return (
     <div>
-      <Head style={{ padding: "1rem 1rem" }} header>
+      <Head style={{ padding: "1rem 0rem 1rem" }} header>
         <TeamInstruction settings={props.data.settings[0]} eventId={id} />
 
         {ActiveView !== "Overview" ? (
@@ -116,7 +116,7 @@ const TeamList = (props): JSX.Element => {
 
             <Section
               style={{
-                margin: "0.6rem 0.5rem",
+                margin: "0.4rem 0.5rem",
               }}
             >
               {TeamName}
@@ -125,7 +125,7 @@ const TeamList = (props): JSX.Element => {
         ) : (
           <Section
             style={{
-              padding: "0.6rem 0.2rem",
+              padding: "0.4rem 0.2rem",
             }}
           >
             Team Support

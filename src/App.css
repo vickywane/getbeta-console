@@ -15,7 +15,7 @@
 
 /* SETTINGS TRANSITION STYLE */
 .setting-enter {
-  background-color: #444444;
+  background-color: #401364;
   color: transparent;
   max-height: 10vh;
   width: 10rem;
@@ -25,7 +25,7 @@
 }
 
 .setting-enter-active {
-  background-color: #444444;
+  background-color: #401364;
   color: #fff;
   max-height: 50vh;
   width: 35rem;
@@ -36,7 +36,7 @@
 }
 
 .setting-exit {
-  background-color: #444444;
+  background-color: #401364;
   color: #fff;
   max-height: 30vh;
   width: 35rem;
@@ -52,7 +52,7 @@
   opacity: 0.7;
   transition: all 500ms;
   color: transparent;
-  background-color: #444444;
+  background-color: #401364;
   border-radius: 0px;
 }
 
