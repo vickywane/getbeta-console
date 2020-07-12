@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { inject, observer } from "mobx-react"
 import { Modal } from "react-bootstrap"
 import styled from "styled-components"
 import { FiX } from "react-icons/fi"
@@ -32,8 +31,6 @@ const Body = styled(Bod)`
 `
 
 const InvitationModalInstruction = (props): JSX.Element => {
-  const { closeInvitationInstruction } = props.ModalStore
-
   const { data, eventId } = props
 
   const {
@@ -137,4 +134,4 @@ const InvitationModalInstruction = (props): JSX.Element => {
   )
 }
 
-export default inject("ModalStore")(observer(InvitationModalInstruction))
+export default InvitationModalInstruction

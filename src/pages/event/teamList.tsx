@@ -1,16 +1,11 @@
 import React, { useState } from "react"
 import Flex from "styled-flex-component"
 import { inject, observer } from "mobx-react"
-import {
-  FiMoreVertical,
-  FiLock,
-  FiTrash2,
-  FiCalendar,
-} from "react-icons/fi"
+import { FiMoreVertical, FiLock, FiTrash2, FiCalendar } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 import { IoIosListBox } from "react-icons/io"
-import { FiArrowLeft , FiFilter} from "react-icons/fi"
+import { FiArrowLeft, FiFilter } from "react-icons/fi"
 import { useMutation, useSubscription } from "@apollo/react-hooks"
 
 import useWindowWidth from "../../hook_style"
@@ -101,11 +96,11 @@ const TeamList = (props): JSX.Element => {
       .then(() => {})
       .catch(e => console.log(e))
   }
- 
+
   return (
     <div>
       <Head style={{ padding: "1rem 1rem" }} header>
-        <TeamInstruction />
+        <TeamInstruction settings={props.data.settings[0]} eventId={id} />
 
         {ActiveView !== "Overview" ? (
           <Flex>
@@ -156,7 +151,7 @@ const TeamList = (props): JSX.Element => {
             Volunteers
           </TabColumn>
 
-           <TabColumn
+          <TabColumn
             onClick={() => {
               showVolunteers(true)
               setView("Attendees")
@@ -203,9 +198,8 @@ const TeamList = (props): JSX.Element => {
                 >
                   <Flex>
                     Filter Result
-
-                    <Hover style={{margin : '0rem 0.8rem'}} >
-                      <FiFilter style={{ fontSize : '1.5rem' }} />
+                    <Hover style={{ margin: "0rem 0.8rem" }}>
+                      <FiFilter style={{ fontSize: "1.5rem" }} />
                     </Hover>
                   </Flex>
                 </Button>
@@ -220,12 +214,8 @@ const TeamList = (props): JSX.Element => {
               </div>
 
               {teams.map(({ id, name, createdAt, goal, tasks }) => {
-                
                 return (
-                  <List
-                    key={id}
-                    borderColor={"#0e2f5a"}
-                  >
+                  <List key={id} borderColor={"#0e2f5a"}>
                     <div style={{ justifyContent: "space-between" }}>
                       <div style={{ flexDirection: "column" }}>
                         <Title
@@ -253,7 +243,7 @@ const TeamList = (props): JSX.Element => {
                           <Text small>{createdAt}</Text>
                         </div>
                       </div>
-                     
+
                       <div>
                         {Width >= 1000 ? (
                           <div style={{ display: "flex" }}>
