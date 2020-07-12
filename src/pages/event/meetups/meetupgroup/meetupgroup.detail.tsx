@@ -4,6 +4,7 @@ import { FiChevronUp, FiChevronDown, FiClock, FiSquare } from "react-icons/fi"
 
 import { Body, Text, Title, Hover } from "../../../../styles/style"
 import Sponsors from "../../../event/sponsors"
+import GalleryPreview from "../../../media/galleryPreview"
 
 const Flex = styled.div`
   display: flex;
@@ -77,7 +78,7 @@ const MeetupDetails = props => {
 
             <a
               onClick={() => dispatch({ type: "CLOSE_EVENT_PANE" })}
-              href="#organizer"
+              href="#session"
               style={{ textDecoration: "none" }}
             >
               <Box>
@@ -93,25 +94,7 @@ const MeetupDetails = props => {
             </a>
           </div>
 
-          <a
-            onClick={() => dispatch({ type: "CLOSE_EVENT_PANE" })}
-            href="#organizer"
-            style={{ textDecoration: "none" }}
-          >
-            <Box>
-              <div style={{ padding: "0rem 1.5rem" }}>
-                <FiSquare style={{ fontSize: "2.5rem" }} />
-              </div>
-
-              <Flex column>
-                <Title small>00</Title>
-
-                <Text color="grey">Group Groups</Text>
-              </Flex>
-            </Box>
-          </a>
-
-          <a href="#organizer" style={{ textDecoration: "none" }}>
+          <a href="#gallery" style={{ textDecoration: "none" }}>
             <Box>
               <div style={{ padding: "0rem 1.5rem" }}>
                 <FiSquare style={{ fontSize: "2.5rem" }} />
@@ -125,7 +108,7 @@ const MeetupDetails = props => {
             </Box>
           </a>
 
-          <a href="#organizer" style={{ textDecoration: "none" }}>
+          <a href="#archive" style={{ textDecoration: "none" }}>
             <Box>
               <div style={{ padding: "0rem 1.5rem" }}>
                 <FiSquare style={{ fontSize: "2.5rem" }} />
@@ -150,25 +133,19 @@ const MeetupDetails = props => {
         <br />
       </div>
       <hr />
-      <div style={{ padding: "1rem 2rem" }}>
+      <div id="session" style={{ padding: "1rem 1.5rem" }}>
         <Title id="sponsors" small>
           Group Session
         </Title>
         <Text style={{ textIndent: "60px" }}> {description} </Text>
         <br />
       </div>
-      <hr />
 
-      <div style={{ padding: "1rem 2rem" }}>
-        <Title id="sponsors" small>
-          Group Gallery
-        </Title>
-        <Text style={{ textIndent: "60px" }}> {description} </Text>
-        <br />
+      <div id="gallery" style={{ padding: "1rem 0rem" }}>
+        <GalleryPreview background={"#c0c0c0"} />
       </div>
-      <hr />
 
-      <div style={{ padding: "1rem 2rem" }}>
+      <div id="archive" style={{ padding: "1rem 1.5rem" }}>
         <Title id="sponsors" small>
           Group Archive
         </Title>

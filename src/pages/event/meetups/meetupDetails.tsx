@@ -20,6 +20,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { IoIosArrowDropright } from "react-icons/io"
 
+import useScrollPosition from "../../../utils/scrollTrackerHook"
 import {
   Hover,
   Contain,
@@ -85,6 +86,7 @@ const MediaLink = styled.div`
 
 const MeetupDetails = (props): JSX.Element => {
   const Hooks = useWindowWidth()
+  const Scroll = useScrollPosition()
 
   const {
     openChecklist,

@@ -1,9 +1,11 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { inject, observer } from "mobx-react"
 import { Modal } from "react-bootstrap"
 import { FcCustomerSupport } from "react-icons/fc"
 import styled from "styled-components"
+import { useMutation } from "@apollo/react-hooks"
 
+import { UPDATE_SETTINGS } from "../../data/mutations"
 import {
   Contain,
   Text,
@@ -15,21 +17,56 @@ import {
 } from "../../styles/style"
 
 const Items = styled.div`
-  padding : 0rem 1rem
-  li {
-    margin : 1rem 0rem
+  padding: 0rem 1rem li {
+    margin: 1rem 0rem;
   }
 `
 
 const EventModal = props => {
-  const { welcomeEventModal, closeWelcomeEventModal } = props.ModalStore
+  const { show, eventId, data } = props
+
+  const {
+    id,
+    showTeamInstruction,
+    showWelcomeMeetupGroup,
+    showInvitationInstruction,
+    showWelcomeEventInstruction,
+    eventThemeColour,
+  } = data.settings[0]
+  console.table([data.settings[0]])
+  console.log(eventId)
+
+  const [ModalVisibility, setModalVisibility] = useState(
+    showWelcomeEventInstruction
+  )
+  const [updateEventSettings, { error }] = useMutation(UPDATE_SETTINGS)
+
+  const update = () => {
+    updateEventSettings({
+      variables: {
+        settingsId: id,
+        eventId: eventId,
+        showWelcomeEventInstruction: false,
+        showTeamInstruction: showTeamInstruction,
+        showWelcomeMeetupGroup: showWelcomeMeetupGroup,
+        showInvitationInstruction: showInvitationInstruction,
+        eventThemeColour: eventThemeColour,
+      },
+    })
+      .then(() => {
+        setModalVisibility(!ModalVisibility)
+      })
+      .catch(e => console.log(e))
+  }
 
   return (
     <Modal
       size="xl"
-      onHide={() => closeWelcomeEventModal()}
+      onHide={() => {
+        update()
+      }}
       style={{ marginTop: "3rem" }}
-      show={welcomeEventModal}
+      show={ModalVisibility}
     >
       <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
         <div
@@ -46,7 +83,9 @@ const EventModal = props => {
         <Body>
           <div>
             <Text
-              onClick={() => closeWelcomeEventModal()}
+              onClick={() => {
+                update()
+              }}
               color="grey"
               style={{
                 textAlign: "right",
@@ -58,8 +97,12 @@ const EventModal = props => {
             </Text>
             <br />
 
-            <div style={{display : 'flex' , justifyContent : 'center'}} >
-            <img alt="Congratulations" src={require("../../assets/ssvg/calendar.svg")}  style={{height : "auto"  , maxWidth : '10%'}}  />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <img
+                alt="Congratulations"
+                src={require("../../assets/ssvg/calendar.svg")}
+                style={{ height: "auto", maxWidth: "10%" }}
+              />
             </div>
 
             <Title center bold>
@@ -82,7 +125,9 @@ const EventModal = props => {
             <hr />
             <Text>
               We believe it takes a period of time to properly plan an event.
-              Hence , Oasis steps in while you make your arrangements. The following default actions can be changed from your <b> Event Actions </b> pane.
+              Hence , Oasis steps in while you make your arrangements. The
+              following default actions can be changed from your{" "}
+              <b> Event Actions </b> pane.
             </Text>
 
             <Items>

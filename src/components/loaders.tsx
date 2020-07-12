@@ -84,6 +84,24 @@ const Loader = (props): JSX.Element => {
                   <Footer />
                 </div>
               )
+            case "meetup group":
+              return (
+                <div>
+                  <Header />
+                  <br /> <br /> <br />
+                  <br /> <br /> <br /> <br />
+                  <br />
+                  <BigTitle center>
+                    Ooops!!! <br /> This meetup group could have been archived ,
+                    suspended or moved elsewhere or has been deleted{" "}
+                  </BigTitle>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <Footer />
+                </div>
+              )
             default:
               break
           }

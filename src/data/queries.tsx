@@ -166,6 +166,14 @@ const GET_EVENT: any = gql`
       mediaLinks
       actions
       EventDate
+      settings {
+        id
+        showTeamInstruction
+        showWelcomeMeetupGroup
+        showInvitationInstruction
+        showWelcomeEventInstruction
+        eventThemeColour
+      }
       sponsors {
         id
         name
@@ -436,10 +444,12 @@ const GET_EVENT_TALK = gql`
 const GET_EVENT_MEETUP_GROUP: any = gql`
   query getMeetupGroup($id: Int!) {
     getMeetupGroup(id: $id) {
+      id
       name
       description
       createdAt
       summary
+      mediaLinks
       location
       alias
       event {

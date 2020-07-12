@@ -14,8 +14,8 @@ import { useMutation } from "@apollo/react-hooks"
 import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 
-import Media from "./media"
-import SponsorsControl from "./sponsors.control"
+import Media from "../../media"
+import SponsorsControl from "../../sponsors.control"
 import {
   Hover,
   Head,
@@ -27,10 +27,10 @@ import {
   TabColumn,
   Text,
   Button,
-} from "../../styles/style"
-import { UPDATE_EVENT } from "../../data/mutations"
-import { CREATE_EVENT_INPUT } from "../../pages/forms/formsData"
-import Field from "../../pages/forms/fields"
+} from "../../../../styles/style"
+import { UPDATE_EVENT } from "../../../../data/mutations"
+import { CREATE_MEETUP_GROUP } from "../../../../pages/forms/formsData"
+import Field from "../../../../pages/forms/fields"
 
 const CInput = styled.div`
   display: flex;
@@ -57,38 +57,22 @@ const EditEvent = (props): JSX.Element => {
 
   const { editEventModal, closeEditModal } = props.ModalStore
   const { eventData } = props
-
   const {
     id,
     name,
-    eventType,
-    sponsors,
-    alias,
-    website,
-    Email,
     description,
-    venue,
-    isVirtual,
-    speakerConduct, // null when not updated
-    confirmedEmail,
-    isArchived,
-    mediaLinks,
-    isLocked,
-    EventDate, // null
-    isAcceptingVolunteers,
-    isAcceptingTalks,
+    createdAt,
     summary,
-    isAcceptingAttendees,
-  } = eventData.event
+    location,
+    alias,
+    mediaLinks,
+  } = eventData.getMeetupGroup
 
   const [Name, setName] = useState<string>(name)
   const [Alias, setAlias] = useState<string>(alias)
   const [Description, setDescription] = useState<string>(description)
-  const [Website, setWebsite] = useState<string>(website)
   const [Summary, setSummary] = useState<string>(summary)
-  const [Venue, setVenue] = useState<string>(venue)
-  const [NewEmail, setEmail] = useState<string>(Email)
-  const [EventType, setEventType] = useState<string>(eventType)
+  const [Location, setLocation] = useState<string>(location)
 
   const [FBMediaLinks, addFBMediaLink] = useState<string>(
     mediaLinks === null ? "" : mediaLinks[0]
@@ -100,7 +84,7 @@ const EditEvent = (props): JSX.Element => {
     mediaLinks === null ? "" : mediaLinks[2]
   )
 
-  const { first, second, third } = CREATE_EVENT_INPUT
+  const { first, second, third } = CREATE_MEETUP_GROUP
   const [updateEvent, { data }] = useMutation(UPDATE_EVENT)
 
   const handleChange = (value, label) => {
@@ -111,12 +95,6 @@ const EditEvent = (props): JSX.Element => {
       case "Event Alias":
         setAlias(value)
         break
-      case "Event Brand Page":
-        setWebsite(value)
-        break
-      case "Event Support Email":
-        setEmail(value)
-        break
       case "Event Description":
         setDescription(value)
         break
@@ -124,10 +102,10 @@ const EditEvent = (props): JSX.Element => {
         setSummary(value)
         break
       case "Event-Venue":
-        setVenue(value)
+        setLocation(value)
         break
       default:
-        console.log(label)
+        break
     }
   }
 
@@ -139,24 +117,11 @@ const EditEvent = (props): JSX.Element => {
       variables: {
         id: id,
         name: Name,
-        website: Website,
         alias: Alias,
         description: Description,
-        Email: NewEmail,
-        venue: Venue,
         Date: 11,
-        isVirtual: isVirtual,
         mediaLinks: LinksArr,
-        isLocked: isLocked,
-        isArchived: isArchived,
-        isAcceptingVolunteers: isAcceptingVolunteers,
-        isAcceptingTalks: isAcceptingTalks,
-        isAcceptingAttendees: isAcceptingAttendees,
-        speakerConduct: speakerConduct,
-        confirmedEmail: confirmedEmail,
-        eventType: EventType,
         summary: Summary,
-        EventDate: [EventDate],
       },
     })
       .then(() => {
@@ -182,7 +147,7 @@ const EditEvent = (props): JSX.Element => {
             <FiEdit style={{ fontSize: "1.75em" }} />
           </Hover>
 
-          <Section>Edit {eventType}</Section>
+          <Section>Edit Meetup Group </Section>
         </div>
 
         <Tab>
@@ -226,6 +191,7 @@ const EditEvent = (props): JSX.Element => {
                 />
               )
             })}
+
             {third.map(({ id, label, placeholder, textarea }) => {
               return (
                 <Field
@@ -234,12 +200,13 @@ const EditEvent = (props): JSX.Element => {
                   name={label}
                   type={"text"}
                   textarea={textarea}
-                  value={label == "Event Brand Page" ? Website : NewEmail}
                   onChange={e => handleChange(e, label)}
-                  placeholder={label == "Event Brand Page" ? website : Email}
+                  value={label == "Event Name" ? Name : Alias}
+                  placeholder={label == "Event Name" ? name : alias}
                 />
               )
             })}
+
             {second.map(({ id, label, limit, placeholder, textarea }) => {
               return (
                 <Field
@@ -345,7 +312,10 @@ const EditEvent = (props): JSX.Element => {
         unmountOnExit
         in={ActiveColumn === "sponsors"}
       >
-        <SponsorsControl sponsors={sponsors} eventId={id} />
+        <SponsorsControl
+          sponsors={[{ id: 1, name: "Facebook Open Source" }]}
+          eventId={id}
+        />
       </CSSTransition>
       <br />
     </div>

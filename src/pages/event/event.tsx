@@ -118,6 +118,7 @@ const Event = (props): JSX.Element => {
     const permission = data.event.createdBy[0].id == userId
     const meetupGroupLength =
       data.event.meetupGroups === null ? 0 : data.event.meetupGroups.length
+    const { id } = data.event
 
     return (
       <TabContext.Provider value={TabState}>
@@ -125,7 +126,7 @@ const Event = (props): JSX.Element => {
 
         <br />
         <br />
-        <EventModal />
+        <EventModal data={data.event} eventId={id} />
         <Checklist />
         <PapersModal data={data.event} />
         <Contact email={data.event.Email} />
@@ -295,6 +296,7 @@ const Event = (props): JSX.Element => {
               >
                 <Schedule data={data} />
               </CSSTransition>
+
               <CSSTransition
                 timeout={300}
                 className={""}
@@ -303,6 +305,7 @@ const Event = (props): JSX.Element => {
               >
                 <EditEvent eventData={data} />
               </CSSTransition>
+
               <CSSTransition
                 timeout={300}
                 className={""}

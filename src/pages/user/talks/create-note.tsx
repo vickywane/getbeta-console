@@ -119,21 +119,22 @@ const CreateNote = (props): JSX.Element => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Section> New Note </Section>
 
+          <div
+            style={{
+              justifyContent: "center",
+              opacity: isSaving ? 1 : 0,
+              transition: "all 350ms",
+              display: "flex",
+            }}
+          >
+            <Text color="grey"> Saving Note ... </Text>
+          </div>
+
           <Hover style={{ margin: "0rem 1rem" }}>
             <FiX onClick={() => {}} style={{ fontSize: "1.6rem" }} />
           </Hover>
         </div>
         <hr />
-        <div
-          style={{
-            justifyContent: "center",
-            opacity: isSaving ? 1 : 0,
-            transition: "all 350ms",
-            display: "flex",
-          }}
-        >
-          <Text color="grey"> Saving Note ... </Text>
-        </div>
 
         <Fields
           name="Title"

@@ -15,7 +15,7 @@ const MeetupTabComponents = (props): JSX.Element => {
   const { state, data, openContact } = props
 
   return (
-    <Contain>
+    <div style={{ padding: "1ren 1rem" }}>
       <CSSTransition
         timeout={500}
         in={state.activeTab === "detail"}
@@ -48,10 +48,10 @@ const MeetupTabComponents = (props): JSX.Element => {
         in={state.activeTab === "shop"}
         classNames={""}
         unmountOnExit
-      > 
+      >
         <Archive screen="event" data={data} />
       </CSSTransition>
-    </Contain>
+    </div>
   )
 }
 

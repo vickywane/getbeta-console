@@ -5,7 +5,7 @@ import { FiX, FiAlertCircle } from "react-icons/fi"
 import { Modal } from "react-bootstrap"
 import { FcCustomerSupport } from "react-icons/fc"
 
-import Fields from "../../forms/fields"
+import Field from "../../forms/fields"
 import { CREATE_MEETUP_GROUP as CREATE_MEETUP_GROUP_DATA } from "../../forms/formsData"
 import { CREATE_MEETUP_GROUP } from "../../../data/mutations"
 import {
@@ -33,6 +33,8 @@ const CreateGroup = props => {
   const [Name, setName] = useState<string>("")
   const [Location, setLocation] = useState<string>("")
   const [Alias, setAlias] = useState<string>("")
+  const [Email, setEmail] = useState<string>("")
+  const [Website, setWebsite] = useState<string>("")
   const [Description, setDescription] = useState<string>("")
 
   function handleChange(value, label) {
@@ -49,11 +51,17 @@ const CreateGroup = props => {
       case "Meetup Group Description":
         setDescription(value)
         break
+      case "Meetup Group Website":
+        setWebsite(value)
+        break
+      case "Meetup Group Email":
+        setEmail(value)
+        break
       default:
         break
     }
   }
-  //
+
   function handleSubmit() {
     createMeetupGroup({
       variables: {
@@ -62,12 +70,15 @@ const CreateGroup = props => {
         name: Name,
         alias: Alias,
         location: Location,
+        email: Email,
+        website: Website,
         description: Description,
       },
     })
       .then(() => alert("Created"))
       .catch(e => console.log(e))
   }
+  const { first, second, third } = CREATE_MEETUP_GROUP_DATA
 
   return (
     <Body>
@@ -78,15 +89,48 @@ const CreateGroup = props => {
         the group.
       </Text>
 
-      {CREATE_MEETUP_GROUP_DATA.map(({ id, placeholder, label, type }) => {
+      {first.map(({ id, label, placeholder, textarea }) => {
         return (
-          <Fields
-            onChange={e => handleChange(e, label)}
-            id={id}
-            placeholder={placeholder}
+          <Field
+            key={id}
+            id={label}
             name={label}
-            type={type}
-            textarea={false}
+            type={"text"}
+            textarea={textarea}
+            value={label == "Meetup Group Name" ? Name : Description}
+            onChange={e => handleChange(e, label)}
+            placeholder={placeholder}
+          />
+        )
+      })}
+
+      {third.map(({ id, label, placeholder, textarea }) => {
+        return (
+          <Field
+            key={id}
+            id={label}
+            name={label}
+            type={"text"}
+            textarea={textarea}
+            onChange={e => handleChange(e, label)}
+            value={label == "Meetup Group Alias" ? Alias : Location}
+            placeholder={placeholder}
+          />
+        )
+      })}
+
+      {second.map(({ id, label, limit, placeholder, textarea }) => {
+        return (
+          <Field
+            key={id}
+            id={label}
+            limit={limit}
+            name={label}
+            type={"text"}
+            textarea={textarea}
+            value={label === "Meetup Group Email" ? Email : Website}
+            onChange={e => handleChange(e, label)}
+            placeholder={placeholder}
           />
         )
       })}

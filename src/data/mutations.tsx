@@ -3,6 +3,32 @@ import { gql } from "apollo-boost"
 // TODO: CHECK IF VALUES RETURNED FORM MUTATIONS ARE
 //       USED IF NOT REMOVE AND LEAVE ONLY ID FIELDS
 
+export const UPDATE_SETTINGS: any = gql`
+  mutation updateEventSettings(
+    $eventId: Int!
+    $settingsId: Int!
+    $eventModal: Boolean!
+    $welcomeMeetupGroup: Boolean!
+    $invitationInstruction: Boolean!
+    $eventTheme: String
+    $teamInstruction: Boolean!
+  ) {
+    updateEventSettings(
+      eventId: $eventId
+      id: $settingsId
+      input: {
+        showTeamInstruction: $teamInstruction
+        showWelcomeMeetupGroup: $welcomeMeetupGroup
+        showInvitationInstruction: $invitationInstruction
+        showWelcomeEventInstruction: $eventModal
+        eventThemeColour: $eventTheme
+      }
+    ) {
+      id
+    }
+  }
+`
+
 export const DELETE_REMINDER: any = gql`
   mutation deleteReminder($id: Int!) {
     deleteReminder(id: $id)
@@ -389,15 +415,21 @@ const CREATE_MEETUP_GROUP: any = gql`
     $leadId: Int!
     $eventId: Int!
     $name: String!
+    $website: String
+    $email: String!
     $description: String!
     $alias: String!
     $location: String!
+    $mediaLinks: [String]
   ) {
     createMeetupGroup(
       leadId: $leadId
       eventId: $eventId
       input: {
         name: $name
+        email: $email
+        website: $website
+        mediaLinks: $mediaLinks
         description: $description
         alias: $alias
         location: $location

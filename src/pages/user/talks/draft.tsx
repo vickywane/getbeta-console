@@ -19,6 +19,7 @@ import ReactMarkdown from "react-markdown"
 import { IoIosPeople } from "react-icons/io"
 import { Modal } from "react-bootstrap"
 
+import TestImg from "../../../assets/images/test.png"
 import CreateNote from "./create-note"
 import Fields from "../../forms/fields"
 import Review from "./review"
@@ -119,7 +120,7 @@ const Draft = (props): JSX.Element => {
     tramsition : all 300ms;
     overflow : auto;
     height : ${window.innerHeight - 300}
-    padding: ${props => (props.reviewOpen ? "1rem 3rem" : "1rem 15rem")};
+    padding: ${props => (props.reviewOpen ? "0rem 3rem" : "0rem 15rem")};
   `
 
   const Grid = styled.div`
@@ -145,7 +146,7 @@ const Draft = (props): JSX.Element => {
   const Delete = (id: number) => {
     deleteNote({
       variables: {
-        id: 292230686, //id
+        id: id, //
       },
     })
       .then(() => console.log("deleted"))
@@ -259,27 +260,32 @@ const Draft = (props): JSX.Element => {
           style={{ height: window.innerHeight - 210, overflow: "auto" }}
           reviewOpen={reviewPane}
         >
-          <Flex justifyBetween>
-            <Flex>
-              <Hover style={{ padding: "0rem 0.5rem", color: "grey" }}>
-                <FiCalendar style={{ fontSize: "1.7rem" }} />
-              </Hover>
+          {!note && (
+            <Contain img={TestImg} style={{ height: "25vh" }}>
+              <br />
+              <Flex justifyBetween>
+                <Flex>
+                  <Hover style={{ padding: "0rem 0.5rem", color: "grey" }}>
+                    <FiCalendar style={{ fontSize: "1.7rem" }} />
+                  </Hover>
 
-              <Text small color="grey">
-                {createdAt}
-              </Text>
-            </Flex>
+                  <Text small color="grey">
+                    {createdAt}
+                  </Text>
+                </Flex>
 
-            <Flex>
-              <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
-                <FiClock style={{ fontSize: "1.7rem" }} />
-              </Hover>
+                <Flex>
+                  <Hover style={{ padding: "0rem 0.6rem", color: "grey" }}>
+                    <FiClock style={{ fontSize: "1.7rem" }} />
+                  </Hover>
 
-              <Text small color="grey">
-                {duration}{" "}
-              </Text>
-            </Flex>
-          </Flex>
+                  <Text small color="grey">
+                    {duration}{" "}
+                  </Text>
+                </Flex>
+              </Flex>
+            </Contain>
+          )}
 
           {!note && (
             <div>
@@ -344,7 +350,6 @@ const Draft = (props): JSX.Element => {
 
           {note && (
             <div style={{ background: "#fbfbfb", padding: "1rem 1rem" }}>
-              {" "}
               <CreateNote talkId={id} />{" "}
             </div>
           )}

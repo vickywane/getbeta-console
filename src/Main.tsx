@@ -7,6 +7,7 @@ import { UserContext, TabContext, TabState } from "./state/context/contextState"
 import Client from "./data/config"
 import App from "./App"
 
+import ErrorBoundary from "./components/errors/errorBoundary"
 import { GlobalStyles } from "./styles/global"
 import "./App.css"
 import { store as AuthStore } from "./state/auth.store"
@@ -27,19 +28,21 @@ const CtxValue = {
 
 const Main = () => {
   return (
-    <ApolloProvider client={Client}>
-      <Provider
-        AuthStore={AuthStore}
-        ConsoleStore={ConsoleStore}
-        MediaStore={MediaStore}
-        ModalStore={ModalStore}
-        PaneStore={PaneStore}
-      >
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </Provider>
-    </ApolloProvider>
+    <ErrorBoundary>
+      <ApolloProvider client={Client}>
+        <Provider
+          AuthStore={AuthStore}
+          ConsoleStore={ConsoleStore}
+          MediaStore={MediaStore}
+          ModalStore={ModalStore}
+          PaneStore={PaneStore}
+        >
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </Provider>
+      </ApolloProvider>
+    </ErrorBoundary>
   )
 }
 

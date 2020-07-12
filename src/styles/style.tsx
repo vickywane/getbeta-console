@@ -228,7 +228,7 @@ const BigInput = styled.textarea`
 
 const Text: any = styled.p`
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: ${props => (props.small ? "1.2rem" : "1.3rem")};
+  font-size: ${props => (props.small ? "1.1rem" : "1.2rem")};
   color: ${props => props.color};
   font-weight: ${props => (props.bold ? "600" : "normal")};
 `
@@ -285,7 +285,7 @@ const Title = styled.h5`
   cursor : ${props => (props.pointer ? "pointer" : null)}
   color: ${props => (props.active ? "#FF5F00" : "#0e2f5a")};
   text-align: ${props => (props.center ? "center" : null)};
-  font-size: ${props => (props.small ? "1.6rem" : "2rem")};
+  font-size: ${props => (props.small ? "1.4rem" : "1.8rem")};
   font-weight: ${props => (props.bold ? "600px" : "normal")};
   ${media.lessThan("large")`
   font-size: ${props => (props.small ? "1.5em" : "2em")};

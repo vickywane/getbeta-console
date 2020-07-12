@@ -225,37 +225,57 @@ const CREATE_TALK_DRAFT: any = [
   },
 ]
 
-const CREATE_MEETUP_GROUP: any = [
-  {
-    id: 1,
-    label: "Meetup Group Name",
-    placeholder: "Meetup Group Name",
-    type: "text",
-    textarea: false,
-  },
-  {
-    id: 1,
-    label: "Meetup Group Description",
-    placeholder: "Meetup Group Description",
-    type: "text",
-    textarea: true,
-    textEditorSize: true,
-  },
-  {
-    id: 2,
-    label: "Meetup Group Alias",
-    placeholder: "Meetup Group Alias",
-    type: "text",
-    textarea: false,
-  },
-  {
-    id: 3,
-    label: "Meetup Group Region",
-    placeholder: "Meetup Region",
-    type: "text",
-    textarea: false,
-  },
-]
+const CREATE_MEETUP_GROUP: any = {
+  first: [
+    {
+      id: 1,
+      label: "Meetup Group Name",
+      placeholder: "Meetup Group Name",
+      type: "text",
+      textarea: false,
+    },
+    {
+      id: 2,
+      label: "Meetup Group Description",
+      placeholder: "Meetup Group Description",
+      type: "text",
+      textarea: true,
+      textEditorSize: true,
+    },
+  ],
+  second: [
+    {
+      id: 3,
+      label: "Meetup Group Email",
+      placeholder: "Meetup Group Email",
+      type: "text",
+      textarea: false,
+    },
+    {
+      id: 4,
+      label: "Meetup Group Website",
+      placeholder: "Url link to Meetup Group Webpage",
+      type: "text",
+      textarea: false,
+    },
+  ],
+  third: [
+    {
+      id: 5,
+      label: "Meetup Group Alias",
+      placeholder: "Meetup Group Alias",
+      type: "text",
+      textarea: false,
+    },
+    {
+      id: 6,
+      label: "Meetup Group Region",
+      placeholder: "Meetup Region",
+      type: "text",
+      textarea: false,
+    },
+  ],
+}
 
 const TALK_GUIDELINE = [
   {

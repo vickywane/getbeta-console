@@ -5,6 +5,7 @@ import media from "styled-media-query"
 import { FiArrowRight } from "react-icons/fi"
 import { CSSTransition } from "react-transition-group"
 
+import EditEvent from "./editMeetupGroup"
 import Timeline from "../../timeline"
 import { GET_EVENT_MEETUP_GROUP } from "../../../../data/queries"
 import { Header, Footer, Loader } from "../../../../components/"
@@ -65,6 +66,7 @@ const MeetupGroup = props => {
     const { name, summary, event } = data.getMeetupGroup
 
     const { actions } = event[0]
+    console.log(staate)
 
     return (
       <TabContext.Provider value={TabState}>
@@ -83,7 +85,7 @@ const MeetupGroup = props => {
 
           <div style={{ height: window.innerHeight - 100, overflow: "auto" }}>
             <CSSTransition
-              in={state.activeTab === "detail"}
+              in={staate.activeTab === "dashboard"}
               unmountOnExit
               timeout={300}
             >
@@ -117,6 +119,16 @@ const MeetupGroup = props => {
                   data={data}
                   createdBy={event[0].name}
                 />
+              </div>
+            </CSSTransition>
+
+            <CSSTransition
+              in={staate.activeTab === "edit"}
+              unmountOnExit
+              timeout={300}
+            >
+              <div>
+                <EditEvent eventData={data} />
               </div>
             </CSSTransition>
           </div>
