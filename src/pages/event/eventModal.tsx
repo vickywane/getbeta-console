@@ -46,11 +46,11 @@ const EventModal = props => {
       variables: {
         settingsId: id,
         eventId: eventId,
-        showWelcomeEventInstruction: false,
-        showTeamInstruction: showTeamInstruction,
-        showWelcomeMeetupGroup: showWelcomeMeetupGroup,
-        showInvitationInstruction: showInvitationInstruction,
-        eventThemeColour: eventThemeColour,
+        welcomeEventInstruction: false,
+        teamInstruction: showTeamInstruction,
+        welcomeMeetupGroup: showWelcomeMeetupGroup,
+        invitationInstruction: showInvitationInstruction,
+        eventTheme: eventThemeColour,
       },
     })
       .then(() => {

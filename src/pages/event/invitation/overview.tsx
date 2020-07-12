@@ -6,7 +6,16 @@ import { CSSTransition } from "react-transition-group"
 
 import { EmptyData } from "../../../components/placeholders/"
 import { InvitationInstruction } from "../../../components/modals/"
-import { Body, Button, Head, Hover, Section, Tab, TabColumn, Text } from "../../../styles/style"
+import {
+  Body,
+  Button,
+  Head,
+  Hover,
+  Section,
+  Tab,
+  TabColumn,
+  Text,
+} from "../../../styles/style"
 import useWindowWidth from "../../../hook_style"
 
 import Compose from "./compose"
@@ -19,13 +28,12 @@ const CustomButton = styled(Button)`
 
 const Overview = props => {
   const [ActiveColumn, setActiveColumn] = useState("overview")
-  const { name, id } = props.data.event
-
+  const { name, id, settings } = props.data.event
   const Width = useWindowWidth()
 
   return (
     <div>
-      <InvitationInstruction/>
+      <InvitationInstruction eventId={id} data={settings[0]} />
       <Head header>
         <Section style={{ padding: "0.5rem 0rem" }} small>
           Invitations
@@ -67,7 +75,7 @@ const Overview = props => {
                 color: "#fff",
               }}
             >
-              <FiCopy style={{ fontSize: "1.6rem" }}/>
+              <FiCopy style={{ fontSize: "1.6rem" }} />
             </div>
           </div>
         ) : (
@@ -114,7 +122,7 @@ const Overview = props => {
               <CustomButton onClick={() => setActiveColumn("compose")}>
                 <Flex>
                   <Hover style={{ padding: "0rem 0.5rem" }}>
-                    <FiPlus style={{ fontSize: "1.7rem" }}/>
+                    <FiPlus style={{ fontSize: "1.7rem" }} />
                   </Hover>
                   Compose Invitation
                 </Flex>
@@ -142,10 +150,10 @@ const Overview = props => {
                 onClick={() => setActiveColumn("overview")}
                 style={{ padding: "0rem 0.5rem" }}
               >
-                <FiX style={{ fontSize: "1.7rem" }}/>
+                <FiX style={{ fontSize: "1.7rem" }} />
               </Hover>
             </div>
-            <Compose eventName={name}/>
+            <Compose eventName={name} />
           </div>
         </CSSTransition>
       </Body>

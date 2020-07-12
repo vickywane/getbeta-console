@@ -7,7 +7,7 @@ export const UPDATE_SETTINGS: any = gql`
   mutation updateEventSettings(
     $eventId: Int!
     $settingsId: Int!
-    $eventModal: Boolean!
+    $welcomeEventInstruction: Boolean!
     $welcomeMeetupGroup: Boolean!
     $invitationInstruction: Boolean!
     $eventTheme: String
@@ -20,7 +20,7 @@ export const UPDATE_SETTINGS: any = gql`
         showTeamInstruction: $teamInstruction
         showWelcomeMeetupGroup: $welcomeMeetupGroup
         showInvitationInstruction: $invitationInstruction
-        showWelcomeEventInstruction: $eventModal
+        showWelcomeEventInstruction: $welcomeEventInstruction
         eventThemeColour: $eventTheme
       }
     ) {
