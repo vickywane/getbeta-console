@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/react-hooks"
 import { useDropzone } from "react-dropzone"
 import { CSSTransition } from "react-transition-group"
 import { FiX } from "react-icons/fi"
+import styled from "styled-components"
 
 import { UPDATE_USER, UPLOAD_USER_FILE } from "../../data/mutations"
 import {
@@ -37,16 +38,17 @@ const EditProfile = props => {
   const [updateUser, { loading }] = useMutation(UPDATE_USER)
 
   React.useEffect(() => {
-    data !== undefined && updateUser({
-          variables: {
-            id: localStorage.getItem("user_id"),
-            name: Name.length < 7 ? name : Name,
-            email: Email.length < 7 ? email : Email,
-            ImgUrl: data.uploadSingleUserFile.file_uri,
-          },
-        })
-          .catch(e => console.log(e))
-          .then(() => close())
+    data !== undefined &&
+      updateUser({
+        variables: {
+          id: localStorage.getItem("user_id"),
+          name: Name.length < 7 ? name : Name,
+          email: Email.length < 7 ? email : Email,
+          ImgUrl: data.uploadSingleUserFile.file_uri,
+        },
+      })
+        .catch(e => console.log(e))
+        .then(() => close())
   }, [data])
 
   const handleUpdate = () => {
@@ -116,102 +118,116 @@ const EditProfile = props => {
   }
   // console.log(data.uploadSingleUserFile)
 
+  const CardBox = styled.div`
+    position: relative;
+    :after {
+      margin-top: 50px;
+      background: red;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 2px solid red;
+    }
+  `
+
   return (
     <CSSTransition timeout={400} classNames={"profile"} in={show} unmountOnExit>
       <MyCard>
-        <Head>
-          <Section> Edit Profile </Section>
-          <Hover
-            onClick={() => {
-              close()
-            }}
-            style={{ textAlign: "right" }}
-          >
-            <FiX style={{ fontSize: "1.8rem" }} />
-          </Hover>
-        </Head>
-        <Body>
-          <Text center color="grey">
-            {" "}
-            Drag n drop new image to update image{" "}
-          </Text>
-          <Flex justifyBetween>
-            <div
-              {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
+        <CardBox>
+          <Head>
+            <Section> Edit Profile </Section>
+            <Hover
+              onClick={() => {
+                close()
+              }}
+              style={{ textAlign: "right" }}
             >
-              {!isDragActive ? (
-                <div>
-                  <img
-                    src={require("../../assets/images/developer.png")}
+              <FiX style={{ fontSize: "1.8rem" }} />
+            </Hover>
+          </Head>
+          <Body>
+            <Text center color="grey">
+              {" "}
+              Drag n drop new image to update image{" "}
+            </Text>
+            <Flex justifyBetween>
+              <div
+                {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
+              >
+                {!isDragActive ? (
+                  <div>
+                    <img
+                      src={require("../../assets/images/developer.png")}
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                      }}
+                      alt="user"
+                    />
+                  </div>
+                ) : (
+                  <div
                     style={{
-                      width: "120px",
-                      height: "120px",
+                      padding: "5rem 2rem",
+                      border: "2px dashed grey",
+                      height: "5vh",
                     }}
-                    alt="user"
-                  />
-                </div>
-              ) : (
-                <div
-                  style={{
-                    padding: "5rem 2rem",
-                    border: "2px dashed grey",
-                    height: "5vh",
+                  >
+                    <Text color="grey" center>
+                      Drop Image here to upload
+                    </Text>
+                  </div>
+                )}
+              </div>
+              <div>
+                <br />
+                <br />
+                <br />
+                <Button
+                  disabled={File === null}
+                  onClick={() => {
+                    handleImageUpload()
                   }}
                 >
-                  <Text color="grey" center>
-                    Drop Image here to upload
-                  </Text>
-                </div>
-              )}
-            </div>
-            <div>
-              <br />
-              <br />
-              <br />
-              <Button
-                disabled={File === null}
-                onClick={() => {
-                  handleImageUpload()
-                }}
-              >
-                Change Picture
+                  Change Picture
+                </Button>
+              </div>
+            </Flex>
+            {FileDetails.fileName}
+
+            <br />
+            <Fields
+              textarea={false}
+              value={Name}
+              id={1}
+              type="text"
+              name={"Name"}
+              onChange={e => {
+                handleChange(e, "Name")
+              }}
+              placeholder={name}
+            />
+
+            <Fields
+              value={Email}
+              textarea={false}
+              name="Email"
+              id={2}
+              type="text"
+              onChange={e => {
+                handleChange(e, "Email")
+              }}
+              placeholder={email}
+            />
+            <br />
+
+            <Flex justifyCenter>
+              <Button long onClick={() => handleUpdate()}>
+                Update Profile
               </Button>
-            </div>
-          </Flex>
-          {FileDetails.fileName}
-
-          <br />
-          <Fields
-            textarea={false}
-            value={Name}
-            id={1}
-            type="text"
-            name={"Name"}
-            onChange={e => {
-              handleChange(e, "Name")
-            }}
-            placeholder={name}
-          />
-
-          <Fields
-            value={Email}
-            textarea={false}
-            name="Email"
-            id={2}
-            type="text"
-            onChange={e => {
-              handleChange(e, "Email")
-            }}
-            placeholder={email}
-          />
-          <br />
-
-          <Flex justifyCenter>
-            <Button long onClick={() => handleUpdate()}>
-              Update Profile
-            </Button>
-          </Flex>
-        </Body>
+            </Flex>
+          </Body>
+        </CardBox>
       </MyCard>
     </CSSTransition>
   )

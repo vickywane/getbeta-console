@@ -12,7 +12,6 @@ import EventTabs from "./eventTab"
 import MeetupTab from "./meetupTab"
 import Timeline from "./timeline"
 import Admin from "./admin"
-import Access from "./access/acess"
 import Overview from "./invitation/overview"
 import Archive from "./archive/itetations"
 
@@ -52,7 +51,7 @@ const EventGrid = styled.div`
   display: grid;
   grid-gap: 0rem;
   grid-template-columns: ${props =>
-    props.permission ? "16rem auto 21rem" : "auto 23rem"} ;
+    props.permission ? "17rem auto 21rem" : "auto 23rem"} ;
   transition  : all 300ms;
   ${media.lessThan("huge")`
       grid-template-columns: ${props =>
@@ -132,10 +131,6 @@ const Event = (props): JSX.Element => {
         <Contact email={data.event.Email} />
         <CreateTrack EventID={data.event.id} />
         <BugModal eventId={data.event.id} />
-        <AccessModal
-          closeAccessModal={closeAccessModal}
-          accessModal={accessModal}
-        />
 
         <EventGrid permission={permission}>
           {permission && Hooks >= 770 ? (
@@ -189,7 +184,7 @@ const Event = (props): JSX.Element => {
 
                   {EventType === "Conference" ? (
                     <Contain
-                      style={{ transition: "all 300ms" }}
+                      style={{ filter: "#000", transition: "all 300ms" }}
                       img={TestImg}
                       grey
                     >
@@ -280,6 +275,16 @@ const Event = (props): JSX.Element => {
               >
                 <Mobile />
               </CSSTransition>
+
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "event-settings"}
+              >
+                <AccessModal data={data.event} />
+              </CSSTransition>
+
               <CSSTransition
                 timeout={300}
                 className={""}
@@ -306,14 +311,6 @@ const Event = (props): JSX.Element => {
                 <EditEvent eventData={data} />
               </CSSTransition>
 
-              <CSSTransition
-                timeout={300}
-                className={""}
-                unmountOnExit
-                in={state.activeTab === "access"}
-              >
-                <Access />
-              </CSSTransition>
               <CSSTransition
                 timeout={300}
                 className={""}

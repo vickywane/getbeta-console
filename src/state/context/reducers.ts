@@ -53,8 +53,8 @@ export const AdminTabReducer = (state: any, action: any) => {
     case "SWITCH_TEAM":
       return { ...state, active: true, activeTab: "team" }
       break
-    case "SWITCH_ACCESS":
-      return { ...state, active: true, activeTab: "access" }
+    case "SWITCH_EVENT_SETTINGS":
+      return { ...state, active: true, activeTab: "event-settings" }
       break
     case "SWITCH_BUG":
       return { ...state, active: true }

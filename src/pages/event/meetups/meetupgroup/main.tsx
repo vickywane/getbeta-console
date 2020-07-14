@@ -104,15 +104,13 @@ const MeetupGroup = props => {
                   </div>
                 </Head>
 
-                <Contain img={TestImg}>
-                  <ProfileDetail
-                    permission={true}
-                    state={state}
-                    data={data}
-                    dispatch={dispatch}
-                    currentWindowSize={Width}
-                  />
-                </Contain>
+                <ProfileDetail
+                  permission={true}
+                  state={state}
+                  data={data}
+                  dispatch={dispatch}
+                  currentWindowSize={Width}
+                />
                 <MeetupDetail
                   state={state}
                   dispatch={dispatch}

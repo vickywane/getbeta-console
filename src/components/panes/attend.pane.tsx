@@ -4,7 +4,7 @@ import styled from "styled-components"
 import media from "styled-media-query"
 import { Link } from "react-router-dom"
 import { IoMdPaper } from "react-icons/io"
-import { FiAlertCircle, FiX, FiMail } from "react-icons/fi"
+import { FiAlertCircle, FiX, FiMail, FiLock } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 
 import { Loader } from "../../components/"
@@ -47,6 +47,8 @@ const AttendPane = (props): JSX.Element => {
     id,
     name,
     alias,
+    isArchived,
+    isLocked,
     dateCreated,
     eventType,
     confirmedEmail,
@@ -61,7 +63,7 @@ const AttendPane = (props): JSX.Element => {
   const [Mail, setMail] = React.useState(confirmedEmail) // just a mock
 
   const [attendEvent, { loading }] = useMutation(ATTEND_EVENT)
-
+  // alert(isLocked)
   if (loading) {
     return <Loader type="loading" />
   }
@@ -88,62 +90,120 @@ const AttendPane = (props): JSX.Element => {
 
   const word = eventType === "Conference" ? "attend" : "join"
 
-  switch (permission) {
+  switch (isLocked && isArchived) {
     case true:
-      switch (Mail) {
-        case true:
-          switch (isAcceptingTalks) {
-            case true:
-              return (
-                <div style={{ transition: "all 300ms" }}>
-                  {showNotice && (
-                    <Notice style={{ color: "#0e2f5a" }}>
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <Text center>
-                          Drafts proposals for talks are currently being
-                          submitted for this event.
-                        </Text>
-                      </div>
+      return (
+        <Notice style={{ color: "#0e2f5a", justifyContent: "center" }}>
+          <Hover style={{ margin: "0rem 0.6rem" }}>
+            <FiLock style={{ fontSize: "1.8rem" }} />
+          </Hover>
 
-                      <Hover
-                        onClick={() => setNotice(false)}
-                        style={{ padding: "0rem 0.7rem" }}
-                      >
-                        <FiX style={{ fontSize: "1.8rem" }} />
-                      </Hover>
-                    </Notice>
-                  )}
-                </div>
-              )
+          <Text>
+            This Event{" "}
+            {isArchived ? "has been archived and is" : "is locked and is "} only
+            visible to you and those with an access link.
+          </Text>
+        </Notice>
+      )
+
+      break
+    case false:
+      switch (permission) {
+        case true:
+          switch (Mail) {
+            case true:
+              switch (isAcceptingTalks) {
+                case true:
+                  return (
+                    <div style={{ transition: "all 300ms" }}>
+                      {showNotice && (
+                        <Notice style={{ color: "#0e2f5a" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Text center>
+                              Drafts proposals for talks are currently being
+                              submitted for this event.
+                            </Text>
+                          </div>
+
+                          <Hover
+                            onClick={() => setNotice(false)}
+                            style={{ padding: "0rem 0.7rem" }}
+                          >
+                            <FiX style={{ fontSize: "1.8rem" }} />
+                          </Hover>
+                        </Notice>
+                      )}
+                    </div>
+                  )
+
+                case false:
+                  return (
+                    <div style={{ transition: "all 300ms" }}>
+                      {showNotice ? (
+                        <Notice style={{ color: "#0e2f5a" }}>
+                          <div style={{ display: "flex" }}>
+                            <Hover style={{ padding: "0.5rem 0.3rem" }}>
+                              <FiAlertCircle style={{ fontSize: "1.8rem" }} />
+                            </Hover>
+                            <Text style={{ margin: "0.5rem 0.3rem" }}>
+                              Call For Speakers for this event is currently
+                              closed.
+                            </Text>
+                          </div>
+
+                          <div style={{ display: "flex" }}>
+                            <Button onClick={() => openPapersModal()}>
+                              Configure Talks
+                            </Button>
+
+                            <Hover
+                              onClick={() => setNotice(false)}
+                              style={{ padding: "0rem 0.7rem" }}
+                            >
+                              <FiX style={{ fontSize: "1.8rem" }} />
+                            </Hover>
+                          </div>
+                        </Notice>
+                      ) : null}
+                    </div>
+                  )
+
+                default:
+                  break
+              }
 
             case false:
               return (
                 <div style={{ transition: "all 300ms" }}>
                   {showNotice ? (
-                    <Notice style={{ color: "#0e2f5a" }}>
+                    <Notice center style={{ color: "#0e2f5a" }}>
                       <div style={{ display: "flex" }}>
                         <Hover style={{ padding: "0.5rem 0.3rem" }}>
-                          <FiAlertCircle style={{ fontSize: "1.8rem" }} />
+                          <FiAlertCircle
+                            style={{ color: "red", fontSize: "1.8rem" }}
+                          />
                         </Hover>
                         <Text style={{ margin: "0.5rem 0.3rem" }}>
-                          Call For Speakers for this event is currently closed.
+                          Support Email Address for this event hasn't been
+                          verified
                         </Text>
                       </div>
 
-                      <div style={{ display: "flex" }}>
-                        <Button onClick={() => openPapersModal()}>
-                          Configure Talks
-                        </Button>
-
-                        <Hover
-                          onClick={() => setNotice(false)}
-                          style={{ padding: "0rem 0.7rem" }}
-                        >
-                          <FiX style={{ fontSize: "1.8rem" }} />
-                        </Hover>
-                      </div>
+                      <Text
+                        onClick={() => setMail(!Mail)}
+                        style={{
+                          cursor: "pointer ",
+                          margin: "0.5rem 1rem",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Resend Mail
+                      </Text>
                     </Notice>
                   ) : null}
                 </div>
@@ -154,227 +214,201 @@ const AttendPane = (props): JSX.Element => {
           }
 
         case false:
-          return (
-            <div style={{ transition: "all 300ms" }}>
-              {showNotice ? (
-                <Notice center style={{ color: "#0e2f5a" }}>
-                  <div style={{ display: "flex" }}>
-                    <Hover style={{ padding: "0.5rem 0.3rem" }}>
-                      <FiAlertCircle
-                        style={{ color: "red", fontSize: "1.8rem" }}
-                      />
-                    </Hover>
-                    <Text style={{ margin: "0.5rem 0.3rem" }}>
-                      Support Email Address for this event hasn't been verified
-                    </Text>
-                  </div>
+          switch (isAcceptingTalks) {
+            case true:
+              return (
+                <div style={{ transition: "all 300ms" }}>
+                  {showNotice ? (
+                    <div>
+                      {Hooks >= 1200 ? (
+                        <Notice style={{ color: "#0e2f5a" }}>
+                          <div style={{ display: "flex" }}>
+                            <img
+                              alt={"waving-hand"}
+                              src={require("../../assets/images/waving.png")}
+                            />
+                            <Text style={{ margin: "0.5rem 1rem" }}>
+                              Hi, would you like to attend the {"  "}
+                              <b style={{ fontWeight: 600 }}>
+                                {Hooks >= 1200 ? ` ${alias}` : ` ${name}  `}
+                              </b>
+                              {` ${eventType}`}?
+                            </Text>
+                          </div>
 
-                  <Text
-                    onClick={() => setMail(!Mail)}
-                    style={{
-                      cursor: "pointer ",
-                      margin: "0.5rem 1rem",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    Resend Mail
-                  </Text>
-                </Notice>
-              ) : null}
-            </div>
-          )
+                          <div style={{ display: "flex" }}>
+                            <Button onClick={() => attend()}>
+                              Yes, I'm attending
+                            </Button>
+
+                            <Button onClick={() => setNotice(false)}>
+                              Not Sure, Watch Event
+                            </Button>
+                          </div>
+                        </Notice>
+                      ) : (
+                        <Notice
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <img
+                              alt={"waving-hand"}
+                              src={require("../../assets/images/waving.png")}
+                            />
+
+                            <div style={{ padding: "0rem 1rem" }}>
+                              <Text>
+                                Hi, would you like to {word} the
+                                <b style={{ fontWeight: 500 }}>{` ${name} `}</b>
+                                {` ${eventType} `} ?
+                              </Text>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <div style={{ display: "flex" }}>
+                                  <Button onClick={() => attend()}>
+                                    Yes, I'm attending
+                                  </Button>
+
+                                  <Button onClick={() => setNotice(false)}>
+                                    Not Sure, Watch Event
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </Notice>
+                      )}
+                    </div>
+                  ) : (
+                    <Notice>
+                      <div style={{ display: "flex" }}>
+                        <Hover style={{ padding: "0rem 0.7rem" }}>
+                          <IoMdPaper
+                            style={{ color: "#0e2f5a", fontSize: "2rem" }}
+                          />
+                        </Hover>
+                        <Text color="#0e2f5a">
+                          {name} is currently accepting talk proposals. Submit
+                          here!
+                        </Text>
+                      </div>
+
+                      <Link to={`/submit-talk/${id}`}>
+                        <Button> Submit Proposal </Button>
+                      </Link>
+                    </Notice>
+                  )}
+
+                  {!Accepted ? (
+                    <Notice>
+                      <Text center>
+                        We look forward to seeing you on {dateCreated} for the{" "}
+                        {name}.
+                      </Text>
+                    </Notice>
+                  ) : null}
+                </div>
+              )
+
+            case false:
+              return (
+                <div style={{ transition: "all 300ms" }}>
+                  {showNotice ? (
+                    <div>
+                      {Hooks >= 1200 ? (
+                        <Notice style={{ color: "#0e2f5a" }}>
+                          <div style={{ display: "flex" }}>
+                            <img
+                              alt={"waving-hand"}
+                              src={require("../../assets/images/waving.png")}
+                            />
+                            <Text style={{ margin: "0.5rem 1rem" }}>
+                              Hi, would you like to attend the {"  "}
+                              <b style={{ fontWeight: 600 }}>
+                                {Hooks >= 1200 ? ` ${alias}` : ` ${name}  `}
+                              </b>
+                              {` ${eventType}`}?
+                            </Text>
+                          </div>
+
+                          <div style={{ display: "flex" }}>
+                            <Button onClick={() => attend()}>
+                              Yes, I'm attending
+                            </Button>
+
+                            <Button onClick={() => setNotice(false)}>
+                              Not Sure, Watch Event
+                            </Button>
+                          </div>
+                        </Notice>
+                      ) : (
+                        <Notice
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <img
+                              alt={"waving-hand"}
+                              src={require("../../assets/images/waving.png")}
+                            />
+
+                            <div style={{ padding: "0rem 1rem" }}>
+                              <Text>
+                                Hi, would you like to {word} the
+                                <b style={{ fontWeight: 500 }}>{` ${name} `}</b>
+                                {` ${eventType} `} ?
+                              </Text>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <div style={{ display: "flex" }}>
+                                  <Button onClick={() => attend()}>
+                                    Yes, I'm attending
+                                  </Button>
+
+                                  <Button onClick={() => setNotice(false)}>
+                                    Not Sure, Watch Event
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </Notice>
+                      )}
+                    </div>
+                  ) : null}
+
+                  {!Accepted ? (
+                    <Notice>
+                      <Text center>
+                        We look forward to seeing you on {dateCreated} for the{" "}
+                        {name}.
+                      </Text>
+                    </Notice>
+                  ) : null}
+                </div>
+              )
+
+            default:
+              break
+          }
 
         default:
           break
       }
-
-    case false:
-      switch (isAcceptingTalks) {
-        case true:
-          return (
-            <div style={{ transition: "all 300ms" }}>
-              {showNotice ? (
-                <div>
-                  {Hooks >= 1200 ? (
-                    <Notice style={{ color: "#0e2f5a" }}>
-                      <div style={{ display: "flex" }}>
-                        <img
-                          alt={"waving-hand"}
-                          src={require("../../assets/images/waving.png")}
-                        />
-                        <Text style={{ margin: "0.5rem 1rem" }}>
-                          Hi, would you like to attend the {"  "}
-                          <b style={{ fontWeight: 600 }}>
-                            {Hooks >= 1200 ? ` ${alias}` : ` ${name}  `}
-                          </b>
-                          {` ${eventType}`}?
-                        </Text>
-                      </div>
-
-                      <div style={{ display: "flex" }}>
-                        <Button onClick={() => attend()}>
-                          Yes, I'm attending
-                        </Button>
-
-                        <Button onClick={() => setNotice(false)}>
-                          Not Sure, Watch Event
-                        </Button>
-                      </div>
-                    </Notice>
-                  ) : (
-                    <Notice
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          alt={"waving-hand"}
-                          src={require("../../assets/images/waving.png")}
-                        />
-
-                        <div style={{ padding: "0rem 1rem" }}>
-                          <Text>
-                            Hi, would you like to {word} the
-                            <b style={{ fontWeight: 500 }}>{` ${name} `}</b>
-                            {` ${eventType} `} ?
-                          </Text>
-
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <div style={{ display: "flex" }}>
-                              <Button onClick={() => attend()}>
-                                Yes, I'm attending
-                              </Button>
-
-                              <Button onClick={() => setNotice(false)}>
-                                Not Sure, Watch Event
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Notice>
-                  )}
-                </div>
-              ) : (
-                <Notice>
-                  <div style={{ display: "flex" }}>
-                    <Hover style={{ padding: "0rem 0.7rem" }}>
-                      <IoMdPaper
-                        style={{ color: "#0e2f5a", fontSize: "2rem" }}
-                      />
-                    </Hover>
-                    <Text color="#0e2f5a">
-                      {name} is currently accepting talk proposals. Submit here!
-                    </Text>
-                  </div>
-
-                  <Link to={`/submit-talk/${id}`}>
-                    <Button> Submit Proposal </Button>
-                  </Link>
-                </Notice>
-              )}
-
-              {!Accepted ? (
-                <Notice>
-                  <Text center>
-                    We look forward to seeing you on {dateCreated} for the{" "}
-                    {name}.
-                  </Text>
-                </Notice>
-              ) : null}
-            </div>
-          )
-
-        case false:
-          return (
-            <div style={{ transition: "all 300ms" }}>
-              {showNotice ? (
-                <div>
-                  {Hooks >= 1200 ? (
-                    <Notice style={{ color: "#0e2f5a" }}>
-                      <div style={{ display: "flex" }}>
-                        <img
-                          alt={"waving-hand"}
-                          src={require("../../assets/images/waving.png")}
-                        />
-                        <Text style={{ margin: "0.5rem 1rem" }}>
-                          Hi, would you like to attend the {"  "}
-                          <b style={{ fontWeight: 600 }}>
-                            {Hooks >= 1200 ? ` ${alias}` : ` ${name}  `}
-                          </b>
-                          {` ${eventType}`}?
-                        </Text>
-                      </div>
-
-                      <div style={{ display: "flex" }}>
-                        <Button onClick={() => attend()}>
-                          Yes, I'm attending
-                        </Button>
-
-                        <Button onClick={() => setNotice(false)}>
-                          Not Sure, Watch Event
-                        </Button>
-                      </div>
-                    </Notice>
-                  ) : (
-                    <Notice
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          alt={"waving-hand"}
-                          src={require("../../assets/images/waving.png")}
-                        />
-
-                        <div style={{ padding: "0rem 1rem" }}>
-                          <Text>
-                            Hi, would you like to {word} the
-                            <b style={{ fontWeight: 500 }}>{` ${name} `}</b>
-                            {` ${eventType} `} ?
-                          </Text>
-
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <div style={{ display: "flex" }}>
-                              <Button onClick={() => attend()}>
-                                Yes, I'm attending
-                              </Button>
-
-                              <Button onClick={() => setNotice(false)}>
-                                Not Sure, Watch Event
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Notice>
-                  )}
-                </div>
-              ) : null}
-
-              {!Accepted ? (
-                <Notice>
-                  <Text center>
-                    We look forward to seeing you on {dateCreated} for the{" "}
-                    {name}.
-                  </Text>
-                </Notice>
-              ) : null}
-            </div>
-          )
-
-        default:
-          break
-      }
-
+      break
     default:
       break
   }

@@ -1,6 +1,20 @@
 /*contains some extra temporary styles*/
 /*currently having a hard time using styled-components correct with R-T-G ClassNames*/
 
+::-webkit-scrollbar {
+  width: 10px;
+  opacity: 0;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22263d;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
+
 #background {
   background: url("./assets/images/test.png");
   height: auto;

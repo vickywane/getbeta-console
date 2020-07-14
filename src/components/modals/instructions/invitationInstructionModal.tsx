@@ -46,10 +46,10 @@ const InvitationModalInstruction = (props): JSX.Element => {
     showInvitationInstruction
   )
 
-  const [updateEventSettings, { error }] = useMutation(UPDATE_SETTINGS)
+  const [updateEventModals, { error }] = useMutation(UPDATE_SETTINGS)
 
   const Update = (value: boolean) => {
-    updateEventSettings({
+    updateEventModals({
       variables: {
         settingsId: id,
         eventId: eventId,

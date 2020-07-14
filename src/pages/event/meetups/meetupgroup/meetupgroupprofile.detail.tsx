@@ -32,11 +32,11 @@ import EventTabs from "../../eventTab"
 import { UserContext } from "../../../../state/context/contextState"
 
 const HoverCircle = styled(Hover)`
-  padding: 1.2rem 1.5rem;
-  margin: 0.2rem 0.7rem;
+  padding: 0.8rem 0.8rem;
+  margin: 0rem 0.7rem;
   border-radius: 50%;
   transition: all 350ms;
-  border: 1px solid grey;
+  border: 1px solid #fff;
   &: hover {
     background: #fbfbfb;
   }
@@ -78,7 +78,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
     mediaLinks,
     id,
     bucketName,
-    dateCreated,
+    createdAt,
     isVirtual,
   } = data.getMeetupGroup
   const { showEventDetails } = props.state
@@ -88,186 +88,88 @@ const MeetupGroupDetails = (props): JSX.Element => {
   return (
     <div style={{ transition: "all 500ms" }}>
       {showEventDetails ? (
-        <div style={{ transition: "all 500ms" }}>
-          {permission ? (
-            <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
-              <Hover onClick={() => dispatch({ type: "SWITCH_EDIT" })}>
-                <FiEdit style={{ fontSize: "2rem" }} />
-              </Hover>
-            </div>
-          ) : null}
-          <br />
-          <br />
-          <UserContext.Consumer>
-            {user => {
-              return (
-                <div
-                  style={{
-                    transition: "all 500ms",
-                    display: "flex",
-                    justifyContent: "space-between ",
-                  }}
-                >
-                  <Flex column>
-                    <Flex>
-                      {currentWindowSize >= 700 ? (
-                        <Image
-                          alt="profile"
-                          src={require("../../../../assets/images/developer.png")}
-                          style={{
-                            width: "7em",
-                            height: "11vh",
-                            margin: "1rem 0rem",
-                          }}
-                          fluid
-                        />
-                      ) : null}
-                      <div style={{ padding: "0.2rem 1rem" }}>
-                        <Flex column>
-                          {currentWindowSize <= 700 ? (
-                            <Flex justifyCenter>
-                              <Image
-                                alt="profile"
-                                src={require("../../../../assets/images/developer.png")}
-                                style={{
-                                  width: "7em",
-                                  height: "11vh",
-                                  margin: "1rem 0rem",
-                                }}
-                                fluid
-                              />
-                            </Flex>
-                          ) : null}
-                          <Flex justifyCenter>
-                            <Flex>
-                              <BigTitle center bold>
-                                {name}
-                              </BigTitle>
-
-                              <Hover>
-                                <a
-                                  style={{ textAlign: "center" }}
-                                  href={website}
-                                  target="_blank"
-                                >
-                                  <FiLink2 style={{ fontSize: "1.8rem" }} />
-                                </a>
-                              </Hover>
-                            </Flex>
-                          </Flex>
-
-                          <Text center> {summary} </Text>
-                          {/*
-                          <MediaLink>
-                            {mediaLinks !== null && mediaLinks[0] !== "" && (
-                              <li>
-                                <a href={`${mediaLinks[0]}`} target="_blank">
-                                  <HoverCircle hoverColor="red">
-                                    <FiInstagram
-                                      style={{ fontSize: "1.8rem" }}
-                                    />
-                                  </HoverCircle>
-                                </a>
-                              </li>
-                            )}
-
-                            {mediaLinks !== null && mediaLinks[1] !== "" && (
-                              <li>
-                                <a href={`${mediaLinks[1]}`} target="_blank">
-                                  <HoverCircle hoverColor="blue">
-                                    <FiTwitter style={{ fontSize: "1.8rem" }} />
-                                  </HoverCircle>
-                                </a>
-                              </li>
-                            )}
-
-                            {mediaLinks !== null && mediaLinks[2] !== "" && (
-                              <li>
-                                <a href={`${mediaLinks[2]}`} target="_blank">
-                                  <HoverCircle>
-                                    <FiFacebook
-                                      style={{ fontSize: "1.8rem" }}
-                                    />
-                                  </HoverCircle>
-                                </a>
-                              </li>
-                            )}
-                          </MediaLink>
-*/}
-                          <br />
-                          <br />
-                        </Flex>
-                      </div>
-                    </Flex>
-                    <br />
-                  </Flex>
-
-                  {currentWindowSize <= 700 ? (
-                    <Flex column>
-                      <br />
-                      <br />
-                      <div style={{ textAlign: "right" }}>
-                        <Link to="/mobile">
-                          <Hover
-                            onClick={() => {
-                              openChecklist()
-                            }}
-                          >
-                            <FiSmartphone style={{ fontSize: "2rem" }} />
-                          </Hover>
-                        </Link>
-                        <br />
-                      </div>
-                    </Flex>
-                  ) : null}
-                </div>
-              )
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              borderRadius: "10px",
+              boxShadow: "0px 3px 6px solid grey",
+              background: "#0e2f5ac7",
+              padding: "1.5rem 1rem",
+              color: "#fff",
+              width: "93%",
+              margin: "1rem 1.5rem",
             }}
-          </UserContext.Consumer>
-          <br />
-          <br />
-
-          <Flex justifyBetween>
-            <Flex>
-              {isVirtual ? (
-                <FiCast style={{ fontSize: "1.6em" }} />
-              ) : (
-                <GoLocation style={{ fontSize: "1.6em" }} />
-              )}
-
-              <Text small style={{ paddingLeft: "7px" }}>
-                {location}
-              </Text>
-            </Flex>
-
-            {eventType === "Meetup" ? (
-              <div>
-                {meetupGroupLength > 1 ? null : (
-                  <Flex column>
-                    <Text style={{ color: "grey" }}> Next Event : </Text>
-                    <Flex>
-                      <FiCalendar style={{ fontSize: "1.5em" }} />
-                      <Text small style={{ paddingLeft: "7px" }}>
-                        {dateCreated}
-                      </Text>
-                    </Flex>
-                  </Flex>
-                )}
+          >
+            <div
+              style={{
+                margin: "2rem 0rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ margin: "0rem 1rem" }}>
+                <Title center> {name} </Title>
+                <Text small center>
+                  {" "}
+                  {summary}{" "}
+                </Text>
               </div>
-            ) : (
-              <Flex column>
-                <Text style={{ color: "grey" }}> {next} </Text>
-                <Flex>
-                  <FiCalendar style={{ fontSize: "1.5em" }} />
-                  <Text small style={{ paddingLeft: "7px" }}>
-                    {dateCreated}
-                  </Text>
-                </Flex>
-              </Flex>
-            )}
-          </Flex>
+              <img
+                alt="Meetup display"
+                style={{ height: "120px", width: "120px", borderRadius: "50%" }}
+                src={require("../../../../assets/images/developer.png")}
+              />
+            </div>
 
-          <br />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex" }}>
+                <Hover style={{ margin: "0rem 0.4rem" }}>
+                  <GoLocation style={{ fontSize: "1.7rem" }} />
+                </Hover>
+                <Text small> {location} </Text>
+              </div>
+
+              <MediaLink>
+                <li>
+                  <a href={``} target="_blank">
+                    <HoverCircle hoverColor="red">
+                      <FiInstagram style={{ fontSize: "1.7rem" }} />
+                    </HoverCircle>
+                  </a>
+                </li>
+
+                <li>
+                  <a href={``} target="_blank">
+                    <HoverCircle hoverColor="blue">
+                      <FiTwitter style={{ fontSize: "1.7rem" }} />
+                    </HoverCircle>
+                  </a>
+                </li>
+
+                <li>
+                  <a href={``} target="_blank">
+                    <HoverCircle>
+                      <FiFacebook style={{ fontSize: "1.7rem" }} />
+                    </HoverCircle>
+                  </a>
+                </li>
+              </MediaLink>
+
+              <div style={{ display: "flex" }}>
+                <Hover style={{ margin: "0rem 0.4rem" }}>
+                  <FiCalendar style={{ fontSize: "1.7rem" }} />
+                </Hover>
+                <Text small> {createdAt} </Text>
+              </div>
+            </div>
+          </div>
         </div>
       ) : null}
     </div>

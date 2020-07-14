@@ -115,6 +115,7 @@ const MeetupDetails = (props): JSX.Element => {
     bucketName,
     mediaLinks,
     dateCreated,
+    settings,
   } = data.event
   const { showEventDetails } = props.state
 
@@ -127,13 +128,17 @@ const MeetupDetails = (props): JSX.Element => {
 
   useEffect(() => {
     if (meetupGroupLength > 0) {
-      permission && showWelcomeMeetupGroupsModal()
+      permission &&
+        settings[0].showWelcomeMeetupGroup &&
+        showWelcomeMeetupGroupsModal()
     }
   }, [])
 
   return (
     <div>
       <WelcomeMeetupGroups
+        eventId={id}
+        data={settings[0]}
         show={WelcomeMeetupGroupsModal}
         close={closeWelcomeMeetupGroupsModal}
       />
@@ -150,12 +155,17 @@ const MeetupDetails = (props): JSX.Element => {
           >
             {meetupGroups === null
               ? null
-              : meetupGroups.map(({ summary, alias, location }) => {
+              : meetupGroups.map(({ id, summary, alias, location }) => {
                   return (
                     <ImageDiv>
-                      <Title pointer small>
-                        {alias}
-                      </Title>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={`/meetup/${id}`}
+                      >
+                        <Title pointer small>
+                          {alias}
+                        </Title>
+                      </Link>
 
                       <div>
                         <Text small center>
@@ -184,7 +194,7 @@ const MeetupDetails = (props): JSX.Element => {
 
             <Body style={{ position: "absolute", marginTop: "14rem" }}>
               <div>
-                {Hooks >= 800 && (
+                {Hooks <= 800 && (
                   <div>
                     {permission && (
                       <div style={{ textAlign: "right", padding: "1rem 1rem" }}>

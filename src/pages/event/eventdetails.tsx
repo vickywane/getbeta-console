@@ -32,7 +32,7 @@ import EventTabs from "./eventTab"
 import { UserContext } from "../../state/context/contextState"
 
 const HoverCircle = styled(Hover)`
-  padding: 1.2rem 1.5rem;
+  padding: 1rem 1.2rem;
   margin: 0.2rem 0.7rem;
   border-radius: 50%;
   transition: all 350ms;
@@ -112,9 +112,10 @@ const EventDetails = (props): JSX.Element => {
                           alt="profile"
                           src={require("../../assets/images/developer.png")}
                           style={{
-                            width: "7em",
-                            height: "11vh",
+                            width: "120px",
+                            height: "120px",
                             margin: "1rem 0rem",
+                            borderRadius: "5px",
                           }}
                           fluid
                         />

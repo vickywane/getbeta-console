@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import Flex from "styled-flex-component"
 import { FiFacebook } from "react-icons/fi"
 import { inject, observer } from "mobx-react"
 import styled from "styled-components"
 import { Modal } from "react-bootstrap"
 import { FcCustomerSupport } from "react-icons/fc"
+import { useMutation } from "@apollo/react-hooks"
 
+import { UPDATE_SETTINGS } from "../../../data/mutations"
 import {
   Hover,
   Contain,
@@ -25,12 +27,42 @@ const Items = styled.div`
 `
 
 const WelcomeMeetupGroups = (props): JSX.Element => {
-  const { close, show } = props
+  const { close, show, eventId } = props
+
+  const {
+    id,
+    showTeamInstruction,
+    showWelcomeMeetupGroup,
+    showInvitationInstruction,
+    showWelcomeEventInstruction,
+    eventThemeColour,
+  } = props.data
+
+  const [ModalVisibility, setModalVisibility] = useState(showWelcomeMeetupGroup)
+  const [updateEventModals, { error }] = useMutation(UPDATE_SETTINGS)
+
+  const update = value => {
+    updateEventModals({
+      variables: {
+        settingsId: id,
+        eventId: eventId,
+        welcomeEventInstruction: showWelcomeEventInstruction,
+        teamInstruction: showTeamInstruction,
+        welcomeMeetupGroup: value,
+        invitationInstruction: showInvitationInstruction,
+        eventTheme: eventThemeColour,
+      },
+    })
+      .then(() => {
+        setModalVisibility(!ModalVisibility)
+      })
+      .catch(e => console.log(e))
+  }
 
   return (
     <Modal
       size="xl"
-      onHide={() => close()}
+      onHide={() => update(false)}
       style={{ marginTop: "3rem" }}
       show={show}
     >
@@ -49,7 +81,7 @@ const WelcomeMeetupGroups = (props): JSX.Element => {
         <Body>
           <div>
             <Text
-              onClick={() => close()}
+              onClick={() => update(false)}
               color="grey"
               style={{
                 textAlign: "right",

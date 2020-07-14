@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react"
 import styled from "styled-components"
 
-import { Header, Footer } from "../../../components/"
+import { Header, Footer, Portal } from "../../../components/"
 
 const Stream = props => {
   const [Video, setVideo] = useState(false)
@@ -31,7 +31,7 @@ const Stream = props => {
     console.log(VideoRef.current.srcObject)
     //@ts-ignore
   }
-
+  const name = ",,"
   return (
     <div>
       <Header />
@@ -52,6 +52,17 @@ const Stream = props => {
           <br />{" "}
         </div>
       </div>
+      <br />
+      <br />
+
+      <Portal>
+        <div
+          onMouseEnter={() => {}}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <div style={{ width: "30rem", height: "40vh", background: "red" }} />
+        </div>
+      </Portal>
       <Footer />
     </div>
   )

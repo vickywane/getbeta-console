@@ -4,6 +4,8 @@ import { FiClock, FiSquare } from "react-icons/fi"
 
 import { Body, Text, Title, Hover } from "../styles/style"
 import Sponsors from "../pages/event/sponsors"
+import TrackPreview from "../pages/event/schedule/tracksPreview"
+import VolunteerPreview from "../pages/event/people/volunteersPreview"
 
 const Flex = styled.div`
   display: flex;
@@ -60,7 +62,7 @@ const Details = props => {
               </Flex>
             </Box>
           </a>
-          <a href="#organizer" style={{ textDecoration: "none" }}>
+          <a href="#tracks" style={{ textDecoration: "none" }}>
             <Box>
               <div style={{ padding: "0rem 1.5rem" }}>
                 <FiSquare style={{ fontSize: "2.5rem" }} />
@@ -114,24 +116,21 @@ const Details = props => {
           Organized by <b> {name} </b>
         </Title>
       </div>
-
-      <div style={{ padding: "1rem 2rem" }}>
+      <br />
+      <div style={{ padding: "1rem 1rem" }}>
         <Title id="sponsors" small>
           Synopsis
         </Title>
-        <Text style={{ textIndent: "60px" }}> {description} </Text>
-        <br />
-
-        <Title id="about" small>
-          Synopsis
-        </Title>
-        <Text style={{ textIndent: "60px" }}> {description} </Text>
-        <br />
-        <Title id="organizer" small>
-          Synopsis
-        </Title>
-        <Text style={{ textIndent: "60px" }}> {description} </Text>
+        <Text style={{ textIndent: "40px" }}> {description} </Text>
       </div>
+      <br />
+      <br />
+
+      <TrackPreview tracks={tracks} />
+      <br />
+      <VolunteerPreview />
+      <br />
+      <br />
     </div>
   )
 }

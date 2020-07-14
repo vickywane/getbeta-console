@@ -3,8 +3,25 @@ import { gql } from "apollo-boost"
 // TODO: CHECK IF VALUES RETURNED FORM MUTATIONS ARE
 //       USED IF NOT REMOVE AND LEAVE ONLY ID FIELDS
 
-export const UPDATE_SETTINGS: any = gql`
+export const UPDATE_EVENT_SETTINGS: any = gql`
   mutation updateEventSettings(
+    $eventId: Int!
+    $isLocked: Boolean!
+    $isArchived: Boolean!
+  ) {
+    updateEventSettings(
+      eventId: $eventId
+      input: { isLocked: $isLocked, isArchived: $isArchived }
+    ) {
+      id
+      name
+    }
+  }
+`
+
+//RENAME TO UPDATE_MODALS
+export const UPDATE_SETTINGS: any = gql`
+  mutation updateEventModals(
     $eventId: Int!
     $settingsId: Int!
     $welcomeEventInstruction: Boolean!
@@ -13,7 +30,7 @@ export const UPDATE_SETTINGS: any = gql`
     $eventTheme: String
     $teamInstruction: Boolean!
   ) {
-    updateEventSettings(
+    updateEventModals(
       eventId: $eventId
       id: $settingsId
       input: {

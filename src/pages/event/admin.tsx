@@ -132,7 +132,9 @@ const Admin = props => {
           </Tab>
 
           <Tab
-            onClick={() => openAccessModal()}
+            onClick={() => {
+              dispatch({ type: "SWITCH_EVENT_SETTINGS" })
+            }}
             active={state.activeTab === "access"}
           >
             <T style={{ padding: "0rem 1rem" }}>

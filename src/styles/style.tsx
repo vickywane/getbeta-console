@@ -12,7 +12,7 @@ export const MessageInputBody: any = styled.div`
   margin: 0rem 1rem;
   justify-content: space-between;
   input {
-    border: 1px solid grey;
+    border: 1px solid #c0c0c0;
     padding: 0.7rem 1rem;
     display: flex;
     font-size: 1rem;
@@ -24,7 +24,7 @@ export const MessageInputBody: any = styled.div`
     border-radius: 5px;
   }
   div {
-    border: 1px solid grey;
+    border: 1px solid #c0c0c0;
     border-radius: 50%;
     margin: 0rem 0.5rem;
     padding: 0.7rem 0.7rem;
@@ -145,7 +145,7 @@ const Input = styled.input`
   padding: 0.8em 1.5rem;
   display : flex;
   flex: 1;
-  border: ${props => (props.unbordered ? "0px" : " 1px solid grey")};
+  border: ${props => (props.unbordered ? "0px" : " 1px solid #c0c0c0")};
   outline: 0px;
   color: ${props => (props.white ? "#fff" : "#000")}
   margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
@@ -447,7 +447,7 @@ const SwitchBtn = styled.div`
 
 const InputBox = styled.div`
   padding: ${props => (props.padded ? "0.5rem 2rem" : "0.1rem 1rem")};
-  border: ${props => (props.modal ? "1px solid #000" : "1px solid #fff")};
+  border: ${props => (props.modal ? "1px solid #0e2f5a" : "1px solid #fff")};
   border-radius: 5px;
   height: auto;
   width: auto;
@@ -604,27 +604,25 @@ const TextEditor = styled.div`
     border-radius : 7px;
     flex: 1;
     width  : auto
-    height : ${props => (props.small ? "28vh" : "40vh")} ;
-    border: 1px solid grey;
+    height : ${props => (props.small ? "40vh" : "40vh")} ;
+    border: 1px solid #c0c0c0;
     margin : 0.5rem 1rem;
     textarea {
       border : 0px ;
-      padding  : 1rem 1rem
+      padding  : 1rem 1.5rem
       outline : 0px; 
       width: auto;
-      font-size : 1.1rem
+      font-size : 1.2rem
       height: auto;
       display : flex;
       border-radius: 5px 5px 0px 0px;
       flex : 1;
     }
     div {
-      border-top : 1px dashed #0e2f5a;
       padding : 1rem 1rem;
       display : flex;
       font-size : 1.1rem;
-     border-radius: 0px 0px 5px 5px;
-      justify-content  : center;
+      border-radius: 0px 0px 5px 5px;
       background : #fbfbfb;
     }
   `

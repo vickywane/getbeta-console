@@ -41,26 +41,30 @@ const TagBody = styled.div`
 `
 
 const Editor = props => {
-  const [Title, setTitle] = useState("")
+  const [Title, setTitle] = useState<string>("")
   const [Tags, setTags] = useState(new Array())
-  const [Tag, setTag] = useState("")
-  const [Content, setContent] = useState("")
-  const [Summary, setSummary] = useState("")
-  const [Description, setDescription] = useState("")
-  const [Duration, setDuration] = useState("")
-  const [TagValue, addTagValue] = useState("")
+  const [Tag, setTag] = useState<string>("")
+  const [Content, setContent] = useState<string>("")
+  const [Summary, setSummary] = useState<string>("")
+  const [Description, setDescription] = useState<string>("")
+  const [Duration, setDuration] = useState<string>("10mins")
+  const [TagValue, addTagValue] = useState<string>("")
 
   const [createTalk, { data, loading }] = useMutation(CREATE_TALK)
   function handleChange(value: string, label: string) {
     switch (label) {
       case "Draft Title":
         setTitle(value)
+        break
       case "Draft Summary":
         setSummary(value)
+        break
       case "Draft Description":
         setDescription(value)
+        break
       case "Tags":
         addTagValue(value)
+        break
       default:
         break
     }
@@ -170,7 +174,7 @@ const Editor = props => {
           </Body>
 
           <Flex justifyCenter>
-            <Button onClick={() => handleSubmit()}> Create Draft </Button>
+            <Button onClick={() => handleSubmit()}> Create New Draft </Button>
           </Flex>
         </Contain>
       </Contain>

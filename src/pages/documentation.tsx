@@ -40,22 +40,27 @@ const Documentation = (): JSX.Element => {
   return (
     <div>
       <Header screen="Docs" />
-      <Body>
-        <Flex justifyCenter>
-          <div>
-            <br />
-            <br />
-            <Title> Event Playground </Title>
-            <TitleText> Content Management Console for Event </TitleText>
-            <br />
+      <Body
+        style={{
+          height: window.innerHeight - 115,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <br />
+          <br />
+          <Title> Event Playground </Title>
+          <TitleText> Content Management Console for Event </TitleText>
+          <br />
 
-            <Flex justifyCenter>
-              <Link to="/console">
-                <Button> Open Console </Button>{" "}
-              </Link>
-            </Flex>
-          </div>
-        </Flex>
+          <Flex justifyCenter>
+            <Link to="/console">
+              <Button> Open Console </Button>{" "}
+            </Link>
+          </Flex>
+        </div>
       </Body>
 
       <Footer />

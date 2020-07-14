@@ -29,7 +29,7 @@ const Groups = props => {
   const [ActiveView, setActiveView] = useState<string>("list")
 
   return (
-    <div>
+    <div style={{ margin: "1rem 1rem" }}>
       <br />
 
       {ActiveView !== "create" && (

@@ -33,16 +33,14 @@ const EventModal = props => {
     showWelcomeEventInstruction,
     eventThemeColour,
   } = data.settings[0]
-  console.table([data.settings[0]])
-  console.log(eventId)
 
   const [ModalVisibility, setModalVisibility] = useState(
     showWelcomeEventInstruction
   )
-  const [updateEventSettings, { error }] = useMutation(UPDATE_SETTINGS)
+  const [updateEventModals, { error }] = useMutation(UPDATE_SETTINGS)
 
   const update = () => {
-    updateEventSettings({
+    updateEventModals({
       variables: {
         settingsId: id,
         eventId: eventId,

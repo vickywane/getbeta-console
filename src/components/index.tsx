@@ -6,5 +6,6 @@ export { default as ResolutionError } from "./ResolutionError"
 export { default as Panes } from "./panes/pane"
 export { default as SettingsPane } from "./panes/settings"
 export { default as Switch } from "./switch"
-export { default as Checkbox } from './checkbox'
-export { default as Tip } from './tip'
+export { default as Checkbox } from "./checkbox"
+export { default as Tip } from "./tip"
+export { default as Portal } from "./portal"

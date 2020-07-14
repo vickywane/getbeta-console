@@ -18,7 +18,7 @@ const Window = styled.div`
   width: auto;
   height: ${window.innerHeight};
   background: #fbfbfb;
-  border-right: 0.7px solid grey;
+  border-right: 0.3px solid #c0c0c0;
 `
 
 const Head = styled.div`
@@ -38,8 +38,8 @@ const List = styled.li`
 const Tab = styled.div`
   display: flex;
   width : auto;
-  font-size  : 1.2rem;
-  padding : 0.5rem 0.5rem
+  font-size  : 1.1rem;
+  padding : 0.5rem 0.3rem
   margin : 0.7rem 0.5rem;
   color: ${props => (props.active ? "#0e2f5a;" : "grey")};
   transition : all 300ms; 
@@ -65,12 +65,9 @@ const Admin = props => {
     Width,
   } = props
 
-  console.log(state.activeTab, "active")
-
   return (
     <Window>
       <div>
-        <br />
         <br />
 
         <List>
