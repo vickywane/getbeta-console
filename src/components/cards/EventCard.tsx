@@ -198,16 +198,16 @@ const EventCard = (props): JSX.Element => {
 
         {isArchived ? (
           <div>
-            {permission ? (
+            {permission && (
               <Link
                 to={`oasis/${type}/${id}`}
                 style={{ textDecoration: "none" }}
               >
                 <h4> {name}</h4>
               </Link>
-            ) : (
-              <h4> {name}</h4>
             )}
+
+            {!permission && <h4 style={{ color: "#0e2f5a" }}> {name}</h4>}
           </div>
         ) : (
           <Link to={`oasis/${type}/${id}`} style={{ textDecoration: "none" }}>
@@ -269,7 +269,7 @@ const EventCard = (props): JSX.Element => {
             </Flex>
           </Flex>
         )}
-        {volunteerOption && (
+        {volunteerOption && !isArchived && (
           <Button
             onClick={() => openVolunteerModal(id)}
             long

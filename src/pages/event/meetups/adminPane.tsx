@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { FiX, FiEdit, FiShoppingCart } from "react-icons/fi"
 import {
   IoIosBug,
+  IoIosCode,
   IoMdMail,
   IoIosPhonePortrait,
   IoIosHome,
@@ -140,6 +141,19 @@ const Admin = props => {
           <br />
           <br />
           <br />
+          <Tab
+            onClick={() => {
+              dispatch({ type: "SWITCH_BUG" })
+              openCrashReporter()
+            }}
+            active={state.active}
+          >
+            <div style={{ padding: "0rem 1rem" }}>
+              <IoIosCode style={{ fontSize: "1.8rem" }} />
+            </div>
+            {Width >= 1300 ? "Developer APIs" : null}
+          </Tab>
+
           <Tab
             onClick={() => {
               dispatch({ type: "SWITCH_BUG" })

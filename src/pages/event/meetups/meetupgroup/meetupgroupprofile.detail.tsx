@@ -106,6 +106,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
               margin: "1rem 1.5rem",
             }}
           >
+            <br />
             <div
               style={{
                 margin: "2rem 0rem",
@@ -117,8 +118,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
               <div style={{ margin: "0rem 1rem" }}>
                 <Title center> {name} </Title>
                 <Text small center>
-                  {" "}
-                  {summary}{" "}
+                  {summary}
                 </Text>
               </div>
               <img
@@ -127,6 +127,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
                 src={require("../../../../assets/images/developer.png")}
               />
             </div>
+            <br />
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ display: "flex" }}>

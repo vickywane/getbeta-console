@@ -6,6 +6,7 @@ import {
   IoMdMail,
   IoIosPhonePortrait,
   IoIosHome,
+  IoIosCode,
   IoIosPeople,
   IoMdConstruct,
 } from "react-icons/io"
@@ -200,6 +201,7 @@ const Admin = props => {
           <br />
           <br />
           <br />
+
           <br />
           <Tab
             onClick={() => {
@@ -209,8 +211,21 @@ const Admin = props => {
             active={state.active}
           >
             <T style={{ padding: "0rem 1rem" }}>
+              <IoIosCode style={{ fontSize: "1.8rem" }} />
+              {Width <= 1200 ? <Info>Developer APIs</Info> : null}
+            </T>
+            {Width >= 1200 ? "Developer APIs" : null}
+          </Tab>
+          <Tab
+            onClick={() => {
+              dispatch({ type: "SWITCH_BUG" })
+              openCrashReporter()
+            }}
+            active={state.active}
+          >
+            <T style={{ padding: "0rem 1rem" }}>
               <IoIosBug style={{ fontSize: "1.8rem" }} />
-              {Width <= 1200 ? <Info>Preview</Info> : null}
+              {Width <= 1200 ? <Info>Report Bug</Info> : null}
             </T>
             {Width >= 1200 ? "Report Bug" : null}
           </Tab>
