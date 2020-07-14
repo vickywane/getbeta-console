@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { GoLocation } from "react-icons/go"
-import { FiCalendar, FiMoreVertical, FiBookmark, FiCast } from "react-icons/fi"
+import {
+  FiCalendar,
+  FiMoreVertical,
+  FiBookmark,
+  FiCast,
+  FiLock,
+} from "react-icons/fi"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
 import { CSSTransition } from "react-transition-group"
@@ -49,6 +55,8 @@ const EventCard = (props): JSX.Element => {
     venue,
     volunteerScreen,
     isVirtual,
+    isLocked,
+    isArchived,
     approvalStatus,
     screen,
     meetupGroups,
@@ -59,7 +67,7 @@ const EventCard = (props): JSX.Element => {
     createdBy,
     openVolunteerModal,
   } = props
-
+  // alert(isArchived)
   const [optionVisibility, setOptionVisibility] = useState(false)
   const [EventAuthorId, setEventAuthorId] = useState<number>(null)
 
@@ -74,7 +82,6 @@ const EventCard = (props): JSX.Element => {
         break
 
       case "event-list":
-        console.log(createdBy, "list")
         setEventAuthorId(createdBy !== null && createdBy[0].id)
         break
 
@@ -88,13 +95,12 @@ const EventCard = (props): JSX.Element => {
 
   // casting into str... overlap err
   const permission = String(creator) === userId
-  console.log(permission)
 
   return (
     <Card key={id}>
       <div>
         <Contain img={"EventImage"}>
-          {permission ? (
+          {permission && (
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p style={{ color: "white" }}> . </p>
 
@@ -107,15 +113,35 @@ const EventCard = (props): JSX.Element => {
                 />
               </Hover>
             </div>
-          ) : (
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <p style={{ color: "white" }}> . </p>
-              <Hover
-                style={{ textAlign: "right", padding: "0rem 1rem" }}
-                onClick={() => {}}
-              >
-                <FiBookmark style={{ fontSize: "1.8rem" }} />
-              </Hover>
+          )}
+
+          {!permission && (
+            <div>
+              {isArchived ? (
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <p style={{ color: "white" }}> . </p>
+                  <Hover
+                    style={{ textAlign: "right", padding: "0rem 1rem" }}
+                    onClick={() => {}}
+                  >
+                    <FiLock style={{ fontSize: "1.8rem" }} />
+                  </Hover>
+                </div>
+              ) : (
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <p style={{ color: "white" }}> . </p>
+                  <Hover
+                    style={{ textAlign: "right", padding: "0rem 1rem" }}
+                    onClick={() => {}}
+                  >
+                    <FiBookmark style={{ fontSize: "1.8rem" }} />
+                  </Hover>
+                </div>
+              )}
             </div>
           )}
         </Contain>
@@ -141,12 +167,27 @@ const EventCard = (props): JSX.Element => {
             {event.map(({ name, id, summary }) => {
               return (
                 <div>
-                  <Link
-                    to={`oasis/${type}/${id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <h4> {name}</h4>
-                  </Link>
+                  {isArchived ? (
+                    <div>
+                      {permission ? (
+                        <Link
+                          to={`oasis/${type}/${id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <h4> {name}</h4>
+                        </Link>
+                      ) : (
+                        <h4> {name}</h4>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={`oasis/${type}/${id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <h4> {name}</h4>
+                    </Link>
+                  )}
 
                   <Text small>{summary}</Text>
                 </div>
@@ -155,9 +196,24 @@ const EventCard = (props): JSX.Element => {
           </div>
         )}
 
-        <Link to={`oasis/${type}/${id}`} style={{ textDecoration: "none" }}>
-          <h4> {name}</h4>
-        </Link>
+        {isArchived ? (
+          <div>
+            {permission ? (
+              <Link
+                to={`oasis/${type}/${id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h4> {name}</h4>
+              </Link>
+            ) : (
+              <h4> {name}</h4>
+            )}
+          </div>
+        ) : (
+          <Link to={`oasis/${type}/${id}`} style={{ textDecoration: "none" }}>
+            <h4> {name}</h4>
+          </Link>
+        )}
 
         <Text small center>
           {summary}

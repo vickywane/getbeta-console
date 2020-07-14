@@ -257,6 +257,8 @@ const EVENTS: any = gql`
         id
         name
       }
+      isArchived
+      isLocked
       Email
       venue
       eventType

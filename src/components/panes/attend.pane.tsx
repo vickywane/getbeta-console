@@ -98,7 +98,7 @@ const AttendPane = (props): JSX.Element => {
             <FiLock style={{ fontSize: "1.8rem" }} />
           </Hover>
 
-          <Text>
+          <Text style={{ padding: "0.3rem 0rem" }}>
             This Event{" "}
             {isArchived ? "has been archived and is" : "is locked and is "} only
             visible to you and those with an access link.

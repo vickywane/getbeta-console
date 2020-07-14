@@ -34,22 +34,25 @@ const EventList = props => {
       <br />
       <Contain>
         <Items>
-          {events.map(({ name, id, eventType, summary, createdBy }) => {
-            return (
-              <Bounce>
-                <EventCard
-                  id={id}
-                  screen="event-list"
-                  openVolunteerModal={openVolunteerModal}
-                  name={name}
-                  type={eventType}
-                  summary={summary}
-                  createdBy={createdBy}
-                  volunteerOption={true}
-                />
-              </Bounce>
-            )
-          })}
+          {events.map(
+            ({ name, id, isArchived, eventType, summary, createdBy }) => {
+              return (
+                <Bounce>
+                  <EventCard
+                    id={id}
+                    screen="event-list"
+                    openVolunteerModal={openVolunteerModal}
+                    name={name}
+                    isArchived={isArchived}
+                    type={eventType}
+                    summary={summary}
+                    createdBy={createdBy}
+                    volunteerOption={true}
+                  />
+                </Bounce>
+              )
+            }
+          )}
         </Items>
       </Contain>
 

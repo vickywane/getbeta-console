@@ -27,7 +27,7 @@ const Image = styled.img`
   height: 150px;
   border-radius: 50%;
   width: 150px;
-  object-fit: cover;
+  object-fit: center;
   ${media.lessThan("huge")`
       height: 140px;
       width: 14s0px;
@@ -56,6 +56,7 @@ const Profile = (props): JSX.Element => {
 
   return (
     <Container width={Hooks} img={TestImg} bottomPadding bottomShadow>
+      <br />
       <Flex justifyBetween>
         <Flex>
           <Hover
@@ -67,7 +68,7 @@ const Profile = (props): JSX.Element => {
               alt="profile"
               src={
                 img_uri === null
-                  ? require("../../assets/images/developer.png")
+                  ? require("../../assets/images/avatar.png")
                   : img_uri
               }
             />

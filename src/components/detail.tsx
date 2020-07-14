@@ -116,19 +116,17 @@ const Details = props => {
           Organized by <b> {name} </b>
         </Title>
       </div>
-      <br />
-      <div style={{ padding: "1rem 1rem" }}>
-        <Title id="sponsors" small>
-          Synopsis
-        </Title>
-        <Text style={{ textIndent: "40px" }}> {description} </Text>
+      <div style={{ padding: "1rem 2rem" }}>
+        <Text center style={{ textIndent: "30px" }}>
+          {" "}
+          {description}{" "}
+        </Text>
       </div>
       <br />
-      <br />
 
-      <TrackPreview tracks={tracks} />
-      <br />
       <VolunteerPreview />
+      <br />
+      <TrackPreview tracks={tracks} />
       <br />
       <br />
     </div>

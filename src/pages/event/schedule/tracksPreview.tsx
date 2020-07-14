@@ -51,8 +51,8 @@ const TrackPreview = (props): JSX.Element => {
         </HoverCircle>
       </div>
 
-      <br />
-      {tracks === undefined ? (
+      <hr />
+      {tracks === null ? (
         <div>
           <br />
           <Text color="grey" center>
@@ -110,6 +110,8 @@ const TrackPreview = (props): JSX.Element => {
           )
         })
       )}
+
+      <br />
     </Body>
   )
 }
