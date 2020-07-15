@@ -219,6 +219,7 @@ const Fields = (props: CustomProps) => {
               </HoverSquare>
             </div>
           </TextEditor>
+          <br />
         </Flex>
       )}
     </div>

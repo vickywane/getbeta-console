@@ -20,16 +20,10 @@ import { inject, observer } from "mobx-react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-import {
-  Hover,
-  Contain,
-  Text,
-  Title,
-  Button,
-  BigTitle,
-} from "../../styles/style"
+import { Hover, Text, Title, Button, BigTitle } from "../../styles/style"
 import EventTabs from "./eventTab"
 import { UserContext } from "../../state/context/contextState"
+import TestImg from "../../assets/images/test.png"
 
 const HoverCircle = styled(Hover)`
   padding: 1rem 1.2rem;
@@ -58,6 +52,23 @@ const MediaLink = styled.div`
   }
 `
 
+const Container = styled.div`
+    background-image: url(${props => props.img});
+    background-size : cover;
+    width : 100%;
+    height: 40vh;
+    position: relative;
+    span {
+      color: #fff
+      bottom : 0;
+      padding: 1rem 2rem;
+      width : 100%;
+       height: 40vh;
+      position: absolute;
+      background: linear-gradient(to top,#1a1e43ed, transparent) ;
+    }
+   `
+
 const EventDetails = (props): JSX.Element => {
   const { openChecklist, openPeople, openEditModal } = props.ModalStore
   const {
@@ -82,192 +93,195 @@ const EventDetails = (props): JSX.Element => {
   } = data.event
   const { showEventDetails } = props.state
 
-  return (
-    <div style={{ transition: "all 500ms" }}>
-      {showEventDetails ? (
-        <div style={{ transition: "all 500ms" }}>
-          {permission ? (
-            <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
-              <Hover onClick={() => dispatch({ type: "SWITCH_EDIT" })}>
-                <FiEdit style={{ fontSize: "2rem" }} />
-              </Hover>
-            </div>
-          ) : null}
-          <br />
-          <br />
-          <UserContext.Consumer>
-            {user => {
-              return (
-                <div
-                  style={{
-                    transition: "all 500ms",
-                    display: "flex",
-                    justifyContent: "space-between ",
-                  }}
-                >
-                  <Flex column>
-                    <Flex>
-                      {currentWindowSize >= 700 ? (
-                        <Image
-                          alt="profile"
-                          src={require("../../assets/images/developer.png")}
-                          style={{
-                            width: "120px",
-                            height: "120px",
-                            margin: "1rem 0rem",
-                            borderRadius: "5px",
-                          }}
-                          fluid
-                        />
-                      ) : null}
-                      <div style={{ padding: "0.2rem 1rem" }}>
-                        <Flex column>
-                          {currentWindowSize <= 700 ? (
-                            <Flex justifyCenter>
-                              <Image
-                                alt="profile"
-                                src={require("../../assets/images/developer.png")}
-                                style={{
-                                  width: "7em",
-                                  height: "11vh",
-                                  margin: "1rem 0rem",
-                                }}
-                                fluid
-                              />
-                            </Flex>
-                          ) : null}
+  return showEventDetails ? (
+    <Container
+      style={{
+        //background:  "linear-gradient(to top,#22263d, #fff)",
+        position: "relative",
+        transition: "all 300ms",
+      }}
+      img={TestImg}
+      grey
+    >
+      <br />
+      <span style={{ transition: "all 500ms" }}>
+        {permission ? (
+          <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
+            <Hover onClick={() => dispatch({ type: "SWITCH_EDIT" })}>
+              <FiEdit style={{ fontSize: "2rem" }} />
+            </Hover>
+          </div>
+        ) : null}
+        <br />
+        <br />
+        <UserContext.Consumer>
+          {user => {
+            return (
+              <div
+                style={{
+                  transition: "all 500ms",
+                  display: "flex",
+                  justifyContent: "space-between ",
+                }}
+              >
+                <Flex column>
+                  <Flex>
+                    {currentWindowSize >= 700 ? (
+                      <Image
+                        alt="profile"
+                        src={require("../../assets/images/developer.png")}
+                        style={{
+                          width: "120px",
+                          height: "120px",
+                          margin: "1rem 0rem",
+                          borderRadius: "5px",
+                        }}
+                        fluid
+                      />
+                    ) : null}
+                    <div style={{ padding: "0.2rem 1rem" }}>
+                      <Flex column>
+                        {currentWindowSize <= 700 ? (
                           <Flex justifyCenter>
-                            <Flex>
-                              <BigTitle center bold>
-                                {name}
-                              </BigTitle>
-
-                              <Hover>
-                                <a
-                                  style={{ textAlign: "center" }}
-                                  href={website}
-                                  target="_blank"
-                                >
-                                  <FiLink2 style={{ fontSize: "1.8rem" }} />
-                                </a>
-                              </Hover>
-                            </Flex>
+                            <Image
+                              alt="profile"
+                              src={require("../../assets/images/developer.png")}
+                              style={{
+                                width: "7em",
+                                height: "11vh",
+                                margin: "1rem 0rem",
+                              }}
+                              fluid
+                            />
                           </Flex>
+                        ) : null}
+                        <Flex justifyCenter>
+                          <Flex>
+                            <BigTitle style={{ color: "#fff" }} center bold>
+                              {name}
+                            </BigTitle>
 
-                          <Text center> {summary} </Text>
-
-                          <MediaLink>
-                            {mediaLinks !== null && mediaLinks[0] !== "" && (
-                              <li>
-                                <a href={`${mediaLinks[0]}`} target="_blank">
-                                  <HoverCircle hoverColor="red">
-                                    <FiInstagram
-                                      style={{ fontSize: "1.8rem" }}
-                                    />
-                                  </HoverCircle>
-                                </a>
-                              </li>
-                            )}
-
-                            {mediaLinks !== null && mediaLinks[1] !== "" && (
-                              <li>
-                                <a href={`${mediaLinks[1]}`} target="_blank">
-                                  <HoverCircle hoverColor="blue">
-                                    <FiTwitter style={{ fontSize: "1.8rem" }} />
-                                  </HoverCircle>
-                                </a>
-                              </li>
-                            )}
-
-                            {mediaLinks !== null && mediaLinks[2] !== "" && (
-                              <li>
-                                <a href={`${mediaLinks[2]}`} target="_blank">
-                                  <HoverCircle>
-                                    <FiFacebook
-                                      style={{ fontSize: "1.8rem" }}
-                                    />
-                                  </HoverCircle>
-                                </a>
-                              </li>
-                            )}
-                          </MediaLink>
-
-                          <br />
-                          <br />
+                            <Hover>
+                              <a
+                                style={{ textAlign: "center" }}
+                                href={website}
+                                target="_blank"
+                              >
+                                <FiLink2 style={{ fontSize: "1.8rem" }} />
+                              </a>
+                            </Hover>
+                          </Flex>
                         </Flex>
-                      </div>
-                    </Flex>
-                    <br />
-                  </Flex>
 
-                  {currentWindowSize <= 700 ? (
-                    <Flex column>
-                      <br />
-                      <br />
-                      <div style={{ textAlign: "right" }}>
-                        <Link to="/mobile">
-                          <Hover
-                            onClick={() => {
-                              openChecklist()
-                            }}
-                          >
-                            <FiSmartphone style={{ fontSize: "2rem" }} />
-                          </Hover>
-                        </Link>
+                        <Text center> {summary} </Text>
+
+                        <MediaLink>
+                          {mediaLinks !== null && mediaLinks[0] !== "" && (
+                            <li>
+                              <a href={`${mediaLinks[0]}`} target="_blank">
+                                <HoverCircle hoverColor="red">
+                                  <FiInstagram style={{ fontSize: "1.8rem" }} />
+                                </HoverCircle>
+                              </a>
+                            </li>
+                          )}
+
+                          {mediaLinks !== null && mediaLinks[1] !== "" && (
+                            <li>
+                              <a href={`${mediaLinks[1]}`} target="_blank">
+                                <HoverCircle hoverColor="blue">
+                                  <FiTwitter style={{ fontSize: "1.8rem" }} />
+                                </HoverCircle>
+                              </a>
+                            </li>
+                          )}
+
+                          {mediaLinks !== null && mediaLinks[2] !== "" && (
+                            <li>
+                              <a href={`${mediaLinks[2]}`} target="_blank">
+                                <HoverCircle>
+                                  <FiFacebook style={{ fontSize: "1.8rem" }} />
+                                </HoverCircle>
+                              </a>
+                            </li>
+                          )}
+                        </MediaLink>
+
                         <br />
-                      </div>
-                    </Flex>
-                  ) : null}
-                </div>
-              )
-            }}
-          </UserContext.Consumer>
-          <br />
-          <br />
-
-          <Flex justifyBetween>
-            <Flex>
-              {isVirtual ? (
-                <FiCast style={{ fontSize: "1.6em" }} />
-              ) : (
-                <GoLocation style={{ fontSize: "1.6em" }} />
-              )}
-
-              <Text small style={{ paddingLeft: "7px" }}>
-                {meetupGroupLength > 1 ? "Global" : venue}
-              </Text>
-            </Flex>
-
-            {eventType === "Meetup" ? (
-              <div>
-                {meetupGroupLength > 1 ? null : (
-                  <Flex column>
-                    <Text style={{ color: "grey" }}> Next Event : </Text>
-                    <Flex>
-                      <FiCalendar style={{ fontSize: "1.5em" }} />
-                      <Text small style={{ paddingLeft: "7px" }}>
-                        {dateCreated}
-                      </Text>
-                    </Flex>
+                        <br />
+                      </Flex>
+                    </div>
                   </Flex>
-                )}
-              </div>
-            ) : (
-              <Flex column>
-                <Text style={{ color: "grey" }}> {next} </Text>
-                <Flex>
-                  <FiCalendar style={{ fontSize: "1.5em" }} />
-                  <Text small style={{ paddingLeft: "7px" }}>
-                    {dateCreated}
-                  </Text>
+                  <br />
                 </Flex>
-              </Flex>
+
+                {currentWindowSize <= 700 ? (
+                  <Flex column>
+                    <br />
+                    <br />
+                    <div style={{ textAlign: "right" }}>
+                      <Link to="/mobile">
+                        <Hover
+                          onClick={() => {
+                            openChecklist()
+                          }}
+                        >
+                          <FiSmartphone style={{ fontSize: "2rem" }} />
+                        </Hover>
+                      </Link>
+                      <br />
+                    </div>
+                  </Flex>
+                ) : null}
+              </div>
+            )
+          }}
+        </UserContext.Consumer>
+        <br />
+        <br />
+
+        <Flex justifyBetween>
+          <Flex>
+            {isVirtual ? (
+              <FiCast style={{ fontSize: "1.6em" }} />
+            ) : (
+              <GoLocation style={{ fontSize: "1.6em" }} />
             )}
+
+            <Text small style={{ paddingLeft: "7px" }}>
+              {meetupGroupLength > 1 ? "Global" : venue}
+            </Text>
           </Flex>
-        </div>
-      ) : null}
-    </div>
-  )
+
+          {eventType === "Meetup" ? (
+            <div>
+              {meetupGroupLength > 1 ? null : (
+                <Flex column>
+                  <Text style={{ color: "grey" }}> Next Event : </Text>
+                  <Flex>
+                    <FiCalendar style={{ fontSize: "1.5em" }} />
+                    <Text small style={{ paddingLeft: "7px" }}>
+                      {dateCreated}
+                    </Text>
+                  </Flex>
+                </Flex>
+              )}
+            </div>
+          ) : (
+            <Flex column>
+              <Text style={{ color: "grey" }}> {next} </Text>
+              <Flex>
+                <FiCalendar style={{ fontSize: "1.5em" }} />
+                <Text small style={{ paddingLeft: "7px" }}>
+                  {dateCreated}
+                </Text>
+              </Flex>
+            </Flex>
+          )}
+        </Flex>
+      </span>
+    </Container>
+  ) : null
 }
 
 export default inject("ModalStore")(observer(EventDetails))

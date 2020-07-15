@@ -2,67 +2,42 @@ import React, { useState, useRef } from "react"
 import styled from "styled-components"
 
 import { Header, Footer, Portal } from "../../../components/"
+import Image from "../../../assets/images/2.jpg"
+
+const Container = styled.div`
+    background-image: url(${props => props.img});
+    background-size : cover;
+    width : 100%;
+    height: 88.5vh;
+    position: relative;
+    div {
+      color: #fff
+      bottom : 0;
+      font-size : 2rem
+      padding: 1rem 1rem;
+      width : 100%;
+      height: 88.5vh;
+      position: absolute;
+      background: linear-gradient(to top,#1a1e43ed, transparent) ;
+      text-align :center
+    }
+   `
 
 const Stream = props => {
-  const [Video, setVideo] = useState(false)
-
-  const VideoRef = useRef()
-
-  const handleStream = async () => {
-    setVideo(true)
-    try {
-      const name = await navigator.mediaDevices.getUserMedia({
-        video: { width: window.innerWidth, height: window.innerHeight },
-      })
-      //@ts-ignore
-      VideoRef.current.srcObject = name
-
-      //@ts-ignore
-      VideoRef.current.srcObject.play()
-      //@ts-ignore
-      VideoRef.current.srcObject.load()
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const stopVideo = () => {
-    //@ts-ignore
-    console.log(VideoRef.current.srcObject)
-    //@ts-ignore
-  }
-  const name = ",,"
   return (
     <div>
       <Header />
-      <div style={{ display: "grid", gridTemplateColumns: "13rem 90%" }}>
-        <p> bar </p>
-
+      <br />
+      <Container img={Image}>
         <div>
-          <br />
-          <br />
-          <button onClick={() => handleStream()}> Begin Stream </button>
-          <button onClick={() => stopVideo()}> Close Stream </button>
-          <br />
-          <video
-            controls={true}
-            style={{ border: "1px solid grey", borderRadius: "7px" }}
-            ref={VideoRef}
-          />
-          <br />{" "}
+          <p>some niffty text </p>
         </div>
-      </div>
-      <br />
-      <br />
+      </Container>
 
-      <Portal>
-        <div
-          onMouseEnter={() => {}}
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <div style={{ width: "30rem", height: "40vh", background: "red" }} />
-        </div>
-      </Portal>
+      <div style={{ height: "40vh" }}>
+        <p>some niffty text below </p>
+      </div>
+
       <Footer />
     </div>
   )

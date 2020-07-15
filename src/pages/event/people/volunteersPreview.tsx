@@ -15,6 +15,7 @@ const Sprite = styled.img`
 	border-radius : 50%;
 	border  : 2px solid #401364;
 	box-shadow : 0px 3px 3px solid grey;
+  cursor : pointer
 `
 
 const imgs = [

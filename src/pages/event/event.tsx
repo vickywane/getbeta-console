@@ -15,12 +15,13 @@ import Admin from "./admin"
 import Overview from "./invitation/overview"
 import Archive from "./archive/itetations"
 
+import Developer from "../developer/event/api"
 import EventModal from "./eventModal"
 import { Header, Loader } from "../../components/"
 import MeetupTabComponents from "./meetupTabComponents"
 import MeetupAdmin from "./meetups/adminPane"
 import ConferenceTab from "../../components/tabs/conference.tab"
-import { Contain } from "../../styles/style"
+import { Contain, Text } from "../../styles/style"
 import {
   AccessModal,
   BugModal,
@@ -122,9 +123,8 @@ const Event = (props): JSX.Element => {
     return (
       <TabContext.Provider value={TabState}>
         <Header event={Hooks >= 900 ? data.event.name : data.event.alias} />
+        <div style={{ marginBottom: "2.2rem" }} />
 
-        <br />
-        <br />
         <EventModal data={data.event} eventId={id} />
         <Checklist />
         <PapersModal data={data.event} />
@@ -169,7 +169,7 @@ const Event = (props): JSX.Element => {
             )
           ) : null}
 
-          <div style={{ height: window.innerHeight - 80, overflow: "auto" }}>
+          <div style={{ height: window.innerHeight - 90, overflow: "auto" }}>
             <AdminContext.Provider value={AdminTabState}>
               <CSSTransition
                 timeout={300}
@@ -183,22 +183,16 @@ const Event = (props): JSX.Element => {
                   )}
 
                   {EventType === "Conference" ? (
-                    <Contain
-                      style={{ filter: "#000", transition: "all 300ms" }}
-                      img={TestImg}
-                      grey
-                    >
-                      <EventDetails
-                        state={staate}
-                        permissio={permission}
-                        data={data}
-                        meetupGroupLength={meetupGroupLength}
-                        dispatch={dispaatch}
-                        eventType={EventType}
-                        currentWindowSize={Hooks}
-                        openEditModal={openEditModal}
-                      />
-                    </Contain>
+                    <EventDetails
+                      state={staate}
+                      permissio={permission}
+                      data={data}
+                      meetupGroupLength={meetupGroupLength}
+                      dispatch={dispaatch}
+                      eventType={EventType}
+                      currentWindowSize={Hooks}
+                      openEditModal={openEditModal}
+                    />
                   ) : (
                     <div>
                       {meetupGroupLength > 0 ? (
@@ -265,6 +259,23 @@ const Event = (props): JSX.Element => {
                       data={data}
                     />
                   )}
+
+                  <div
+                    style={{
+                      paddingTop: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "50px",
+                      width: "auto",
+                      background: "#c0c0c0",
+                    }}
+                  >
+                    <Text color="#0e2f5a">
+                      {" "}
+                      Organized by {data.event.name} on {data.event.dateCreated}{" "}
+                    </Text>
+                  </div>
                 </div>
               </CSSTransition>
               <CSSTransition
@@ -335,6 +346,15 @@ const Event = (props): JSX.Element => {
                 in={state.activeTab === "archive"}
               >
                 <Archive data={data} />
+              </CSSTransition>
+
+              <CSSTransition
+                timeout={300}
+                className={""}
+                unmountOnExit
+                in={state.activeTab === "developer"}
+              >
+                <Developer data={data} />
               </CSSTransition>
             </AdminContext.Provider>
           </div>

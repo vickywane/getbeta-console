@@ -205,10 +205,9 @@ const Admin = props => {
           <br />
           <Tab
             onClick={() => {
-              dispatch({ type: "SWITCH_BUG" })
-              openCrashReporter()
+              dispatch({ type: "SWITCH_DEVELOPER" })
             }}
-            active={state.active}
+            active={state.activeTab === "developer"}
           >
             <T style={{ padding: "0rem 1rem" }}>
               <IoIosCode style={{ fontSize: "1.8rem" }} />
@@ -216,12 +215,13 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? "Developer APIs" : null}
           </Tab>
+
           <Tab
             onClick={() => {
               dispatch({ type: "SWITCH_BUG" })
               openCrashReporter()
             }}
-            active={state.active}
+            active={state.activeTab === "bug"}
           >
             <T style={{ padding: "0rem 1rem" }}>
               <IoIosBug style={{ fontSize: "1.8rem" }} />

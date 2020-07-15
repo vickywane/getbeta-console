@@ -22,17 +22,17 @@ const List = styled.li`
 `
 
 const Circle = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   border: 1px solid #401364;
   border-radius: 50%;
   background: #401364;
 `
 
 const Line = styled.div`
-  height: 6vh;
+  height: 5vh;
   border-right: 3px dashed #401364;
-  margin: 10px 10px;
+  margin: 10px 7px;
 `
 
 const Timeline = props => {

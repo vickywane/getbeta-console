@@ -74,6 +74,9 @@ export const AdminTabReducer = (state: any, action: any) => {
     case "OPEN_ARCHIVE":
       return { ...state, active: true, activeTab: "archive" }
       break
+    case "SWITCH_DEVELOPER":
+      return { ...state, active: true, activeTab: "developer" }
+      break
     default:
       break
   }

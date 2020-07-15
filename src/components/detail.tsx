@@ -111,10 +111,6 @@ const Details = props => {
             </Box>
           </a>
         </Grid>
-        <br />
-        <Title style={{ textAlign: "right" }} small>
-          Organized by <b> {name} </b>
-        </Title>
       </div>
       <div style={{ padding: "1rem 2rem" }}>
         <Text center style={{ textIndent: "30px" }}>

@@ -3,36 +3,69 @@ import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 import media from "styled-media-query"
 import { FcCustomerSupport } from "react-icons/fc"
-import { FiPhone } from "react-icons/fi"
+import { FiPhone, FiX } from "react-icons/fi"
 import Schedule from "../../pages/event/schedule/schedule"
 import People from "../../pages/event/people/people"
 import Shop from "../../pages/event/store/shop"
+import Support from "../../pages/event/supportWindow"
 import Detail from "../detail"
 
-import { Body } from "../../styles/style"
+import { Body, Text } from "../../styles/style"
 
 const FAB = styled.div`
-  padding: 1rem 1rem;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: blue;
   color: white;
   position: absolute;
   position: -webkit-sticky;
-  bottom: 1rem;
+  bottom: 2rem;
   float: right;
-  width: 4.5rem;
+  transition: all 800ms;
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
   box-shadow: 3px 1px 3px 0px grey;
 `
 
+const SupportWindow = styled.div`
+  width: 26%;
+  height: 72vh;
+  background: #fff;
+  color: #000;
+  position: absolute;
+  position: -webkit-sticky;
+  bottom: 2rem;
+  margin-left: 5.5rem;
+  float: right;
+  text-align: center;
+  border-radius: 7px;
+  box-shadow: 3px 1px 3px 0px grey;
+`
+
 const ConferenceTab = (props): JSX.Element => {
   const { state, data, openContact } = props
+  const [Window, openWindow] = React.useState(false)
+
   return (
     <Body>
-      <FAB onClick={() => openContact()}>
-        <FcCustomerSupport style={{ fontSize: "2.7rem" }} />
+      <FAB onClick={() => openWindow(!Window)}>
+        {!Window ? (
+          <FcCustomerSupport style={{ fontSize: "2.7rem" }} />
+        ) : (
+          <FiX style={{ fontSize: "2rem" }} />
+        )}
       </FAB>
+
+      {Window && (
+        <SupportWindow>
+          <Support data={data} />
+        </SupportWindow>
+      )}
+
       <CSSTransition
         timeout={500}
         in={state.activeTab === "detail"}

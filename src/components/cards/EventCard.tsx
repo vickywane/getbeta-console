@@ -16,6 +16,7 @@ import EventImage from "../../assets/images/test.png"
 import { Card, Text, Button, Hover } from "../../styles/style"
 import EventCardOption from "./eventcard.options"
 import "../../App.css"
+import CrdImg from "../../assets/images/test.png"
 
 const Contain = styled.div`
   background-image: url(${props => props.img});
@@ -99,7 +100,10 @@ const EventCard = (props): JSX.Element => {
   return (
     <Card key={id}>
       <div>
-        <Contain img={"EventImage"}>
+        <Contain
+          style={{ backgroundSize: "cover", height: "19vh", width: "100%" }}
+          img={CrdImg}
+        >
           {permission && (
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p style={{ color: "white" }}> . </p>
@@ -109,7 +113,7 @@ const EventCard = (props): JSX.Element => {
                 onClick={() => setOptionVisibility(!optionVisibility)}
               >
                 <FiMoreVertical
-                  style={{ fontSize: "1.75rem", textAlign: "right" }}
+                  style={{ fontSize: "1.8rem", textAlign: "right" }}
                 />
               </Hover>
             </div>
@@ -154,11 +158,6 @@ const EventCard = (props): JSX.Element => {
         >
           <EventCardOption eventId={id} />
         </CSSTransition>
-
-        <img
-          src={require("../../assets/images/test.png")}
-          style={{ maxWidth: "70%" }}
-        />
 
         <hr />
 
@@ -285,7 +284,6 @@ const EventCard = (props): JSX.Element => {
         <div
           style={{
             fontSize: "1.1rem",
-            fontFamily: "calibri",
             borderTop: "1px solid grey ",
             padding: "0.7rem 0.5rem",
             marginTop: "0.5rem",

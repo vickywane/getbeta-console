@@ -5,6 +5,7 @@ import {
   FiX,
   FiSend,
   FiEdit,
+  FiMoreHorizontal,
   FiFacebook,
   FiTwitter,
   FiInstagram,
@@ -30,6 +31,7 @@ import {
 } from "../../styles/style"
 import { UPDATE_EVENT } from "../../data/mutations"
 import { CREATE_EVENT_INPUT } from "../../pages/forms/formsData"
+import { Tip } from "../../components/"
 import Field from "../../pages/forms/fields"
 
 const CInput = styled.div`
@@ -54,6 +56,7 @@ const InputGrid = styled.div`
 
 const EditEvent = (props): JSX.Element => {
   const [ActiveColumn, setActiveColumn] = useState("forms")
+  const [Tips, showTip] = useState(false)
 
   const { editEventModal, closeEditModal } = props.ModalStore
   const { eventData } = props
@@ -160,10 +163,9 @@ const EditEvent = (props): JSX.Element => {
       },
     })
       .then(() => {
-        alert("update")
+        showTip(true)
       })
       .catch(e => {
-        console.log(e)
         // setError(e.graphQLErrors[0].message)
       })
   }
@@ -212,6 +214,14 @@ const EditEvent = (props): JSX.Element => {
       <CSSTransition timeout={300} unmountOnExit in={ActiveColumn === "forms"}>
         <Body>
           <Body>
+            {Tips && (
+              <Tip
+                timeout={2000}
+                message="Your Event has been updated"
+                icon1={<FiMoreHorizontal style={{ fontSize: "1.8rem" }} />}
+              />
+            )}
+
             {first.map(({ id, label, placeholder, textarea }) => {
               return (
                 <Field

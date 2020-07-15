@@ -95,6 +95,7 @@ const List = styled.li`
 const Contain = styled.div`
   background-image: url(${props => props.img});
   background-position: center;
+  background-size: cover;
   filter: ${props => (props.filtered ? "grayscale(80%) blur(2px)" : null)};
   padding: ${props => (props.bottomPadding ? "2rem 3rem" : "0rem 5rem")};
   box-shadow: ${props => (props.bottomShadow ? "0px 1px 3px grey" : null)};
@@ -286,9 +287,9 @@ const Title = styled.h5`
   color: ${props => (props.active ? "#FF5F00" : "#0e2f5a")};
   text-align: ${props => (props.center ? "center" : null)};
   font-size: ${props => (props.small ? "1.4rem" : "1.8rem")};
-  font-weight: ${props => (props.bold ? "600px" : "normal")};
+  font-weight: ${props => (props.bold ? "500px" : "normal")};
   ${media.lessThan("large")`
-  font-size: ${props => (props.small ? "1.5em" : "2em")};
+  font-size: ${props => (props.small ? "1.7rem" : "2rem")};
   `};
   ${media.lessThan("medium")`
   font-size: ${props => (props.small ? "1.4em" : "2em")};
