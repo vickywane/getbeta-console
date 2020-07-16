@@ -224,11 +224,7 @@ const Talks = (): JSX.Element => {
                                 }}
                                 style={{ textDecoration: "none" }}
                               >
-                                <Title
-                                  style={{ color: "#0e2f5a" }}
-                                  small
-                                  center
-                                >
+                                <Title style={{ color: "#0e2f5a" }} center>
                                   {title}
                                 </Title>
                               </Hover>

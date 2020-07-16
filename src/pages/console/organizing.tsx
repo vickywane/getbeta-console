@@ -60,7 +60,9 @@ const Organizing = (props): JSX.Element => {
               padding: "0.5rem 2rem",
             }}
           >
-            <Section style={{ marginTop: "10px" }}>Launch New Event</Section>
+            <Section style={{ marginTop: "10px", color: "#22263d" }}>
+              Launch New Event
+            </Section>
 
             <Hov onClick={() => setVisibility(false)}>
               <FiX style={{ fontSize: "1.8rem" }} />

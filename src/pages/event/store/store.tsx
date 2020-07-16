@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import Flex from "styled-flex-component"
 import styled from "styled-components"
 import { CSSTransition } from "react-transition-group"
 import { inject, observer } from "mobx-react"
 import { FiPlus } from "react-icons/fi"
 
+import Fields from "../../forms/fields"
 import {
   Hover,
   Title,
@@ -53,6 +53,24 @@ const Heads = styled.li`
   grid-template-columns: 20% 20% 20% 20% 20%;
 `
 
+const ProductContainer = styled.div`
+    width : auto;
+    display : grid
+    grid-template-columns : 50% 50%;
+    grid-gap : 1rem 3rem
+`
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const Preview = styled.div`
+  margin: 0rem 2rem;
+  border: 1px solid #c0c0c0;
+  width: 25rem;
+`
+
 const Store = props => {
   const [ActiveTab, setActiveTab] = useState("products")
   const {
@@ -65,7 +83,7 @@ const Store = props => {
   return (
     <div>
       <Head header>
-        <Section> Store </Section>
+        <Section> MarketPlace </Section>
 
         <Tab>
           <TabColumn
@@ -97,7 +115,7 @@ const Store = props => {
         )}
       </Head>
 
-      <div style={{ padding: "2rem" }}>
+      <div style={{ padding: "1rem 1rem" }}>
         <CSSTransition
           in={ActiveTab === "products"}
           timeout={300}

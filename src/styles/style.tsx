@@ -299,18 +299,18 @@ const Title = styled.h5`
 `};
 `
 
-const Label = styled.label`
+const Label = styled.p`
 padding-left: 10px
 font-weight: 400;
-font-size: ${props => (props.small ? "1.4em" : "1.3em")};
+font-size: ${props => (props.small ? "1.3rem" : "1.2rem")};
 ${media.lessThan("large")`
-font-size: ${props => (props.small ? "1.1em" : "1.3em")};
+font-size: ${props => (props.small ? "1.1rem" : "1.3rem")};
   `};
   ${media.lessThan("medium")`
- font-size: ${props => (props.small ? "1em" : "1.3em")};
+ font-size: ${props => (props.small ? "1rem" : "1.3rem")};
 `};
   ${media.lessThan("small")`
- font-size: ${props => (props.small ? "1em" : "1.3em")};
+ font-size: ${props => (props.small ? "1rem" : "1.3rem")};
 `};
 `
 

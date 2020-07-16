@@ -137,7 +137,7 @@ const Fields = (props: CustomProps) => {
               placeholder={placeholder}
             />
           )}
-          <br />
+          <div style={{ margin: "0.3rem 0rem" }} />
         </Flex>
       ) : (
         <Flex column>
@@ -219,7 +219,7 @@ const Fields = (props: CustomProps) => {
               </HoverSquare>
             </div>
           </TextEditor>
-          <br />
+          <div style={{ margin: "0.3rem 0rem" }} />
         </Flex>
       )}
     </div>

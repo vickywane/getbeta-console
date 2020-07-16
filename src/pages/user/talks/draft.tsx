@@ -117,15 +117,18 @@ const Draft = (props): JSX.Element => {
   const [Visibility, setVisibility] = useState(true)
 
   const Padded = styled(Contain)`
-    tramsition : all 300ms;
+    transition : all 300ms;
     overflow : auto;
+    padding: 0px;
     height : ${window.innerHeight - 300}
-    padding: ${props => (props.reviewOpen ? "0rem 3rem" : "0rem 15rem")};
+    margin: ${props => (props.reviewOpen ? "0rem 4rem" : "0rem 15rem")};
+    border-left : ${props => !props.reviewOpen && "2px solid #c0c0c0"} ;
+    box-shadow :    ${props => !props.reviewOpen && "8px 0px 4px #c0c0c0"};
   `
 
   const Grid = styled.div`
     display: grid;
-    tramsition: all 300ms;
+    transition: all 300ms;
     grid-gap: ${props => props.reviewOpen && "0rem 1rem"};
     grid-template-columns: ${props => props.reviewOpen && "auto 27rem"};
   `
@@ -226,7 +229,7 @@ const Draft = (props): JSX.Element => {
                 <FiEdit style={{ fontSize: "1.6rem" }} />
               </Hover>
             </Link>
-            <Text> Compile Notes </Text>
+            <Text small> Compile Notes </Text>
           </div>
 
           <div
@@ -238,7 +241,7 @@ const Draft = (props): JSX.Element => {
                 <FiEdit style={{ fontSize: "1.6rem" }} />
               </Hover>
             </Link>
-            <Text>Edit</Text>
+            <Text small>Edit</Text>
           </div>
 
           <div
@@ -250,14 +253,14 @@ const Draft = (props): JSX.Element => {
                 <IoIosPeople style={{ fontSize: "1.7rem" }} />
               </Hover>
             </Link>
-            <Text>Reviews</Text>
+            <Text small>Reviews</Text>
           </div>
         </Flex>
       </Head>
 
       <Grid reviewOpen={reviewPane}>
         <Padded
-          style={{ height: window.innerHeight - 210, overflow: "auto" }}
+          style={{ height: window.innerHeight - 210 }}
           reviewOpen={reviewPane}
         >
           {!note && (

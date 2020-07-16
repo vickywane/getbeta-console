@@ -32,7 +32,8 @@ const HoverCircle = styled(Hover)`
   transition: all 350ms;
   border: 1px solid grey;
   &: hover {
-    background: #fbfbfb;
+    color: #fff;
+    border: 1px solid #fff;
   }
 `
 
@@ -96,7 +97,6 @@ const EventDetails = (props): JSX.Element => {
   return showEventDetails ? (
     <Container
       style={{
-        //background:  "linear-gradient(to top,#22263d, #fff)",
         position: "relative",
         transition: "all 300ms",
       }}

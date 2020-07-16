@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import media from "styled-media-query"
 
+import Sample from "../../assets/ssvg/sample.svg"
 import { Hover, Text, Title } from "../../styles/style"
 
 const Box = styled.div`
@@ -103,7 +104,11 @@ const CreateEventModal = (props): JSX.Element => {
                       alignItems: "center",
                     }}
                   >
-                    <img alt="event illustration" />
+                    <img
+                      alt="event illustration"
+                      src={Sample}
+                      style={{ maxWidth: "30%" }}
+                    />
                   </div>
                   <Link to={`create/${type}`}>
                     <Title center color="white" small>

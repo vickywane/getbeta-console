@@ -24,15 +24,25 @@ const Container = styled.div`
    `
 
 const Stream = props => {
+  let winpa = `scrollbars=yes,resizable=yes,status=yes,location=yes,toolbar=yes,menubar=yes,
+width=500px,height=500px,left=-1000,top=-1000`
+
   return (
     <div>
       <Header />
       <br />
-      <Container img={Image}>
-        <div>
-          <p>some niffty text </p>
-        </div>
-      </Container>
+      <div>
+        <p>some niffty text </p>
+      </div>
+
+      <button
+        onClick={() => {
+          alert("hi")
+          window.open("a", winpa)
+        }}
+      >
+        Open Window
+      </button>
 
       <div style={{ height: "40vh" }}>
         <p>some niffty text below </p>

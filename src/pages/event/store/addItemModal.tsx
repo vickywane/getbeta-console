@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import Flex from "styled-flex-component"
 import styled from "styled-components"
-import { FiX, FiPlus } from "react-icons/fi"
+import { FiX, FiPlus, FiAlertCircle } from "react-icons/fi"
 import { Modal } from "react-bootstrap"
 import { useMutation } from "@apollo/react-hooks"
 
+import { Checkbox } from "../../../components/"
 import { ADD_ITEM_INTO_CART } from "../../../data/mutations"
 import { ADD_CART_INPUT } from "../../forms/formsData"
 import Field from "../../forms/fields"
@@ -14,6 +15,7 @@ import {
   Text,
   Button,
   Head,
+  Body,
   Section,
   Contain,
 } from "../../../styles/style"
@@ -80,7 +82,7 @@ const AddItem = props => {
     <Modal
       show={visibility}
       onHide={() => closeModal()}
-      size="lg"
+      size="xl"
       style={{ marginTop: "5rem" }}
     >
       <Head>
@@ -90,122 +92,128 @@ const AddItem = props => {
           <FiX style={{ fontSize: "1.7rem" }} />{" "}
         </Hover>
       </Head>
-      <br />
+      <Body>
+        <div>
+          {ADD_CART_INPUT.map(({ id, placeholder, label, type }) => {
+            return (
+              <Field
+                onChange={e => onChange(e, label)}
+                id={id}
+                placeholder={placeholder}
+                name={label}
+                type={type}
+                textarea={false}
+              />
+            )
+          })}
 
-      <div>
-        {ADD_CART_INPUT.map(({ id, placeholder, label, type }) => {
-          return (
-            <Field
-              onChange={e => onChange(e, label)}
-              id={id}
-              placeholder={placeholder}
-              name={label}
-              type={type}
-              textarea={false}
-            />
-          )
-        })}
-
-        <div style={{ margin: "0rem 2.5rem" }}>
-          <Flex justifyBetween>
-            <Flex column>
-              <Text color="grey" center>
-                Pick a category :
-              </Text>
-              <select>
-                <option> SWAGS </option>
-                <option> STICKERS </option>
-                <option> BOOKS </option>
-              </select>
-            </Flex>
-
-            <Flex column>
-              <Text color="grey" center>
-                Available Quantity :
-              </Text>
-              <InputBox>
-                <Hover
-                  onClick={() => setCount(Count + 1)}
-                  style={{
-                    padding: "0.5rem 0.3rem",
-                  }}
-                >
-                  <FiPlus style={{ fontSize: "1.8rem" }} />
-                </Hover>
-
-                <Input
-                  placeholder={Count}
-                  type="number"
-                  onChange={e => {
-                    e.preventDefault()
-                    setCount(e.target.value)
-                  }}
-                />
-
-                <Hover
-                  onClick={() => setCount(Count - 1)}
-                  style={{
-                    padding: "0.5rem 0.3rem",
-                    borderRadius: "0px 15px 15px 0px",
-                  }}
-                >
-                  -
-                </Hover>
-              </InputBox>
-            </Flex>
-          </Flex>
-
-          <Flex column>
-            <Text> Price: </Text>
-
-            {Free ? (
-              <div>
-                <Button
-                  onClick={() => {
-                    setFree(true)
-                  }}
-                >
-                  Make Paid
-                </Button>
-                <br />
-                <br />
-                <Text small color="grey" center>
-                  Only one unit of a free item can be purchased by an attendee.
+          <div style={{ margin: "0rem 1rem" }}>
+            <Flex justifyBetween>
+              <Flex column>
+                <Text color="grey" center>
+                  Item Category:
                 </Text>
-              </div>
-            ) : (
-              <Flex>
-                <Button
-                  onClick={() => {
-                    setFree(true)
-                  }}
-                >
-                  Make Free
-                </Button>
-                <input
-                  value={Price}
-                  type="text"
-                  onChange={e => setPrice(e.target.value)}
-                  placeholder="Item Price"
-                />
+                <select style={{ padding: "0.5rem 1rem" }}>
+                  <option> SWAGS </option>
+                  <option> STICKERS </option>
+                  <option> BOOKS </option>
+                </select>
               </Flex>
-            )}
-          </Flex>
+
+              <Flex column>
+                <Text color="grey" center>
+                  Available Quantity :
+                </Text>
+                <InputBox>
+                  <Hover
+                    onClick={() => setCount(Count + 1)}
+                    style={{
+                      padding: "0.5rem 0.3rem",
+                    }}
+                  >
+                    <FiPlus style={{ fontSize: "1.8rem" }} />
+                  </Hover>
+
+                  <Input
+                    placeholder={Count}
+                    type="number"
+                    onChange={e => {
+                      e.preventDefault()
+                      setCount(e.target.value)
+                    }}
+                  />
+
+                  <Hover
+                    onClick={() => setCount(Count - 1)}
+                    style={{
+                      padding: "0.5rem 0.3rem",
+                      borderRadius: "0px 15px 15px 0px",
+                    }}
+                  >
+                    -
+                  </Hover>
+                </InputBox>
+              </Flex>
+            </Flex>
+
+            <Flex column>
+              <Text> Price: </Text>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {!Free && (
+                  <div style={{ margin: "0.5rem 1rem" }}>
+                    <input
+                      value={Price}
+                      type="text"
+                      onChange={e => setPrice(e.target.value)}
+                      placeholder="Item Price"
+                    />
+                  </div>
+                )}
+
+                <div style={{ display: "flex" }}>
+                  <Checkbox
+                    name="free"
+                    handleClick={() => {
+                      setFree(!Free)
+                    }}
+                  />
+
+                  <Text small style={{ margin: "0rem 0.7rem" }}>
+                    Make item free
+                  </Text>
+                </div>
+
+                <br />
+                {Free && (
+                  <div style={{ display: "flex" }}>
+                    <Hover style={{ margin: "0rem 0.5rem" }}>
+                      <FiAlertCircle style={{ fontSize: "1.6rem" }} />
+                    </Hover>
+
+                    <Text small color="grey" center>
+                      Only one unit of a free item can be purchased by an
+                      attendee.
+                    </Text>
+                  </div>
+                )}
+              </div>
+            </Flex>
+          </div>
+          <br />
+
+          <div style={{ textAlign: "right" }}>
+            <Button
+              long
+              onClick={() => {
+                handleSubmit()
+              }}
+            >
+              Add Item
+            </Button>
+          </div>
         </div>
         <br />
-
-        <div style={{ textAlign: "right" }}>
-          <Button
-            long
-            onClick={() => {
-              handleSubmit()
-            }}
-          >
-            Add Item
-          </Button>
-        </div>
-      </div>
-      <br />
+      </Body>
     </Modal>
   )
 }

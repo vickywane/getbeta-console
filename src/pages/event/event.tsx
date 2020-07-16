@@ -30,6 +30,7 @@ import {
   CreateTrack,
   PapersModal,
 } from "../../components/modals/"
+import { ArchivedEvent } from "../../components/placeholders/"
 import AttendPane from "../../components/panes/attend.pane"
 import useWindowWidth from "../../hook_style"
 import {
@@ -70,6 +71,7 @@ const Event = (props): JSX.Element => {
   // naming conflicts coming up here
   const [staate, dispaatch] = React.useReducer(TabReducer, TabState)
   const [state, dispatch] = React.useReducer(AdminTabReducer, AdminTabState)
+  const { authenticated } = props.AuthStore
 
   const Hooks = useWindowWidth()
   const EventType = props.match.params.eventType
@@ -118,12 +120,20 @@ const Event = (props): JSX.Element => {
     const permission = data.event.createdBy[0].id == userId
     const meetupGroupLength =
       data.event.meetupGroups === null ? 0 : data.event.meetupGroups.length
-    const { id } = data.event
+    const { id, isLocked, name, dateCreated } = data.event
+
+    if (!permission && isLocked) {
+      return <ArchivedEvent name={name} date={dateCreated} />
+    }
 
     return (
       <TabContext.Provider value={TabState}>
-        <Header event={Hooks >= 900 ? data.event.name : data.event.alias} />
-        <div style={{ marginBottom: "2.2rem" }} />
+        {authenticated && (
+          <div>
+            <Header event={Hooks >= 900 ? data.event.name : data.event.alias} />
+            <div style={{ marginBottom: "2.2rem" }} />
+          </div>
+        )}
 
         <EventModal data={data.event} eventId={id} />
         <Checklist />
@@ -372,4 +382,4 @@ const Event = (props): JSX.Element => {
   }
 }
 
-export default inject("ModalStore")(observer(Event))
+export default inject("ModalStore", "AuthStore")(observer(Event))

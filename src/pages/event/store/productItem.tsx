@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { useQuery } from "@apollo/react-hooks"
 import { FiDollarSign, FiMoreVertical, FiShoppingCart } from "react-icons/fi"
 
+import { EmptyData } from "../../../components/placeholders"
 import { GET_CATEGORY } from "../../../data/queries"
 import { Hover, Text, Section, Button, Body } from "../../../styles/style"
 
@@ -43,40 +44,15 @@ const ProductItem = props => {
   if (loading) {
     return <p> loading. ... </p>
   }
-  console.log(data.category)
+
   return (
     <Grid>
       {data.category[0].items === null ? (
-        <div>
-          <br /> <br /> <br /> <br />{" "}
-          <Text center color="grey">
-            You dont have any item within this category.{" "}
-          </Text>
-          <Text center color="grey">
-            Use the{" "}
-            <b
-              style={{
-                fontWeight: 550,
-                padding: "0rem 0.7rem",
-                cursor: "pointer",
-                color: "blue",
-              }}
-            >
-              Add Item Button
-            </b>
-            to create you first item within this category.
-          </Text>
-          <Text color="grey" center>
-            <a
-              style={{ textDecoration: "none" }}
-              href="https://my_event.netlify.com"
-              target="_blank"
-            >
-              Learn More{" "}
-            </a>
-            about the <b> Event Commerce </b> feature on Oasis
-          </Text>{" "}
-        </div>
+        <EmptyData
+          link="https://my_event.netlify.com"
+          feature="Event Marketplace"
+          message={`You dont have any item within this category.  \n Use the **Add Item Button**  to create you first item within this category.`}
+        />
       ) : (
         data.category[0].items.map(
           ({ id, name, description, quantity, price, isFree }) => {

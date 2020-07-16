@@ -140,7 +140,7 @@ const Products = props => {
             <EmptyData
               message={`This event has no item within its cart. \n\n Cart items are placed within categories. \n\n Use the **Plus** button to create a new cart category and then add items to the category.`}
               link="http://event.com"
-              feature="E-commerce"
+              feature="Event Marketplace"
             />
           </div>
         ) : (

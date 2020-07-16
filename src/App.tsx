@@ -67,6 +67,9 @@ const App = (props): JSX.Element => {
             <Route exact path="/" component={Documentation} />
             <Route path="/login" component={Signin} />
             <Route path="/reset" component={ResetPassword} />
+            <Route path="/oasis/:eventType/:id" component={Event} />
+            <Route path="/media/:id/:name" component={Media} />
+            <Route path="/meetup/:id" component={MeetupGroup} />
             <Protected
               authenticated={Authenticated}
               path="/create"
@@ -80,11 +83,6 @@ const App = (props): JSX.Element => {
             // using ":eventType/:id" makes other dynamic // routes come here
             <Protected
               authenticated={Authenticated}
-              path="/oasis/:eventType/:id"
-              component={Event}
-            />
-            <Protected
-              authenticated={Authenticated}
               path="/list"
               component={EventList}
             />
@@ -92,16 +90,6 @@ const App = (props): JSX.Element => {
               authenticated={Authenticated}
               path="/submit-talk/:id"
               component={SubmitTalk}
-            />
-            <Protected
-              authenticated={Authenticated}
-              path="/media/:id/:name"
-              component={Media}
-            />
-            <Protected
-              authenticated={Authenticated}
-              path="/meetup/:id"
-              component={MeetupGroup}
             />
             <Protected
               authenticated={Authenticated}
