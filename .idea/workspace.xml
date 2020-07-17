@@ -34,22 +34,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/detail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tip.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/developer/event/api.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/developer/event/api.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetupDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/store/addItemModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/addItemModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forms/fields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/fields.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/create-note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/create-note.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/context/contextState.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/context/contextState.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

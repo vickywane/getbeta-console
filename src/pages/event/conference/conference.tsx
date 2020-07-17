@@ -1,33 +1,18 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { CSSTransition } from 'react-transition-group'
-import styled from 'styled-components'
-import media from 'styled-media-query'
 
 import EditEvent from '../editEvent'
 import TeamList from '../teamList'
 import Schedule from '../schedule/schedule'
 import EventTabs from '../eventTab'
-import MeetupTab from '../meetupTab'
-import Timeline from '../timeline'
-import Admin from '../admin'
 import Overview from '../invitation/overview'
 import Archive from '../archive/itetations'
 
 import Developer from '../../developer/event/api'
-import EventModal from '../eventModal'
-import MeetupTabComponents from '../meetupTabComponents'
-import MeetupAdmin from '../meetups/adminPane'
 import ConferenceTab from '../../../components/tabs/conference.tab'
 import { Contain, Text } from '../../../styles/style'
-import {
-  AccessModal,
-  BugModal,
-  Checklist,
-  Contact,
-  CreateTrack,
-  PapersModal
-} from '../../../components/modals/'
+import { AccessModal } from '../../../components/modals/'
 import { ArchivedEvent } from '../../../components/placeholders/'
 import AttendPane from '../../../components/panes/attend.pane'
 import {
@@ -41,25 +26,6 @@ import EventDetails from '../eventdetails'
 import Store from '../store/store'
 import Mobile from '../../mobile/mobile'
 import '../../../App.css'
-import TestImg from '../../../assets/images/test.png'
-import MeetupDetails from '../meetups/meetupDetails'
-
-// make grids responsive
-const EventGrid = styled.div`
-  display: grid;
-  grid-gap: 0rem;
-  grid-template-columns: ${props => (props.permission ? '17rem auto 21rem' : 'auto 23rem')} ;
-  transition  : all 300ms;
-  ${media.lessThan('huge')`
-     grid-template-columns: ${props => (props.permission ? '16rem auto' : '78% auto')};
-  `} 
-  ${media.lessThan('large')`
- grid-template-columns: ${props => (props.permission ? '5rem auto' : '100%')};
-`}
-  ${media.lessThan('medium')`
-  grid-template-columns: 100%;
-`}
-`
 
 const Conference = (props): JSX.Element => {
   const { Hooks, data, EventType } = props
@@ -94,71 +60,21 @@ const Conference = (props): JSX.Element => {
                 <AttendPane permission={permission} event={data.event} />
               )}
 
-              {EventType === 'Conference' ? (
-                <EventDetails
-                  state={staate}
-                  permissio={permission}
-                  data={data}
-                  meetupGroupLength={meetupGroupLength}
-                  dispatch={dispaatch}
-                  eventType={EventType}
-                  currentWindowSize={Hooks}
-                  openEditModal={openEditModal}
-                />
-              ) : (
-                <div>
-                  {meetupGroupLength > 0 ? (
-                    <Contain grey style={{ transition: 'all 300ms' }}>
-                      <MeetupDetails
-                        state={staate}
-                        permission={permission}
-                        data={data}
-                        meetupGroupLength={meetupGroupLength}
-                        dispatch={dispaatch}
-                        eventType={EventType}
-                        currentWindowSize={Hooks}
-                        openEditModal={openEditModal}
-                      />
-                    </Contain>
-                  ) : (
-                    <Contain grey img={TestImg} style={{ transition: 'all 300ms' }}>
-                      <EventDetails
-                        state={staate}
-                        permissio={permission}
-                        data={data}
-                        meetupGroupLength={meetupGroupLength}
-                        dispatch={dispaatch}
-                        eventType={EventType}
-                        currentWindowSize={Hooks}
-                        openEditModal={openEditModal}
-                      />
-                    </Contain>
-                  )}
-                </div>
-              )}
+              <EventDetails
+                state={staate}
+                permissio={permission}
+                data={data}
+                meetupGroupLength={meetupGroupLength}
+                dispatch={dispaatch}
+                eventType={EventType}
+                currentWindowSize={Hooks}
+                openEditModal={openEditModal}
+              />
               <Contain grey bottomShadow>
-                {EventType === 'Conference' ? (
-                  <EventTabs
-                    data={data}
-                    eventType={EventType}
-                    state={staate}
-                    dispatch={dispaatch}
-                  />
-                ) : (
-                  <MeetupTab
-                    data={data}
-                    eventType={EventType}
-                    state={staate}
-                    dispatch={dispaatch}
-                  />
-                )}
+                <EventTabs data={data} eventType={EventType} state={staate} dispatch={dispaatch} />
               </Contain>
 
-              {EventType === 'Conference' ? (
-                <ConferenceTab openContact={openContactModal} state={staate} data={data} />
-              ) : (
-                <MeetupTabComponents openContact={openContactModal} state={staate} data={data} />
-              )}
+              <ConferenceTab openContact={openContactModal} state={staate} data={data} />
 
               <div
                 style={{
