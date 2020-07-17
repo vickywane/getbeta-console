@@ -1,27 +1,27 @@
-import * as React from "react"
+import * as React from 'react'
 
 const UserContext = React.createContext({
-  id: "",
-  name: "",
+  id: '',
+  name: ''
 })
 
 const TabState = {
   id: 1,
   showEventDetails: true,
-  activeTab: "detail",
-  active: true,
+  activeTab: 'detail',
+  active: true
 }
 
 const PeopleTabState = {
   id: 1,
-  activeTab: "attendees",
-  active: true,
+  activeTab: 'attendees',
+  active: true
 }
 
 const AdminTabState = {
   id: 1,
-  activeTab: "store",
-  active: false,
+  activeTab: 'dashboard',
+  active: false
 }
 
 const PeopleTabContext = React.createContext(PeopleTabState)
@@ -35,5 +35,5 @@ export {
   PeopleTabState,
   UserContext,
   TabContext,
-  TabState,
+  TabState
 }

@@ -1,24 +1,18 @@
-import { Link } from "react-router-dom"
-import React, { useState } from "react"
-import Flex from "styled-flex-component"
-import { FiSearch } from "react-icons/fi"
-import { inject, observer } from "mobx-react"
-import { CSSTransition } from "react-transition-group"
-import styled from "styled-components"
-import media from "styled-media-query"
+import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import Flex from 'styled-flex-component'
+import { FiSearch } from 'react-icons/fi'
+import { inject, observer } from 'mobx-react'
+import { CSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
+import media from 'styled-media-query'
 
-import {
-  Hover,
-  Header as Head,
-  HeaderLinks,
-  Text,
-  InputBox,
-} from "../../styles/style"
-import { StyledSetting, StyledSearch } from "../../styles/navigation"
-import { SettingsPane } from "../"
-import { Burger, Notification } from "./"
-import useWindowWidth from "../../hook_style"
-import "../../App.css"
+import { Hover, Header as Head, HeaderLinks, Text, InputBox } from '../../styles/style'
+import { StyledSetting, StyledSearch } from '../../styles/navigation'
+import { SettingsPane } from '../'
+import { Burger, Notification } from './'
+import useWindowWidth from '../../hook_style'
+import '../../App.css'
 
 const Input = styled.input`
   height: 4vh
@@ -29,24 +23,24 @@ const Input = styled.input`
   border: 0px
   outline: 0px;
   color:  #fff;
-  margin: ${props => (props.unmargined ? "0rem" : "0.4rem 1rem")};
+  margin: ${props => (props.unmargined ? '0rem' : '0.1rem 1rem')};
   padding-left: 10px;
   border-radius: 4px;
   font-size: 1.1rem;
   transition: all 300ms;
-  background: ${props => (props.transparent ? "transparent" : null)};
-    ${media.lessThan("huge")`
-    width: ${props => (props.wide ? "60rem" : "30rem")};
+  background: ${props => (props.transparent ? 'transparent' : null)};
+    ${media.lessThan('huge')`
+    width: ${props => (props.wide ? '60rem' : '30rem')};
     `};
-    ${media.lessThan("large")`
+    ${media.lessThan('large')`
   width: 27rem;
   height: 3.5vh
   `};
-  ${media.lessThan("medium")`
-  width: ${props => (props.wide ? "52rem" : "auto")};
+  ${media.lessThan('medium')`
+  width: ${props => (props.wide ? '52rem' : 'auto')};
   `};
-  ${media.lessThan("small")`
-  width: ${props => (props.wide ? "52rem" : "auto")};
+  ${media.lessThan('small')`
+  width: ${props => (props.wide ? '52rem' : 'auto')};
   `};
   &: hover {
      
@@ -59,18 +53,18 @@ const Header = (props): JSX.Element => {
   const { showSearchBar, searchText }: any = props
   const { showProfilePane }: any = props.ConsoleStore
   const [open, setOpen] = useState(false)
-  const menuId: string = "main-menu"
+  const menuId: string = 'main-menu'
 
-  if (props.page === "non-app") {
+  if (props.page === 'non-app') {
     return (
       <Head
         style={{
-          boxShadow: props.unshadowed ? null : "0px 5px 5px grey",
-          paddingTop: "2%",
+          boxShadow: props.unshadowed ? null : '0px 5px 5px grey',
+          paddingTop: '2%'
         }}
       >
         <Flex justifyCenter>
-          <HeaderLinks target={"_blank"} href="https://my-event.netlify.com">
+          <HeaderLinks target={'_blank'} href="https://my-event.netlify.com">
             Oasis
           </HeaderLinks>
         </Flex>
@@ -84,42 +78,42 @@ const Header = (props): JSX.Element => {
     <div>
       <Head
         style={{
-          boxShadow: props.unshadowed ? null : "0px 5px 5px grey",
+          boxShadow: props.unshadowed ? null : '0px 5px 5px grey'
         }}
       >
         {hooks >= 720 ? (
           <div
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
             }}
           >
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
               }}
             >
-              <h4 style={{ paddingTop: "10px" }}>
+              <h4 style={{ paddingTop: '10px' }}>
                 <HeaderLinks
-                  style={{ textDecoration: "none" }}
-                  target={"_blank"}
+                  style={{ textDecoration: 'none' }}
+                  target={'_blank'}
                   href="https://my-event.netlify.com"
                 >
                   OASIS
                 </HeaderLinks>
               </h4>
 
-              {props.screen !== "home" && (
+              {props.screen !== 'home' && (
                 <Link
                   to="/console"
                   style={{
-                    paddingLeft: "10px",
-                    color: "white",
-                    textDecoration: "none",
-                    fontSize: "1.5rem",
+                    paddingLeft: '10px',
+                    color: 'white',
+                    textDecoration: 'none',
+                    fontSize: '1.5rem'
                   }}
                 >
                   | Home
@@ -129,10 +123,10 @@ const Header = (props): JSX.Element => {
 
             <HeaderLinks
               style={{
-                paddingLeft: "5px",
-                color: "white",
-                fontSize: "1.6em",
-                paddingTop: "5px",
+                paddingLeft: '5px',
+                color: 'white',
+                fontSize: '1.6em',
+                paddingTop: '5px'
               }}
             >
               {props.event}
@@ -143,19 +137,11 @@ const Header = (props): JSX.Element => {
                 {hooks >= 1000 ? (
                   <InputBox>
                     <Flex>
-                      <Hover style={{ paddingTop: "10px " }}>
-                        <FiSearch
-                          style={{ fontSize: "1.6rem", color: "#fff" }}
-                        />
+                      <Hover style={{ paddingTop: '10px ' }}>
+                        <FiSearch style={{ fontSize: '1.6rem', color: '#fff' }} />
                       </Hover>
 
-                      <Input
-                        tiny
-                        white
-                        placeholder={searchText}
-                        transparent
-                        unbordered
-                      />
+                      <Input tiny white placeholder={searchText} transparent unbordered />
                     </Flex>
                   </InputBox>
                 ) : null}
@@ -177,12 +163,7 @@ const Header = (props): JSX.Element => {
                 />
               )}
               <div>
-                <Burger
-                  type="Notification"
-                  open={open}
-                  setOpen={setOpen}
-                  aria-controls={menuId}
-                />
+                <Burger type="Notification" open={open} setOpen={setOpen} aria-controls={menuId} />
                 <Notification open={open} setOpen={setOpen} id={menuId} />
               </div>
 
@@ -196,7 +177,7 @@ const Header = (props): JSX.Element => {
                 timeout={30000}
                 in={SettingsVisibility === true}
                 unmountOnExit={true}
-                classNames={"setting"}
+                classNames={'setting'}
                 onEnter={() => {}}
               >
                 <SettingsPane />
@@ -204,19 +185,14 @@ const Header = (props): JSX.Element => {
             </Flex>
           </div>
         ) : (
-          <Flex justifyBetween style={{ padding: "0.5em", paddingRight: "1%" }}>
+          <Flex justifyBetween style={{ padding: '0.5em', paddingRight: '1%' }}>
             <Link to="/console">
               <HeaderLinks>Oasis</HeaderLinks>
             </Link>
 
-            {props.screen === "Docs" ? null : (
+            {props.screen === 'Docs' ? null : (
               <div>
-                <Burger
-                  type="Burger"
-                  open={open}
-                  setOpen={setOpen}
-                  aria-controls={menuId}
-                />
+                <Burger type="Burger" open={open} setOpen={setOpen} aria-controls={menuId} />
                 <Notification open={open} setOpen={setOpen} id={menuId} />
               </div>
             )}
@@ -229,4 +205,4 @@ const Header = (props): JSX.Element => {
   )
 }
 
-export default inject("AuthStore", "ConsoleStore")(observer(Header))
+export default inject('AuthStore', 'ConsoleStore')(observer(Header))

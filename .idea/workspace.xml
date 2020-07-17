@@ -1,23 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/bug.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/bug.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/welcome.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/config.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/config.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/mutations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/mutations.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/queries.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/queries.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/console/console.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/console.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/detail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tip.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/developer/event/api.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/developer/event/api.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/people/attendees.list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/people/attendees.list.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/store/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/store.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/teamList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/teamList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/reminders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/reminders.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetupDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/store/addItemModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/addItemModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/fields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/fields.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/create-note.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/create-note.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/state/context/contextState.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/context/contextState.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/modal.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/modal.store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,13 +60,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
   <component name="ProjectId" id="1e8JY4hyxD9Mc1yR0VUQyKQbDEY" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -53,8 +88,8 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\Iamnwani\Desktop\ROJECT\event\event-console\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
-    <property name="ts.external.directory.path" value="C:\Users\Iamnwani\Desktop\ROJECT\event\event-console\node_modules\typescript\lib" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -117,22 +152,40 @@
     <option name="totallyTimeSpent" value="112329000" />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="talks ui" />
     <option name="LAST_COMMIT_MESSAGE" value="talks ui" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="194" y="0" width="1166" height="903" key="SettingsEditor" timestamp="1595017661843">
+      <screen x="0" y="0" width="3280" height="1080" />
+    </state>
+    <state x="377" y="86" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1595016730725" />
+    <state x="194" y="0" width="1166" height="903" key="SettingsEditor/0.0.3280.1080@0.0.3280.1080" timestamp="1595017661843" />
     <state x="14" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1593697340328">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="14" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1593697340328" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1593817367723">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup" timestamp="1595017633079">
+      <screen x="0" y="0" width="3280" height="1080" />
     </state>
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595017082085" />
+    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595017633079" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

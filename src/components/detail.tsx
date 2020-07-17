@@ -1,11 +1,11 @@
-import * as React from "react"
-import styled from "styled-components"
-import { FiClock, FiSquare } from "react-icons/fi"
+import * as React from 'react'
+import styled from 'styled-components'
+import { FiClock, FiSquare } from 'react-icons/fi'
 
-import { Body, Text, Title, Hover } from "../styles/style"
-import Sponsors from "../pages/event/sponsors"
-import TrackPreview from "../pages/event/schedule/tracksPreview"
-import VolunteerPreview from "../pages/event/people/volunteersPreview"
+import { Body, Text, Title, Hover } from '../styles/style'
+import Sponsors from '../pages/event/sponsors'
+import TrackPreview from '../pages/event/schedule/tracksPreview'
+import VolunteerPreview from '../pages/event/people/volunteersPreview'
 
 const Flex = styled.div`
   display: flex;
@@ -32,90 +32,79 @@ const Grid = styled.div`
 
 const Details = props => {
   const { name } = props.data.createdBy[0]
-  const {
-    description,
-    teams,
-    volunteer,
-    tracks,
-    eventType,
-    sponsors,
-    meetupGroups,
-  } = props.data
+  const { description, teams, volunteer, tracks, eventType, sponsors, meetupGroups } = props.data
 
-  const Type = eventType === "Conference"
-
+  const Type = eventType === 'Conference'
   return (
     <div>
-      <div style={{ background: "transparent" }}>
+      <div style={{ background: 'transparent' }}>
         <Sponsors sponsor={sponsors} />
         <br />
         <Grid>
-          <a href="#organizer" style={{ textDecoration: "none" }}>
+          <a href="#organizer" style={{ textDecoration: 'none' }}>
             <Box>
-              <div style={{ padding: "0rem 1.5rem" }}>
-                <FiSquare style={{ fontSize: "2.5rem" }} />
+              <div style={{ padding: '0rem 1.5rem' }}>
+                <FiSquare style={{ fontSize: '2.5rem' }} />
               </div>
 
               <Flex column>
                 <Title small>20 </Title>
-                <Text color="grey">{Type ? "Hours" : "Attendance Hours"}</Text>
+                <Text color="grey">{Type ? 'Hours' : 'Attendance Hours'}</Text>
               </Flex>
             </Box>
           </a>
-          <a href="#tracks" style={{ textDecoration: "none" }}>
+          <a href="#tracks" style={{ textDecoration: 'none' }}>
             <Box>
-              <div style={{ padding: "0rem 1.5rem" }}>
-                <FiSquare style={{ fontSize: "2.5rem" }} />
+              <div style={{ padding: '0rem 1.5rem' }}>
+                <FiSquare style={{ fontSize: '2.5rem' }} />
               </div>
 
               <Flex column>
                 <Title small>
                   {Type
                     ? tracks === null
-                      ? "0"
+                      ? '0'
                       : tracks.length
                     : meetupGroups === null
-                    ? "0"
+                    ? '0'
                     : meetupGroups.length}
                 </Title>
 
-                <Text color="grey">{Type ? "Tracks" : "Meetup Groups"}</Text>
+                <Text color="grey">{Type ? 'Tracks' : 'Meetup Groups'}</Text>
               </Flex>
             </Box>
           </a>
-          <a href="#organizer" style={{ textDecoration: "none" }}>
+          <a href="#organizer" style={{ textDecoration: 'none' }}>
             <Box>
-              <div style={{ padding: "0rem 1.5rem" }}>
-                <FiSquare style={{ fontSize: "2.5rem" }} />
+              <div style={{ padding: '0rem 1.5rem' }}>
+                <FiSquare style={{ fontSize: '2.5rem' }} />
               </div>
 
               <Flex column>
-                <Title small>
-                  {volunteer === null ? "0" : volunteer.length}
-                </Title>
-                <Text color="grey">{Type ? "Volunteers" : "Facilitators"}</Text>
+                <Title small>{volunteer === null ? '0' : volunteer.length}</Title>
+                <Text color="grey">{Type ? 'Volunteers' : 'Facilitators'}</Text>
               </Flex>
             </Box>
           </a>
 
-          <a href="#organizer" style={{ textDecoration: "none" }}>
+          <a href="#organizer" style={{ textDecoration: 'none' }}>
             <Box>
-              <div style={{ padding: "0rem 1.5rem" }}>
-                <FiSquare style={{ fontSize: "2.5rem" }} />
+              <div style={{ padding: '0rem 1.5rem' }}>
+                <FiSquare style={{ fontSize: '2.5rem' }} />
               </div>
 
               <Flex column>
-                <Title small> {teams === null ? "0" : teams.length} </Title>
-                <Text color="grey"> {Type ? "Teams" : "Sponsors"} </Text>
+                <Title small> {teams === null ? '0' : teams.length} </Title>
+                <Text color="grey"> {Type ? 'Teams' : 'Sponsors'} </Text>
               </Flex>
             </Box>
           </a>
         </Grid>
       </div>
-      <div style={{ padding: "1rem 2rem" }}>
-        <Text center style={{ textIndent: "30px" }}>
-          {" "}
-          {description}{" "}
+      <div style={{ padding: '1rem 2rem' }}>
+        <Text center style={{ textIndent: '30px' }}>
+          {' '}
+          {description}{' '}
         </Text>
       </div>
       <br />

@@ -1,24 +1,15 @@
-import React, { useState } from "react"
-import Flex from "styled-flex-component"
-import styled from "styled-components"
-import { FiX, FiPlus, FiAlertCircle } from "react-icons/fi"
-import { Modal } from "react-bootstrap"
-import { useMutation } from "@apollo/react-hooks"
+import React, { useState } from 'react'
+import Flex from 'styled-flex-component'
+import styled from 'styled-components'
+import { FiX, FiPlus, FiAlertCircle } from 'react-icons/fi'
+import { Modal } from 'react-bootstrap'
+import { useMutation } from '@apollo/react-hooks'
 
-import { Checkbox } from "../../../components/"
-import { ADD_ITEM_INTO_CART } from "../../../data/mutations"
-import { ADD_CART_INPUT } from "../../forms/formsData"
-import Field from "../../forms/fields"
-import {
-  Hover,
-  Title,
-  Text,
-  Button,
-  Head,
-  Body,
-  Section,
-  Contain,
-} from "../../../styles/style"
+import { Checkbox } from '../../../components/'
+import { ADD_ITEM_INTO_CART } from '../../../data/mutations'
+import { ADD_CART_INPUT } from '../../forms/formsData'
+import Field from '../../forms/fields'
+import { Hover, Title, Text, Button, Head, Body, Section, Contain } from '../../../styles/style'
 
 const InputBox = styled.div`
   display: flex;
@@ -40,18 +31,18 @@ const Input = styled.input`
 const AddItem = props => {
   const { visibility, closeModal, categoryId } = props
 
-  const [Name, setName] = useState("")
+  const [Name, setName] = useState('')
   const [Free, setFree] = useState(false)
   const [Count, setCount] = useState(0)
-  const [Description, setDescription] = useState("")
-  const [Price, setPrice] = useState("")
+  const [Description, setDescription] = useState('')
+  const [Price, setPrice] = useState('')
 
   const onChange = (value, label) => {
     switch (label) {
-      case "Item Name":
+      case 'Item Name':
         setName(value)
         break
-      case "Item Description":
+      case 'Item Description':
         setDescription(value)
         break
       default:
@@ -69,8 +60,8 @@ const AddItem = props => {
         isFree: Free,
         description: Description,
         quantity: Count,
-        price: Price,
-      },
+        price: Price
+      }
     })
       .then(() => {
         closeModal()
@@ -79,17 +70,12 @@ const AddItem = props => {
   }
 
   return (
-    <Modal
-      show={visibility}
-      onHide={() => closeModal()}
-      size="xl"
-      style={{ marginTop: "5rem" }}
-    >
+    <Modal show={visibility} onHide={() => closeModal()} size="xl" style={{ marginTop: '5rem' }}>
       <Head>
         <Section> Add Cart Item </Section>
 
         <Hover onClick={() => closeModal()}>
-          <FiX style={{ fontSize: "1.7rem" }} />{" "}
+          <FiX style={{ fontSize: '1.7rem' }} />{' '}
         </Hover>
       </Head>
       <Body>
@@ -107,13 +93,13 @@ const AddItem = props => {
             )
           })}
 
-          <div style={{ margin: "0rem 1rem" }}>
+          <div style={{ margin: '0rem 1rem' }}>
             <Flex justifyBetween>
               <Flex column>
                 <Text color="grey" center>
                   Item Category:
                 </Text>
-                <select style={{ padding: "0.5rem 1rem" }}>
+                <select style={{ padding: '0.5rem 1rem' }}>
                   <option> SWAGS </option>
                   <option> STICKERS </option>
                   <option> BOOKS </option>
@@ -128,10 +114,10 @@ const AddItem = props => {
                   <Hover
                     onClick={() => setCount(Count + 1)}
                     style={{
-                      padding: "0.5rem 0.3rem",
+                      padding: '0.5rem 0.3rem'
                     }}
                   >
-                    <FiPlus style={{ fontSize: "1.8rem" }} />
+                    <FiPlus style={{ fontSize: '1.8rem' }} />
                   </Hover>
 
                   <Input
@@ -146,8 +132,8 @@ const AddItem = props => {
                   <Hover
                     onClick={() => setCount(Count - 1)}
                     style={{
-                      padding: "0.5rem 0.3rem",
-                      borderRadius: "0px 15px 15px 0px",
+                      padding: '0.5rem 0.3rem',
+                      borderRadius: '0px 15px 15px 0px'
                     }}
                   >
                     -
@@ -158,9 +144,9 @@ const AddItem = props => {
 
             <Flex column>
               <Text> Price: </Text>
-              <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {!Free && (
-                  <div style={{ margin: "0.5rem 1rem" }}>
+                  <div style={{ margin: '0.5rem 0.2rem' }}>
                     <input
                       value={Price}
                       type="text"
@@ -170,7 +156,7 @@ const AddItem = props => {
                   </div>
                 )}
 
-                <div style={{ display: "flex" }}>
+                <div style={{ display: 'flex' }}>
                   <Checkbox
                     name="free"
                     handleClick={() => {
@@ -178,21 +164,20 @@ const AddItem = props => {
                     }}
                   />
 
-                  <Text small style={{ margin: "0rem 0.7rem" }}>
+                  <Text small style={{ margin: '0rem 0.7rem' }}>
                     Make item free
                   </Text>
                 </div>
 
                 <br />
                 {Free && (
-                  <div style={{ display: "flex" }}>
-                    <Hover style={{ margin: "0rem 0.5rem" }}>
-                      <FiAlertCircle style={{ fontSize: "1.6rem" }} />
+                  <div style={{ display: 'flex' }}>
+                    <Hover style={{ margin: '0rem 0.5rem' }}>
+                      <FiAlertCircle style={{ fontSize: '1.6rem' }} />
                     </Hover>
 
                     <Text small color="grey" center>
-                      Only one unit of a free item can be purchased by an
-                      attendee.
+                      Only one unit of a free item can be purchased by an attendee.
                     </Text>
                   </div>
                 )}
@@ -201,14 +186,14 @@ const AddItem = props => {
           </div>
           <br />
 
-          <div style={{ textAlign: "right" }}>
+          <div style={{ textAlign: 'right' }}>
             <Button
               long
               onClick={() => {
                 handleSubmit()
               }}
             >
-              Add Item
+              Add New Item
             </Button>
           </div>
         </div>

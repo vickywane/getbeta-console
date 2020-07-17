@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import Flex from "styled-flex-component"
+import React, { useState, useEffect } from 'react'
+import Flex from 'styled-flex-component'
 import {
   FiMail,
   FiCheck,
@@ -7,15 +7,16 @@ import {
   FiPlus,
   FiX,
   FiTrash2,
-  FiArrowLeft,
-} from "react-icons/fi"
-import styled from "styled-components"
-import { useMutation } from "@apollo/react-hooks"
-import ReactMarkdown from "react-markdown"
+  FiMoreHorizontal,
+  FiArrowLeft
+} from 'react-icons/fi'
+import styled from 'styled-components'
+import { useMutation } from '@apollo/react-hooks'
+import ReactMarkdown from 'react-markdown'
 
-import Fields from "../../forms/fields"
-import Review from "./review"
-import { CREATE_NOTE } from "../../../data/mutations"
+import Fields from '../../forms/fields'
+import Review from './review'
+import { CREATE_NOTE } from '../../../data/mutations'
 import {
   Contain,
   Input,
@@ -26,8 +27,9 @@ import {
   Title,
   Hover,
   BigTitle,
-  Section,
-} from "../../../styles/style"
+  Section
+} from '../../../styles/style'
+import { Tip } from '../../../components/'
 
 const IdeaCard = styled.div`
   box-shadow: 0px 2px 4px grey;
@@ -67,23 +69,24 @@ const WriteBar = styled.div`
 const CreateNote = (props): JSX.Element => {
   const { talkId } = props
 
-  const [Title, setTitle] = useState("")
-  const [Content, setContent] = useState("")
+  const [Title, setTitle] = useState('')
+  const [Content, setContent] = useState('')
   const [isSaving, setSaving] = useState(false)
+  const [Tips, showTips] = useState(false)
 
   const Grid = styled.div`
     display: grid;
     tramsition: all 300ms;
-    grid-gap: ${props => props.reviewOpen && "0rem 1rem"};
-    grid-template-columns: ${props => props.reviewOpen && "auto 27rem"};
+    grid-gap: ${props => props.reviewOpen && '0rem 1rem'};
+    grid-template-columns: ${props => props.reviewOpen && 'auto 27rem'};
   `
 
   const handleInputs = (value, label) => {
     switch (label) {
-      case "Title":
+      case 'Title':
         setTitle(value)
         break
-      case "Idea":
+      case 'Idea':
         setContent(value)
         break
       default:
@@ -106,32 +109,39 @@ const CreateNote = (props): JSX.Element => {
       variables: {
         talkId: talkId,
         title: Title,
-        content: Content,
-      },
+        content: Content
+      }
     })
-      .then(() => alert("created"))
+      .then(() => showTips(true))
       .catch(e => console.log(e))
   }
 
   return (
     <div>
+      {Tips && (
+        <Tip
+          message="Adding a new note"
+          timeout={500}
+          icon2={<FiMoreHorizontal style={{ fontSize: '2rem' }} />}
+        />
+      )}
       <IdeaCard>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Section> New Note </Section>
 
           <div
             style={{
-              justifyContent: "center",
+              justifyContent: 'center',
               opacity: isSaving ? 1 : 0,
-              transition: "all 350ms",
-              display: "flex",
+              transition: 'all 350ms',
+              display: 'flex'
             }}
           >
             <Text color="grey"> Saving Note ... </Text>
           </div>
 
-          <Hover style={{ margin: "0rem 1rem" }}>
-            <FiX onClick={() => {}} style={{ fontSize: "1.6rem" }} />
+          <Hover style={{ margin: '0rem 1rem' }}>
+            <FiX onClick={() => {}} style={{ fontSize: '1.6rem' }} />
           </Hover>
         </div>
         <hr />
@@ -139,12 +149,12 @@ const CreateNote = (props): JSX.Element => {
         <Fields
           name="Title"
           id={1}
-          placeholder={"Note Title"}
+          placeholder={'Note Title'}
           textarea={false}
           value={Title}
           type="text"
           onChange={e => {
-            handleInputs(e, "Title")
+            handleInputs(e, 'Title')
             setSaving(true)
           }}
         />
@@ -152,13 +162,13 @@ const CreateNote = (props): JSX.Element => {
         <Fields
           name="Draft Notes"
           id={1}
-          placeholder={"Your Draft Notes here"}
+          placeholder={'Your Draft Notes here'}
           textarea={true}
-          textEditorSize={"small"}
+          textEditorSize={'small'}
           value={Content}
           type="text"
           onChange={e => {
-            handleInputs(e, "Idea")
+            handleInputs(e, 'Idea')
             setSaving(true)
           }}
         />
@@ -169,7 +179,7 @@ const CreateNote = (props): JSX.Element => {
           create()
         }}
       >
-        Create Note{" "}
+        Create Note{' '}
       </Button>
       <br />
     </div>

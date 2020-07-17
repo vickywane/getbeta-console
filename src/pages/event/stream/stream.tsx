@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react"
-import styled from "styled-components"
+import React, { useState, useRef, useEffect } from 'react'
+import styled from 'styled-components'
 
-import { Header, Footer, Portal } from "../../../components/"
-import Image from "../../../assets/images/2.jpg"
+import useScrollPosition from '../.././../utils/scrollTrackerHook'
+import { Header, Footer, Portal } from '../../../components/'
+import Image from '../../../assets/images/2.jpg'
 
 const Container = styled.div`
     background-image: url(${props => props.img});
@@ -23,28 +24,69 @@ const Container = styled.div`
     }
    `
 
-const Stream = props => {
-  let winpa = `scrollbars=yes,resizable=yes,status=yes,location=yes,toolbar=yes,menubar=yes,
-width=500px,height=500px,left=-1000,top=-1000`
+const PositionStore = () => {
+  const [renderCount, triggerReRender] = useState(0)
+  const elementPosition = useRef({ x: 10, y: 150 })
+  const viewportPosition = useRef({ x: 0, y: 0 })
+  let throttleTimeout = null
 
+  const getPos = (el, axis) => Math.round(el.current[axis])
+
+  const setPos = (el, pos) => {
+    el.current = pos
+    if (throttleTimeout !== null) return
+    // Only re-render the component every 0.1s
+    throttleTimeout = setTimeout(() => triggerReRender(renderCount + 1), 300)
+  }
+
+  return {
+    getElementX: () => getPos(elementPosition, 'x'),
+    getElementY: () => getPos(elementPosition, 'y'),
+    getViewportX: () => getPos(viewportPosition, 'x'),
+    getViewportY: () => getPos(viewportPosition, 'y'),
+    setElementPosition: pos => setPos(elementPosition, pos),
+    setViewportPosition: pos => setPos(viewportPosition, pos),
+    renderCount
+  }
+}
+
+const Stream = () => {
+  const positionsStore = PositionStore()
+  const [Position, setcurrPos] = useState(null)
+
+  const viewRef = useRef()
+
+  useScrollPosition(
+    ({ currPos }) => {
+      setcurrPos(currPos)
+
+      positionsStore.setViewportPosition(currPos)
+      if (currPos.y === 0) {
+        alert('page top')
+      }
+
+      // @ts-ignore
+      const style = viewRef !== undefined && viewRef.current.style
+      style.top = `${150 + currPos.y}px`
+      style.left = `${10 + currPos.x}px`
+    },
+    [positionsStore],
+    null,
+    true
+  )
+
+  console.log(Position)
   return (
     <div>
       <Header />
       <br />
+      <div style={{ height: '60px', background: 'blue', width: '100%' }} />
+
       <div>
         <p>some niffty text </p>
       </div>
 
-      <button
-        onClick={() => {
-          alert("hi")
-          window.open("a", winpa)
-        }}
-      >
-        Open Window
-      </button>
-
-      <div style={{ height: "40vh" }}>
+      <div ref={viewRef} style={{ height: '100vh' }}>
         <p>some niffty text below </p>
       </div>
 
