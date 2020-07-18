@@ -404,7 +404,7 @@ const Card = styled.div`
 const Items = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  grid-gap: 1rem 1rem;
+  grid-gap: 2rem 1rem;
   ${media.lessThan('huge')`
   grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
 `};

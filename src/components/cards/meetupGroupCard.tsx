@@ -7,7 +7,7 @@ import { IoIosPeople } from 'react-icons/io'
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
 
-import { Card, Text, Button, Hover, Title } from '../../styles/style'
+import { Card, Text, Hover, Title } from '../../styles/style'
 import CardImg from '../../assets/images/3.jpg'
 
 //Todo : Create a proper ts interface here
@@ -17,13 +17,6 @@ const Contain = styled.div`
   height: auto;
 `
 
-const List = styled.li`
-  display: flex;
-  padding: 1rem 1rem;
-  margin: 1.5rem 0rem;
-  box-shadow: 0px 1px 2px grey;
-`
-
 const MeetupGroupCard = props => {
   const {
     location,
@@ -31,7 +24,7 @@ const MeetupGroupCard = props => {
     id,
     summary,
     role,
-    created,
+    createdAt,
     venue,
     volunteerScreen,
     approvalStatus,
@@ -50,7 +43,7 @@ const MeetupGroupCard = props => {
           <div
             style={{
               height: '40px',
-              width: '9rem',
+              width: '10rem',
               background: type === 'Conference' ? '#401364' : 'blue',
               display: 'flex',
               justifyContent: 'center',
@@ -78,6 +71,16 @@ const MeetupGroupCard = props => {
             </div>
           </div>
         </div>
+
+        <img
+          alt="group"
+          style={{
+            height: '75px',
+            width: '75px',
+            margin: '2rem 0.7rem'
+          }}
+          src={require('../../assets/images/developer.png')}
+        />
       </Contain>
 
       <div style={{ padding: '1rem 0.7rem' }}>
@@ -94,16 +97,18 @@ const MeetupGroupCard = props => {
             {name}
           </Title>
         </Link>
-        <img
-          alt="group"
-          style={{
-            height: '85px',
-            width: '85px',
-            margin: '0.5rem 1rem'
-          }}
-          src={require('../../assets/images/developer.png')}
-        />
 
+        <Text center> {summary} </Text>
+
+        <div style={{ display: 'flex' }}>
+          <Hover style={{ margin: '0rem 0.7rem' }}>
+            <FiCalendar style={{ fontSize: '1.7rem' }} />
+          </Hover>
+
+          <Text> {createdAt} </Text>
+        </div>
+
+        <br />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>
             <img
@@ -118,10 +123,10 @@ const MeetupGroupCard = props => {
           </div>
 
           <div style={{ display: 'flex' }}>
-            <Text small> 2000 </Text>
+            <Text> 2000 </Text>
 
             <Hover style={{ margin: '0rem 0.7rem' }}>
-              <IoIosPeople style={{ fontSize: '1.5rem' }} />{' '}
+              <IoIosPeople style={{ fontSize: '1.7rem' }} />{' '}
             </Hover>
           </div>
         </div>

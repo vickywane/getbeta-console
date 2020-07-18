@@ -17,25 +17,9 @@ import { inject, observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Hover, Text, Title, Button, BigTitle, HoverCircle } from '../../styles/style'
+import { Hover, Text, Title, MediaLink, Button, BigTitle, HoverCircle } from '../../styles/style'
 import { UserContext } from '../../state/context/contextState'
 import TestImg from '../../assets/images/3.jpg'
-
-const MediaLink = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  li {
-    margin: 0rem 0.5rem;
-    list-style: none;
-    a {
-      text-align: center;
-    }
-    &: hover {
-      color: ${props => props.hoverColor};
-    }
-  }
-`
 
 const Container = styled.div`
     background-image: url(${props => props.img});

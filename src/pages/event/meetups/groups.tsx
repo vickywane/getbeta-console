@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group'
 import { EmptyData } from '../../../components/placeholders'
 import MeetupGroupCard from '../../../components/cards/meetupGroupCard'
 import CreateGroup from './createGroup'
-import { Text, Title, Button } from '../../../styles/style'
+import { Text, Title, Button, Items } from '../../../styles/style'
 
 const List = styled.li`
   list-style: none;
@@ -49,12 +49,20 @@ const Groups = props => {
               feature="Meetup Groups"
             />
           ) : (
-            meetupGroups.map(({ name, id, createdAt, location }) => {
-              return (
-                <MeetupGroupCard name={name} id={id} createdAt={createdAt} location={location} />
-              )
-            })
-          )}{' '}
+            <Items>
+              {meetupGroups.map(({ name, id, createdAt, location, summary }) => {
+                return (
+                  <MeetupGroupCard
+                    name={name}
+                    id={id}
+                    createdAt={createdAt}
+                    summary={summary}
+                    location={location}
+                  />
+                )
+              })}
+            </Items>
+          )}
         </div>
       </CSSTransition>
 

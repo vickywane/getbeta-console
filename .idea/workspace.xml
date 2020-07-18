@@ -33,20 +33,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
-      <change afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/meetupEventLaunch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards/EventCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/EventCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards/eventcard.options.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/eventcard.options.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/cards/meetupGroupCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/meetupGroupCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/groups.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/groups.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetupDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/meetupadmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/meetupadmin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/meetupgroupprofile.detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetupgroup/meetupgroupprofile.detail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/timeline.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/modal.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/modal.store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -259,13 +249,13 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="14" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1593697340328" />
-    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup" timestamp="1595105061514">
+    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup" timestamp="1595106933705">
       <screen x="0" y="0" width="3280" height="1080" />
     </state>
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
     <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595090525371" />
-    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595105061514" />
+    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595106933705" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
