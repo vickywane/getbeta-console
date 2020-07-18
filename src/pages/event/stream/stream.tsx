@@ -56,32 +56,15 @@ const Stream = () => {
 
   const viewRef = useRef()
 
-  useScrollPosition(
-    ({ currPos }) => {
-      setcurrPos(currPos)
+  window.addEventListener('wheel', () => {
+    alert('up')
+  })
 
-      positionsStore.setViewportPosition(currPos)
-      if (currPos.y === 0) {
-        alert('page top')
-      }
-
-      // @ts-ignore
-      const style = viewRef !== undefined && viewRef.current.style
-      style.top = `${150 + currPos.y}px`
-      style.left = `${10 + currPos.x}px`
-    },
-    [positionsStore],
-    null,
-    true
-  )
-
-  console.log(Position)
   return (
     <div>
       <Header />
       <br />
       <div style={{ height: '60px', background: 'blue', width: '100%' }} />
-
       <div>
         <p>some niffty text </p>
       </div>

@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import { FiX, FiEdit, FiShoppingCart, FiBook } from "react-icons/fi"
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { FiEdit, FiShoppingCart, FiBook } from 'react-icons/fi'
 import {
   IoIosBug,
   IoMdMail,
@@ -8,15 +8,14 @@ import {
   IoIosHome,
   IoIosCode,
   IoIosPeople,
-  IoMdConstruct,
-} from "react-icons/io"
+  IoMdConstruct
+} from 'react-icons/io'
 
-import { GrSchedules } from "react-icons/gr"
+import { GrSchedules } from 'react-icons/gr'
 
-import media from "styled-media-query"
-import { Link } from "react-router-dom"
+import media from 'styled-media-query'
 
-import { Hover, Title, Text, Section } from "../../styles/style"
+import { Hover, Title, Text, Section } from '../../styles/style'
 
 const Window = styled.div`
   width: auto;
@@ -47,16 +46,16 @@ const Tab = styled.div`
   font-size  : 1.2rem;
   padding : 0.5rem 0.5rem
   margin : 0.7rem 0.5rem;
-  color: ${props => (props.active ? "#0e2f5a;" : "grey")};
+  color: ${props => (props.active ? '#0e2f5a;' : 'grey')};
   transition : all 300ms; 
-  border-left:  ${props => (props.active ? "5px solid #0e2f5a;" : null)}; 
+  border-left:  ${props => (props.active ? '5px solid #0e2f5a;' : null)}; 
   &: hover {
     color : #0e2f5a;
     cursor : pointer;
   border-left: 4px solid grey;
 } 
-  ${media.lessThan("large")`
-  border-left:  ${props => (props.active ? "4px solid #0e2f5a;" : null)}; 
+  ${media.lessThan('large')`
+  border-left:  ${props => (props.active ? '4px solid #0e2f5a;' : null)}; 
      padding : 0.4rem 0.1rem 
      margin : 0.4rem 0.1rem;
 `}
@@ -91,14 +90,7 @@ const T = styled.div`
 `
 
 const Admin = props => {
-  const {
-    state,
-    dispatch,
-    openCrashReporter,
-    openAccessModal,
-    openEditModal,
-    Width,
-  } = props
+  const { state, dispatch, openCrashReporter, Width } = props
 
   return (
     <Window>
@@ -107,96 +99,96 @@ const Admin = props => {
 
         <List>
           <Tab
-            onClick={() => dispatch({ type: "SWITCH_DASHBOARD" })}
-            active={state.activeTab === "dashboard"}
+            onClick={() => dispatch({ type: 'SWITCH_DASHBOARD' })}
+            active={state.activeTab === 'dashboard'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoIosHome style={{ fontSize: "1.7rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoIosHome style={{ fontSize: '1.7rem' }} />
 
               {Width <= 1200 ? <Info>Preview</Info> : null}
             </T>
-            {Width >= 1200 ? "Preview" : null}
+            {Width >= 1200 ? 'Preview' : null}
           </Tab>
 
           <Tab
             onClick={() => {
-              dispatch({ type: "SWITCH_EDIT" })
+              dispatch({ type: 'SWITCH_EDIT' })
             }}
-            active={state.activeTab === "edit"}
+            active={state.activeTab === 'edit'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <FiEdit style={{ fontSize: "1.7rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <FiEdit style={{ fontSize: '1.7rem' }} />
 
               {Width <= 1200 ? <Info>Edit Event</Info> : null}
             </T>
-            {Width >= 1200 ? "Edit Event" : null}
+            {Width >= 1200 ? 'Edit Event' : null}
           </Tab>
 
           <Tab
             onClick={() => {
-              dispatch({ type: "SWITCH_EVENT_SETTINGS" })
+              dispatch({ type: 'SWITCH_EVENT_SETTINGS' })
             }}
-            active={state.activeTab === "access"}
+            active={state.activeTab === 'access'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoMdConstruct style={{ fontSize: "1.7rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoMdConstruct style={{ fontSize: '1.7rem' }} />
               {Width <= 1200 ? <Info>Event Actions</Info> : null}
             </T>
-            {Width >= 1200 ? "Event Actions " : null}
+            {Width >= 1200 ? 'Event Actions ' : null}
           </Tab>
           <Tab
-            onClick={() => dispatch({ type: "SWITCH_MOBILE" })}
-            active={state.activeTab === "mobile"}
+            onClick={() => dispatch({ type: 'SWITCH_MOBILE' })}
+            active={state.activeTab === 'mobile'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoIosPhonePortrait style={{ fontSize: "1.8rem" }} />
-              {Width <= 1200 ? <Info>Mobile Interface</Info> : null}{" "}
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoIosPhonePortrait style={{ fontSize: '1.8rem' }} />
+              {Width <= 1200 ? <Info>Mobile Interface</Info> : null}{' '}
             </T>
-            {Width >= 1200 ? "Mobile Interface" : null}
+            {Width >= 1200 ? 'Mobile Interface' : null}
           </Tab>
 
           <Tab
-            onClick={() => dispatch({ type: "SWITCH_INVITATION" })}
-            active={state.activeTab === "invitation"}
+            onClick={() => dispatch({ type: 'SWITCH_INVITATION' })}
+            active={state.activeTab === 'invitation'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoMdMail style={{ fontSize: "1.8rem" }} />
-              {Width <= 1200 ? <Info>Invitations</Info> : null}{" "}
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoMdMail style={{ fontSize: '1.8rem' }} />
+              {Width <= 1200 ? <Info>Invitations</Info> : null}{' '}
             </T>
-            {Width >= 1200 ? "Invitation" : null}
+            {Width >= 1200 ? 'Invitation' : null}
           </Tab>
 
           <Tab
-            onClick={() => dispatch({ type: "SWITCH_TEAM" })}
-            active={state.activeTab === "team"}
+            onClick={() => dispatch({ type: 'SWITCH_TEAM' })}
+            active={state.activeTab === 'team'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoIosPeople style={{ fontSize: "1.8rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoIosPeople style={{ fontSize: '1.8rem' }} />
               {Width <= 1200 ? <Info>Teams</Info> : null}
             </T>
-            {Width >= 1200 ? "Event Support" : null}
+            {Width >= 1200 ? 'Event Support' : null}
           </Tab>
 
           <Tab
-            onClick={() => dispatch({ type: "SWITCH_SCHEDULE" })}
-            active={state.activeTab === "schedule"}
+            onClick={() => dispatch({ type: 'SWITCH_SCHEDULE' })}
+            active={state.activeTab === 'schedule'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <GrSchedules style={{ fontSize: "1.7rem", color: "grey" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <GrSchedules style={{ fontSize: '1.7rem', color: 'grey' }} />
               {Width <= 1200 ? <Info>Schedule</Info> : null}
             </T>
-            {Width >= 1200 ? "Event Schedule" : null}
+            {Width >= 1200 ? 'Event Schedule' : null}
           </Tab>
 
           <Tab
-            onClick={() => dispatch({ type: "SWITCH_STORE" })}
-            active={state.activeTab === "store"}
+            onClick={() => dispatch({ type: 'SWITCH_STORE' })}
+            active={state.activeTab === 'store'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <FiShoppingCart style={{ fontSize: "1.8rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <FiShoppingCart style={{ fontSize: '1.8rem' }} />
               {Width <= 1200 ? <Info>Store</Info> : null}
             </T>
-            {Width >= 1200 ? "Event Store" : null}
+            {Width >= 1200 ? 'Event Store' : null}
           </Tab>
           <br />
           <br />
@@ -205,29 +197,29 @@ const Admin = props => {
           <br />
           <Tab
             onClick={() => {
-              dispatch({ type: "SWITCH_DEVELOPER" })
+              dispatch({ type: 'SWITCH_DEVELOPER' })
             }}
-            active={state.activeTab === "developer"}
+            active={state.activeTab === 'developer'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoIosCode style={{ fontSize: "1.8rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoIosCode style={{ fontSize: '1.8rem' }} />
               {Width <= 1200 ? <Info>Developer APIs</Info> : null}
             </T>
-            {Width >= 1200 ? "Developer APIs" : null}
+            {Width >= 1200 ? 'Developer APIs' : null}
           </Tab>
 
           <Tab
             onClick={() => {
-              dispatch({ type: "SWITCH_BUG" })
+              dispatch({ type: 'SWITCH_BUG' })
               openCrashReporter()
             }}
-            active={state.activeTab === "bug"}
+            active={state.activeTab === 'bug'}
           >
-            <T style={{ padding: "0rem 1rem" }}>
-              <IoIosBug style={{ fontSize: "1.8rem" }} />
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoIosBug style={{ fontSize: '1.8rem' }} />
               {Width <= 1200 ? <Info>Report Bug</Info> : null}
             </T>
-            {Width >= 1200 ? "Report Bug" : null}
+            {Width >= 1200 ? 'Report Bug' : null}
           </Tab>
         </List>
       </div>

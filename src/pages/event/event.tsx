@@ -1,47 +1,23 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { useQuery } from '@apollo/react-hooks'
-import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
-import EditEvent from './editEvent'
-import TeamList from './teamList'
-import Schedule from './schedule/schedule'
-import EventTabs from './eventTab'
-import MeetupTab from './meetupTab'
 import Timeline from './timeline'
 import Admin from './admin'
-import Overview from './invitation/overview'
-import Archive from './archive/itetations'
 
-import Developer from '../developer/event/api'
 import EventModal from './eventModal'
 import { Header, Loader } from '../../components/'
-import MeetupTabComponents from './meetupTabComponents'
 import MeetupAdmin from './meetups/adminPane'
-import ConferenceTab from '../../components/tabs/conference.tab'
-import { Contain, Text } from '../../styles/style'
-import {
-  AccessModal,
-  BugModal,
-  Checklist,
-  Contact,
-  CreateTrack,
-  PapersModal
-} from '../../components/modals/'
+import { BugModal, Checklist, Contact, CreateTrack, PapersModal } from '../../components/modals/'
 import { ArchivedEvent } from '../../components/placeholders/'
-import AttendPane from '../../components/panes/attend.pane'
 import useWindowWidth from '../../hook_style'
-import { AdminContext, AdminTabState, TabContext, TabState } from '../../state/context/contextState'
+import { AdminTabState, TabState } from '../../state/context/contextState'
 import { AdminTabReducer, TabReducer } from '../../state/context/reducers'
 import { GET_EVENT } from '../../data/queries'
-import EventDetails from './eventdetails'
-import Store from './store/store'
-import Mobile from '../mobile/mobile'
 import '../../App.css'
-import TestImg from '../../assets/images/test.png'
-import MeetupDetails from './meetups/meetupDetails'
+import LaunchEvent from './launchEvent'
 
 import Conference from './conference/conference'
 import Meetup from './meetups/meetup'
@@ -74,7 +50,6 @@ const Event = (props): JSX.Element => {
   const {
     EventId,
     setEventId,
-    openContactModal,
     openCrashReporter,
     openAccessModal,
     openEditModal
@@ -100,7 +75,6 @@ const Event = (props): JSX.Element => {
 
   if (error) {
     console.log(error)
-
     return (
       <Loader
         type={'error'}
@@ -130,6 +104,7 @@ const Event = (props): JSX.Element => {
           </div>
         )}
 
+        <LaunchEvent data={data.event} />
         <EventModal data={data.event} eventId={id} />
         <Checklist />
         <PapersModal data={data.event} />
@@ -155,6 +130,7 @@ const Event = (props): JSX.Element => {
                     Width={Hooks}
                     openCrashReporter={openCrashReporter}
                     openEditModal={openEditModal}
+                    permission={permission}
                     state={state}
                     dispatch={dispatch}
                     openAccessModal={openAccessModal}
@@ -162,6 +138,7 @@ const Event = (props): JSX.Element => {
                 ) : (
                   <Admin
                     Width={Hooks}
+                    permission={permission}
                     openCrashReporter={openCrashReporter}
                     openEditModal={openEditModal}
                     state={state}
@@ -175,9 +152,23 @@ const Event = (props): JSX.Element => {
           ) : null}
 
           {EventType === 'Conference' ? (
-            <Conference data={data} EventType={EventType} />
+            <Conference
+              state={state}
+              dispaatch={dispaatch}
+              staate={staate}
+              permission={permission}
+              data={data}
+              EventType={EventType}
+            />
           ) : (
-            <Meetup data={data} EventType={EventType} />
+            <Meetup
+              state={state}
+              dispaatch={dispaatch}
+              staate={staate}
+              permission={permission}
+              data={data}
+              EventType={EventType}
+            />
           )}
 
           {Hooks >= 1500 && <Timeline state={state} dispatch={dispatch} eventData={data.event} />}

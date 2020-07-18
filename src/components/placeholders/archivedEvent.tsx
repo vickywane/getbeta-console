@@ -1,7 +1,7 @@
-import React from "react"
-import styled from "styled-components"
-
-import { Title, Text, Button } from "../../styles/style"
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { Title, Text, Button } from '../../styles/style'
 
 const Body = styled.div`
 	background : #fbfbfb ;	
@@ -32,36 +32,73 @@ const BigBtn = styled(Button)`
 const IsArchived = (props): JSX.Element => {
   const { name, date } = props
 
+  const [Error, reportError] = useState<boolean>(false)
+
+  if (Error) {
+  }
+
   return (
     <Body style={{ height: window.innerHeight }}>
       <Card>
-        <div style={{ textAlign: "center" }}>
-          <img
-            alt={"sad face"}
-            src={require("../../assets/ssvg/sample.svg")}
-            style={{ maxWidth: "50%" }}
-          />
-        </div>
+        {!Error ? (
+          <div>
+            <div style={{ textAlign: 'center' }}>
+              <img
+                alt={'sad face'}
+                src={require('../../assets/ssvg/sample.svg')}
+                style={{ maxWidth: '50%' }}
+              />
+            </div>
 
-        <br />
-        <Title style={{ color: "#401364" }} center>
-          {" "}
-          {name}{" "}
-        </Title>
-        <Text center>
-          {" "}
-          This event has been archived since {date} by it's organizing team.{" "}
-        </Text>
-        <br />
-        <Text small color="grey">
-          Are we wrong?{" "}
-        </Text>
+            <br />
+            <Title style={{ color: '#401364' }} center>
+              {' '}
+              {name}{' '}
+            </Title>
+            <Text center> This event has been archived since {date} by it's organizing team. </Text>
+            <br />
+            <Text small color="grey">
+              Are we wrong?{' '}
+            </Text>
 
-        <hr />
-        <div style={{ textAlign: "center" }}>
-          <BigBtn> Report This As An Error </BigBtn>
-        </div>
-        <br />
+            <hr />
+            <div style={{ textAlign: 'center' }}>
+              <BigBtn onClick={() => reportError(true)}> Report This As An Error </BigBtn>
+            </div>
+            <br />
+          </div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div>
+              <br />
+              <br />
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  alt={'sad face'}
+                  src={require('../../assets/ssvg/sample.svg')}
+                  style={{ maxWidth: '45%' }}
+                />
+              </div>
+              <br />
+
+              <Text center>
+                {' '}
+                This has been reported as an error. <br /> A quick internal check would be done on
+                this event.{' '}
+              </Text>
+
+              <br />
+              <br />
+
+              <hr />
+              <div style={{ textAlign: 'center' }}>
+                <Link to={'/console'}>
+                  <Button> Home </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </Card>
     </Body>
   )

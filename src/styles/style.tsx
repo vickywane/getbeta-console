@@ -7,6 +7,34 @@ import img from '../assets/images/test.png'
 
 // Todo: Refactor & compress file !!
 
+export const HoverCircle = styled.div`
+  padding: 1rem 1.2rem;
+  margin: 0.2rem 0.7rem;
+  border-radius: 50%;
+  transition: all 350ms;
+  border: 1px solid grey;
+  &: hover {
+    color: #fff;
+    border: 1px solid #fff;
+  }
+`
+
+export const MediaLink = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  li {
+    margin: 0rem 0.5rem;
+    list-style: none;
+    a {
+      text-align: center;
+    }
+    &: hover {
+      color: ${props => props.hoverColor};
+    }
+  }
+`
+
 export const MessageInputBody: any = styled.div`
   display: flex;
   margin: 0rem 1rem;

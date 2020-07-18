@@ -21,24 +21,16 @@ import {
   TabContext,
   TabState
 } from '../../../state/context/contextState'
-import { AdminTabReducer, TabReducer } from '../../../state/context/reducers'
 import EventDetails from '../eventdetails'
 import Store from '../store/store'
 import Mobile from '../../mobile/mobile'
 import '../../../App.css'
 
 const Conference = (props): JSX.Element => {
-  const { Hooks, data, EventType } = props
-
-  // naming conflicts coming up here
-  const [staate, dispaatch] = React.useReducer(TabReducer, TabState)
-  const [state, dispatch] = React.useReducer(AdminTabReducer, AdminTabState)
+  const { Hooks, data, EventType, permission, state, staate, dispaatch } = props
 
   const { openContactModal, openEditModal } = props.ModalStore
 
-  const userId = localStorage.getItem('user_id')
-  const permission = data.event.createdBy[0].id == userId
-  const meetupGroupLength = data.event.meetupGroups === null ? 0 : data.event.meetupGroups.length
   const { id, isLocked, name, dateCreated } = data.event
 
   if (!permission && isLocked) {
@@ -56,15 +48,12 @@ const Conference = (props): JSX.Element => {
             in={state.activeTab === 'dashboard'}
           >
             <div style={{ overflow: 'hidden' }}>
-              {meetupGroupLength > 0 ? null : (
-                <AttendPane permission={permission} event={data.event} />
-              )}
+              <AttendPane permission={permission} event={data.event} />
 
               <EventDetails
                 state={staate}
-                permissio={permission}
+                permission={permission}
                 data={data}
-                meetupGroupLength={meetupGroupLength}
                 dispatch={dispaatch}
                 eventType={EventType}
                 currentWindowSize={Hooks}

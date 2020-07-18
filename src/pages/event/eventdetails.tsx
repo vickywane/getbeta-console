@@ -1,41 +1,25 @@
-import React from "react"
-import Flex from "styled-flex-component"
-import { Image } from "react-bootstrap"
+import React from 'react'
+import Flex from 'styled-flex-component'
+import { Image } from 'react-bootstrap'
 import {
   FiCalendar,
-  FiList,
-  FiImage,
   FiSmartphone,
   FiCast,
   FiLink2,
-  FiMail,
   FiInstagram,
   FiTwitter,
   FiEdit,
-  FiFacebook,
-} from "react-icons/fi"
-import { MdPeopleOutline } from "react-icons/md"
-import { GoLocation } from "react-icons/go"
-import { inject, observer } from "mobx-react"
-import { Link } from "react-router-dom"
-import styled from "styled-components"
+  FiFacebook
+} from 'react-icons/fi'
+import { IoMdRocket } from 'react-icons/io'
+import { GoLocation } from 'react-icons/go'
+import { inject, observer } from 'mobx-react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-import { Hover, Text, Title, Button, BigTitle } from "../../styles/style"
-import EventTabs from "./eventTab"
-import { UserContext } from "../../state/context/contextState"
-import TestImg from "../../assets/images/test.png"
-
-const HoverCircle = styled(Hover)`
-  padding: 1rem 1.2rem;
-  margin: 0.2rem 0.7rem;
-  border-radius: 50%;
-  transition: all 350ms;
-  border: 1px solid grey;
-  &: hover {
-    color: #fff;
-    border: 1px solid #fff;
-  }
-`
+import { Hover, Text, Title, Button, BigTitle, HoverCircle } from '../../styles/style'
+import { UserContext } from '../../state/context/contextState'
+import TestImg from '../../assets/images/3.jpg'
 
 const MediaLink = styled.div`
   display: flex;
@@ -57,21 +41,21 @@ const Container = styled.div`
     background-image: url(${props => props.img});
     background-size : cover;
     width : 100%;
-    height: 40vh;
+    height: 42vh;
     position: relative;
     span {
       color: #fff
       bottom : 0;
       padding: 1rem 2rem;
       width : 100%;
-       height: 40vh;
+      height: 45vh;
       position: absolute;
       background: linear-gradient(to top,#1a1e43ed, transparent) ;
     }
    `
 
 const EventDetails = (props): JSX.Element => {
-  const { openChecklist, openPeople, openEditModal } = props.ModalStore
+  const { openChecklist, openEventLaunch } = props.ModalStore
   const {
     currentWindowSize,
     data,
@@ -79,36 +63,25 @@ const EventDetails = (props): JSX.Element => {
     next,
     eventType,
     permission,
-    dispatch,
+    dispatch
   } = props
-  const {
-    name,
-    summary,
-    venue,
-    website,
-    mediaLinks,
-    id,
-    bucketName,
-    dateCreated,
-    isVirtual,
-  } = data.event
+  const { name, summary, venue, website, mediaLinks, id, dateCreated, isVirtual } = data.event
   const { showEventDetails } = props.state
 
   return showEventDetails ? (
     <Container
       style={{
-        position: "relative",
-        transition: "all 300ms",
+        position: 'relative',
+        transition: 'all 300ms'
       }}
       img={TestImg}
       grey
     >
-      <br />
-      <span style={{ transition: "all 500ms" }}>
+      <span style={{ transition: 'all 500ms' }}>
         {permission ? (
-          <div style={{ textAlign: "right", padding: "1rem 1rem" }}>
-            <Hover onClick={() => dispatch({ type: "SWITCH_EDIT" })}>
-              <FiEdit style={{ fontSize: "2rem" }} />
+          <div style={{ textAlign: 'right', padding: '1rem 1rem' }}>
+            <Hover onClick={() => dispatch({ type: 'SWITCH_EDIT' })}>
+              <FiEdit style={{ fontSize: '2rem' }} />
             </Hover>
           </div>
         ) : null}
@@ -119,9 +92,9 @@ const EventDetails = (props): JSX.Element => {
             return (
               <div
                 style={{
-                  transition: "all 500ms",
-                  display: "flex",
-                  justifyContent: "space-between ",
+                  transition: 'all 500ms',
+                  display: 'flex',
+                  justifyContent: 'space-between '
                 }}
               >
                 <Flex column>
@@ -129,27 +102,27 @@ const EventDetails = (props): JSX.Element => {
                     {currentWindowSize >= 700 ? (
                       <Image
                         alt="profile"
-                        src={require("../../assets/images/developer.png")}
+                        src={require('../../assets/images/developer.png')}
                         style={{
-                          width: "120px",
-                          height: "120px",
-                          margin: "1rem 0rem",
-                          borderRadius: "5px",
+                          width: '120px',
+                          height: '120px',
+                          margin: '1rem 0rem',
+                          borderRadius: '5px'
                         }}
                         fluid
                       />
                     ) : null}
-                    <div style={{ padding: "0.2rem 1rem" }}>
+                    <div style={{ padding: '0.2rem 1rem' }}>
                       <Flex column>
                         {currentWindowSize <= 700 ? (
                           <Flex justifyCenter>
                             <Image
                               alt="profile"
-                              src={require("../../assets/images/developer.png")}
+                              src={require('../../assets/images/developer.png')}
                               style={{
-                                width: "7em",
-                                height: "11vh",
-                                margin: "1rem 0rem",
+                                width: '7em',
+                                height: '11vh',
+                                margin: '1rem 0rem'
                               }}
                               fluid
                             />
@@ -157,17 +130,13 @@ const EventDetails = (props): JSX.Element => {
                         ) : null}
                         <Flex justifyCenter>
                           <Flex>
-                            <BigTitle style={{ color: "#fff" }} center bold>
+                            <BigTitle style={{ color: '#fff' }} center bold>
                               {name}
                             </BigTitle>
 
                             <Hover>
-                              <a
-                                style={{ textAlign: "center" }}
-                                href={website}
-                                target="_blank"
-                              >
-                                <FiLink2 style={{ fontSize: "1.8rem" }} />
+                              <a style={{ textAlign: 'center' }} href={website} target="_blank">
+                                <FiLink2 style={{ fontSize: '1.8rem' }} />
                               </a>
                             </Hover>
                           </Flex>
@@ -176,31 +145,31 @@ const EventDetails = (props): JSX.Element => {
                         <Text center> {summary} </Text>
 
                         <MediaLink>
-                          {mediaLinks !== null && mediaLinks[0] !== "" && (
+                          {mediaLinks !== null && mediaLinks[0] !== '' && (
                             <li>
                               <a href={`${mediaLinks[0]}`} target="_blank">
                                 <HoverCircle hoverColor="red">
-                                  <FiInstagram style={{ fontSize: "1.8rem" }} />
+                                  <FiInstagram style={{ fontSize: '1.8rem' }} />
                                 </HoverCircle>
                               </a>
                             </li>
                           )}
 
-                          {mediaLinks !== null && mediaLinks[1] !== "" && (
+                          {mediaLinks !== null && mediaLinks[1] !== '' && (
                             <li>
                               <a href={`${mediaLinks[1]}`} target="_blank">
                                 <HoverCircle hoverColor="blue">
-                                  <FiTwitter style={{ fontSize: "1.8rem" }} />
+                                  <FiTwitter style={{ fontSize: '1.8rem' }} />
                                 </HoverCircle>
                               </a>
                             </li>
                           )}
 
-                          {mediaLinks !== null && mediaLinks[2] !== "" && (
+                          {mediaLinks !== null && mediaLinks[2] !== '' && (
                             <li>
                               <a href={`${mediaLinks[2]}`} target="_blank">
                                 <HoverCircle>
-                                  <FiFacebook style={{ fontSize: "1.8rem" }} />
+                                  <FiFacebook style={{ fontSize: '1.8rem' }} />
                                 </HoverCircle>
                               </a>
                             </li>
@@ -219,14 +188,14 @@ const EventDetails = (props): JSX.Element => {
                   <Flex column>
                     <br />
                     <br />
-                    <div style={{ textAlign: "right" }}>
+                    <div style={{ textAlign: 'right' }}>
                       <Link to="/mobile">
                         <Hover
                           onClick={() => {
                             openChecklist()
                           }}
                         >
-                          <FiSmartphone style={{ fontSize: "2rem" }} />
+                          <FiSmartphone style={{ fontSize: '2rem' }} />
                         </Hover>
                       </Link>
                       <br />
@@ -237,30 +206,34 @@ const EventDetails = (props): JSX.Element => {
             )
           }}
         </UserContext.Consumer>
-        <br />
-        <br />
 
         <Flex justifyBetween>
           <Flex>
             {isVirtual ? (
-              <FiCast style={{ fontSize: "1.6em" }} />
+              <FiCast style={{ fontSize: '1.6em' }} />
             ) : (
-              <GoLocation style={{ fontSize: "1.6em" }} />
+              <GoLocation style={{ fontSize: '1.6em' }} />
             )}
 
-            <Text small style={{ paddingLeft: "7px" }}>
-              {meetupGroupLength > 1 ? "Global" : venue}
+            <Text small style={{ paddingLeft: '7px' }}>
+              {meetupGroupLength > 1 ? 'Global' : venue}
             </Text>
           </Flex>
 
-          {eventType === "Meetup" ? (
+          {permission && (
+            <HoverCircle onClick={() => openEventLaunch()}>
+              <IoMdRocket style={{ fontSize: '1.8rem' }} />
+            </HoverCircle>
+          )}
+
+          {eventType === 'Meetup' ? (
             <div>
               {meetupGroupLength > 1 ? null : (
                 <Flex column>
-                  <Text style={{ color: "grey" }}> Next Event : </Text>
+                  <Text style={{ color: 'grey' }}> Next Event : </Text>
                   <Flex>
-                    <FiCalendar style={{ fontSize: "1.5em" }} />
-                    <Text small style={{ paddingLeft: "7px" }}>
+                    <FiCalendar style={{ fontSize: '1.5em' }} />
+                    <Text small style={{ paddingLeft: '7px' }}>
                       {dateCreated}
                     </Text>
                   </Flex>
@@ -269,10 +242,10 @@ const EventDetails = (props): JSX.Element => {
             </div>
           ) : (
             <Flex column>
-              <Text style={{ color: "grey" }}> {next} </Text>
+              <Text style={{ color: 'grey' }}> {next} </Text>
               <Flex>
-                <FiCalendar style={{ fontSize: "1.5em" }} />
-                <Text small style={{ paddingLeft: "7px" }}>
+                <FiCalendar style={{ fontSize: '1.5em' }} />
+                <Text small style={{ paddingLeft: '7px' }}>
                   {dateCreated}
                 </Text>
               </Flex>
@@ -284,4 +257,4 @@ const EventDetails = (props): JSX.Element => {
   ) : null
 }
 
-export default inject("ModalStore")(observer(EventDetails))
+export default inject('ModalStore')(observer(EventDetails))

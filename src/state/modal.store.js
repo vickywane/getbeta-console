@@ -1,5 +1,5 @@
-import { action, observable, decorate } from "mobx"
-import { create, persist } from "mobx-persist"
+import { action, observable, decorate } from 'mobx'
+import { create, persist } from 'mobx-persist'
 
 class ModalStore {
   //move this into a seperate store
@@ -10,6 +10,17 @@ class ModalStore {
     this.EventId = id
     this.EventType = type
   }
+
+  showLaunch = false
+
+  openEventLaunch = () => {
+    this.showLaunch = true
+  }
+
+  closeEventLaunch = () => {
+    this.showLaunch = false
+  }
+
   // =================================>
 
   showInvitationInstruction = false
@@ -227,6 +238,10 @@ const DecoratedModalStore = decorate(ModalStore, {
   closeInvitationInstruction: observable,
   openInvitationInstruction: observable,
 
+  showLaunch: observable,
+  openEventLaunch: action,
+  closeEventLaunch: action,
+
   showTaskDetail: observable,
   closeTaskDetail: action,
   openTaskDetail: action,
@@ -244,7 +259,6 @@ const DecoratedModalStore = decorate(ModalStore, {
   closeWelcomeEventModal: action,
   openWelcomeEventModal: action,
 
-  EventId: observable,
   setEventId: action,
 
   showPapersModal: observable,
@@ -316,18 +330,18 @@ const DecoratedModalStore = decorate(ModalStore, {
 
   editEventModal: observable,
   openEditModal: action,
-  closeEditModal: action,
+  closeEditModal: action
 })
 
 const hydrate = create({
   storage: localStorage,
-  jsonify: true,
+  jsonify: true
   // docs say JSONIFY should be false but it doesnt work!!
 })
 
 export const store = new DecoratedModalStore()
-hydrate("modal-store", store)
-  .then(() => console.log("modal-store has been hydrated"))
+hydrate('modal-store', store)
+  .then(() => console.log('modal-store has been hydrated'))
   .catch(e => console.log(e))
 
 // hydrate("modal-nstore", store)

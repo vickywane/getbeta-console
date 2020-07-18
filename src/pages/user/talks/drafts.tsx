@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
-import { FiMail, FiClock, FiEdit, FiCheck, FiMoreVertical, FiTrash2, FiPlus } from 'react-icons/fi'
+import { FiClock, FiEdit, FiCheck, FiMoreVertical, FiTrash2, FiPlus } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CSSTransition } from 'react-transition-group'
@@ -14,7 +14,7 @@ import { Header, Footer, Loader } from '../../../components/'
 import { EmptyData } from '../../../components/placeholders'
 import { GET_USER_TALKS } from '../../../data/queries'
 import { DELETE_TALK } from '../../../data/mutations'
-import { Contain, Body, Text, Button as Butt, Title, Hover } from '../../../styles/style'
+import { Body, Text, Button as Butt, Title, Hover } from '../../../styles/style'
 import useWindowWidth from '../../../hook_style'
 
 const List = styled.li`
@@ -109,6 +109,8 @@ const Talks = (): JSX.Element => {
         talkId: id
       }
     })
+      .then(() => {})
+      .catch(e => console.log(e))
   }
 
   if (error) {
@@ -152,18 +154,27 @@ const Talks = (): JSX.Element => {
             </div>
 
             {talks === null ? (
-              <div>
-                <br />
-                <br />
+              <div
+                style={{
+                  height: window.innerHeight - 170,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <div>
+                  <br />
+                  <br />
 
-                <Flex justifyCenter>
-                  <Link to="/editor">{Hooks >= 700 ? 'Create A New Draft' : 'New Draft'}</Link>
-                </Flex>
-                <EmptyData
-                  message="You currently do not have any created talk or drafts"
-                  feature="Talk Drafts"
-                  link="https://my-ebent.com"
-                />
+                  <Flex justifyCenter>
+                    <Link to="/editor">{Hooks >= 700 ? 'Create A New Draft' : 'New Draft'}</Link>
+                  </Flex>
+                  <EmptyData
+                    message="You currently do not have any created talk or drafts"
+                    feature="Talk Drafts"
+                    link="https://my-ebent.com"
+                  />
+                </div>
               </div>
             ) : (
               <div>
