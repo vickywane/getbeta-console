@@ -16,6 +16,7 @@ export const HoverCircle = styled.div`
   &: hover {
     color: #fff;
     border: 1px solid #fff;
+    cursor: pointer;
   }
 `
 

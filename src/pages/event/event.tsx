@@ -100,7 +100,7 @@ const Event = (props): JSX.Element => {
           <div>
             {' '}
             <Header event={Hooks >= 900 ? data.event.name : data.event.alias} />
-            <div style={{ marginBottom: '2.2rem' }} />
+            <div style={{ marginBottom: '2rem' }} />
           </div>
         )}
 

@@ -3,33 +3,14 @@ import { FiCalendar, FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi'
 import { IoIosRocket } from 'react-icons/io'
 import { GoLocation } from 'react-icons/go'
 import { inject, observer } from 'mobx-react'
-import styled from 'styled-components'
 
 import { Hover, Text, Title, HoverCircle, MediaLink } from '../../../../styles/style'
 
-const MeetupGroupDetails = (props): JSX.Element => {
-  const { openChecklist, openPeople, openEditModal } = props.ModalStore
-  const {
-    currentWindowSize,
-    data,
-    meetupGroupLength,
-    next,
-    eventType,
-    permission,
-    dispatch
-  } = props
+const MeetupGroupProfileDetails = (props): JSX.Element => {
+  const { openMeetupEventLaunch } = props.ModalStore
+  const { data } = props
 
-  const {
-    name,
-    summary,
-    venue,
-    website,
-    mediaLinks,
-    id,
-    bucketName,
-    createdAt,
-    isVirtual
-  } = data.getMeetupGroup
+  const { name, summary, createdAt } = data.getMeetupGroup
   const { showEventDetails } = props.state
 
   const { location } = data.getMeetupGroup
@@ -73,7 +54,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
               </div>
               <img
                 alt="Meetup display"
-                style={{ height: '120px', width: '120px', borderRadius: '50%' }}
+                style={{ height: '110px', width: '110px', borderRadius: '50%' }}
                 src={require('../../../../assets/images/developer.png')}
               />
             </div>
@@ -113,7 +94,7 @@ const MeetupGroupDetails = (props): JSX.Element => {
                 </li>
 
                 <li>
-                  <HoverCircle>
+                  <HoverCircle onClick={() => openMeetupEventLaunch()}>
                     <IoIosRocket style={{ fontSize: '1.7rem' }} />
                   </HoverCircle>
                 </li>
@@ -133,4 +114,4 @@ const MeetupGroupDetails = (props): JSX.Element => {
   )
 }
 
-export default inject('ModalStore')(observer(MeetupGroupDetails))
+export default inject('ModalStore')(observer(MeetupGroupProfileDetails))

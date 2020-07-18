@@ -21,6 +21,16 @@ class ModalStore {
     this.showLaunch = false
   }
 
+  showMeetupLaunch = false
+
+  openMeetupEventLaunch = () => {
+    this.showMeetupLaunch = true
+  }
+
+  closeMeetupEventLaunch = () => {
+    this.showMeetupLaunch = false
+  }
+
   // =================================>
 
   showInvitationInstruction = false
@@ -241,6 +251,10 @@ const DecoratedModalStore = decorate(ModalStore, {
   showLaunch: observable,
   openEventLaunch: action,
   closeEventLaunch: action,
+
+  showMeetupLaunch: observable,
+  openMeetupEventLaunch: action,
+  closeMeetupEventLaunch: action,
 
   showTaskDetail: observable,
   closeTaskDetail: action,

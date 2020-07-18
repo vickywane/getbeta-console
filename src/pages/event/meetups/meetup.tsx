@@ -23,20 +23,26 @@ import {
   TabContext,
   TabState
 } from '../../../state/context/contextState'
-import { AdminTabReducer, TabReducer } from '../../../state/context/reducers'
 import EventDetails from '../eventdetails'
 import Store from '../store/store'
 import Mobile from '../../mobile/mobile'
 import '../../../App.css'
 import TestImg from '../../../assets/images/test.png'
 import MeetupDetails from '../meetups/meetupDetails'
+import MeetupEventLaunch from './meetupgroup/meetupEventLaunch'
 
 const Meetup = (props): JSX.Element => {
   const { data, EventType, state, staate, dispaatch } = props
 
   // naming conflicts coming up here
   const Hooks = useWindowWidth()
-  const { openContactModal, openEditModal } = props.ModalStore
+  const {
+    openContactModal,
+    openEditModal,
+    showMeetupLaunch,
+    openMeetupEventLaunch,
+    closeMeetupEventLaunch
+  } = props.ModalStore
 
   const userId = localStorage.getItem('user_id')
   const permission = data.event.createdBy[0].id == userId
@@ -46,10 +52,6 @@ const Meetup = (props): JSX.Element => {
   if (!permission && isLocked) {
     return <ArchivedEvent name={name} date={dateCreated} />
   }
-
-  // window.addEventListener("scroll", () => {
-  // 	alert("meetup comp listener")
-  // })
 
   return (
     <TabContext.Provider value={TabState}>

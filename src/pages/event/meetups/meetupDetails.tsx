@@ -67,13 +67,13 @@ const MeetupDetails = (props): JSX.Element => {
 
   const ImageDiv = styled.div`
     border-right: 1px solid grey;
-    transition: all 400ms;
-    width: 25rem;
+    transition: all 550ms;
+    width: 20rem;
     display: flex;
     flex-direction: column;
     filter: grayscale(80%) blur(0.7px);
     align-items: center;
-    padding-top: 3rem;
+    padding: 3rem 1rem;
     div {
       opacity: 0;
       transition: all 400ms;

@@ -1,11 +1,10 @@
-import * as React from "react"
-import Flex from "styled-flex-component"
-import styled from "styled-components"
-import { FiUser, FiTrash2, FiEdit } from "react-icons/fi"
-import { useMutation } from "@apollo/react-hooks"
+import * as React from 'react'
+import styled from 'styled-components'
+import { FiUser, FiTrash2, FiEdit } from 'react-icons/fi'
+import { useMutation } from '@apollo/react-hooks'
 
-import { Text } from "../../styles/style"
-import { DELETE_EVENT } from "../../data/mutations"
+import { Text } from '../../styles/style'
+import { DELETE_EVENT } from '../../data/mutations'
 
 //Todo: Check styled-component usage with classNames
 
@@ -13,7 +12,7 @@ const SettingsBody = styled.div`
   position: absolute;
   padding: 0.7rem 0rem;
   box-shadow: 0px 2px 4px grey;
-  margin: 1.1rem 0rem
+  margin: 1.1rem 0rem;
   height: 23vh;
   transform: translateX(-15%);
   border-radius: 6px;
@@ -38,32 +37,32 @@ const EventCardOptions = props => {
   const handleDelete = () => {
     deleteEvent({
       variables: {
-        eventId: eventId,
-      },
+        eventId: eventId
+      }
     })
-      .then(() => alert("deleted"))
+      .then(() => alert('deleted'))
       .catch(e => console.log(e))
   }
 
   return (
     <SettingsBody>
       <li>
-        <FiEdit style={{ fontSize: "1.6rem" }} />
-        <Text white small style={{ padding: "0rem 0.9rem" }}>
+        <FiEdit style={{ fontSize: '1.6rem' }} />
+        <Text white small style={{ padding: '0rem 0.9rem' }}>
           Rename Event
         </Text>
       </li>
 
       <li>
-        <FiUser style={{ fontSize: "1.6rem" }} />
-        <Text white small style={{ padding: "0rem 0.9rem" }}>
+        <FiUser style={{ fontSize: '1.6rem' }} />
+        <Text white small style={{ padding: '0rem 0.9rem' }}>
           Do Something
         </Text>
       </li>
 
       <li onClick={() => handleDelete()}>
-        <FiTrash2 style={{ fontSize: "1.6rem" }} />
-        <Text white small style={{ padding: "0rem 0.9rem" }}>
+        <FiTrash2 style={{ fontSize: '1.6rem' }} />
+        <Text white small style={{ padding: '0rem 0.9rem' }}>
           Delete Event
         </Text>
       </li>
