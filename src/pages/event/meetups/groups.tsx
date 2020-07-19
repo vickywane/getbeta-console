@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import Flex from 'styled-flex-component'
 import { CSSTransition } from 'react-transition-group'
 
@@ -7,12 +6,6 @@ import { EmptyData } from '../../../components/placeholders'
 import MeetupGroupCard from '../../../components/cards/meetupGroupCard'
 import CreateGroup from './createGroup'
 import { Text, Title, Button, Items } from '../../../styles/style'
-
-const List = styled.li`
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-`
 
 const Groups = props => {
   const { id, meetupGroups } = props.data

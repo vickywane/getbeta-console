@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GoLocation } from 'react-icons/go'
-import { FiBookmark, FiCalendar, FiLock, FiMoreVertical, FiUser } from 'react-icons/fi'
+import { FiCalendar, FiLock, FiMoreVertical, FiUser } from 'react-icons/fi'
 import { IoIosPeople } from 'react-icons/io'
-
 import styled from 'styled-components'
 import { inject, observer } from 'mobx-react'
 
 import { Card, Text, Hover, Title } from '../../styles/style'
 import CardImg from '../../assets/images/3.jpg'
 
-//Todo : Create a proper ts interface here
 const Contain = styled.div`
   background-image: url(${props => props.img});
   width: 25rem;
@@ -18,23 +16,8 @@ const Contain = styled.div`
 `
 
 const MeetupGroupCard = props => {
-  const {
-    location,
-    name,
-    id,
-    summary,
-    role,
-    createdAt,
-    venue,
-    volunteerScreen,
-    approvalStatus,
-    type,
-    showAprrovalStatus,
-    volunteerOption,
-    event
-  } = props
-  // const { setEventId } = props.ModalStore
-  const [optionVisibility, setOptionVisibility] = useState(false)
+  const { location, name, id, summary, createdAt, type } = props
+  const [optionVisibility, setOptionVisibility] = useState<boolean>(false)
 
   return (
     <Card style={{ padding: '0px' }}>
@@ -59,16 +42,12 @@ const MeetupGroupCard = props => {
           </div>
 
           <div style={{ padding: '1rem 1rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <p style={{ color: 'white' }}> . </p>
-
-              <Hover
-                style={{ padding: '0rem 1rem' }}
-                onClick={() => setOptionVisibility(!optionVisibility)}
-              >
-                <FiMoreVertical style={{ fontSize: '1.8rem', textAlign: 'right' }} />
-              </Hover>
-            </div>
+            <Hover
+              style={{ color: '#fff', padding: '0rem 1rem' }}
+              onClick={() => setOptionVisibility(!optionVisibility)}
+            >
+              <FiMoreVertical style={{ fontSize: '1.8rem', textAlign: 'right' }} />
+            </Hover>
           </div>
         </div>
 

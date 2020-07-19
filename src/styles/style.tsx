@@ -379,7 +379,7 @@ const Card = styled.div`
   width: ${props => (props.team ? '22em' : '30em')};
   border-radius: ${props => (props.team ? '7px' : '5px')};
   padding: 0.7rem 0.5rem;
-  margin: 1rem;
+  margin: 0.5rem 0.5rem;
   box-shadow: 0px 2px 6px grey;
   background: transparent;
   color: black;
