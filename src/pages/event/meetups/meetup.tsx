@@ -82,18 +82,16 @@ const Meetup = (props): JSX.Element => {
                     />
                   </Contain>
                 ) : (
-                  <Contain grey img={TestImg} style={{ transition: 'all 300ms' }}>
-                    <EventDetails
-                      state={staate}
-                      permissio={permission}
-                      data={data}
-                      meetupGroupLength={meetupGroupLength}
-                      dispatch={dispaatch}
-                      eventType={EventType}
-                      currentWindowSize={Hooks}
-                      openEditModal={openEditModal}
-                    />
-                  </Contain>
+                  <EventDetails
+                    state={staate}
+                    permissio={permission}
+                    data={data}
+                    meetupGroupLength={meetupGroupLength}
+                    dispatch={dispaatch}
+                    eventType={EventType}
+                    currentWindowSize={Hooks}
+                    openEditModal={openEditModal}
+                  />
                 )}
               </div>
 

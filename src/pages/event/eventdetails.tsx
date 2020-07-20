@@ -86,13 +86,13 @@ const EventDetails = (props): JSX.Element => {
                   <Flex>
                     {currentWindowSize >= 700 ? (
                       <Image
-                        alt="profile"
+                        alt="event"
                         src={require('../../assets/images/developer.png')}
                         style={{
-                          width: '120px',
-                          height: '120px',
-                          margin: '1rem 0rem',
-                          borderRadius: '5px'
+                          width: '110px',
+                          height: '110px',
+                          margin: '0.5rem 0rem',
+                          borderRadius: '50%'
                         }}
                         fluid
                       />
@@ -105,9 +105,9 @@ const EventDetails = (props): JSX.Element => {
                               alt="profile"
                               src={require('../../assets/images/developer.png')}
                               style={{
-                                width: '7em',
-                                height: '11vh',
-                                margin: '1rem 0rem'
+                                width: '100px',
+                                height: '100px',
+                                margin: '0.5rem 0rem'
                               }}
                               fluid
                             />
@@ -212,19 +212,17 @@ const EventDetails = (props): JSX.Element => {
           )}
 
           {eventType === 'Meetup' ? (
-            <div>
-              {meetupGroupLength > 1 ? null : (
-                <Flex column>
-                  <Text style={{ color: 'grey' }}> Next Event : </Text>
-                  <Flex>
-                    <FiCalendar style={{ fontSize: '1.5em' }} />
-                    <Text small style={{ paddingLeft: '7px' }}>
-                      {dateCreated}
-                    </Text>
-                  </Flex>
+            meetupGroupLength > 1 ? null : (
+              <Flex column>
+                <Text color={'white'}> Next Event : </Text>
+                <Flex>
+                  <FiCalendar style={{ fontSize: '1.5em' }} />
+                  <Text small style={{ paddingLeft: '7px' }}>
+                    {dateCreated}
+                  </Text>
                 </Flex>
-              )}
-            </div>
+              </Flex>
+            )
           ) : (
             <Flex column>
               <Text style={{ color: 'grey' }}> {next} </Text>

@@ -8,14 +8,6 @@ import { EmptyData } from '../../../components/placeholders'
 import { GET_CATEGORY } from '../../../data/queries'
 import { Hover, Text, Section, Button, Body } from '../../../styles/style'
 
-const Column = styled.div``
-
-const Item = styled.div`
-  border: 0.5px solid grey;
-  border-radius: 7px;
-  max-width: 24rem;
-`
-
 const Grid = styled.div`
   display : grid;
   grid-gap : 1rem 1rem
@@ -26,6 +18,13 @@ const List = styled.li`
   list-style: none;
   margin: 1rem 0rem;
   padding: 0rem 1rem;
+`
+
+const CartCard = styled.div`
+  height: 30vh;
+  border-radius: 5px;
+  max-width: 24rem;
+  box-shadow: 0px 3px 4px #c0c0c0;
 `
 
 const ProductItem = props => {
@@ -57,7 +56,7 @@ const ProductItem = props => {
         data.category[0].items.map(({ id, name, description, quantity, price, isFree }) => {
           return (
             <List key={id}>
-              <Item>
+              <CartCard>
                 <Body
                   style={{
                     padding: '0.5rem 0.5rem',
@@ -67,7 +66,7 @@ const ProductItem = props => {
                     borderRadius: '5px 5px 5px 0px'
                   }}
                 >
-                  <Text bold small center>
+                  <Text small center>
                     {name}
                   </Text>
                   <Hover style={{ padding: '0rem 0.3rem' }}>
@@ -106,9 +105,9 @@ const ProductItem = props => {
                       <Text> {quantity} </Text>{' '}
                     </Flex>
                   </Flex>
-                  <Button>{isFree ? 'FREE - Redeem One ' : 'Purchase - 20 left'}</Button>{' '}
+                  <Button>{isFree ? 'FREE - Redeem One ' : `Purchase - ${quantity} left`}</Button>{' '}
                 </Body>
-              </Item>
+              </CartCard>
             </List>
           )
         })

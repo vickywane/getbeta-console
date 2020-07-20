@@ -1,29 +1,22 @@
-import React, { useState } from "react"
-import styled from "styled-components"
-import Flex from "styled-flex-component"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import * as Yup from "yup"
-import { useMutation } from "@apollo/react-hooks"
-import { inject, observer } from "mobx-react"
-import { Redirect, Link } from "react-router-dom"
-import media from "styled-media-query"
-import { FiHome } from "react-icons/fi"
-import {
-  FiX,
-  FiSend,
-  FiEdit,
-  FiFacebook,
-  FiTwitter,
-  FiInstagram,
-} from "react-icons/fi"
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Flex from 'styled-flex-component'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import Sample from '../../assets/ssvg/sample.svg'
+import { useMutation } from '@apollo/react-hooks'
+import { inject, observer } from 'mobx-react'
+import { Redirect, Link } from 'react-router-dom'
+import media from 'styled-media-query'
+import { FiHome } from 'react-icons/fi'
+import { FiFacebook, FiTwitter, FiInstagram } from 'react-icons/fi'
 
-import Existing from "./exsiting-event" // i no sabi spell ;)
-import { CREATE_EVENT } from "../../data/mutations"
-import { CREATE_EVENT_INPUT } from "./formsData"
-import Upload from "../media/upload"
-import { Header, Footer, Panes, Checkbox } from "../../components/"
-import Options from "../imports/createEvent/eventoptions.import"
+import Existing from './exsiting-event' // i no sabi spell ;)
+import { CREATE_EVENT } from '../../data/mutations'
+import { CREATE_EVENT_INPUT } from './formsData'
+import Upload from '../media/upload'
+import { Header, Footer, Panes, Checkbox } from '../../components/'
+import Options from '../imports/createEvent/eventoptions.import'
 import {
   Title,
   Button,
@@ -34,24 +27,25 @@ import {
   BigTitle,
   FormBody as Body,
   FormCard as Card,
-} from "../../styles/style"
-import Field from "./fields"
+  Section
+} from '../../styles/style'
+import Field from './fields'
 
 const UpGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 2rem 2rem;
-  ${media.lessThan("huge")`
+  ${media.lessThan('huge')`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   grid-gap: 2rem 1rem;
   `};
-  ${media.lessThan("large")`
+  ${media.lessThan('large')`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   grid-gap: 2rem 1rem;
   `};
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 2rem 1rem;
@@ -61,20 +55,20 @@ const UpGrid = styled.div`
 const CustomCard = styled(Card)`
   width: 60rem;
   padding: 6rem;
-  box-shadow: 0px 2px 4px grey;
+  box-shadow: 0px 2px 4px #c0c0c0;
   text-align: center;
   margin: 8rem 0rem;
-  ${media.lessThan("huge")`
+  ${media.lessThan('huge')`
     width: 45rem;
     padding: 3rem;
     margin: 5rem 0rem;
   `};
-  ${media.lessThan("large")`
+  ${media.lessThan('large')`
     width: 40rem;
     padding: 3rem;
   margin: 4rem 0rem;
   `};
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
   width: 28rem;
   padding: 2rem;
   margin: 8rem 1rem;
@@ -84,8 +78,8 @@ const CustomCard = styled(Card)`
 const TypeBox = styled.div`
   padding: 0.5rem 1rem;
   border-radius : 5px
-  box-shadow: ${props => (props.active ? "0px 2px 5px #2E73FA" : null)};
-  border: ${props => (props.active ? "1px solid #2E73FA" : "1px solid grey")};
+  box-shadow: ${props => (props.active ? '0px 2px 5px #2E73FA' : null)};
+  border: ${props => (props.active ? '1px solid #2E73FA' : '1px solid #c0c0c0')};
   width: auto;
   display: flex;
   flex: 1;
@@ -97,26 +91,21 @@ const TypeBox = styled.div`
     box-shadow: 0px 2px 5px #2E73FA;
     border: 1px solid #2E73FA;
   }
-  ${media.lessThan("large")`
+  ${media.lessThan('large')`
   width: 28rem;
   `};
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
   width: 30rem;
   `};
-  ${media.lessThan("small")`
+  ${media.lessThan('small')`
   width: 30rem;
   `};
-`
-
-const Radio = styled.input`
-  font-size: 2rem;
-  padding: 1rem 0.5rem;
 `
 
 const CInput = styled.div`
   display: flex;
   padding: 0rem;
-  border: 1px solid grey;
+  border: 1px solid #c0c0c0;
   border-radius: 5px;
   margin: 0rem 1.5rem;
   input {
@@ -140,7 +129,7 @@ const CreateEvent = (props): JSX.Element => {
   const [ExistingEvent, createExistingEvent] = useState(false)
   const [Terms, agreeTerms] = useState<boolean>(false)
   const [Mail, ConfirmMail] = useState<boolean>(false)
-  const [Error, setError] = useState<string>("")
+  const [Error, setError] = useState<string>('')
 
   const handleCalendarChange = date => {}
 
@@ -148,14 +137,14 @@ const CreateEvent = (props): JSX.Element => {
 
   // Collapsing all into one {k.v.p state} gives an uncontrolled form err .
   // Form data state
-  const [Name, setName] = useState<string>("")
-  const [Alias, setAlias] = useState<string>("")
-  const [Description, setDescription] = useState<string>("")
-  const [Website, setWebsite] = useState<string>("")
-  const [Summary, setSummary] = useState<string>("")
-  const [Venue, setVenue] = useState<string>("")
-  const [Email, setEmail] = useState<string>("")
-  const [EventType, setEventType] = useState<string>("")
+  const [Name, setName] = useState<string>('')
+  const [Alias, setAlias] = useState<string>('')
+  const [Description, setDescription] = useState<string>('')
+  const [Website, setWebsite] = useState<string>('')
+  const [Summary, setSummary] = useState<string>('')
+  const [Venue, setVenue] = useState<string>('')
+  const [Email, setEmail] = useState<string>('')
+  const [EventType, setEventType] = useState<string>(props.match.params.type)
   const [Virtual, setVirtual] = useState<boolean>(false)
   const [EventDate, setEventDate] = useState<any>([])
 
@@ -163,21 +152,21 @@ const CreateEvent = (props): JSX.Element => {
   const [isSingleDate, setSingleDate] = useState<boolean>(false)
   const [EndDate, setEndDate] = useState(new Date())
 
-  const [FBMediaLinks, addFBMediaLink] = useState<string>("")
-  const [TWMediaLinks, addTWMediaLink] = useState<string>("")
-  const [INSMediaLinks, addINSMediaLink] = useState<string>("")
+  const [FBMediaLinks, addFBMediaLink] = useState<string>('')
+  const [TWMediaLinks, addTWMediaLink] = useState<string>('')
+  const [INSMediaLinks, addINSMediaLink] = useState<string>('')
 
-  let Validation = Yup.object().shape({
-    name: Yup.string()
-      .min(8, "Not less than 3")
-      .max(24, "More than 25")
-      .required("must have a name "),
-    description: Yup.string().min(10, "Not less than 10"),
-    alias: Yup.string().min(2, "Not less than 10"),
-    website: Yup.string().min(2, "Not less than 10"),
-    email: Yup.string().min(2, "Not less than 10"),
-    venue: Yup.string().min(2, "Not less than 10"),
-  })
+  // let Validation = Yup.object().shape({
+  //   name: Yup.string()
+  //     .min(8, "Not less than 3")
+  //     .max(24, "More than 25")
+  //     .required("must have a name "),
+  //   description: Yup.string().min(10, "Not less than 10"),
+  //   alias: Yup.string().min(2, "Not less than 10"),
+  //   website: Yup.string().min(2, "Not less than 10"),
+  //   email: Yup.string().min(2, "Not less than 10"),
+  //   venue: Yup.string().min(2, "Not less than 10"),
+  // })
 
   const SubmitData = () => {
     let MediaLinksArray = []
@@ -185,7 +174,7 @@ const CreateEvent = (props): JSX.Element => {
 
     createEvent({
       variables: {
-        UserID: localStorage.getItem("user_id"),
+        UserID: localStorage.getItem('user_id'),
         name: Name,
         website: Website,
         alias: Alias,
@@ -200,8 +189,8 @@ const CreateEvent = (props): JSX.Element => {
         mediaLinks: MediaLinksArray,
         isArchived: false,
         isAcceptingTalks: false,
-        isAcceptingVolunteers: false,
-      },
+        isAcceptingVolunteers: false
+      }
     })
       .then(() => {
         ConfirmMail(true)
@@ -214,28 +203,28 @@ const CreateEvent = (props): JSX.Element => {
 
   const handleChange = (value, label) => {
     switch (label) {
-      case "Event Name":
+      case 'Event Name':
         setName(value)
         break
-      case "Event Alias":
+      case 'Event Alias':
         setAlias(value)
         break
-      case "Event Brand Page":
+      case 'Event Brand Page':
         setWebsite(value)
         break
-      case "Event Support Email":
+      case 'Event Support Email':
         setEmail(value)
         break
-      case "Event Description":
+      case 'Event Description':
         setDescription(value)
         break
-      case "Event Summary":
+      case 'Event Summary':
         setSummary(value)
         break
-      case "Event-Venue":
+      case 'Event-Venue':
         setVenue(value)
         break
-      case "Streaming Location":
+      case 'Streaming Location':
         setVenue(value)
         break
       default:
@@ -245,13 +234,13 @@ const CreateEvent = (props): JSX.Element => {
 
   const handleCheckBox = (value, label) => {
     switch (label) {
-      case "Terms":
+      case 'Terms':
         agreeTerms(!Terms)
         break
-      case "isVirtual":
+      case 'isVirtual':
         setVirtual(!Virtual)
         break
-      case "isSingleDate":
+      case 'isSingleDate':
         setSingleDate(!isSingleDate)
         break
       default:
@@ -268,7 +257,7 @@ const CreateEvent = (props): JSX.Element => {
   const { first, second, third } = CREATE_EVENT_INPUT
 
   return (
-    <div style={{ background: "#eeeeee" }}>
+    <div style={{ background: '#eeeeee' }}>
       <Header screen="event" name="" unshadowed={true} event={Name} />
 
       {!ExistingEvent ? (
@@ -278,7 +267,7 @@ const CreateEvent = (props): JSX.Element => {
               {!importPane ? (
                 <div>
                   <br />
-                  <Panes type={"Event-Form-Import"} color="#401364" />
+                  <Panes type={'Event-Form-Import'} color="#401364" />
                 </div>
               ) : null}
             </div>
@@ -289,10 +278,10 @@ const CreateEvent = (props): JSX.Element => {
               {!Mail ? (
                 <Body>
                   <BigTitle center bold>
-                    Create {Name.length < 7 ? "Your Event" : Name}
+                    Create {Name.length < 7 ? 'Your Event' : Name}
                   </BigTitle>
 
-                  <Text style={{ color: "red" }}> {Error} </Text>
+                  <Text style={{ color: 'red' }}> {Error} </Text>
                   <br />
 
                   <Flex justifyBetween>
@@ -304,13 +293,13 @@ const CreateEvent = (props): JSX.Element => {
                       <b
                         onClick={() => createExistingEvent(true)}
                         style={{
-                          color: "blue",
+                          color: 'blue',
                           fontWeight: 500,
-                          cursor: "pointer",
+                          cursor: 'pointer'
                         }}
                       >
                         Launch
-                      </b>{" "}
+                      </b>{' '}
                       a new iteration of an existing event.
                     </Text>
                   </Flex>
@@ -326,9 +315,9 @@ const CreateEvent = (props): JSX.Element => {
                               <Field
                                 id={label}
                                 name={label}
-                                type={"text"}
+                                type={'text'}
                                 textarea={textarea}
-                                value={label == "Event Name" ? Name : Alias}
+                                value={label == 'Event Name' ? Name : Alias}
                                 onChange={e => handleChange(e, label)}
                                 placeholder={placeholder}
                               />
@@ -345,11 +334,9 @@ const CreateEvent = (props): JSX.Element => {
                               <Field
                                 id={label}
                                 name={label}
-                                type={"text"}
+                                type={'text'}
                                 textarea={textarea}
-                                value={
-                                  label == "Event Brand Page" ? Website : Email
-                                }
+                                value={label == 'Event Brand Page' ? Website : Email}
                                 onChange={e => handleChange(e, label)}
                                 placeholder={placeholder}
                               />
@@ -363,45 +350,35 @@ const CreateEvent = (props): JSX.Element => {
                     <UpGrid>
                       <Card
                         style={{
-                          boxShadow: "0px 3px 4px grey",
-                          padding: "0rem 1rem",
+                          boxShadow: '0px 3px 4px grey',
+                          padding: '0rem 1rem'
                         }}
                       >
                         <br />
                         <div
                           style={{
-                            display: "flex",
-                            justifyContent: "space-between",
+                            display: 'flex',
+                            justifyContent: 'space-between'
                           }}
                         >
-                          {" "}
-                          .{" "}
-                          <div
-                            style={{ display: "flex", padding: "0rem 0.7rem" }}
-                          >
-                            <Checkbox
-                              name="isVirtual"
-                              handleClick={handleCheckBox}
-                            />
+                          {' '}
+                          .{' '}
+                          <div style={{ display: 'flex', padding: '0rem 0.7rem' }}>
+                            <Checkbox name="isVirtual" handleClick={handleCheckBox} />
                             <Label> Make Virtual Event </Label>
                           </div>
                         </div>
                         <Field
                           type="text"
-                          name={!Virtual ? "Event-Venue" : "Streaming Location"}
+                          name={!Virtual ? 'Event-Venue' : 'Streaming Location'}
                           id="Event-Venue"
                           onChange={e =>
-                            handleChange(
-                              e,
-                              !Virtual ? "Event-Venue" : "Streaming Location"
-                            )
+                            handleChange(e, !Virtual ? 'Event-Venue' : 'Streaming Location')
                           }
                           value={Venue}
                           textarea={false}
                           placeholder={
-                            !Virtual
-                              ? "City , State , Country"
-                              : "Office hq or Host Location"
+                            !Virtual ? 'City , State , Country' : 'Office hq or Host Location'
                           }
                         />
                         <br />
@@ -411,17 +388,12 @@ const CreateEvent = (props): JSX.Element => {
                             Event Date
                           </Label>
 
-                          <div
-                            style={{ display: "flex", padding: "0rem 0.7rem" }}
-                          >
-                            <Checkbox
-                              name="isSingleDate"
-                              handleClick={handleCheckBox}
-                            />
+                          <div style={{ display: 'flex', padding: '0rem 0.7rem' }}>
+                            <Checkbox name="isSingleDate" handleClick={handleCheckBox} />
                             <Label
                               style={{
-                                padding: "0rem 0.4rem",
-                                margin: "0rem 0.3rem",
+                                padding: '0rem 0.4rem',
+                                margin: '0rem 0.3rem'
                               }}
                               small
                             >
@@ -431,13 +403,11 @@ const CreateEvent = (props): JSX.Element => {
                           <br />
                           {isSingleDate ? (
                             <div>
-                              <div
-                                style={{ display: "flex", margin: "0rem 1rem" }}
-                              >
+                              <div style={{ display: 'flex', margin: '0rem 1rem' }}>
                                 <Text small color="grey">
                                   Start Date :
                                 </Text>
-                                <div style={{ padding: "0rem 1rem" }}>
+                                <div style={{ padding: '0rem 1rem' }}>
                                   <DatePicker
                                     selected={EventStartDate}
                                     onChange={date => {
@@ -451,13 +421,11 @@ const CreateEvent = (props): JSX.Element => {
 
                               <br />
 
-                              <div
-                                style={{ display: "flex", margin: "0rem 1rem" }}
-                              >
+                              <div style={{ display: 'flex', margin: '0rem 1rem' }}>
                                 <Text small color="grey">
                                   End Date :
                                 </Text>
-                                <div style={{ padding: "0rem 1rem" }}>
+                                <div style={{ padding: '0rem 1rem' }}>
                                   <DatePicker
                                     selected={EndDate}
                                     onChange={date => {
@@ -470,13 +438,11 @@ const CreateEvent = (props): JSX.Element => {
                               </div>
                             </div>
                           ) : (
-                            <div
-                              style={{ display: "flex", margin: "0rem 1rem" }}
-                            >
+                            <div style={{ display: 'flex', margin: '0rem 1rem' }}>
                               <Text small color="grey">
                                 Date :
                               </Text>
-                              <div style={{ padding: "0rem 1rem" }}>
+                              <div style={{ padding: '0rem 1rem' }}>
                                 <DatePicker
                                   selected={EventStartDate}
                                   onChange={date => {
@@ -494,8 +460,8 @@ const CreateEvent = (props): JSX.Element => {
 
                       <Card
                         style={{
-                          boxShadow: "0px 3px 4px grey",
-                          padding: "0rem 1rem",
+                          boxShadow: '0px 3px 4px #c0c0c0',
+                          padding: '0rem 1rem'
                         }}
                       >
                         <br />
@@ -505,28 +471,28 @@ const CreateEvent = (props): JSX.Element => {
                           </Label>
                           <Flex justifyCenter>
                             <TypeBox
-                              active={EventType === "Conference"}
-                              onClick={() => setEventType("Conference")}
+                              active={EventType === 'Conference'}
+                              onClick={() => setEventType('Conference')}
                             >
                               <Flex column>
-                                <Text bold style={{ padding: "0rem 1rem" }}>
+                                <Section bold style={{ padding: '0rem 1rem' }}>
                                   Conference Event
-                                </Text>
-                                <Text small style={{ padding: "0rem 1rem" }}>
-                                  Events that span a maximum of 5 days. With
-                                  full conference features.
+                                </Section>
+                                <Text small style={{ padding: '0rem 1rem' }}>
+                                  Events that span a maximum of 5 days. With full conference
+                                  features.
                                 </Text>
 
                                 <Text center small color="grey">
                                   <a
                                     href="/"
                                     style={{
-                                      textDecoration: "none",
-                                      textAlign: "center",
+                                      textDecoration: 'none',
+                                      textAlign: 'center'
                                     }}
                                   >
                                     Learn More
-                                  </a>{" "}
+                                  </a>{' '}
                                   on Oasis Conferences
                                 </Text>
                               </Flex>
@@ -536,24 +502,24 @@ const CreateEvent = (props): JSX.Element => {
 
                           <Flex justifyCenter>
                             <TypeBox
-                              active={EventType === "Meetup"}
-                              onClick={() => setEventType("Meetup")}
+                              active={EventType === 'Meetup'}
+                              onClick={() => setEventType('Meetup')}
                             >
                               <Flex column>
-                                <Text bold style={{ padding: "0rem 1rem" }}>
+                                <Section bold style={{ padding: '0rem 1rem' }}>
                                   Meetup Event
-                                </Text>
-                                <Text small style={{ padding: "0rem 1rem" }}>
-                                  Events that are held at freqeunt intervals and
-                                  can span a long time.
+                                </Section>
+                                <Text small style={{ padding: '0rem 1rem' }}>
+                                  Events that are held at freqeunt intervals and can span a long
+                                  time.
                                 </Text>
 
                                 <Text center small color="grey">
                                   <a
                                     href="/"
                                     style={{
-                                      textDecoration: "none",
-                                      textAlign: "center",
+                                      textDecoration: 'none',
+                                      textAlign: 'center'
                                     }}
                                   >
                                     Learn More
@@ -573,42 +539,36 @@ const CreateEvent = (props): JSX.Element => {
                   <br />
                   <UpGrid>
                     <Card>
-                      {second.map(
-                        ({ id, label, limit, placeholder, textarea }) => {
-                          return (
-                            <div key={id}>
-                              <br />
-                              <Field
-                                id={label}
-                                limit={limit}
-                                name={label}
-                                type={"text"}
-                                textarea={textarea}
-                                value={
-                                  label === "Event Description"
-                                    ? Description
-                                    : Summary
-                                }
-                                onChange={e => handleChange(e, label)}
-                                placeholder={placeholder}
-                              />
-                            </div>
-                          )
-                        }
-                      )}
+                      {second.map(({ id, label, limit, placeholder, textarea }) => {
+                        return (
+                          <div key={id}>
+                            <br />
+                            <Field
+                              id={label}
+                              limit={limit}
+                              name={label}
+                              type={'text'}
+                              textarea={textarea}
+                              value={label === 'Event Description' ? Description : Summary}
+                              onChange={e => handleChange(e, label)}
+                              placeholder={placeholder}
+                            />
+                          </div>
+                        )
+                      })}
 
                       <Label> Media Links </Label>
                       <InputGrid>
                         <CInput>
                           <Hover
                             style={{
-                              padding: "0.6rem 0.5rem",
-                              background: "#fbfbfb",
-                              color: "#0e2f5a",
-                              borderRadius: "5px 0px 0px 5px",
+                              padding: '0.6rem 0.5rem',
+                              background: '#fbfbfb',
+                              color: '#0e2f5a',
+                              borderRadius: '5px 0px 0px 5px'
                             }}
                           >
-                            <FiTwitter style={{ fontSize: "1.7rem" }} />{" "}
+                            <FiTwitter style={{ fontSize: '1.7rem' }} />{' '}
                           </Hover>
 
                           <input
@@ -622,13 +582,13 @@ const CreateEvent = (props): JSX.Element => {
                         <CInput>
                           <Hover
                             style={{
-                              padding: "0.6rem 0.5rem",
-                              background: "#fbfbfb",
-                              color: "#0e2f5a",
-                              borderRadius: "5px 0px 0px 5px",
+                              padding: '0.6rem 0.5rem',
+                              background: '#fbfbfb',
+                              color: '#0e2f5a',
+                              borderRadius: '5px 0px 0px 5px'
                             }}
                           >
-                            <FiFacebook style={{ fontSize: "1.7rem" }} />{" "}
+                            <FiFacebook style={{ fontSize: '1.7rem' }} />{' '}
                           </Hover>
 
                           <input
@@ -642,13 +602,13 @@ const CreateEvent = (props): JSX.Element => {
                         <CInput>
                           <Hover
                             style={{
-                              padding: "0.6rem 0.5rem",
-                              background: "#fbfbfb",
-                              color: "#0e2f5a",
-                              borderRadius: "5px 0px 0px 5px",
+                              padding: '0.6rem 0.5rem',
+                              background: '#fbfbfb',
+                              color: '#0e2f5a',
+                              borderRadius: '5px 0px 0px 5px'
                             }}
                           >
-                            <FiInstagram style={{ fontSize: "1.7rem" }} />{" "}
+                            <FiInstagram style={{ fontSize: '1.7rem' }} />{' '}
                           </Hover>
 
                           <input
@@ -660,18 +620,12 @@ const CreateEvent = (props): JSX.Element => {
                         </CInput>
                       </InputGrid>
                       <br />
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Checkbox handleClick={handleCheckBox} name="Terms" />
 
-                        <Text
-                          style={{ padding: "0rem 1rem" }}
-                          color="grey"
-                          center
-                        >
+                        <Text style={{ padding: '0rem 1rem' }} color="grey" center>
                           I have read and i agree to Oasis's
-                          <a href="/">Terms Of Use </a>.{" "}
+                          <a href="/">Terms Of Use </a>.{' '}
                         </Text>
                       </div>
                       <br />
@@ -679,7 +633,7 @@ const CreateEvent = (props): JSX.Element => {
                   </UpGrid>
                   <br />
                   <br />
-                  <div style={{ textAlign: "right" }}>
+                  <div style={{ textAlign: 'right' }}>
                     <Button
                       transparent={!Terms}
                       disabled={!Terms}
@@ -696,42 +650,35 @@ const CreateEvent = (props): JSX.Element => {
               ) : (
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
+                    display: 'flex',
+                    justifyContent: 'center'
                   }}
                 >
                   <CustomCard>
                     <Flex justifyCenter>
-                      <img
-                        alt="email"
-                        style={{}}
-                        src={require("../../assets/ssvg/Email.svg")}
-                      />
+                      <img alt="email" style={{}} src={require('../../assets/ssvg/Email.svg')} />
                     </Flex>
 
                     <br />
                     <Text>
-                      An Email Confirmation link has been sent to{" "}
-                      <b> {Email} </b> to verify that an active support email
-                      address is being used for <b> {Name} </b>.
+                      An Email Confirmation link has been sent to <b> {Email} </b> to verify that an
+                      active support email address is being used for <b> {Name} </b>.
                     </Text>
                     <br />
                     <br />
                     <Link to="/console">
                       <div
                         onClick={() => {
-                          return (
-                            <Redirect to="/console" message="rerouting in" />
-                          )
+                          return <Redirect to="/console" message="rerouting in" />
                         }}
                         style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          cursor: "pointer",
+                          display: 'flex',
+                          justifyContent: 'center',
+                          cursor: 'pointer'
                         }}
                       >
-                        <Hover style={{ padding: "0rem 0.7rem" }}>
-                          <FiHome style={{ fontSize: "1.7rem" }} />
+                        <Hover style={{ padding: '0rem 0.7rem' }}>
+                          <FiHome style={{ fontSize: '1.7rem' }} />
                         </Hover>
                         <Text> Back To Console </Text>
                       </div>
@@ -753,4 +700,4 @@ const CreateEvent = (props): JSX.Element => {
   )
 }
 
-export default inject("PaneStore")(observer(CreateEvent))
+export default inject('PaneStore')(observer(CreateEvent))

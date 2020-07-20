@@ -34,10 +34,29 @@
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards/meetupGroupCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/meetupGroupCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/accessModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/accessModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tabs/conference.tab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tabs/conference.tab.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/console/console.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/console.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/console/organizing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/organizing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/eventTab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/eventTab.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/groups.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/groups.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/store/products.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/products.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/store/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/store.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/supportWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/supportWindow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/timeline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/create-event-modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/event.form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/event.form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/cards.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/cards.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +85,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../onboard-cli" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -160,6 +179,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="talks ui" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="257" y="142" width="424" height="482" key="FileChooserDialogImpl" timestamp="1595140499588">
+      <screen x="0" y="0" width="1360" height="768" />
+    </state>
+    <state x="257" y="142" width="424" height="482" key="FileChooserDialogImpl/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1595140499588" />
     <state width="1318" height="250" key="GridCell.Tab.0.bottom" timestamp="1595105164776">
       <screen x="0" y="0" width="3280" height="1080" />
     </state>
@@ -249,13 +272,13 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="14" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1593697340328" />
-    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup" timestamp="1595108347706">
-      <screen x="0" y="0" width="3280" height="1080" />
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup" timestamp="1595197970408">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
-    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595090525371" />
-    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595108347706" />
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595197970408" />
+    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595108948789" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

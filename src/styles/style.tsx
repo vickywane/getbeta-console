@@ -137,12 +137,12 @@ const Contain = styled.div`
   padding: 1.5em 0.5rem;
   `};
   ${media.lessThan('small')`
-  paddingt: 0.4em 0.4rem;
+  padding: 0.4em 0.4rem;
   `};
 `
 
 const Section = styled.h5`
-  font-weight: 500px;
+  font-weight: 400px;
 `
 
 const Detail = styled.div`

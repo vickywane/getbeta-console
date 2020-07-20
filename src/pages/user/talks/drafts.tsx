@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
-import { FiClock, FiEdit, FiCheck, FiMoreVertical, FiTrash2, FiPlus } from 'react-icons/fi'
+import { FiClock, FiEdit, FiMoreHorizontal, FiMoreVertical, FiTrash2, FiPlus } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CSSTransition } from 'react-transition-group'
 import media from 'styled-media-query'
-import { IoIosPeople } from 'react-icons/io'
+import { IoIosPeople, IoMdShare } from 'react-icons/io'
 
 import ActionBar from '../userActionBar'
 import Draft from './draft'
-import { Header, Footer, Loader } from '../../../components/'
+import { Header, Footer, Loader, Tip } from '../../../components/'
 import { EmptyData } from '../../../components/placeholders'
 import { GET_USER_TALKS } from '../../../data/queries'
 import { DELETE_TALK } from '../../../data/mutations'
@@ -84,6 +84,7 @@ const align = {
 const Talks = (): JSX.Element => {
   const [ActivePage, setActivePage] = useState('drafts') //draft
   const [draftId, setDraftId] = useState(null)
+  const [Tips, showTips] = useState(false)
   const Hooks = useWindowWidth()
 
   const { loading, error, data } = useQuery(GET_USER_TALKS, {
@@ -109,7 +110,7 @@ const Talks = (): JSX.Element => {
         talkId: id
       }
     })
-      .then(() => {})
+      .then(() => showTips(true))
       .catch(e => console.log(e))
   }
 
@@ -139,6 +140,14 @@ const Talks = (): JSX.Element => {
       />
 
       {Hooks >= 700 && <br />}
+
+      {Tips && (
+        <Tip
+          timeout={500}
+          message={'Deleting your talk'}
+          icon1={<FiMoreHorizontal style={{ fontSize: '1.8rem' }} />}
+        />
+      )}
 
       <CSSTransition unmountOnExit in={ActivePage === 'drafts'} timeout={300}>
         <Body style={{ background: '#fbfbfb' }} bottomHover>
@@ -240,7 +249,7 @@ const Talks = (): JSX.Element => {
                                     {reviewed ? (
                                       <FiClock style={{ fontSize: '1.7rem' }} />
                                     ) : (
-                                      <FiCheck style={{ fontSize: '1.8rem' }} />
+                                      <IoMdShare style={{ fontSize: '1.8rem' }} />
                                     )}
                                   </Hover>
 

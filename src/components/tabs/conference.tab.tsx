@@ -1,20 +1,19 @@
-import * as React from "react"
-import { CSSTransition } from "react-transition-group"
-import styled from "styled-components"
-import media from "styled-media-query"
-import { FcCustomerSupport } from "react-icons/fc"
-import { FiPhone, FiX } from "react-icons/fi"
-import Schedule from "../../pages/event/schedule/schedule"
-import People from "../../pages/event/people/people"
-import Shop from "../../pages/event/store/shop"
-import Support from "../../pages/event/supportWindow"
-import Detail from "../detail"
+import * as React from 'react'
+import { CSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
+import { FcCustomerSupport } from 'react-icons/fc'
+import { FiPhone, FiX } from 'react-icons/fi'
+import Schedule from '../../pages/event/schedule/schedule'
+import People from '../../pages/event/people/people'
+import Shop from '../../pages/event/store/shop'
+import Support from '../../pages/event/supportWindow'
+import Detail from '../detail'
 
-import { Body, Text } from "../../styles/style"
+import { Body, Text } from '../../styles/style'
 
 const FAB = styled.div`
-  width: 70px;
-  height: 70px;
+  width: 65px;
+  height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,55 +53,31 @@ const ConferenceTab = (props): JSX.Element => {
     <Body>
       <FAB onClick={() => openWindow(!Window)}>
         {!Window ? (
-          <FcCustomerSupport style={{ fontSize: "2.7rem" }} />
+          <FcCustomerSupport style={{ fontSize: '2.5rem' }} />
         ) : (
-          <FiX style={{ fontSize: "2rem" }} />
+          <FiX style={{ fontSize: '2rem' }} />
         )}
       </FAB>
 
       {Window && (
-        <SupportWindow>
+        <SupportWindow style={{ filter: 'grayscale(75%) blur(0.7px)' }}>
           <Support data={data} />
         </SupportWindow>
       )}
 
-      <CSSTransition
-        timeout={500}
-        in={state.activeTab === "detail"}
-        classNames={""}
-        unmountOnExit
-      >
+      <CSSTransition timeout={500} in={state.activeTab === 'detail'} classNames={''} unmountOnExit>
         <Detail data={data.event} />
       </CSSTransition>
 
-      <CSSTransition
-        timeout={500}
-        in={state.activeTab === "people"}
-        classNames={""}
-        unmountOnExit
-      >
-        <People
-          attendees={data.event}
-          data={data.event.tracks}
-          peopleData={data.event.volunteer}
-        />
+      <CSSTransition timeout={500} in={state.activeTab === 'people'} classNames={''} unmountOnExit>
+        <People attendees={data.event} data={data.event.tracks} peopleData={data.event.volunteer} />
       </CSSTransition>
 
-      <CSSTransition
-        timeout={500}
-        in={state.activeTab === "tracks"}
-        classNames={""}
-        unmountOnExit
-      >
+      <CSSTransition timeout={500} in={state.activeTab === 'tracks'} classNames={''} unmountOnExit>
         <Schedule screen="event" data={data} />
       </CSSTransition>
 
-      <CSSTransition
-        timeout={500}
-        in={state.activeTab === "shop"}
-        classNames={""}
-        unmountOnExit
-      >
+      <CSSTransition timeout={500} in={state.activeTab === 'shop'} classNames={''} unmountOnExit>
         <Shop data={data} />
       </CSSTransition>
     </Body>

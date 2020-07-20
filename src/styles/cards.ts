@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import media from "styled-media-query"
+import styled from 'styled-components'
+import media from 'styled-media-query'
 
 export const TrackCard = styled.div`
   box-shadow: 0px 1px 2px grey;
@@ -11,8 +11,8 @@ export const TrackCard = styled.div`
   transition: all 300ms;
   flex-direction: column;
   border-radius: ${props => props.borderRadius};
-  margin: ${props => (props.talk ? "0ren 1ren" : null)};
-  padding: ${props => (props.padded ? "1rem" : null)};
+  margin: ${props => (props.talk ? '0ren 1ren' : null)};
+  padding: ${props => (props.padded ? '1rem' : null)};
   img {
     height: 70px;
     width: 70px;
@@ -22,15 +22,15 @@ export const TrackCard = styled.div`
     justify-content: center;
     align-items: center;
   }
-  ${media.lessThan("huge")`
+  ${media.lessThan('huge')`
     width : 27rem;
     height : auto;
   `};
-  ${media.lessThan("large")`
+  ${media.lessThan('large')`
     width : 25rem;
     height : auto;
   `};
-  ${media.lessThan("medium")`
+  ${media.lessThan('medium')`
       width : auto;
   `};
 `
@@ -78,11 +78,11 @@ export const TalkCard = styled.div`
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
   }
-  ${media.lessThan("huge")`
+  ${media.lessThan('huge')`
      width: 27rem;
     padding: 1rem 1rem;
   `};
-  ${media.lessThan("large")`
+  ${media.lessThan('large')`
      width: 25rem;
     padding: 1rem 1rem;
   `};

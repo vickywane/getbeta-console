@@ -77,7 +77,6 @@ const Conference = (props): JSX.Element => {
                 }}
               >
                 <Text color="#0e2f5a">
-                  {' '}
                   Organized by {data.event.name} on {data.event.dateCreated}{' '}
                 </Text>
               </div>

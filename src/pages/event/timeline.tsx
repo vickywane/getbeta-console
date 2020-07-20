@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { FiX, FiClock, FiArchive } from 'react-icons/fi'
+import { FiArchive } from 'react-icons/fi'
 import { AiOutlineHistory } from 'react-icons/ai'
 
-import { Hover, Head, Title, Text, Button } from '../../styles/style'
+import { Hover, Head, Title, Text, Button, Section } from '../../styles/style'
 
 const Window = styled.div`
   width: auto;
@@ -36,60 +36,57 @@ const Line = styled.div`
 `
 
 const Timeline = props => {
-  const [Visibility, setVisibility] = useState(true)
-  const { state, dispatch } = props
+  const { dispatch } = props
 
   const { actions, dateCreated, eventType } = props.eventData
 
   return (
-    <Window show={Visibility}>
-      {Visibility && (
-        <div>
-          <Head header style={{ padding: '1.4rem 0rem 0.5rem' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <Hover style={{ padding: '0rem 0.5rem' }}>
-                <AiOutlineHistory style={{ fontSize: '1.8rem' }} />
-              </Hover>
-              <Title style={{ color: '#0e2f5a' }} small>
-                Timeline
-              </Title>
-            </div>
-          </Head>
-          <br />
-
-          <div style={{ overflow: 'auto', height: window.innerHeight - 270 }}>
-            {actions === null ? (
-              <Text center> Event created on {dateCreated} </Text>
-            ) : (
-              actions.map(name => {
-                return (
-                  <List key={Math.random()}>
-                    <div>
-                      <div
-                        style={{
-                          flexDirection: 'column',
-                          margin: '0rem 0.5rem'
-                        }}
-                      >
-                        <Circle />
-                        <Line />
-                      </div>
-                      <Text small color="#0e2f5a" style={{ padding: '0rem 0.5rem' }}>
-                        {name}{' '}
-                      </Text>
-                    </div>
-                  </List>
-                )
-              })
-            )}
+    <Window>
+      <div>
+        <Head header style={{ padding: '1.7rem 0rem 0.5rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Hover style={{ padding: '0rem 0.5rem' }}>
+              <AiOutlineHistory style={{ fontSize: '1.6rem' }} />
+            </Hover>
+            <Section style={{ color: '#0e2f5a' }} small>
+              Timeline
+            </Section>
           </div>
+        </Head>
+        <br />
+
+        <div style={{ overflow: 'auto', height: window.innerHeight - 270 }}>
+          {actions === null ? (
+            <Text center> Event created on {dateCreated} </Text>
+          ) : (
+            actions.map(name => {
+              return (
+                <List key={Math.random()}>
+                  <div>
+                    <div
+                      style={{
+                        flexDirection: 'column',
+                        margin: '0rem 0.5rem'
+                      }}
+                    >
+                      <Circle />
+                      <Line />
+                    </div>
+                    <Text small color="#0e2f5a" style={{ padding: '0rem 0.5rem' }}>
+                      {name}{' '}
+                    </Text>
+                  </div>
+                </List>
+              )
+            })
+          )}
         </div>
-      )}
+      </div>
 
       <br />
       {eventType === 'Meetup' ? null : (

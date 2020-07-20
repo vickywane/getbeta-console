@@ -1,13 +1,13 @@
-import React, { useState } from "react"
-import Flex from "styled-flex-component"
-import { Link } from "react-router-dom"
-import { CSSTransition } from "react-transition-group"
-import { FiX } from "react-icons/fi"
-import styled from "styled-components"
-import { Modal } from "react-bootstrap"
-import { FiSearch, FiPlus } from "react-icons/fi"
+import React, { useState } from 'react'
+import Flex from 'styled-flex-component'
+import { Link } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import { FiX } from 'react-icons/fi'
+import styled from 'styled-components'
+import { Modal } from 'react-bootstrap'
+import { FiSearch, FiPlus } from 'react-icons/fi'
 
-import { EventPlaceholder } from "../../components/placeholders/"
+import { EventPlaceholder } from '../../components/placeholders/'
 import {
   Bounce,
   Items,
@@ -18,11 +18,11 @@ import {
   SwitchBtn,
   Title,
   Section,
-  Hover,
-} from "../../styles/style"
+  Hover
+} from '../../styles/style'
 
-import EventCard from "../../components/cards/EventCard"
-import CreateEventModal from "../forms/create-event-modal"
+import EventCard from '../../components/cards/EventCard'
+import CreateEventModal from '../forms/create-event-modal'
 
 const Hov = styled(Hover)`
   width: 40px;
@@ -46,7 +46,7 @@ const Organizing = (props): JSX.Element => {
     <div>
       <Modal
         show={Visibility}
-        style={{ marginTop: "2rem" }}
+        style={{ marginTop: '2rem' }}
         onHide={() => {
           setVisibility(false)
         }}
@@ -55,17 +55,15 @@ const Organizing = (props): JSX.Element => {
         <div>
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "0.5rem 2rem",
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '0.5rem 2rem'
             }}
           >
-            <Section style={{ marginTop: "10px", color: "#22263d" }}>
-              Launch New Event
-            </Section>
+            <Section style={{ marginTop: '10px', color: '#22263d' }}>Launch New Event</Section>
 
             <Hov onClick={() => setVisibility(false)}>
-              <FiX style={{ fontSize: "1.8rem" }} />
+              <FiX style={{ fontSize: '1.8rem' }} />
             </Hov>
           </div>
           <hr />
@@ -75,9 +73,9 @@ const Organizing = (props): JSX.Element => {
 
       <CSSTransition
         timeout={400}
-        classNames={"slider"}
+        classNames={'slider'}
         unmountOnExit
-        in={activeSection === "organized"}
+        in={activeSection === 'organized'}
         onEnter={() => {}}
       >
         <div>
@@ -87,20 +85,20 @@ const Organizing = (props): JSX.Element => {
             {width >= 1000 ? (
               <Button onClick={() => setVisibility(true)}>
                 <Flex>
-                  <div style={{ paddingRight: "15px" }}>
-                    <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
-                  </div>{" "}
-                  Create Event{" "}
+                  <div style={{ paddingRight: '15px' }}>
+                    <FiPlus style={{ fontSize: '1.55rem' }} />{' '}
+                  </div>{' '}
+                  Create Event{' '}
                 </Flex>
               </Button>
             ) : (
-              <Link to="/create">
+              <Link to="/create/all">
                 <Button>
                   <Flex>
-                    <div style={{ paddingRight: "15px" }}>
-                      <FiPlus style={{ fontSize: "1.55rem" }} />{" "}
-                    </div>{" "}
-                    Create Event{" "}
+                    <div style={{ paddingRight: '15px' }}>
+                      <FiPlus style={{ fontSize: '1.55rem' }} />{' '}
+                    </div>{' '}
+                    Create Event{' '}
                   </Flex>
                 </Button>
               </Link>
@@ -123,7 +121,7 @@ const Organizing = (props): JSX.Element => {
                   isVirtual,
                   createdBy,
                   venue,
-                  meetupGroups,
+                  meetupGroups
                 }) => {
                   return (
                     <Bounce>
@@ -135,9 +133,7 @@ const Organizing = (props): JSX.Element => {
                         createdBy={createdBy}
                         created={dateCreated}
                         isVirtual={isVirtual}
-                        meetupGroups={
-                          meetupGroups === null ? 0 : meetupGroups.length
-                        }
+                        meetupGroups={meetupGroups === null ? 0 : meetupGroups.length}
                         venue={venue}
                         location={true}
                         summary={summary}
