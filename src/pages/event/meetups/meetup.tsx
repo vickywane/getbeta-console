@@ -13,7 +13,7 @@ import Developer from '../../developer/event/api'
 import MeetupTabComponents from '../meetupTabComponents'
 import { Contain, Text } from '../../../styles/style'
 
-import { AccessModal } from '../../../components/modals/'
+import Configuration from '../configuration/main'
 import { ArchivedEvent } from '../../../components/placeholders/'
 import AttendPane from '../../../components/panes/attend.pane'
 import useWindowWidth from '../../../hook_style'
@@ -134,7 +134,7 @@ const Meetup = (props): JSX.Element => {
             unmountOnExit
             in={state.activeTab === 'event-settings'}
           >
-            <AccessModal data={data.event} />
+            <Configuration data={data.event} />
           </CSSTransition>
 
           <CSSTransition

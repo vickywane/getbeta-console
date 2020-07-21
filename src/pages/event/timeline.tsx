@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiArchive } from 'react-icons/fi'
+import { FiArchive, FiX } from 'react-icons/fi'
 import { AiOutlineHistory } from 'react-icons/ai'
 
-import { Hover, Head, Title, Text, Button, Section } from '../../styles/style'
+import { Hover, Head, Text, Button, Section } from '../../styles/style'
 
 const Window = styled.div`
   width: auto;
@@ -44,19 +44,18 @@ const Timeline = props => {
     <Window>
       <div>
         <Head header style={{ padding: '1.7rem 0rem 0.5rem' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
-            <Hover style={{ padding: '0rem 0.5rem' }}>
-              <AiOutlineHistory style={{ fontSize: '1.6rem' }} />
+          <div style={{ display: 'flex' }}>
+            <Hover style={{ nargin: '0rem 0.6rem' }}>
+              <AiOutlineHistory style={{ fontSize: '1.7rem' }} />
             </Hover>
             <Section style={{ color: '#0e2f5a' }} small>
               Timeline
             </Section>
           </div>
+
+          <Hover onClick={() => dispatch({ type: 'CLOSE_TIMELINE' })}>
+            <FiX />
+          </Hover>
         </Head>
         <br />
 

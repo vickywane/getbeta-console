@@ -23,10 +23,18 @@ import Conference from './conference/conference'
 import Meetup from './meetups/meetup'
 
 // make grids responsive
-const EventGrid = styled.div`
+
+const Event = (props): JSX.Element => {
+  // naming conflicts coming up here
+  const [staate, dispaatch] = React.useReducer(TabReducer, TabState)
+  const [state, dispatch] = React.useReducer(AdminTabReducer, AdminTabState)
+  const { authenticated } = props.AuthStore
+
+  const EventGrid = styled.div`
   display: grid;
   grid-gap: 0rem;
-  grid-template-columns: ${props => (props.permission ? '17rem auto 21rem' : 'auto 23rem')} ;
+  grid-template-columns: ${props =>
+    props.permission && state.showTimeline ? '17rem auto 21rem' : 'auto 23rem'} ;
   transition  : all 300ms;
   ${media.lessThan('huge')`
       grid-template-columns: ${props => (props.permission ? '16rem auto' : '78% auto')};
@@ -38,12 +46,6 @@ const EventGrid = styled.div`
   grid-template-columns: 100%;
 `}
 `
-
-const Event = (props): JSX.Element => {
-  // naming conflicts coming up here
-  const [staate, dispaatch] = React.useReducer(TabReducer, TabState)
-  const [state, dispatch] = React.useReducer(AdminTabReducer, AdminTabState)
-  const { authenticated } = props.AuthStore
 
   const Hooks = useWindowWidth()
   const EventType = props.match.params.eventType
@@ -171,7 +173,9 @@ const Event = (props): JSX.Element => {
             />
           )}
 
-          {Hooks >= 1500 && <Timeline state={state} dispatch={dispatch} eventData={data.event} />}
+          {Hooks >= 1500 && state.showTimeline && (
+            <Timeline state={state} dispatch={dispatch} eventData={data.event} />
+          )}
         </EventGrid>
       </div>
     )

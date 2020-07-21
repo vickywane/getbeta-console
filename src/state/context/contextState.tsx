@@ -20,8 +20,9 @@ const PeopleTabState = {
 
 const AdminTabState = {
   id: 1,
-  activeTab: 'dashboard',
-  active: false
+  activeTab: 'event-settings',
+  active: false,
+  showTimeline: true
 }
 
 const PeopleTabContext = React.createContext(PeopleTabState)

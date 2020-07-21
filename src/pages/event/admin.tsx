@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FiEdit, FiShoppingCart, FiBook } from 'react-icons/fi'
+import { FiEdit, FiShoppingCart, FiSettings as IoMdConstruct } from 'react-icons/fi'
 import {
   IoIosBug,
   IoMdMail,
@@ -8,29 +8,18 @@ import {
   IoIosHome,
   IoIosCode,
   IoIosPeople,
-  IoMdConstruct
+  IoIosCog
 } from 'react-icons/io'
 
 import { GrSchedules } from 'react-icons/gr'
 
 import media from 'styled-media-query'
 
-import { Hover, Title, Text, Section } from '../../styles/style'
-
 const Window = styled.div`
   width: auto;
   height: ${window.innerHeight};
   background: #fbfbfb;
   border-right: 0.3px solid #c0c0c0;
-`
-
-const Head = styled.div`
-  padding: 1.2rem 0.5rem;
-  display: flex;
-  box-shadow: 0px 1px 3px grey;
-  justify-content: center;
-  h5 {
-  }
 `
 
 const List = styled.li`
@@ -125,18 +114,6 @@ const Admin = props => {
           </Tab>
 
           <Tab
-            onClick={() => {
-              dispatch({ type: 'SWITCH_EVENT_SETTINGS' })
-            }}
-            active={state.activeTab === 'access'}
-          >
-            <T style={{ padding: '0rem 1rem' }}>
-              <IoMdConstruct style={{ fontSize: '1.7rem' }} />
-              {Width <= 1200 ? <Info>Event Actions</Info> : null}
-            </T>
-            {Width >= 1200 ? 'Event Actions ' : null}
-          </Tab>
-          <Tab
             onClick={() => dispatch({ type: 'SWITCH_MOBILE' })}
             active={state.activeTab === 'mobile'}
           >
@@ -186,15 +163,27 @@ const Admin = props => {
           >
             <T style={{ padding: '0rem 1rem' }}>
               <FiShoppingCart style={{ fontSize: '1.8rem' }} />
-              {Width <= 1200 ? <Info>Store</Info> : null}
+              {Width <= 1200 ? <Info>Marketplace</Info> : null}
             </T>
-            {Width >= 1200 ? 'Event Store' : null}
+            {Width >= 1200 ? 'Marketplace' : null}
           </Tab>
           <br />
           <br />
           <br />
 
           <br />
+          <Tab
+            onClick={() => {
+              dispatch({ type: 'SWITCH_EVENT_SETTINGS' })
+            }}
+            active={state.activeTab === 'access'}
+          >
+            <T style={{ padding: '0rem 1rem' }}>
+              <IoMdConstruct style={{ fontSize: '1.7rem' }} />
+              {Width <= 1200 ? <Info>Event Actions</Info> : null}
+            </T>
+            {Width >= 1200 ? 'Configuration ' : null}
+          </Tab>
           <Tab
             onClick={() => {
               dispatch({ type: 'SWITCH_DEVELOPER' })

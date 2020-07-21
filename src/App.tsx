@@ -27,8 +27,7 @@ import {
   Stream,
   Reminders,
   TaskForm,
-  TeamForm,
-  Schedule
+  TeamForm
 } from './pages/'
 import Protected from './pages/auth/protectedRoute'
 import { ResolutionError } from './components/'

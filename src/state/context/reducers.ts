@@ -37,6 +37,12 @@ export const PeopleTabReducer = (state: any, action: any) => {
 
 export const AdminTabReducer = (state: any, action: any) => {
   switch (action.type) {
+    case 'OPEN_TIMELINE':
+      return { ...state, showTimeline: true }
+      break
+    case 'CLOSE_TIMELINE':
+      return { ...state, showTimeline: false }
+      break
     case 'SWITCH_DASHBOARD':
       return { ...state, active: true, activeTab: 'dashboard' }
       break

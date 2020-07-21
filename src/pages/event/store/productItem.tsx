@@ -21,7 +21,7 @@ const List = styled.li`
 `
 
 const CartCard = styled.div`
-  height: 30vh;
+  height: 35vh;
   border-radius: 5px;
   max-width: 24rem;
   box-shadow: 0px 3px 4px #c0c0c0;

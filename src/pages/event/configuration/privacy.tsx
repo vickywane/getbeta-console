@@ -3,17 +3,46 @@ import Flex from 'styled-flex-component'
 import { useMutation } from '@apollo/react-hooks'
 import styled from 'styled-components'
 import { FiMoreHorizontal } from 'react-icons/fi'
+import { IoIosSearch, IoIosArrowUp } from 'react-icons/io'
+import { CSSTransition } from 'react-transition-group'
 
-import { UPDATE_EVENT_SETTINGS } from '../../data/mutations'
-import { Hover, Title, Text, Section, Head, Body as Bod } from '../../styles/style'
-import { Switch, Tip } from '../../components/'
+import { UPDATE_EVENT_SETTINGS } from '../../../data/mutations'
+import {
+  Hover,
+  Title,
+  Text,
+  Section,
+  Head,
+  Body as Bod,
+  Button,
+  TabColumn,
+  Tab
+} from '../../../styles/style'
+import { Switch, Tip } from '../../../components'
 
 const Body = styled(Bod)`
   padding: 0.5rem 1.5rem;
 `
 
-const Access = props => {
-  const { accessModal, closeAccessModal, data } = props
+const HoverCircle = styled(Hover)`
+  width: 45px;
+  height: 40px;
+  transition: all 300ms;
+  display: flex;
+  justify-content: center;
+  color: #0e2f5a;
+  align-items: center;
+  border-radius: 5px;
+  &: hover {
+    background: #0e2f5a;
+    color: #fff;
+  }
+`
+
+const Privacy = props => {
+  const { data } = props
+  const [ActiveColumn, setActiveColumn] = useState<String>('Event Actions')
+
   const [HideActive, setHideActive] = useState<boolean>(false)
   const [LockActive, setLockActive] = useState<boolean>(false)
   const [VolunteerAcessActive, setVolunteerTab] = useState<boolean>(false)
@@ -99,11 +128,6 @@ const Access = props => {
 
   return (
     <div>
-      <Head header>
-        <Section> Event Actions </Section>
-      </Head>
-      <br />
-
       {Tips && (
         <Tip
           message={TipMessage}
@@ -147,27 +171,7 @@ const Access = props => {
       </Body>
 
       <Body>
-        <Title small> Attendees and Volunteers </Title>
-        <hr />
-
-        <Flex justifyBetween>
-          <div
-            style={{
-              padding: '0rem 0.3rem',
-              display: 'flex'
-            }}
-          >
-            <Text small style={{ padding: '0rem 0.5rem' }}>
-              Hide list of volunteers and attendees tab.
-            </Text>
-          </div>
-
-          <Switch color={'#120B6A'} handleClick={switchClick} name="hide-tab" />
-        </Flex>
-      </Body>
-
-      <Body>
-        <Title small> Mobile Event Lock </Title>
+        <Title small> Event Marketplace </Title>
         <hr />
 
         <Flex justifyBetween>
@@ -189,47 +193,8 @@ const Access = props => {
           />
         </Flex>
       </Body>
-
-      <Body>
-        <Title small> Actions </Title>
-        <hr />
-
-        <Flex justifyBetween>
-          <div
-            style={{
-              padding: '0rem 0.3rem'
-            }}
-          >
-            <Text style={{ padding: '0rem 0.5rem' }} small>
-              Archive Event. Suspend your event until a later time.
-            </Text>
-          </div>
-          <Switch
-            initialState={isArchived}
-            color={'#120B6A'}
-            handleClick={switchClick}
-            name="archive-event"
-          />
-        </Flex>
-
-        <Flex justifyBetween>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div
-              style={{
-                padding: '0rem 0.3rem'
-              }}
-            >
-              <Text style={{ padding: '0rem 0.5rem' }} small>
-                Delete Your Event. We advise you archive your event and pull out of archive later!
-              </Text>
-            </div>
-          </div>
-
-          <Switch color={'red'} handleClick={switchClick} name="delete-event" />
-        </Flex>
-      </Body>
     </div>
   )
 }
 
-export default Access
+export default Privacy

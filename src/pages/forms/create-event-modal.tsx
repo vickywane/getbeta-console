@@ -8,16 +8,17 @@ import { Text, Title } from '../../styles/style'
 
 const Box = styled.div`
   width: 25rem;
-  height: 28vh;
+  height: auto;
   background: ${props => props.background};
   border: 3px dashed #22263d;
   border-radius: 7px;
+  padding: 1rem 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 300ms;
   &: hover {
-    box-shadow: 0px 2px 4px solid grey;
+    box-shadow: 0px 2px 4px grey;
   }
   ${media.lessThan('huge')`
 
