@@ -34,7 +34,7 @@ const Event = (props): JSX.Element => {
   display: grid;
   grid-gap: 0rem;
   grid-template-columns: ${props =>
-    props.permission && state.showTimeline ? '17rem auto 21rem' : 'auto 23rem'} ;
+    props.permission && state.showTimeline ? '18rem auto 21rem' : 'auto 23rem'} ;
   transition  : all 300ms;
   ${media.lessThan('huge')`
       grid-template-columns: ${props => (props.permission ? '16rem auto' : '78% auto')};

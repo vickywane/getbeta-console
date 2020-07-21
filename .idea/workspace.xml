@@ -33,22 +33,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
-      <change afterPath="$PROJECT_DIR$/src/pages/event/configuration/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/accessModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/configuration/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modals/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/access/acess.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/admin.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/configuration/authorization.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/configuration/authorization.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/configuration/billing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/configuration/billing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/configuration/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/configuration/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/configuration/privacy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/configuration/privacy.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/meetups/meetup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/meetups/meetup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/productItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/store/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/store.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/timeline.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/create-event-modal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/state/context/contextState.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/context/contextState.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/state/context/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/context/reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/cards.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/cards.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -266,14 +262,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="14" y="256" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1593697340328" />
-    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup" timestamp="1595305930491">
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup" timestamp="1595326714410">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="382" y="161" width="672" height="604" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1595273737673" />
     <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1595278792157" />
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
-    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595305930491" />
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595326714410" />
     <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595108948789" />
   </component>
   <component name="XDebuggerManager">

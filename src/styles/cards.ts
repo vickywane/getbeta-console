@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 export const TrackCard = styled.div`
-  box-shadow: 0px 1px 2px grey;
+  box-shadow: 0px 1px 2px #c0c0c0;
   width: 32rem;
   background: ${props => props.color};
   display: flex;
@@ -45,7 +45,7 @@ export const Profile = styled.div`
   color: #000;
   border-radius: 7px;
   margin-top: 4rem;
-  box-shadow: 0px 2px 3px grey;
+  box-shadow: 0px 2px 3px #c0c0c0;
   padding: 0.5em 0.5rem;
   align-items: center;
   justify-content: center;
@@ -62,7 +62,7 @@ export const Profile = styled.div`
 
 export const TalkCard = styled.div`
   background-image: url(${props => props.img});
-  border: 1px solid grey;
+  border: 1px solid #c0c0c0;
   width: 30rem;
   cursor: move;
   cursor: grab;
@@ -86,4 +86,11 @@ export const TalkCard = styled.div`
      width: 25rem;
     padding: 1rem 1rem;
   `};
+`
+
+export const StatsCard = styled.div`
+  background: #fff;
+  box-shadow: 0px 3px 4px #c0c0c0;
+  border-radius: 5px;
+  padding: 0.4rem 0.4rem;
 `

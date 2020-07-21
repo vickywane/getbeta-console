@@ -5,17 +5,7 @@ import styled from 'styled-components'
 import { FiMoreHorizontal } from 'react-icons/fi'
 
 import { UPDATE_EVENT_SETTINGS } from '../../../data/mutations'
-import {
-  Hover,
-  Title,
-  Text,
-  Section,
-  Head,
-  Body as Bod,
-  Button,
-  TabColumn,
-  Tab
-} from '../../../styles/style'
+import { Hover, Title, Text, Body as Bod } from '../../../styles/style'
 import { Switch, Tip } from '../../../components'
 
 const Body = styled(Bod)`
@@ -39,7 +29,6 @@ const HoverCircle = styled(Hover)`
 
 const Authorization = props => {
   const { data } = props
-  const [ActiveColumn, setActiveColumn] = useState<String>('Event Actions')
 
   const [HideActive, setHideActive] = useState<boolean>(false)
   const [LockActive, setLockActive] = useState<boolean>(false)
@@ -135,7 +124,7 @@ const Authorization = props => {
       )}
 
       <Body>
-        <Title small> Community Involvement </Title>
+        <Title small> Event Authorization</Title>
         <hr />
         <Flex justifyBetween>
           <Text small style={{ padding: '0rem 0.5rem' }}>
@@ -144,11 +133,7 @@ const Authorization = props => {
 
           <Switch color={'#120B6A'} handleClick={switchClick} name="accept-attendees" />
         </Flex>
-      </Body>
-
-      <Body>
-        <Title small> Event Console Access </Title>
-        <hr />
+        <br />
         <Flex justifyBetween>
           <Text small style={{ padding: '0rem 0.5rem' }}>
             Grant Console Access to volunteers
@@ -156,7 +141,7 @@ const Authorization = props => {
 
           <Switch color={'#120B6A'} handleClick={switchClick} name="access" />
         </Flex>
-
+        <br />
         <Flex justifyBetween>
           <Text small style={{ padding: '0rem 0.5rem' }}>
             Grant Console Access
@@ -165,30 +150,6 @@ const Authorization = props => {
           <Text small style={{ cursor: 'pointer', color: 'blue' }}>
             Grant Permission
           </Text>
-        </Flex>
-      </Body>
-
-      <Body>
-        <Title small> Event Marketplace </Title>
-        <hr />
-
-        <Flex justifyBetween>
-          <div
-            style={{
-              padding: '0rem 0.3rem',
-              display: 'flex'
-            }}
-          >
-            <Text style={{ padding: '0rem 0.5rem' }} small>
-              Lock event details on mobile device until event date.
-            </Text>
-          </div>
-          <Switch
-            initialState={isLocked}
-            color={'#120B6A'}
-            handleClick={switchClick}
-            name="lock-event"
-          />
         </Flex>
       </Body>
     </div>

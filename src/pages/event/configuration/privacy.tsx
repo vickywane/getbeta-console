@@ -3,21 +3,9 @@ import Flex from 'styled-flex-component'
 import { useMutation } from '@apollo/react-hooks'
 import styled from 'styled-components'
 import { FiMoreHorizontal } from 'react-icons/fi'
-import { IoIosSearch, IoIosArrowUp } from 'react-icons/io'
-import { CSSTransition } from 'react-transition-group'
 
 import { UPDATE_EVENT_SETTINGS } from '../../../data/mutations'
-import {
-  Hover,
-  Title,
-  Text,
-  Section,
-  Head,
-  Body as Bod,
-  Button,
-  TabColumn,
-  Tab
-} from '../../../styles/style'
+import { Hover, Title, Text, Body as Bod } from '../../../styles/style'
 import { Switch, Tip } from '../../../components'
 
 const Body = styled(Bod)`
@@ -41,7 +29,6 @@ const HoverCircle = styled(Hover)`
 
 const Privacy = props => {
   const { data } = props
-  const [ActiveColumn, setActiveColumn] = useState<String>('Event Actions')
 
   const [HideActive, setHideActive] = useState<boolean>(false)
   const [LockActive, setLockActive] = useState<boolean>(false)
@@ -137,7 +124,7 @@ const Privacy = props => {
       )}
 
       <Body>
-        <Title small> Community Involvement </Title>
+        <Title small> Event Privacy </Title>
         <hr />
         <Flex justifyBetween>
           <Text small style={{ padding: '0rem 0.5rem' }}>
@@ -145,52 +132,6 @@ const Privacy = props => {
           </Text>
 
           <Switch color={'#120B6A'} handleClick={switchClick} name="accept-attendees" />
-        </Flex>
-      </Body>
-
-      <Body>
-        <Title small> Event Console Access </Title>
-        <hr />
-        <Flex justifyBetween>
-          <Text small style={{ padding: '0rem 0.5rem' }}>
-            Grant Console Access to volunteers
-          </Text>
-
-          <Switch color={'#120B6A'} handleClick={switchClick} name="access" />
-        </Flex>
-
-        <Flex justifyBetween>
-          <Text small style={{ padding: '0rem 0.5rem' }}>
-            Grant Console Access
-          </Text>
-
-          <Text small style={{ cursor: 'pointer', color: 'blue' }}>
-            Grant Permission
-          </Text>
-        </Flex>
-      </Body>
-
-      <Body>
-        <Title small> Event Marketplace </Title>
-        <hr />
-
-        <Flex justifyBetween>
-          <div
-            style={{
-              padding: '0rem 0.3rem',
-              display: 'flex'
-            }}
-          >
-            <Text style={{ padding: '0rem 0.5rem' }} small>
-              Lock event details on mobile device until event date.
-            </Text>
-          </div>
-          <Switch
-            initialState={isLocked}
-            color={'#120B6A'}
-            handleClick={switchClick}
-            name="lock-event"
-          />
         </Flex>
       </Body>
     </div>

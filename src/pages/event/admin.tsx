@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FiEdit, FiShoppingCart, FiSettings as IoMdConstruct } from 'react-icons/fi'
+import { FiEdit, FiChevronRight, FiShoppingCart, FiSettings as IoMdConstruct } from 'react-icons/fi'
 import {
   IoIosBug,
   IoMdMail,
@@ -8,7 +8,7 @@ import {
   IoIosHome,
   IoIosCode,
   IoIosPeople,
-  IoIosCog
+  IoIosTrendingUp
 } from 'react-icons/io'
 
 import { GrSchedules } from 'react-icons/gr'
@@ -87,6 +87,23 @@ const Admin = props => {
         <br />
 
         <List>
+          <Tab
+            onClick={() => dispatch({ type: 'SWITCH_STATS' })}
+            active={state.activeTab === 'stats'}
+          >
+            <T style={{ padding: '0rem 0.7rem' }}>
+              <IoIosTrendingUp style={{ fontSize: '1.7rem' }} />
+
+              {Width <= 1200 ? <Info>Event Statistics</Info> : null}
+            </T>
+            {Width >= 1200 ? 'Event Statistics' : null}
+
+            {state.activeTab === 'stats' && Width >= 1200 && (
+              <FiChevronRight style={{ fontSize: '1.7rem' }} />
+            )}
+          </Tab>
+
+          <br />
           <Tab
             onClick={() => dispatch({ type: 'SWITCH_DASHBOARD' })}
             active={state.activeTab === 'dashboard'}

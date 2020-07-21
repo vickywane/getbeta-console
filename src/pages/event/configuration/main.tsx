@@ -4,18 +4,8 @@ import { IoIosSearch } from 'react-icons/io'
 import { CSSTransition } from 'react-transition-group'
 
 import { Actions, Privacy, Billing, Notification } from './'
-import { UPDATE_EVENT_SETTINGS } from '../../../data/mutations'
-import {
-  Hover,
-  Title,
-  Text,
-  Section,
-  Head,
-  Body as Bod,
-  Button,
-  TabColumn,
-  Tab
-} from '../../../styles/style'
+import { Section, Head, Body as Bod, TabColumn, Tab } from '../../../styles/style'
+import Authorization from './authorization'
 
 const Body = styled(Bod)`
   padding: 0.5rem 1.5rem;
@@ -71,15 +61,7 @@ const Main: any = props => {
         </SettingsBox>
       </Head>
 
-      <Body style={{ height: '25vh', background: '#fbfbfb' }}>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <Button> Delete Event </Button>
+      <Body style={{ marginBottom: '15px', height: '7vh', background: '#fbfbfb' }}>
         <div style={{ height: '60px', width: '100%' }}>
           <Tab>
             <TabColumn
@@ -136,43 +118,28 @@ const Main: any = props => {
             >
               Authorization
             </TabColumn>
-            <TabColumn
-              onClick={() => {
-                setActiveColumn('Authorization')
-              }}
-              small
-              active={ActiveColumn === 'Authorization'}
-            >
-              Media
-            </TabColumn>
           </Tab>
         </div>
       </Body>
 
-      <br />
-      <Body>
-        <CSSTransition in={ActiveColumn === 'Event Actions'} timeout={300} unmountOnExit>
-          <Actions data={data} />
-        </CSSTransition>
-      </Body>
+      <CSSTransition in={ActiveColumn === 'Event Actions'} timeout={300} unmountOnExit>
+        <Actions data={data} />
+      </CSSTransition>
 
-      <Body>
-        <CSSTransition in={ActiveColumn === 'Notifications'} timeout={300} unmountOnExit>
-          <Notification data={data} />
-        </CSSTransition>
-      </Body>
+      <CSSTransition in={ActiveColumn === 'Notifications'} timeout={300} unmountOnExit>
+        <Notification data={data} />
+      </CSSTransition>
 
-      <Body>
-        <CSSTransition in={ActiveColumn === 'Privacy'} timeout={300} unmountOnExit>
-          <Privacy data={data} />
-        </CSSTransition>
-      </Body>
+      <CSSTransition in={ActiveColumn === 'Privacy'} timeout={300} unmountOnExit>
+        <Privacy data={data} />
+      </CSSTransition>
 
-      <Body>
-        <CSSTransition in={ActiveColumn === 'Billings'} timeout={300} unmountOnExit>
-          <Billing data={data} />
-        </CSSTransition>
-      </Body>
+      <CSSTransition in={ActiveColumn === 'Billings'} timeout={300} unmountOnExit>
+        <Billing data={data} />
+      </CSSTransition>
+      <CSSTransition in={ActiveColumn === 'Authorization'} timeout={300} unmountOnExit>
+        <Authorization data={data} />
+      </CSSTransition>
     </div>
   )
 }

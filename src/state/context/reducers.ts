@@ -14,6 +14,8 @@ export const TabReducer = (state: any, action: any) => {
       return { ...state, active: true, activeTab: 'shop' }
     case 'SWITCH_GALLERY':
       return { ...state, active: true }
+    case 'SWITCH_STATS':
+      return { ...state, active: true, activeTab: 'stats' }
     default:
       break
   }

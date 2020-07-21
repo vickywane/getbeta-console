@@ -20,7 +20,7 @@ const PeopleTabState = {
 
 const AdminTabState = {
   id: 1,
-  activeTab: 'event-settings',
+  activeTab: 'stats',
   active: false,
   showTimeline: true
 }

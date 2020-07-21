@@ -25,6 +25,7 @@ import EventDetails from '../eventdetails'
 import Store from '../store/store'
 import Mobile from '../../mobile/mobile'
 import '../../../App.css'
+import EventStatistics from '../stats'
 
 const Conference = (props): JSX.Element => {
   const { Hooks, data, EventType, permission, state, staate, dispaatch } = props
@@ -41,6 +42,15 @@ const Conference = (props): JSX.Element => {
     <TabContext.Provider value={TabState}>
       <div style={{ height: window.innerHeight - 90, overflow: 'auto' }}>
         <AdminContext.Provider value={AdminTabState}>
+          <CSSTransition
+            timeout={300}
+            className={''}
+            unmountOnExit
+            in={state.activeTab === 'stats'}
+          >
+            <EventStatistics />
+          </CSSTransition>
+
           <CSSTransition
             timeout={300}
             className={''}
@@ -82,6 +92,7 @@ const Conference = (props): JSX.Element => {
               </div>
             </div>
           </CSSTransition>
+
           <CSSTransition
             timeout={300}
             className={''}
