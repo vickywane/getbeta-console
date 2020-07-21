@@ -34,7 +34,7 @@ const Event = (props): JSX.Element => {
   display: grid;
   grid-gap: 0rem;
   grid-template-columns: ${props =>
-    props.permission && state.showTimeline ? '18rem auto 21rem' : 'auto 23rem'} ;
+    props.permission && state.showTimeline ? '18rem auto' : 'auto 23rem'} ;
   transition  : all 300ms;
   ${media.lessThan('huge')`
       grid-template-columns: ${props => (props.permission ? '16rem auto' : '78% auto')};
@@ -157,9 +157,11 @@ const Event = (props): JSX.Element => {
             <Conference
               state={state}
               dispaatch={dispaatch}
+              dispatch={dispatch}
               staate={staate}
               permission={permission}
               data={data}
+              Width={Hooks}
               EventType={EventType}
             />
           ) : (
@@ -171,10 +173,6 @@ const Event = (props): JSX.Element => {
               data={data}
               EventType={EventType}
             />
-          )}
-
-          {Hooks >= 1500 && state.showTimeline && (
-            <Timeline state={state} dispatch={dispatch} eventData={data.event} />
           )}
         </EventGrid>
       </div>

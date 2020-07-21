@@ -61,6 +61,7 @@ const StoreDetails = (props): JSX.Element => {
             Skip{' '}
           </Text>
         </div>
+        <br />
         <div style={{ textAlign: 'center' }}>
           <img
             style={{ maxWidth: '15%' }}
@@ -80,7 +81,7 @@ const StoreDetails = (props): JSX.Element => {
         <CSSTransition timeout={300} unmountOnExit in={Step === 'first'}>
           <div>
             <div style={{ textAlign: 'center' }}>
-              <Button onClick={() => setStep('Second')}> Setup Marketplace Payment Gateway </Button>
+              <Button onClick={() => setStep('Second')}> Setup Event Marketplace </Button>
             </div>
             <br />
             <br />

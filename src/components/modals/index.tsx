@@ -1,6 +1,5 @@
 export { default as Checklist } from './checklist'
 export { default as Contact } from './contact.event'
-export { default as PreferenceModal } from './preference.modal'
 export { default as TeamModal } from './createTeam'
 export { default as CreateTaskModal } from './createTaskModal'
 export { default as TaskDetailModal } from './TaskDetailModal'

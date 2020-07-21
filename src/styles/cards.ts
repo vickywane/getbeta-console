@@ -91,6 +91,18 @@ export const TalkCard = styled.div`
 export const StatsCard = styled.div`
   background: #fff;
   box-shadow: 0px 3px 4px #c0c0c0;
-  border-radius: 5px;
-  padding: 0.4rem 0.4rem;
+  border-radius: 3px;
+  padding: 0.2rem 0.4rem;
+`
+
+export const StatsCardHead = styled.div`
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  :active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
 `

@@ -25,12 +25,12 @@ const Container = styled.div`
     background-image: url(${props => props.img});
     background-size : cover;
     width : 100%;
-    height: 42vh;
+    height: 45vh;
     position: relative;
     span {
       color: #fff
       bottom : 0;
-      padding: 1rem 2rem;
+      padding: 0rem 2rem;
       width : 100%;
       height: 45vh;
       position: absolute;
@@ -204,12 +204,6 @@ const EventDetails = (props): JSX.Element => {
               {meetupGroupLength > 1 ? 'Global' : venue}
             </Text>
           </Flex>
-
-          {permission && (
-            <HoverCircle onClick={() => openEventLaunch()}>
-              <IoMdRocket style={{ fontSize: '1.8rem' }} />
-            </HoverCircle>
-          )}
 
           {eventType === 'Meetup' ? (
             meetupGroupLength > 1 ? null : (

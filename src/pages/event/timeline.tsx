@@ -45,7 +45,7 @@ const Timeline = props => {
       <div>
         <Head header style={{ padding: '1.7rem 0rem 0.5rem' }}>
           <div style={{ display: 'flex' }}>
-            <Hover style={{ nargin: '0rem 0.6rem' }}>
+            <Hover style={{ margin: '0rem 0.6rem' }}>
               <AiOutlineHistory style={{ fontSize: '1.7rem' }} />
             </Hover>
             <Section style={{ color: '#0e2f5a' }} small>

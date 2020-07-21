@@ -26,9 +26,10 @@ import Store from '../store/store'
 import Mobile from '../../mobile/mobile'
 import '../../../App.css'
 import EventStatistics from '../stats'
+import Timeline from '../timeline'
 
 const Conference = (props): JSX.Element => {
-  const { Hooks, data, EventType, permission, state, staate, dispaatch } = props
+  const { Width, data, EventType, permission, state, staate, dispatch, dispaatch } = props
 
   const { openContactModal, openEditModal } = props.ModalStore
 
@@ -48,7 +49,7 @@ const Conference = (props): JSX.Element => {
             unmountOnExit
             in={state.activeTab === 'stats'}
           >
-            <EventStatistics />
+            <EventStatistics state={state} dispatch={dispatch} data={data.event} />
           </CSSTransition>
 
           <CSSTransition
@@ -57,39 +58,54 @@ const Conference = (props): JSX.Element => {
             unmountOnExit
             in={state.activeTab === 'dashboard'}
           >
-            <div style={{ overflow: 'hidden' }}>
-              <AttendPane permission={permission} event={data.event} />
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'auto 23rem'
+              }}
+            >
+              <div style={{ overflow: 'hidden' }}>
+                <AttendPane permission={permission} event={data.event} />
 
-              <EventDetails
-                state={staate}
-                permission={permission}
-                data={data}
-                dispatch={dispaatch}
-                eventType={EventType}
-                currentWindowSize={Hooks}
-                openEditModal={openEditModal}
-              />
-              <Contain grey bottomShadow>
-                <EventTabs data={data} eventType={EventType} state={staate} dispatch={dispaatch} />
-              </Contain>
+                <EventDetails
+                  state={staate}
+                  permission={permission}
+                  data={data}
+                  dispatch={dispaatch}
+                  eventType={EventType}
+                  currentWindowSize={Width}
+                  openEditModal={openEditModal}
+                />
+                <Contain grey bottomShadow>
+                  <EventTabs
+                    data={data}
+                    eventType={EventType}
+                    state={staate}
+                    dispatch={dispaatch}
+                  />
+                </Contain>
 
-              <ConferenceTab openContact={openContactModal} state={staate} data={data} />
-
-              <div
-                style={{
-                  paddingTop: '10px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '50px',
-                  width: 'auto',
-                  background: '#c0c0c0'
-                }}
-              >
-                <Text color="#0e2f5a">
-                  Organized by {data.event.name} on {data.event.dateCreated}{' '}
-                </Text>
+                <ConferenceTab openContact={openContactModal} state={staate} data={data} />
+                <div
+                  style={{
+                    paddingTop: '10px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '50px',
+                    width: 'auto',
+                    background: '#c0c0c0'
+                  }}
+                >
+                  <Text color="#0e2f5a">
+                    Organized by {data.event.name} on {data.event.dateCreated}{' '}
+                  </Text>
+                </div>
               </div>
+
+              {Width >= 1500 && state.showTimeline && (
+                <Timeline state={state} dispatch={dispatch} eventData={data.event} />
+              )}
             </div>
           </CSSTransition>
 
