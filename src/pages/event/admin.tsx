@@ -8,6 +8,7 @@ import {
   IoIosHome,
   IoIosCode,
   IoIosPeople,
+  IoIosChatboxes,
   IoIosTrendingUp
 } from 'react-icons/io'
 
@@ -76,6 +77,14 @@ const T = styled.div`
       visibility: visible;
     }
   }
+`
+
+const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  position: -webkit-sticky;
+  bottom: 0.5rem;
 `
 
 const Admin = props => {
@@ -184,49 +193,46 @@ const Admin = props => {
             </T>
             {Width >= 1200 ? 'Marketplace' : null}
           </Tab>
-          <br />
-          <br />
-          <br />
 
-          <br />
-          <Tab
-            onClick={() => {
-              dispatch({ type: 'SWITCH_EVENT_SETTINGS' })
-            }}
-            active={state.activeTab === 'access'}
-          >
-            <T style={{ padding: '0rem 1rem' }}>
-              <IoMdConstruct style={{ fontSize: '1.7rem' }} />
-              {Width <= 1200 ? <Info>Event Actions</Info> : null}
-            </T>
-            {Width >= 1200 ? 'Configuration ' : null}
-          </Tab>
-          <Tab
-            onClick={() => {
-              dispatch({ type: 'SWITCH_DEVELOPER' })
-            }}
-            active={state.activeTab === 'developer'}
-          >
-            <T style={{ padding: '0rem 1rem' }}>
-              <IoIosCode style={{ fontSize: '1.8rem' }} />
-              {Width <= 1200 ? <Info>Developer APIs</Info> : null}
-            </T>
-            {Width >= 1200 ? 'Developer APIs' : null}
-          </Tab>
+          <Bottom>
+            <Tab
+              onClick={() => {
+                dispatch({ type: 'SWITCH_EVENT_SETTINGS' })
+              }}
+              active={state.activeTab === 'access'}
+            >
+              <T style={{ padding: '0rem 1rem' }}>
+                <IoMdConstruct style={{ fontSize: '1.7rem' }} />
+                {Width <= 1200 ? <Info>Event Actions</Info> : null}
+              </T>
+              {Width >= 1200 ? 'Configuration ' : null}
+            </Tab>
+            <Tab
+              onClick={() => {
+                dispatch({ type: 'SWITCH_DEVELOPER' })
+              }}
+              active={state.activeTab === 'developer'}
+            >
+              <T style={{ padding: '0rem 1rem' }}>
+                <IoIosCode style={{ fontSize: '1.8rem' }} />
+                {Width <= 1200 ? <Info>Developer APIs</Info> : null}
+              </T>
+              {Width >= 1200 ? 'Developer APIs' : null}
+            </Tab>
 
-          <Tab
-            onClick={() => {
-              dispatch({ type: 'SWITCH_BUG' })
-              openCrashReporter()
-            }}
-            active={state.activeTab === 'bug'}
-          >
-            <T style={{ padding: '0rem 1rem' }}>
-              <IoIosBug style={{ fontSize: '1.8rem' }} />
-              {Width <= 1200 ? <Info>Report Bug</Info> : null}
-            </T>
-            {Width >= 1200 ? 'Report Bug' : null}
-          </Tab>
+            <Tab
+              onClick={() => {
+                dispatch({ type: 'SWITCH_FEEDBACK' })
+              }}
+              active={state.activeTab === 'feedback'}
+            >
+              <T style={{ padding: '0rem 1rem' }}>
+                <IoIosChatboxes style={{ fontSize: '1.8rem' }} />
+                {Width <= 1200 ? <Info>Event Feedback</Info> : null}
+              </T>
+              {Width >= 1200 ? 'Event Feedback' : null}
+            </Tab>
+          </Bottom>
         </List>
       </div>
     </Window>

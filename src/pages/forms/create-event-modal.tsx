@@ -5,6 +5,7 @@ import media from 'styled-media-query'
 
 import Sample from '../../assets/ssvg/sample.svg'
 import { Text, Title } from '../../styles/style'
+import { IoMdBulb } from 'react-icons/all'
 
 const Box = styled.div`
   width: 25rem;
@@ -108,7 +109,6 @@ const CreateEventModal = (props): JSX.Element => {
                   </div>
                   <Link to={`create/${type}`}>
                     <Title center color="white" small>
-                      {' '}
                       {name}{' '}
                     </Title>
                   </Link>
@@ -124,6 +124,16 @@ const CreateEventModal = (props): JSX.Element => {
       </Grid>
       <br />
       <br />
+
+      <hr />
+      <div style={{ textAlign: 'center' }}>
+        <IoMdBulb style={{ fontSize: '1.6rem' }} />
+      </div>
+      <Text small center>
+        {' '}
+        Still thinking of what event to launch ? <br /> <a href={'/'}> Watch </a> Shedrack
+        Akintayo's Talk on Creating Purpose Driven Events.{' '}
+      </Text>
     </div>
   )
 }

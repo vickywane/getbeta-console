@@ -30,9 +30,10 @@ import '../../../App.css'
 import TestImg from '../../../assets/images/test.png'
 import MeetupDetails from '../meetups/meetupDetails'
 import MeetupEventLaunch from './meetupgroup/meetupEventLaunch'
+import EventStatistics from '../stats'
 
 const Meetup = (props): JSX.Element => {
-  const { data, EventType, state, staate, dispaatch } = props
+  const { data, EventType, state, staate, dispaatch, dispatch } = props
 
   // naming conflicts coming up here
   const Hooks = useWindowWidth()
@@ -57,6 +58,15 @@ const Meetup = (props): JSX.Element => {
     <TabContext.Provider value={TabState}>
       <div style={{ height: window.innerHeight - 90, overflow: 'auto' }}>
         <AdminContext.Provider value={AdminTabState}>
+          <CSSTransition
+            timeout={300}
+            className={''}
+            unmountOnExit
+            in={state.activeTab === 'stats'}
+          >
+            <EventStatistics state={state} dispatch={dispatch} data={data.event} />
+          </CSSTransition>
+
           <CSSTransition
             timeout={300}
             className={''}

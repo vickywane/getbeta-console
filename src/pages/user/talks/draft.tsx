@@ -2,46 +2,35 @@ import React, { useState } from 'react'
 import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
 import {
-  FiMail,
   FiClock,
-  FiCheck,
   FiCalendar,
   FiEdit,
   FiPlus,
   FiX,
   FiTrash2,
-  FiArrowLeft
+  FiArrowLeft,
+  FiSearch
 } from 'react-icons/fi'
 import { GrAttachment } from 'react-icons/gr'
 import styled from 'styled-components'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import ReactMarkdown from 'react-markdown'
-import { IoIosPeople } from 'react-icons/io'
+import { IoIosExpand, IoIosPaper, IoIosPeople } from 'react-icons/io'
 import { Modal } from 'react-bootstrap'
+import { CSSTransition } from 'react-transition-group'
 
+import Compress from './compress-note'
+import useWindowWidth from '../../../hook_style'
 import TestImg from '../../../assets/images/test.png'
 import CreateNote from './create-note'
 import Fields from '../../forms/fields'
 import Review from './review'
-import { Header, Footer, Loader } from '../../../components/'
+import { Loader } from '../../../components/'
 import { GET_TALK } from '../../../data/queries'
 import { DELETE_NOTE } from '../../../data/mutations'
-import {
-  Contain,
-  Input,
-  Body,
-  Text,
-  Head,
-  Button,
-  Title,
-  Hover,
-  BigTitle,
-  Section
-} from '../../../styles/style'
-
-const List = styled.li`
-  list-style: none;
-`
+import { Contain, Text, Head, Title, Hover, BigTitle, Section } from '../../../styles/style'
+import '../../../App.css'
+import Notes from './notes'
 
 const Circle = styled.div`
   height: 40px;
@@ -106,23 +95,26 @@ const colors = [
 ]
 
 const Draft = (props): JSX.Element => {
-  const [reviewPane, openReviewPane] = useState<boolean>(false)
+  const Width = useWindowWidth()
+
+  const [reviewPane, openReviewPane] = useState<boolean>(Width >= 800 ? false : true)
   const [isEditing, startEditing] = useState<boolean>(false)
   const [isEditingCard, startEditingCard] = useState<boolean>(false)
-  const [note, addNotes] = useState<boolean>(false)
+  const [noteWindow, setNoteWindow] = useState<boolean>(false)
+  const [userNotes, openUserNotes] = useState<boolean>(false)
   const { draftId } = props
 
   const [CardColor, setCardColor] = useState<string>(null)
   const [CardTextColor, setCardTextColor] = useState<string>(null)
-  const [Visibility, setVisibility] = useState(true)
+  const [ModalVisibility, setModalVisibility] = useState(false)
 
   const Padded = styled(Contain)`
     transition : all 300ms;
     overflow : auto;
     padding: 0px 20px;
-    height : ${window.innerHeight - 300}
-    margin: ${props => (props.reviewOpen ? '0rem 4rem' : '0rem 15rem')};
-    border-left : ${props => !props.reviewOpen && '2px solid #c0c0c0'} ;
+    height : ${window.innerHeight - 180}
+    margin: ${props => (props.reviewOpen ? '0rem 0rem' : '0rem 5rem')};
+    border-left : ${props => !props.reviewOpen && '1px solid #c0c0c0'} ;
     box-shadow :    ${props => !props.reviewOpen && '8px 0px 4px #c0c0c0'};
   `
 
@@ -146,6 +138,15 @@ const Draft = (props): JSX.Element => {
 
   const [deleteNote, {}] = useMutation(DELETE_NOTE)
 
+  const NoteWindow = styled.div`
+    position : absolute;
+    height : 74vh
+    width : 50rem;
+    margin-left : 17rem;
+    background : #fff;
+    box-shadow : 0px 5px 9px grey;
+  `
+
   const Delete = (id: number) => {
     deleteNote({
       variables: {
@@ -155,10 +156,10 @@ const Draft = (props): JSX.Element => {
       .then(() => console.log('deleted'))
       .catch(e => console.log(e))
   }
-
+  // alert(draftId)
   const { loading, error, data } = useQuery(GET_TALK, {
     variables: {
-      id: draftId //
+      id: 581410896 // draftId
     }
   })
   if (error) {
@@ -208,14 +209,12 @@ const Draft = (props): JSX.Element => {
 
         <Flex>
           <div
-            onClick={() => startEditing(!isEditing)}
+            onClick={() => setModalVisibility(true)}
             style={{ display: 'flex', cursor: 'pointer', margin: '0rem 1rem' }}
           >
-            <Link to="/drafts">
-              <Hover style={{ padding: '0rem 0.7rem' }}>
-                <FiEdit style={{ fontSize: '1.6rem' }} />
-              </Hover>
-            </Link>
+            <Hover style={{ padding: '0rem 0.7rem' }}>
+              <IoIosPaper style={{ fontSize: '1.6rem' }} />
+            </Hover>
             <Text small> Compile Notes </Text>
           </div>
 
@@ -245,94 +244,130 @@ const Draft = (props): JSX.Element => {
         </Flex>
       </Head>
 
+      <Modal
+        show={ModalVisibility}
+        onHide={() => setModalVisibility(false)}
+        size={'lg'}
+        style={{ marginTop: '3rem' }}
+      >
+        <div
+          style={{
+            padding: '0.5rem 1rem',
+            borderBottom: '1px solid #c0c0c0',
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Section> Notes Compressor </Section>
+
+          <Hover onClick={() => setModalVisibility(false)}>
+            <FiX style={{ fontSize: '1.7rem' }} />
+          </Hover>
+        </div>
+        <Compress />
+      </Modal>
+
+      <CSSTransition in={noteWindow} timeout={300} unmountOnExit classNames={'notes'}>
+        <NoteWindow>
+          <CreateNote talkId={id} />
+        </NoteWindow>
+      </CSSTransition>
+
+      <CSSTransition in={userNotes} timeout={300} unmountOnExit classNames={'notes'}>
+        <NoteWindow>
+          <Notes userId={id} />
+        </NoteWindow>
+      </CSSTransition>
+
       <Grid reviewOpen={reviewPane}>
-        <Padded style={{ height: window.innerHeight - 210 }} reviewOpen={reviewPane}>
-          {!note && (
-            <Contain img={TestImg} style={{ height: '25vh' }}>
-              <br />
-              <Flex justifyBetween>
-                <Flex>
-                  <Hover style={{ padding: '0rem 0.5rem', color: 'grey' }}>
-                    <FiCalendar style={{ fontSize: '1.7rem' }} />
-                  </Hover>
+        <Padded style={{ height: window.innerHeight - 160 }} reviewOpen={reviewPane}>
+          <Contain img={TestImg} style={{ height: '25vh' }}>
+            <br />
+            <Flex justifyBetween>
+              <Flex>
+                <Hover style={{ padding: '0rem 0.5rem', color: 'grey' }}>
+                  <FiCalendar style={{ fontSize: '1.7rem' }} />
+                </Hover>
 
-                  <Text small color="grey">
-                    {createdAt}
-                  </Text>
-                </Flex>
-
-                <Flex>
-                  <Hover style={{ padding: '0rem 0.6rem', color: 'grey' }}>
-                    <FiClock style={{ fontSize: '1.7rem' }} />
-                  </Hover>
-
-                  <Text small color="grey">
-                    {duration}{' '}
-                  </Text>
-                </Flex>
+                <Text small color="grey">
+                  {createdAt}
+                </Text>
               </Flex>
-            </Contain>
-          )}
 
-          {!note && (
-            <div>
-              {isEditing ? (
-                <Fields
-                  name="Draft Title"
-                  id={1}
-                  placeholder={title}
-                  textarea={false}
-                  value={title}
-                  type="text"
-                  onChange={e => handleInputs(e, 'Draft Title')}
-                />
-              ) : (
-                <div
-                  style={{
-                    padding: '0.7rem 0.7rem',
-                    background: '#fff',
-                    borderRadius: '5px'
-                  }}
-                >
-                  <BigTitle small={reviewPane}> {title}</BigTitle>
-                </div>
-              )}
+              <Flex>
+                <Hover style={{ padding: '0rem 0.6rem', color: 'grey' }}>
+                  <FiClock style={{ fontSize: '1.7rem' }} />
+                </Hover>
 
+                <Text small color="grey">
+                  {duration}{' '}
+                </Text>
+              </Flex>
+            </Flex>
+          </Contain>
+
+          <div>
+            {isEditing ? (
+              <Fields
+                name="Draft Title"
+                id={1}
+                placeholder={title}
+                textarea={false}
+                value={title}
+                type="text"
+                onChange={e => handleInputs(e, 'Draft Title')}
+              />
+            ) : (
               <div
                 style={{
-                  padding: '1rem 1rem',
-                  margin: '2rem 2rem',
-                  borderLeft: '5px solid  #0e2f5a ',
-                  background: '#fbfbfb'
+                  padding: '0.7rem 0.7rem',
+                  background: '#fff',
+                  borderRadius: '5px'
                 }}
               >
-                <Text>
-                  <ReactMarkdown source={summary} />
-                </Text>
+                <BigTitle small={reviewPane}> {title}</BigTitle>
               </div>
+            )}
+
+            <div
+              style={{
+                padding: '1rem 1rem',
+                margin: '2rem 2rem',
+                borderLeft: '5px solid  #0e2f5a ',
+                background: '#fbfbfb'
+              }}
+            >
+              <Text>
+                <ReactMarkdown source={summary} />
+              </Text>
             </div>
-          )}
+          </div>
 
           <br />
 
-          {!note && (
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex' }}>
-                <Title small> Notes ( {notes !== null && notes.length} ) </Title>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Hover style={{ display: 'flex' }}>
+              <Hover onClick={() => openUserNotes(!userNotes)} style={{ margin: '0rem 0.7rem' }}>
+                <IoIosExpand style={{ fontSize: '1.7rem' }} />
+              </Hover>
+              <Title small> Notes ( {notes !== null && notes.length} ) </Title>
+            </Hover>
 
-                <HoverCircle onClick={() => addNotes(!note)} style={{ margin: '0rem 0.5rem' }}>
-                  <FiPlus style={{ fontSize: '1.6rem', color: '#fff' }} />
-                </HoverCircle>
+            <div style={{ display: 'flex' }}>
+              <HoverCircle
+                onClick={() => setNoteWindow(!noteWindow)}
+                style={{ margin: '0rem' + ' 0.5rem' }}
+              >
+                <FiPlus style={{ fontSize: '1.6rem', color: '#fff' }} />
+              </HoverCircle>
+
+              <div>
+                <Hover style={{ marginTop: '15px' }}>
+                  <FiSearch style={{ fontSize: '1.7rem' }} />
+                </Hover>
               </div>
-              .
             </div>
-          )}
-
-          {note && (
-            <div style={{ background: '#fbfbfb', padding: '1rem 1rem' }}>
-              <CreateNote talkId={id} />{' '}
-            </div>
-          )}
+          </div>
 
           <hr />
           {notes !== null &&

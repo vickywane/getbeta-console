@@ -82,7 +82,7 @@ const align = {
 }
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState('drafts') //draft
+  const [ActivePage, setActivePage] = useState('draft') //drafts
   const [draftId, setDraftId] = useState(null)
   const [Tips, showTips] = useState(false)
   const Hooks = useWindowWidth()
@@ -165,7 +165,7 @@ const Talks = (): JSX.Element => {
             {talks === null ? (
               <div
                 style={{
-                  height: window.innerHeight - 170,
+                  height: window.innerHeight - 130,
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center'
@@ -206,7 +206,7 @@ const Talks = (): JSX.Element => {
                   </Flex>
                 </Body>
 
-                <Body style={{ height: window.innerHeight - 250, overflow: 'auto' }}>
+                <Body style={{ height: window.innerHeight - 170, overflow: 'auto' }}>
                   {talks.map(({ id, updatedAt, title, reviewed, createdAt, summary }) => {
                     return (
                       <List key={id}>
@@ -337,8 +337,6 @@ const Talks = (): JSX.Element => {
       <CSSTransition timeout={300} unmountOnExit in={ActivePage === 'draft'}>
         <Draft draftId={draftId} />
       </CSSTransition>
-
-      <Footer />
     </div>
   )
 }

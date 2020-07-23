@@ -27,6 +27,7 @@ import Mobile from '../../mobile/mobile'
 import '../../../App.css'
 import EventStatistics from '../stats'
 import Timeline from '../timeline'
+import Feedback from '../feedback/main'
 
 const Conference = (props): JSX.Element => {
   const { Width, data, EventType, permission, state, staate, dispatch, dispaatch } = props
@@ -176,6 +177,15 @@ const Conference = (props): JSX.Element => {
             in={state.activeTab === 'developer'}
           >
             <Developer data={data} />
+          </CSSTransition>
+
+          <CSSTransition
+            timeout={300}
+            className={''}
+            unmountOnExit
+            in={state.activeTab === 'feedback'}
+          >
+            <Feedback data={data} />
           </CSSTransition>
         </AdminContext.Provider>
       </div>

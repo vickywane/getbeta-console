@@ -78,6 +78,9 @@ export const AdminTabReducer = (state: any, action: any) => {
     case 'SWITCH_DEVELOPER':
       return { ...state, active: true, activeTab: 'developer' }
       break
+    case 'SWITCH_FEEDBACK':
+      return { ...state, active: true, activeTab: 'feedback' }
+      break
     default:
       break
   }

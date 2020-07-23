@@ -180,7 +180,7 @@ const Input = styled.input`
   margin: ${props => (props.unmargined ? '0rem' : '0.4rem 1rem')};
   padding-left: 10px;
   border-radius: 3px;
-  font-size: 1.1rem;
+  font-size: 1.07rem;
   transition: all 300ms;
   background: ${props => (props.transparent ? 'transparent' : null)};
     ${media.lessThan('huge')`
@@ -256,9 +256,9 @@ const BigInput = styled.textarea`
 
 const Text: any = styled.p`
   text-align: ${props => (props.center ? 'center' : null)};
-  font-size: ${props => (props.small ? '1.1rem' : '1.2rem')};
+  font-size: ${props => (props.small ? '1rem' : '1rem')};
   color: ${props => props.color};
-  font-weight: ${props => (props.bold ? '600' : 'normal')};
+  font-weight: ${props => (props.bold ? '500' : 'normal')};
 `
 
 const UploadBtn = styled.button`
@@ -638,7 +638,7 @@ const TextEditor = styled.div`
       padding  : 1rem 1.5rem
       outline : 0px; 
       width: auto;
-      font-size : 1.2rem
+      font-size : 1.1rem
       height: auto;
       display : flex;
       border-radius: 5px 5px 0px 0px;

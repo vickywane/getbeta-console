@@ -1,26 +1,24 @@
-import React, { useState } from "react"
-import { useMutation } from "@apollo/react-hooks"
-import { FiArrowLeft } from "react-icons/fi"
-import Flex from "styled-flex-component"
-import styled from "styled-components"
+import React, { useState } from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import { FiArrowLeft } from 'react-icons/fi'
+import Flex from 'styled-flex-component'
+import styled from 'styled-components'
 
-import { Link, Redirect } from "react-router-dom"
-import Fields from "../../forms/fields"
-import { CREATE_TALK_DRAFT } from "../../forms/formsData"
-import { Header, Footer, Loader } from "../../../components/"
-import { CREATE_TALK } from "../../../data/mutations"
+import { Link, Redirect } from 'react-router-dom'
+import Fields from '../../forms/fields'
+import { CREATE_TALK_DRAFT } from '../../forms/formsData'
+import { Header, Footer, Loader } from '../../../components/'
+import { CREATE_TALK } from '../../../data/mutations'
 import {
   Contain,
   Body,
   Text,
   Button,
   Label,
-  Title,
-  BigTitle,
-  BigInput,
+  Title as Tit,
   Input,
-  Hover,
-} from "../../../styles/style"
+  Hover
+} from '../../../styles/style'
 
 const StyledField = styled(Input)`
   width: 30rem;
@@ -41,28 +39,28 @@ const TagBody = styled.div`
 `
 
 const Editor = props => {
-  const [Title, setTitle] = useState<string>("")
+  const [Title, setTitle] = useState<string>('')
   const [Tags, setTags] = useState(new Array())
-  const [Tag, setTag] = useState<string>("")
-  const [Content, setContent] = useState<string>("")
-  const [Summary, setSummary] = useState<string>("")
-  const [Description, setDescription] = useState<string>("")
-  const [Duration, setDuration] = useState<string>("10mins")
-  const [TagValue, addTagValue] = useState<string>("")
+  const [Tag, setTag] = useState<string>('')
+  const [Content, setContent] = useState<string>('')
+  const [Summary, setSummary] = useState<string>('')
+  const [Description, setDescription] = useState<string>('')
+  const [Duration, setDuration] = useState<string>('10mins')
+  const [TagValue, addTagValue] = useState<string>('')
 
   const [createTalk, { data, loading }] = useMutation(CREATE_TALK)
   function handleChange(value: string, label: string) {
     switch (label) {
-      case "Draft Title":
+      case 'Draft Title':
         setTitle(value)
         break
-      case "Draft Summary":
+      case 'Draft Summary':
         setSummary(value)
         break
-      case "Draft Description":
+      case 'Draft Description':
         setDescription(value)
         break
-      case "Tags":
+      case 'Tags':
         addTagValue(value)
         break
       default:
@@ -73,20 +71,20 @@ const Editor = props => {
   const handleSubmit = () => {
     createTalk({
       variables: {
-        userId: localStorage.getItem("user_id"),
+        userId: localStorage.getItem('user_id'),
         title: Title,
         summary: Summary,
         description: Description,
         duration: Duration,
-        archived: false,
-      },
+        archived: false
+      }
     })
       .then(() => {})
       .catch(e => console.log(e))
   }
 
   const addTag = () => {
-    alert("pressed")
+    alert('pressed')
     setTags([TagValue])
   }
 
@@ -101,36 +99,32 @@ const Editor = props => {
       <br />
       <Contain>
         <Contain>
-          <Flex>
-            <Link to="/drafts">
-              <Hover style={{ padding: "0.5rem 1rem" }}>
-                <FiArrowLeft style={{ fontSize: "2rem" }} />{" "}
-              </Hover>
-            </Link>
-            <BigTitle bold> Create Draft </BigTitle>{" "}
-          </Flex>
-
           <br />
-          <Text style={{ padding: "0rem 1.5rem" }}>
-            Drafts can be used as talk proposals when applying to speak during
-            events.
+          <Text center style={{ padding: '0rem 1.5rem' }}>
+            Drafts are a collection little notes and can be used as talk proposals when applying to
+            speak during events. <br /> <a href={'/'}> Watch </a> Somebody Somebody's talk on
+            creating meaning full drafts
           </Text>
+          <br />
+          <Text center color={'grey'}>
+            <a href={'/'}> Learn More </a> about drafts on Oasis.{' '}
+          </Text>
+          <hr />
+
           <Body>
-            {CREATE_TALK_DRAFT.map(
-              ({ id, placeholder, label, type, textarea, textEditorSize }) => {
-                return (
-                  <Fields
-                    id={id}
-                    name={label}
-                    textEditorSize={textEditorSize}
-                    placeholder={placeholder}
-                    type={type}
-                    textarea={textarea}
-                    onChange={(e, name) => handleChange(e, name)}
-                  />
-                )
-              }
-            )}
+            {CREATE_TALK_DRAFT.map(({ id, placeholder, label, type, textarea, textEditorSize }) => {
+              return (
+                <Fields
+                  id={id}
+                  name={label}
+                  textEditorSize={textEditorSize}
+                  placeholder={placeholder}
+                  type={type}
+                  textarea={textarea}
+                  onChange={(e, name) => handleChange(e, name)}
+                />
+              )
+            })}
 
             <br />
             <div>
@@ -147,7 +141,7 @@ const Editor = props => {
                 placeholder="Value tags from draft content"
                 type="text"
                 value={TagValue}
-                onChange={e => handleChange(e, "Tags")}
+                onChange={e => handleChange(e, 'Tags')}
               />
               <Button onClick={() => addTag()}>Add Tag</Button>
             </div>
@@ -157,7 +151,7 @@ const Editor = props => {
               <br />
               <div>
                 <select
-                  style={{ margin: "0.6rem 0.4rem", padding: "0.5rem 1rem" }}
+                  style={{ margin: '0.6rem 0.4rem', padding: '0.5rem 1rem' }}
                   onChange={e => {
                     setDuration(e.target.value)
                   }}

@@ -23,38 +23,6 @@ const center = {
   alignItems: 'center'
 }
 
-const FAB = styled.div`
-  width: 20rem;
-  height: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: blue;
-  border-radius: 10px 10px 0px 0px;
-  color: white;
-  position: absolute;
-  position: -webkit-sticky;
-  bottom: 0rem;
-  float: right;
-  transition: all 800ms;
-  cursor: pointer;
-`
-
-const SupportWindow = styled.div`
-  width: 26%;
-  height: 72vh;
-  background: #fff;
-  color: #000;
-  position: absolute;
-  position: -webkit-sticky;
-  bottom: 4rem;
-  margin-left: 5.5rem;
-  float: right;
-  text-align: center;
-  border-radius: 7px;
-  box-shadow: 3px 1px 3px 0px grey;
-`
-
 const HoverCircle = styled(Hover)`
   width: 50px;
   height: 50px;
@@ -74,8 +42,7 @@ const HoverCircle = styled(Hover)`
 
 const EventStatistics = (props): JSX.Element => {
   const { state, dispatch } = props
-  const { createdBy, name } = props.data
-  const [Window, openWindow] = useState<boolean>(false)
+  const { createdBy, name, eventType } = props.data
 
   return (
     <Body style={{ background: '#fbfbfb', height: window.innerHeight - 40 }}>
@@ -107,7 +74,7 @@ const EventStatistics = (props): JSX.Element => {
           </div>
 
           <div style={{ display: 'flex' }}>
-            <Text> Event Metrics </Text>
+            <Text> {eventType} Metrics </Text>
             <Hover style={{ margin: '0rem 0.5rem' }}>
               <FiChevronRight style={{ fontSize: '1.8rem' }} />
             </Hover>
@@ -131,12 +98,18 @@ const EventStatistics = (props): JSX.Element => {
               <Hover style={{ margin: '0rem 0.5rem' }}>
                 <IoMdRocket style={{ fontSize: '1.8rem', transform: '' }} />
               </Hover>
-              <Text> Test Launch Event </Text>
+              <Text> Test Launch {eventType} </Text>
             </Hover>
           </div>
 
           <Hover style={{ display: 'flex' }}>
-            <Text> Oasis Support </Text>
+            <Text>
+              {' '}
+              <a style={{ textDecoration: 'none' }} href={'https://my-event.com'} target={'_blank'}>
+                {' '}
+                Oasis Support{' '}
+              </a>{' '}
+            </Text>
             <Hover style={{ margin: '0rem 0.5rem' }}>
               <IoIosContact style={{ fontSize: '1.8rem' }} />
             </Hover>
@@ -152,7 +125,7 @@ const EventStatistics = (props): JSX.Element => {
 
             <Text style={{ padding: '0.7rem 0.5rem' }} small>
               {' '}
-              Some event notification here for the event organizers{' '}
+              Some event notification here for the {eventType} organizers{' '}
             </Text>
           </div>
 
@@ -163,23 +136,6 @@ const EventStatistics = (props): JSX.Element => {
       </Body>
 
       <br />
-
-      <FAB onClick={() => openWindow(!Window)}>
-        {!Window ? (
-          <div style={{ display: 'flex' }}>
-            <FcCustomerSupport style={{ fontSize: '2.5rem' }} />
-            <Text style={{ margin: '0rem 1rem' }}> Oasis Support </Text>
-          </div>
-        ) : (
-          <FiX style={{ fontSize: '2rem' }} />
-        )}
-      </FAB>
-
-      {Window && (
-        <SupportWindow style={{ filter: 'grayscale(75%) blur(0.7px)' }}>
-          <OasisSupport data={props.data} />
-        </SupportWindow>
-      )}
 
       <CardsGrid>
         <StatsCard>
@@ -290,7 +246,10 @@ const EventStatistics = (props): JSX.Element => {
               </div>
 
               <div style={{ ...center }}>
-                <Section style={{ color: '#401364', cursor: 'pointer' }}> Event Support </Section>
+                <Section style={{ color: '#401364', cursor: 'pointer' }}>
+                  {' '}
+                  Event Team Support{' '}
+                </Section>
               </div>
             </div>
 
