@@ -156,18 +156,6 @@ const CreateEvent = (props): JSX.Element => {
   const [TWMediaLinks, addTWMediaLink] = useState<string>('')
   const [INSMediaLinks, addINSMediaLink] = useState<string>('')
 
-  // let Validation = Yup.object().shape({
-  //   name: Yup.string()
-  //     .min(8, "Not less than 3")
-  //     .max(24, "More than 25")
-  //     .required("must have a name "),
-  //   description: Yup.string().min(10, "Not less than 10"),
-  //   alias: Yup.string().min(2, "Not less than 10"),
-  //   website: Yup.string().min(2, "Not less than 10"),
-  //   email: Yup.string().min(2, "Not less than 10"),
-  //   venue: Yup.string().min(2, "Not less than 10"),
-  // })
-
   const SubmitData = () => {
     let MediaLinksArray = []
     MediaLinksArray.push(FBMediaLinks, TWMediaLinks, INSMediaLinks)
@@ -361,8 +349,6 @@ const CreateEvent = (props): JSX.Element => {
                             justifyContent: 'space-between'
                           }}
                         >
-                          {' '}
-                          .{' '}
                           <div style={{ display: 'flex', padding: '0rem 0.7rem' }}>
                             <Checkbox name="isVirtual" handleClick={handleCheckBox} />
                             <Label> Make Virtual Event </Label>
@@ -531,6 +517,36 @@ const CreateEvent = (props): JSX.Element => {
                           </Flex>
                         </Flex>
 
+                        <br />
+
+                        <Flex justifyCenter>
+                          <TypeBox
+                            active={EventType === 'Stream'}
+                            onClick={() => setEventType('Stream')}
+                          >
+                            <Flex column>
+                              <Section bold style={{ padding: '0rem 1rem' }}>
+                                Stream Event
+                              </Section>
+                              <Text small style={{ padding: '0rem 1rem' }}>
+                                Quick events and short lived events. Can be a personal live stream.
+                              </Text>
+
+                              <Text center small color="grey">
+                                <a
+                                  href="/"
+                                  style={{
+                                    textDecoration: 'none',
+                                    textAlign: 'center'
+                                  }}
+                                >
+                                  Learn More
+                                </a>{' '}
+                                on Oasis Conferences
+                              </Text>
+                            </Flex>
+                          </TypeBox>
+                        </Flex>
                         <br />
                       </Card>
                     </UpGrid>

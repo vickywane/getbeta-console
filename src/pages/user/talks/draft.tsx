@@ -18,6 +18,7 @@ import ReactMarkdown from 'react-markdown'
 import { IoIosExpand, IoIosPaper, IoIosPeople } from 'react-icons/io'
 import { Modal } from 'react-bootstrap'
 import { CSSTransition } from 'react-transition-group'
+import { inject, observer } from 'mobx-react'
 
 import Compress from './compress-note'
 import useWindowWidth from '../../../hook_style'
@@ -31,6 +32,7 @@ import { DELETE_NOTE } from '../../../data/mutations'
 import { Contain, Text, Head, Title, Hover, BigTitle, Section } from '../../../styles/style'
 import '../../../App.css'
 import Notes from './notes'
+import { ConsoleStore } from '../../../state'
 
 const Circle = styled.div`
   height: 40px;
@@ -95,6 +97,8 @@ const colors = [
 ]
 
 const Draft = (props): JSX.Element => {
+  const { showNotes, openNotes, closeNotes } = props.ConsoleStore
+
   const Width = useWindowWidth()
 
   const [reviewPane, openReviewPane] = useState<boolean>(Width >= 800 ? false : true)
@@ -111,7 +115,7 @@ const Draft = (props): JSX.Element => {
   const Padded = styled(Contain)`
     transition : all 300ms;
     overflow : auto;
-    padding: 0px 20px;
+    padding: 0px 10px;
     height : ${window.innerHeight - 180}
     margin: ${props => (props.reviewOpen ? '0rem 0rem' : '0rem 5rem')};
     border-left : ${props => !props.reviewOpen && '1px solid #c0c0c0'} ;
@@ -140,8 +144,8 @@ const Draft = (props): JSX.Element => {
 
   const NoteWindow = styled.div`
     position : absolute;
-    height : 74vh
-    width : 50rem;
+    height : 73vh
+    width : 42rem;
     margin-left : 17rem;
     background : #fff;
     box-shadow : 0px 5px 9px grey;
@@ -273,11 +277,9 @@ const Draft = (props): JSX.Element => {
         </NoteWindow>
       </CSSTransition>
 
-      <CSSTransition in={userNotes} timeout={300} unmountOnExit classNames={'notes'}>
-        <NoteWindow>
-          <Notes userId={id} />
-        </NoteWindow>
-      </CSSTransition>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Notes showNotes={showNotes} closeNotes={closeNotes} talkId={id} />
+      </div>
 
       <Grid reviewOpen={reviewPane}>
         <Padded style={{ height: window.innerHeight - 160 }} reviewOpen={reviewPane}>
@@ -347,7 +349,7 @@ const Draft = (props): JSX.Element => {
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Hover style={{ display: 'flex' }}>
-              <Hover onClick={() => openUserNotes(!userNotes)} style={{ margin: '0rem 0.7rem' }}>
+              <Hover onClick={() => openNotes()} style={{ margin: '0rem 0.7rem' }}>
                 <IoIosExpand style={{ fontSize: '1.7rem' }} />
               </Hover>
               <Title small> Notes ( {notes !== null && notes.length} ) </Title>
@@ -470,4 +472,4 @@ const Draft = (props): JSX.Element => {
   )
 }
 
-export default Draft
+export default inject('ConsoleStore')(observer(Draft))

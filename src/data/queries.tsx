@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost"
+import { gql } from 'apollo-boost'
 
 export const GET_USER_REMINDERS: any = gql`
   query get_user($id: Int!, $name: String!) {
@@ -342,6 +342,18 @@ const GET_TALK: any = gql`
   }
 `
 
+export const GET_USER_NOTES: any = gql`
+  query talk($id: Int!) {
+    talk(id: $id) {
+      notes {
+        id
+        title
+        content
+      }
+    }
+  }
+`
+
 const TALKS: any = gql`
   query talk {
     talks(Limit: 5) {
@@ -500,5 +512,5 @@ export {
   TEAM,
   TRACKS,
   EVENTS,
-  GET_EVENT,
+  GET_EVENT
 }

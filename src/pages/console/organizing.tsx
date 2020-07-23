@@ -8,18 +8,7 @@ import { Modal } from 'react-bootstrap'
 import { FiSearch, FiPlus } from 'react-icons/fi'
 
 import { EventPlaceholder } from '../../components/placeholders/'
-import {
-  Bounce,
-  Items,
-  Button,
-  Contain,
-  Text,
-  Switch,
-  SwitchBtn,
-  Title,
-  Section,
-  Hover
-} from '../../styles/style'
+import { Bounce, Items, Button, Contain, Text, Title, Section, Hover } from '../../styles/style'
 
 import EventCard from '../../components/cards/EventCard'
 import CreateEventModal from '../forms/create-event-modal'
@@ -104,6 +93,11 @@ const Organizing = (props): JSX.Element => {
               </Link>
             )}
           </Flex>
+
+          <select>
+            <option></option>
+          </select>
+
           <br />
 
           <Items>
