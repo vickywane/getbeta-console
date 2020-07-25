@@ -7,7 +7,14 @@ import { useMutation } from '@apollo/react-hooks'
 import { inject, observer } from 'mobx-react'
 import { Redirect } from 'react-router-dom'
 import media from 'styled-media-query'
-import { FiFacebook, FiTwitter, FiInstagram, FiChevronRight, FiChevronLeft } from 'react-icons/fi'
+import {
+  FiFacebook,
+  FiTwitter,
+  FiInstagram,
+  FiChevronRight,
+  FiChevronLeft,
+  FiCheck
+} from 'react-icons/fi'
 import { CSSTransition } from 'react-transition-group'
 import { Link } from 'react-router-dom'
 
@@ -88,6 +95,36 @@ const Button = styled.div`
     color: #0e2f5a;
     background: #fff;
   }
+`
+
+const TagCard = styled.div`
+  height: 17vh;
+  width: 10.5rem;
+  box-shadow: 0 2px 3px grey;
+  padding: 0.5rem 0.5rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  &: hover {
+    cursor: pointer;
+  }
+`
+
+const Circle = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #c0c0c0;
+  display: flex;
+  box-shadow: 0 1px 2px #c0c0c0;
+  justify-content: center;
+  align-items: center;
+`
+
+const TagCardGrid = styled.div`
+  display: grid;
+  grid-gap: 2rem 2rem;
+  margin: 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
 `
 
 const CreateConference = (props): JSX.Element => {
@@ -178,7 +215,7 @@ const CreateConference = (props): JSX.Element => {
         setVenue(value)
         break
       default:
-        console.log(label)
+        break
     }
   }
 
@@ -204,7 +241,33 @@ const CreateConference = (props): JSX.Element => {
     }, 20000)
   }
 
-  c
+  const Tags = [
+    {
+      id: 1,
+      tagName: 'Games',
+      clicked: false
+    },
+    {
+      id: 2,
+      tagName: 'Fashion',
+      clicked: true
+    },
+    {
+      id: 3,
+      tagName: 'Review',
+      clicked: false
+    },
+    {
+      id: 4,
+      tagName: 'Automobile',
+      clicked: true
+    },
+    {
+      id: 4,
+      tagName: 'Automobile',
+      clicked: false
+    }
+  ]
 
   return (
     <Body style={{ background: '#eeeeee' }}>
@@ -278,6 +341,96 @@ const CreateConference = (props): JSX.Element => {
                       )
                     })}
 
+                    <Label small> Links </Label>
+                    <InputGrid>
+                      <CInput>
+                        <Hover
+                          style={{
+                            padding: '0.6rem 0.5rem',
+                            background: '#fbfbfb',
+                            color: '#0e2f5a',
+                            borderRadius: '5px 0px 0px 5px'
+                          }}
+                        >
+                          <FiTwitter style={{ fontSize: '1.7rem' }} />{' '}
+                        </Hover>
+
+                        <input
+                          type="url"
+                          value={TWMediaLinks}
+                          onChange={e => addTWMediaLink(e.target.value)}
+                          placeholder="Twitter profile url"
+                        />
+                      </CInput>
+
+                      <CInput>
+                        <Hover
+                          style={{
+                            padding: '0.6rem 0.5rem',
+                            background: '#fbfbfb',
+                            color: '#0e2f5a',
+                            borderRadius: '5px 0px 0px 5px'
+                          }}
+                        >
+                          <FiFacebook style={{ fontSize: '1.7rem' }} />{' '}
+                        </Hover>
+
+                        <input
+                          type="url"
+                          value={FBMediaLinks}
+                          onChange={e => addFBMediaLink(e.target.value)}
+                          placeholder="Facebook profile url"
+                        />
+                      </CInput>
+
+                      <CInput>
+                        <Hover
+                          style={{
+                            padding: '0.6rem 0.5rem',
+                            background: '#fbfbfb',
+                            color: '#0e2f5a',
+                            borderRadius: '5px 0px 0px 5px'
+                          }}
+                        >
+                          <FiInstagram style={{ fontSize: '1.7rem' }} />{' '}
+                        </Hover>
+
+                        <input
+                          type="url"
+                          value={INSMediaLinks}
+                          onChange={e => addINSMediaLink(e.target.value)}
+                          placeholder="Instagram profile url"
+                        />
+                      </CInput>
+                    </InputGrid>
+                    <br />
+                    <Label small> Stream Tags </Label>
+                    <TagCardGrid>
+                      {Tags.map(({ id, tagName, clicked }) => {
+                        return (
+                          <TagCard key={id}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              .
+                              <Circle>
+                                <FiCheck
+                                  style={{ fontSize: '1.4rem', color: clicked && 'green' }}
+                                />
+                              </Circle>
+                            </div>
+                            <div style={{ textAlign: 'center' }}>
+                              <img
+                                style={{ maxWidth: '50%', objectFit: 'cover' }}
+                                src={require('../../../assets/ssvg/sample.svg')}
+                                alt={'tag illustration'}
+                              />
+                            </div>
+                            <br />
+                            <Text center> {tagName} </Text>
+                          </TagCard>
+                        )
+                      })}
+                    </TagCardGrid>
+
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Text style={{ padding: '0rem 1rem' }}>
@@ -333,7 +486,7 @@ const CreateConference = (props): JSX.Element => {
                     You would need to verify the support email address attached to this event before
                     making further updates using the Oasis Console.
                   </Text>
-
+                  <br />
                   <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                     <Link style={{ textDecoration: 'none' }} to="/console">
                       <Button background={'#401364'}>Return to Console and update later</Button>

@@ -49,8 +49,8 @@ const Items = [
   },
   {
     id: 3,
-    type: 'Podcast',
-    name: 'PodCast Event',
+    type: 'Stream',
+    name: 'Event Stream',
     explaination:
       ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt cupiditate eligendi.'
   },
