@@ -12,6 +12,7 @@ import { Bounce, Items, Button, Contain, Text, Title, Section, Hover } from '../
 
 import EventCard from '../../components/cards/EventCard'
 import CreateEventModal from '../forms/create-event-modal'
+import { StreamCard } from '../../components/cards'
 
 const Hov = styled(Hover)`
   width: 40px;
@@ -30,6 +31,7 @@ const Hov = styled(Hover)`
 const Organizing = (props): JSX.Element => {
   const { activeSection, events, width } = props
   const [Visibility, setVisibility] = useState<boolean>(false)
+  const [currentItems, setCurrentItems] = useState<string>('Streams')
 
   return (
     <div>
@@ -64,13 +66,11 @@ const Organizing = (props): JSX.Element => {
         timeout={400}
         classNames={'slider'}
         unmountOnExit
-        in={activeSection === 'organized'}
+        in={activeSection === 'organizing'}
         onEnter={() => {}}
       >
         <div>
           <Flex justifyBetween>
-            <Title small> Organizing : </Title>
-
             {width >= 1000 ? (
               <Button onClick={() => setVisibility(true)}>
                 <Flex>
@@ -92,52 +92,57 @@ const Organizing = (props): JSX.Element => {
                 </Button>
               </Link>
             )}
-          </Flex>
 
-          <select>
-            <option></option>
-          </select>
+            <select onChange={e => setCurrentItems(e.target.value)} value={currentItems}>
+              <option> Conferences </option>
+              <option> Streams </option>
+            </select>
+          </Flex>
 
           <br />
 
-          <Items>
-            {/* I would use the Coalesc operator ( ?? ) here...   */}
-            {events == null ? (
-              <EventPlaceholder />
-            ) : (
-              events.map(
-                ({
-                  id,
-                  dateCreated,
-                  eventType,
-                  name,
-                  summary,
-                  isVirtual,
-                  createdBy,
-                  venue,
-                  meetupGroups
-                }) => {
-                  return (
-                    <Bounce>
-                      <EventCard
-                        id={id}
-                        screen="organizing"
-                        name={name}
-                        type={eventType}
-                        createdBy={createdBy}
-                        created={dateCreated}
-                        isVirtual={isVirtual}
-                        meetupGroups={meetupGroups === null ? 0 : meetupGroups.length}
-                        venue={venue}
-                        location={true}
-                        summary={summary}
-                      />
-                    </Bounce>
-                  )
-                }
-              )
-            )}
-          </Items>
+          {currentItems === 'Conferences' && (
+            <Items>
+              {/* I would use the Coalesc operator ( ?? ) here...   */}
+              {events == null ? (
+                <EventPlaceholder />
+              ) : (
+                events.map(
+                  ({
+                    id,
+                    dateCreated,
+                    eventType,
+                    name,
+                    summary,
+                    isVirtual,
+                    createdBy,
+                    venue,
+                    meetupGroups
+                  }) => {
+                    return (
+                      <Bounce>
+                        <EventCard
+                          id={id}
+                          screen="organizing"
+                          name={name}
+                          type={eventType}
+                          createdBy={createdBy}
+                          created={dateCreated}
+                          isVirtual={isVirtual}
+                          meetupGroups={meetupGroups === null ? 0 : meetupGroups.length}
+                          venue={venue}
+                          location={true}
+                          summary={summary}
+                        />
+                      </Bounce>
+                    )
+                  }
+                )
+              )}
+            </Items>
+          )}
+
+          {currentItems === 'Streams' && <StreamCard />}
         </div>
       </CSSTransition>
       <br />

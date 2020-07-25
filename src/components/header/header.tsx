@@ -113,7 +113,7 @@ const Header = (props): JSX.Element => {
                     paddingLeft: '10px',
                     color: 'white',
                     textDecoration: 'none',
-                    fontSize: '1.5rem'
+                    fontSize: '1.4rem'
                   }}
                 >
                   | Home

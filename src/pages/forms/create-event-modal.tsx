@@ -86,8 +86,8 @@ const CreateEventModal = (props): JSX.Element => {
           Use existing template
         </Text>
 
-        <Text color="blue" style={{ cursor: 'pointer' }}>
-          Launch New Iteration of An Existing Event
+        <Text>
+          <span style={{ color: 'blue', cursor: 'pointer' }}> Launch </span> Event Iteration.
         </Text>
       </div>
       <br />

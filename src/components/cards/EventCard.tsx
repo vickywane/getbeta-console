@@ -91,6 +91,19 @@ const EventCard = (props): JSX.Element => {
   // casting into str... overlap err
   const permission = String(creator) === userId
 
+  const Colour = (type): String => {
+    switch (type) {
+      case 'Conference':
+        return '#401364'
+      case 'Meetup':
+        return 'blue'
+      case 'Stream':
+        return 'red'
+      default:
+        return 'violet'
+    }
+  }
+
   return (
     <Card style={{ padding: '0px' }} key={id}>
       <div>
@@ -100,7 +113,8 @@ const EventCard = (props): JSX.Element => {
               style={{
                 height: '40px',
                 width: '9rem',
-                background: type === 'Conference' ? '#401364' : 'blue',
+                // @ts-ignore
+                background: Colour(type),
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',

@@ -33,13 +33,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
+      <change afterPath="$PROJECT_DIR$/src/components/cards/streamCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/queries.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/queries.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forms/event.form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/event.form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/notes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/notes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/EventCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/EventCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/console/console.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/console.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/console/organizing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/organizing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/console/volunteering.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/volunteering.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/create-event-modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event/create-event.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/formsData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/formsData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/profile.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/state/console.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/console.store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +78,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/event/configuration" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/forms/create-event" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -91,6 +101,7 @@
       <recent name="C:\Users\Iamnwani\Desktop\ROJECT\event\event-console\src\components\modals" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/forms/create-event" />
       <recent name="$PROJECT_DIR$/src/pages/event/configuration" />
       <recent name="C:\Users\Iamnwani\Desktop\ROJECT\event\event-console\src\pages\event" />
     </key>
@@ -265,14 +276,14 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="10" y="153" width="770" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1595490422623" />
-    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup" timestamp="1595521538856">
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup" timestamp="1595714136721">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="382" y="161" width="672" height="604" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1595273737673" />
     <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1595278792157" />
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
-    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595521538856" />
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595714136721" />
     <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595448639287" />
   </component>
   <component name="XDebuggerManager">

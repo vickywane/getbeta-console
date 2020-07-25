@@ -1,10 +1,16 @@
 import { action, observable, decorate } from 'mobx'
 
 class ConsoleStore {
-  ProfilePane = false
+  showProfilePane = true
 
   //user store
   showNotes = true
+
+  activeConsoleView = 'organizing'
+
+  setConsoleView = view => {
+    this.activeConsoleView = view
+  }
 
   openNotes = () => {
     this.showNotes = !this.showNotes
@@ -14,25 +20,22 @@ class ConsoleStore {
     this.showNotes = false
   }
 
-  showProfilePane = () => {
-    this.ProfilePane = true
-  }
-
-  closeProfilePane = () => {
-    this.ProfilePane = false
+  toggleProfilePane = () => {
+    this.showProfilePane = !this.showProfilePane
   }
 }
 
 const DecoratedConsoleStore = decorate(ConsoleStore, {
   //observables
-  ProfilePane: observable,
+  showProfilePane: observable,
   showNotes: observable,
+  activeConsoleView: observable,
 
   //actions
   openNotes: action,
+  setConsoleView: action,
   closeNotes: action,
-  showProfilePane: action,
-  closeProfilePane: action
+  toggleProfilePane: action
 })
 
 const store = new DecoratedConsoleStore()

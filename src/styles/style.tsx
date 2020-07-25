@@ -328,15 +328,15 @@ const Title = styled.h5`
 const Label = styled.p`
 padding-left: 10px
 font-weight: 400;
-font-size: ${props => (props.small ? '1.3rem' : '1.2rem')};
+font-size: ${props => (props.small ? '1.2rem' : '1.35rem')};
 ${media.lessThan('large')`
 font-size: ${props => (props.small ? '1.1rem' : '1.3rem')};
   `};
   ${media.lessThan('medium')`
- font-size: ${props => (props.small ? '1rem' : '1.3rem')};
+ font-size: ${props => (props.small ? '1rem' : '1.27rem')};
 `};
   ${media.lessThan('small')`
- font-size: ${props => (props.small ? '1rem' : '1.3rem')};
+ font-size: ${props => (props.small ? '1rem' : '1.2rem')};
 `};
 `
 
@@ -486,6 +486,10 @@ const Header = styled.nav`
   background: #401364;
   position: fixed;
   width: 100%;
+  h4 {
+    font-size: 1.4rem;
+    font-weight: normal;
+  }
   ${media.lessThan('large')`
    padding: 1rem 2rem;
 `};
@@ -500,7 +504,7 @@ const Header = styled.nav`
 
 const HeaderLinks = styled.a`
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 `
 
 const FormCard = styled.div`
