@@ -16,6 +16,7 @@ import {
   Team,
   Drafts,
   Draft,
+  ProfilePreview,
   ScheduledTalks,
   Mobile,
   Editor,
@@ -86,6 +87,7 @@ const App = (props): JSX.Element => {
             <Protected authenticated={Authenticated} path="/stream/:id" component={Stream} />
             <Protected authenticated={Authenticated} path="/settings" component={Preferences} />
             <Protected authenticated={Authenticated} path="/upload/:name" component={Upload} />
+            <Protected authenticated={Authenticated} path="/user/:id" component={ProfilePreview} />
             <Protected authenticated={Authenticated} path="/create-task" component={TaskForm} />
             <Protected authenticated={Authenticated} path="/create-team" component={TeamForm} />
             <Protected

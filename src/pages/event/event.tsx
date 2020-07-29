@@ -22,8 +22,6 @@ import LaunchEvent from './launchEvent'
 import Conference from './conference/conference'
 import Meetup from './meetups/meetup'
 
-// make grids responsive
-
 const Event = (props): JSX.Element => {
   // naming conflicts coming up here
   const [staate, dispaatch] = React.useReducer(TabReducer, TabState)

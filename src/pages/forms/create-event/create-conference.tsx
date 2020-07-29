@@ -133,12 +133,8 @@ const CreateConference = (props): JSX.Element => {
         name: Name,
         website: Website,
         alias: Alias,
-        description: Description,
         Email: Email,
-        venue: Venue,
         eventType: EventType,
-        summary: Summary,
-        EventDate: EventDate,
         isVirtual: Virtual,
         isLocked: false,
         mediaLinks: MediaLinksArray,
@@ -148,8 +144,7 @@ const CreateConference = (props): JSX.Element => {
       }
     })
       .then(() => {
-        ConfirmMail(true)
-        closeNotify()
+        setActiveView('MileStone')
       })
       .catch(e => {
         console.log(e)
@@ -217,7 +212,15 @@ const CreateConference = (props): JSX.Element => {
       <div>
         <br />
         {!importPane ? (
-          <div style={{ height: Mail && window.innerHeight - 177 }}>
+          <div
+            style={{
+              height: Mail && window.innerHeight - 177,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flex: 1
+            }}
+          >
             <Body>
               <Text style={{ color: 'red' }}> {Error} </Text>
 
@@ -306,7 +309,7 @@ const CreateConference = (props): JSX.Element => {
                       <div style={{ textAlign: 'right' }}>
                         <Button
                           onClick={() => {
-                            setActiveView('MileStone')
+                            SubmitData()
                           }}
                         >
                           Create {props.type}

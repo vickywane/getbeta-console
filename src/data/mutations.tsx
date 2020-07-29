@@ -101,12 +101,8 @@ const CREATE_EVENT = gql`
     $name: String!
     $Email: String!
     $eventType: String!
-    $summary: String!
     $alias: String!
-    $description: String!
-    $venue: String!
     $website: String!
-    $EventDate: [String]!
     $isArchived: Boolean!
     $isLocked: Boolean!
     $mediaLinks: [String!]
@@ -121,13 +117,9 @@ const CREATE_EVENT = gql`
         Email: $Email
         website: $website
         alias: $alias
-        description: $description
-        venue: $venue
         eventType: $eventType
         mediaLinks: $mediaLinks
-        summary: $summary
         isVirtual: $isVirtual
-        EventDate: $EventDate
         isArchived: $isArchived
         isLocked: $isLocked
         isAcceptingTalks: $isAcceptingTalks
@@ -136,13 +128,6 @@ const CREATE_EVENT = gql`
     ) {
       name
       id
-      summary
-      description
-      alias
-      website
-      Email
-      EventDate
-      bucketLink
     }
   }
 `

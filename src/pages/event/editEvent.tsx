@@ -1,22 +1,13 @@
-import React, { useState } from "react"
-import { Modal } from "react-bootstrap"
-import { inject, observer } from "mobx-react"
-import {
-  FiX,
-  FiSend,
-  FiEdit,
-  FiMoreHorizontal,
-  FiFacebook,
-  FiTwitter,
-  FiInstagram,
-} from "react-icons/fi"
-import Flex from "styled-flex-component"
-import { useMutation } from "@apollo/react-hooks"
-import { CSSTransition } from "react-transition-group"
-import styled from "styled-components"
+import React, { useState } from 'react'
+import { inject, observer } from 'mobx-react'
+import { FiEdit, FiMoreHorizontal, FiFacebook, FiTwitter, FiInstagram } from 'react-icons/fi'
+import Flex from 'styled-flex-component'
+import { useMutation } from '@apollo/react-hooks'
+import { CSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
 
-import Media from "./media"
-import SponsorsControl from "./sponsors.control"
+import Media from './media'
+import SponsorsControl from './sponsors.control'
 import {
   Hover,
   Head,
@@ -27,12 +18,12 @@ import {
   Tab,
   TabColumn,
   Text,
-  Button,
-} from "../../styles/style"
-import { UPDATE_EVENT } from "../../data/mutations"
-import { CREATE_EVENT_INPUT } from "../../pages/forms/formsData"
-import { Tip } from "../../components/"
-import Field from "../../pages/forms/fields"
+  Button
+} from '../../styles/style'
+import { UPDATE_EVENT } from '../../data/mutations'
+import { CREATE_EVENT_INPUT } from '../../pages/forms/formsData'
+import { Tip } from '../../components/'
+import Field from '../../pages/forms/fields'
 
 const CInput = styled.div`
   display: flex;
@@ -55,7 +46,7 @@ const InputGrid = styled.div`
 `
 
 const EditEvent = (props): JSX.Element => {
-  const [ActiveColumn, setActiveColumn] = useState("forms")
+  const [ActiveColumn, setActiveColumn] = useState('forms')
   const [Tips, showTip] = useState(false)
 
   const { editEventModal, closeEditModal } = props.ModalStore
@@ -72,16 +63,16 @@ const EditEvent = (props): JSX.Element => {
     description,
     venue,
     isVirtual,
-    speakerConduct, // null when not updated
+    speakerConduct,
     confirmedEmail,
     isArchived,
     mediaLinks,
     isLocked,
-    EventDate, // null
+    EventDate,
     isAcceptingVolunteers,
     isAcceptingTalks,
     summary,
-    isAcceptingAttendees,
+    isAcceptingAttendees
   } = eventData.event
 
   const [Name, setName] = useState<string>(name)
@@ -91,16 +82,12 @@ const EditEvent = (props): JSX.Element => {
   const [Summary, setSummary] = useState<string>(summary)
   const [Venue, setVenue] = useState<string>(venue)
   const [NewEmail, setEmail] = useState<string>(Email)
-  const [EventType, setEventType] = useState<string>(eventType)
+  const [Date, setDate] = useState<string>('')
 
-  const [FBMediaLinks, addFBMediaLink] = useState<string>(
-    mediaLinks === null ? "" : mediaLinks[0]
-  )
-  const [TWMediaLinks, addTWMediaLink] = useState<string>(
-    mediaLinks === null ? "" : mediaLinks[1]
-  )
+  const [FBMediaLinks, addFBMediaLink] = useState<string>(mediaLinks === null ? '' : mediaLinks[0])
+  const [TWMediaLinks, addTWMediaLink] = useState<string>(mediaLinks === null ? '' : mediaLinks[1])
   const [INSMediaLinks, addINSMediaLink] = useState<string>(
-    mediaLinks === null ? "" : mediaLinks[2]
+    mediaLinks === null ? '' : mediaLinks[2]
   )
 
   const { first, second, third } = CREATE_EVENT_INPUT
@@ -108,29 +95,24 @@ const EditEvent = (props): JSX.Element => {
 
   const handleChange = (value, label) => {
     switch (label) {
-      case "Event Name":
-        setName(value)
-        break
-      case "Event Alias":
-        setAlias(value)
-        break
-      case "Event Brand Page":
-        setWebsite(value)
-        break
-      case "Event Support Email":
-        setEmail(value)
-        break
-      case "Event Description":
-        setDescription(value)
-        break
-      case "Event Summary":
-        setSummary(value)
-        break
-      case "Event-Venue":
-        setVenue(value)
-        break
+      case 'Event Name':
+        return setName(value)
+      case 'Event Alias':
+        return setAlias(value)
+      case 'Event Brand Page':
+        return setWebsite(value)
+      case 'Event Support Email':
+        return setEmail(value)
+      case 'Event Description':
+        return setDescription(value)
+      case 'Event Summary':
+        return setSummary(value)
+      case 'Event Venue':
+        return setVenue(value)
+      case 'Event Date':
+        return setDate(value)
       default:
-        console.log(label)
+        break
     }
   }
 
@@ -147,7 +129,7 @@ const EditEvent = (props): JSX.Element => {
         description: Description,
         Email: NewEmail,
         venue: Venue,
-        Date: 11,
+        Date: Date,
         isVirtual: isVirtual,
         mediaLinks: LinksArr,
         isLocked: isLocked,
@@ -157,10 +139,10 @@ const EditEvent = (props): JSX.Element => {
         isAcceptingAttendees: isAcceptingAttendees,
         speakerConduct: speakerConduct,
         confirmedEmail: confirmedEmail,
-        eventType: EventType,
+        eventType: eventType,
         summary: Summary,
-        EventDate: [EventDate],
-      },
+        EventDate: [EventDate]
+      }
     })
       .then(() => {
         showTip(true)
@@ -172,53 +154,47 @@ const EditEvent = (props): JSX.Element => {
 
   return (
     <div>
-      <Head style={{ paddingTop: "1.5rem" }} header>
+      <Head style={{ paddingTop: '1.5rem' }} header>
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
-          <Hover style={{ padding: "0rem 0.7rem" }}>
-            <FiEdit style={{ fontSize: "1.75em" }} />
+          <Hover style={{ padding: '0rem 0.7rem' }}>
+            <FiEdit style={{ fontSize: '1.75em' }} />
           </Hover>
 
           <Section>Edit {eventType}</Section>
         </div>
 
         <Tab>
-          <TabColumn
-            onClick={() => setActiveColumn("forms")}
-            active={ActiveColumn === "forms"}
-          >
+          <TabColumn onClick={() => setActiveColumn('forms')} active={ActiveColumn === 'forms'}>
             Details
           </TabColumn>
 
-          <TabColumn
-            onClick={() => setActiveColumn("media")}
-            active={ActiveColumn === "media"}
-          >
+          <TabColumn onClick={() => setActiveColumn('media')} active={ActiveColumn === 'media'}>
             Media Assets
           </TabColumn>
 
           <TabColumn
-            onClick={() => setActiveColumn("sponsors")}
-            active={ActiveColumn === "sponsors"}
+            onClick={() => setActiveColumn('sponsors')}
+            active={ActiveColumn === 'sponsors'}
           >
             Event Sponsors
           </TabColumn>
         </Tab>
       </Head>
 
-      <CSSTransition timeout={300} unmountOnExit in={ActiveColumn === "forms"}>
+      <CSSTransition timeout={300} unmountOnExit in={ActiveColumn === 'forms'}>
         <Body>
           <Body>
             {Tips && (
               <Tip
                 timeout={2000}
                 message="Your Event has been updated"
-                icon1={<FiMoreHorizontal style={{ fontSize: "1.8rem" }} />}
+                icon1={<FiMoreHorizontal style={{ fontSize: '1.8rem' }} />}
               />
             )}
 
@@ -228,11 +204,11 @@ const EditEvent = (props): JSX.Element => {
                   key={id}
                   id={label}
                   name={label}
-                  type={"text"}
+                  type={'text'}
                   textarea={textarea}
-                  value={label == "Event Name" ? Name : Alias}
+                  value={label == 'Event Name' ? Name : Alias}
                   onChange={e => handleChange(e, label)}
-                  placeholder={label == "Event Name" ? name : alias}
+                  placeholder={label == 'Event Name' ? name : alias}
                 />
               )
             })}
@@ -242,11 +218,11 @@ const EditEvent = (props): JSX.Element => {
                   key={id}
                   id={label}
                   name={label}
-                  type={"text"}
+                  type={'text'}
                   textarea={textarea}
-                  value={label == "Event Brand Page" ? Website : NewEmail}
+                  value={label == 'Event Brand Page' ? Website : NewEmail}
                   onChange={e => handleChange(e, label)}
-                  placeholder={label == "Event Brand Page" ? website : Email}
+                  placeholder={label == 'Event Brand Page' ? website : Email}
                 />
               )
             })}
@@ -257,16 +233,40 @@ const EditEvent = (props): JSX.Element => {
                   id={label}
                   limit={limit}
                   name={label}
-                  type={"text"}
+                  type={'text'}
                   textarea={textarea}
-                  value={label === "Event Description" ? Description : Summary}
+                  value={label === 'Event Description' ? Description : Summary}
                   onChange={e => handleChange(e, label)}
                   placeholder={
-                    label === "Event Description" ? description : summary
+                    label === 'Event Description'
+                      ? 'A description of your event'
+                      : 'A One line' + ' summary of your event '
                   }
                 />
               )
             })}
+
+            <Field
+              key={6}
+              id={6}
+              name={'Event Venue'}
+              type={'text'}
+              textarea={false}
+              value={Venue}
+              onChange={e => handleChange(e, 'Event Venue')}
+              placeholder={'Event Venue'}
+            />
+
+            <Field
+              key={7}
+              id={7}
+              name={'Event Date'}
+              type={'string'}
+              textarea={false}
+              value={Date}
+              onChange={e => handleChange(e, 'Event Date')}
+              placeholder={'Event Date'}
+            />
 
             <Body>
               <Section>Media Links</Section>
@@ -276,13 +276,13 @@ const EditEvent = (props): JSX.Element => {
                 <CInput>
                   <Hover
                     style={{
-                      padding: "0.6rem 0.5rem",
-                      background: "#fbfbfb",
-                      color: "#0e2f5a",
-                      borderRadius: "5px 0px 0px 5px",
+                      padding: '0.6rem 0.5rem',
+                      background: '#fbfbfb',
+                      color: '#0e2f5a',
+                      borderRadius: '5px 0px 0px 5px'
                     }}
                   >
-                    <FiTwitter style={{ fontSize: "1.7rem" }} />{" "}
+                    <FiTwitter style={{ fontSize: '1.7rem' }} />{' '}
                   </Hover>
 
                   <input
@@ -296,13 +296,13 @@ const EditEvent = (props): JSX.Element => {
                 <CInput>
                   <Hover
                     style={{
-                      padding: "0.6rem 0.5rem",
-                      background: "#fbfbfb",
-                      color: "#0e2f5a",
-                      borderRadius: "5px 0px 0px 5px",
+                      padding: '0.6rem 0.5rem',
+                      background: '#fbfbfb',
+                      color: '#0e2f5a',
+                      borderRadius: '5px 0px 0px 5px'
                     }}
                   >
-                    <FiFacebook style={{ fontSize: "1.7rem" }} />
+                    <FiFacebook style={{ fontSize: '1.7rem' }} />
                   </Hover>
 
                   <input
@@ -316,13 +316,13 @@ const EditEvent = (props): JSX.Element => {
                 <CInput>
                   <Hover
                     style={{
-                      padding: "0.6rem 0.5rem",
-                      background: "#fbfbfb",
-                      color: "#0e2f5a",
-                      borderRadius: "5px 0px 0px 5px",
+                      padding: '0.6rem 0.5rem',
+                      background: '#fbfbfb',
+                      color: '#0e2f5a',
+                      borderRadius: '5px 0px 0px 5px'
                     }}
                   >
-                    <FiInstagram style={{ fontSize: "1.7rem" }} />
+                    <FiInstagram style={{ fontSize: '1.7rem' }} />
                   </Hover>
 
                   <input
@@ -346,15 +346,11 @@ const EditEvent = (props): JSX.Element => {
         </Body>
       </CSSTransition>
 
-      <CSSTransition timeout={300} unmountOnExit in={ActiveColumn === "media"}>
+      <CSSTransition timeout={300} unmountOnExit in={ActiveColumn === 'media'}>
         <Media eventId={id} />
       </CSSTransition>
 
-      <CSSTransition
-        timeout={300}
-        unmountOnExit
-        in={ActiveColumn === "sponsors"}
-      >
+      <CSSTransition timeout={300} unmountOnExit in={ActiveColumn === 'sponsors'}>
         <SponsorsControl sponsors={sponsors} eventId={id} />
       </CSSTransition>
       <br />
@@ -362,4 +358,4 @@ const EditEvent = (props): JSX.Element => {
   )
 }
 
-export default inject("ModalStore")(observer(EditEvent))
+export default inject('ModalStore')(observer(EditEvent))

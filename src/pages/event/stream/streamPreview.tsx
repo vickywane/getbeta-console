@@ -20,13 +20,8 @@ const StreamPreview = (props): JSX.Element => {
         <br />
         <br />
         <br />
-        <div style={{ display: 'flex' }}>
-          <Hover style={{ margin: '0rem 0.5rem' }}>
-            <IoIosTimer style={{ fontSize: '1.6rem' }} />
-          </Hover>
-          <Text white> {createdBy[0].name} </Text>
-        </div>
-        <br />
+
+        <Text white> {createdBy[0].name} </Text>
         <br />
         <br />
         <br />
@@ -37,7 +32,12 @@ const StreamPreview = (props): JSX.Element => {
           </div>
           <div>
             <Title> {title} </Title>
-            <Text>Starting in {createdAt}</Text>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Hover style={{ margin: '0rem 0.5rem' }}>
+                <IoIosTimer style={{ fontSize: '1.6rem' }} />
+              </Hover>
+              <Text white> Starting {createdAt} </Text>
+            </div>
           </div>
 
           <div style={{ display: 'column', flexDirection: 'row' }}>
@@ -50,12 +50,12 @@ const StreamPreview = (props): JSX.Element => {
                 borderRadius: '50%'
               }}
             />
-            <Text> {createdBy[0].name} </Text>
+            <Text center> {createdBy[0].name} </Text>
           </div>
         </div>
       </Body>
 
-      <Body style={{ background: '#fbfbfb' }}>
+      <Body style={{ background: '#eeeeee' }}>
         <Text center>{summary}</Text>
 
         <Title> Stream Notes </Title>

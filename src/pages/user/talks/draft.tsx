@@ -124,6 +124,7 @@ const Draft = (props): JSX.Element => {
 
   const Grid = styled.div`
     display: grid;
+    background: #eeeee;
     transition: all 300ms;
     grid-gap: ${props => props.reviewOpen && '0rem 1rem'};
     grid-template-columns: ${props => props.reviewOpen && 'auto 27rem'};

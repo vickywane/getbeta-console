@@ -46,40 +46,41 @@ const Notes = (props): JSX.Element => {
     return (
       <CSSTransition timeout={300} unmountOnExit in={showNotes}>
         <div>
-          {notes.map(({ title }) => {
-            return (
-              <NoteWindow>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    padding: '0.7rem 1rem',
-                    borderBottom: '1px solid #c0c0c0'
-                  }}
-                >
-                  <Section> Draft Notes ( {notes.length} ) </Section>
+          {notes !== null &&
+            notes.map(({ title }) => {
+              return (
+                <NoteWindow>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '0.7rem 1rem',
+                      borderBottom: '1px solid #c0c0c0'
+                    }}
+                  >
+                    <Section> Draft Notes ( {notes.length} ) </Section>
 
-                  <Hover onClick={() => closeNotes()} style={{ margin: '0rem 0.3rem' }}>
-                    <FiX onClick={() => {}} style={{ fontSize: '1.8rem' }} />
-                  </Hover>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '3rem auto 3rem' }}>
-                  <div style={{ ...center }}>
-                    <Hover>
-                      <FiChevronLeft style={{ fontSize: '2.5rem' }} />
+                    <Hover onClick={() => closeNotes()} style={{ margin: '0rem 0.3rem' }}>
+                      <FiX onClick={() => {}} style={{ fontSize: '1.8rem' }} />
                     </Hover>
                   </div>
-                  <div>{title}</div>
-                  <div style={{ ...center }}>
-                    <Hover>
-                      <FiChevronRight style={{ fontSize: '2.5rem' }} />
-                    </Hover>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '3rem auto 3rem' }}>
+                    <div style={{ ...center }}>
+                      <Hover>
+                        <FiChevronLeft style={{ fontSize: '2.5rem' }} />
+                      </Hover>
+                    </div>
+                    <div>{title}</div>
+                    <div style={{ ...center }}>
+                      <Hover>
+                        <FiChevronRight style={{ fontSize: '2.5rem' }} />
+                      </Hover>
+                    </div>
                   </div>
-                </div>
-              </NoteWindow>
-            )
-          })}
+                </NoteWindow>
+              )
+            })}
         </div>
       </CSSTransition>
     )
