@@ -54,6 +54,13 @@ const GET_USER: any = gql`
           id
         }
       }
+      streams {
+        id
+        title
+        duration
+        summary
+        createdAt
+      }
       volunteering {
         role
         id
@@ -71,6 +78,22 @@ const GET_USER: any = gql`
         user {
           name
         }
+      }
+    }
+  }
+`
+
+export const GET_STREAM: any = gql`
+  query get_stream($id: Int!) {
+    stream(id: $id) {
+      id
+      title
+      duration
+      summary
+      createdAt
+      createdBy {
+        name
+        email
       }
     }
   }

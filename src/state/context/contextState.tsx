@@ -25,6 +25,11 @@ const AdminTabState = {
   showTimeline: true
 }
 
+export const StreamState = {
+  id: 1,
+  activeView: 'preview'
+}
+
 const PeopleTabContext = React.createContext(PeopleTabState)
 const TabContext = React.createContext(TabState)
 const AdminContext = React.createContext(AdminTabState)

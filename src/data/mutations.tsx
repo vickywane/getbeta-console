@@ -1,20 +1,27 @@
-import { gql } from "apollo-boost"
+import { gql } from 'apollo-boost'
 
 // TODO: CHECK IF VALUES RETURNED FORM MUTATIONS ARE
 //       USED IF NOT REMOVE AND LEAVE ONLY ID FIELDS
 
 export const UPDATE_EVENT_SETTINGS: any = gql`
-  mutation updateEventSettings(
-    $eventId: Int!
-    $isLocked: Boolean!
-    $isArchived: Boolean!
-  ) {
+  mutation updateEventSettings($eventId: Int!, $isLocked: Boolean!, $isArchived: Boolean!) {
     updateEventSettings(
       eventId: $eventId
       input: { isLocked: $isLocked, isArchived: $isArchived }
     ) {
       id
       name
+    }
+  }
+`
+
+export const CREATE_STREAM: any = gql`
+  mutation createStream($userId: Int!, $title: String!, $summary: String!, $duration: String!) {
+    createStream(
+      userId: $userId
+      input: { title: $title, duration: $duration, summary: $summary }
+    ) {
+      id
     }
   }
 `
@@ -67,16 +74,8 @@ export const CREATE_NOTE: any = gql`
 `
 
 export const CREATE_REMINDER: any = gql`
-  mutation createReminder(
-    $userId: Int!
-    $name: String!
-    $from: String!
-    $due: String!
-  ) {
-    createReminder(
-      userId: $userId
-      input: { name: $name, from: $from, due: $due }
-    ) {
+  mutation createReminder($userId: Int!, $name: String!, $from: String!, $due: String!) {
+    createReminder(userId: $userId, input: { name: $name, from: $from, due: $due }) {
       name
     }
   }
@@ -245,21 +244,10 @@ const LOGIN_USER = gql`
 `
 
 const UPDATE_USER = gql`
-  mutation updateUser(
-    $id: ID
-    $name: String
-    $email: String
-    $password: String
-    $ImgUrl: String
-  ) {
+  mutation updateUser($id: ID, $name: String, $email: String, $password: String, $ImgUrl: String) {
     updateUser(
       id: $id
-      input: {
-        name: $name
-        password: $password
-        email: $email
-        img_uri: $ImgUrl
-      }
+      input: { name: $name, password: $password, email: $email, img_uri: $ImgUrl }
     ) {
       name
       email
@@ -338,12 +326,7 @@ const UPLOAD_EVENT_FILE: any = gql`
 `
 
 const UPLOAD_USER_FILE: any = gql`
-  mutation upload(
-    $file: Upload!
-    $BucketName: String!
-    $Type: String!
-    $UserId: Int
-  ) {
+  mutation upload($file: Upload!, $BucketName: String!, $Type: String!, $UserId: Int) {
     uploadSingleUserFile(
       BucketName: $BucketName
       req: { file: $file, type: $Type, userId: $UserId }
@@ -412,16 +395,8 @@ const CREATE_TALK = gql`
 `
 
 const SUMBIT_TALK = gql`
-  mutation submitEventTalk(
-    $talkId: Int!
-    $eventId: Int!
-    $isAccepted: Boolean!
-  ) {
-    submitEventTalk(
-      talkId: $talkId
-      eventId: $eventId
-      input: { isAccepted: $isAccepted }
-    ) {
+  mutation submitEventTalk($talkId: Int!, $eventId: Int!, $isAccepted: Boolean!) {
+    submitEventTalk(talkId: $talkId, eventId: $eventId, input: { isAccepted: $isAccepted }) {
       id
     }
   }
@@ -564,5 +539,5 @@ export {
   CREATE_USER,
   CREATE_TRACK,
   ATTEND_EVENT,
-  LOGIN_USER,
+  LOGIN_USER
 }

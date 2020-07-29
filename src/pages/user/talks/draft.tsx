@@ -163,7 +163,7 @@ const Draft = (props): JSX.Element => {
   // alert(draftId)
   const { loading, error, data } = useQuery(GET_TALK, {
     variables: {
-      id: 581410896 // draftId
+      id: draftId // draftId
     }
   })
   if (error) {

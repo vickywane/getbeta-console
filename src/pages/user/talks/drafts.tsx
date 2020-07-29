@@ -82,7 +82,7 @@ const align = {
 }
 
 const Talks = (): JSX.Element => {
-  const [ActivePage, setActivePage] = useState('draft') //drafts
+  const [ActivePage, setActivePage] = useState('drafts') //drafts
   const [draftId, setDraftId] = useState(null)
   const [Tips, showTips] = useState(false)
   const Hooks = useWindowWidth()

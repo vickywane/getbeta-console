@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import Flex from 'styled-flex-component'
 import { useQuery } from '@apollo/react-hooks'
 import styled from 'styled-components'
-import useScrollPosition from '../../utils/scrollTrackerHook'
+import useScrollPosition, { PositionStore } from '../../utils/scrollTrackerHook'
 
 import Explore from './explore'
 import Organizing from './organizing'
@@ -23,6 +23,8 @@ const Div = styled.div`
 `
 
 const Console = (props): JSX.Element => {
+  const viewPortRef = useRef()
+
   const { loading, error, data } = useQuery(GET_USER, {
     variables: {
       id: localStorage.getItem('user_id'),
@@ -31,36 +33,20 @@ const Console = (props): JSX.Element => {
   })
   const { LogOut } = props.AuthStore
   const { showWelcomeModal } = props.ModalStore
-  const { activeConsoleView, setConsoleView } = props.ConsoleStore
+  const { activeConsoleView, setConsoleView, toggleProfilePane } = props.ConsoleStore
   const Width = useWindowWidth()
 
-  const PositionStore = () => {
-    const [renderCount, triggerReRender] = useState(0)
-    const elementPosition = useRef({ x: 10, y: 150 })
-    const viewportPosition = useRef({ x: 0, y: 0 })
-    let throttleTimeout = null
-
-    const getPos = (el, axis) => Math.round(el.current[axis])
-
-    const setPos = (el, pos) => {
-      el.current = pos
-      if (throttleTimeout !== null) return
-      // Only re-render the component every 0.1s
-      throttleTimeout = setTimeout(() => triggerReRender(renderCount + 1), 300)
-    }
-
-    return {
-      getElementX: () => getPos(elementPosition, 'x'),
-      getElementY: () => getPos(elementPosition, 'y'),
-      getViewportX: () => getPos(viewportPosition, 'x'),
-      getViewportY: () => getPos(viewportPosition, 'y'),
-      setElementPosition: pos => setPos(elementPosition, pos),
-      setViewportPosition: pos => setPos(viewportPosition, pos),
-      renderCount
-    }
-  }
-
-  const Scroll = useScrollPosition(false, [PositionStore()])
+  useScrollPosition(
+    ({ currPos }) => {
+      let verticalScreenValue: number = Math.trunc(currPos.y)
+      if (verticalScreenValue > 180) {
+        toggleProfilePane()
+      }
+    },
+    [PositionStore],
+    null,
+    true
+  )
 
   if (error) {
     return (
@@ -137,7 +123,12 @@ const Console = (props): JSX.Element => {
         </Flex>
         <br />
 
-        <Organizing width={Width} activeSection={activeConsoleView} events={data.user.events} />
+        <Organizing
+          width={Width}
+          activeSection={activeConsoleView}
+          events={data.user.events}
+          streams={data.user.streams}
+        />
         <Volunteering
           width={Width}
           data={data}

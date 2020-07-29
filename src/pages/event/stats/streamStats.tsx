@@ -37,12 +37,12 @@ const HoverCircle = styled(Hover)`
   }
 `
 
-const EventStatistics = (props): JSX.Element => {
+const StreamStatistics = (props): JSX.Element => {
   const { state, dispatch } = props
-  const { createdBy, name, eventType } = props.data
+  const { createdBy, title, eventType } = props.data
 
   return (
-    <Body style={{ background: '#fbfbfb', height: window.innerHeight - 40 }}>
+    <Body style={{ background: '#fbfbfb', height: window.innerHeight - 170 }}>
       <Body
         style={{
           margin: '0.5rem 0.2rem',
@@ -64,10 +64,9 @@ const EventStatistics = (props): JSX.Element => {
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Title center>
-              {' '}
               Hello, <b> {createdBy[0].name} </b>{' '}
             </Title>
-            <Text center> {name} is now live! </Text>
+            <Text center> {title} is now streaming live! </Text>
           </div>
 
           <div style={{ display: 'flex' }}>
@@ -99,14 +98,16 @@ const EventStatistics = (props): JSX.Element => {
             </Hover>
           </div>
 
-          <Hover style={{ display: 'flex' }}>
-            <Text>
-              {' '}
-              <a style={{ textDecoration: 'none' }} href={'https://my-event.com'} target={'_blank'}>
-                {' '}
-                Oasis Support{' '}
-              </a>{' '}
-            </Text>
+          <Hover
+            onClick={() =>
+              dispatch({
+                type: 'SWITCH_ACTIVE_VIEW',
+                view: 'preview'
+              })
+            }
+            style={{ display: 'flex' }}
+          >
+            <Text>Stream Preview</Text>
             <Hover style={{ margin: '0rem 0.5rem' }}>
               <IoIosContact style={{ fontSize: '1.8rem' }} />
             </Hover>
@@ -228,95 +229,6 @@ const EventStatistics = (props): JSX.Element => {
           <StatsCardHead style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div
               style={{ display: 'flex', justifyContent: 'center' }}
-              onClick={() => dispatch({ type: 'SWITCH_TEAM' })}
-            >
-              <div style={{ margin: '0rem 1rem' }}>
-                <img
-                  style={{
-                    width: '60px',
-                    height: '55px',
-                    borderRadius: '50%',
-                    border: '2px solid violet'
-                  }}
-                  src={CardImg}
-                />
-              </div>
-
-              <div style={{ ...center }}>
-                <Section style={{ color: '#401364', cursor: 'pointer' }}>
-                  {' '}
-                  Event Team Support{' '}
-                </Section>
-              </div>
-            </div>
-
-            <Hover style={{ ...center }}>
-              <FiX style={{ fontSize: '1.8rem' }} />
-            </Hover>
-          </StatsCardHead>
-          <hr />
-          <Body>
-            <Text center>
-              {' '}
-              bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-              bla bla bla bla bla bla bla bla bla{' '}
-            </Text>
-
-            <br />
-            <Text color={'grey'} small center>
-              {' '}
-              Learn More About <a href={'/'}> Event Marketplace </a> on Oasis.
-            </Text>
-          </Body>
-        </StatsCard>
-
-        <StatsCard>
-          <StatsCardHead style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div
-              style={{ display: 'flex', justifyContent: 'center' }}
-              onClick={() => dispatch({ type: 'SWITCH_SCHEDULE' })}
-            >
-              <div style={{ margin: '0rem 1rem' }}>
-                <img
-                  style={{
-                    width: '60px',
-                    height: '55px',
-                    borderRadius: '50%',
-                    border: '2px solid violet'
-                  }}
-                  src={CardImg}
-                />
-              </div>
-
-              <div style={{ ...center }}>
-                <Section style={{ color: '#401364', cursor: 'pointer' }}> Event Schedule </Section>
-              </div>
-            </div>
-
-            <Hover style={{ ...center }}>
-              <FiX style={{ fontSize: '1.8rem' }} />
-            </Hover>
-          </StatsCardHead>
-          <hr />
-          <Body>
-            <Text center>
-              {' '}
-              bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-              bla bla bla bla bla bla bla bla bla{' '}
-            </Text>
-
-            <br />
-            <Text color={'grey'} small center>
-              {' '}
-              Learn More About <a href={'/'}> Event Marketplace </a> on Oasis.
-            </Text>
-          </Body>
-        </StatsCard>
-
-        <StatsCard>
-          <StatsCardHead style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div
-              style={{ display: 'flex', justifyContent: 'center' }}
               onClick={() => dispatch({ type: 'SWITCH_STORE' })}
             >
               <div style={{ margin: '0rem 1rem' }}>
@@ -403,4 +315,4 @@ const EventStatistics = (props): JSX.Element => {
   )
 }
 
-export default EventStatistics
+export default StreamStatistics

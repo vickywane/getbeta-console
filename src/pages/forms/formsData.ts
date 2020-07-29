@@ -13,6 +13,12 @@ export const CREATE_STREAM_FORMS: any = [
     placeholder: 'A one line summary of your event stream',
     textarea: false
   },
+  {
+    id: 3,
+    label: 'Stream Duration',
+    placeholder: 'An expected duration of your stream',
+    textarea: false
+  },
   ,
 ]
 

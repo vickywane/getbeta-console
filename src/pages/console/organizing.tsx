@@ -29,7 +29,7 @@ const Hov = styled(Hover)`
 `
 
 const Organizing = (props): JSX.Element => {
-  const { activeSection, events, width } = props
+  const { activeSection, events, width, streams } = props
   const [Visibility, setVisibility] = useState<boolean>(false)
   const [currentItems, setCurrentItems] = useState<string>('Streams')
 
@@ -142,7 +142,7 @@ const Organizing = (props): JSX.Element => {
             </Items>
           )}
 
-          {currentItems === 'Streams' && <StreamCard />}
+          {currentItems === 'Streams' && <StreamCard streams={streams} />}
         </div>
       </CSSTransition>
       <br />
