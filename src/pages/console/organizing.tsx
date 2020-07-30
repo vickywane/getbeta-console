@@ -8,7 +8,7 @@ import { Modal } from 'react-bootstrap'
 import { FiSearch, FiPlus } from 'react-icons/fi'
 
 import { EventPlaceholder } from '../../components/placeholders/'
-import { Bounce, Items, Button, Contain, Text, Title, Section, Hover } from '../../styles/style'
+import { Items, Button, Contain, Text, Title, Section, Hover } from '../../styles/style'
 
 import EventCard from '../../components/cards/EventCard'
 import CreateEventModal from '../forms/create-event-modal'
@@ -29,7 +29,7 @@ const Hov = styled(Hover)`
 `
 
 const Organizing = (props): JSX.Element => {
-  const { activeSection, events, width, streams } = props
+  const { activeSection, events, width, streams, isUser } = props
   const [Visibility, setVisibility] = useState<boolean>(false)
   const [currentItems, setCurrentItems] = useState<string>('Streams')
 
@@ -70,19 +70,10 @@ const Organizing = (props): JSX.Element => {
         onEnter={() => {}}
       >
         <div>
-          <Flex justifyBetween>
-            {width >= 1000 ? (
-              <Button onClick={() => setVisibility(true)}>
-                <Flex>
-                  <div style={{ paddingRight: '15px' }}>
-                    <FiPlus style={{ fontSize: '1.55rem' }} />{' '}
-                  </div>{' '}
-                  Create Event{' '}
-                </Flex>
-              </Button>
-            ) : (
-              <Link to="/create/all">
-                <Button>
+          {isUser && (
+            <Flex justifyBetween>
+              {width >= 1000 ? (
+                <Button onClick={() => setVisibility(true)}>
                   <Flex>
                     <div style={{ paddingRight: '15px' }}>
                       <FiPlus style={{ fontSize: '1.55rem' }} />{' '}
@@ -90,15 +81,25 @@ const Organizing = (props): JSX.Element => {
                     Create Event{' '}
                   </Flex>
                 </Button>
-              </Link>
-            )}
+              ) : (
+                <Link to="/create/all">
+                  <Button>
+                    <Flex>
+                      <div style={{ paddingRight: '15px' }}>
+                        <FiPlus style={{ fontSize: '1.55rem' }} />{' '}
+                      </div>{' '}
+                      Create Event{' '}
+                    </Flex>
+                  </Button>
+                </Link>
+              )}
 
-            <select onChange={e => setCurrentItems(e.target.value)} value={currentItems}>
-              <option> Conferences </option>
-              <option> Streams </option>
-            </select>
-          </Flex>
-
+              <select onChange={e => setCurrentItems(e.target.value)} value={currentItems}>
+                <option> Conferences</option>
+                <option> Streams</option>
+              </select>
+            </Flex>
+          )}
           <br />
 
           {currentItems === 'Conferences' && (
@@ -120,21 +121,19 @@ const Organizing = (props): JSX.Element => {
                     meetupGroups
                   }) => {
                     return (
-                      <Bounce>
-                        <EventCard
-                          id={id}
-                          screen="organizing"
-                          name={name}
-                          type={eventType}
-                          createdBy={createdBy}
-                          created={dateCreated}
-                          isVirtual={isVirtual}
-                          meetupGroups={meetupGroups === null ? 0 : meetupGroups.length}
-                          venue={venue}
-                          location={true}
-                          summary={summary}
-                        />
-                      </Bounce>
+                      <EventCard
+                        id={id}
+                        screen="organizing"
+                        name={name}
+                        type={eventType}
+                        createdBy={createdBy}
+                        created={dateCreated}
+                        isVirtual={isVirtual}
+                        meetupGroups={meetupGroups === null ? 0 : meetupGroups.length}
+                        venue={venue}
+                        location={true}
+                        summary={summary}
+                      />
                     )
                   }
                 )

@@ -2,15 +2,22 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FiEdit, FiChevronRight, FiShoppingCart, FiSettings as IoMdConstruct } from 'react-icons/fi'
 import {
-  IoIosBug,
   IoMdMail,
   IoIosPhonePortrait,
   IoIosHome,
   IoIosCode,
   IoIosPeople,
   IoIosChatboxes,
-  IoIosTrendingUp
+  IoIosTrendingUp,
+  IoIosNotifications,
+  IoMdInformationCircle,
+  IoMdToday,
+  IoIosCart,
+  IoIosBookmarks,
+  IoIosMail,
+  IoMdEye
 } from 'react-icons/io'
+import { Hover, Text } from '../../styles/style'
 
 import { GrSchedules } from 'react-icons/gr'
 
@@ -39,10 +46,21 @@ const Tab = styled.div`
   color: ${props => (props.active ? '#0e2f5a;' : 'grey')};
   transition : all 300ms; 
   border-left:  ${props => (props.active ? '5px solid #0e2f5a;' : null)}; 
+  span {
+    display: none;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    transition : all 500ms;
+  }
   &: hover {
     color : #0e2f5a;
     cursor : pointer;
-  border-left: 4px solid grey;
+    border-left: 4px solid grey;
+    span {
+       display: flex;
+      visibility: visible;
+    }
 } 
   ${media.lessThan('large')`
   border-left:  ${props => (props.active ? '4px solid #0e2f5a;' : null)}; 
@@ -87,8 +105,35 @@ const Bottom = styled.div`
   bottom: 0.5rem;
 `
 
+const Tooltip = styled.span`
+  height: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  transform: translate(68%) ${props => props.bottom && 'translateY(-97%)'};
+  padding: 1rem 0.5rem;
+  border: 1px solid #000;
+  background: #22263d;
+  margin-top: 0.95rem;
+  text-align: center;
+  border-radius: 0px 10px 10px 10px;
+  color: #fff;
+`
+
+const Tip = styled.span`
+  position: absolute;
+  transform: translate(650%) rotate(180deg);
+  margin: -0.3rem 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border: 20px solid transparent;
+  border-right-color: #22263d;
+`
+
 const Admin = props => {
-  const { state, dispatch, openCrashReporter, Width } = props
+  const { state, dispatch, Width } = props
 
   return (
     <Window>
@@ -110,6 +155,23 @@ const Admin = props => {
             {state.activeTab === 'stats' && Width >= 1200 && (
               <FiChevronRight style={{ fontSize: '1.7rem' }} />
             )}
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                {' '}
+                An analytical overview of your entire event including notifications.{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 1 pending issue </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <br />
@@ -118,11 +180,31 @@ const Admin = props => {
             active={state.activeTab === 'dashboard'}
           >
             <T style={{ padding: '0rem 1rem' }}>
-              <IoIosHome style={{ fontSize: '1.7rem' }} />
+              <IoMdEye style={{ fontSize: '1.7rem' }} />
 
               {Width <= 1200 ? <Info>Preview</Info> : null}
             </T>
             {Width >= 1200 ? 'Preview' : null}
+
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                {' '}
+                A preview of your event page shown to attendees through the web and mobile clients{' '}
+              </Text>
+              <Text small center>
+                {' '}
+                Includes : Event Templates{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                  </div>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Tab
@@ -137,6 +219,23 @@ const Admin = props => {
               {Width <= 1200 ? <Info>Edit Event</Info> : null}
             </T>
             {Width >= 1200 ? 'Edit Event' : null}
+
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                Edit and update supplied information with regards to your event{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 5 information fields are blank </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Tab
@@ -148,6 +247,24 @@ const Admin = props => {
               {Width <= 1200 ? <Info>Mobile Interface</Info> : null}{' '}
             </T>
             {Width >= 1200 ? 'Mobile Interface' : null}
+
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                {' '}
+                An analytical overview of your entire event including notifications.{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 1 pending issue </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Tab
@@ -159,6 +276,28 @@ const Admin = props => {
               {Width <= 1200 ? <Info>Invitations</Info> : null}{' '}
             </T>
             {Width >= 1200 ? 'Invitation' : null}
+
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                {' '}
+                Email invitations sent to targeted potentials attendees of your event.{' '}
+              </Text>
+              <Text small center>
+                {' '}
+                Includes : Email Templates and Drafts.{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosMail style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 0 invitations sent out. </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Tab
@@ -170,6 +309,28 @@ const Admin = props => {
               {Width <= 1200 ? <Info>Teams</Info> : null}
             </T>
             {Width >= 1200 ? 'Event Support' : null}
+
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                {' '}
+                Teams and volunteers added to your event to help in planning.{' '}
+              </Text>
+              <Text small center>
+                {' '}
+                Includes: Teams, Volunteers and Attendees.{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 0 created team. </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Tab
@@ -181,6 +342,27 @@ const Admin = props => {
               {Width <= 1200 ? <Info>Schedule</Info> : null}
             </T>
             {Width >= 1200 ? 'Event Schedule' : null}
+
+            <Tip />
+            <Tooltip>
+              <Text small center>
+                {' '}
+                A schedule of everything happening during your event.{' '}
+              </Text>
+              <Text small center>
+                Includes: Talks and Tracks .{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosBookmarks style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 0 created schedules </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Tab
@@ -192,6 +374,28 @@ const Admin = props => {
               {Width <= 1200 ? <Info>Marketplace</Info> : null}
             </T>
             {Width >= 1200 ? 'Marketplace' : null}
+
+            <Tip />
+            <Tooltip>
+              <Hover style={{ margin: '0.5rem 0' }}>
+                <IoMdInformationCircle style={{ fontSize: '1.5rem' }} />
+              </Hover>
+
+              <Text small center>
+                {' '}
+                Marketplace for your attendees to easily purchase items relating to your event{' '}
+              </Text>
+
+              <div>
+                <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ margin: '0rem 0.5rem' }}>
+                    <IoIosCart style={{ fontSize: '1.5rem' }} />
+                  </div>
+
+                  <Text small> 10 cart items added </Text>
+                </Hover>
+              </div>
+            </Tooltip>
           </Tab>
 
           <Bottom>
@@ -206,7 +410,29 @@ const Admin = props => {
                 {Width <= 1200 ? <Info>Event Actions</Info> : null}
               </T>
               {Width >= 1200 ? 'Configuration ' : null}
+
+              <Tip />
+              <Tooltip bottom>
+                <Hover style={{ margin: '0.5rem 0' }}>
+                  <IoMdInformationCircle style={{ fontSize: '1.5rem' }} />
+                </Hover>
+                <Text small center>
+                  {' '}
+                  An analytical overview of your entire event including notifications.{' '}
+                </Text>
+
+                <div>
+                  <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ margin: '0rem 0.5rem' }}>
+                      <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                    </div>
+
+                    <Text small> 5 unmodified settings </Text>
+                  </Hover>
+                </div>
+              </Tooltip>
             </Tab>
+
             <Tab
               onClick={() => {
                 dispatch({ type: 'SWITCH_DEVELOPER' })
@@ -218,6 +444,28 @@ const Admin = props => {
                 {Width <= 1200 ? <Info>Developer APIs</Info> : null}
               </T>
               {Width >= 1200 ? 'Developer APIs' : null}
+
+              <Tip />
+              <Tooltip bottom>
+                <Hover style={{ margin: '0.5rem 0' }}>
+                  <IoMdInformationCircle style={{ fontSize: '1.5rem' }} />
+                </Hover>
+
+                <Text small center>
+                  External consumable API's and third-party integrations to be used by events
+                  wanting to consume stored data on Oasis on blog pages.
+                </Text>
+
+                <div>
+                  <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ margin: '0rem 0.5rem' }}>
+                      <IoIosNotifications style={{ fontSize: '1.5rem' }} />
+                    </div>
+
+                    <Text small> 5 available third party services </Text>
+                  </Hover>
+                </div>
+              </Tooltip>
             </Tab>
 
             <Tab
@@ -231,6 +479,29 @@ const Admin = props => {
                 {Width <= 1200 ? <Info>Event Feedback</Info> : null}
               </T>
               {Width >= 1200 ? 'Event Feedback' : null}
+
+              <Tip />
+              <Tooltip bottom>
+                <Hover style={{ margin: '0.5rem 0' }}>
+                  <IoMdInformationCircle style={{ fontSize: '1.5rem' }} />
+                </Hover>
+
+                <Text small center>
+                  {' '}
+                  Forms used to collect feedbacks and suggestions from event attendees. This can be
+                  used to launch surveys in collecting data about your event{' '}
+                </Text>
+
+                <div>
+                  <Hover style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ margin: '0rem 0.5rem' }}>
+                      <IoMdToday style={{ fontSize: '1.5rem' }} />
+                    </div>
+
+                    <Text small> O feedbacks received. </Text>
+                  </Hover>
+                </div>
+              </Tooltip>
             </Tab>
           </Bottom>
         </List>

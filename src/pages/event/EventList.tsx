@@ -1,12 +1,12 @@
-import React from "react"
-import { useQuery } from "@apollo/react-hooks"
-import { inject, observer } from "mobx-react"
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import { inject, observer } from 'mobx-react'
 
-import { Loader, Header, Footer } from "../../components/"
-import { Contain, Items, Bounce } from "../../styles/style"
-import EventCard from "../../components/cards/EventCard"
-import { EVENTS } from "../../data/queries"
-import { VolunteerModal } from "../../components/modals"
+import { Loader, Header, Footer } from '../../components/'
+import { Contain, Items } from '../../styles/style'
+import EventCard from '../../components/cards/EventCard'
+import { EVENTS } from '../../data/queries'
+import { VolunteerModal } from '../../components/modals'
 
 const EventList = props => {
   const { data, loading, error } = useQuery(EVENTS)
@@ -34,25 +34,21 @@ const EventList = props => {
       <br />
       <Contain>
         <Items>
-          {events.map(
-            ({ name, id, isArchived, eventType, summary, createdBy }) => {
-              return (
-                <Bounce>
-                  <EventCard
-                    id={id}
-                    screen="event-list"
-                    openVolunteerModal={openVolunteerModal}
-                    name={name}
-                    isArchived={isArchived}
-                    type={eventType}
-                    summary={summary}
-                    createdBy={createdBy}
-                    volunteerOption={true}
-                  />
-                </Bounce>
-              )
-            }
-          )}
+          {events.map(({ name, id, isArchived, eventType, summary, createdBy }) => {
+            return (
+              <EventCard
+                id={id}
+                screen="event-list"
+                openVolunteerModal={openVolunteerModal}
+                name={name}
+                isArchived={isArchived}
+                type={eventType}
+                summary={summary}
+                createdBy={createdBy}
+                volunteerOption={true}
+              />
+            )
+          })}
         </Items>
       </Contain>
 
@@ -62,4 +58,4 @@ const EventList = props => {
   )
 }
 
-export default inject("ModalStore")(observer(EventList))
+export default inject('ModalStore')(observer(EventList))

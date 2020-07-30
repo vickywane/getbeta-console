@@ -15,6 +15,8 @@ export { default as Preferences } from './settings/preference.page'
 export { default as Schedule } from './event/schedule/schedule'
 export { default as SubmitTalk } from './event/submitTalk'
 
+export { default as ThemesMarketplace } from './event/themes/themes.marketplace'
+
 export { default as ProfilePreview } from './user/profilePreview'
 
 //Todo: Naming conflict hxere . UserTalks and EventTalks --->

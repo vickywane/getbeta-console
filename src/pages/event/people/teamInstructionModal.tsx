@@ -1,22 +1,13 @@
-import React, { useState } from "react"
-import { Modal } from "react-bootstrap"
-import { inject, observer } from "mobx-react"
-import { FcCustomerSupport } from "react-icons/fc"
-import { FiLock, FiX } from "react-icons/fi"
-import styled from "styled-components"
-import { useMutation } from "@apollo/react-hooks"
+import React, { useState } from 'react'
+import { Modal } from 'react-bootstrap'
+import { inject, observer } from 'mobx-react'
+import { FcCustomerSupport } from 'react-icons/fc'
+import { FiLock, FiX } from 'react-icons/fi'
+import styled from 'styled-components'
+import { useMutation } from '@apollo/react-hooks'
 
-import {
-  Hover,
-  Contain,
-  Text,
-  Body,
-  Label,
-  Title,
-  Button,
-  BigTitle,
-} from "../../../styles/style"
-import { UPDATE_SETTINGS } from "../../../data/mutations"
+import { Hover, Contain, Text, Body, Label, Title, Button, BigTitle } from '../../../styles/style'
+import { UPDATE_SETTINGS } from '../../../data/mutations'
 
 const Items = styled.div`
   padding: 0rem 0.5rem;
@@ -37,14 +28,11 @@ const TeamIntsruction = (props): JSX.Element => {
     showWelcomeMeetupGroup,
     showInvitationInstruction,
     showWelcomeEventInstruction,
-    eventThemeColour,
+    eventThemeColour
   } = props.settings
 
   const [ModalVisibility, setModalVisibility] = useState(showTeamInstruction)
   const [updateEventSettings, { error }] = useMutation(UPDATE_SETTINGS)
-
-  console.table([props.settings])
-  console.log(eventId)
 
   const Update = (value: boolean) => {
     updateEventSettings({
@@ -55,8 +43,8 @@ const TeamIntsruction = (props): JSX.Element => {
         teamInstruction: value,
         welcomeMeetupGroup: showWelcomeMeetupGroup,
         invitationInstruction: showInvitationInstruction,
-        eventTheme: eventThemeColour,
-      },
+        eventTheme: eventThemeColour
+      }
     })
       .then(() => setModalVisibility(value))
       .catch(e => console.log(e))
@@ -67,18 +55,18 @@ const TeamIntsruction = (props): JSX.Element => {
       show={ModalVisibility}
       onHide={() => Update(false)}
       size="lg"
-      style={{ marginTop: "3rem" }}
+      style={{ marginTop: '3rem' }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "4rem auto" }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '4rem auto' }}>
         <div
           style={{
-            padding: "1rem 1rem",
-            height: "auto",
-            width: "auto",
-            background: "#0e2f5a",
+            padding: '1rem 1rem',
+            height: 'auto',
+            width: 'auto',
+            background: '#0e2f5a'
           }}
         >
-          <FcCustomerSupport style={{ fontSize: "2.5rem" }} />
+          <FcCustomerSupport style={{ fontSize: '2.5rem' }} />
         </div>
 
         <Body>
@@ -86,37 +74,37 @@ const TeamIntsruction = (props): JSX.Element => {
             <Hover
               onClick={() => Update(false)}
               style={{
-                textAlign: "right",
-                color: "grey",
-                padding: "0rem 1rem",
+                textAlign: 'right',
+                color: 'grey',
+                padding: '0rem 1rem'
               }}
             >
-              <FiX style={{ fontSize: "1.6rem" }} />
+              <FiX style={{ fontSize: '1.6rem' }} />
             </Hover>
 
             <div
               style={{
-                margin: "1rem 0rem",
-                display: "flex",
-                justifyContent: "center",
+                margin: '1rem 0rem',
+                display: 'flex',
+                justifyContent: 'center'
               }}
             >
-              <FiLock style={{ fontSize: "4rem" }} />
+              <FiLock style={{ fontSize: '4rem' }} />
             </div>
 
             <Title center bold>
               Team Based Console Access
             </Title>
 
-            <Text center style={{ padding: "0rem 1rem" }}>
-              Teams are a great way to manage what's being done by others while
-              organizing your event.
+            <Text center style={{ padding: '0rem 1rem' }}>
+              Teams are a great way to manage what's being done by others while organizing your
+              event.
             </Text>
             <hr />
 
-            <Text small center style={{ padding: "0rem 1rem" }}>
-              You can now grant a specific acces level to volunteers based on
-              the team they belong to. <br />
+            <Text small center style={{ padding: '0rem 1rem' }}>
+              You can now grant a specific access level to volunteers based on the team they belong
+              to. <br />
             </Text>
 
             <Title small> Sample Event Teams </Title>
@@ -126,29 +114,26 @@ const TeamIntsruction = (props): JSX.Element => {
               <li>
                 <Label small> Media Team </Label>
                 <Text small>
-                  Each member manages and has access to your event gallery and
-                  media assets.
+                  Each member manages and has access to your event gallery and media assets.
                 </Text>
               </li>
 
               <li>
                 <Label small> Talk Submissions Team </Label>
                 <Text small>
-                  Each member manages Call For Papers setting and review
-                  incoming talk drafts.
+                  Each member manages Call For Papers setting and review incoming talk drafts.
                 </Text>
               </li>
 
               <li>
                 <Label small> Attendee Support Team </Label>
                 <Text small>
-                  Each member manages the feedback channel and also the event
-                  Invitations.
+                  Each member manages the feedback channel and also the event Invitations.
                 </Text>
               </li>
             </Items>
 
-            <div style={{ justifyContent: "center", display: "flex" }}>
+            <div style={{ justifyContent: 'center', display: 'flex' }}>
               <Button> Launch Sample Teams </Button>
             </div>
 
@@ -160,4 +145,4 @@ const TeamIntsruction = (props): JSX.Element => {
   )
 }
 
-export default inject("ModalStore")(observer(TeamIntsruction))
+export default inject('ModalStore')(observer(TeamIntsruction))

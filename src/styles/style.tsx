@@ -1,12 +1,8 @@
 import styled, { keyframes } from 'styled-components'
-import posed from 'react-pose'
 import media from 'styled-media-query'
 import { Image, Modal } from 'react-bootstrap'
 
-import img from '../assets/images/test.png'
-
 // Todo: Refactor & compress file !!
-
 export const HoverCircle = styled.div`
   padding: 1rem 1.2rem;
   margin: 0.2rem 0.7rem;
@@ -98,22 +94,6 @@ const Button = styled.button`
     background: #fff;
   }
 `
-
-const Bounce = posed.div({
-  hoverable: true,
-  init: {
-    scale: 1,
-    boxShadow: '0px 0px 0px rgba(0,0,0,0)',
-    textAlign: 'center'
-  },
-  hover: {
-    scale: 1.05
-  },
-  press: {
-    scale: 1.1,
-    boxShadow: '0px 2px 5px rgba(0,0,0,0.1)'
-  }
-})
 
 const List = styled.li`
   list-style: none;
@@ -384,6 +364,8 @@ const Card = styled.div`
   background: transparent;
   color: black;
   cursor: pointer;
+  transition: all 400ms;
+  text-align: center;
   height: auto;
   ${media.lessThan('large')`
     margin : 0.7rem;
@@ -399,6 +381,9 @@ const Card = styled.div`
     height: ${props => (props.team ? 'auto' : 'auto')};
     width: ${props => (props.team ? '22em' : '15em')};
 `};
+  &: hover {
+    transform: scale(1.07);
+  }
 `
 
 const Items = styled.div`
@@ -482,10 +467,10 @@ const InputBox = styled.div`
 
 // HEADER STYLES =================>
 const Header = styled.nav`
-  padding: 1em 3rem;
-  background: #401364;
   position: fixed;
   width: 100%;
+  padding: 1em 3rem;
+  background: #401364;
   h4 {
     font-size: 1.4rem;
     font-weight: normal;
@@ -690,7 +675,6 @@ export {
   Section,
   Items,
   Contain,
-  Bounce,
   Card,
   UploadBtn,
   Button,

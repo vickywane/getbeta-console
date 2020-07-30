@@ -8,7 +8,7 @@ const TipBody = styled.div`
   justify-content: space-between;
   padding: 0rem 1rem;
   background: #fbfbfb;
-  width: 35rem;
+  width: 40rem;
   transition: all 400ms;
   color: #0e2f5a;
   position: absolute;

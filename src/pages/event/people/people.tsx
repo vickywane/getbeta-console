@@ -1,17 +1,14 @@
-import * as React from "react"
-import { CSSTransition } from "react-transition-group"
-import Flex from "styled-flex-component"
-import { FiX, FiAlertCircle } from "react-icons/fi"
-import { Link } from "react-router-dom"
+import * as React from 'react'
+import { CSSTransition } from 'react-transition-group'
+import Flex from 'styled-flex-component'
+import { FiX, FiAlertCircle } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 
-import { Body, Text, Title, Hover, Tab, TabColumn } from "../../../styles/style"
-import { AttendeesList, TeamMateList, VolunteerList } from "./"
+import { Body, Text, Title, Hover, Tab, TabColumn } from '../../../styles/style'
+import { AttendeesList, VolunteerList } from './'
 
-import {
-  PeopleTabState,
-  PeopleTabContext,
-} from "../../../state/context/contextState"
-import { PeopleTabReducer } from "../../../state/context/reducers"
+import { PeopleTabState, PeopleTabContext } from '../../../state/context/contextState'
+import { PeopleTabReducer } from '../../../state/context/reducers'
 
 const People = props => {
   const [state, dispatch] = React.useReducer(PeopleTabReducer, PeopleTabState)
@@ -20,17 +17,17 @@ const People = props => {
     <PeopleTabContext.Provider value={PeopleTabState}>
       <div
         style={{
-          padding: "1.5rem 0rem",
-          display: "flex",
-          justifyContent: "center",
+          padding: '1.5rem 0rem',
+          display: 'flex',
+          justifyContent: 'center'
         }}
       >
-        <Hover style={{ padding: "0rem 0.7rem" }}>
-          <FiAlertCircle style={{ fontSize: "1.7rem" }} />
+        <Hover style={{ padding: '0rem 0.7rem' }}>
+          <FiAlertCircle style={{ fontSize: '1.7rem' }} />
         </Hover>
         <Text center>
-          This tab is only visible to members of your event.{" "}
-          <Link to="/" style={{ textDecoration: "none" }}>
+          This tab is only visible to members of your event.{' '}
+          <Link to="/" style={{ textDecoration: 'none' }}>
             <code> Edit Accessibility </code>
           </Link>
         </Text>
@@ -42,23 +39,23 @@ const People = props => {
 
           <Tab>
             <TabColumn
-              active={state.activeTab === "attendees"}
+              active={state.activeTab === 'attendees'}
               onClick={() => {
-                dispatch({ type: "SWITCH_ATTENDEES" })
+                dispatch({ type: 'SWITCH_ATTENDEES' })
               }}
-              style={{ padding: "0rem 0.5rem" }}
+              style={{ padding: '0rem 0.5rem' }}
             >
-              Attendees{" "}
+              Attendees{' '}
             </TabColumn>
 
             <TabColumn
-              active={state.activeTab === "volunteers"}
+              active={state.activeTab === 'volunteers'}
               onClick={() => {
-                dispatch({ type: "SWITCH_VOLUNTEERS" })
+                dispatch({ type: 'SWITCH_VOLUNTEERS' })
               }}
-              style={{ padding: "0rem 0.5rem" }}
+              style={{ padding: '0rem 0.5rem' }}
             >
-              Volunteers{" "}
+              Volunteers{' '}
             </TabColumn>
           </Tab>
         </Flex>
@@ -66,18 +63,18 @@ const People = props => {
         <div>
           <CSSTransition
             timeout={200}
-            classNames={""}
+            classNames={''}
             unmountOnExit
-            in={state.activeTab === "attendees"}
+            in={state.activeTab === 'attendees'}
           >
             <AttendeesList attendees={props.attendees} />
           </CSSTransition>
 
           <CSSTransition
             timeout={200}
-            classNames={""}
+            classNames={''}
             unmountOnExit
-            in={state.activeTab === "volunteers"}
+            in={state.activeTab === 'volunteers'}
           >
             <VolunteerList volunteer={props.peopleData} />
           </CSSTransition>

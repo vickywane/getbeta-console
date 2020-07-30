@@ -20,7 +20,7 @@ const PeopleTabState = {
 
 const AdminTabState = {
   id: 1,
-  activeTab: 'stats',
+  activeTab: 'dashboard',
   active: false,
   showTimeline: true
 }

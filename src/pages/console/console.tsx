@@ -127,11 +127,13 @@ const Console = (props): JSX.Element => {
           width={Width}
           activeSection={activeConsoleView}
           events={data.user.events}
+          isUser={true}
           streams={data.user.streams}
         />
         <Volunteering
           width={Width}
           data={data}
+          isUser={true}
           eventVolunteered={data.user.volunteering}
           activeSection={activeConsoleView}
         />

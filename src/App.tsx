@@ -14,6 +14,7 @@ import {
   Media,
   Documentation,
   Team,
+  ThemesMarketplace,
   Drafts,
   Draft,
   ProfilePreview,
@@ -80,6 +81,7 @@ const App = (props): JSX.Element => {
               component={SubmitTalk}
             />
             <Protected authenticated={Authenticated} path="/team/:id" component={Team} />
+            <Protected authenticated={Authenticated} path="/themes" component={ThemesMarketplace} />
             <Protected authenticated={Authenticated} path="/drafts" component={Drafts} />
             <Protected authenticated={Authenticated} path="/tallks/:id" component={Draft} />
             <Protected authenticated={Authenticated} path="/editor" component={Editor} />

@@ -62,7 +62,10 @@ const Conference = (props): JSX.Element => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'auto 23rem'
+                gridTemplateColumns: 'auto 23rem',
+                margin: '2rem 1rem',
+                boxShadow: '0px' + ' 2px' + ' 3px' + ' grey',
+                borderRadius: '10px'
               }}
             >
               <div style={{ overflow: 'hidden' }}>
