@@ -60,11 +60,9 @@ const Fields = (props: CustomProps) => {
 
     switch (name) {
       case 'Event Summary':
-        setLimit(Limit - value.length)
-
+        return setLimit(Limit - value.length)
       case 'Event Description':
-        setDescriptionLimit(limit - value.length)
-
+        return setDescriptionLimit(limit - value.length)
       default:
         break
     }
@@ -126,7 +124,7 @@ const Fields = (props: CustomProps) => {
               placeholder={placeholder}
             />
           )}
-          <div style={{ margin: '0.3rem 0rem' }} />
+          <div style={{ margin: '0.6rem 0rem' }} />
         </Flex>
       ) : (
         <Flex column>

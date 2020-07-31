@@ -119,7 +119,7 @@ const Conference = (props): JSX.Element => {
             unmountOnExit
             in={state.activeTab === 'mobile'}
           >
-            <Mobile />
+            <Mobile data={data.event} />
           </CSSTransition>
 
           <CSSTransition

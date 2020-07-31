@@ -52,10 +52,6 @@ const Timeline = props => {
               Timeline
             </Section>
           </div>
-
-          <Hover onClick={() => dispatch({ type: 'CLOSE_TIMELINE' })}>
-            <FiX />
-          </Hover>
         </Head>
         <br />
 

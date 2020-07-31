@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { EmptyData } from '../../components/placeholders/'
-import { FiClock, FiCalendar } from 'react-icons/fi'
+import { FiCalendar } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { Body, Hover, Text, Title } from '../../styles/style'
 

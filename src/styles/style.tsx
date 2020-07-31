@@ -151,13 +151,13 @@ const ModalInput = styled.input`
 const Input = styled.input`
   height: ${props => (props.long ? '10vh' : '40px')};
   width: auto;
-  padding: 0.8em 1.5rem;
+  padding: 0.5em 1.5rem;
   display : flex;
   flex: 1;
   border: ${props => (props.unbordered ? '0px' : ' 1px solid #c0c0c0')};
   outline: 0px;
   color: ${props => (props.white ? '#fff' : '#000')}
-  margin: ${props => (props.unmargined ? '0rem' : '0.4rem 1rem')};
+  margin: ${props => (props.unmargined ? '0rem' : '0 1rem')};
   padding-left: 10px;
   border-radius: 3px;
   font-size: 1.07rem;
@@ -308,7 +308,8 @@ const Title = styled.h5`
 const Label = styled.p`
 padding-left: 10px
 font-weight: 400;
-font-size: ${props => (props.small ? '1.2rem' : '1.35rem')};
+margin : 0.3rem 0;
+font-size: ${props => (props.small ? '1.15rem' : '1.2rem')};
 ${media.lessThan('large')`
 font-size: ${props => (props.small ? '1.1rem' : '1.3rem')};
   `};
@@ -410,7 +411,7 @@ const Notification = styled.div`
 
 const Switch = styled.div`
   padding: 0rem 0rem;
-  border: 2.5px solid #401364;
+  border: 2px solid #401364;
   width: auto;
   background: transparent;
   transition: transform 2s;
@@ -436,14 +437,14 @@ const Switch = styled.div`
 `
 
 const SwitchBtn = styled.div`
-  padding: 0.6rem 4rem;
+  padding: 0.5rem 4rem;
   border: 0px;
   background: ${props => (props.active ? '#401364' : 'transparent')};
   color: ${props => (props.active ? '#fff' : '#401364')};
   outline: none;
   font-weight: bold;
   transition: all 600ms;
-  font-size: 1.1rem;
+  font-size: 1rem;
   &: hover {
     cursor: pointer;
     background: #401364;

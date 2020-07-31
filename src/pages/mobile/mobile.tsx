@@ -38,16 +38,16 @@ const List = styled.div`
   }
 `
 
-const Mobile = () => {
-  const [MobileOnboard, setMobileOnboard] = useState(true)
+const Mobile = props => {
+  const { mobileOnboarding } = props.data
 
   return (
     <div>
-      <CSSTransition timeout={300} in={MobileOnboard} unmountOnExit>
+      <CSSTransition timeout={300} in={!mobileOnboarding} unmountOnExit>
         <UserMobileOnboard />
       </CSSTransition>
 
-      <CSSTransition timeout={300} in={!MobileOnboard} unmountOnExit>
+      <CSSTransition timeout={300} in={mobileOnboarding} unmountOnExit>
         <Body>
           <Grid>
             <div

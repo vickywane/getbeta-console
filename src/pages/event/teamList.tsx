@@ -60,14 +60,13 @@ const List = styled.li`
 
 const TeamList = (props): JSX.Element => {
   const { openTeamModal, closeTeamModal } = props.ModalStore
-  const { teams, id } = props.data
+  const { teams, id, teamsOnboarding } = props.data
 
   const [ActiveView, setView] = useState<string>('Overview') // Overview
   const [TeamId, setTeamId] = useState<number>(null)
   const [TeamName, setTeamName] = useState<string>('Overview')
   const [TabView, setTabView] = useState<string>('Teams')
   const [Volunteers, showVolunteers] = useState<boolean>(false)
-  const [Onboarded, Onboard] = useState(false)
 
   const Width = useWindowWidth()
 
@@ -94,12 +93,12 @@ const TeamList = (props): JSX.Element => {
       {Width <= 1200 && <TeamInstruction settings={props.data.settings[0]} eventId={id} />}
 
       {Width >= 1200 && (
-        <CSSTransition timeout={300} unmountOnExit in={!Onboarded}>
+        <CSSTransition timeout={300} unmountOnExit in={!teamsOnboarding}>
           <TeamsOnboard />
         </CSSTransition>
       )}
 
-      <CSSTransition in={Onboarded} timeout={300} unmountOnExit>
+      <CSSTransition in={teamsOnboarding} timeout={300} unmountOnExit>
         <div>
           <Head style={{ padding: '1rem 0rem 1rem' }} header>
             {ActiveView !== 'Overview' ? (

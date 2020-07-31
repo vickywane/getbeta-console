@@ -134,6 +134,7 @@ const CreateConference = (props): JSX.Element => {
         website: Website,
         alias: Alias,
         Email: Email,
+        summary: Summary,
         eventType: EventType,
         isVirtual: Virtual,
         isLocked: false,
@@ -297,6 +298,17 @@ const CreateConference = (props): JSX.Element => {
                         />
                       )
                     })}
+
+                    <Field
+                      id={1}
+                      name={'Event Summary'}
+                      type={'text'}
+                      textarea={false}
+                      value={Summary}
+                      onChange={e => handleChange(e, 'Event Summary')}
+                      placeholder={'A one line summary of your event '}
+                    />
+
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Text style={{ padding: '0rem 1rem' }}>

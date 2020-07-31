@@ -103,6 +103,7 @@ const CREATE_EVENT = gql`
     $eventType: String!
     $alias: String!
     $website: String!
+    $summary: String!
     $isArchived: Boolean!
     $isLocked: Boolean!
     $mediaLinks: [String!]
@@ -117,6 +118,7 @@ const CREATE_EVENT = gql`
         Email: $Email
         website: $website
         alias: $alias
+        summary: $summary
         eventType: $eventType
         mediaLinks: $mediaLinks
         isVirtual: $isVirtual

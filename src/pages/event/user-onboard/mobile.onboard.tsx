@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Body, Text, Title, Button } from '../../../styles/style'
 
 const List = styled.div`
-  width: 30rem;
+  width: 35rem;
   h4 {
     font-weight: 600;
     font-size: 1.6rem;

@@ -189,6 +189,11 @@ const GET_EVENT: any = gql`
       mediaLinks
       actions
       EventDate
+      mobileOnboarding
+      marketplaceOnboarding
+      teamsOnboarding
+      scheduleOnboarding
+      invitationsOnboarding
       settings {
         id
         showTeamInstruction

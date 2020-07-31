@@ -33,39 +33,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
-      <change afterPath="$PROJECT_DIR$/src/pages/event/previewBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tip.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tip.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/console/console.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/console.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/console/explore.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/explore.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/console/organizing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/organizing.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/console/volunteering.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/console/volunteering.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/EventList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/EventList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/admin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cards/streamCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/streamCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/mutations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/mutations.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/queries.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/queries.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/people/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/people/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/people/people.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/people/people.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/people/team.list.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/people/teamInstructionModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/people/teamInstructionModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/store/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/store.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/stream/stream.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/stream/streamPreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/stream/streamPreview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/team.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/team.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/teamList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/teamList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/tl.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/timeline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/mobile.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/mobile.onboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/team.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/team.onboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forms/fields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/fields.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/mobile/mobile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mobile/mobile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/profilePreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/profilePreview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/context/contextState.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/context/contextState.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -319,11 +301,11 @@
     </state>
     <state x="502" y="332" width="1360" height="817" key="dock-window-1/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1596039513222" />
     <state x="1862" y="332" width="1360" height="817" key="dock-window-1/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1596024650225" />
-    <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup" timestamp="1596144040628">
-      <screen x="1360" y="0" width="1920" height="1080" />
+    <state x="382" y="161" width="672" height="604" key="search.everywhere.popup" timestamp="1596154632269">
+      <screen x="0" y="0" width="1360" height="768" />
     </state>
-    <state x="382" y="161" width="672" height="604" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1596129101480" />
-    <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1596144040628" />
+    <state x="382" y="161" width="672" height="604" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1596154632269" />
+    <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1596145100585" />
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
     <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595966824211" />
@@ -340,6 +322,12 @@
           <url>file://$PROJECT_DIR$/src/data/mutations.tsx</url>
           <line>41</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/styles/style.tsx</url>
+          <line>140</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

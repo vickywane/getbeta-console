@@ -28,11 +28,10 @@ import { ScheduleOnboard } from '../user-onboard'
 
 const Schedule = props => {
   const { openCreateTrack } = props.ModalStore
-  const { id, tracks, createdBy } = props.data.event
+  const { id, tracks, createdBy, scheduleOnboarding } = props.data.event
   const { screen } = props
 
   const [ActiveView, setActiveView] = useState('Overview')
-  const [Onboarded, Onboard] = useState(false)
   const [TalkApproval, setTalkApproval] = useState(false)
 
   const { data, loading, error } = useQuery(GET_EVENT_TALK, {
@@ -52,8 +51,6 @@ const Schedule = props => {
   }
 
   if (data) {
-    console.log(data)
-
     const { draft, id, talk } = data.event
 
     const userId = localStorage.getItem('user_id')
@@ -66,11 +63,11 @@ const Schedule = props => {
 
     return (
       <div>
-        <CSSTransition timeout={300} in={!Onboarded} unmountOnExit>
+        <CSSTransition timeout={300} in={!scheduleOnboarding} unmountOnExit>
           <ScheduleOnboard />
         </CSSTransition>
 
-        <CSSTransition timeout={300} in={Onboarded} unmountOnExit>
+        <CSSTransition timeout={300} in={scheduleOnboarding} unmountOnExit>
           <div>
             {screen === 'event' ? null : (
               <div>

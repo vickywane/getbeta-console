@@ -11,17 +11,17 @@ import { MarkeplaceOnboard } from '../user-onboard/'
 const Store = props => {
   const [ActiveTab, setActiveTab] = useState('products')
   const [StoreDetails, setupStoreDetails] = useState(false)
-  const [Onboarded, Onboard] = useState(false)
   const { cartItemModal, openCartItemModal, closeCartItemModal } = props.ModalStore
 
-  const { id } = props.data.event
+  const { id, marketplaceOnboarding } = props.data.event
+
   return (
     <div>
-      <CSSTransition in={!Onboarded} timeout={300} unmountOnExit>
+      <CSSTransition in={!marketplaceOnboarding} timeout={300} unmountOnExit>
         <MarkeplaceOnboard />
       </CSSTransition>
 
-      <CSSTransition in={Onboarded} timeout={300} unmountOnExit>
+      <CSSTransition in={marketplaceOnboarding} timeout={300} unmountOnExit>
         <div>
           <CSSTransition in={!StoreDetails} timeout={300} unmountOnExit>
             <EventStoreDetails />
