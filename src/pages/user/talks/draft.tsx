@@ -144,12 +144,12 @@ const Draft = (props): JSX.Element => {
   const [deleteNote, {}] = useMutation(DELETE_NOTE)
 
   const NoteWindow = styled.div`
-    position : absolute;
-    height : 73vh
-    width : 42rem;
-    margin-left : 17rem;
-    background : #fff;
-    box-shadow : 0px 5px 9px grey;
+    position: absolute;
+    width: 47rem;
+    padding: 1rem 0;
+    margin-left: 17rem;
+    background: #fff;
+    box-shadow: 0px 5px 9px grey;
   `
 
   const Delete = (id: number) => {
@@ -328,7 +328,10 @@ const Draft = (props): JSX.Element => {
                   borderRadius: '5px'
                 }}
               >
-                <BigTitle small={reviewPane}> {title}</BigTitle>
+                <BigTitle small={reviewPane} center>
+                  {' '}
+                  {title}
+                </BigTitle>
               </div>
             )}
 

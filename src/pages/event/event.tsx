@@ -34,8 +34,8 @@ const Event = (props): JSX.Element => {
   grid-gap: 0rem;
   grid-template-columns: ${props =>
     props.permission && state.showTimeline
-      ? `18rem auto ${state.activeTab === 'dashboard' ? '5rem' : '0'} `
-      : 'auto' + ' 23rem'} ;
+      ? `15rem auto ${state.activeTab === 'dashboard' ? '0' : '0'} `
+      : 'auto' + '20rem'} ;
   transition  : all 300ms;
   ${media.lessThan('huge')`
       grid-template-columns: ${props => (props.permission ? '16rem auto' : '78% auto')};
@@ -152,6 +152,7 @@ const Event = (props): JSX.Element => {
               </div>
             )
           ) : null}
+
           {EventType === 'Conference' ? (
             <Conference
               state={state}
@@ -173,18 +174,6 @@ const Event = (props): JSX.Element => {
               EventType={EventType}
             />
           )}
-          {state.activeTab === 'dashboard' && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginRight: '1rem'
-              }}
-            >
-              <EventPreviewBar />
-            </div>
-          )}{' '}
         </EventGrid>
       </div>
     )

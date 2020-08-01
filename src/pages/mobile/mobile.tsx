@@ -39,12 +39,13 @@ const List = styled.div`
 `
 
 const Mobile = props => {
+  const { data } = props
   const { mobileOnboarding } = props.data
 
   return (
     <div>
       <CSSTransition timeout={300} in={!mobileOnboarding} unmountOnExit>
-        <UserMobileOnboard />
+        <UserMobileOnboard data={data} />
       </CSSTransition>
 
       <CSSTransition timeout={300} in={mobileOnboarding} unmountOnExit>

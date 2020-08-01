@@ -64,7 +64,7 @@ const Schedule = props => {
     return (
       <div>
         <CSSTransition timeout={300} in={!scheduleOnboarding} unmountOnExit>
-          <ScheduleOnboard />
+          <ScheduleOnboard data={data.event} />
         </CSSTransition>
 
         <CSSTransition timeout={300} in={scheduleOnboarding} unmountOnExit>

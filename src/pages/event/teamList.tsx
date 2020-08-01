@@ -94,7 +94,7 @@ const TeamList = (props): JSX.Element => {
 
       {Width >= 1200 && (
         <CSSTransition timeout={300} unmountOnExit in={!teamsOnboarding}>
-          <TeamsOnboard />
+          <TeamsOnboard data={props.data.event} />
         </CSSTransition>
       )}
 

@@ -20,8 +20,7 @@ const CustomButton = styled(Button)`
 
 const Overview = props => {
   const [ActiveColumn, setActiveColumn] = useState('overview')
-  const [Onboarded, OnboardUser] = useState(false)
-  const { name, id, settings } = props.data.event
+  const { name, id, settings, invitationsOnboarding } = props.data.event
   const Width = useWindowWidth()
 
   return (
@@ -29,12 +28,12 @@ const Overview = props => {
       {Width <= 1200 && <InvitationInstruction />}
 
       {Width >= 1200 && (
-        <CSSTransition timeout={300} unmountOnExit in={!Onboarded}>
-          <InvitationOnboard />
+        <CSSTransition timeout={300} unmountOnExit in={!invitationsOnboarding}>
+          <InvitationOnboard data={props.data.event} />
         </CSSTransition>
       )}
 
-      <CSSTransition timeout={300} unmountOnExit in={Onboarded}>
+      <CSSTransition timeout={300} unmountOnExit in={invitationsOnboarding}>
         <div>
           <Head header>
             <Section style={{ padding: '0.5rem 0rem' }} small>

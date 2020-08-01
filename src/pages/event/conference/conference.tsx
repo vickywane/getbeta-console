@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { CSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
 
 import EditEvent from '../editEvent'
 import TeamList from '../teamList'
@@ -11,7 +12,7 @@ import Archive from '../archive/itetations'
 
 import Developer from '../../developer/event/api'
 import ConferenceTab from '../../../components/tabs/conference.tab'
-import { Contain, Text } from '../../../styles/style'
+import { Contain, Hover, Text } from '../../../styles/style'
 import Configuration from '../configuration/main'
 import { ArchivedEvent } from '../../../components/placeholders/'
 import AttendPane from '../../../components/panes/attend.pane'
@@ -28,6 +29,7 @@ import '../../../App.css'
 import EventStatistics from '../stats'
 import Timeline from '../timeline'
 import Feedback from '../feedback/main'
+import EventPreviewBar from '../previewBar'
 
 const Conference = (props): JSX.Element => {
   const { Width, data, EventType, permission, state, staate, dispatch, dispaatch } = props
@@ -59,57 +61,62 @@ const Conference = (props): JSX.Element => {
             unmountOnExit
             in={state.activeTab === 'dashboard'}
           >
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'auto 23rem',
-                margin: '2rem 1rem',
-                boxShadow: '0px' + ' 2px' + ' 3px' + ' grey',
-                borderRadius: '10px'
-              }}
-            >
-              <div style={{ overflow: 'hidden' }}>
-                <AttendPane permission={permission} event={data.event} />
+            <div>
+              <div
+                style={{
+                  display: 'grid',
+                  border: '5px solid red',
+                  height: window.innerHeight - 150,
+                  overflow: 'auto',
+                  marginRight: '2rem',
+                  marginLeft: '2rem',
+                  marginTop: '0.5rem',
+                  boxShadow: '0px' + ' 3px' + ' 4px' + ' grey',
+                  borderRadius: '10px'
+                }}
+              >
+                <div style={{ overflow: 'hidden' }}>
+                  {!permission && <AttendPane permission={permission} event={data.event} />}
 
-                <EventDetails
-                  state={staate}
-                  permission={permission}
-                  data={data}
-                  dispatch={dispaatch}
-                  eventType={EventType}
-                  currentWindowSize={Width}
-                  openEditModal={openEditModal}
-                />
-                <Contain grey bottomShadow>
-                  <EventTabs
-                    data={data}
-                    eventType={EventType}
+                  <EventDetails
                     state={staate}
+                    permission={permission}
+                    data={data}
                     dispatch={dispaatch}
+                    eventType={EventType}
+                    currentWindowSize={Width}
+                    openEditModal={openEditModal}
                   />
-                </Contain>
+                  <Contain grey bottomShadow>
+                    <EventTabs
+                      data={data}
+                      eventType={EventType}
+                      state={staate}
+                      dispatch={dispaatch}
+                    />
+                  </Contain>
 
-                <ConferenceTab openContact={openContactModal} state={staate} data={data} />
-                <div
-                  style={{
-                    paddingTop: '10px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '50px',
-                    width: 'auto',
-                    background: '#c0c0c0'
-                  }}
-                >
-                  <Text color="#0e2f5a">
-                    Organized by {data.event.name} on {data.event.dateCreated}{' '}
-                  </Text>
+                  <ConferenceTab openContact={openContactModal} state={staate} data={data} />
+
+                  <div
+                    style={{
+                      paddingTop: '10px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '50px',
+                      width: 'auto',
+                      background: '#c0c0c0'
+                    }}
+                  >
+                    <Text color="#0e2f5a">
+                      Organized by {data.event.name} on {data.event.dateCreated}{' '}
+                    </Text>
+                  </div>
                 </div>
               </div>
 
-              {Width >= 1500 && state.showTimeline && (
-                <Timeline state={state} dispatch={dispatch} eventData={data.event} />
-              )}
+              <EventPreviewBar />
             </div>
           </CSSTransition>
 

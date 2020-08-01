@@ -153,6 +153,14 @@ const Fields = (props: CustomProps) => {
                 <HoverSquare style={{ padding: '0rem 0rem', margin: '0rem 1rem' }}>
                   <FiList style={{ fontSize: '1.4rem' }} />
                 </HoverSquare>
+
+                <HoverSquare style={{ padding: '0rem 0rem', margin: '0rem 1rem' }}>
+                  <IoLogoMarkdown style={{ fontSize: '1.5rem' }} />
+                </HoverSquare>
+
+                <HoverSquare style={{ padding: '0', margin: '0rem 0.5rem' }}>
+                  <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                </HoverSquare>
               </div>
 
               {Limit && (
@@ -161,36 +169,13 @@ const Fields = (props: CustomProps) => {
                 </Text>
               )}
             </div>
+
             <textarea
               onChange={e => handleInputChange(e, name)}
               placeholder={placeholder}
               value={value}
               id={id}
             />
-            <div
-              style={{
-                borderTop: '1px dashed #0e2f5a',
-                justifyContent: 'space-between'
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  padding: '0rem 0rem',
-                  margin: '0rem 1rem'
-                }}
-              >
-                <Hover style={{ padding: '0rem 0rem', margin: '0rem 1rem' }}>
-                  <IoLogoMarkdown style={{ fontSize: '1.8rem' }} />
-                </Hover>
-
-                <Text small>Markdown Formatting Enabled. Drag "n" drop files to insert. </Text>
-              </div>
-
-              <HoverSquare style={{ padding: '0rem 0rem', margin: '0rem 1rem' }}>
-                <FiUploadCloud style={{ fontSize: '1.8rem' }} />
-              </HoverSquare>
-            </div>
           </TextEditor>
           <div style={{ margin: '0.3rem 0rem' }} />
         </Flex>

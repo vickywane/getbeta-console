@@ -20,19 +20,26 @@ import { Hover, Body as Bod } from '../../styles/style'
 const Body = styled(Bod)`
 	padding: 0.5em 1rem;
 	display: flex;
+  bottom: 0;
+  width  : 20rem
+    border-radius : 10px 10px 0 0;
+    height  : 5vh;
 	background: #401364;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
-	border-radius: 10px;
 	position: ${props => props.absolute};
 	transition: all 300ms;
 	opacity: ${props => (props.visible ? '1' : '0')};
-	li {
-		padding : 0.5rem 0rem
-		margin: 0.7rem 0rem;
+`
+
+const List = styled.li`
+     padding : 0.5rem 0rem
+		margin: 0.7rem 1rem;
 		list-style: none;
-		color: #fff;
-	}
+		color:  ${props => (props.active ? 'red' : '#fff')};
+		&: hover {
+		color:  red;
+		}
 `
 
 const EventPreviewBar = (props): JSX.Element => {
@@ -42,7 +49,7 @@ const EventPreviewBar = (props): JSX.Element => {
   const Width = useWindowWidth()
 
   return (
-    <div>
+    <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
       {Width >= 700 && (
         <Body
           onMouseEnter={() => setBarVisibility(true)}
@@ -54,19 +61,19 @@ const EventPreviewBar = (props): JSX.Element => {
           visible={Width >= 1000 ? true : BarVisibility}
           position={Width >= 1000 ? null : 'absolute'}
         >
-          <li>
+          <List>
             <Hover>
               <IoIosExpand style={{ fontSize: '1.6em' }} />
             </Hover>
-          </li>
+          </List>
 
-          <li style={{ borderBottom: screen === 'drafts' && '3px dashed #fff' }}>
+          <List active>
             <Hover>
               <IoIosDesktop style={{ fontSize: '1.8em' }} />
             </Hover>
-          </li>
+          </List>
 
-          <li
+          <List
             style={{
               borderBottom: screen === 'reminders' && '3px dashed #fff'
             }}
@@ -74,21 +81,21 @@ const EventPreviewBar = (props): JSX.Element => {
             <Hover>
               <IoMdTabletLandscape style={{ fontSize: '1.8em' }} />
             </Hover>
-          </li>
+          </List>
 
-          <li>
+          <List>
             <Hover onClick={() => {}}>
               <IoIosPhonePortrait style={{ fontSize: '1.8em' }} />
             </Hover>
-          </li>
+          </List>
 
-          <li>
-            <Link to={'/themes'}>
+          <List>
+            <Link to={'/themes'} style={{ color: '#fff' }}>
               <Hover onClick={() => {}}>
                 <IoMdColorPalette style={{ fontSize: '1.8em' }} />
               </Hover>
             </Link>
-          </li>
+          </List>
         </Body>
       )}
     </div>

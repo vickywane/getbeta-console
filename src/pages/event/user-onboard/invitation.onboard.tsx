@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Body, Text, Title, Button } from '../../../styles/style'
+import { useMutation } from '@apollo/react-hooks'
+import { UPDATE_EVENT_ONBOARDING } from '../../../data/mutations'
 
 const List = styled.div`
   width: 35rem;
@@ -28,7 +30,30 @@ const List = styled.div`
 `
 
 const InvitationsOnboard = (props): JSX.Element => {
-  const {} = props
+  const {
+    id,
+    marketplaceOnboarding,
+    mobileOnboarding,
+    teamsOnboarding,
+    scheduleOnboarding
+  } = props.data
+
+  const [updateEventOnboarding, { loading }] = useMutation(UPDATE_EVENT_ONBOARDING, {})
+
+  const Update = (id: number) => {
+    updateEventOnboarding({
+      variables: {
+        id: id,
+        mobileOnboarding: mobileOnboarding,
+        marketplaceOnboarding: marketplaceOnboarding,
+        teamsOnboarding: teamsOnboarding,
+        scheduleOnboarding: scheduleOnboarding,
+        invitationsOnboarding: true
+      }
+    })
+      .then(() => alert('done'))
+      .catch(e => console.log(e))
+  }
 
   return (
     <div
@@ -86,11 +111,9 @@ const InvitationsOnboard = (props): JSX.Element => {
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button long onClick={() => {}}>
-              {' '}
               Create Sample Invitations{' '}
             </Button>
-            <Button long onClick={() => {}}>
-              {' '}
+            <Button long onClick={() => Update(id)}>
               Continue with Invitations{' '}
             </Button>
           </div>

@@ -153,6 +153,7 @@ const CreateConference = (props): JSX.Element => {
   }
 
   const handleChange = (value, label) => {
+    console.table([label, value])
     switch (label) {
       case 'Event Name':
         setName(value)
@@ -170,7 +171,7 @@ const CreateConference = (props): JSX.Element => {
         setDescription(value)
         break
       case 'Event Summary':
-        setSummary(value)
+        return setSummary(value)
         break
       case 'Event-Venue':
         setVenue(value)
@@ -179,7 +180,7 @@ const CreateConference = (props): JSX.Element => {
         setVenue(value)
         break
       default:
-        console.log(label)
+        break
     }
   }
 
@@ -300,13 +301,13 @@ const CreateConference = (props): JSX.Element => {
                     })}
 
                     <Field
-                      id={1}
-                      name={'Event Summary'}
-                      type={'text'}
-                      textarea={false}
-                      value={Summary}
+                      type="text"
+                      name={!Virtual ? `${props.type} Summary` : `${props.type} Summary`}
+                      id="Event Summary"
                       onChange={e => handleChange(e, 'Event Summary')}
-                      placeholder={'A one line summary of your event '}
+                      value={Summary}
+                      textarea={false}
+                      placeholder={'A one line summary of your event'}
                     />
 
                     <br />

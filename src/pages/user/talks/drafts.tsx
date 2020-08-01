@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Flex from 'styled-flex-component'
 import { Link } from 'react-router-dom'
-import { FiClock, FiEdit, FiMoreHorizontal, FiMoreVertical, FiTrash2, FiPlus } from 'react-icons/fi'
+import {
+  FiClock,
+  FiEdit,
+  FiMoreHorizontal,
+  FiCalendar,
+  FiMoreVertical,
+  FiTrash2,
+  FiPlus
+} from 'react-icons/fi'
 import styled from 'styled-components'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { CSSTransition } from 'react-transition-group'
 import media from 'styled-media-query'
-import { IoIosPeople, IoMdShare } from 'react-icons/io'
+import { IoIosPeople, IoMdShare, IoIosLink } from 'react-icons/io'
 
 import ActionBar from '../userActionBar'
 import Draft from './draft'
@@ -206,7 +214,7 @@ const Talks = (): JSX.Element => {
                   </Flex>
                 </Body>
 
-                <Body style={{ height: window.innerHeight - 170, overflow: 'auto' }}>
+                <div style={{ height: window.innerHeight - 170, overflow: 'auto' }}>
                   {talks.map(({ id, updatedAt, title, reviewed, createdAt, summary }) => {
                     return (
                       <List key={id}>
@@ -238,7 +246,11 @@ const Talks = (): JSX.Element => {
                                 }}
                                 style={{ textDecoration: 'none' }}
                               >
-                                <Title small style={{ color: '#0e2f5a' }} center>
+                                <Title
+                                  small
+                                  style={{ color: '#0e2f5a', padding: '0.5rem 1rem' }}
+                                  center
+                                >
                                   {title}
                                 </Title>
                               </Hover>
@@ -268,13 +280,14 @@ const Talks = (): JSX.Element => {
                             </Flex>
                             <br />
 
-                            <div style={{ color: 'grey', display: 'flex' }}>
-                              <Hover style={{ padding: '0rem 0.7rem' }}>
-                                <FiClock style={{ fontSize: '1.7rem' }} />
+                            <div style={{ display: 'flex' }}>
+                              <Hover style={{ padding: '0.1rem 0.7rem' }}>
+                                <FiCalendar style={{ fontSize: '1.7rem' }} />
                               </Hover>
-                              <Text small> {createdAt} </Text>
+                              <Text> {createdAt} </Text>
                             </div>
-                            <Text center color="grey">
+
+                            <Text style={{ padding: '1rem 1rem' }} center>
                               {summary}
                             </Text>
 
@@ -311,13 +324,25 @@ const Talks = (): JSX.Element => {
                               )}
 
                               <div style={{ display: 'flex' }}>
-                                <Hover>
-                                  <IoIosPeople style={{ fontSize: '1.7rem' }} />
-                                </Hover>
+                                <div style={{ display: 'flex', padding: '0rem 0.7rem' }}>
+                                  <Hover>
+                                    <IoIosLink style={{ fontSize: '1.7rem' }} />
+                                  </Hover>
 
-                                <Text style={{ margin: '0rem 0.7rem' }} small>
-                                  No Reviews yet
-                                </Text>
+                                  <Text style={{ margin: '0rem 0.5rem' }} small>
+                                    No Linked Event
+                                  </Text>
+                                </div>
+
+                                <div style={{ display: 'flex' }}>
+                                  <Hover>
+                                    <IoIosPeople style={{ fontSize: '1.7rem' }} />
+                                  </Hover>
+
+                                  <Text style={{ margin: '0rem 0.5rem' }} small>
+                                    No Reviews yet
+                                  </Text>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -327,7 +352,7 @@ const Talks = (): JSX.Element => {
                   })}
 
                   <br />
-                </Body>
+                </div>
               </div>
             )}
           </DraftGrid>

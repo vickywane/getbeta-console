@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Body, Text, Title, Button } from '../../../styles/style'
+import { useMutation } from '@apollo/react-hooks'
+import { UPDATE_EVENT_ONBOARDING } from '../../../data/mutations'
 
 const List = styled.div`
   width: 40rem;
@@ -29,7 +31,31 @@ const List = styled.div`
 `
 
 const MarketplaceOnboard = (props): JSX.Element => {
-  const {} = props
+  const {
+    id,
+    marketplaceOnboarding,
+    teamsOnboarding,
+    scheduleOnboarding,
+    invitationsOnboarding,
+    mobileOnboarding
+  } = props.data
+
+  const [updateEventOnboarding] = useMutation(UPDATE_EVENT_ONBOARDING)
+
+  const Update = id => {
+    updateEventOnboarding({
+      variables: {
+        id: id,
+        mobileOnboarding: mobileOnboarding,
+        marketplaceOnboarding: true,
+        teamsOnboarding: teamsOnboarding,
+        scheduleOnboarding: scheduleOnboarding,
+        invitationsOnboarding: invitationsOnboarding
+      }
+    })
+      .then(() => console.log())
+      .catch(e => console.log(e))
+  }
 
   return (
     <div
@@ -87,8 +113,7 @@ const MarketplaceOnboard = (props): JSX.Element => {
           </List>
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button long onClick={() => {}}>
-              {' '}
+            <Button long onClick={() => Update(id)}>
               Create An Item Category{' '}
             </Button>
           </div>

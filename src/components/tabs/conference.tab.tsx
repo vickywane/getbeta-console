@@ -21,7 +21,7 @@ const FAB = styled.div`
   color: white;
   position: absolute;
   position: -webkit-sticky;
-  bottom: 2rem;
+  bottom: 6rem;
   float: right;
   transition: all 800ms;
   text-align: center;

@@ -40,9 +40,9 @@ const List = styled.li`
 const Tab = styled.div`
   display: flex;
   width : auto;
-  font-size  : 1.2rem;
-  padding : 0.5rem 0.5rem
-  margin : 0.7rem 0.5rem;
+  font-size  : 1rem;
+  padding : 0.2rem 0.5rem
+  margin : 0.7rem 0.3rem;
   color: ${props => (props.active ? '#0e2f5a;' : 'grey')};
   transition : all 300ms; 
   border-left:  ${props => (props.active ? '5px solid #0e2f5a;' : null)}; 

@@ -470,10 +470,10 @@ const InputBox = styled.div`
 const Header = styled.nav`
   position: fixed;
   width: 100%;
-  padding: 1em 3rem;
+  padding: 0.7em 3rem;
   background: #401364;
   h4 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: normal;
   }
   ${media.lessThan('large')`

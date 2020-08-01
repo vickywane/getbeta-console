@@ -8,18 +8,7 @@ import styled from 'styled-components'
 
 import Media from './media'
 import SponsorsControl from './sponsors.control'
-import {
-  Hover,
-  Head,
-  Label,
-  Section,
-  Body,
-  Input,
-  Tab,
-  TabColumn,
-  Text,
-  Button
-} from '../../styles/style'
+import { Hover, Head, Section, Body, Tab, TabColumn, Button } from '../../styles/style'
 import { UPDATE_EVENT } from '../../data/mutations'
 import { CREATE_EVENT_INPUT } from '../../pages/forms/formsData'
 import { Tip } from '../../components/'

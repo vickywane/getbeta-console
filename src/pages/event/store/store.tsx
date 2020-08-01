@@ -18,7 +18,7 @@ const Store = props => {
   return (
     <div>
       <CSSTransition in={!marketplaceOnboarding} timeout={300} unmountOnExit>
-        <MarkeplaceOnboard />
+        <MarkeplaceOnboard data={props.data.event} />
       </CSSTransition>
 
       <CSSTransition in={marketplaceOnboarding} timeout={300} unmountOnExit>

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Body, Text, Title, Button } from '../../../styles/style'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { UPDATE_EVENT, UPDATE_EVENT_ONBOARDING } from '../../../data/mutations'
 
 const List = styled.div`
   width: 35rem;
@@ -29,7 +31,30 @@ const List = styled.div`
 `
 
 const UserMobileOnboard = (props): JSX.Element => {
-  const {} = props
+  const {
+    id,
+    marketplaceOnboarding,
+    teamsOnboarding,
+    scheduleOnboarding,
+    invitationsOnboarding
+  } = props.data
+
+  const [updateEventOnboarding, { loading }] = useMutation(UPDATE_EVENT_ONBOARDING)
+
+  const closeOnboard = (id: number) => {
+    updateEventOnboarding({
+      variables: {
+        id: id,
+        mobileOnboarding: true,
+        marketplaceOnboarding: marketplaceOnboarding,
+        teamsOnboarding: teamsOnboarding,
+        scheduleOnboarding: scheduleOnboarding,
+        invitationsOnboarding: invitationsOnboarding
+      }
+    })
+      .then(() => console.log('updated'))
+      .catch(e => console.log(e))
+  }
 
   return (
     <div
@@ -87,7 +112,7 @@ const UserMobileOnboard = (props): JSX.Element => {
           </List>
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button long onClick={() => {}}>
+            <Button long onClick={() => closeOnboard(id)}>
               Get Started
             </Button>
           </div>

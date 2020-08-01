@@ -34,19 +34,28 @@
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cards/streamCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cards/streamCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tabs/conference.tab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tabs/conference.tab.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/mutations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/mutations.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/queries.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/queries.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/admin.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/editEvent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/editEvent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/previewBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/previewBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/store/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/store.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/teamList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/teamList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/timeline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/invitation.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/invitation.onboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/marketplace.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/marketplace.onboard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/mobile.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/mobile.onboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/schedule.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/schedule.onboard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/team.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/team.onboard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/forms/fields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/fields.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/mobile/mobile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mobile/mobile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +85,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/event/user-onboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../onboard-cli" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -182,11 +191,11 @@
       <screen x="0" y="0" width="3280" height="1080" />
     </state>
     <state x="1939" y="340" width="752" height="395" key="#com.intellij.fileTypes.FileTypeChooser/0.0.3280.1080@0.0.3280.1080" timestamp="1595966313014" />
-    <state x="363" y="200" width="424" height="482" key="FileChooserDialogImpl" timestamp="1595718988975">
+    <state x="363" y="200" width="424" height="482" key="FileChooserDialogImpl" timestamp="1596161969251">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="257" y="142" width="424" height="482" key="FileChooserDialogImpl/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1595140499588" />
-    <state x="363" y="200" width="424" height="482" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1595718988975" />
+    <state x="363" y="200" width="424" height="482" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1596161969251" />
     <state width="1878" height="366" key="GridCell.Tab.0.bottom" timestamp="1596039564981">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
@@ -296,20 +305,24 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="10" y="153" width="770" height="771" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1595490422623" />
+    <state x="229" y="455" width="490" height="166" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1596284488110">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="229" y="455" width="490" height="166" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1596284488110" />
     <state x="502" y="332" width="1360" height="817" key="dock-window-1" timestamp="1596039513222">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
     <state x="502" y="332" width="1360" height="817" key="dock-window-1/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1596039513222" />
     <state x="1862" y="332" width="1360" height="817" key="dock-window-1/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1596024650225" />
-    <state x="382" y="161" width="672" height="604" key="search.everywhere.popup" timestamp="1596154632269">
-      <screen x="0" y="0" width="1360" height="768" />
+    <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup" timestamp="1596322742663">
+      <screen x="1360" y="0" width="1920" height="1080" />
     </state>
     <state x="382" y="161" width="672" height="604" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@0.0.1360.768" timestamp="1596154632269" />
-    <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1596145100585" />
+    <state x="1899" y="226" width="949" height="850" key="search.everywhere.popup/0.0.1360.768/1360.0.1920.1080@1360.0.1920.1080" timestamp="1596322742663" />
     <state x="382" y="161" width="672" height="603" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1593810919979" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1593817367723" />
-    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1595966824211" />
-    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1595966249776" />
+    <state x="539" y="226" width="840" height="848" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1596284036802" />
+    <state x="921" y="226" width="1435" height="848" key="search.everywhere.popup/0.0.3280.1080@0.0.3280.1080" timestamp="1596181893171" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -319,14 +332,8 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/data/mutations.tsx</url>
-          <line>41</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/styles/style.tsx</url>
           <line>140</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

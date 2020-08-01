@@ -62,14 +62,6 @@ const EventDetails = (props): JSX.Element => {
       grey
     >
       <span style={{ transition: 'all 500ms' }}>
-        {currentWindowSize >= 1000 && permission ? (
-          <div style={{ textAlign: 'right', padding: '1rem 1rem' }}>
-            <Hover onClick={() => dispatch({ type: 'SWITCH_EDIT' })}>
-              <FiEdit style={{ fontSize: '2rem' }} />
-            </Hover>
-          </div>
-        ) : null}
-
         <br />
         <br />
         <UserContext.Consumer>

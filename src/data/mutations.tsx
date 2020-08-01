@@ -133,6 +133,29 @@ const CREATE_EVENT = gql`
     }
   }
 `
+export const UPDATE_EVENT_ONBOARDING: any = gql`
+  mutation updateEventOnboarding(
+    $mobileOnboarding: Boolean
+    $marketplaceOnboarding: Boolean
+    $teamsOnboarding: Boolean
+    $id: Int!
+    $scheduleOnboarding: Boolean
+    $invitationsOnboarding: Boolean
+  ) {
+    updateEventOnboarding(
+      id: $id
+      input: {
+        mobileOnboarding: $mobileOnboarding
+        marketplaceOnboarding: $marketplaceOnboarding
+        teamsOnboarding: $teamsOnboarding
+        scheduleOnboarding: $scheduleOnboarding
+        invitationsOnboarding: $invitationsOnboarding
+      }
+    ) {
+      id
+    }
+  }
+`
 
 const UPDATE_EVENT = gql`
   mutation updateEvent(
