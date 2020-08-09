@@ -1,24 +1,11 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import "./index.css"
-import Main from "./Main"
-import * as serviceWorker from "./serviceWorker"
+import './App.css'
+import Main from './App'
+import * as serviceWorker from './serviceWorker'
 
-// i would work on the theming later!!
-// const theme = {
-//   primaryDark: null,
-//   primaryLight: null,
-//   primaryHover: null,
-// }
-
-// primaryDark: '#0D0C1D',
-// primaryLight: '#EFFFFA',
-// primaryHover: '#343078',
-
-ReactDOM.render(<Main />, document.getElementById("root"))
-
-console.log(process.env.REACT_APP_GRAPHQL_ENDPOINT)
+ReactDOM.render(<Main />, document.getElementById('root'))
 
 export default Main
 

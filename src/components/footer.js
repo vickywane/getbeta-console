@@ -20,7 +20,7 @@ const Footer = () => {
     <FooterBody>
       <div style={{ width: window.innerWidth - 70 }}>
         <Text center>
-          <b> Oasis </b> - Crafted from <a herf="github.com/fundry"> Fundry </a>, Copyright ©{' '}
+          <b> Getbeta </b> - Crafted from <a herf="github.com/fundry"> Fundry </a>, Copyright ©{' '}
           {new Date().getFullYear()}
         </Text>
       </div>

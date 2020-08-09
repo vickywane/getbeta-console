@@ -3,13 +3,11 @@ import React, { useState } from 'react'
 import Flex from 'styled-flex-component'
 import { FiSearch } from 'react-icons/fi'
 import { inject, observer } from 'mobx-react'
-import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
 import { Hover, Header as Head, HeaderLinks, Text, InputBox } from '../../styles/style'
 import { StyledSetting, StyledSearch } from '../../styles/navigation'
-import { SettingsPane } from '../'
 import { Burger, Notification } from './'
 import useWindowWidth from '../../hook_style'
 import '../../App.css'
@@ -172,16 +170,6 @@ const Header = (props): JSX.Element => {
                   setSettingsVisibility(!SettingsVisibility)
                 }}
               />
-
-              <CSSTransition
-                timeout={30000}
-                in={SettingsVisibility === true}
-                unmountOnExit={true}
-                classNames={'setting'}
-                onEnter={() => {}}
-              >
-                <SettingsPane />
-              </CSSTransition>
             </Flex>
           </div>
         ) : (

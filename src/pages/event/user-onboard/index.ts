@@ -1,5 +1,0 @@
-export { default as UserMobileOnboard } from './mobile.onboard'
-export { default as InvitationOnboard } from './invitation.onboard'
-export { default as TeamsOnboard } from './team.onboard'
-export { default as MarkeplaceOnboard } from './marketplace.onboard'
-export { default as ScheduleOnboard } from './schedule.onboard'

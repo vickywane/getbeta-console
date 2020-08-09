@@ -34,29 +34,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8030377c-4e36-45a7-86b8-ab3c3ba0ec3e" name="Default Changelist" comment="talks ui">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tabs/conference.tab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tabs/conference.tab.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/mutations.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/mutations.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/admin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/conference/conference.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/editEvent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/editEvent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/event.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/event.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/eventdetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/invitation/overview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/previewBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/previewBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/schedule/schedule.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/store/store.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/store/store.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/teamList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/teamList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/invitation.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/invitation.onboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/marketplace.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/marketplace.onboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/mobile.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/mobile.onboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/schedule.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/schedule.onboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/event/user-onboard/team.onboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event/user-onboard/team.onboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/create-event/create-conference.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forms/fields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forms/fields.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/mobile/mobile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mobile/mobile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/draft.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/user/talks/drafts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/style.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
