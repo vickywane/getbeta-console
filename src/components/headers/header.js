@@ -7,8 +7,16 @@ const Body = styled.div`
   dsplay: flex;
   jusfity-content: center;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   border-bottom: 1px solid grey;
+`
+
+const Image = styled.img`
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  border: 2px solid #0072ce;
+  object-fit: cover;
 `
 
 const Header = props => {
@@ -16,7 +24,7 @@ const Header = props => {
     <Body>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h4> Profile</h4>
-        <h4> Profile</h4>
+        <Image src={require('../../assets/images/img.jpg')} />
       </div>
     </Body>
   )

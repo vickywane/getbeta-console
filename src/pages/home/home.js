@@ -61,7 +61,7 @@ const Home = props => {
             }}
           >
             <div>
-              <h4 style={{ fontSize: 'normal' }}> Somebody A. Somewher </h4>
+              <h4 style={{ fontSize: 'normal' }}> Somebody A. Somewhere</h4>
               <Text style={{ textAlign: 'center' }}> Vickywane@gmail.com </Text>
             </div>
           </div>
