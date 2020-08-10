@@ -1,9 +1,9 @@
-import * as React from "react"
-import { createPortal } from "react-dom"
+import * as React from 'react'
+import { createPortal } from 'react-dom'
 
 const Portal = ({ children }) => {
-  const m = document.getElementById("portal")
-  const el = document.createElement("div")
+  const m = document.getElementById('portal')
+  const el = document.createElement('div')
 
   React.useEffect(() => {
     m.appendChild(el)

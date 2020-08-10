@@ -1,14 +1,14 @@
-import styled from "styled-components"
-import { IoIosNotificationsOutline } from "react-icons/io"
-import { FiSettings, FiSearch } from "react-icons/fi"
-import media from "styled-media-query"
+import styled from 'styled-components'
+import { IoIosNotificationsOutline } from 'react-icons/io'
+import { FiSettings, FiSearch } from 'react-icons/fi'
+import media from 'styled-media-query'
 
 const StyledMenu = styled.nav`
   display: flex;
   color: white;
   flex-direction: column;
   background: #444444;
-  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
+  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   height: 93vh;
   margin-top: 3.6em;
   padding: 1rem;
@@ -57,20 +57,20 @@ const StyledBurger = styled.button`
   span {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ theme, open }) => (open ? "#fff" : "#fff")};
+    background: ${({ theme, open }) => (open ? '#fff' : '#fff')};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
     transform-origin: 1px;
     :first-child {
-      transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};
+      transform: ${({ open }) => (open ? 'rotate(45deg)' : 'rotate(0)')};
     }
     :nth-child(2) {
-      opacity: ${({ open }) => (open ? "0" : "1")};
-      transform: ${({ open }) => (open ? "translateX(20px)" : "translateX(0)")};
+      opacity: ${({ open }) => (open ? '0' : '1')};
+      transform: ${({ open }) => (open ? 'translateX(20px)' : 'translateX(0)')};
     }
     :nth-child(3) {
-      transform: ${({ open }) => (open ? "rotate(-45deg)" : "rotate(0)")};
+      transform: ${({ open }) => (open ? 'rotate(-45deg)' : 'rotate(0)')};
     }
   }
 `
@@ -131,14 +131,7 @@ const StyledSearch = styled(FiSearch)`
 
 const Hover = styled.div`
   cursor: pointer;
-  color: ${props => (props.white ? "#fff" : null)};
+  color: ${props => (props.white ? '#fff' : null)};
 `
 
-export {
-  StyledMenu,
-  StyledBurger,
-  StyledNotification,
-  Hover,
-  StyledSetting,
-  StyledSearch,
-}
+export { StyledMenu, StyledBurger, StyledNotification, Hover, StyledSetting, StyledSearch }

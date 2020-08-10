@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import styled from "styled-components"
+import React, { useState } from 'react'
+import styled from 'styled-components'
 
 const SwitchContainer = styled.input`
   margin: 0.5rem 0rem;
@@ -9,7 +9,7 @@ const SwitchContainer = styled.input`
   height: 37px;
   position: relative;
   border-radius: 20px;
-  background: ${props => (props.active ? props.color : "#F9F9FA")};
+  background: ${props => (props.active ? props.color : '#F9F9FA')};
   outline: none;
   transition: all 300ms;
   box-shadow: inset 0 0 5px grey;
@@ -17,7 +17,7 @@ const SwitchContainer = styled.input`
     cursor: pointer;
   }
   :after {
-    content: "";
+    content: '';
     position: absolute;
     width: 38px;
     height: 37px;
@@ -25,19 +25,12 @@ const SwitchContainer = styled.input`
     top: 0;
     left: 0;
     transition: all 300ms;
-    margin-left: ${props => (props.active ? "40px" : "0px")};
+    margin-left: ${props => (props.active ? '40px' : '0px')};
     background: #fbfbfb;
   }
 `
 
-interface properties {
-  color: string
-  handleClick: any
-  name: string
-  initialState?: boolean
-}
-
-const Switch = (props: properties) => {
+const Switch = props => {
   const [Active, makeActive] = useState(props.initialState)
 
   function handleChange(e, name) {

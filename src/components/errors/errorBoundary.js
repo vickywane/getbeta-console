@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 export default class ErrorBoundary extends React.Component {
   // constructor(props) {
@@ -7,7 +7,7 @@ export default class ErrorBoundary extends React.Component {
   // }
 
   state = {
-    hasError: false,
+    hasError: false
   }
 
   static getDerivedStateFromError(error) {
@@ -26,13 +26,13 @@ export default class ErrorBoundary extends React.Component {
       return (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: window.innerHeight,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: window.innerHeight
           }}
         >
-          <h1 style={{ fontSize: "2.5rem", textAlign: "center" }}>
+          <h1 style={{ fontSize: '2.5rem', textAlign: 'center' }}>
             Something went wrong internally !
           </h1>
           ;

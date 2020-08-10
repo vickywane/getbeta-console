@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { Router } from '@reach/router'
-import { Console } from '../pages/'
+import { Console } from '../pages'
 
-import { CreateAccount, Login, ResetPassword } from './authentication/'
+import { CreateAccount, Login, ResetPassword } from './authentication'
 
 const Index = () => {
   return (

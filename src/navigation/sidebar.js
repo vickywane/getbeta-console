@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Hover } from '../styles/style'
 import { Link } from '@reach/router'
-import { FiUser } from 'react-icons/fi'
+import { FiUser, FiVideo, FiBookOpen, FiGrid } from 'react-icons/fi'
 
 const Items = styled.ul`
   margin: 0;
@@ -47,37 +47,37 @@ const Sidebar = props => {
     {
       id: 1,
       name: 'Profile',
-      icon: <FiUser style={{ fontSize: '1.7rem' }} />,
+      icon: <FiUser style={{ fontSize: '1.5rem' }} />,
       to: 'home/'
     },
     {
       id: 2,
       name: 'Courses',
-      icon: <FiUser style={{ fontSize: '1.7rem' }} />,
+      icon: <FiUser style={{ fontSize: '1.5rem' }} />,
       to: 'courses/'
     },
     {
       id: 3,
       name: 'Bookings',
-      icon: <FiUser style={{ fontSize: '1.7rem' }} />,
+      icon: <FiGrid style={{ fontSize: '1.5rem' }} />,
       to: 'booking/'
     },
     {
       id: 4,
       name: 'Live Sessions',
-      icon: <FiUser style={{ fontSize: '1.7rem' }} />,
+      icon: <FiVideo style={{ fontSize: '1.5rem' }} />,
       to: 'sessions/'
     },
     {
       id: 5,
       name: 'Online Content',
-      icon: <FiUser style={{ fontSize: '1.7rem' }} />,
+      icon: <FiBookOpen style={{ fontSize: '1.5rem' }} />,
       to: 'coursess/'
     },
     {
       id: 6,
       name: 'Preferences',
-      icon: <FiUser style={{ fontSize: '1.7rem' }} />,
+      icon: <FiUser style={{ fontSize: '1.5rem' }} />,
       to: 'preference/'
     }
   ]
