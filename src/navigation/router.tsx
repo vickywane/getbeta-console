@@ -1,12 +1,17 @@
 import React from 'react'
 
 import { Router } from '@reach/router'
-import { Home } from '../pages/'
+import { Console } from '../pages/'
+
+import { CreateAccount, Login, ResetPassword } from './authentication/'
 
 const Index = () => {
   return (
     <Router>
-      <Home path="/" />
+      <Console path="console/*" />
+      <CreateAccount path="create-account" />
+      <Login path="/login" />
+      <ResetPassword path="reset-password" />
     </Router>
   )
 }

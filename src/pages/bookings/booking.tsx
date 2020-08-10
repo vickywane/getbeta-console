@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from '../../components/headers/header'
 
-const Home = props => {
+const Booking = props => {
   return (
     <div>
       <Header />
-      <h1> Home </h1>
+      <h1> Booking </h1>
     </div>
   )
 }
 
-export default Home
+export default Booking

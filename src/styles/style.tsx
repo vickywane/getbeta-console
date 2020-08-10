@@ -88,7 +88,7 @@ const Button = styled.button`
   color: ${props => (props.transparent ? '#0e2f5a' : '#fff')};
   margin: 0 1em;
   padding: ${props => (props.long ? '0.50em 3.5em' : '0.50em 1.5em')};
-  font-size: 1em;
+  font-size: 0.9em;
   &:hover {
     color: #0e2f5a;
     background: #fff;
