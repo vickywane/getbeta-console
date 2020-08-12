@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Hover } from '../styles/style'
 import { Link } from '@reach/router'
-import { FiUser, FiVideo, FiBookOpen, FiGrid } from 'react-icons/fi'
+import { FiUser, FiVideo, FiBookOpen, FiGrid, FiSettings } from 'react-icons/fi'
 
 const Items = styled.ul`
   margin: 0;
@@ -77,7 +77,7 @@ const Sidebar = props => {
     {
       id: 6,
       name: 'Preferences',
-      icon: <FiUser style={{ fontSize: '1.5rem' }} />,
+      icon: <FiSettings style={{ fontSize: '1.5rem' }} />,
       to: 'preference/'
     }
   ]

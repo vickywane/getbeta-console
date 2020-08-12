@@ -12,7 +12,7 @@ const SwitchContainer = styled.input`
   background: ${props => (props.active ? props.color : '#F9F9FA')};
   outline: none;
   transition: all 300ms;
-  box-shadow: inset 0 0 5px grey;
+  box-shadow: inset 0 0 5px #c0c0c0;
   &: hover {
     cursor: pointer;
   }

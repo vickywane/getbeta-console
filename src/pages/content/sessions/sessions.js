@@ -18,7 +18,7 @@ const CardGrid = styled.div`
 const Card = styled.div`
   height: 28vh;
   width: 25rem;
-  box-shadow: 0 3px 4px grey;
+  box-shadow: 0 3px 4px #c0c0c0;
   border-radius: 5px;
   h4 {
     font-weight: 500;

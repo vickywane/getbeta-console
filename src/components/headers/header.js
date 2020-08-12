@@ -8,7 +8,7 @@ const Body = styled.div`
   jusfity-content: center;
   align-items: center;
   padding: 0.5rem 2rem;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #c0c0c0;
 `
 
 const Image = styled.img`
