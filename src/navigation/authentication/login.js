@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Text, Title, Button } from '../../styles/style'
 import { Link } from '@reach/router'
+import { inject, observer } from 'mobx-react'
 
 const Body = styled.div`
   display: grid;
@@ -31,6 +32,9 @@ const InputBody = styled.div`
 `
 
 const Login = props => {
+  const { isAuthenticated, authUser } = props.UserStore
+
+  console.log(isAuthenticated)
   return (
     <Body style={{ height: window.innerHeight }}>
       <div style={{ background: '#0072CE' }} />
@@ -54,9 +58,7 @@ const Login = props => {
           <br />
 
           <div style={{ textAlign: 'center' }}>
-            <Link to="/console">
-              <Button> Login </Button>
-            </Link>
+            <Button onClick={() => authUser(true)}> Login </Button>
           </div>
         </div>
       </Contain>
@@ -64,4 +66,4 @@ const Login = props => {
   )
 }
 
-export default Login
+export default inject('UserStore')(observer(Login))
