@@ -35,7 +35,7 @@ input {
 `
 
 const CardBody = styled.div`
-  \width: 90%;
+  width: 90%;
   height: 90%;
   background: #fff;
   display: flex;

@@ -11,7 +11,7 @@ const Index = props => {
 
   return (
     <Router>
-      <Protected authenticated={isAuthenticated} Component={Console} path="console/*" />
+      <Protected authenticated={isAuthenticated} Component={Console} default path="/*" />
       <CreateAccount path="create-account" />
       <Login path="/login" />
       <ResetPassword path="reset-password" />

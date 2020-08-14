@@ -7,8 +7,7 @@ import { Home, Bookings, Preferences, Sessions, Course, Courselist, CreateSessio
 import Sidebar from '../navigation/sidebar'
 
 const Grid = styled.div`
-  display: grid;
-  grid-template-columns: auto 100%;
+  display: flex;
 `
 
 const Console = props => {
@@ -16,15 +15,17 @@ const Console = props => {
     <Grid>
       <Sidebar />
 
-      <Router>
-        <Home default />
-        <Bookings path="/booking" />
-        <Preferences path="/preference" />
-        <Sessions path="/sessions" />
-        <Courselist path="/courses" />
-        <Course path="/course" />
-        <CreateSession path="/create-session/" />
-      </Router>
+      <div style={{ width: '100%' }}>
+        <Router>
+          <Home default />
+          <Bookings path="/booking" />
+          <Preferences path="/preference" />
+          <Sessions path="/sessions" />
+          <Courselist path="/courses" />
+          <Course path="/course" />
+          <CreateSession path="/create-session/" />
+        </Router>
+      </div>
     </Grid>
   )
 }
