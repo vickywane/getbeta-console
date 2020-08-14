@@ -74,37 +74,37 @@ const Sidebar = props => {
     {
       id: 1,
       name: 'Profile',
-      icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
+      icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: 'home/'
     },
     {
       id: 2,
       name: 'Courses',
-      icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
+      icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: 'courses/'
     },
     {
       id: 3,
       name: 'Bookings',
-      icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
+      icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: 'booking/'
     },
     {
       id: 4,
       name: 'Live Sessions',
-      icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
+      icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: 'sessions/'
     },
     {
       id: 5,
       name: 'Online Content',
-      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
+      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: 'coursess/'
     },
     {
       id: 6,
       name: 'Preferences',
-      icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
+      icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: 'preference/'
     }
   ]
