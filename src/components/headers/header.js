@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FiHome } from 'react-icons/fi'
 
 const Body = styled.div`
   height: 70px;
@@ -19,11 +20,27 @@ const Image = styled.img`
   object-fit: cover;
 `
 
+const Icon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 350ms;
+  border-radius: 5px;
+  padding: 0.5rem 0.5rem;
+  &: hover {
+    cursor: pointer;
+    color: #fff;
+    background: #0072ce;
+  }
+`
+
 const Header = props => {
   return (
     <Body>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h4> Profile</h4>
+        <Icon>
+          <FiHome style={{ fontSize: '1.8rem' }} />
+        </Icon>
         <Image src={require('../../assets/images/img.jpg')} />
       </div>
     </Body>

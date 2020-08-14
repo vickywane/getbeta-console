@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Title = styled.h4`
   text-align: ${props => props.align};
+  font-size: ${props => (props.small ? '1.3rem' : null)};
 `
 
 export const Text = styled.p`

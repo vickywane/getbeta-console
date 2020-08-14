@@ -1,56 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Link } from '@reach/router'
 
+import { CourseCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
 import { Text, Title } from '../../../styles/style'
-import { FiSearch } from 'react-icons/fi'
+import { IoIosVideocam, IoIosLink } from 'react-icons/io'
+import CreateSessionCard from './create-session-card'
+import CreateSession from './create-session-card'
 
 const Body = styled.div`
   padding: 1rem 3rem;
 `
-
-const CardGrid = styled.div`
-  display: grid;
-  grid-gap: 3rem 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-`
-
-const Card = styled.div`
-  height: 28vh;
-  width: 25rem;
-  box-shadow: 0 3px 4px #c0c0c0;
-  border-radius: 5px;
-  h4 {
-    font-weight: 500;
-    font-size: 1.5rem;
-  }
-  div {
-    padding: 1rem 1rem;
-  }
-`
-
-const CardsData = [
-  {
-    id: 1,
-    name: 'Computer Science For Teenagers',
-    tag: 'Article'
-  },
-  {
-    id: 1,
-    name: 'Computer Science For Teenagers',
-    tag: 'Tutorial'
-  },
-  {
-    id: 1,
-    name: 'Computer Science For Teenagers',
-    tag: 'Crash Course'
-  },
-  {
-    id: 1,
-    name: 'Computer Science For Teenagers',
-    tag: 'Article'
-  }
-]
 
 const Searchbox = styled.div`
 width  : 42rem;
@@ -73,37 +34,105 @@ input {
   }
 `
 
-const Sessions = props => {
-  return (
-    <div>
-      <Header />
+const CardBody = styled.div`
+  \width: 90%;
+  height: 90%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 4px grey;
+`
 
-      <Body>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Searchbox>
-            <div>
-              <FiSearch style={{ fontSize: '1.7rem' }} />
+const Card = styled.div`
+  height: 35vh;
+  width: 27rem;
+  border-radius: 5px;
+  display: flex;
+  background: #fff;
+  color: #0072ce;
+  margin: 0 3rem;
+  transition: all 400ms;
+  justify-content: center;
+  align-items: center;
+  a {
+    text-decoration: none;
+  }
+  &: hover {
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0 2px 3px grey;
+  }
+`
+
+const Sessions = props => {
+  const [isCreating, setCreating] = useState(false)
+
+  return (
+    <div style={{}}>
+      <Header />
+      {!isCreating && (
+        <div>
+          <CardBody style={{ width: '100%', height: '8vh', color: '#0072ce' }}>
+            <div style={{ display: 'flex', margin: '0 2rem' }}>
+              <div style={{ margin: '0 0.7rem' }}>
+                <IoIosVideocam style={{ fontSize: '1.7rem' }} />
+              </div>
+              <Title small> 10 Live sessions </Title>
             </div>
 
-            <input placeholder="Search for a course" />
-          </Searchbox>
+            <div style={{ display: 'flex', margin: '0 2rem' }}>
+              <div style={{ margin: '0 0.7rem' }}>
+                <IoIosVideocam style={{ fontSize: '1.7rem' }} />
+              </div>
+              <Title small> 10 Group sessions </Title>
+            </div>
+
+            <div style={{ display: 'flex', margin: '0 2rem' }}>
+              <div style={{ margin: '0 0.7rem' }}>
+                <IoIosVideocam style={{ fontSize: '1.7rem' }} />
+              </div>
+              <Title small> 10 One - On - One sessions </Title>
+            </div>
+          </CardBody>
         </div>
-        <br />
-        <CardGrid>
-          {CardsData.map(({ id, name, tag }) => {
-            return (
-              <Card key={id}>
-                <img alt="" />
-                <br />
-                <br />
-                <div>
-                  <h4> {name} </h4>
-                  <Text> {tag} </Text>
+      )}
+
+      <Body
+        style={{
+          display: 'flex',
+          height: !isCreating ? window.innerHeight - 145 : window.innerHeight - 70,
+          justifyContent: 'center',
+          alignItems: 'center',
+          background: '#d6e2f0cf'
+        }}
+      >
+        {!isCreating ? (
+          <div style={{ display: 'flex' }}>
+            <Card onClick={() => setCreating(!isCreating)}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ textAlign: 'center', margin: '1rem 0' }}>
+                  <IoIosVideocam style={{ fontSize: '3rem' }} />
                 </div>
-              </Card>
-            )
-          })}
-        </CardGrid>
+                <Title small> Create Live Session </Title>
+              </div>
+            </Card>
+
+            <Card>
+              <Link to="#">
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ textAlign: 'center', margin: '1rem 0' }}>
+                    <IoIosLink style={{ fontSize: '3rem' }} />
+                  </div>
+
+                  <Title small> Join Live Session </Title>
+                </div>
+              </Link>
+            </Card>
+          </div>
+        ) : (
+          <CreateSessionCard closeBtnRef={''} />
+        )}
       </Body>
     </div>
   )

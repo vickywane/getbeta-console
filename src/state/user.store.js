@@ -2,7 +2,7 @@ import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
 
 class UserStore {
-  isAuthenticated = false
+  isAuthenticated = true
 
   authUser = state => {
     this.isAuthenticated = state

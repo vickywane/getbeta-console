@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Hover } from '../styles/style'
 import { Link } from '@reach/router'
-import { FiUser, FiVideo, FiBookOpen, FiGrid, FiSettings } from 'react-icons/fi'
+import { FiUser, FiVideo, FiBookOpen, FiGrid, FiSettings, FiChevronsLeft } from 'react-icons/fi'
+import { IoIosList } from 'react-icons/io'
 
 const Items = styled.ul`
   margin: 0;
@@ -40,52 +41,95 @@ const Body = styled.div`
   color: #fff;
 `
 
+const Icon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 350ms;
+  border-radius: 5px;
+  padding: 0.5rem 0.5rem;
+  &: hover {
+    cursor: pointer;
+    color: #fff;
+    background: #0072ce;
+  }
+`
+
+const SidebarBody = styled(Body)`
+  background: #0072ce;
+  width: ${props => (props.isClosed ? '6rem' : '20rem')};
+`
+
+const center = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItemss: 'center'
+}
+
 const Sidebar = props => {
   const [ActiveRoute, setActiveRoute] = useState('Profile')
+  const [isClosed, setClosed] = useState(false)
 
   const Routes = [
     {
       id: 1,
       name: 'Profile',
-      icon: <FiUser style={{ fontSize: '1.5rem' }} />,
+      icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
       to: 'home/'
     },
     {
       id: 2,
       name: 'Courses',
-      icon: <FiUser style={{ fontSize: '1.5rem' }} />,
+      icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
       to: 'courses/'
     },
     {
       id: 3,
       name: 'Bookings',
-      icon: <FiGrid style={{ fontSize: '1.5rem' }} />,
+      icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
       to: 'booking/'
     },
     {
       id: 4,
       name: 'Live Sessions',
-      icon: <FiVideo style={{ fontSize: '1.5rem' }} />,
+      icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
       to: 'sessions/'
     },
     {
       id: 5,
       name: 'Online Content',
-      icon: <FiBookOpen style={{ fontSize: '1.5rem' }} />,
+      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
       to: 'coursess/'
     },
     {
       id: 6,
       name: 'Preferences',
-      icon: <FiSettings style={{ fontSize: '1.5rem' }} />,
+      icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.9rem' }} />,
       to: 'preference/'
     }
   ]
 
   return (
-    <Body>
-      <h3 style={{ textAlign: 'center' }}> Getbeta </h3>
-      <br />
+    <SidebarBody
+      isClosed={isClosed}
+      style={{
+        height: window.innerHeight
+      }}
+    >
+      <div style={{ padding: '0 0.5rem', display: 'flex', justifyContent: 'space-between' }}>
+        {!isClosed && (
+          <div style={{ ...center }}>
+            <h3 style={{ textAlign: 'center' }}> Getbeta </h3>
+          </div>
+        )}
+        <Icon
+          style={{ transition: 'all 350ms', transform: isClosed && 'rotate(180deg)' }}
+          onClick={() => setClosed(!isClosed)}
+        >
+          <FiChevronsLeft style={{ fontSize: '1.8rem' }} />
+        </Icon>
+      </div>
+      <hr style={{ background: '#fff' }} />
       <Items>
         {Routes.map(({ id, name, icon, to }) => {
           return (
@@ -93,13 +137,13 @@ const Sidebar = props => {
               <Item active={ActiveRoute === name}>
                 <Hover style={{ marginRight: '0.7rem' }}>{icon}</Hover>
 
-                <p> {name} </p>
+                {!isClosed && <p> {name} </p>}
               </Item>
             </Link>
           )
         })}
       </Items>
-    </Body>
+    </SidebarBody>
   )
 }
 

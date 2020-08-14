@@ -6,3 +6,4 @@ export { default as Course } from './content/courses/courseList'
 export { default as Preferences } from './preferences/survey'
 
 export { default as Console } from './console'
+export { default as CreateSession } from './content/sessions/create-session-card'
