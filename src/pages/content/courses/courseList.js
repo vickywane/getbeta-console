@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from '@reach/router'
 
 import { CourseCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
-import { Text, Title } from '../../../styles/style'
+import { Text, Title, Button } from '../../../styles/style'
 import { FiSearch } from 'react-icons/fi'
 
 const Body = styled.div`
@@ -65,6 +66,10 @@ const CoursesList = props => {
 
             <input placeholder="Search for a course" />
           </Searchbox>
+
+          <Button style={{ margin: '0 2rem' }} background="#0072CE">
+            Search
+          </Button>
         </div>
         <br />
         <CardGrid>
@@ -75,7 +80,9 @@ const CoursesList = props => {
                 <br />
                 <br />
                 <div>
-                  <h4> {name} </h4>
+                  <Link to={`course/${id}`}>
+                    <h4> {name} </h4>
+                  </Link>
                   <Text> {tag} </Text>
                 </div>
               </Card>

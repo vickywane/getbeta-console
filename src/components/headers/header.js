@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiHome } from 'react-icons/fi'
 
+import { SmallUserImage, Title } from '../../styles/style'
+
 const Body = styled.div`
   height: 70px;
   width: 100%;
@@ -10,14 +12,6 @@ const Body = styled.div`
   align-items: center;
   padding: 0.5rem 2rem;
   border-bottom: 1px solid #c0c0c0;
-`
-
-const Image = styled.img`
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  border: 2px solid #0072ce;
-  object-fit: cover;
 `
 
 const Icon = styled.div`
@@ -35,13 +29,19 @@ const Icon = styled.div`
 `
 
 const Header = props => {
+  const { screen } = props
   return (
     <Body>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Icon>
           <FiHome style={{ fontSize: '1.8rem' }} />
         </Icon>
-        <Image src={require('../../assets/images/img.jpg')} />
+
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Title color="#0072ce"> {screen} </Title>
+        </div>
+
+        <SmallUserImage small src={require('../../assets/images/img.jpg')} />
       </div>
     </Body>
   )

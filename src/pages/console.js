@@ -2,7 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import { Router, Root } from '@reach/router'
 
-import { Home, Bookings, Preferences, Sessions, Course, Courselist, CreateSession } from './'
+import {
+  Home,
+  Bookings,
+  Ticket,
+  Preferences,
+  Sessions,
+  CoursePage,
+  Courselist,
+  CreateSession
+} from './'
 
 import Sidebar from '../navigation/sidebar'
 
@@ -22,7 +31,8 @@ const Console = props => {
           <Preferences path="/preference" />
           <Sessions path="/sessions" />
           <Courselist path="/courses" />
-          <Course path="/course" />
+          <CoursePage path="/course/:id" />
+          <Ticket path="/ticket" />
           <CreateSession path="/create-session/" />
         </Router>
       </div>
