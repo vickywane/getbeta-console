@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiHome } from 'react-icons/fi'
+import { FiHome, FiSearch } from 'react-icons/fi'
 
 import { SmallUserImage, Title } from '../../styles/style'
 
@@ -28,18 +28,62 @@ const Icon = styled.div`
   }
 `
 
+const Searchbox = styled.div`
+width  : 42rem;
+border : 0px;
+border-radius : 3px;
+display : flex;
+padding   : 0.6rem 0.5rem;
+justify-content: space-between;
+background : #fff;
+box-shadow : 0 2px 3px #0072ce;
+input {
+  color : #0072ce;
+     padding : 0.2rem 1rem;
+    background : transparent;
+    width  : 42rem
+    font-size: 1rem;
+    outline : 0;
+    border : 0;
+  }
+  div {
+    color : #0072ce;
+    display  : flex;
+    justify-content : center;
+    align-items : center;
+  }
+`
+
 const Header = props => {
-  const { screen } = props
+  const { screen, showSearch, searchText, backgroundColor } = props
   return (
-    <Body>
+    <Body
+      style={{
+        background: backgroundColor
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Icon>
-          <FiHome style={{ fontSize: '1.8rem' }} />
+          <FiHome style={{ color: '#0072ce', fontSize: '1.8rem' }} />
         </Icon>
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Title color="#0072ce"> {screen} </Title>
-        </div>
+        {screen && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Title color="#0072ce"> {screen} </Title>
+          </div>
+        )}
+
+        {showSearch && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Searchbox>
+              <div>
+                <FiSearch style={{ fontSize: '1.6rem' }} />
+              </div>
+
+              <input placeholder={searchText} />
+            </Searchbox>
+          </div>
+        )}
 
         <SmallUserImage small src={require('../../assets/images/img.jpg')} />
       </div>

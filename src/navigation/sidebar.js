@@ -75,37 +75,37 @@ const Sidebar = props => {
       id: 1,
       name: 'Profile',
       icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
-      to: 'home/'
+      to: '/home'
     },
     {
       id: 2,
       name: 'Courses',
       icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
-      to: 'courses/'
+      to: '/courses'
     },
     {
       id: 3,
       name: 'Bookings',
       icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
-      to: 'booking/'
+      to: '/booking'
     },
     {
       id: 4,
       name: 'Live Sessions',
       icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
-      to: 'sessions/'
+      to: '/sessions'
     },
     {
       id: 5,
       name: 'Online Content',
       icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
-      to: 'coursess/'
+      to: '/contents'
     },
     {
       id: 6,
       name: 'Preferences',
       icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
-      to: 'preference/'
+      to: '/preference'
     }
   ]
 
@@ -119,7 +119,15 @@ const Sidebar = props => {
       <div style={{ padding: '0 0.5rem', display: 'flex', justifyContent: 'space-between' }}>
         {!isClosed && (
           <div style={{ ...center }}>
-            <h3 style={{ textAlign: 'center' }}> Getbeta </h3>
+            <h3 style={{ textAlign: 'center' }}>
+              <a
+                target="_blank"
+                style={{ color: '#fff', textDecoration: 'none' }}
+                href="https://getbeta.netlify.com"
+              >
+                Getbeta
+              </a>
+            </h3>
           </div>
         )}
         <Icon

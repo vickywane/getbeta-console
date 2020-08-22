@@ -30,7 +30,7 @@ const Profile = props => {
   return (
     <div>
       {profilePane ? (
-        <Body style={{ color: '#0072CE', background: '#d6e2f0cf' }}>
+        <Body style={{ color: '#0072CE', background: 'rgba(233, 241, 251, 0.81)' }}>
           <br />
           <div style={{ display: 'flex' }}>
             <Image alt="user" src={require('../../assets/images/img.jpg')} />

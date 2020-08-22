@@ -8,7 +8,7 @@ import { Body, Title, SmallUserImage, Hover, Text } from '../../../styles/style'
 
 const StyledBody = styled(Body)`
     padding : 1rem 3rem
-    background : #d6e2f0cf;
+    background : rgba(233, 241, 251, 0.81);
     display : flex;
     justify-content : center;
 `

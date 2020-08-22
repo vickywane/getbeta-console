@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 
-import { CourseCardsData } from '../../../mockData'
+import { ContentCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
 import { Text, Title, Button, CardGrid, Card } from '../../../styles/style'
 import { FiSearch } from 'react-icons/fi'
@@ -11,44 +11,34 @@ const Body = styled.div`
   padding: 1rem 3rem;
 `
 
-const StyledCard = styled(Card)`
-  height: 30vh;
-  width: 30rem;
-`
-
-const CoursesList = props => {
+const Contents = props => {
   return (
     <div>
       <Header
         backgroundColor="rgba(233, 241, 251, 0.81)"
         showSearch={true}
-        searchText="Search For A Course"
+        searchText="Search For A Content Material"
       />
 
       <Body>
         <br />
         <CardGrid>
-          {CourseCardsData.map(({ id, name, rating, price }) => {
+          {ContentCardsData.map(({ id, name, tag }) => {
             return (
-              <StyledCard key={id}>
+              <Card key={id}>
                 <img
-                  style={{ height: '200px', width: '100%', objectFit: 'cover' }}
+                  style={{ height: '170px', width: '400px', objectFit: 'cover' }}
                   alt="courses ilustration detail"
-                  src={require('../../../assets/images/chemistry.jpeg')}
+                  src={require('../../../assets/images/college-chemistry.jpg')}
                 />
                 <br />
                 <div>
                   <Link to={`course/${id}`}>
-                    <Title align="center"> {name} </Title>
+                    <h4> {name} </h4>
                   </Link>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Text> {rating} </Text>
-
-                    <Text style={{ color: '#0072ce' }}> $ {price} </Text>
-                  </div>
+                  <Text> {tag} </Text>
                 </div>
-              </StyledCard>
+              </Card>
             )
           })}
         </CardGrid>
@@ -57,4 +47,4 @@ const CoursesList = props => {
   )
 }
 
-export default CoursesList
+export default Contents

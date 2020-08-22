@@ -4,6 +4,7 @@ import { Router, Root } from '@reach/router'
 
 import {
   Home,
+  Contents,
   Bookings,
   Ticket,
   Preferences,
@@ -31,9 +32,10 @@ const Console = props => {
           <Preferences path="/preference" />
           <Sessions path="/sessions" />
           <Courselist path="/courses" />
-          <CoursePage path="/course/:id" />
+          <CoursePage path="/courses/course/:id" />
           <Ticket path="/ticket" />
           <CreateSession path="/create-session/" />
+          <Contents path="/contents" />
         </Router>
       </div>
     </Grid>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { FiChevronRight } from 'react-icons/fi'
+import { FiChevronRight, FiPlay } from 'react-icons/fi'
 import { Title, Text, Hover } from '../../../styles/style'
 import { CourseData, TabData } from '../../../mockData'
 
@@ -68,7 +68,10 @@ const CourseDetails = () => {
       </Tabs>
       <br />
       <Outline>
-        <Title style={{ paddingLeft: '1rem' }}> Course Outline </Title>
+        <Title style={{ paddingLeft: '1rem' }} small>
+          {' '}
+          Course Outline{' '}
+        </Title>
         <ul>
           {CourseData.map(({ id, title, duration, explanation }) => {
             return (
@@ -84,7 +87,12 @@ const CourseDetails = () => {
                   </Title>
                 </div>
 
-                <Text color="grey"> {duration} </Text>
+                <div style={{ color: 'grey', display: 'flex' }}>
+                  <div style={{ margin: '0 0.5rem' }}>
+                    <FiPlay style={{ fontSize: '1.6rem' }} />
+                  </div>
+                  <Text> {duration} </Text>
+                </div>
               </li>
             )
           })}

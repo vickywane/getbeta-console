@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 
-import { CourseCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
 import { Text, Title } from '../../../styles/style'
 import { IoIosVideocam, IoIosLink } from 'react-icons/io'
 import CreateSessionCard from './create-session-card'
-import CreateSession from './create-session-card'
+import { IoIosPeople } from 'react-icons/io'
 
 const Body = styled.div`
   padding: 1rem 3rem;
@@ -76,21 +75,21 @@ const Sessions = props => {
           <CardBody style={{ width: '100%', height: '8vh', color: '#0072ce' }}>
             <div style={{ display: 'flex', margin: '0 2rem' }}>
               <div style={{ margin: '0 0.7rem' }}>
-                <IoIosVideocam style={{ fontSize: '1.7rem' }} />
+                <IoIosVideocam style={{ fontSize: '2rem' }} />
               </div>
               <Title small> 10 Live sessions </Title>
             </div>
 
             <div style={{ display: 'flex', margin: '0 2rem' }}>
               <div style={{ margin: '0 0.7rem' }}>
-                <IoIosVideocam style={{ fontSize: '1.7rem' }} />
+                <IoIosPeople style={{ fontSize: '2rem' }} />
               </div>
               <Title small> 10 Group sessions </Title>
             </div>
 
             <div style={{ display: 'flex', margin: '0 2rem' }}>
               <div style={{ margin: '0 0.7rem' }}>
-                <IoIosVideocam style={{ fontSize: '1.7rem' }} />
+                <IoIosVideocam style={{ fontSize: '2rem' }} />
               </div>
               <Title small> 10 One - On - One sessions </Title>
             </div>

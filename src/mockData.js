@@ -1,18 +1,45 @@
 export const CourseCardsData = [
   {
     id: 1,
+    name: 'Mathematics for WAEC students ',
+    rating: 5,
+    price: '50.00'
+  },
+  {
+    id: 1,
+    name: 'Chemistry for WAEC students ',
+    rating: 5,
+    price: '70.00'
+  },
+  {
+    id: 1,
+    name: 'Physics for WAEC students ',
+    rating: 5,
+    price: '40.00'
+  },
+  {
+    id: 1,
+    name: 'Geography for WAEC students ',
+    rating: 5,
+    price: '30.00'
+  }
+]
+
+export const ContentCardsData = [
+  {
+    id: 1,
     name: 'Computer Science For Teenagers',
     tag: 'Article'
   },
   {
     id: 2,
     name: 'Computer Science For Teenagers',
-    tag: 'Tutorial'
+    tag: 'Article'
   },
   {
     id: 3,
     name: 'Computer Science For Teenagers',
-    tag: 'Crash Course'
+    tag: 'Article'
   },
   {
     id: 4,
@@ -62,5 +89,40 @@ export const TabData = [
   {
     id: 5,
     name: 'More Details'
+  }
+]
+
+export const Professionals = [
+  {
+    id: 1,
+    name: 'Jason Stratam',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam, nulla voluptatibus corrupti pariatur.',
+    rating: 5,
+    price: '65.00'
+  },
+  {
+    id: 2,
+    name: 'Mike Denver',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam, nulla voluptatibus corrupti pariatur.',
+    rating: 5,
+    price: '35.00'
+  },
+  {
+    id: 3,
+    name: 'David Oydeapo',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam, nulla voluptatibus corrupti pariatur.',
+    rating: 5,
+    price: '15.00'
+  },
+  {
+    id: 4,
+    name: 'Rotimi Okunbaye',
+    description:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam, nulla voluptatibus corrupti pariatur.',
+    rating: 5,
+    price: '65.00'
   }
 ]
