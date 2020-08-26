@@ -4,8 +4,8 @@ import { Link } from '@reach/router'
 
 import { CourseCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
-import { Text, Title, Button, CardGrid, Card } from '../../../styles/style'
-import { FiSearch } from 'react-icons/fi'
+import { Text, Title, Button, Hover, CardGrid, Card, Searchbox } from '../../../styles/style'
+import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
   padding: 1rem 3rem;
@@ -15,6 +15,28 @@ const StyledCard = styled(Card)`
   height: 30vh;
   width: 30rem;
 `
+const center = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+
+const StyledHover = styled(Hover)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.7rem;
+  border-radius: 5px;
+  color: #0072ce;
+  background: transparent;
+  margin: 0 1rem;
+  transition: all 400ms;
+  &: hover {
+    cursor: pointer;
+    color: #fff;
+    background: #0072ce;
+  }
+`
 
 const CoursesList = props => {
   return (
@@ -22,10 +44,32 @@ const CoursesList = props => {
       <Header
         backgroundColor="rgba(233, 241, 251, 0.81)"
         showSearch={true}
+        screen="All Courses"
         searchText="Search For A Course"
       />
 
       <Body>
+        <br />
+        <div style={{ justifyContent: 'space-between', display: 'flex' }}>
+          <div style={{ display: 'flex' }}>
+            <Button>New Course</Button>
+
+            <StyledHover onClick={() => {}}>
+              <FiFilter style={{ fontSize: '2rem' }} />
+            </StyledHover>
+          </div>
+
+          <div style={{ ...center }}>
+            <Searchbox>
+              <div>
+                <FiSearch style={{ fontSize: '1.6rem' }} />
+              </div>
+
+              <input placeholder="Seach for a course" />
+            </Searchbox>
+          </div>
+        </div>
+        <hr />
         <br />
         <CardGrid>
           {CourseCardsData.map(({ id, name, rating, price }) => {

@@ -60,3 +60,28 @@ export const Card = styled.div`
     padding: 1rem 1rem;
   }
 `
+
+export const Searchbox = styled.div`
+width  : 42rem;
+border : 1px solid #c0c0c0;
+border-radius : 3px;
+display : flex;
+padding   : 0.6rem 0.5rem;
+justify-content: space-between;
+background : #fff;
+input {
+    color : #0072ce;
+    padding : 0.2rem 1rem;
+    background : transparent;
+    width  : 42rem
+    font-size: 1rem;
+    outline : 0;
+    border : 0;
+  }
+  div {
+    color : #0072ce;
+    display  : flex;
+    justify-content : center;
+    align-items : center;
+  }
+`

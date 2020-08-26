@@ -20,7 +20,7 @@ const Items = styled.ul`
 
 const Item = styled.li`
   padding: 0.5rem 1.5rem;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   display: flex;
   transition: all 300ms;
   list-style: none;
@@ -37,7 +37,7 @@ const Item = styled.li`
 `
 
 const Body = styled.div`
-  padding: 1rem 0rem;
+  padding: 0rem 0rem;
   color: #fff;
 `
 
@@ -116,10 +116,18 @@ const Sidebar = props => {
         height: window.innerHeight
       }}
     >
-      <div style={{ padding: '0 0.5rem', display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        style={{
+          padding: '0.8rem 0.5rem',
+          display: 'flex',
+          backgroundColor: '#16204f',
+          boxShadow: '0 2px 3px grey',
+          justifyContent: 'space-between'
+        }}
+      >
         {!isClosed && (
           <div style={{ ...center }}>
-            <h3 style={{ textAlign: 'center' }}>
+            <h4 style={{ textAlign: 'center' }}>
               <a
                 target="_blank"
                 style={{ color: '#fff', textDecoration: 'none' }}
@@ -127,7 +135,7 @@ const Sidebar = props => {
               >
                 Getbeta
               </a>
-            </h3>
+            </h4>
           </div>
         )}
         <Icon
@@ -137,7 +145,7 @@ const Sidebar = props => {
           <FiChevronsLeft style={{ fontSize: '1.8rem' }} />
         </Icon>
       </div>
-      <hr style={{ background: '#fff' }} />
+
       <Items>
         {Routes.map(({ id, name, icon, to }) => {
           return (
