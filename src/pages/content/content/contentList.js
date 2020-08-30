@@ -4,12 +4,18 @@ import { Link } from '@reach/router'
 
 import { ContentCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
-import { Text, Title, Button, CardGrid, Card } from '../../../styles/style'
-import { FiSearch } from 'react-icons/fi'
+import { Text, Title, Searchbox, StyledHover, Button, CardGrid, Card } from '../../../styles/style'
+import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
   padding: 1rem 3rem;
 `
+
+const center = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
 
 const Contents = props => {
   return (
@@ -21,6 +27,30 @@ const Contents = props => {
       />
 
       <Body>
+        <br />
+
+        <div style={{ justifyContent: 'space-between', display: 'flex' }}>
+          <div style={{ display: 'flex' }}>
+            <Link to="/create">
+              <Button>Create Content</Button>
+            </Link>
+
+            <StyledHover onClick={() => {}}>
+              <FiFilter style={{ fontSize: '2rem' }} />
+            </StyledHover>
+          </div>
+
+          <div style={{ ...center }}>
+            <Searchbox>
+              <div>
+                <FiSearch style={{ fontSize: '1.6rem' }} />
+              </div>
+
+              <input placeholder="Seach for a content" />
+            </Searchbox>
+          </div>
+        </div>
+
         <br />
         <CardGrid>
           {ContentCardsData.map(({ id, name, tag }) => {

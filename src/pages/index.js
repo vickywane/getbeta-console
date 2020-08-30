@@ -12,3 +12,5 @@ export { default as Ticket } from './tickets/ticket'
 export { default as Console } from './console'
 export { default as CreateSession } from './content/sessions/create-session-card'
 export { default as Contents } from './content/content/contentList'
+
+export { default as Create } from './forms/create'

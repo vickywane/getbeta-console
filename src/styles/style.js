@@ -85,3 +85,20 @@ input {
     align-items : center;
   }
 `
+
+export const StyledHover = styled(Hover)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.7rem;
+  border-radius: 5px;
+  color: #0072ce;
+  background: transparent;
+  margin: 0 1rem;
+  transition: all 400ms;
+  &: hover {
+    cursor: pointer;
+    color: #fff;
+    background: #0072ce;
+  }
+`

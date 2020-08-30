@@ -4,7 +4,16 @@ import { Link } from '@reach/router'
 
 import { CourseCardsData } from '../../../mockData'
 import Header from '../../../components/headers/header'
-import { Text, Title, Button, Hover, CardGrid, Card, Searchbox } from '../../../styles/style'
+import {
+  Text,
+  Title,
+  Button,
+  StyledHover,
+  Hover,
+  CardGrid,
+  Card,
+  Searchbox
+} from '../../../styles/style'
 import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
@@ -21,23 +30,6 @@ const center = {
   alignItems: 'center'
 }
 
-const StyledHover = styled(Hover)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 0.7rem;
-  border-radius: 5px;
-  color: #0072ce;
-  background: transparent;
-  margin: 0 1rem;
-  transition: all 400ms;
-  &: hover {
-    cursor: pointer;
-    color: #fff;
-    background: #0072ce;
-  }
-`
-
 const CoursesList = props => {
   return (
     <div>
@@ -52,7 +44,9 @@ const CoursesList = props => {
         <br />
         <div style={{ justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
-            <Button>New Course</Button>
+            <Link to="/create">
+              <Button>New Course</Button>
+            </Link>
 
             <StyledHover onClick={() => {}}>
               <FiFilter style={{ fontSize: '2rem' }} />

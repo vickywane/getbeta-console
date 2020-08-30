@@ -39,9 +39,11 @@ const Header = props => {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Icon>
-          <FiHome style={{ fontSize: '1.8rem' }} />
-        </Icon>
+        <Link to="/">
+          <Icon>
+            <FiHome style={{ fontSize: '1.8rem' }} />
+          </Icon>
+        </Link>
 
         {screen && (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

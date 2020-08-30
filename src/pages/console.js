@@ -9,6 +9,7 @@ import {
   Ticket,
   Preferences,
   Sessions,
+  Create,
   CoursePage,
   Courselist,
   CreateSession
@@ -36,6 +37,7 @@ const Console = props => {
           <Ticket path="/ticket" />
           <CreateSession path="/create-session/" />
           <Contents path="/contents" />
+          <Create path="/create" />
         </Router>
       </div>
     </Grid>
