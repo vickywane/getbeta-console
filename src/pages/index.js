@@ -13,4 +13,5 @@ export { default as Console } from './console'
 export { default as CreateSession } from './content/sessions/create-session-card'
 export { default as Contents } from './content/content/contentList'
 
-export { default as Create } from './forms/create'
+export { default as CreateCourse } from './forms/create-course'
+export { default as CreateContent } from './forms/create-content'

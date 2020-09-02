@@ -8,13 +8,14 @@ import { CreateAccount, Login, ResetPassword } from './authentication'
 
 const Index = props => {
   const { isAuthenticated } = props.UserStore
+  const { UserStore } = props
 
   return (
     <Router>
       <Protected authenticated={isAuthenticated} Component={Console} default path="/*" />
-      <CreateAccount path="create-account" />
-      <Login path="/login" />
-      <ResetPassword path="reset-password" />
+      <CreateAccount UserStore={UserStore} path="create-account" />
+      <Login UserStore={UserStore} path="/login" />
+      <ResetPassword UserStore={UserStore} path="reset-password" />
     </Router>
   )
 }

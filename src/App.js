@@ -3,7 +3,7 @@ import { Provider } from 'mobx-react'
 import { createGlobalStyle } from 'styled-components'
 
 import ErrorBoundary from './components/errors/errorBoundary'
-import { UserStore } from './state/'
+import { UserStore, ContentStore, CourseStore } from './state/'
 import Router from './navigation/router'
 
 const GlobalStyle = createGlobalStyle`
@@ -23,7 +23,7 @@ const App = () => {
     <div>
       <GlobalStyle />
       <ErrorBoundary>
-        <Provider UserStore={UserStore}>
+        <Provider ContentStore={ContentStore} CourseStore={CourseStore} UserStore={UserStore}>
           <Wrapper>
             <Router />
           </Wrapper>

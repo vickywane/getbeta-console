@@ -72,9 +72,11 @@ input {
 `
 
 const Home = props => {
+  const { UserStore } = props
+
   return (
     <div style={{ background: '#fbfbfb' }}>
-      <Profile />
+      <Profile UserStore={UserStore} />
       <br />
       <br />
 

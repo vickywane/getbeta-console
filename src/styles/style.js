@@ -13,6 +13,7 @@ export const Text = styled.p`
 `
 
 export const Button = styled.button`
+  outline: 0px;
   border: 1px solid #0072ce;
   display: flex;
   justify-content: center;

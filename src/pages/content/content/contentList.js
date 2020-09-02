@@ -31,7 +31,7 @@ const Contents = props => {
 
         <div style={{ justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
-            <Link to="/create">
+            <Link to="/create-content">
               <Button>Create Content</Button>
             </Link>
 

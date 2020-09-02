@@ -7,7 +7,7 @@ import { CardGrid, Body, Text, Title, Card } from '../../styles/style'
 
 const StyledCard = styled(Card)`
   padding: 0.5rem 1rem;
-  height: 35vh;
+  height: auto;
   background: #fff;
 `
 

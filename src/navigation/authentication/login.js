@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Text, Title, Button } from '../../styles/style'
 import { Link } from '@reach/router'
@@ -32,9 +32,14 @@ const InputBody = styled.div`
 `
 
 const Login = props => {
-  const { isAuthenticated, authUser } = props.UserStore
+  const { authUser } = props.UserStore
+  const [Email, setEmail] = useState('')
+  const [Password, setPassword] = useState('')
 
-  console.log(isAuthenticated)
+  const handleLogin = () => {
+    authUser(Email, Password)
+  }
+
   return (
     <Body style={{ height: window.innerHeight }}>
       <div style={{ background: '#0072CE' }} />
@@ -46,19 +51,46 @@ const Login = props => {
           </Title>
           <hr />
 
-          <InputBody>
-            <label> Email Address </label>
-            <input type="email" placeholder="Your email address" />
-          </InputBody>
+          <form onSubmit={() => handleLogin()}>
+            <InputBody>
+              <label> Email Address </label>
+              <input
+                value={Email}
+                onChange={e => setEmail(e.target.value)}
+                type="email"
+                placeholder="Your email address"
+              />
+            </InputBody>
 
-          <InputBody>
-            <label> Password </label>
-            <input type="password" placeholder="Your account password" />
-          </InputBody>
-          <br />
+            <InputBody>
+              <label> Password </label>
+              <input
+                value={Password}
+                onChange={e => setPassword(e.target.value)}
+                type="password"
+                placeholder="Your account password"
+              />
+            </InputBody>
+            <br />
+          </form>
 
-          <div style={{ textAlign: 'center' }}>
-            <Button onClick={() => authUser(true)}> Login </Button>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Button
+              style={{
+                background: Password.length < 5 && 'transparent',
+                color: Password.length < 5 && '#0072ce',
+                width: '100%'
+              }}
+              disabled={Password.length < 5}
+              onClick={() => handleLogin()}
+            >
+              Login{' '}
+            </Button>
           </div>
         </div>
       </Contain>
@@ -66,4 +98,4 @@ const Login = props => {
   )
 }
 
-export default inject('UserStore')(observer(Login))
+export default Login

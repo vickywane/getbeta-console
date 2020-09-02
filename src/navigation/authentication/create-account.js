@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Text, Title, Button } from '../../styles/style'
 import { Link } from '@reach/router'
@@ -23,13 +23,24 @@ const InputBody = styled.div`
   }
   input {
     padding: 0.6rem 1rem;
-    border: 1px solid #000;
+    border: 1px solid #c0c0c0;
     border-radius: 1px;
     width: 27rem;
   }
 `
 
 const CreateAccount = props => {
+  const { createAccount } = props.UserStore
+
+  const [FullName, setFullName] = useState('')
+  const [Email, setEmail] = useState('')
+  const [Password, setPassword] = useState('')
+  const [ConfirmPassword, setConfirmPassword] = useState('')
+
+  const handleRegistration = () => {
+    createAccount(FullName, Email, Password, ConfirmPassword)
+  }
+
   return (
     <Body style={{ height: window.innerHeight }}>
       <div style={{ background: '#0072CE' }} />
@@ -40,31 +51,65 @@ const CreateAccount = props => {
             Sign Up Form{' '}
           </Title>
           <hr />
-          <InputBody>
-            <label> Full name </label>
-            <input type="text" placeholder="Your full name" />
-          </InputBody>
 
-          <InputBody>
-            <label> Email Address </label>
-            <input type="email" placeholder="Your email address" />
-          </InputBody>
+          <form onSubmit={() => handleRegistration()}>
+            <InputBody>
+              <label> Full name </label>
+              <input
+                value={FullName}
+                onChange={e => setFullName(e.target.value)}
+                type="text"
+                placeholder="Your full name"
+              />
+            </InputBody>
 
-          <InputBody>
-            <label> Password </label>
-            <input type="password" placeholder="Your account password" />
-          </InputBody>
+            <InputBody>
+              <label> Email Address </label>
+              <input
+                value={Email}
+                onChange={e => setEmail(e.target.value)}
+                type="email"
+                placeholder="Your email address"
+              />
+            </InputBody>
 
-          <InputBody>
-            <label> Confirm Password </label>
-            <input type="password" placeholder="Retype selected password" />
-          </InputBody>
+            <InputBody>
+              <label> Password </label>
+              <input
+                value={Password}
+                onChange={e => {
+                  setPassword(e.target.value)
+                  e.preventDefault()
+                }}
+                type="password"
+                placeholder="Your account password"
+              />
+            </InputBody>
+
+            <InputBody>
+              <label> Confirm Password </label>
+              <input
+                value={ConfirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                type="password"
+                placeholder="Retype selected password"
+              />
+            </InputBody>
+          </form>
+
           <br />
 
           <div style={{ textAlign: 'center' }}>
-            <Link to="/console">
-              <Button>Create Account</Button>
-            </Link>
+            <Button
+              style={{
+                background: Password !== ConfirmPassword && 'transparent',
+                color: Password !== ConfirmPassword && '#0072ce'
+              }}
+              onClick={() => handleRegistration()}
+              disabled={Password !== ConfirmPassword}
+            >
+              Create Account
+            </Button>
           </div>
         </div>
       </Contain>
