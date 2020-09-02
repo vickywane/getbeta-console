@@ -12,6 +12,9 @@ import {
   Sessions,
   CreateCourse,
   CreateContent,
+  MyContent,
+  MyCourses,
+  Mybookings,
   CoursePage,
   Courselist,
   CreateSession

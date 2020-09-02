@@ -28,6 +28,11 @@ class UserStore {
       .then(res => {
         const { user, token } = res.data
 
+        // i am only storing in localStorage for test purpose
+        // would switch later
+        localStorage.setItem('token', token)
+        localStorage.setItem('userId', user.id)
+
         // TODO: persist this data
         this.userDetail = {
           name: user.username,

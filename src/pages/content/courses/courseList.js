@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 
@@ -56,6 +56,12 @@ const FilterBody = styled.div``
 
 const CoursesList = props => {
   const [showModal, setModal] = useState(false)
+  const [courses, setCourses] = useState([])
+  const { fetchCourses } = props.CourseStore
+
+  useEffect(() => {
+    setCourses(fetchCourses())
+  }, [])
 
   return (
     <div>
@@ -68,102 +74,121 @@ const CoursesList = props => {
 
       <Body>
         <br />
-        <ModalWrapper
-          visibility={showModal}
-          size="lg"
-          closeModal={() => setModal(false)}
-          title="Filter Courses"
-        >
-          <div>
-            <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
-              <div style={{ ...center }}>
-                <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
-              </div>
-
-              <Text style={{ margin: '0 0.7rem' }}> By Course Release Date </Text>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
-              <div style={{ ...center }}>
-                <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
-              </div>
-
-              <Text style={{ margin: '0 0.7rem' }}> By Course Viewer's Rating </Text>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
-              <div style={{ ...center }}>
-                <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
-              </div>
-
-              <Text style={{ margin: '0 0.7rem' }}> By Course Rating </Text>
-            </div>
-
-            <hr />
+        {courses.length === 0 ? (
+          <div
+            style={{
+              height: window.innerHeight - 100,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <p style={{ opacity: '0' }}> .</p>
-
-                <Button
-                  onClick={() => {
-                    setModal(false)
-                  }}
-                >
-                  Apply Filter
-                </Button>
-              </div>
+              <Title align="center" color="grey">
+                No Course available yet. <br /> Check back later.{' '}
+              </Title>
             </div>
           </div>
-        </ModalWrapper>
-
-        <div style={{ justifyContent: 'space-between', display: 'flex' }}>
-          <div style={{ display: 'flex' }}>
-            <Link to="/create-course">
-              <Button>New Course</Button>
-            </Link>
-
-            <StyledHover onClick={() => setModal(true)}>
-              <FiFilter style={{ fontSize: '1.9rem' }} />
-            </StyledHover>
-          </div>
-
-          <div style={{ ...center }}>
-            <Searchbox>
+        ) : (
+          <div>
+            <ModalWrapper
+              visibility={showModal}
+              size="lg"
+              closeModal={() => setModal(false)}
+              title="Filter Courses"
+            >
               <div>
-                <FiSearch style={{ fontSize: '1.6rem' }} />
-              </div>
+                <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+                  <div style={{ ...center }}>
+                    <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+                  </div>
 
-              <input placeholder="Seach for a course" />
-            </Searchbox>
-          </div>
-        </div>
-        <hr />
-        <br />
-        <CardGrid>
-          {CourseCardsData.map(({ id, name, rating, price }) => {
-            return (
-              <StyledCard key={id}>
-                <img
-                  style={{ height: '200px', width: '100%', objectFit: 'cover' }}
-                  alt="courses ilustration detail"
-                  src={require('../../../assets/images/chemistry.jpeg')}
-                />
-                <br />
+                  <Text style={{ margin: '0 0.7rem' }}> By Course Release Date </Text>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+                  <div style={{ ...center }}>
+                    <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+                  </div>
+
+                  <Text style={{ margin: '0 0.7rem' }}> By Course Viewer's Rating </Text>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+                  <div style={{ ...center }}>
+                    <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+                  </div>
+
+                  <Text style={{ margin: '0 0.7rem' }}> By Course Rating </Text>
+                </div>
+
+                <hr />
                 <div>
-                  <Link to={`course/${id}`}>
-                    <Title align="center"> {name} </Title>
-                  </Link>
-
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Text> {rating} </Text>
+                    <p style={{ opacity: '0' }}> .</p>
 
-                    <Text style={{ color: '#0072ce' }}> $ {price} </Text>
+                    <Button
+                      onClick={() => {
+                        setModal(false)
+                      }}
+                    >
+                      Apply Filter
+                    </Button>
                   </div>
                 </div>
-              </StyledCard>
-            )
-          })}
-        </CardGrid>
+              </div>
+            </ModalWrapper>
+
+            <div style={{ justifyContent: 'space-between', display: 'flex' }}>
+              <div style={{ display: 'flex' }}>
+                <Link to="/create-course">
+                  <Button>New Course</Button>
+                </Link>
+
+                <StyledHover onClick={() => setModal(true)}>
+                  <FiFilter style={{ fontSize: '1.9rem' }} />
+                </StyledHover>
+              </div>
+
+              <div style={{ ...center }}>
+                <Searchbox>
+                  <div>
+                    <FiSearch style={{ fontSize: '1.6rem' }} />
+                  </div>
+
+                  <input placeholder="Seach for a course" />
+                </Searchbox>
+              </div>
+            </div>
+            <hr />
+            <br />
+            <CardGrid>
+              {CourseCardsData.map(({ id, name, rating, price }) => {
+                return (
+                  <StyledCard key={id}>
+                    <img
+                      style={{ height: '200px', width: '100%', objectFit: 'cover' }}
+                      alt="courses ilustration detail"
+                      src={require('../../../assets/images/chemistry.jpeg')}
+                    />
+                    <br />
+                    <div>
+                      <Link to={`course/${id}`}>
+                        <Title align="center"> {name} </Title>
+                      </Link>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Text> {rating} </Text>
+
+                        <Text style={{ color: '#0072ce' }}> $ {price} </Text>
+                      </div>
+                    </div>
+                  </StyledCard>
+                )
+              })}
+            </CardGrid>
+          </div>
+        )}{' '}
       </Body>
     </div>
   )

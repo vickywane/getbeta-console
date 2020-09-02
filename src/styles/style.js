@@ -62,12 +62,21 @@ export const Card = styled.div`
   }
 `
 
+export const HomeList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    margin: 2rem 0;
+  }
+`
+
 export const Searchbox = styled.div`
 width  : 42rem;
 border : 1px solid #c0c0c0;
 border-radius : 3px;
 display : flex;
-padding   : 0.6rem 0.5rem;
+padding   : 0.5rem 0.6rem;
 justify-content: space-between;
 background : #fff;
 input {
@@ -102,4 +111,8 @@ export const StyledHover = styled(Hover)`
     color: #fff;
     background: #0072ce;
   }
+`
+
+export const Section = styled.section`
+  padding: 2rem 0.5rem;
 `

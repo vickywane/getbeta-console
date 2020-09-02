@@ -151,9 +151,15 @@ const Sidebar = props => {
           return (
             <Link key={id} onClick={() => setActiveRoute(name)} to={`${to}/`}>
               <Item active={ActiveRoute === name}>
-                <Hover style={{ marginRight: '0.7rem' }}>{icon}</Hover>
+                <div style={{ ...center }}>
+                  <Hover style={{ marginRight: '0.7rem' }}>{icon}</Hover>
+                </div>
 
-                {!isClosed && <p> {name} </p>}
+                {!isClosed && (
+                  <div style={{ ...center }}>
+                    <p style={{ paddingTop: '2px' }}> {name} </p>{' '}
+                  </div>
+                )}
               </Item>
             </Link>
           )

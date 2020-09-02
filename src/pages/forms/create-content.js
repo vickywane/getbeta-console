@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Spinner } from 'react-bootstrap'
 
 import { Body, Text, Button, Title } from '../../styles/style'
 import Header from '../../components/headers/header'
@@ -30,16 +31,15 @@ const InputField = styled.div`
 `
 
 const CreateContent = props => {
-  const [courseName, setCourseName] = useState('smashing magazine')
-  const [courseDescription, setCourseDescription] = useState('smashing magazine for me')
-  const [coursePrice, setCoursePrice] = useState('12')
-  const [courseDuration, setCourseDuration] = useState('1 hour')
+  const [ContentName, setContentName] = useState('smashing magazine')
+  const [ContentDescription, setContentDescription] = useState('smashing magazine for me')
+  const [ContentPrice, setContentPrice] = useState('12')
+  const [ContentType, setContentType] = useState('1 hour')
 
-  const { createContent } = props.ContentStore
+  const { createContent, isCreatingContent } = props.ContentStore
+
   const handleSubmit = () => {
-    // const data = [courseName, courseDescription, coursePrice, courseDuration]
-
-    createContent(courseName, courseDescription, coursePrice, courseDuration)
+    createContent(ContentName, ContentDescription, ContentPrice, ContentType)
   }
 
   return (
@@ -47,52 +47,65 @@ const CreateContent = props => {
       <Header screen="Create New Content " />
 
       <Body style={{ padding: '2rem 2rem' }}>
-        {/* <Title> Create New Course </Title> */}
+        {/* <Title> Create New Content </Title> */}
 
         <br />
-        <form onSubmit={() => handleSubmit()}>
-          <InputField>
-            <label> Course Name </label>
-            <input
-              onChange={e => setCourseName(e.target.value)}
-              value={courseName}
-              type="text"
-              placeholder="Course Name"
-            />
-          </InputField>
+        {isCreatingContent ? (
+          <div
+            style={{
+              height: window.innerHeight - 150,
+              display: 'flex',
+              justifyContent: 'center',
+              alignContent: 'center'
+            }}
+          >
+            <Spinner type="grow" />
+          </div>
+        ) : (
+          <form onSubmit={() => handleSubmit()}>
+            <InputField>
+              <label> Content Name </label>
+              <input
+                onChange={e => setContentName(e.target.value)}
+                value={ContentName}
+                type="text"
+                placeholder="Content Name"
+              />
+            </InputField>
 
-          <InputField>
-            <label> Course Description </label>
-            <textarea
-              onChange={e => setCourseDescription(e.target.value)}
-              value={courseDescription}
-              type="text"
-              placeholder="A description of your new course"
-            />
-          </InputField>
+            <InputField>
+              <label> Content Description </label>
+              <textarea
+                onChange={e => setContentDescription(e.target.value)}
+                value={ContentDescription}
+                type="text"
+                placeholder="A description of your new Content"
+              />
+            </InputField>
 
-          <InputField>
-            <label> Course Price </label>
-            <input
-              onChange={e => setCoursePrice(e.target.value)}
-              value={coursePrice}
-              type="text"
-              placeholder="Course Price"
-            />
-          </InputField>
+            <InputField>
+              <label> Content Price </label>
+              <input
+                onChange={e => setContentPrice(e.target.value)}
+                value={ContentPrice}
+                type="text"
+                placeholder="Content Price"
+              />
+            </InputField>
 
-          <InputField>
-            <label> Course Duration </label>
-            <input
-              onChange={e => setCourseDuration(e.target.value)}
-              value={courseDuration}
-              type="text"
-              placeholder="Course Duration"
-            />
-          </InputField>
-        </form>
+            <InputField>
+              <label> Content Type </label>
+              <input
+                onChange={e => setContentType(e.target.value)}
+                value={ContentType}
+                type="text"
+                placeholder="Content Type"
+              />
+            </InputField>
+          </form>
+        )}
 
-        <Button onClick={() => handleSubmit()}> Submit Course </Button>
+        <Button onClick={() => handleSubmit()}> Submit Content </Button>
       </Body>
     </div>
   )

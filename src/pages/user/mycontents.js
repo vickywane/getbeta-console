@@ -1,0 +1,98 @@
+import React from 'react'
+import styled from 'styled-components'
+import { FiSearch } from 'react-icons/fi'
+import { Link } from '@reach/router'
+
+import { CONTENT_DATA } from '../../mockData'
+import { Text, Title, Section, HomeList, Hover, Searchbox, Button } from '../../styles/style'
+
+const Body = styled.div`
+  padding: 0.5rem 1.5rem;
+`
+
+const ContentContainer = styled.div`
+  padding: 1rem;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0 3px 5px #c0c0c0;
+`
+
+const center = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+
+const StyledSearchbox = styled(Searchbox)`
+width  : 35rem;
+border : 1.7px solid #0072CE;
+border-radius : 30px;
+display : flex;
+background : #fff;
+padding   : 0.7rem 0.5rem;
+justify-content: space-between;
+input {
+    padding : 0.2rem 1rem;
+    width  : 33rem
+    outline : 0;
+    color : #0072CE;
+    border : 0;
+  }
+`
+
+const MyContent = props => {
+  const { UserStore } = props
+
+  return (
+    <Body>
+      <br />
+      <br />
+
+      <Section id="#contents">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ ...center }}>
+            <Title small style={{ color: '#0072CE' }}>
+              My Content ( {CONTENT_DATA.length} )
+            </Title>
+          </div>
+
+          <StyledSearchbox>
+            <div>
+              <FiSearch style={{ fontSize: '1.6rem' }} />
+            </div>
+
+            <input placeholder="Search for a course" />
+          </StyledSearchbox>
+        </div>
+        <hr />
+        <br />
+        <HomeList>
+          {CONTENT_DATA.map(({ id, name }) => {
+            return (
+              <li key={id}>
+                <ContentContainer>
+                  <div
+                    style={{
+                      height: '45px',
+                      width: '50px',
+                      borderRadius: '3px',
+                      border: '1px solid #c0c0c0'
+                    }}
+                  />
+
+                  <Text> {name} </Text>
+                  <Text> 12 - 12 - 12 </Text>
+                </ContentContainer>
+              </li>
+            )
+          })}
+        </HomeList>
+      </Section>
+    </Body>
+  )
+}
+
+export default MyContent

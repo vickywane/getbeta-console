@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
+import { Link } from '@reach/router'
 
-import Profile from '../user/profile'
-import { Text, Title, Hover, Button } from '../../styles/style'
+import { USER_STATS } from '../../mockData'
+import { Text, Title, Section, Hover, Button } from '../../styles/style'
+
+import { Profile, Mybookings, MyContent, MyCourses } from '../user/'
 
 const Body = styled.div`
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 0.5rem;
 `
 
 const Cards = styled.div`
@@ -48,7 +51,7 @@ const center = {
 
 const Searchbox = styled.div`
 width  : 35rem;
-border : 2px solid #0072CE;
+border : 1.7px solid #0072CE;
 border-radius : 30px;
 padding : 0.5rem 1rem;
 display : flex;
@@ -71,81 +74,55 @@ input {
   }
 `
 
+const StyledTitle = styled(Title)`
+  font-weight: 600;
+  font-size: 2.2rem;
+`
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-gap: 1rem 2rem;
+  place-items: center;
+`
+
 const Home = props => {
   const { UserStore } = props
 
   return (
-    <div style={{ background: '#fbfbfb' }}>
+    <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} />
       <br />
       <br />
 
       <Body>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Cards background="#fff" style={{ ...center }}>
-            <div>
-              <Title align="center"> 10 </Title>
-
-              <Text align="center"> Courses</Text>
-            </div>
-          </Cards>
-          <Cards background="#fff" style={{ ...center }}>
-            <div>
-              <Title align="center"> 10 </Title>
-
-              <Text align="center"> Courses</Text>
-            </div>
-          </Cards>
-
-          <Cards background="#fff" style={{ ...center }}>
-            <div>
-              <Title align="center"> 10 </Title>
-
-              <Text align="center"> Courses</Text>
-            </div>
-          </Cards>
-        </div>
-        <br />
-        <br />
-        <br />
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ ...center }}>
-            <Title small style={{ color: '#0072CE' }}>
-              Online Content ( {Data.length} )
-            </Title>
-          </div>
-
-          <Searchbox>
-            <div>
-              <FiSearch style={{ fontSize: '1.6rem' }} />
-            </div>
-
-            <input placeholder="Search for a course" />
-          </Searchbox>
-        </div>
-        <hr />
-        <br />
-        <ul style={{ margin: '0', padding: '0', listStyle: 'none' }}>
-          {Data.map(({ id, name }) => {
+        <Grid>
+          {USER_STATS.map(({ id, name, total }) => {
             return (
-              <li key={id}>
-                <ContentContainer>
-                  <div
-                    style={{
-                      height: '45px',
-                      width: '50px',
-                      borderRadius: '3px',
-                      border: '1px solid #c0c0c0'
-                    }}
-                  />
+              <Link style={{ textDecoration: 'none' }} to={`#${name.toLocaleLowerCase()}`}>
+                <Cards key={id} background="#fff" style={{ ...center }}>
+                  <div>
+                    <StyledTitle align="center"> {total} </StyledTitle>
 
-                  <Text> {name} </Text>
-                  <Text> 12 - 12 - 12 </Text>
-                </ContentContainer>
-              </li>
+                    <Text align="center"> {name} </Text>
+                  </div>
+                </Cards>
+              </Link>
             )
           })}
-        </ul>
+        </Grid>
+
+        <Section id="#contents">
+          <MyContent />
+        </Section>
+
+        <Section id="#courses">
+          <MyCourses />
+        </Section>
+
+        <Section id="#bookings">
+          <Mybookings />
+        </Section>
       </Body>
     </div>
   )

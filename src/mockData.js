@@ -6,22 +6,37 @@ export const CourseCardsData = [
     price: '50.00'
   },
   {
-    id: 1,
+    id: 2,
     name: 'Chemistry for WAEC students ',
     rating: 5,
     price: '70.00'
   },
   {
-    id: 1,
+    id: 3,
     name: 'Physics for WAEC students ',
     rating: 5,
     price: '40.00'
   },
   {
-    id: 1,
+    id: 5,
     name: 'Geography for WAEC students ',
     rating: 5,
     price: '30.00'
+  }
+]
+
+export const CONTENT_DATA = [
+  {
+    id: 1,
+    name: 'Teaching maths to little preschoolers at a tender age'
+  },
+  {
+    id: 2,
+    name: 'Teaching maths to little preschoolers at a tender age'
+  },
+  {
+    id: 3,
+    name: 'Teaching maths to little preschoolers at a tender age'
   }
 ]
 
@@ -124,5 +139,23 @@ export const Professionals = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam, nulla voluptatibus corrupti pariatur.',
     rating: 5,
     price: '65.00'
+  }
+]
+
+export const USER_STATS = [
+  {
+    id: 1,
+    name: 'Courses',
+    total: 12
+  },
+  {
+    id: 2,
+    name: 'Contents',
+    total: 4
+  },
+  {
+    id: 3,
+    name: 'Bookings',
+    total: 14
   }
 ]
