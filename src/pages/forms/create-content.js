@@ -44,7 +44,7 @@ const CreateContent = props => {
 
   return (
     <div>
-      <Header screen="Create New Content " />
+      <Header goBack={true} screen="Create New Content " />
 
       <Body style={{ padding: '2rem 2rem' }}>
         {/* <Title> Create New Content </Title> */}

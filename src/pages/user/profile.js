@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import Header from '../../components/headers/header'
 import styled from 'styled-components'
-import { Modal } from 'react-bootstrap'
 
-import { Text, Title, Hover, Button } from '../../styles/style'
+import TestImage from '../../assets/images/img.jpg'
+import { Text, Title, Input, InputBody, Hover, Button } from '../../styles/style'
 import ModalWrapper from '../../components/modals/modalWrapper'
 import { FiLogOut, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
@@ -23,14 +22,22 @@ const Body = styled.div`
 const center = {
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  flexDirection: 'column'
 }
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-gap: 2rem 2rem;
+`
 
 const Profile = props => {
   const { UserStore } = props
 
   const [profilePane, setProfilePane] = useState(true)
   const [showModal, setModal] = useState(false)
+  const [isUploading, setUploading] = useState(false)
 
   return (
     <div>
@@ -43,7 +50,64 @@ const Profile = props => {
             title="Edit Profile"
           >
             <div>
-              <p> Change my profile details body </p>
+              <Grid>
+                <div style={{ ...center }}>
+                  {isUploading ? (
+                    <div
+                      style={{
+                        borderRadius: '6px',
+                        marginLeft: '3rem',
+                        display: 'flex',
+                        ...center,
+                        height: '100%',
+                        width: '100%',
+                        flex: 1,
+                        border: '3px dashed #0072ce',
+                        background: '#fbfbfb'
+                      }}
+                    >
+                      <Text align="center">
+                        Tap to select a image <br /> Or Drag 'n' Drop image{' '}
+                      </Text>
+                    </div>
+                  ) : (
+                    <div>
+                      <img
+                        alt="user profile"
+                        src={TestImage}
+                        style={{ objectFit: 'contain', width: '300px', height: '300px' }}
+                      />
+
+                      <br />
+                      <br />
+                      <div
+                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                      >
+                        <Button onClick={() => setUploading(!isUploading)}>
+                          Change Profile Picture
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ ...center }}>
+                  <div>
+                    <InputBody>
+                      <label> Username </label>
+                      <input placeholder="Username" />
+                    </InputBody>
+                    <InputBody>
+                      <label> Email Address </label>
+                      <input placeholder="Username" />
+                    </InputBody>
+                    <InputBody>
+                      <label> Bio </label>
+                      <textarea placeholder="A short description about me " />
+                    </InputBody>
+                  </div>
+                </div>
+              </Grid>
 
               <hr />
               <div>
@@ -59,7 +123,7 @@ const Profile = props => {
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex' }}>
-              <Image alt="user" src={require('../../assets/images/img.jpg')} />
+              <Image alt="user" src={TestImage} />
 
               <div
                 style={{

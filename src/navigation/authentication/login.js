@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Text, Title, Button } from '../../styles/style'
-import { Link } from '@reach/router'
-import { inject, observer } from 'mobx-react'
+
+import { Spinner } from 'react-bootstrap'
 
 const Body = styled.div`
   display: grid;
@@ -32,13 +32,17 @@ const InputBody = styled.div`
 `
 
 const Login = props => {
-  const { authUser } = props.UserStore
+  const { authUser, isLoading, errorMessage } = props.UserStore
+
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
+  const [ErrorMessage, setErrorMessae] = useState(errorMessage)
 
   const handleLogin = () => {
     authUser(Email, Password)
   }
+
+  console.log(isLoading)
 
   return (
     <Body style={{ height: window.innerHeight }}>
@@ -50,30 +54,32 @@ const Login = props => {
             Account Login
           </Title>
           <hr />
+          {!isLoading ? (
+            <form onSubmit={() => handleLogin()}>
+              <InputBody>
+                <label> Email Address </label>
+                <input
+                  value={Email}
+                  onChange={e => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Your email address"
+                />
+              </InputBody>
 
-          <form onSubmit={() => handleLogin()}>
-            <InputBody>
-              <label> Email Address </label>
-              <input
-                value={Email}
-                onChange={e => setEmail(e.target.value)}
-                type="email"
-                placeholder="Your email address"
-              />
-            </InputBody>
-
-            <InputBody>
-              <label> Password </label>
-              <input
-                value={Password}
-                onChange={e => setPassword(e.target.value)}
-                type="password"
-                placeholder="Your account password"
-              />
-            </InputBody>
-            <br />
-          </form>
-
+              <InputBody>
+                <label> Password </label>
+                <input
+                  value={Password}
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="Your account password"
+                />
+              </InputBody>
+              <br />
+            </form>
+          ) : (
+            <Text> Loading ... </Text>
+          )}{' '}
           <div
             style={{
               display: 'flex',
@@ -82,7 +88,7 @@ const Login = props => {
           >
             <Button
               style={{
-                background: Password.length < 5 && 'transparent',
+                background: Password.length < 5 && !isLoading && 'transparent',
                 color: Password.length < 5 && '#0072ce',
                 width: '100%'
               }}

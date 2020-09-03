@@ -1,5 +1,31 @@
 import styled from 'styled-components'
 
+export const InputBody = styled.div`
+  margin: 2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  label {
+  }
+  input {
+    font-size: 0.9rem;
+    height: 55px;
+    background: #fbfbfb;
+    padding: 0.6rem 1rem;
+    border: 1px solid #0072ce;
+    border-radius: 1px;
+    width: 30rem;
+  }
+  textarea {
+    background: #fbfbfb;
+    font-size: 0.9rem;
+    height: 10vh;
+    padding: 0.6rem 1rem;
+    border: 1px solid #0072ce;
+    border-radius: 1px;
+    width: 30rem;
+  }
+`
+
 export const Title = styled.h4`
   font-weight : ${props => props.weight};
   text-align: ${props => props.align};
@@ -49,7 +75,7 @@ export const CardGrid = styled.div`
 `
 
 export const Card = styled.div`
-  height: 28vh;
+  height: auto;
   width: 25rem;
   box-shadow: 0 3px 4px #c0c0c0;
   border-radius: 5px;

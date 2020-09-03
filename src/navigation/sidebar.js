@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Hover } from '../styles/style'
-import { Link } from '@reach/router'
+import { Link, useLocation } from '@reach/router'
 import { FiUser, FiVideo, FiBookOpen, FiGrid, FiSettings, FiChevronsLeft } from 'react-icons/fi'
 import { IoIosList } from 'react-icons/io'
+import useWindowWith from '../utils/hook_style'
+
+import { Hover } from '../styles/style'
 
 const Items = styled.ul`
   margin: 0;
@@ -67,43 +69,62 @@ const center = {
 }
 
 const Sidebar = props => {
-  const [ActiveRoute, setActiveRoute] = useState('Profile')
+  const location = useLocation()
+  const Width = useWindowWith()
+
   const [isClosed, setClosed] = useState(false)
+
+  const currentRoute = location.pathname.split('/')[1]
+
+  useEffect(() => {
+    if (Width <= 1200) {
+      setClosed(true)
+    } else if (Width >= 1300) {
+      setClosed(false)
+    }
+  }, [Width])
 
   const Routes = [
     {
       id: 1,
       name: 'Profile',
+      routeName: 'home',
       icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: '/home'
     },
     {
       id: 2,
       name: 'Courses',
+      routeName: 'courses',
+
       icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: '/courses'
     },
     {
       id: 3,
       name: 'Bookings',
+      routeName: 'booking',
       icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: '/booking'
     },
     {
       id: 4,
       name: 'Live Sessions',
+      routeName: 'sessions',
       icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: '/sessions'
     },
     {
       id: 5,
       name: 'Online Content',
+      routeName: 'contents',
       icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: '/contents'
     },
     {
       id: 6,
       name: 'Preferences',
+      routeName: 'preference',
       icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
       to: '/preference'
     }
@@ -147,10 +168,10 @@ const Sidebar = props => {
       </div>
 
       <Items>
-        {Routes.map(({ id, name, icon, to }) => {
+        {Routes.map(({ routeName, id, name, icon, to }) => {
           return (
-            <Link key={id} onClick={() => setActiveRoute(name)} to={`${to}/`}>
-              <Item active={ActiveRoute === name}>
+            <Link key={id} to={`${to}/`}>
+              <Item active={currentRoute === routeName}>
                 <div style={{ ...center }}>
                   <Hover style={{ marginRight: '0.7rem' }}>{icon}</Hover>
                 </div>

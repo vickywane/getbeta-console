@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiSearch } from 'react-icons/fi'
+import { FiSearch, FiPlus, FiPlay } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
 import { CONTENT_DATA } from '../../mockData'
@@ -54,9 +54,17 @@ const MyContent = props => {
       <Section id="#contents">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ ...center }}>
-            <Title small style={{ color: '#0072CE' }}>
-              My Content ( {CONTENT_DATA.length} )
-            </Title>
+            <div style={{ display: 'flex' }}>
+              <Title small style={{ color: '#0072CE' }}>
+                Content ( {CONTENT_DATA.length} )
+              </Title>
+
+              <Hover style={{ margin: '0 1rem' }}>
+                <Link to="/create-content">
+                  <FiPlus style={{ fontSize: '1.8rem' }} />
+                </Link>
+              </Hover>
+            </div>
           </div>
 
           <StyledSearchbox>
@@ -83,7 +91,10 @@ const MyContent = props => {
                     }}
                   />
 
-                  <Text> {name} </Text>
+                  <Link style={{ textDecoration: 'none' }} to="/">
+                    <Text> {name} </Text>
+                  </Link>
+
                   <Text> 12 - 12 - 12 </Text>
                 </ContentContainer>
               </li>

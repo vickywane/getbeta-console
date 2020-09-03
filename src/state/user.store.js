@@ -6,6 +6,8 @@ const AUTH_ENDPOINT = `${process.env.REACT_APP_API_URL}/users`
 
 class UserStore {
   isAuthenticated = true
+  isLoading = false
+  errorMessage = ''
 
   userDetail = {
     name: '',
@@ -19,6 +21,8 @@ class UserStore {
   }
 
   authUser = (email, password) => {
+    this.isLoading = true
+
     Axios.post(`${AUTH_ENDPOINT}/login`, {
       data: {
         email: email,
@@ -66,6 +70,8 @@ const DecoratedUserStore = decorate(UserStore, {
   //observables
   isAuthenticated: observable,
   userDetail: observable,
+  isLoading: observable,
+  errorMessage: observable,
 
   //actions
   authUser: action,

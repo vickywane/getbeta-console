@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/headers/header'
+import moment from 'moment'
 
 import { Body, Title, Text } from '../../styles/style'
 
 const Survey = props => {
+  useEffect(() => {
+    const s = new Date()
+      .getMinutes()
+      .toString()
+      .split('')
+
+    // if (s[1] !== '0') {
+    //   const m =  moment(new Date()).subtract('30', 'minutes')
+    //   m.setMinutest()
+    // }
+  }, [])
+
   return (
     <div>
       <Header />
@@ -17,6 +30,8 @@ const Survey = props => {
         }}
       >
         <Title> Survey and user preferences </Title>
+
+        <Title> Moment is {moment().format('YYYY, mm:ss')} </Title>
       </Body>
     </div>
   )

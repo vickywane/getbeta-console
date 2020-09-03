@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiHome, FiSearch } from 'react-icons/fi'
-import { Link } from '@reach/router'
+import { FiHome, FiSearch, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
+import { Link, navigate } from '@reach/router'
 
-import { SmallUserImage, Title } from '../../styles/style'
+import { SmallUserImage, Title, Hover } from '../../styles/style'
 
 const Body = styled.div`
   height: 70px;
@@ -31,7 +31,7 @@ const Icon = styled.div`
 `
 
 const Header = props => {
-  const { screen, showSearch, searchText, backgroundColor } = props
+  const { screen, goBack, backgroundColor } = props
   return (
     <Body
       style={{
@@ -39,11 +39,19 @@ const Header = props => {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Link to="/">
-          <Icon>
-            <FiHome style={{ fontSize: '1.8rem' }} />
-          </Icon>
-        </Link>
+        {goBack ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Hover onClick={() => navigate(-1)}>
+              <FiArrowLeft style={{ fontSize: '1.8rem' }} />
+            </Hover>
+          </div>
+        ) : (
+          <Link to="/">
+            <Icon>
+              <FiHome style={{ fontSize: '1.8rem' }} />
+            </Icon>
+          </Link>
+        )}
 
         {screen && (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

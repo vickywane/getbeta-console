@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiSearch } from 'react-icons/fi'
+import { FiSearch, FiPlus } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
 import { CourseCardsData } from '../../mockData'
-import { Text, Title, Section } from '../../styles/style'
+import { Text, Hover, Title, Section, Button } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -78,9 +78,17 @@ const MyCourses = props => {
       <Section id="#contents">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ ...center }}>
-            <Title small style={{ color: '#0072CE' }}>
-              My Courses ( {Data.length} )
-            </Title>
+            <div style={{ display: 'flex' }}>
+              <Title small style={{ color: '#0072CE' }}>
+                My Courses ( {Data.length} )
+              </Title>
+
+              <Hover style={{ margin: '0 1rem' }}>
+                <Link to="/create-course">
+                  <FiPlus style={{ fontSize: '1.8rem' }} />
+                </Link>
+              </Hover>
+            </div>
           </div>
 
           <Searchbox>

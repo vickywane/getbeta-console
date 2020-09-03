@@ -37,11 +37,9 @@ const CreateCourse = () => {
 
   return (
     <div>
-      <Header screen="Create New Course " />
+      <Header goBack={true} screen="Create New Course " />
 
       <Body style={{ padding: '2rem 2rem' }}>
-        {/* <Title> Create New Course </Title> */}
-
         <br />
 
         <InputField>
