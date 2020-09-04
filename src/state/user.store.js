@@ -64,6 +64,21 @@ class UserStore {
       })
       .catch(e => console.log(e))
   }
+
+  deleteAccount = id => {
+    Axios.post(`${AUTH_ENDPOINT}/delete`, {
+      method: 'POST',
+      data: {
+        id: id
+      }
+    })
+      .then(res => {
+        localStorage.clear()
+
+        navigate('/create-account')
+      })
+      .catch(e => console.log(e))
+  }
 }
 
 const DecoratedUserStore = decorate(UserStore, {
@@ -75,6 +90,7 @@ const DecoratedUserStore = decorate(UserStore, {
 
   //actions
   authUser: action,
+  deleteAccount: action,
   createAccount: action,
   logOut: action
 })

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import TestImage from '../../assets/images/img.jpg'
 import { Text, Title, Input, InputBody, Hover, Button } from '../../styles/style'
 import ModalWrapper from '../../components/modals/modalWrapper'
-import { FiLogOut, FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FiLogOut, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
 
 const Image = styled.img`
   height: 140px;
@@ -30,6 +30,28 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 40% 60%;
   grid-gap: 2rem 2rem;
+`
+
+const DeleteButton = styled(Button)`
+  background: #ff6347;
+  border: 1px solid #ff6347;
+  transition: all 400ms;
+  &: hover {
+    background: red;
+    border: 1px solid red;
+  }
+`
+
+const StyledHover = styled(Hover)`
+  background : #0072ce;
+  border-radius : 5px;
+  box-shadow : 0 1px 2px grey
+  height : 50px;
+  display : flex;
+  justify-content : center;
+  align-items :  center;
+  width : 50px;
+  color : #fff;
 `
 
 const Profile = props => {
@@ -112,7 +134,12 @@ const Profile = props => {
               <hr />
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <p style={{ opacity: '0' }}> .</p>
+                  <DeleteButton onClick={() => UserStore.deleteAccount()}>
+                    <div style={{ paddingRight: '0.5rem' }}>
+                      <FiTrash2 style={{ color: 'white', fontSize: '1.7rem' }} />
+                    </div>
+                    Delete Account
+                  </DeleteButton>
 
                   <Button>Save Details</Button>
                 </div>
@@ -139,9 +166,9 @@ const Profile = props => {
             </div>
 
             <div>
-              <Hover onClick={() => UserStore.logOut()}>
-                <FiLogOut style={{ fontSize: '2rem' }} />
-              </Hover>
+              <StyledHover onClick={() => {}}>
+                <FiBell style={{ fontSize: '1.8rem' }} />
+              </StyledHover>
             </div>
           </div>
 
@@ -152,7 +179,7 @@ const Profile = props => {
             <Button onClick={() => setModal(true)}> Edit Profile </Button>
 
             <Hover onClick={() => setProfilePane(!profilePane)}>
-              <FiChevronUp style={{ fontSize: '2.2rem' }} />
+              <FiChevronsUp style={{ fontSize: '2.2rem' }} />
             </Hover>
           </div>
         </Body>
@@ -178,10 +205,18 @@ const Profile = props => {
             </div>
           </div>
 
-          <div style={{ ...center }}>
-            <Hover onClick={() => setProfilePane(!profilePane)}>
-              <FiChevronDown style={{ fontSize: '2.5rem' }} />
-            </Hover>
+          <div style={{ display: 'flex' }}>
+            <div style={{ ...center, margin: '0 1rem' }}>
+              <StyledHover onClick={() => {}}>
+                <FiBell style={{ fontSize: '1.8rem' }} />
+              </StyledHover>
+            </div>
+
+            <div style={{ ...center }}>
+              <Hover onClick={() => setProfilePane(!profilePane)}>
+                <FiChevronsDown style={{ fontSize: '2.5rem' }} />
+              </Hover>
+            </div>
           </div>
         </Body>
       )}

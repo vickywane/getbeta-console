@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from '@reach/router'
-import { FiUser, FiVideo, FiBookOpen, FiGrid, FiSettings, FiChevronsLeft } from 'react-icons/fi'
+import {
+  FiUser,
+  FiVideo,
+  FiLogOut,
+  FiBookOpen,
+  FiGrid,
+  FiSettings,
+  FiChevronsLeft
+} from 'react-icons/fi'
 import { IoIosList } from 'react-icons/io'
 import useWindowWith from '../utils/hook_style'
 
-import { Hover } from '../styles/style'
+import { Hover, Text } from '../styles/style'
 
 const Items = styled.ul`
   margin: 0;
@@ -186,6 +194,20 @@ const Sidebar = props => {
           )
         })}
       </Items>
+
+      <Item
+        onClick={() => props.UserStore.logOut()}
+        active
+        style={{ width: '100%', position: 'absolute', bottom: 0, padding: '1rem 1rem' }}
+      >
+        <Hover>
+          <FiLogOut style={{ fontSize: '1.8rem' }} />
+        </Hover>
+
+        <div style={{ ...center }}>
+          <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
+        </div>
+      </Item>
     </SidebarBody>
   )
 }

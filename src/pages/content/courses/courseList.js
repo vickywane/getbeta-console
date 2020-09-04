@@ -141,12 +141,9 @@ const CoursesList = props => {
 
             <div style={{ justifyContent: 'space-between', display: 'flex' }}>
               <div style={{ display: 'flex' }}>
-                <Link to="/create-course">
-                  <Button>New Course</Button>
-                </Link>
-
                 <StyledHover onClick={() => setModal(true)}>
-                  <FiFilter style={{ fontSize: '1.9rem' }} />
+                  <Text style={{ margin: '0 0.5rem' }}> Filter Courses </Text>
+                  <FiFilter style={{ fontSize: '1.8rem' }} />
                 </StyledHover>
               </div>
 

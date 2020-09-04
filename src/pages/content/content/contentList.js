@@ -31,12 +31,10 @@ const Contents = props => {
 
         <div style={{ justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
-            <Link to="/create-content">
-              <Button>Create Content</Button>
-            </Link>
-
             <StyledHover onClick={() => {}}>
-              <FiFilter style={{ fontSize: '2rem' }} />
+              <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
+
+              <FiFilter style={{ fontSize: '1.8rem' }} />
             </StyledHover>
           </div>
 

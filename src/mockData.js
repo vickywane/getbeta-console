@@ -159,3 +159,11 @@ export const USER_STATS = [
     total: 14
   }
 ]
+
+export const SUGGESTED_KEYWORDS = [
+  'Physics',
+  'Adult Education',
+  'PreSchool',
+  'Civic Education',
+  'Mass Communication'
+]

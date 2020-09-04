@@ -31,7 +31,7 @@ const Console = props => {
 
   return (
     <Grid>
-      <Sidebar />
+      <Sidebar UserStore={UserStore} />
 
       <div style={{ width: '100%' }}>
         <Router>
