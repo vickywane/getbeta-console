@@ -198,14 +198,17 @@ const Sidebar = props => {
       <Item
         onClick={() => props.UserStore.logOut()}
         active
-        style={{ width: '100%', position: 'absolute', bottom: 0, padding: '1rem 1rem' }}
+        style={{ width: '100%', position: 'absolute', bottom: 0, textAlign: 'center' }}
       >
-        <Hover>
-          <FiLogOut style={{ fontSize: '1.8rem' }} />
-        </Hover>
-
-        <div style={{ ...center }}>
-          <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Hover>
+            <FiLogOut style={{ fontSize: '1.8rem' }} />
+          </Hover>
+          {!isClosed && (
+            <div style={{ ...center }}>
+              <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
+            </div>
+          )}
         </div>
       </Item>
     </SidebarBody>

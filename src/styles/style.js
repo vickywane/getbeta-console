@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import media from 'styled-media-query'
 
 export const InputBody = styled.div`
   margin: 2rem 0.5rem;
@@ -11,8 +12,8 @@ export const InputBody = styled.div`
     height: 55px;
     background: #fbfbfb;
     padding: 0.6rem 1rem;
-    border: 1px solid #0072ce;
-    border-radius: 1px;
+    border: 1.5px solid #0072ce;
+    border-radius: 3px;
     width: 30rem;
   }
   textarea {

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import UpdateProfile from './updateProfile'
 import TestImage from '../../assets/images/img.jpg'
 import { Text, Title, Input, InputBody, Hover, Button } from '../../styles/style'
 import ModalWrapper from '../../components/modals/modalWrapper'
-import { FiLogOut, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
+import { FiEdit, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
 
 const Image = styled.img`
   height: 140px;
@@ -46,105 +47,33 @@ const StyledHover = styled(Hover)`
   background : #0072ce;
   border-radius : 5px;
   box-shadow : 0 1px 2px grey
-  height : 50px;
+  height : 45px;
   display : flex;
   justify-content : center;
   align-items :  center;
-  width : 50px;
+  width : 45px;
   color : #fff;
 `
 
 const Profile = props => {
   const { UserStore } = props
 
-  const [profilePane, setProfilePane] = useState(true)
-  const [showModal, setModal] = useState(false)
-  const [isUploading, setUploading] = useState(false)
+  const [profilePane, setProfilePane] = useState(false)
+  const [showModal, setModal] = useState(true)
 
   return (
     <div>
       {profilePane ? (
         <Body style={{ color: '#0072CE', background: 'rgba(233, 241, 251, 0.81)' }}>
+          {/* EDIT PROFILE  */}
           <ModalWrapper
             visibility={showModal}
             closeModal={() => setModal(false)}
             size="xl"
+            icon={<FiEdit style={{ fontSize: '1.7rem' }} />}
             title="Edit Profile"
           >
-            <div>
-              <Grid>
-                <div style={{ ...center }}>
-                  {isUploading ? (
-                    <div
-                      style={{
-                        borderRadius: '6px',
-                        marginLeft: '3rem',
-                        display: 'flex',
-                        ...center,
-                        height: '100%',
-                        width: '100%',
-                        flex: 1,
-                        border: '3px dashed #0072ce',
-                        background: '#fbfbfb'
-                      }}
-                    >
-                      <Text align="center">
-                        Tap to select a image <br /> Or Drag 'n' Drop image{' '}
-                      </Text>
-                    </div>
-                  ) : (
-                    <div>
-                      <img
-                        alt="user profile"
-                        src={TestImage}
-                        style={{ objectFit: 'contain', width: '300px', height: '300px' }}
-                      />
-
-                      <br />
-                      <br />
-                      <div
-                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                      >
-                        <Button onClick={() => setUploading(!isUploading)}>
-                          Change Profile Picture
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div style={{ ...center }}>
-                  <div>
-                    <InputBody>
-                      <label> Username </label>
-                      <input placeholder="Username" />
-                    </InputBody>
-                    <InputBody>
-                      <label> Email Address </label>
-                      <input placeholder="Username" />
-                    </InputBody>
-                    <InputBody>
-                      <label> Bio </label>
-                      <textarea placeholder="A short description about me " />
-                    </InputBody>
-                  </div>
-                </div>
-              </Grid>
-
-              <hr />
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <DeleteButton onClick={() => UserStore.deleteAccount()}>
-                    <div style={{ paddingRight: '0.5rem' }}>
-                      <FiTrash2 style={{ color: 'white', fontSize: '1.7rem' }} />
-                    </div>
-                    Delete Account
-                  </DeleteButton>
-
-                  <Button>Save Details</Button>
-                </div>
-              </div>
-            </div>
+            <UpdateProfile UserStore={UserStore} />
           </ModalWrapper>
 
           <br />
@@ -167,7 +96,7 @@ const Profile = props => {
 
             <div>
               <StyledHover onClick={() => {}}>
-                <FiBell style={{ fontSize: '1.8rem' }} />
+                <FiBell style={{ fontSize: '1.6rem' }} />
               </StyledHover>
             </div>
           </div>
@@ -208,7 +137,7 @@ const Profile = props => {
           <div style={{ display: 'flex' }}>
             <div style={{ ...center, margin: '0 1rem' }}>
               <StyledHover onClick={() => {}}>
-                <FiBell style={{ fontSize: '1.8rem' }} />
+                <FiBell style={{ fontSize: '1.6rem' }} />
               </StyledHover>
             </div>
 

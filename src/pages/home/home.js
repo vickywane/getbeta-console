@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 import { Link } from '@reach/router'
+import media from 'styled-media-query'
 
 import { USER_STATS } from '../../mockData'
 import { Text, Title, Section, Hover, Button } from '../../styles/style'
@@ -82,8 +83,11 @@ const StyledTitle = styled(Title)`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  grid-gap: 1rem 2rem;
+  grid-gap: 2rem 2rem;
   place-items: center;
+  ${media.lessThan('large')`
+       grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  `};
 `
 
 const Home = props => {

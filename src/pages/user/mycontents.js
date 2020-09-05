@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FiSearch, FiPlus, FiPlay } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
+import useWindowWidth from '../../utils/hook_style'
 import { CONTENT_DATA } from '../../mockData'
 import { Text, Title, Section, HomeList, Hover, Searchbox, Button } from '../../styles/style'
 
@@ -45,6 +46,7 @@ input {
 
 const MyContent = props => {
   const { UserStore } = props
+  const Width = useWindowWidth()
 
   return (
     <Body>
@@ -56,7 +58,7 @@ const MyContent = props => {
           <div style={{ ...center }}>
             <div style={{ display: 'flex' }}>
               <Title small style={{ color: '#0072CE' }}>
-                Content ( {CONTENT_DATA.length} )
+                Contents
               </Title>
 
               <Hover style={{ margin: '0 1rem' }}>
@@ -67,13 +69,19 @@ const MyContent = props => {
             </div>
           </div>
 
-          <StyledSearchbox>
-            <div>
-              <FiSearch style={{ fontSize: '1.6rem' }} />
-            </div>
+          {Width >= 1200 ? (
+            <StyledSearchbox>
+              <div>
+                <FiSearch style={{ fontSize: '1.6rem' }} />
+              </div>
 
-            <input placeholder="Search for a course" />
-          </StyledSearchbox>
+              <input placeholder="Search for a course" />
+            </StyledSearchbox>
+          ) : (
+            <Hover>
+              <FiSearch style={{ fontSize: '1.6rem' }} />
+            </Hover>
+          )}
         </div>
         <hr />
         <br />
