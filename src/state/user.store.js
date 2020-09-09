@@ -1,15 +1,16 @@
 import Axios from 'axios'
-import { action, observable, decorate } from 'mobx'
+import { action, observable, decorate, computed } from 'mobx'
+import { create, persist } from 'mobx-persist'
 import { navigate } from '@reach/router'
 
 const AUTH_ENDPOINT = `${process.env.REACT_APP_API_URL}/users`
 
 class UserStore {
-  isAuthenticated = true
+  @persist @observable isAuthenticated = true
   isLoading = false
-  errorMessage = ''
+  hasLoginError = false
 
-  userDetail = {
+  @persist @observable userDetail = {
     name: '',
     email: ''
   }
@@ -37,15 +38,19 @@ class UserStore {
         localStorage.setItem('token', token)
         localStorage.setItem('userId', user.id)
 
-        // TODO: persist this data
         this.userDetail = {
           name: user.username,
           email: user.email
         }
 
+        this.isLoading = false
+        this.isAuthenticated = true
         navigate('console/*')
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        this.hasLoginError = !this.hasLoginError
+        console.log(`Error from login : ${e}`)
+      })
   }
 
   createAccount = (username, email, password, confirmPassword) => {
@@ -59,34 +64,41 @@ class UserStore {
       }
     })
       .then(res => {
-        localStorage.setItem('userId', res.data._id)
+        const { _id, email, username, token } = res.data
+
+        localStorage.setItem('token', token)
+        localStorage.setItem('userId', _id)
+        this.userDetail = {
+          name: username,
+          email: email
+        }
         navigate('console/*')
       })
       .catch(e => console.log(e))
   }
 
-  deleteAccount = id => {
-    Axios.post(`${AUTH_ENDPOINT}/delete`, {
+  deleteAccount = () => {
+    Axios.delete(`${AUTH_ENDPOINT}/delete`, {
       method: 'POST',
       data: {
-        id: id
-      }
+        id: localStorage.getItem('userId')
+      },
+      headers: { 'x-auth-token': localStorage.getItem('token') }
     })
       .then(res => {
         localStorage.clear()
 
         navigate('/create-account')
       })
-      .catch(e => console.log(e))
+      .catch(e => console.log(`Error occured : ${e}`))
   }
 }
 
 const DecoratedUserStore = decorate(UserStore, {
   //observables
-  isAuthenticated: observable,
-  userDetail: observable,
   isLoading: observable,
   errorMessage: observable,
+  hasLoginError: observable,
 
   //actions
   authUser: action,
@@ -95,6 +107,15 @@ const DecoratedUserStore = decorate(UserStore, {
   logOut: action
 })
 
-const store = new DecoratedUserStore()
+export const store = new DecoratedUserStore()
 
-export default store
+const hydrate = create({
+  storage: localStorage,
+  jsonify: false
+})
+
+hydrate('user-store', store)
+  .then(() => {
+    console.log('user-store has heen hydrated')
+  })
+  .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))

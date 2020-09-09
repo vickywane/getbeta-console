@@ -9,6 +9,8 @@ import { Text, Title, Section, HomeList, Hover, Searchbox, Button } from '../../
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
+  background: #fff;
+  border-radius: 5px;
 `
 
 const ContentContainer = styled.div`
@@ -50,9 +52,6 @@ const MyContent = props => {
 
   return (
     <Body>
-      <br />
-      <br />
-
       <Section id="#contents">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ ...center }}>

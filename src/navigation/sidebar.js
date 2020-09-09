@@ -37,7 +37,7 @@ const Item = styled.li`
   background : ${props => props.active && '#fff'}
   color: ${props => props.active && '#0072ce'};
   p {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   &: hover {
     color: #0072ce;
@@ -186,7 +186,11 @@ const Sidebar = props => {
 
                 {!isClosed && (
                   <div style={{ ...center }}>
-                    <p style={{ paddingTop: '2px' }}> {name} </p>{' '}
+                    <Text
+                      style={{ paddingTop: '2px', fontWeight: currentRoute === routeName && 600 }}
+                    >
+                      {name}{' '}
+                    </Text>{' '}
                   </div>
                 )}
               </Item>

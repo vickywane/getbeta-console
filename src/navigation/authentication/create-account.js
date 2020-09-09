@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Text, Title, Button } from '../../styles/style'
+import media from 'styled-media-query'
+
 import { Link } from '@reach/router'
+import { Text, MdTitle, Button } from '../../styles/style'
 
 const Body = styled.div`
   display: grid;
   grid-template-columns: 40% auto;
+  ${media.lessThan('large')`
+      display : flex;
+      justify-content : center
+      align-items : center;
+  `};
 `
 
 const Contain = styled.div`
@@ -13,20 +20,36 @@ const Contain = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #fbfbfb;
+  span {
+    background: #fff;
+    box-shadow: 0 2px 3px #c0c0c0;
+    padding: 2rem 2rem;
+    border-radius: 10px;
+  }
 `
 
 const InputBody = styled.div`
-  margin: 1rem 0.5rem;
+  margin: 1.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   label {
+    font-weight: 600;
   }
   input {
     padding: 0.6rem 1rem;
     border: 1px solid #c0c0c0;
     border-radius: 1px;
     width: 27rem;
+    height: 55px;
   }
+`
+
+const Illustration = styled.div`
+  background: #0072ce;
+  ${media.lessThan('large')`
+      display : none;
+    `}
 `
 
 const CreateAccount = props => {
@@ -42,14 +65,16 @@ const CreateAccount = props => {
   }
 
   return (
-    <Body style={{ height: window.innerHeight }}>
-      <div style={{ background: '#0072CE' }} />
+    <Body style={{ height: window.innerHeight, background: '#fbfbfb' }}>
+      <Illustration />
 
       <Contain>
-        <div>
-          <Title small center>
-            Sign Up Form{' '}
-          </Title>
+        <span>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <MdTitle style={{ fontWeight: 600 }} small center>
+              Create An Account
+            </MdTitle>
+          </div>
           <hr />
 
           <form onSubmit={() => handleRegistration()}>
@@ -99,7 +124,7 @@ const CreateAccount = props => {
 
           <br />
 
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Button
               style={{
                 background: Password !== ConfirmPassword && 'transparent',
@@ -111,7 +136,16 @@ const CreateAccount = props => {
               Create Account
             </Button>
           </div>
-        </div>
+
+          <br />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Text style={{ margin: '0 1rem' }}> Own An Account </Text>
+
+            <Link to="/login">
+              <Text> Login </Text>
+            </Link>
+          </div>
+        </span>
       </Contain>
     </Body>
   )

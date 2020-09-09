@@ -30,8 +30,17 @@ export const InputBody = styled.div`
 export const Title = styled.h4`
   font-weight : ${props => props.weight};
   text-align: ${props => props.align};
+  font-family : Montserrat-Medium;
   color: ${props => props.color}
   font-size: ${props => (props.small ? '1.3rem' : null)};
+`
+
+export const MdTitle = styled.h3`
+    font-weight : ${props => props.weight};
+    text-align: ${props => props.align};
+    font-family : Montserrat-Medium;
+    color: ${props => props.color}
+    font-size: ${props => (props.small ? '1.5rem' : null)};
 `
 
 export const Text = styled.p`

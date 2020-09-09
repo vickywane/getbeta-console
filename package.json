@@ -64,7 +64,7 @@
   "scripts": {
     "rewired-start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "start": "react-scripts start",
+    "start": "react-app-rewired start",
     "react-build": "react-scripts build",
     "test": "react-scripts test",
     "test-jest": "jest",

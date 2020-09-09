@@ -3,7 +3,8 @@ import { Provider } from 'mobx-react'
 import { createGlobalStyle } from 'styled-components'
 
 import ErrorBoundary from './components/errors/errorBoundary'
-import { UserStore, ContentStore, CourseStore } from './state/'
+import { ContentStore, CourseStore } from './state/'
+import { store as UserStore } from './state/user.store'
 import Router from './navigation/router'
 
 const GlobalStyle = createGlobalStyle`

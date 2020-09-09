@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FiSearch, FiPlus } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
+import media from 'styled-media-query'
 import { CourseCardsData } from '../../mockData'
 import { Text, Hover, Title, Section, Button } from '../../styles/style'
 
@@ -67,6 +68,9 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   grid-gap: 2rem 2rem;
   place-items: center;
+  ${media.lessThan('large')`
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+`};
 `
 
 const MyCourses = props => {
@@ -80,7 +84,7 @@ const MyCourses = props => {
           <div style={{ ...center }}>
             <div style={{ display: 'flex' }}>
               <Title small style={{ color: '#0072CE' }}>
-                My Courses ( {Data.length} )
+                Courses
               </Title>
 
               <Hover style={{ margin: '0 1rem' }}>

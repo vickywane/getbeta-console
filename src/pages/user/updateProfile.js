@@ -31,6 +31,11 @@ const UserImage = styled.div`
   background-size: cover;
   width: 300px;
   height: 300px;
+  ${media.lessThan('huge')`
+  width: 250px;
+  height: 250px;
+  border-radius : 50%;
+  `};
   ${media.lessThan('large')`
   width: 200px;
   height: 200px;
@@ -58,6 +63,14 @@ const StyledHover = styled(Hover)`
   align-items :  center;
   width : 50px;
   color : #fff;
+`
+
+const StyledInputBody = styled(InputBody)`
+  ${media.lessThan('huge')`
+      textarea , input {
+        width : 25rem
+      }
+    `};
 `
 
 const UpdateProfile = props => {
@@ -102,18 +115,18 @@ const UpdateProfile = props => {
 
         <div style={{ ...center }}>
           <div>
-            <InputBody>
+            <StyledInputBody>
               <label> Username </label>
               <input placeholder="Username" />
-            </InputBody>
-            <InputBody>
+            </StyledInputBody>
+            <StyledInputBody>
               <label> Email Address </label>
               <input placeholder="Username" />
-            </InputBody>
-            <InputBody>
+            </StyledInputBody>
+            <StyledInputBody>
               <label> Brief Biography </label>
               <textarea placeholder="A short description about me " />
-            </InputBody>
+            </StyledInputBody>
           </div>
         </div>
       </Grid>

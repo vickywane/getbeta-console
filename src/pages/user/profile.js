@@ -14,6 +14,9 @@ const Image = styled.img`
   border-radius: 50%;
   border: 5px solid #0072ce;
   object-fit: cover;
+  &: hover {
+    cursor: pointer;
+  }
 `
 
 const Body = styled.div`
@@ -58,8 +61,8 @@ const StyledHover = styled(Hover)`
 const Profile = props => {
   const { UserStore } = props
 
-  const [profilePane, setProfilePane] = useState(false)
-  const [showModal, setModal] = useState(true)
+  const [profilePane, setProfilePane] = useState(true)
+  const [showModal, setModal] = useState(false)
 
   return (
     <div>
@@ -79,7 +82,7 @@ const Profile = props => {
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex' }}>
-              <Image alt="user" src={TestImage} />
+              <Image onClick={() => setModal(true)} alt="user" src={TestImage} />
 
               <div
                 style={{
@@ -124,13 +127,20 @@ const Profile = props => {
         >
           <div style={{ display: 'flex' }}>
             <Image
-              style={{ borderWidth: '1px', height: '60px', width: '60px', margin: '0 1rem' }}
+              onClick={() => setModal(true)}
+              style={{
+                cursor: 'pointer',
+                borderWidth: '1px',
+                height: '60px',
+                width: '60px',
+                margin: '0 1rem'
+              }}
               alt="user"
               src={require('../../assets/images/img.jpg')}
             />
 
             <div style={{ ...center }}>
-              <h4> Victory Nwani </h4>
+              <h4> {UserStore.userDetail.name} </h4>
             </div>
           </div>
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiSearch } from 'react-icons/fi'
 import { Link } from '@reach/router'
 import media from 'styled-media-query'
 
@@ -25,23 +24,6 @@ const Cards = styled.div`
     cursor : pointer;
    transform : translateY(-10%)
   }
-`
-
-const Data = [
-  {
-    id: 1,
-    name: 'Teaching maths to little preschoolers at a tender age'
-  }
-]
-
-const ContentContainer = styled.div`
-  padding: 1rem;
-  display: flex;
-  background: #fff;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-  box-shadow: 0 3px 5px #c0c0c0;
 `
 
 const center = {
@@ -103,7 +85,7 @@ const Home = props => {
         <Grid>
           {USER_STATS.map(({ id, name, total }) => {
             return (
-              <Link style={{ textDecoration: 'none' }} to={`#${name.toLocaleLowerCase()}`}>
+              <a style={{ textDecoration: 'none' }} href={`#${name.toLowerCase()}`}>
                 <Cards key={id} background="#fff" style={{ ...center }}>
                   <div>
                     <StyledTitle align="center"> {total} </StyledTitle>
@@ -111,20 +93,20 @@ const Home = props => {
                     <Text align="center"> {name} </Text>
                   </div>
                 </Cards>
-              </Link>
+              </a>
             )
           })}
         </Grid>
 
-        <Section id="#contents">
+        <Section id="contents">
           <MyContent />
         </Section>
 
-        <Section id="#courses">
+        <Section id="courses">
           <MyCourses />
         </Section>
 
-        <Section id="#bookings">
+        <Section id="bookings">
           <Mybookings />
         </Section>
       </Body>
