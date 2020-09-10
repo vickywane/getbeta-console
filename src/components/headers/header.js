@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { FiHome, FiSearch, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { Link, navigate } from '@reach/router'
 
-import { SmallUserImage, Title, Hover } from '../../styles/style'
+import { SmallUserImage, Title, Hover, StyledHover, center } from '../../styles/style'
 
 const Body = styled.div`
   height: 70px;
@@ -40,10 +40,10 @@ const Header = props => {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {goBack ? (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Hover onClick={() => navigate(-1)}>
+          <div style={{ ...center }}>
+            <StyledHover style={{ padding: '0.4rem 0.4rem' }} onClick={() => navigate(-1)}>
               <FiArrowLeft style={{ fontSize: '1.8rem' }} />
-            </Hover>
+            </StyledHover>
           </div>
         ) : (
           <Link to="/">
@@ -54,7 +54,7 @@ const Header = props => {
         )}
 
         {screen && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ ...center }}>
             <Title color="#0072ce"> {screen} </Title>
           </div>
         )}

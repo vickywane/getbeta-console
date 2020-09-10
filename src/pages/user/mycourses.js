@@ -5,7 +5,7 @@ import { Link } from '@reach/router'
 
 import media from 'styled-media-query'
 import { CourseCardsData } from '../../mockData'
-import { Text, Hover, Title, Section, Button } from '../../styles/style'
+import { Text, Hover, Title, Section, Button, center, Searchbox } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -21,45 +21,31 @@ const Cards = styled.div`
   background: ${props => props.background};
   &: hover {
     cursor : pointer;
-   transform : translateY(-10%)
+   transform : translateY(-5%)
   }
+  ${media.lessThan('large')`
+    width: 20rem;
+  `};
+  ${media.lessThan('medium')`
+     width: 35rem;
+    height: 30vh;
+  `}
 `
 
-const Data = [
-  {
-    id: 1,
-    name: 'Teaching maths to little preschoolers at a tender age'
-  }
-]
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
-
-const Searchbox = styled.div`
+const StyledSearchbox = styled(Searchbox)`
 width  : 35rem;
 border : 1.7px solid #0072CE;
 border-radius : 30px;
-padding : 0.5rem 1rem;
 display : flex;
 background : #fff;
 padding   : 0.7rem 0.5rem;
 justify-content: space-between;
 input {
-     padding : 0.2rem 1rem;
+    padding : 0.2rem 1rem;
     width  : 33rem
     outline : 0;
-    color :#0072CE;
+    color : #0072CE;
     border : 0;
-  }
-  div {
-    color :#0072CE;
-    padding : 0 0.5rem;
-    display  : flex;
-    justify-content : center;
-    align-items : center;
   }
 `
 
@@ -74,11 +60,10 @@ const Grid = styled.div`
 `
 
 const MyCourses = props => {
-  const { UserStore } = props
+  const { UserStore, Width } = props
 
   return (
     <Body>
-      <br />
       <Section id="#contents">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ ...center }}>
@@ -89,19 +74,25 @@ const MyCourses = props => {
 
               <Hover style={{ margin: '0 1rem' }}>
                 <Link to="/create-course">
-                  <FiPlus style={{ fontSize: '1.8rem' }} />
+                  <FiPlus style={{ fontSize: '1.6rem' }} />
                 </Link>
               </Hover>
             </div>
           </div>
 
-          <Searchbox>
-            <div>
-              <FiSearch style={{ fontSize: '1.6rem' }} />
-            </div>
+          {Width >= 1200 ? (
+            <StyledSearchbox>
+              <div>
+                <FiSearch style={{ fontSize: '1.6rem' }} />
+              </div>
 
-            <input placeholder="Search for a course" />
-          </Searchbox>
+              <input placeholder="Search for a course" />
+            </StyledSearchbox>
+          ) : (
+            <Hover>
+              <FiSearch style={{ color: '#0072ce', fontSize: '1.6rem' }} />
+            </Hover>
+          )}
         </div>
         <hr />
         <br />

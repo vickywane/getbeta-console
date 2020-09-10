@@ -1,6 +1,72 @@
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
+export const CreateCourseInputField = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 1rem;
+  label {
+    font-size: 1.2rem;
+  }
+  input {
+    height: 55px;
+    width: 60rem;
+    border: 1px solid #c0c0c0;
+    color: #000;
+    padding: 0.5rem 1rem;
+    outline: 0px;
+  }
+  textarea {
+    height: 10vh;
+    width: 60rem;
+    border: 1px solid #c0c0c0;
+    color: #000;
+    padding: 0.5rem 1rem;
+    outline: 0px;
+  }
+  ${media.lessThan('huge')`
+  input {
+    height: 50px;
+    font-size : 1rem;
+    width: 37rem;
+  }
+  label {
+    font-size: 1.1rem;
+  }
+  textarea {
+    height: 10vh;
+    width: 37rem;
+    font-size : 1rem;
+
+  }
+  `};
+  ${media.lessThan('large')`
+  input {
+    height: 50px;
+    width: 33rem;
+    font-size : 0.9rem;
+  }
+  label {
+    font-size: 1rem;
+  }
+  textarea {
+    height: 10vh;
+    width: 33rem;
+    font-size : 0.9rem;
+  }
+  `}
+  ${media.lessThan('medium')`
+  input {
+    height: 50px;
+    width: 27rem;
+  }
+  textarea {
+    height: 10vh;
+    width: 26rem;
+  }
+  `}
+`
+
 export const InputBody = styled.div`
   margin: 2rem 0.5rem;
   display: flex;
@@ -33,6 +99,17 @@ export const Title = styled.h4`
   font-family : Montserrat-Medium;
   color: ${props => props.color}
   font-size: ${props => (props.small ? '1.3rem' : null)};
+  ${media.lessThan('huge')`
+    font-size : 1.2rem;
+  `}
+  ${media.lessThan('large')`
+  font-size : 1.1rem;
+`}
+
+${media.lessThan('medium')`
+font-size : 1.05rem;
+`}
+
 `
 
 export const MdTitle = styled.h3`
@@ -46,6 +123,8 @@ export const MdTitle = styled.h3`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
+  ${media.lessThan('medium')`0.8rem`};
+  ${media.lessThan('small')`0.7rem`};
 `
 
 export const Button = styled.button`
@@ -59,6 +138,14 @@ export const Button = styled.button`
   text-align: center;
   border-radius: 5px;
   color: #fff;
+  ${media.lessThan('large')`
+     padding: 0.3rem 1.2rem;
+     font-size : 1.1rem;
+  `};
+  ${media.lessThan('small')`
+  padding: 0.3rem 1rem;
+  font-size : 1rem;
+`};
 `
 
 export const Body = styled.div``
@@ -150,5 +237,11 @@ export const StyledHover = styled(Hover)`
 `
 
 export const Section = styled.section`
-  padding: 2rem 0.5rem;
+  padding: 1.5rem 0.5rem;
 `
+
+export const center = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+}

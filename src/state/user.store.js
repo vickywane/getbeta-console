@@ -92,6 +92,24 @@ class UserStore {
       })
       .catch(e => console.log(`Error occured : ${e}`))
   }
+
+  getUserCourses = () => {
+    Axios.get(``)
+      .then(() => {})
+      .catch(e => console.log())
+  }
+
+  getUserBookings = () => {
+    Axios.get(``)
+      .then(() => {})
+      .catch(e => console.log())
+  }
+
+  getUserContents = () => {
+    Axios.get(``)
+      .then(() => {})
+      .catch(e => console.log())
+  }
 }
 
 const DecoratedUserStore = decorate(UserStore, {
@@ -104,7 +122,11 @@ const DecoratedUserStore = decorate(UserStore, {
   authUser: action,
   deleteAccount: action,
   createAccount: action,
-  logOut: action
+  logOut: action,
+
+  getUserBooking: action,
+  getUserContents: action,
+  getUserCourses: action
 })
 
 export const store = new DecoratedUserStore()

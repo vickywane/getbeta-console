@@ -8,12 +8,14 @@ import {
   FiBookOpen,
   FiGrid,
   FiSettings,
+  FiMenu,
   FiChevronsLeft
 } from 'react-icons/fi'
 import { IoIosList } from 'react-icons/io'
 import useWindowWith from '../utils/hook_style'
+import media from 'styled-media-query'
 
-import { Hover, Text } from '../styles/style'
+import { Hover, Text, Title } from '../styles/style'
 
 const Items = styled.ul`
   margin: 0;
@@ -37,13 +39,16 @@ const Item = styled.li`
   background : ${props => props.active && '#fff'}
   color: ${props => props.active && '#0072ce'};
   p {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   &: hover {
     color: #0072ce;
     cursor: pointer;
     background: #fff;
   }
+  ${media.lessThan('huge')`
+    font-size : 0.9rem;
+  `}
 `
 
 const Body = styled.div`
@@ -67,7 +72,16 @@ const Icon = styled.div`
 
 const SidebarBody = styled(Body)`
   background: #0072ce;
-  width: ${props => (props.isClosed ? '6rem' : '20rem')};
+  width: ${props => (props.isClosed ? '5rem' : '16rem')};
+  ${media.lessThan('huge')`
+  width: ${props => (props.isClosed ? '5rem' : '15rem')};
+  `}
+  ${media.lessThan('large')`
+  width: ${props => (props.isClosed ? '5rem' : '20rem')};
+  `}
+  ${media.lessThan('medium')`
+    display  : none;
+  `};
 `
 
 const center = {
@@ -76,9 +90,24 @@ const center = {
   alignItemss: 'center'
 }
 
+const MenuIcon = styled(FiMenu)`
+  font-size: 2rem;
+  position: absolute;
+  color: #0072ce;
+  display: none;
+  margin: 0.8rem;
+  &: hover {
+    cursor: pointer;
+  }
+  ${media.lessThan('medium')`
+    display : flex;
+  `};
+`
+
 const Sidebar = props => {
   const location = useLocation()
   const Width = useWindowWith()
+  const [MenuVisibility, setMenuVisibility] = useState(false)
 
   const [isClosed, setClosed] = useState(false)
 
@@ -97,7 +126,7 @@ const Sidebar = props => {
       id: 1,
       name: 'Profile',
       routeName: 'home',
-      icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
+      icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/home'
     },
     {
@@ -105,117 +134,129 @@ const Sidebar = props => {
       name: 'Courses',
       routeName: 'courses',
 
-      icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
+      icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/courses'
     },
     {
       id: 3,
       name: 'Bookings',
       routeName: 'booking',
-      icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
+      icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/booking'
     },
     {
       id: 4,
       name: 'Live Sessions',
       routeName: 'sessions',
-      icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
+      icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/sessions'
     },
     {
       id: 5,
       name: 'Online Content',
       routeName: 'contents',
-      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
+      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/contents'
     },
     {
       id: 6,
       name: 'Preferences',
       routeName: 'preference',
-      icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.7rem' }} />,
+      icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/preference'
     }
   ]
 
   return (
-    <SidebarBody
-      isClosed={isClosed}
-      style={{
-        height: window.innerHeight
-      }}
-    >
-      <div
+    <div>
+      <MenuIcon />
+
+      <SidebarBody
+        isClosed={isClosed}
         style={{
-          padding: '0.8rem 0.5rem',
-          display: 'flex',
-          backgroundColor: '#16204f',
-          boxShadow: '0 2px 3px grey',
-          justifyContent: 'space-between'
+          height: window.innerHeight
         }}
       >
-        {!isClosed && (
-          <div style={{ ...center }}>
-            <h4 style={{ textAlign: 'center' }}>
-              <a
-                target="_blank"
-                style={{ color: '#fff', textDecoration: 'none' }}
-                href="https://getbeta.netlify.com"
-              >
-                Getbeta
-              </a>
-            </h4>
-          </div>
-        )}
-        <Icon
-          style={{ transition: 'all 350ms', transform: isClosed && 'rotate(180deg)' }}
-          onClick={() => setClosed(!isClosed)}
+        <div
+          style={{
+            padding: '0.8rem 0.5rem',
+            display: 'flex',
+            backgroundColor: '#16204f',
+            boxShadow: '0 2px 3px grey',
+            justifyContent: 'space-between'
+          }}
         >
-          <FiChevronsLeft style={{ fontSize: '1.8rem' }} />
-        </Icon>
-      </div>
-
-      <Items>
-        {Routes.map(({ routeName, id, name, icon, to }) => {
-          return (
-            <Link key={id} to={`${to}/`}>
-              <Item active={currentRoute === routeName}>
-                <div style={{ ...center }}>
-                  <Hover style={{ marginRight: '0.7rem' }}>{icon}</Hover>
-                </div>
-
-                {!isClosed && (
-                  <div style={{ ...center }}>
-                    <Text
-                      style={{ paddingTop: '2px', fontWeight: currentRoute === routeName && 600 }}
-                    >
-                      {name}{' '}
-                    </Text>{' '}
-                  </div>
-                )}
-              </Item>
-            </Link>
-          )
-        })}
-      </Items>
-
-      <Item
-        onClick={() => props.UserStore.logOut()}
-        active
-        style={{ width: '100%', position: 'absolute', bottom: 0, textAlign: 'center' }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Hover>
-            <FiLogOut style={{ fontSize: '1.8rem' }} />
-          </Hover>
           {!isClosed && (
             <div style={{ ...center }}>
-              <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
+              <Title style={{ textAlign: 'center' }}>
+                <a
+                  target="_blank"
+                  style={{ color: '#fff', textDecoration: 'none' }}
+                  href="https://getbeta.netlify.com"
+                >
+                  Getbeta
+                </a>
+              </Title>
             </div>
           )}
+          <Icon
+            style={{ transition: 'all 350ms', transform: isClosed && 'rotate(180deg)' }}
+            onClick={() => setClosed(!isClosed)}
+          >
+            <FiChevronsLeft style={{ fontSize: '1.8rem' }} />
+          </Icon>
         </div>
-      </Item>
-    </SidebarBody>
+
+        <Items>
+          {Routes.map(({ routeName, id, name, icon, to }) => {
+            return (
+              <Link key={id} to={`${to}/`}>
+                <Item active={currentRoute === routeName}>
+                  <div style={{ ...center }}>
+                    <Hover style={{ marginRight: '0.5rem' }}>{icon}</Hover>
+                  </div>
+
+                  {!isClosed && (
+                    <div style={{ ...center }}>
+                      <Text
+                        style={{
+                          paddingTop: '2px',
+                          fontWeight: currentRoute === routeName && 600
+                        }}
+                      >
+                        {name}{' '}
+                      </Text>{' '}
+                    </div>
+                  )}
+                </Item>
+              </Link>
+            )
+          })}
+        </Items>
+
+        <Item
+          onClick={() => props.UserStore.logOut()}
+          active
+          style={{
+            width: isClosed ? '5rem' : '20rem',
+            position: 'absolute',
+            bottom: 0,
+            textAlign: 'center'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Hover>
+              <FiLogOut style={{ fontSize: '1.8rem' }} />
+            </Hover>
+            {!isClosed && (
+              <div style={{ ...center }}>
+                <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
+              </div>
+            )}
+          </div>
+        </Item>
+      </SidebarBody>
+    </div>
   )
 }
 

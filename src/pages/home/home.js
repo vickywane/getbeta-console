@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from '@reach/router'
 import media from 'styled-media-query'
 
 import { USER_STATS } from '../../mockData'
-import { Text, Title, Section, Hover, Button } from '../../styles/style'
+import { Text, Title, Section } from '../../styles/style'
+import useWindowWidth from '../../utils/hook_style'
 
 import { Profile, Mybookings, MyContent, MyCourses } from '../user/'
 
@@ -13,7 +13,7 @@ const Body = styled.div`
 `
 
 const Cards = styled.div`
-  height: 20vh;
+  height: 23vh;
   width: 22rem;
   border-radius: 7px;
   padding : 1rem 1rem
@@ -24,6 +24,11 @@ const Cards = styled.div`
     cursor : pointer;
    transform : translateY(-10%)
   }
+  ${media.lessThan('large')`
+   width: 17rem;
+    height: 18vh;
+  `};
+
 `
 
 const center = {
@@ -31,31 +36,6 @@ const center = {
   justifyContent: 'center',
   alignItems: 'center'
 }
-
-const Searchbox = styled.div`
-width  : 35rem;
-border : 1.7px solid #0072CE;
-border-radius : 30px;
-padding : 0.5rem 1rem;
-display : flex;
-background : #fff;
-padding   : 0.7rem 0.5rem;
-justify-content: space-between;
-input {
-     padding : 0.2rem 1rem;
-    width  : 33rem
-    outline : 0;
-    color :#0072CE;
-    border : 0;
-  }
-  div {
-    color :#0072CE;
-    padding : 0 0.5rem;
-    display  : flex;
-    justify-content : center;
-    align-items : center;
-  }
-`
 
 const StyledTitle = styled(Title)`
   font-weight: 600;
@@ -70,14 +50,19 @@ const Grid = styled.div`
   ${media.lessThan('large')`
        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   `};
+  ${media.lessThan('large')`
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-gap: 2rem 1rem;
+  `};
 `
 
 const Home = props => {
   const { UserStore } = props
+  const Width = useWindowWidth()
 
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
-      <Profile UserStore={UserStore} />
+      <Profile UserStore={UserStore} Width={Width} />
       <br />
       <br />
 
@@ -99,15 +84,15 @@ const Home = props => {
         </Grid>
 
         <Section id="contents">
-          <MyContent />
+          <MyContent Width={Width} />
         </Section>
 
         <Section id="courses">
-          <MyCourses />
+          <MyCourses Width={Width} />
         </Section>
 
         <Section id="bookings">
-          <Mybookings />
+          <Mybookings Width={Width} />
         </Section>
       </Body>
     </div>

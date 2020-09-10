@@ -1,39 +1,50 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { FiUploadCloud } from 'react-icons/fi'
+import { useDropzone } from 'react-dropzone'
+import { Spinner } from 'react-bootstrap'
 
-import { Body, Text, Button, Title } from '../../styles/style'
+import {
+  Body,
+  Text,
+  Button,
+  Title,
+  center,
+  Hover,
+  StyledHover,
+  CreateCourseInputField as InputField
+} from '../../styles/style'
 import Header from '../../components/headers/header'
 
-const InputField = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 1rem;
-  label {
-    font-size: 1.2rem;
-  }
-  input {
-    height: 50px;
-    width: 40rem;
-    border: 1px solid #c0c0c0;
-    color: #000;
-    padding: 0.5rem 1rem;
-    outline: 0px;
-  }
-  textarea {
-    height: 10vh;
-    width: 40rem;
-    border: 1px solid #c0c0c0;
-    color: #000;
-    padding: 0.5rem 1rem;
-    outline: 0px;
-  }
+const Image = styled.img`
+  object-fit: contain;
+  width: 250px;
+  height: 200px;
 `
 
-const CreateCourse = () => {
+const CreateCourse = props => {
+  const { createCourse } = props.CourseStore
+
   const [courseName, setCourseName] = useState('')
   const [courseDescription, setCourseDescription] = useState('')
   const [coursePrice, setCoursePrice] = useState('')
   const [courseDuration, setCourseDuration] = useState('')
+  const [courseImage, setcourseImage] = useState('')
+  const [courseImageName, setcourseImageName] = useState(null)
+
+  const handleSubmit = () => {
+    createCourse(courseName, courseDescription, coursePrice, courseDuration, courseImage)
+  }
+
+  const onDrop = useCallback(([file]) => {
+    setcourseImage(file)
+    setcourseImageName(file.name)
+  }, [])
+
+  const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
+    onDrop,
+    accept: 'image/jpeg , image/jpg, image.png'
+  })
 
   return (
     <div>
@@ -42,47 +53,99 @@ const CreateCourse = () => {
       <Body style={{ padding: '2rem 2rem' }}>
         <br />
 
-        <InputField>
-          <label> Course Name </label>
-          <input
-            onChange={e => setCourseName(e.target.value)}
-            value={courseName}
-            type="text"
-            placeholder="Course Name"
-          />
-        </InputField>
+        <div style={{ display: 'flex' }}>
+          <div
+            {...getRootProps({
+              isDragActive,
+              isDragAccept,
+              isDragReject
+            })}
+          >
+            <Image src={require('../../assets/images/image-icon.png')} />
+            {isDragActive && <Text align="center"> Drop Image here </Text>}
+          </div>
 
-        <InputField>
-          <label> Course Description </label>
-          <textarea
-            onChange={e => setCourseDescription(e.target.value)}
-            value={courseDescription}
-            type="text"
-            placeholder="A description of your new course"
-          />
-        </InputField>
+          <div style={{ ...center }}>
+            {!courseImageName ? (
+              <StyledHover
+                {...getRootProps({
+                  isDragActive,
+                  isDragAccept,
+                  isDragReject
+                })}
+                style={{ display: 'flex' }}
+              >
+                <input {...getInputProps()} />
+                <Hover style={{ margin: '0 0.7rem', ...center }}>
+                  <FiUploadCloud style={{ fontSize: '1.8rem' }} />
+                </Hover>
 
-        <InputField>
-          <label> Course Price </label>
-          <input
-            onChange={e => setCoursePrice(e.target.value)}
-            value={coursePrice}
-            type="text"
-            placeholder="Course Price"
-          />
-        </InputField>
+                <div style={{ paddingTop: '10px' }}>
+                  <Text small style={{ fontWeight: 600 }}>
+                    Upload Course Image{' '}
+                  </Text>
+                </div>
+              </StyledHover>
+            ) : (
+              <Text> {courseImageName} </Text>
+            )}
+          </div>
+        </div>
+        <hr />
+        <form onSubmit={() => handleSubmit()}>
+          <InputField>
+            <label> Course Name </label>
+            <input
+              onChange={e => setCourseName(e.target.value)}
+              value={courseName}
+              type="text"
+              placeholder="Course Name"
+            />
+          </InputField>
 
-        <InputField>
-          <label> Course Duration </label>
-          <input
-            onChange={e => setCourseDuration(e.target.value)}
-            value={courseDuration}
-            type="text"
-            placeholder="Course Duration"
-          />
-        </InputField>
+          <InputField>
+            <label> Course Description </label>
+            <textarea
+              onChange={e => setCourseDescription(e.target.value)}
+              value={courseDescription}
+              type="text"
+              placeholder="A description of your new course"
+            />
+          </InputField>
 
-        <Button> Submit Course </Button>
+          <InputField>
+            <label> Course Price </label>
+            <input
+              onChange={e => setCoursePrice(e.target.value)}
+              value={coursePrice}
+              type="text"
+              placeholder="Course Price"
+            />
+          </InputField>
+
+          <InputField>
+            <label> Course Duration </label>
+            <input
+              onChange={e => setCourseDuration(e.target.value)}
+              value={courseDuration}
+              type="text"
+              placeholder="Course Duration"
+            />
+          </InputField>
+        </form>
+        <br />
+        <div style={{ paddingLeft: '2%' }}>
+          <Button
+            style={{
+              background: courseName.length < 5 && 'transparent',
+              color: courseName.length < 5 && '#0072ce'
+            }}
+            disabled={courseName.length < 5}
+            onClick={() => handleSubmit()}
+          >
+            Submit Course{' '}
+          </Button>
+        </div>
       </Body>
     </div>
   )

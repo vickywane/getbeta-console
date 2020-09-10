@@ -12,6 +12,8 @@ const StyledCard = styled(Card)`
 `
 
 const Booking = props => {
+  const { Width } = props
+
   return (
     <div>
       <Header showSearch={true} searchText="Find A Professional" />

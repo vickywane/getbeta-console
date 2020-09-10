@@ -22,10 +22,22 @@ class CourseStore {
     return resData
   }
 
-  createCourse = () => {
+  createCourse = (name, description, price, duration, coverImage) => {
     const id = localStorage.getItem('userId')
 
-    Axios.post(`${COURSE_ENDPOINT}/${id}/add`, { data: {} }, { headers: { 'x-auth-token': token } })
+    Axios.post(
+      `${COURSE_ENDPOINT}/${id}/newCourse`,
+      {
+        data: {
+          name: name,
+          descrp: description,
+          price: price,
+          duration: duration,
+          coverImage: coverImage
+        }
+      },
+      { headers: { 'x-auth-token': token } }
+    )
       .then(res => console.log(res))
       .catch(e => console.log(e))
   }

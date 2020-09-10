@@ -1,11 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiSearch, FiPlus, FiPlay } from 'react-icons/fi'
+import { FiSearch, FiPlus } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
 import useWindowWidth from '../../utils/hook_style'
 import { CONTENT_DATA } from '../../mockData'
-import { Text, Title, Section, HomeList, Hover, Searchbox, Button } from '../../styles/style'
+import {
+  Text,
+  Title,
+  Section,
+  HomeList,
+  Hover,
+  Searchbox,
+  center,
+  Button
+} from '../../styles/style'
+import media from 'styled-media-query'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -22,12 +32,6 @@ const ContentContainer = styled.div`
   border-radius: 5px;
   box-shadow: 0 3px 5px #c0c0c0;
 `
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 
 const StyledSearchbox = styled(Searchbox)`
 width  : 35rem;
@@ -46,6 +50,22 @@ input {
   }
 `
 
+const ContentImage = styled.div`
+  height: 45px;
+  width: 50px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+  ${media.lessThan('medium')`
+      display : none;
+  `};
+`
+
+const Date = styled.div`
+  ${media.lessThan('medium')`
+display : none;
+`};
+`
+
 const MyContent = props => {
   const { UserStore } = props
   const Width = useWindowWidth()
@@ -62,7 +82,7 @@ const MyContent = props => {
 
               <Hover style={{ margin: '0 1rem' }}>
                 <Link to="/create-content">
-                  <FiPlus style={{ fontSize: '1.8rem' }} />
+                  <FiPlus style={{ fontSize: '1.6rem' }} />
                 </Link>
               </Hover>
             </div>
@@ -78,7 +98,7 @@ const MyContent = props => {
             </StyledSearchbox>
           ) : (
             <Hover>
-              <FiSearch style={{ fontSize: '1.6rem' }} />
+              <FiSearch style={{ color: '#0072ce', fontSize: '1.6rem' }} />
             </Hover>
           )}
         </div>
@@ -89,20 +109,15 @@ const MyContent = props => {
             return (
               <li key={id}>
                 <ContentContainer>
-                  <div
-                    style={{
-                      height: '45px',
-                      width: '50px',
-                      borderRadius: '3px',
-                      border: '1px solid #c0c0c0'
-                    }}
-                  />
+                  <ContentImage />
 
                   <Link style={{ textDecoration: 'none' }} to="/">
                     <Text> {name} </Text>
                   </Link>
 
-                  <Text> 12 - 12 - 12 </Text>
+                  <Date>
+                    <Text> 12 - 12 - 12 </Text>
+                  </Date>
                 </ContentContainer>
               </li>
             )

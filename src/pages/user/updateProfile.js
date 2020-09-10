@@ -3,15 +3,8 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 import TestImage from '../../assets/images/img.jpg'
-import { Text, Title, Input, InputBody, Hover, Button } from '../../styles/style'
+import { Text, Title, Input, InputBody, Hover, Button, center } from '../../styles/style'
 import { FiTrash2, FiCamera } from 'react-icons/fi'
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column'
-}
 
 const Grid = styled.div`
   display: grid;

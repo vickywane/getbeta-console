@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiSearch } from 'react-icons/fi'
 import { Link } from '@reach/router'
+import media from 'styled-media-query'
 
 import { USER_STATS } from '../../mockData'
-import { Text, Title, Section, Hover, Button } from '../../styles/style'
+import { Text, Title, Section, Hover, Button, Searchbox } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -32,33 +33,41 @@ const center = {
   alignItems: 'center'
 }
 
-const Searchbox = styled.div`
+const StyledSearchbox = styled(Searchbox)`
 width  : 35rem;
 border : 1.7px solid #0072CE;
 border-radius : 30px;
-padding : 0.5rem 1rem;
 display : flex;
 background : #fff;
 padding   : 0.7rem 0.5rem;
 justify-content: space-between;
 input {
-     padding : 0.2rem 1rem;
+    padding : 0.2rem 1rem;
     width  : 33rem
     outline : 0;
-    color :#0072CE;
+    color : #0072CE;
     border : 0;
-  }
-  div {
-    color :#0072CE;
-    padding : 0 0.5rem;
-    display  : flex;
-    justify-content : center;
-    align-items : center;
   }
 `
 
+const ContentImage = styled.div`
+  height: 45px;
+  width: 50px;
+  border-radius: 3px;
+  border: 1px solid #c0c0c0;
+  ${media.lessThan('medium')`
+      display : none;
+  `};
+`
+
+const Date = styled.div`
+  ${media.lessThan('medium')`
+display : none;
+`};
+`
+
 const Mybookings = props => {
-  const { UserStore } = props
+  const { UserStore, Width } = props
 
   return (
     <div>
@@ -71,17 +80,23 @@ const Mybookings = props => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ ...center }}>
               <Title small style={{ color: '#0072CE' }}>
-                My Courses ( {Data.length} )
+                Bookings
               </Title>
             </div>
 
-            <Searchbox>
-              <div>
-                <FiSearch style={{ fontSize: '1.6rem' }} />
-              </div>
+            {Width >= 1200 ? (
+              <StyledSearchbox>
+                <div>
+                  <FiSearch style={{ fontSize: '1.6rem' }} />
+                </div>
 
-              <input placeholder="Search for a course" />
-            </Searchbox>
+                <input placeholder="Search for a course" />
+              </StyledSearchbox>
+            ) : (
+              <Hover>
+                <FiSearch style={{ color: '#0072ce', fontSize: '1.6rem' }} />
+              </Hover>
+            )}
           </div>
           <hr />
           <ul style={{ margin: '0', padding: '0', listStyle: 'none' }}>
@@ -89,17 +104,13 @@ const Mybookings = props => {
               return (
                 <li key={id}>
                   <ContentContainer>
-                    <div
-                      style={{
-                        height: '45px',
-                        width: '50px',
-                        borderRadius: '3px',
-                        border: '1px solid #c0c0c0'
-                      }}
-                    />
+                    <ContentImage />
 
                     <Text> {name} </Text>
-                    <Text> 12 - 12 - 12 </Text>
+
+                    <Date>
+                      <Text> 12 - 12 - 12 </Text>
+                    </Date>
                   </ContentContainer>
                 </li>
               )

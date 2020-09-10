@@ -1,59 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { Spinner } from 'react-bootstrap'
 import { FiUploadCloud } from 'react-icons/fi'
+import { useDropzone } from 'react-dropzone'
 
-import { Body, Text, Button, Hover, StyledHover } from '../../styles/style'
+import {
+  Body,
+  Text,
+  Button,
+  Hover,
+  StyledHover,
+  center,
+  CreateCourseInputField as InputField
+} from '../../styles/style'
 import Header from '../../components/headers/header'
-
-const InputField = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 1rem;
-  label {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-  input {
-    height: 50px;
-    width: 50rem;
-    border: 1px solid #c0c0c0;
-    color: #000;
-    padding: 0.5rem 1rem;
-    outline: 0px;
-  }
-  textarea {
-    height: 10vh;
-    width: 50rem;
-    border: 1px solid #c0c0c0;
-    color: #000;
-    padding: 0.5rem 1rem;
-    outline: 0px;
-  }
-`
 
 const Image = styled.img`
   object-fit: contain;
   width: 250px;
   height: 200px;
 `
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
-
 const CreateContent = props => {
-  const [ContentName, setContentName] = useState('smashing magazine')
-  const [ContentDescription, setContentDescription] = useState('smashing magazine for me')
-  const [ContentPrice, setContentPrice] = useState('12')
-  const [ContentType, setContentType] = useState('1 hour')
-
   const { createContent, isCreatingContent } = props.ContentStore
 
+  const [ContentName, setContentName] = useState('')
+  const [ContentDescription, setContentDescription] = useState('')
+  const [ContentPrice, setContentPrice] = useState('')
+  const [ContentType, setContentType] = useState('')
+  const [contentImage, setContentImage] = useState(null)
+  const [contentImageName, setContentImageName] = useState(null)
+
   const handleSubmit = () => {
-    createContent(ContentName, ContentDescription, ContentPrice, ContentType)
+    createContent(ContentName, ContentDescription, ContentPrice, ContentType, contentImage)
+  }
+
+  const onDrop = useCallback(([file]) => {
+    setContentImage(file)
+    setContentImageName(file.name)
+  }, [])
+
+  const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
+    onDrop,
+    accept: 'image/jpeg , image/jpg, image.png'
+  })
+
+  const isReadyToCreate = () => {
+    if (
+      ContentName.length < 5 &&
+      !contentImage &&
+      contentImageName &&
+      ContentPrice.legnth < 1 &&
+      ContentDescription < 10
+    ) {
+      return false
+    } else {
+      return true
+    }
   }
 
   return (
@@ -78,18 +80,41 @@ const CreateContent = props => {
         ) : (
           <div>
             <div style={{ display: 'flex' }}>
-              <Image src={require('../../assets/images/image-icon.png')} />
+              <div
+                {...getRootProps({
+                  isDragActive,
+                  isDragAccept,
+                  isDragReject
+                })}
+              >
+                <Image src={require('../../assets/images/image-icon.png')} />
+                {isDragActive && <Text align="center"> Drop Image here </Text>}
+              </div>
 
               <div style={{ ...center }}>
-                <StyledHover style={{ display: 'flex' }}>
-                  <Hover style={{ margin: '0 0.7rem', ...center }}>
-                    <FiUploadCloud style={{ fontSize: '1.8rem' }} />
-                  </Hover>
+                {!contentImageName ? (
+                  <StyledHover
+                    {...getRootProps({
+                      isDragActive,
+                      isDragAccept,
+                      isDragReject
+                    })}
+                    style={{ display: 'flex' }}
+                  >
+                    <input {...getInputProps()} />
+                    <Hover style={{ margin: '0 0.7rem', ...center }}>
+                      <FiUploadCloud style={{ fontSize: '1.8rem' }} />
+                    </Hover>
 
-                  <div style={{ ...center }}>
-                    <Text style={{ fontWeight: 600 }}> Upload Content Image </Text>
-                  </div>
-                </StyledHover>
+                    <div style={{ paddingTop: '10px' }}>
+                      <Text small style={{ fontWeight: 600 }}>
+                        Upload Content Image{' '}
+                      </Text>
+                    </div>
+                  </StyledHover>
+                ) : (
+                  <Text> {contentImageName} </Text>
+                )}
               </div>
             </div>
             <hr />
@@ -136,7 +161,18 @@ const CreateContent = props => {
                 />
               </InputField>
 
-              <Button onClick={() => handleSubmit()}> Submit Content </Button>
+              <div style={{ paddingLeft: '2%' }}>
+                <Button
+                  style={{
+                    background: ContentName.length < 5 && 'transparent',
+                    color: ContentName.length < 5 && '#0072ce'
+                  }}
+                  disabled={ContentName.length < 5}
+                  onClick={() => handleSubmit()}
+                >
+                  Submit Content{' '}
+                </Button>
+              </div>
             </form>
           </div>
         )}

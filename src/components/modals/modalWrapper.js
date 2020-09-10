@@ -1,13 +1,7 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { FiX } from 'react-icons/fi'
-import { Body, Title, StyledHover } from '../../styles/style'
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
+import { Body, Title, StyledHover, center } from '../../styles/style'
 
 const ModalWrapper = props => {
   const { children, title, visibility, size, closeModal, icon } = props
@@ -27,7 +21,7 @@ const ModalWrapper = props => {
           </div>
 
           <StyledHover onClick={() => closeModal()} style={{ ...center }}>
-            <FiX style={{ fontSize: '1.7rem' }} />
+            <FiX style={{ fontSize: '1.6rem' }} />
           </StyledHover>
         </div>
         <hr />
