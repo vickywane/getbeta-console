@@ -22,7 +22,7 @@ const Image = styled.img`
   height: 200px;
 `
 
-const CreateVendor = props => {
+const CreateVendor = (props) => {
   const { upgradeToVendor } = props.VendorStore
 
   const [VendorName, setVendorName] = useState('')
@@ -97,7 +97,7 @@ const CreateVendor = props => {
           <InputField>
             <label>Full Name </label>
             <input
-              onChange={e => setVendorName(e.target.value)}
+              onChange={(e) => setVendorName(e.target.value)}
               value={VendorName}
               type="text"
               placeholder="Full Name"
@@ -107,7 +107,7 @@ const CreateVendor = props => {
           <InputField>
             <label>Biography </label>
             <textarea
-              onChange={e => setVendorDescription(e.target.value)}
+              onChange={(e) => setVendorDescription(e.target.value)}
               value={VendorDescription}
               type="text"
               placeholder="A description of your new Vendor"
@@ -120,14 +120,14 @@ const CreateVendor = props => {
               placeholder="Email Address"
               type="email"
               value={Email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </InputField>
 
           <InputField>
             <label> Mobile Number </label>
             <input
-              onChange={e => setMobileNo(e.target.value)}
+              onChange={(e) => setMobileNo(e.target.value)}
               value={MobileNo}
               type="number"
               placeholder="+234-XXXX-XXXX"
