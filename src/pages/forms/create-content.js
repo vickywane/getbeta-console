@@ -23,10 +23,10 @@ const Image = styled.img`
 const CreateContent = props => {
   const { createContent, isCreatingContent } = props.ContentStore
 
-  const [ContentName, setContentName] = useState('')
-  const [ContentDescription, setContentDescription] = useState('')
-  const [ContentPrice, setContentPrice] = useState('')
-  const [ContentType, setContentType] = useState('')
+  const [ContentName, setContentName] = useState('Teaching engineering to teenagers')
+  const [ContentDescription, setContentDescription] = useState('An article on programming')
+  const [ContentPrice, setContentPrice] = useState('$120')
+  const [ContentType, setContentType] = useState('Article')
   const [contentImage, setContentImage] = useState(null)
   const [contentImageName, setContentImageName] = useState(null)
 
@@ -168,7 +168,11 @@ const CreateContent = props => {
                     color: ContentName.length < 5 && '#0072ce'
                   }}
                   disabled={ContentName.length < 5}
-                  onClick={() => handleSubmit()}
+                  onClick={e => {
+                    e.preventDefault()
+
+                    handleSubmit()
+                  }}
                 >
                   Submit Content{' '}
                 </Button>

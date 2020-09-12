@@ -12,6 +12,10 @@ export { default as Ticket } from './tickets/ticket'
 export { default as Console } from './console'
 export { default as CreateSession } from './content/sessions/create-session-card'
 export { default as Contents } from './content/content/contentList'
+export { default as EditContent } from './content/content/editContent'
+export { default as EditCourse } from './content/courses/editCourse'
 
 export { default as CreateCourse } from './forms/create-course'
+
+export { default as CreateVendor } from './vendors/createVendor'
 export { default as CreateContent } from './forms/create-content'

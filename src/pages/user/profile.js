@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import { Link } from '@reach/router'
 import UpdateProfile from './updateProfile'
 import TestImage from '../../assets/images/img.jpg'
 import { Text, Title, Input, InputBody, Hover, Button } from '../../styles/style'
 import ModalWrapper from '../../components/modals/modalWrapper'
-import { FiEdit, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
+import { FiPlus, FiEdit, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
 
 const Image = styled.img`
   height: 140px;
@@ -105,7 +106,14 @@ const Profile = props => {
           </div>
 
           <br />
-          <br />
+          <div>
+            <Link to="/create-vendor" style={{ textDecoration: 'none' }}>
+              <div style={{ display: 'flex' }}>
+                <FiPlus style={{ fontSize: '1.6rem' }} />
+                <Text style={{ margin: '0 0.5rem' }}> Setup Vendor Account </Text>{' '}
+              </div>
+            </Link>
+          </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={() => setModal(true)}> Edit Profile </Button>

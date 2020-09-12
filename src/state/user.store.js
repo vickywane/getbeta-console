@@ -65,7 +65,7 @@ class UserStore {
     })
       .then(res => {
         const { _id, email, username, token } = res.data
-
+        console.log(token, res.data)
         localStorage.setItem('token', token)
         localStorage.setItem('userId', _id)
         this.userDetail = {

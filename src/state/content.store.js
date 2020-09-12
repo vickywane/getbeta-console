@@ -26,11 +26,12 @@ class ContentStore {
     return resData
   }
 
-  createContent = (contentName, contentDescription, contentPrice, contentType) => {
+  createContent = (contentName, contentDescription, contentPrice, contentType, contentImage) => {
     this.isCreatingContent = true
-
+    //console.log(token)
     Axios.post(
       `${Article_ENDPOINT}/${id}/addContent`,
+      //  contentImage,
       {
         method: 'POST',
         data: {
@@ -40,7 +41,12 @@ class ContentStore {
           type: contentType
         }
       },
-      { headers: { 'x-auth-token': token } }
+      {
+        headers: {
+          'x-auth-token': token,
+          'Content-type': 'multipart/form-data'
+        }
+      }
     )
       .then(res => {
         // append `res` to contents for local updating of the content like `apollo ui optimistic Update`

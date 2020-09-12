@@ -10,6 +10,12 @@
     /* chrome、firefox */ url('./styles/183e806217ba3fa460e97b3a0fcb7b48.woff') format('woff'); /* chrome、firefox */
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./styles/07689d4eaaa3d530d58826b5d7f84735.woff2') format('woff2'),
+    url('./styles/07689d4eaaa3d530d58826b5d7f84735.woff') format('woff');
+}
+
 /*contains some extra temporary styles*/
 /*currently having a hard time using styled-components correct with R-T-G ClassNames*/
 

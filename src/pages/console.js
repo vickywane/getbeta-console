@@ -8,8 +8,11 @@ import {
   Contents,
   Bookings,
   Ticket,
+  CreateVendor,
   Preferences,
   Sessions,
+  EditContent,
+  EditCourse,
   CreateCourse,
   CreateContent,
   MyContent,
@@ -27,7 +30,7 @@ const Grid = styled.div`
 `
 
 const Console = props => {
-  const { ContentStore, CourseStore, UserStore } = props
+  const { VendorStore, ContentStore, CourseStore, UserStore } = props
 
   return (
     <Grid>
@@ -35,10 +38,13 @@ const Console = props => {
 
       <div style={{ width: '100%' }}>
         <Router>
+          <EditCourse CourseStore={CourseStore} path="/edit-course" />
+          <EditContent ContentStore={ContentStore} path="/edit-content" />
           <Home UserStore={UserStore} default />
           <Bookings path="/booking" />
           <Preferences path="/preference" />
           <Sessions path="/sessions" />
+          <CreateVendor path="/create-vendor" VendorStore={VendorStore} UserStore={UserStore} />
           <Courselist CourseStore={CourseStore} path="/courses" />
           <CoursePage CourseStore={CourseStore} path="/courses/course/:id" />
           <Ticket path="/ticket" />
@@ -52,4 +58,4 @@ const Console = props => {
   )
 }
 
-export default inject('CourseStore', 'ContentStore', 'UserStore')(observer(Console))
+export default inject('VendorStore', 'CourseStore', 'ContentStore', 'UserStore')(observer(Console))
