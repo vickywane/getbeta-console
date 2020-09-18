@@ -1,12 +1,15 @@
 import Axios from 'axios'
 import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
+import { observer } from 'mobx-react'
 
-const COURSE_ENDPOINT = `${process.env.REACT_APP_API_URL}/courses`
+const COURSE_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
 const token = localStorage.getItem('token')
 
 class CourseStore {
-  courses = []
+  courses = [] // multiple courses
+  course = [] // single course
+  isLoading = false
 
   fetchCourse = id => {}
 
@@ -41,13 +44,49 @@ class CourseStore {
       .then(res => console.log(res))
       .catch(e => console.log(e))
   }
+
+  getMyCourses = () => {
+    const id = localStorage.getItem('userId')
+    const token = localStorage.getItem('token')
+
+    Axios.get(`${COURSE_ENDPOINT}/${id}/courses`, { headers: { 'x-auth-token': token } })
+      .then(res => {
+        this.courses = res.data.courses
+      })
+      .catch(e => console.log(e))
+  }
+
+  getMyCourse = id => {
+    this.isLoading = true
+    const userId = localStorage.getItem('userId')
+    const token = localStorage.getItem('token')
+
+    Axios.get(`${COURSE_ENDPOINT}/${userId}/courses/${id}`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(res => {
+        this.isLoading = false
+        this.course = res.data.course
+      })
+      .catch(e => {
+        this.isLoading = false
+
+        console.log(e)
+      })
+  }
 }
 
 const DecoratedCourseStore = decorate(CourseStore, {
   //observables
   courses: observable,
+  course: observable,
+  isLoading: observable,
 
   //actions
+  getMyCourses: action,
+  getMyCourse: action,
   fetchCourse: action,
   createCourse: action,
   fetchCourses: action

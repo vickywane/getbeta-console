@@ -1,7 +1,7 @@
 import { action, observable, decorate } from 'mobx'
 import Axios from 'axios'
 
-const VendorEndpoint = process.emv.REACT_APP_ENDPOINT
+const VendorEndpoint = process.env.REACT_APP_API_URL
 const token = localStorage.getItem('token')
 
 class VendorStore {

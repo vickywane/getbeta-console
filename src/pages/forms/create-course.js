@@ -25,10 +25,10 @@ const Image = styled.img`
 const CreateCourse = props => {
   const { createCourse } = props.CourseStore
 
-  const [courseName, setCourseName] = useState('')
-  const [courseDescription, setCourseDescription] = useState('')
-  const [coursePrice, setCoursePrice] = useState('')
-  const [courseDuration, setCourseDuration] = useState('')
+  const [courseName, setCourseName] = useState('Crazy men course')
+  const [courseDescription, setCourseDescription] = useState('A course for crazy people here')
+  const [coursePrice, setCoursePrice] = useState('$150')
+  const [courseDuration, setCourseDuration] = useState('2 hours')
   const [courseImage, setcourseImage] = useState('')
   const [courseImageName, setcourseImageName] = useState(null)
 

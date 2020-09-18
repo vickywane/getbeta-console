@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
+export const Dot = styled.div`
+  height: 12px;
+  margin: 0.4rem 0.5rem;
+  width: 12px;
+  border-radius: 50%;
+  background-color: #0072ce;
+`
+
 export const CreateCourseInputField = styled.div`
   display: flex;
   flex-direction: column;
@@ -74,17 +82,18 @@ export const InputBody = styled.div`
   label {
   }
   input {
-    font-size: 0.9rem;
+    font-size: 1rem;
     height: 55px;
-    background: #fbfbfb;
+    color: #000;
+    background: #b0cfea;
     padding: 0.6rem 1rem;
     border: 1.5px solid #0072ce;
     border-radius: 3px;
     width: 30rem;
   }
   textarea {
-    background: #fbfbfb;
-    font-size: 0.9rem;
+    background: #b0cfea;
+    font-size: 1rem;
     height: 10vh;
     padding: 0.6rem 1rem;
     border: 1px solid #0072ce;
@@ -118,6 +127,9 @@ export const MdTitle = styled.h3`
     font-family : Montserrat-Medium;
     color: ${props => props.color}
     font-size: ${props => (props.small ? '1.5rem' : null)};
+    ${media.lessThan('medium')`
+      font-size : 1.3rem;
+    `};
 `
 
 export const Text = styled.p`
@@ -133,18 +145,19 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 50px;
   background: #0072ce;
   padding: 0.5rem 2rem;
   text-align: center;
+  font-size: 1rem;
   border-radius: 5px;
   color: #fff;
   ${media.lessThan('large')`
      padding: 0.3rem 1.2rem;
-     font-size : 1.1rem;
+     font-size : 1rem;
   `};
   ${media.lessThan('small')`
-  padding: 0.3rem 1rem;
-  font-size : 1rem;
+    padding: 0.3rem 1rem;
 `};
 `
 

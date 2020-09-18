@@ -106,7 +106,7 @@ const Login = props => {
               <Hover style={{ margin: '0 1rem' }}>
                 <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
               </Hover>
-              <Text style={{ fontWeight: 600 }}> Username or Password Invalid </Text>
+              <Text style={{ fontWeight: 600 }}> fullname or Password Invalid </Text>
             </div>
           </LoginError>
 

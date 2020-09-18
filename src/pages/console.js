@@ -9,15 +9,16 @@ import {
   Bookings,
   Ticket,
   CreateVendor,
+  AccountPlans,
   Preferences,
   Sessions,
   EditContent,
   EditCourse,
+  UpdateProfilePage,
   CreateCourse,
+  Analytics,
   CreateContent,
-  MyContent,
-  MyCourses,
-  Mybookings,
+  Upgrade,
   CoursePage,
   Courselist,
   CreateSession
@@ -30,7 +31,7 @@ const Grid = styled.div`
 `
 
 const Console = props => {
-  const { VendorStore, ContentStore, CourseStore, UserStore } = props
+  const { ContentStore, CourseStore, UserStore } = props
 
   return (
     <Grid>
@@ -38,13 +39,16 @@ const Console = props => {
 
       <div style={{ width: '100%' }}>
         <Router>
+          <Analytics path="/analytics" UserStore={UserStore} />
+          <AccountPlans path="/subscriptions" UserStore={UserStore} />
+          <Upgrade path="/upgrade" UserStore={UserStore} />
           <EditCourse CourseStore={CourseStore} path="/edit-course" />
           <EditContent ContentStore={ContentStore} path="/edit-content" />
           <Home UserStore={UserStore} default />
           <Bookings path="/booking" />
           <Preferences path="/preference" />
           <Sessions path="/sessions" />
-          <CreateVendor path="/create-vendor" VendorStore={VendorStore} UserStore={UserStore} />
+          <CreateVendor path="/upgrade" UserStore={UserStore} />
           <Courselist CourseStore={CourseStore} path="/courses" />
           <CoursePage CourseStore={CourseStore} path="/courses/course/:id" />
           <Ticket path="/ticket" />
@@ -52,6 +56,7 @@ const Console = props => {
           <Contents ContentStore={ContentStore} path="/contents" />
           <CreateContent ContentStore={ContentStore} path="/create-content" />
           <CreateCourse CourseStore={CourseStore} path="/create-course" />
+          <UpdateProfilePage UserStore={UserStore} path="/update-profile" />
         </Router>
       </div>
     </Grid>

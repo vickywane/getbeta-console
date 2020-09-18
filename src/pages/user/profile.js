@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import UpdateProfile from './updateProfile'
 import TestImage from '../../assets/images/img.jpg'
-import { Text, Title, Input, InputBody, Hover, Button } from '../../styles/style'
+import { Text, Title, MdTitle, Input, InputBody, Hover, Button } from '../../styles/style'
 import ModalWrapper from '../../components/modals/modalWrapper'
 import { FiPlus, FiEdit, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
 
@@ -31,12 +31,6 @@ const center = {
   flexDirection: 'column'
 }
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 40% 60%;
-  grid-gap: 2rem 2rem;
-`
-
 const DeleteButton = styled(Button)`
   background: #ff6347;
   border: 1px solid #ff6347;
@@ -61,7 +55,7 @@ const StyledHover = styled(Hover)`
 
 const Profile = props => {
   const { UserStore } = props
-
+  const { name, email, bio } = UserStore.userDetail
   const [profilePane, setProfilePane] = useState(true)
   const [showModal, setModal] = useState(false)
 
@@ -83,17 +77,20 @@ const Profile = props => {
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex' }}>
-              <Image onClick={() => setModal(true)} alt="user" src={TestImage} />
+              <Image onClick={() => navigate('/update-profile', {})} alt="user" src={TestImage} />
 
               <div
                 style={{
-                  marginLeft: '3rem',
+                  marginLeft: '2rem',
                   ...center
                 }}
               >
                 <div>
-                  <h4 style={{ fontSize: 'normal' }}> {UserStore.userDetail.name} </h4>
-                  <Text style={{ textAlign: 'center' }}> {UserStore.userDetail.email} </Text>
+                  <MdTitle align="center"> {name} </MdTitle>
+                  <Text align="center" style={{ textAlign: 'center' }}>
+                    {' '}
+                    {email}{' '}
+                  </Text>
                 </div>
               </div>
             </div>
@@ -107,16 +104,16 @@ const Profile = props => {
 
           <br />
           <div>
-            <Link to="/create-vendor" style={{ textDecoration: 'none' }}>
+            <Link to="/subscriptions" style={{ textDecoration: 'none' }}>
               <div style={{ display: 'flex' }}>
                 <FiPlus style={{ fontSize: '1.6rem' }} />
-                <Text style={{ margin: '0 0.5rem' }}> Setup Vendor Account </Text>{' '}
+                <Text style={{ margin: '0 0.5rem' }}> Manage Account Plan </Text>{' '}
               </div>
             </Link>
           </div>
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button onClick={() => setModal(true)}> Edit Profile </Button>
+            <Button onClick={() => navigate('/update-profile', {})}> Edit Profile </Button>
 
             <Hover onClick={() => setProfilePane(!profilePane)}>
               <FiChevronsUp style={{ fontSize: '2.2rem' }} />

@@ -1,20 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { FiSearch, FiPlus } from 'react-icons/fi'
-import { Link } from '@reach/router'
+import { navigate, Link } from '@reach/router'
+import { observer, inject } from 'mobx-react'
+import { toJS } from 'mobx'
+import { Planet } from 'react-kawaii'
 
+import { Spinner } from 'react-bootstrap'
 import useWindowWidth from '../../utils/hook_style'
 import { CONTENT_DATA } from '../../mockData'
-import {
-  Text,
-  Title,
-  Section,
-  HomeList,
-  Hover,
-  Searchbox,
-  center,
-  Button
-} from '../../styles/style'
+import { Text, Title, Section, HomeList, Hover, Searchbox, center } from '../../styles/style'
 import media from 'styled-media-query'
 
 const Body = styled.div`
@@ -67,8 +62,14 @@ display : none;
 `
 
 const MyContent = props => {
-  const { UserStore } = props
+  const { getUserContents, contents } = props.ContentStore
+
   const Width = useWindowWidth()
+  useEffect(() => {
+    getUserContents()
+  }, [])
+
+  let userContents = toJS(contents)
 
   return (
     <Body>
@@ -104,28 +105,55 @@ const MyContent = props => {
         </div>
         <hr />
         <br />
+
         <HomeList>
-          {CONTENT_DATA.map(({ id, name }) => {
-            return (
-              <li key={id}>
-                <ContentContainer>
-                  <ContentImage />
-
-                  <Link style={{ textDecoration: 'none' }} to="/">
-                    <Text> {name} </Text>
+          {userContents.length === 0 ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div>
+                <Planet color="#0072ce" mood="sad" size="sm" />
+                <div>
+                  <br />
+                  <Text> You currently do not have any created content. </Text>
+                  <Link to="/create-content">
+                    <Text align="center"> Create Content</Text>
                   </Link>
+                </div>
+              </div>
+            </div>
+          ) : userContents.length > 1 ? (
+            <Spinner variant="primary" animation="grow" role="loading" />
+          ) : (
+            userContents.map(({ _id, descrp, price, type, vendorId, title }) => {
+              return (
+                <li key={_id}>
+                  <ContentContainer>
+                    <ContentImage />
 
-                  <Date>
-                    <Text> 12 - 12 - 12 </Text>
-                  </Date>
-                </ContentContainer>
-              </li>
-            )
-          })}
+                    <Text
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        navigate('/edit-content', {
+                          state: {
+                            contentId: _id
+                          }
+                        })
+                      }}
+                    >
+                      {title}
+                    </Text>
+
+                    <Date>
+                      <Text> 12 - 12 - 12 </Text>
+                    </Date>
+                  </ContentContainer>
+                </li>
+              )
+            })
+          )}
         </HomeList>
       </Section>
     </Body>
   )
 }
 
-export default MyContent
+export default inject('ContentStore')(observer(MyContent))

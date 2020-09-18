@@ -7,7 +7,8 @@ const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
 class ContentStore {
-  // contents = []
+  contents = [] // all contents
+  content = [] // single content
   isCreatingContent = false
   isLoadingContents = false
 
@@ -28,28 +29,23 @@ class ContentStore {
 
   createContent = (contentName, contentDescription, contentPrice, contentType, contentImage) => {
     this.isCreatingContent = true
-    //console.log(token)
     Axios.post(
       `${Article_ENDPOINT}/${id}/addContent`,
       //  contentImage,
       {
-        method: 'POST',
-        data: {
-          title: contentName,
-          descrp: contentDescription,
-          price: contentPrice,
-          type: contentType
-        }
+        title: contentName,
+        descrp: contentDescription,
+        price: contentPrice,
+        type: contentType
       },
       {
         headers: {
-          'x-auth-token': token,
-          'Content-type': 'multipart/form-data'
+          'x-auth-token': token
+          // 'Content-type': 'multipart/form-data'
         }
       }
     )
       .then(res => {
-        // append `res` to contents for local updating of the content like `apollo ui optimistic Update`
         this.isCreatingContent = false
         navigate('/contents')
       })
@@ -58,17 +54,47 @@ class ContentStore {
 
   updateContent = (id, newData) => {}
 
+  getUserContents = () => {
+    Axios.get(`${Article_ENDPOINT}/${id}/contents/find`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(res => {
+        this.contents = res.data.contents
+      })
+      .catch(e => console.log(e))
+  }
+
+  getContent = contentId => {
+    Axios.get(`${Article_ENDPOINT}/${id}/${contentId}/find`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(res => {
+        this.content = res.data.content
+        // console.log(res.data.content , "conetn")
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
+
   deleteContent = id => {}
 }
 
 const DecoratedContentStore = decorate(ContentStore, {
   //observables
   contents: observable,
+  content: observable,
   isCreatingContent: observable,
   isLoadingContents: observable,
 
   //actions
+  getContent: action,
   fetchContents: action,
+  getUserContents: action,
   createContent: action,
   updateContent: action,
   deleteContent: action

@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
 
 import { USER_STATS } from '../../mockData'
 import { Text, Title, Section } from '../../styles/style'
@@ -59,6 +61,11 @@ const Grid = styled.div`
 const Home = props => {
   const { UserStore } = props
   const Width = useWindowWidth()
+  const { getUserDetail, userDetail } = UserStore
+
+  useEffect(() => {
+    getUserDetail()
+  }, [])
 
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
@@ -99,4 +106,4 @@ const Home = props => {
   )
 }
 
-export default Home
+export default observer(Home)

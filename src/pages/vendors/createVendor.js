@@ -22,19 +22,18 @@ const Image = styled.img`
   height: 200px;
 `
 
-const CreateVendor = props => {
-  const { upgradeToVendor } = props.VendorStore
+const UpgradeAccount = props => {
+  const {} = props
 
   const [VendorName, setVendorName] = useState('')
   const [VendorDescription, setVendorDescription] = useState('')
   const [MobileNo, setMobileNo] = useState('')
-  const [VendorDuration, setVendorDuration] = useState('')
   const [VendorImage, setVendorImage] = useState('')
   const [VendorImageName, setVendorImageName] = useState(null)
   const [Email, setEmail] = useState('')
 
   const handleSubmit = () => {
-    upgradeToVendor(VendorName, VendorDescription, MobileNo, VendorDuration, VendorImage)
+    //upgradeToVendor(VendorName, VendorDescription, MobileNo, VendorDuration, VendorImage)
   }
 
   const onDrop = useCallback(([file]) => {
@@ -152,4 +151,4 @@ const CreateVendor = props => {
   )
 }
 
-export default CreateVendor
+export default UpgradeAccount

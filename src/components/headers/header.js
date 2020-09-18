@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FiHome, FiSearch, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { Link, navigate } from '@reach/router'
+import useWindowWidth from '../../utils/hook_style'
+import MobileSidebar from '../../navigation/mobile-sidebar'
+import Notification from '../../navigation/mobile-sidebar-contents'
+import media from 'styled-media-query'
 
 import { SmallUserImage, Title, Hover, StyledHover, center } from '../../styles/style'
 
@@ -30,8 +34,25 @@ const Icon = styled.div`
   }
 `
 
+const MenuIconBody = styled.div`
+  display: none;
+  ${media.lessThan('medium')`
+    display : flex;
+  `};
+`
+
+const LargeIconSidebar = styled.div`
+  display: flex;
+  ${media.lessThan('medium')`
+  display : none;
+`};
+`
+
 const Header = props => {
+  const Width = useWindowWidth()
   const { screen, goBack, backgroundColor } = props
+  const [openMobileSidebar, setMobileSidebar] = useState(false)
+
   return (
     <Body
       style={{
@@ -39,19 +60,31 @@ const Header = props => {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {goBack ? (
-          <div style={{ ...center }}>
-            <StyledHover style={{ padding: '0.4rem 0.4rem' }} onClick={() => navigate(-1)}>
-              <FiArrowLeft style={{ fontSize: '1.8rem' }} />
-            </StyledHover>
-          </div>
-        ) : (
-          <Link to="/">
-            <Icon>
-              <FiHome style={{ fontSize: '1.8rem' }} />
-            </Icon>
-          </Link>
-        )}
+        <LargeIconSidebar>
+          {goBack ? (
+            <div style={{ ...center }}>
+              <StyledHover style={{ padding: '0.4rem 0.4rem' }} onClick={() => navigate(-1)}>
+                <FiArrowLeft style={{ fontSize: '1.8rem' }} />
+              </StyledHover>
+            </div>
+          ) : (
+            <Link to="/">
+              <Icon>
+                <FiHome style={{ fontSize: '1.8rem' }} />
+              </Icon>
+            </Link>
+          )}
+        </LargeIconSidebar>
+
+        <MenuIconBody>
+          <MobileSidebar
+            type="Burger"
+            open={openMobileSidebar}
+            setOpen={setMobileSidebar}
+            aria-controls={'main-menu'}
+          />
+          <Notification open={openMobileSidebar} setOpen={setMobileSidebar} id={'main-menu'} />
+        </MenuIconBody>
 
         {screen && (
           <div style={{ ...center }}>

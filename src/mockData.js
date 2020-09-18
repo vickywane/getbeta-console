@@ -1,3 +1,95 @@
+export const SubscriptionPlans = [
+  {
+    id: 1,
+    name: 'Starter',
+    price: '$10',
+    features: [
+      'Single User Account',
+      'Online Content',
+      'Create and Market Courses',
+      'Create and Schedule Meetings'
+    ]
+  },
+  {
+    id: 2,
+    name: 'Professional',
+    price: '$15',
+    features: [
+      '3 Sarter Accounts',
+      'Online Content',
+      'Sell Courses',
+      'Create Meetings Team',
+      'Team Collaborations',
+      'Analytics and Reports'
+    ]
+  },
+  {
+    id: 3,
+    price: '$20',
+    name: 'Advanced',
+    features: [
+      'Multiple Starter Accounts',
+      'Online Content',
+      'Sell Courses',
+      'Live Meetings Team',
+      'Team Collaborations',
+      '3rd Party App Integrations',
+      'Analytics and Reports'
+    ]
+  }
+]
+
+export const UserAnalytics = [
+  {
+    financials: [
+      {
+        id: 1,
+        name: 'Financials',
+
+        Annual: '$120',
+        Monthly: '$120',
+        Weekly: '$120'
+      }
+    ],
+    content: [
+      {
+        id: 2,
+        name: 'Content',
+        Free: 30,
+        paid: 30,
+        views: 3000
+      }
+    ],
+    courses: [
+      {
+        id: 1,
+        name: 'Courses',
+
+        free: 0,
+        paid: 30,
+        enrollment: 3000
+      }
+    ],
+    bookings: [
+      {
+        id: 4,
+        name: 'Bookings',
+
+        physical: 20,
+        virtual: 20
+      }
+    ],
+    live: [
+      {
+        id: 5,
+        name: 'Live',
+        free: 30,
+        paid: 30
+      }
+    ]
+  }
+]
+
 export const CourseCardsData = [
   {
     id: 1,

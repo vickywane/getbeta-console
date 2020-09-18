@@ -87,34 +87,45 @@ const CreateContent = props => {
                   isDragReject
                 })}
               >
+                <input {...getInputProps()} />
+
                 <Image src={require('../../assets/images/image-icon.png')} />
                 {isDragActive && <Text align="center"> Drop Image here </Text>}
               </div>
 
-              <div style={{ ...center }}>
-                {!contentImageName ? (
-                  <StyledHover
-                    {...getRootProps({
-                      isDragActive,
-                      isDragAccept,
-                      isDragReject
-                    })}
-                    style={{ display: 'flex' }}
-                  >
-                    <input {...getInputProps()} />
-                    <Hover style={{ margin: '0 0.7rem', ...center }}>
-                      <FiUploadCloud style={{ fontSize: '1.8rem' }} />
-                    </Hover>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  flexDirection: 'column'
+                }}
+              >
+                .
+                <div style={{ ...center, marginBottom: '2rem' }}>
+                  {!contentImageName ? (
+                    <StyledHover
+                      {...getRootProps({
+                        isDragActive,
+                        isDragAccept,
+                        isDragReject
+                      })}
+                      style={{ display: 'flex' }}
+                    >
+                      <input {...getInputProps()} />
+                      <Hover style={{ margin: '0 0.7rem', ...center }}>
+                        <FiUploadCloud style={{ fontSize: '1.8rem' }} />
+                      </Hover>
 
-                    <div style={{ paddingTop: '10px' }}>
-                      <Text small style={{ fontWeight: 600 }}>
-                        Upload Content Image{' '}
-                      </Text>
-                    </div>
-                  </StyledHover>
-                ) : (
-                  <Text> {contentImageName} </Text>
-                )}
+                      <div style={{ paddingTop: '10px' }}>
+                        <Text small style={{ fontWeight: 600 }}>
+                          Upload Content Image{' '}
+                        </Text>
+                      </div>
+                    </StyledHover>
+                  ) : (
+                    <Text> {contentImageName} </Text>
+                  )}
+                </div>
               </div>
             </div>
             <hr />

@@ -37,6 +37,7 @@ const InputBody = styled.div`
     font-weight: 600;
   }
   input {
+    background: #fbfbfb;
     padding: 0.6rem 1rem;
     border: 1px solid #c0c0c0;
     border-radius: 1px;

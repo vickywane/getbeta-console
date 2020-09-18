@@ -1,16 +1,19 @@
 import Axios from 'axios'
-import { action, observable, decorate, computed } from 'mobx'
+import { action, observable, decorate } from 'mobx'
 import { create, persist } from 'mobx-persist'
 import { navigate } from '@reach/router'
 
-const AUTH_ENDPOINT = `${process.env.REACT_APP_API_URL}/users`
+const AUTH_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
+const id = localStorage.getItem('userId')
+const token = localStorage.getItem('token')
 
 class UserStore {
   @persist @observable isAuthenticated = true
   isLoading = false
   hasLoginError = false
 
-  @persist @observable userDetail = {
+  // might remove this
+  userDetail = {
     name: '',
     email: ''
   }
@@ -19,6 +22,49 @@ class UserStore {
     localStorage.clear()
 
     navigate('/login')
+  }
+
+  updateUser = (userName, userEmail, Bio, Number, Occupation, Education) => {
+    Axios.put(
+      `${AUTH_ENDPOINT}/${id}`,
+      {
+        fullname: userName,
+        bio: Bio,
+        cell_no: Number,
+        email: userEmail,
+        hle: Education,
+        occupation: Occupation
+      },
+      {
+        headers: { 'x-auth-token': token }
+      }
+    )
+      .then(res => {
+        const { fullname, email } = res.data
+        //runInAction(() => {
+        console.log(fullname, email)
+
+        this.userDetail = {
+          name: fullname,
+          email: email
+        }
+      })
+      .catch(e => console.log(e))
+  }
+
+  //@action
+  getUserDetail = () => {
+    Axios.get(`${AUTH_ENDPOINT}/${id}`, {
+      headers: { 'x-auth-token': token }
+    })
+      .then(res => {
+        const { fullname, email } = res.data.vendor
+        this.userDetail = {
+          name: fullname,
+          email: email
+        }
+      })
+      .catch(e => console.log(e))
   }
 
   authUser = (email, password) => {
@@ -39,7 +85,7 @@ class UserStore {
         localStorage.setItem('userId', user.id)
 
         this.userDetail = {
-          name: user.username,
+          name: user.fullname,
           email: user.email
         }
 
@@ -53,23 +99,20 @@ class UserStore {
       })
   }
 
-  createAccount = (username, email, password, confirmPassword) => {
+  createAccount = (fullname, email, password, confirmPassword) => {
     Axios.post(`${AUTH_ENDPOINT}/register`, {
-      method: 'POST',
-      data: {
-        username: username,
-        email: email,
-        password: password,
-        passwordCheck: confirmPassword
-      }
+      fullname: fullname,
+      email: email,
+      password: password,
+      passwordCheck: confirmPassword
     })
       .then(res => {
-        const { _id, email, username, token } = res.data
-        console.log(token, res.data)
-        localStorage.setItem('token', token)
+        const { _id, email, fullname } = res.data.savedUser
+        console.log(res, 'response')
+        localStorage.setItem('token', res.data.token)
         localStorage.setItem('userId', _id)
         this.userDetail = {
-          name: username,
+          name: fullname,
           email: email
         }
         navigate('console/*')
@@ -78,8 +121,7 @@ class UserStore {
   }
 
   deleteAccount = () => {
-    Axios.delete(`${AUTH_ENDPOINT}/delete`, {
-      method: 'POST',
+    Axios.delete(`${AUTH_ENDPOINT}/${id}`, {
       data: {
         id: localStorage.getItem('userId')
       },
@@ -104,12 +146,6 @@ class UserStore {
       .then(() => {})
       .catch(e => console.log())
   }
-
-  getUserContents = () => {
-    Axios.get(``)
-      .then(() => {})
-      .catch(e => console.log())
-  }
 }
 
 const DecoratedUserStore = decorate(UserStore, {
@@ -117,15 +153,17 @@ const DecoratedUserStore = decorate(UserStore, {
   isLoading: observable,
   errorMessage: observable,
   hasLoginError: observable,
+  userDetail: observable,
 
   //actions
+  getUserDetail: action,
   authUser: action,
   deleteAccount: action,
   createAccount: action,
   logOut: action,
+  updateUser: action,
 
   getUserBooking: action,
-  getUserContents: action,
   getUserCourses: action
 })
 
@@ -140,4 +178,5 @@ hydrate('user-store', store)
   .then(() => {
     console.log('user-store has heen hydrated')
   })
+  .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))
   .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))

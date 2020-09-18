@@ -9,15 +9,16 @@ import {
   FiGrid,
   FiSettings,
   FiMenu,
+  FiBarChart,
   FiChevronsLeft
 } from 'react-icons/fi'
 import { IoIosList } from 'react-icons/io'
 import useWindowWith from '../utils/hook_style'
 import media from 'styled-media-query'
 
-import { Hover, Text, Title } from '../styles/style'
+import { Hover, Text, Title, center } from '../styles/style'
 
-const Items = styled.ul`
+export const Items = styled.ul`
   margin: 0;
   padding : 0;
   width : 100%;
@@ -30,7 +31,7 @@ const Items = styled.ul`
   }
 `
 
-const Item = styled.li`
+export const Item = styled.li`
   padding: 0.5rem 1.5rem;
   margin: 1.5rem 0;
   display: flex;
@@ -83,27 +84,6 @@ const SidebarBody = styled(Body)`
     display  : none;
   `};
 `
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItemss: 'center'
-}
-
-const MenuIcon = styled(FiMenu)`
-  font-size: 2rem;
-  position: absolute;
-  color: #0072ce;
-  display: none;
-  margin: 0.8rem;
-  &: hover {
-    cursor: pointer;
-  }
-  ${media.lessThan('medium')`
-    display : flex;
-  `};
-`
-
 const Sidebar = props => {
   const location = useLocation()
   const Width = useWindowWith()
@@ -164,13 +144,18 @@ const Sidebar = props => {
       routeName: 'preference',
       icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
       to: '/preference'
+    },
+    {
+      id: 7,
+      name: 'Analytics',
+      routeName: 'analytics',
+      icon: <FiBarChart style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      to: '/analytics'
     }
   ]
 
   return (
     <div>
-      <MenuIcon />
-
       <SidebarBody
         isClosed={isClosed}
         style={{
@@ -213,14 +198,14 @@ const Sidebar = props => {
               <Link key={id} to={`${to}/`}>
                 <Item active={currentRoute === routeName}>
                   <div style={{ ...center }}>
-                    <Hover style={{ marginRight: '0.5rem' }}>{icon}</Hover>
+                    <Hover style={{ marginRight: '1rem' }}>{icon}</Hover>
                   </div>
 
                   {!isClosed && (
                     <div style={{ ...center }}>
                       <Text
                         style={{
-                          paddingTop: '2px',
+                          paddingTop: '5px',
                           fontWeight: currentRoute === routeName && 600
                         }}
                       >

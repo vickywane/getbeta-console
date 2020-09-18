@@ -17,5 +17,10 @@ export { default as EditCourse } from './content/courses/editCourse'
 
 export { default as CreateCourse } from './forms/create-course'
 
+export { default as AccountPlans } from './user/account-plans'
+export { default as Analytics } from './user/analytics'
+export { default as Upgrade } from './user/upgrade'
+export { default as UpdateProfilePage } from './user/updateProfile'
+
 export { default as CreateVendor } from './vendors/createVendor'
 export { default as CreateContent } from './forms/create-content'
