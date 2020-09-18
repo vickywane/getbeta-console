@@ -11,6 +11,7 @@ class UserStore {
   @persist @observable isAuthenticated = true
   isLoading = false
   hasLoginError = false
+  users = []
 
   // might remove this
   userDetail = {
@@ -135,15 +136,11 @@ class UserStore {
       .catch(e => console.log(`Error occured : ${e}`))
   }
 
-  getUserCourses = () => {
-    Axios.get(``)
-      .then(() => {})
-      .catch(e => console.log())
-  }
-
-  getUserBookings = () => {
-    Axios.get(``)
-      .then(() => {})
+  getUsers = () => {
+    Axios.get(`${AUTH_ENDPOINT}`)
+      .then(res => {
+        this.users = res.data.vendors
+      })
       .catch(e => console.log())
   }
 }
@@ -154,6 +151,7 @@ const DecoratedUserStore = decorate(UserStore, {
   errorMessage: observable,
   hasLoginError: observable,
   userDetail: observable,
+  users: observable,
 
   //actions
   getUserDetail: action,
@@ -162,9 +160,7 @@ const DecoratedUserStore = decorate(UserStore, {
   createAccount: action,
   logOut: action,
   updateUser: action,
-
-  getUserBooking: action,
-  getUserCourses: action
+  getUsers: action
 })
 
 export const store = new DecoratedUserStore()

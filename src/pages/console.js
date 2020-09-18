@@ -45,7 +45,7 @@ const Console = props => {
           <EditCourse CourseStore={CourseStore} path="/edit-course" />
           <EditContent ContentStore={ContentStore} path="/edit-content" />
           <Home UserStore={UserStore} default />
-          <Bookings path="/booking" />
+          <Bookings UserStore={UserStore} path="/booking" />
           <Preferences path="/preference" />
           <Sessions path="/sessions" />
           <CreateVendor path="/upgrade" UserStore={UserStore} />
