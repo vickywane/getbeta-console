@@ -108,16 +108,14 @@ const MyContent = props => {
 
         <HomeList>
           {userContents.length === 0 ? (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ ...center }}>
               <div>
                 <Planet color="#0072ce" mood="sad" size="sm" />
-                <div>
-                  <br />
-                  <Text> You currently do not have any created content. </Text>
-                  <Link to="/create-content">
-                    <Text align="center"> Create Content</Text>
-                  </Link>
-                </div>
+                <br />
+                <Text> You currently do not have any created content. </Text>
+                <Link to="/create-content">
+                  <Text align="center"> Create Content</Text>
+                </Link>
               </div>
             </div>
           ) : userContents.length > 1 ? (

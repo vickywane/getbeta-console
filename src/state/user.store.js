@@ -117,6 +117,10 @@ class UserStore {
           email: email
         }
         navigate('console/*')
+        Axios.post(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
+          email: email,
+          type: 'welcome'
+        }).catch(e => console.log(`An error occurred from sending welcome-email : ${e}`))
       })
       .catch(e => console.log(e))
   }

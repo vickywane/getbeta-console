@@ -3,6 +3,7 @@ import Header from '../../components/headers/header'
 import styled from 'styled-components'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
+import { openPopupWidget } from 'react-calendly'
 
 import { CardGrid, Body, Text, Title, Card, Button } from '../../styles/style'
 
@@ -21,6 +22,7 @@ const Booking = props => {
   }, [])
 
   const allVendors = toJS(users)
+  const calendlyApi = process.env.REACT_APP_CALENDAR_API
 
   return (
     <div>
@@ -68,7 +70,45 @@ const Booking = props => {
                   <Text style={{ color: '#0072ce' }}> ${price} / mins </Text>
                 </div>
 
-                <Button style={{ width: '100%' }}> Book </Button>
+                <Button
+                  onClick={() => {
+                    openPopupWidget({
+                      url: 'https://calendly.com/vickywane/30min',
+                      pageSettings: {
+                        backgroundColor: '#0072ce',
+                        textColor: '#fff'
+                      },
+                      prefill: {
+                        firstName: 'Victory',
+                        email: 'Vickywane@gmail.com',
+                        lastname: 'Nwani',
+                        customAnswers: {
+                          a1: 'a1',
+                          a2: 'a2',
+                          a3: 'a3',
+                          a4: 'a4',
+                          a5: 'a5',
+                          a6: 'a6',
+                          a7: 'a7',
+                          a8: 'a8',
+                          a9: 'a9',
+                          a10: 'a10'
+                        }
+                      },
+                      utm: {
+                        utmCampaign: 'Pick a slot to book a professional on GetBeta',
+                        utmContent: 'Getbeta',
+                        utmMedium: 'Ad',
+                        utmTerm: 'Teaching'
+                      }
+                      // pageSettings, utm
+                    })
+                  }}
+                  style={{ width: '100%' }}
+                >
+                  {' '}
+                  Book{' '}
+                </Button>
               </StyledCard>
             )
           })}
