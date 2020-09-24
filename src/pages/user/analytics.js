@@ -10,10 +10,10 @@ import { UserAnalytics } from '../../mockData'
 const Card = styled.div`
   height: 20vh;
   width: 25rem;
-  border: 1px solid #c0c0c0;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 2px 3px grey;
+  background: #fff;
 `
 
 const Grid = styled.div`

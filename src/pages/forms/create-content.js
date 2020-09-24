@@ -28,7 +28,6 @@ const CreateContent = props => {
   const [ContentPrice, setContentPrice] = useState('$120')
   const [ContentType, setContentType] = useState('Article')
   const [contentImage, setContentImage] = useState(null)
-  const [contentImageName, setContentImageName] = useState(null)
 
   const handleSubmit = () => {
     createContent(ContentName, ContentDescription, ContentPrice, ContentType, contentImage)
@@ -36,7 +35,6 @@ const CreateContent = props => {
 
   const onDrop = useCallback(([file]) => {
     setContentImage(file)
-    setContentImageName(file.name)
   }, [])
 
   const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
@@ -44,27 +42,11 @@ const CreateContent = props => {
     accept: 'image/jpeg , image/jpg, image.png'
   })
 
-  const isReadyToCreate = () => {
-    if (
-      ContentName.length < 5 &&
-      !contentImage &&
-      contentImageName &&
-      ContentPrice.legnth < 1 &&
-      ContentDescription < 10
-    ) {
-      return false
-    } else {
-      return true
-    }
-  }
-
   return (
     <div>
       <Header goBack={true} screen="Create New Content " />
 
       <Body style={{ padding: '0rem 2rem' }}>
-        {/* <Title> Create New Content </Title> */}
-
         <br />
         {isCreatingContent ? (
           <div
@@ -102,7 +84,7 @@ const CreateContent = props => {
               >
                 .
                 <div style={{ ...center, marginBottom: '2rem' }}>
-                  {!contentImageName ? (
+                  {!contentImage ? (
                     <StyledHover
                       {...getRootProps({
                         isDragActive,
@@ -123,7 +105,7 @@ const CreateContent = props => {
                       </div>
                     </StyledHover>
                   ) : (
-                    <Text> {contentImageName} </Text>
+                    <Text> {contentImage.path} </Text>
                   )}
                 </div>
               </div>

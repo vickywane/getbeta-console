@@ -32,7 +32,7 @@ export const Items = styled.ul`
 `
 
 export const Item = styled.li`
-  padding: 0.5rem 1.5rem;
+  padding: 1rem 1.5rem;
   margin: 1.5rem 0;
   display: flex;
   transition: all 300ms;
@@ -205,7 +205,8 @@ const Sidebar = props => {
                     <div style={{ ...center }}>
                       <Text
                         style={{
-                          paddingTop: '5px',
+                          padding: 0,
+                          margin: 0,
                           fontWeight: currentRoute === routeName && 600
                         }}
                       >
@@ -223,7 +224,7 @@ const Sidebar = props => {
           onClick={() => props.UserStore.logOut()}
           active
           style={{
-            width: isClosed ? '5rem' : '20rem',
+            width: isClosed ? '5rem' : '16rem',
             position: 'absolute',
             bottom: 0,
             textAlign: 'center'

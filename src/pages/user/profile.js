@@ -4,8 +4,7 @@ import styled from 'styled-components'
 import { Link, navigate } from '@reach/router'
 import UpdateProfile from './updateProfile'
 import TestImage from '../../assets/images/img.jpg'
-import { Text, Title, MdTitle, Input, InputBody, Hover, Button } from '../../styles/style'
-import ModalWrapper from '../../components/modals/modalWrapper'
+import { Text, MdTitle, Hover, Button } from '../../styles/style'
 import { FiPlus, FiEdit, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
 
 const Image = styled.img`
@@ -31,16 +30,6 @@ const center = {
   flexDirection: 'column'
 }
 
-const DeleteButton = styled(Button)`
-  background: #ff6347;
-  border: 1px solid #ff6347;
-  transition: all 400ms;
-  &: hover {
-    background: red;
-    border: 1px solid red;
-  }
-`
-
 const StyledHover = styled(Hover)`
   background : #0072ce;
   border-radius : 5px;
@@ -64,16 +53,6 @@ const Profile = props => {
       {profilePane ? (
         <Body style={{ color: '#0072CE', background: 'rgba(233, 241, 251, 0.81)' }}>
           {/* EDIT PROFILE  */}
-          <ModalWrapper
-            visibility={showModal}
-            closeModal={() => setModal(false)}
-            size="xl"
-            icon={<FiEdit style={{ fontSize: '1.7rem' }} />}
-            title="Edit Profile"
-          >
-            <UpdateProfile UserStore={UserStore} />
-          </ModalWrapper>
-
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex' }}>
@@ -96,7 +75,11 @@ const Profile = props => {
             </div>
 
             <div>
-              <StyledHover onClick={() => {}}>
+              <StyledHover
+                onClick={() => {
+                  navigate('/notifications', {})
+                }}
+              >
                 <FiBell style={{ fontSize: '1.6rem' }} />
               </StyledHover>
             </div>
@@ -151,7 +134,11 @@ const Profile = props => {
 
           <div style={{ display: 'flex' }}>
             <div style={{ ...center, margin: '0 1rem' }}>
-              <StyledHover onClick={() => {}}>
+              <StyledHover
+                onClick={() => {
+                  navigate('/notifications', {})
+                }}
+              >
                 <FiBell style={{ fontSize: '1.6rem' }} />
               </StyledHover>
             </div>

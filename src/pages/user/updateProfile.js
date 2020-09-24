@@ -15,8 +15,8 @@ const UserImage = styled.div`
   object-fit: contain;
   background-position: center;
   background-size: cover;
-  width: 270px;
-  height: 270px;
+  width: 220px;
+  height: 220px;
   border-radius: 15%;
   ${media.lessThan('huge')`
   width: 250px;

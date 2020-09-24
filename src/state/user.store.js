@@ -12,6 +12,10 @@ class UserStore {
   isLoading = false
   hasLoginError = false
   users = []
+  userStats = {
+    totalCourses: 0,
+    totalContents: 0
+  }
 
   // might remove this
   userDetail = {
@@ -23,6 +27,10 @@ class UserStore {
     localStorage.clear()
 
     navigate('/login')
+  }
+
+  setLoginError = val => {
+    this.hasLoginError = val
   }
 
   updateUser = (userName, userEmail, Bio, Number, Occupation, Education) => {
@@ -41,9 +49,7 @@ class UserStore {
       }
     )
       .then(res => {
-        const { fullname, email } = res.data
-        //runInAction(() => {
-        console.log(fullname, email)
+        const { fullname, email, contents, courses } = res.data
 
         this.userDetail = {
           name: fullname,
@@ -59,7 +65,15 @@ class UserStore {
       headers: { 'x-auth-token': token }
     })
       .then(res => {
-        const { fullname, email } = res.data.vendor
+        const { fullname, email, contents, courses } = res.data.vendor
+
+        console.log(contents, 'contents')
+
+        this.userStats = {
+          totalContents: contents.length,
+          totalCourses: courses.length
+        }
+
         this.userDetail = {
           name: fullname,
           email: email
@@ -96,6 +110,7 @@ class UserStore {
       })
       .catch(e => {
         this.hasLoginError = !this.hasLoginError
+        this.isLoading = false
         console.log(`Error from login : ${e}`)
       })
   }
@@ -156,8 +171,10 @@ const DecoratedUserStore = decorate(UserStore, {
   hasLoginError: observable,
   userDetail: observable,
   users: observable,
+  userStats: observable,
 
   //actions
+  setLoginError: action,
   getUserDetail: action,
   authUser: action,
   deleteAccount: action,

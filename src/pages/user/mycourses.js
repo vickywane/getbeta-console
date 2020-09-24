@@ -115,7 +115,9 @@ const MyCourses = props => {
           {course.length === 0 ? (
             <div style={{ ...center }}>
               <div>
-                <Planet color="#0072ce" size="sm" mood="sad" />
+                <div style={{ ...center }}>
+                  <Planet color="#0072ce" size={200} mood="sad" />
+                </div>
                 <br />
                 <Text> You dont have any created course. </Text>
                 <Link to="/create-course">

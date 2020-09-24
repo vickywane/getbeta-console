@@ -61,12 +61,13 @@ const Grid = styled.div`
 const Home = props => {
   const { UserStore } = props
   const Width = useWindowWidth()
-  const { getUserDetail, userDetail } = UserStore
+  const { getUserDetail, userDetail, userStats } = UserStore
 
   useEffect(() => {
     getUserDetail()
   }, [])
 
+  const stats = toJS(userStats)
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} Width={Width} />
@@ -75,19 +76,35 @@ const Home = props => {
 
       <Body>
         <Grid>
-          {USER_STATS.map(({ id, name, total }) => {
-            return (
-              <a style={{ textDecoration: 'none' }} href={`#${name.toLowerCase()}`}>
-                <Cards key={id} background="#fff" style={{ ...center }}>
-                  <div>
-                    <StyledTitle align="center"> {total} </StyledTitle>
+          <a style={{ textDecoration: 'none' }} href={`#courses`}>
+            <Cards background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center"> {stats.totalCourses} </StyledTitle>
 
-                    <Text align="center"> {name} </Text>
-                  </div>
-                </Cards>
-              </a>
-            )
-          })}
+                <Text align="center"> {stats.totalCourses < 2 ? 'Course' : 'Courses'} </Text>
+              </div>
+            </Cards>
+          </a>
+
+          <a style={{ textDecoration: 'none' }} href={`#contents`}>
+            <Cards background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center"> {stats.totalContents} </StyledTitle>
+
+                <Text align="center"> {stats.totalContents < 2 ? 'Content' : 'Contents'} </Text>
+              </div>
+            </Cards>
+          </a>
+
+          <a style={{ textDecoration: 'none' }} href={`#bookings`}>
+            <Cards background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center"> 0 </StyledTitle>
+
+                <Text align="center"> Bookings </Text>
+              </div>
+            </Cards>
+          </a>
         </Grid>
 
         <Section id="contents">

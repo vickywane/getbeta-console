@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
 
-const Article_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
+const CONTENT_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
@@ -14,29 +14,25 @@ class ContentStore {
 
   fetchContents = () => {
     this.isLoadingContents = true
-    let resData = []
-
-    Axios.get(`${Article_ENDPOINT}/contents/find/all`, { headers: { 'x-auth-token': token } })
+    Axios.get(`${CONTENT_ENDPOINT}/contents/find/all`, { headers: { 'x-auth-token': token } })
       .then(res => {
         this.isLoadingContents = false
-
-        resData.push(res.data.contents)
+        this.contents = res.data.contents
       })
       .catch(e => console.log(`error : ${e}`))
-
-    return resData
   }
 
   createContent = (contentName, contentDescription, contentPrice, contentType, contentImage) => {
     this.isCreatingContent = true
+
     Axios.post(
-      `${Article_ENDPOINT}/${id}/addContent`,
-      //  contentImage,
+      `${CONTENT_ENDPOINT}/${id}/addContent`,
       {
         title: contentName,
         descrp: contentDescription,
         price: contentPrice,
-        type: contentType
+        type: contentType,
+        file: contentImage
       },
       {
         headers: {
@@ -55,7 +51,7 @@ class ContentStore {
   updateContent = (id, newData) => {}
 
   getUserContents = () => {
-    Axios.get(`${Article_ENDPOINT}/${id}/contents/find`, {
+    Axios.get(`${CONTENT_ENDPOINT}/${id}/contents/find`, {
       headers: {
         'x-auth-token': token
       }
@@ -67,7 +63,7 @@ class ContentStore {
   }
 
   getContent = contentId => {
-    Axios.get(`${Article_ENDPOINT}/${id}/${contentId}/find`, {
+    Axios.get(`${CONTENT_ENDPOINT}/${id}/${contentId}/find`, {
       headers: {
         'x-auth-token': token
       }
@@ -81,7 +77,13 @@ class ContentStore {
       })
   }
 
-  deleteContent = id => {}
+  deleteContent = id => {
+    Axios.delete(`${CONTENT_ENDPOINT}/${localStorage.getItem('userId')}/${id}/delete`, {
+      headers: { 'x-auth-token': token }
+    })
+      .then(res => console.log(res))
+      .catch(e => console.log(e))
+  }
 }
 
 const DecoratedContentStore = decorate(ContentStore, {

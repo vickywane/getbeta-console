@@ -2,6 +2,7 @@ export { default as Home } from './home/home'
 export { default as Bookings } from './bookings/booking'
 
 export { default as Sessions } from './content/sessions/sessions'
+export { default as AllSessions } from './content/sessions/allSession'
 
 export { default as Courselist } from './content/courses/courseList'
 export { default as CoursePage } from './content/courses/coursePage'
@@ -24,3 +25,4 @@ export { default as UpdateProfilePage } from './user/updateProfile'
 
 export { default as CreateVendor } from './vendors/createVendor'
 export { default as CreateContent } from './forms/create-content'
+export { default as Notification } from './user/notifications'

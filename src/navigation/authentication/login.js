@@ -4,6 +4,7 @@ import media from 'styled-media-query'
 import { Link } from '@reach/router'
 import { FiAlertTriangle } from 'react-icons/fi'
 
+import { observer } from 'mobx-react'
 import { Text, Title, Button, MdTitle, Hover } from '../../styles/style'
 
 import { Spinner } from 'react-bootstrap'
@@ -74,20 +75,16 @@ const LoginError = styled.div`
 `
 
 const Login = props => {
-  const { authUser, isLoading, errorMessage, hasLoginError } = props.UserStore
+  const { authUser, isLoading, errorMessage, hasLoginError, setLoginError } = props.UserStore
 
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
-  const [ErrorMessage, setErrorMessae] = useState(errorMessage)
-  const [showLoginError, setLoginError] = useState(hasLoginError)
-
-  console.log(hasLoginError, 'login err')
 
   const handleLogin = () => {
     authUser(Email, Password)
   }
 
-  if (showLoginError)
+  if (hasLoginError)
     setTimeout(() => {
       setLoginError(!LoginError)
     }, 2500)
@@ -99,14 +96,14 @@ const Login = props => {
       <Contain style={{ background: 'transparent' }}>
         <span>
           <LoginError
-            style={{ opacity: showLoginError ? 1 : 0 }}
-            display={showLoginError ? 'flex' : 'none'}
+            style={{ opacity: hasLoginError ? 1 : 0 }}
+            display={hasLoginError ? 'flex' : 'none'}
           >
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Hover style={{ margin: '0 1rem' }}>
+              <Hover style={{ margin: '0 0.5rem' }}>
                 <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
               </Hover>
-              <Text style={{ fontWeight: 600 }}> fullname or Password Invalid </Text>
+              <Text style={{ fontWeight: 600 }}> Email or Password Invalid ! </Text>
             </div>
           </LoginError>
 
@@ -140,7 +137,14 @@ const Login = props => {
                 <br />
               </form>
             ) : (
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div
+                style={{
+                  height: '27vh',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
                 <Spinner variant="primary" animation="grow" role="loading" />
               </div>
             )}
@@ -179,4 +183,4 @@ const Login = props => {
   )
 }
 
-export default Login
+export default observer(Login)

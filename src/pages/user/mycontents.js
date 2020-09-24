@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { FiSearch, FiPlus } from 'react-icons/fi'
+import { FiSearch, FiPlus, FiTrash, FiAlignCenter } from 'react-icons/fi'
 import { navigate, Link } from '@reach/router'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
 import { Planet } from 'react-kawaii'
-
-import { Spinner } from 'react-bootstrap'
-import useWindowWidth from '../../utils/hook_style'
-import { CONTENT_DATA } from '../../mockData'
-import { Text, Title, Section, HomeList, Hover, Searchbox, center } from '../../styles/style'
+import { Spinner, Dropdown } from 'react-bootstrap'
 import media from 'styled-media-query'
+import { FiMoreVertical, FiTrash2 } from 'react-icons/fi'
+
+import useWindowWidth from '../../utils/hook_style'
+import { Text, Title, Section, HomeList, Hover, Searchbox, center } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -62,7 +62,7 @@ display : none;
 `
 
 const MyContent = props => {
-  const { getUserContents, contents } = props.ContentStore
+  const { getUserContents, contents, deleteContent } = props.ContentStore
 
   const Width = useWindowWidth()
   useEffect(() => {
@@ -110,7 +110,9 @@ const MyContent = props => {
           {userContents.length === 0 ? (
             <div style={{ ...center }}>
               <div>
-                <Planet color="#0072ce" mood="sad" size="sm" />
+                <div style={{ ...center }}>
+                  <Planet color="#0072ce" mood="sad" size={220} />
+                </div>
                 <br />
                 <Text> You currently do not have any created content. </Text>
                 <Link to="/create-content">
@@ -140,9 +142,22 @@ const MyContent = props => {
                       {title}
                     </Text>
 
-                    <Date>
-                      <Text> 12 - 12 - 12 </Text>
-                    </Date>
+                    <div style={{ ...center }}>
+                      <div style={{ display: 'flex' }}>
+                        <Date style={{ margin: '0 1rem', ...center }}>
+                          <Text> 12 - 12 - 12 </Text>
+                        </Date>
+
+                        <Hover
+                          onClick={() => {
+                            deleteContent(_id)
+                          }}
+                          style={{ ...FiAlignCenter }}
+                        >
+                          <FiTrash2 style={{ fontSize: '1.6rem' }} />
+                        </Hover>
+                      </div>
+                    </div>
                   </ContentContainer>
                 </li>
               )

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FiX } from 'react-icons/fi'
 
+import { inject, observer } from 'mobx-react'
 import { Text, Body, Title, Button } from '../../../styles/style'
 
 const Card = styled(Body)`
@@ -29,23 +30,38 @@ const InputBody = styled.div`
 `
 
 const CreateSession = props => {
+  const { handleClose } = props
+
+  const [SessionName, setSessionName] = useState('')
+  const [SessionEmail, setSessionEmail] = useState('')
+  const [SessionAmount, setSessionAmount] = useState('')
+
   return (
     <Card>
-      <Title style={{ padding: '1rem 2rem', textAlign: 'center', color: '#0072CE' }}>
-        {' '}
-        Create Live Session{' '}
+      <Title style={{ padding: '1rem 0', textAlign: 'center', color: '#0072CE' }}>
+        Create Live Session
       </Title>
-
+      <hr />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div>
           <InputBody>
             <label> Full Name </label>
-            <input type="text" placeholder="Full Name" />
+            <input
+              value={SessionName}
+              onChange={e => setSessionName(e.target.value)}
+              type="text"
+              placeholder="Full Name"
+            />
           </InputBody>
 
           <InputBody>
             <label> Email Address </label>
-            <input type="email" placeholder="Email Address" />
+            <input
+              value={SessionEmail}
+              onChange={e => setSessionEmail(e.target.value)}
+              type="email"
+              placeholder="Email Address"
+            />
           </InputBody>
 
           <InputBody>
@@ -60,12 +76,20 @@ const CreateSession = props => {
 
           <InputBody>
             <label> Amount </label>
-            <input type="number" placeholder=" Amount" />
+            <input
+              value={SessionAmount}
+              onChange={e => setSessionAmount(e.target.value)}
+              type="number"
+              placeholder=" Amount"
+            />
           </InputBody>
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button style={{ margin: '0 1rem', background: 'grey', border: '1px solid grey' }}>
-              Cancel{' '}
+            <Button
+              onClick={() => handleClose(false)}
+              style={{ margin: '0 1rem', background: 'grey', border: '1px solid grey' }}
+            >
+              Cancel
             </Button>
             <Button>Create Session</Button>
           </div>
@@ -75,4 +99,4 @@ const CreateSession = props => {
   )
 }
 
-export default CreateSession
+export default inject('UserStore')(observer(CreateSession))

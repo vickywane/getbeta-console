@@ -27,10 +27,9 @@ const CreateCourse = props => {
 
   const [courseName, setCourseName] = useState('Crazy men course')
   const [courseDescription, setCourseDescription] = useState('A course for crazy people here')
-  const [coursePrice, setCoursePrice] = useState('$150')
+  const [coursePrice, setCoursePrice] = useState(159)
   const [courseDuration, setCourseDuration] = useState('2 hours')
   const [courseImage, setcourseImage] = useState('')
-  const [courseImageName, setcourseImageName] = useState(null)
 
   const handleSubmit = () => {
     createCourse(courseName, courseDescription, coursePrice, courseDuration, courseImage)
@@ -38,12 +37,11 @@ const CreateCourse = props => {
 
   const onDrop = useCallback(([file]) => {
     setcourseImage(file)
-    setcourseImageName(file.name)
   }, [])
 
   const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
     onDrop,
-    accept: 'image/jpeg , image/jpg, image.png'
+    accept: 'image/jpeg , image/jpg, image/png'
   })
 
   return (
@@ -66,7 +64,7 @@ const CreateCourse = props => {
           </div>
 
           <div style={{ ...center }}>
-            {!courseImageName ? (
+            {!courseImage ? (
               <StyledHover
                 {...getRootProps({
                   isDragActive,
@@ -87,7 +85,7 @@ const CreateCourse = props => {
                 </div>
               </StyledHover>
             ) : (
-              <Text> {courseImageName} </Text>
+              <Text> {courseImage.path} </Text>
             )}
           </div>
         </div>

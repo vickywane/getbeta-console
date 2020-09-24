@@ -179,9 +179,9 @@ export const SmallUserImage = styled.img`
 
 export const CardGrid = styled.div`
   display: grid;
-  grid-gap: 3rem 2rem;
+  grid-gap: 2rem 2rem;
   place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
 `
 
 export const Card = styled.div`
@@ -208,11 +208,11 @@ export const HomeList = styled.ul`
 `
 
 export const Searchbox = styled.div`
-width  : 42rem;
+width  : 35rem;
 border : 1px solid #c0c0c0;
 border-radius : 3px;
 display : flex;
-padding   : 0.5rem 0.6rem;
+padding   : 0.6rem 0.6rem;
 justify-content: space-between;
 background : #fff;
 input {

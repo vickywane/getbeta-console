@@ -13,6 +13,7 @@ import {
   Preferences,
   Sessions,
   EditContent,
+  AllSessions,
   EditCourse,
   UpdateProfilePage,
   CreateCourse,
@@ -20,6 +21,7 @@ import {
   CreateContent,
   Upgrade,
   CoursePage,
+  Notification,
   Courselist,
   CreateSession
 } from './'
@@ -50,13 +52,15 @@ const Console = props => {
           <Sessions path="/sessions" />
           <CreateVendor path="/upgrade" UserStore={UserStore} />
           <Courselist CourseStore={CourseStore} path="/courses" />
-          <CoursePage CourseStore={CourseStore} path="/courses/course/:id" />
+          <CoursePage CourseStore={CourseStore} path="/course" />
           <Ticket path="/ticket" />
+          <AllSessions path="/all-sessions" />
           <CreateSession path="/create-session/" />
           <Contents ContentStore={ContentStore} path="/contents" />
           <CreateContent ContentStore={ContentStore} path="/create-content" />
           <CreateCourse CourseStore={CourseStore} path="/create-course" />
           <UpdateProfilePage UserStore={UserStore} path="/update-profile" />
+          <Notification UserStore={UserStore} path="/notifications" />
         </Router>
       </div>
     </Grid>

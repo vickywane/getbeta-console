@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Link } from '@reach/router'
 import { Spinner } from 'react-bootstrap'
 import { FaMoneyBill } from 'react-icons/fa'
+import { observer } from 'mobx-react'
+import { toJS } from 'mobx'
 
 import Header from '../../../components/headers/header'
 import { Text, Title, Searchbox, StyledHover, Button, CardGrid, Card } from '../../../styles/style'
@@ -19,20 +21,14 @@ const center = {
 }
 
 const Contents = props => {
-  const [contents, setContents] = useState([])
-  const [cp, setCP] = useState([])
-
-  const { fetchContents, isLoadingContents } = props.ContentStore
+  const { fetchContents, isLoadingContents, contents } = props.ContentStore
 
   useEffect(() => {
-    setCP(fetchContents())
+    fetchContents()
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setContents(cp)
-    }, 1000)
-  }, [cp])
+  const contentList = toJS(contents)
+  console.log(contentList)
 
   return (
     <div>
@@ -64,13 +60,13 @@ const Contents = props => {
         </div>
         <br />
 
-        <CardGrid style={{ height: window.innerHeight - 190, overflow: 'auto' }}>
-          {contents.length < 1 ? (
+        <CardGrid style={{ height: window.innerHeight - 170, overflow: 'auto' }}>
+          {contentList.length < 1 ? (
             <div style={{ ...center }}>
               <Spinner variant="primary" animation="grow" role="loading" />
             </div>
           ) : (
-            contents[0].map(({ _id, title, descrp, type, price }) => {
+            contentList.map(({ _id, title, descrp, type, price }) => {
               return (
                 <Card key={_id}>
                   <img
@@ -105,4 +101,4 @@ const Contents = props => {
   )
 }
 
-export default Contents
+export default observer(Contents)
