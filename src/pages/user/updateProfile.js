@@ -16,6 +16,7 @@ const UserImage = styled.div`
   background-position: center;
   background-size: cover;
   width: 220px;
+  outline: none;
   height: 220px;
   border-radius: 15%;
   ${media.lessThan('huge')`
@@ -23,8 +24,13 @@ const UserImage = styled.div`
   height: 250px;
   `};
   ${media.lessThan('large')`
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
+  border-radius: 10%;
+  `};
+  ${media.lessThan('small')`
+  width: 150px;
+  height: 150px;
   `};
 `
 
@@ -40,29 +46,40 @@ const DeleteButton = styled(Button)`
 `
 
 const StyledInputBody = styled(InputBody)`
+  margin: 0.5rem 0.5rem;
   input {
-    width: 50%;
+    width: 40rem;
     border: 0;
   }
   textarea {
     border: 0;
-    width: 50%;
+    width: 40rem;
   }
   ${media.lessThan('huge')`
       textarea , input {
-        width : 80%
+        width: 40rem;
       }
   `};
   ${media.lessThan('large')`
   textarea , input {
-    width : 90%
+    width: 35rem;
   }
 `};
   ${media.lessThan('medium')`
 textarea , input {
-  width : 100%
+  width : 35rem;
 }
 `};
+`
+
+const FormsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  place-items: center;
+  grid-gap: 1rem 2rem;
+  ${media.lessThan('medium')`
+    grid-gap: 0 2rem;
+  `};
 `
 
 const UpdateProfile = props => {
@@ -81,7 +98,7 @@ const UpdateProfile = props => {
   const [userImage, setUserImage] = useState(null)
 
   const updateUserAccount = () => {
-    updateUser(userName, userEmail, Bio, Number, Occupation, Education)
+    updateUser(userName, userEmail, Bio, Number, Occupation, Education, userImage)
   }
 
   useEffect(() => {
@@ -94,7 +111,7 @@ const UpdateProfile = props => {
 
   const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
     onDrop,
-    accept: 'image/jpeg , image/jpg, image.png'
+    accept: 'image/jpeg , image/jpg, image/png'
   })
 
   return (
@@ -130,23 +147,37 @@ const UpdateProfile = props => {
               </div>
             ) : (
               <div>
-                <UserImage image={TestImage}>
-                  <input {...getInputProps()} />
-                  <div style={{ ...center, height: '20rem' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      .
-                      <Hover style={{ marginBottom: '1rem', color: 'white' }}>
-                        <FiCamera style={{ fontSize: '1.8rem' }} />
-                      </Hover>
+                {!userImage ? (
+                  <UserImage image={TestImage}>
+                    <input {...getInputProps()} />
+                    <div style={{ ...center, height: '18rem' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        .
+                        <Hover style={{ marginBottom: '1rem', color: 'white' }}>
+                          <FiCamera style={{ fontSize: '1.8rem' }} />
+                        </Hover>
+                      </div>
+                    </div>
+                  </UserImage>
+                ) : (
+                  <div style={{ display: 'flex' }}>
+                    <img
+                      alt="default file placeholde"
+                      style={{ height: '120px', width: '120px' }}
+                      src={require('../../assets/images/image-icon.png')}
+                    />
+
+                    <div style={{ ...center }}>
+                      <Text> {userImage.name} </Text>
                     </div>
                   </div>
-                </UserImage>
+                )}
                 <br />
               </div>
             )}
@@ -187,80 +218,80 @@ const UpdateProfile = props => {
         </div>
         <hr />
 
-        <div>
-          <div>
-            <StyledInputBody>
-              <label> Full Name </label>
-              <input
-                type="text"
-                placeholder={userName}
-                value={userName}
-                onChange={e => {
-                  setUserName(e.target.value)
-                }}
-              />
-            </StyledInputBody>
-            <StyledInputBody>
-              <label> Email Address </label>
-              <input
-                type="text"
-                placeholder={userEmail}
-                value={userEmail}
-                onChange={e => {
-                  setUserEmail(e.target.value)
-                }}
-              />
-            </StyledInputBody>
-            <StyledInputBody>
-              <label> Mobile Number </label>
-              <input
-                type="number"
-                placeholder={Number}
-                value={Number}
-                onChange={e => {
-                  setNumber(e.target.value)
-                }}
-              />
-            </StyledInputBody>
-            <StyledInputBody>
-              <label> Highest Level of Education </label>
-              <input
-                type="text"
-                placeholder={'Eductional Status'}
-                value={Education}
-                onChange={e => {
-                  setEduction(e.target.value)
-                }}
-              />
-            </StyledInputBody>
-            <StyledInputBody>
-              <label> Occupation </label>
-              <input
-                type="text"
-                placeholder={Occupation}
-                value={Occupation && Occupation}
-                onChange={e => {
-                  setOccupation(e.target.value)
-                }}
-              />
-            </StyledInputBody>
-            <StyledInputBody>
-              <label> Brief Biography </label>
-              <textarea
-                type="text"
-                placeholder={Bio || 'A short description about me'}
-                onChange={e => {
-                  setBio(e.target.value)
-                }}
-              />
-            </StyledInputBody>
-          </div>
-        </div>
+        <FormsGrid>
+          <StyledInputBody>
+            <label> Full Name </label>
+            <input
+              type="text"
+              placeholder={userName}
+              value={userName}
+              onChange={e => {
+                setUserName(e.target.value)
+              }}
+            />
+          </StyledInputBody>
+          <StyledInputBody>
+            <label> Email Address </label>
+            <input
+              type="text"
+              placeholder={userEmail}
+              value={userEmail}
+              onChange={e => {
+                setUserEmail(e.target.value)
+              }}
+            />
+          </StyledInputBody>
+          <StyledInputBody>
+            <label> Mobile Number </label>
+            <input
+              type="number"
+              placeholder={Number}
+              value={Number}
+              onChange={e => {
+                setNumber(e.target.value)
+              }}
+            />
+          </StyledInputBody>
+          <StyledInputBody>
+            <label> Highest Level of Education </label>
+            <input
+              type="text"
+              placeholder={'Eductional Status'}
+              value={Education}
+              onChange={e => {
+                setEduction(e.target.value)
+              }}
+            />
+          </StyledInputBody>
+          <StyledInputBody>
+            <label> Occupation </label>
+            <input
+              type="text"
+              placeholder={Occupation}
+              value={Occupation && Occupation}
+              onChange={e => {
+                setOccupation(e.target.value)
+              }}
+            />
+          </StyledInputBody>
+          <StyledInputBody>
+            <label> Brief Biography </label>
+            <textarea
+              type="text"
+              placeholder={Bio || 'A short description about me'}
+              onChange={e => {
+                setBio(e.target.value)
+              }}
+            />
+          </StyledInputBody>
+        </FormsGrid>
 
         <hr />
-        <Button onClick={() => updateUserAccount()} style={{ width: '20rem' }}>
-          Save Details
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button onClick={() => updateUserAccount()} style={{ width: '20rem' }}>
+            Save Details
+          </Button>
+        </div>
       </Body>
     </div>
   )

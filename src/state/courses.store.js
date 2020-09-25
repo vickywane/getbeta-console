@@ -3,7 +3,7 @@ import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
 // import * as Form from 'form-data'
 
-const COURSE_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
+const COURSE_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 const token = localStorage.getItem('token')
 
 class CourseStore {

@@ -39,7 +39,7 @@ const CreateContent = props => {
 
   const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
     onDrop,
-    accept: 'image/jpeg , image/jpg, image.png'
+    accept: 'image/jpeg , image/jpg, image/png'
   })
 
   return (

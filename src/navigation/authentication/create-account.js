@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
-
+import * as Yup from 'yup'
+import { FiAlertTriangle } from 'react-icons/fi'
 import { Link } from '@reach/router'
-import { Text, MdTitle, Button } from '../../styles/style'
+
+import { Text, MdTitle, Button, ErrorAlert, Hover, AuthCards } from '../../styles/style'
 
 const Body = styled.div`
   display: grid;
@@ -14,23 +16,8 @@ const Body = styled.div`
       align-items : center;
   `};
 `
-
-const Contain = styled.div`
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fbfbfb;
-  span {
-    background: #fff;
-    box-shadow: 0 2px 3px #c0c0c0;
-    padding: 2rem 2rem;
-    border-radius: 10px;
-  }
-`
-
 const InputBody = styled.div`
-  margin: 1.5rem 0.5rem;
+  margin: 2rem 0.5rem;
   display: flex;
   flex-direction: column;
   label {
@@ -43,6 +30,7 @@ const InputBody = styled.div`
     border-radius: 1px;
     width: 27rem;
     height: 55px;
+    font-size: 1.1rem;
   }
 `
 
@@ -53,6 +41,14 @@ const Illustration = styled.div`
     `}
 `
 
+const accountSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  password: Yup.string()
+    .min(5)
+    .required(),
+  email: Yup.string().email()
+})
+
 const CreateAccount = props => {
   const { createAccount } = props.UserStore
 
@@ -60,17 +56,47 @@ const CreateAccount = props => {
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
   const [ConfirmPassword, setConfirmPassword] = useState('')
+  const [detailsError, setDetailsError] = useState(false)
 
   const handleRegistration = () => {
-    createAccount(FullName, Email, Password, ConfirmPassword)
+    const isValid = accountSchema.isValid({
+      name: FullName,
+      password: Password,
+      email: Email
+    })
+
+    isValid.then(res => {
+      if (res) {
+        createAccount(FullName, Email, Password, ConfirmPassword)
+      } else {
+        setDetailsError(true)
+      }
+    })
   }
+
+  if (detailsError)
+    setTimeout(() => {
+      setDetailsError(!detailsError)
+    }, 2500)
 
   return (
     <Body style={{ height: window.innerHeight, background: '#fbfbfb' }}>
       <Illustration />
 
-      <Contain>
+      <AuthCards>
         <span>
+          <ErrorAlert
+            style={{ opacity: detailsError ? 1 : 0 }}
+            display={detailsError ? 'flex' : 'none'}
+          >
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Hover style={{ margin: '0 0.5rem' }}>
+                <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
+              </Hover>
+              <Text style={{ fontWeight: 600 }}> Incorrect account credentials. Try Again </Text>
+            </div>
+          </ErrorAlert>
+
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <MdTitle style={{ fontWeight: 600 }} small center>
               Create An Account
@@ -147,7 +173,7 @@ const CreateAccount = props => {
             </Link>
           </div>
         </span>
-      </Contain>
+      </AuthCards>
     </Body>
   )
 }

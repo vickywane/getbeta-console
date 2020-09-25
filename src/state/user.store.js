@@ -3,7 +3,7 @@ import { action, observable, decorate } from 'mobx'
 import { create, persist } from 'mobx-persist'
 import { navigate } from '@reach/router'
 
-const AUTH_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
+const AUTH_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
@@ -33,7 +33,7 @@ class UserStore {
     this.hasLoginError = val
   }
 
-  updateUser = (userName, userEmail, Bio, Number, Occupation, Education) => {
+  updateUser = (userName, userEmail, Bio, Number, Occupation, Education, userImage) => {
     Axios.put(
       `${AUTH_ENDPOINT}/${id}`,
       {
@@ -55,8 +55,19 @@ class UserStore {
           name: fullname,
           email: email
         }
+
+        if (userImage) {
+          const formData = new FormData()
+          formData.append('file', userImage)
+
+          Axios.post(`${AUTH_ENDPOINT}/upload`, formData, {
+            headers: { 'x-auth-token': token, 'Content-Type': 'mutlipart/formdata' }
+          })
+            .then(() => console.log('uploaded'))
+            .catch(e => console.log(`file upload error : ${e}`))
+        }
       })
-      .catch(e => console.log(e))
+      .catch(e => console.log(`error updating user : ${e}`))
   }
 
   //@action
@@ -66,8 +77,6 @@ class UserStore {
     })
       .then(res => {
         const { fullname, email, contents, courses } = res.data.vendor
-
-        console.log(contents, 'contents')
 
         this.userStats = {
           totalContents: contents.length,

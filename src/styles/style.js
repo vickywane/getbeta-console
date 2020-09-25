@@ -9,6 +9,34 @@ export const Dot = styled.div`
   background-color: #0072ce;
 `
 
+export const ErrorAlert = styled.div`
+  height: 60px;
+  display: ${props => props.display};
+  transition: all 700ms;
+  margin-bottom: 1rem;
+  border-radius: 10px 10px 0px 0;
+  background: red;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+`
+
+export const AuthCards = styled.div`
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fbfbfb;
+  span {
+    background: #fff;
+    box-shadow: 0 2px 3px #c0c0c0;
+    border-radius: 10px;
+    section {
+      padding: 2rem 2rem;
+    }
+  }
+`
+
 export const CreateCourseInputField = styled.div`
   display: flex;
   flex-direction: column;

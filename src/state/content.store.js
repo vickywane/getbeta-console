@@ -2,7 +2,7 @@ import Axios from 'axios'
 import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
 
-const CONTENT_ENDPOINT = `${process.env.REACT_APP_API_URL}/vendors`
+const CONTENT_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
@@ -43,6 +43,18 @@ class ContentStore {
     )
       .then(res => {
         this.isCreatingContent = false
+
+        if (contentImage) {
+          console.log(contentImage)
+
+          const formData = new FormData()
+          formData.append('file', contentImage)
+
+          Axios.post(`${CONTENT_ENDPOINT}/addfile`, formData, {
+            headers: { 'x-auth-token': token, 'Content-Type': 'mulipart/formdata' }
+          }).catch(e => console.log(e))
+        }
+
         navigate('/contents')
       })
       .catch(e => console.log(e))

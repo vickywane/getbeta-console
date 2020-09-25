@@ -5,7 +5,7 @@ import { Link } from '@reach/router'
 import { FiAlertTriangle } from 'react-icons/fi'
 
 import { observer } from 'mobx-react'
-import { Text, Title, Button, MdTitle, Hover } from '../../styles/style'
+import { Text, Title, Button, MdTitle, Hover, AuthCards, ErrorAlert } from '../../styles/style'
 
 import { Spinner } from 'react-bootstrap'
 
@@ -17,22 +17,6 @@ const Body = styled.div`
       justify-content : center
       align-items : center;
   `};
-`
-
-const Contain = styled.div`
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fbfbfb;
-  span {
-    background: #fff;
-    box-shadow: 0 2px 3px #c0c0c0;
-    border-radius: 10px;
-    section {
-      padding: 2rem 2rem;
-    }
-  }
 `
 
 const Illustration = styled.div`
@@ -51,7 +35,6 @@ const InputBody = styled.div`
     font-weight: 600;
   }
   input {
-    font-size: 0.9rem;
     padding: 0.6rem 1rem;
     height: 55px;
     background: #fbfbfb;
@@ -60,18 +43,6 @@ const InputBody = styled.div`
     border-radius: 1px;
     width: 27rem;
   }
-`
-
-const LoginError = styled.div`
-  height: 60px;
-  display: ${props => props.display};
-  transition: all 700ms;
-  margin-bottom: 1rem;
-  border-radius: 10px 10px 0px 0;
-  background: red;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
 `
 
 const Login = props => {
@@ -86,16 +57,16 @@ const Login = props => {
 
   if (hasLoginError)
     setTimeout(() => {
-      setLoginError(!LoginError)
+      setLoginError(!hasLoginError)
     }, 2500)
 
   return (
     <Body style={{ height: window.innerHeight, background: '#fbfbfb' }}>
       <Illustration />
 
-      <Contain style={{ background: 'transparent' }}>
+      <AuthCards style={{ background: 'transparent' }}>
         <span>
-          <LoginError
+          <ErrorAlert
             style={{ opacity: hasLoginError ? 1 : 0 }}
             display={hasLoginError ? 'flex' : 'none'}
           >
@@ -105,7 +76,7 @@ const Login = props => {
               </Hover>
               <Text style={{ fontWeight: 600 }}> Email or Password Invalid ! </Text>
             </div>
-          </LoginError>
+          </ErrorAlert>
 
           <section>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -178,7 +149,7 @@ const Login = props => {
             </div>
           </section>
         </span>
-      </Contain>
+      </AuthCards>
     </Body>
   )
 }
