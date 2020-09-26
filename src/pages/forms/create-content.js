@@ -111,28 +111,27 @@ const CreateContent = props => {
                   flexDirection: 'column'
                 }}
               >
-                <p style={{ opacity: '0' }}> . </p>
                 <div style={{ ...center, marginBottom: '1rem' }}>
                   {!contentImage ? (
-                    <StyledHover
-                      {...getRootProps({
-                        isDragActive,
-                        isDragAccept,
-                        isDragReject
-                      })}
-                      style={{ display: 'flex' }}
-                    >
-                      <input {...getInputProps()} />
-                      <Hover style={{ margin: '0 0.7rem', ...center }}>
-                        <FiUploadCloud style={{ fontSize: '1.6rem' }} />
-                      </Hover>
+                    <div style={{ ...center }}>
+                      <StyledHover
+                        {...getRootProps({
+                          isDragActive,
+                          isDragAccept,
+                          isDragReject
+                        })}
+                        style={{ display: 'flex', padding: '7px' }}
+                      >
+                        <input {...getInputProps()} />
+                        <Hover style={{ margin: '0 0.6rem', ...center }}>
+                          <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                        </Hover>
 
-                      <div style={{ paddingTop: '10px' }}>
-                        <Text small style={{ fontWeight: 600 }}>
+                        <Text small style={{ padding: 0, margin: 0 }}>
                           Upload Content Image{' '}
                         </Text>
-                      </div>
-                    </StyledHover>
+                      </StyledHover>
+                    </div>
                   ) : (
                     <Text> {contentImage.path} </Text>
                   )}

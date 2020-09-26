@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { FiUploadCloud } from 'react-icons/fi'
 import { useDropzone } from 'react-dropzone'
-import { Spinner } from 'react-bootstrap'
+import media from 'styled-media-query'
 
 import {
   Body,
   Text,
   Button,
-  Title,
   center,
   Hover,
   StyledHover,
@@ -20,15 +19,42 @@ const Image = styled.img`
   object-fit: contain;
   width: 250px;
   height: 200px;
+  ${media.lessThan('large')`
+  width: 200px;
+  height: 200px;
+  `};
+  ${media.lessThan('medium')`
+  width: 150px;
+  height: 150px;
+  `};
+  ${media.lessThan('small')`
+  width: 120px;
+  height: 120px;
+  `};
+`
+
+const StyledBody = styled.div`
+  padding: 0rem 2rem;
+  ${media.lessThan('medium')`
+  padding: 0rem 0.5rem;
+`};
+`
+
+const Grid = styled.div`
+  display: flex;
+  ${media.lessThan('medium')`
+        flex-direction : column;
+        align-items : center;
+    `};
 `
 
 const CreateCourse = props => {
   const { createCourse } = props.CourseStore
 
-  const [courseName, setCourseName] = useState('Crazy men course')
-  const [courseDescription, setCourseDescription] = useState('A course for crazy people here')
-  const [coursePrice, setCoursePrice] = useState(159)
-  const [courseDuration, setCourseDuration] = useState('2 hours')
+  const [courseName, setCourseName] = useState('')
+  const [courseDescription, setCourseDescription] = useState('')
+  const [coursePrice, setCoursePrice] = useState(0)
+  const [courseDuration, setCourseDuration] = useState('')
   const [courseImage, setcourseImage] = useState('')
 
   const handleSubmit = () => {
@@ -48,10 +74,10 @@ const CreateCourse = props => {
     <div>
       <Header goBack={true} screen="Create New Course " />
 
-      <Body style={{ padding: '2rem 2rem' }}>
+      <StyledBody>
         <br />
 
-        <div style={{ display: 'flex' }}>
+        <Grid>
           <div
             {...getRootProps({
               isDragActive,
@@ -71,24 +97,22 @@ const CreateCourse = props => {
                   isDragAccept,
                   isDragReject
                 })}
-                style={{ display: 'flex' }}
+                style={{ display: 'flex', padding: '7px' }}
               >
                 <input {...getInputProps()} />
-                <Hover style={{ margin: '0 0.7rem', ...center }}>
-                  <FiUploadCloud style={{ fontSize: '1.8rem' }} />
+                <Hover style={{ margin: '0 0.6em', ...center }}>
+                  <FiUploadCloud style={{ fontSize: '1.5rem' }} />
                 </Hover>
 
-                <div style={{ paddingTop: '10px' }}>
-                  <Text small style={{ fontWeight: 600 }}>
-                    Upload Course Image{' '}
-                  </Text>
-                </div>
+                <Text style={{ padding: 0, margin: 0 }} small>
+                  Upload Course Image{' '}
+                </Text>
               </StyledHover>
             ) : (
               <Text> {courseImage.path} </Text>
             )}
           </div>
-        </div>
+        </Grid>
         <hr />
         <form onSubmit={() => handleSubmit()}>
           <InputField>
@@ -144,7 +168,8 @@ const CreateCourse = props => {
             Submit Course{' '}
           </Button>
         </div>
-      </Body>
+        <br />
+      </StyledBody>
     </div>
   )
 }
