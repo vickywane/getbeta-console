@@ -17,6 +17,10 @@ const Body = styled.div`
   align-items: center;
   padding: 0.5rem 2rem;
   box-shadow: 0 2px 3px grey;
+  ${media.lessThan('medium')`
+    padding: 0.5rem 1rem;
+    height: 60px;
+  `};
 `
 
 const Icon = styled.div`
@@ -46,6 +50,12 @@ const LargeIconSidebar = styled.div`
   ${media.lessThan('medium')`
   display : none;
 `};
+`
+
+const ScreenName = styled.div`
+  ${media.lessThan('medium')`
+    display : none;
+  `}
 `
 
 const Header = props => {
@@ -86,11 +96,13 @@ const Header = props => {
           <Notification open={openMobileSidebar} setOpen={setMobileSidebar} id={'main-menu'} />
         </MenuIconBody>
 
-        {screen && (
-          <div style={{ ...center }}>
-            <Title color="#0072ce"> {screen} </Title>
-          </div>
-        )}
+        <ScreenName>
+          {screen && (
+            <div style={{ ...center }}>
+              <Title color="#0072ce"> {screen} </Title>
+            </div>
+          )}
+        </ScreenName>
 
         <Link to="/" style={{ textDecoration: 'none' }}>
           <SmallUserImage small src={require('../../assets/images/img.jpg')} />

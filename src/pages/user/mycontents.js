@@ -81,9 +81,9 @@ const MyContent = props => {
                 Contents
               </Title>
 
-              <Hover style={{ margin: '0 1rem' }}>
+              <Hover style={{ margin: '0 0.7rem' }}>
                 <Link to="/create-content">
-                  <FiPlus style={{ fontSize: '1.6rem' }} />
+                  <FiPlus style={{ fontSize: '1.5rem' }} />
                 </Link>
               </Hover>
             </div>
@@ -92,14 +92,14 @@ const MyContent = props => {
           {Width >= 1200 ? (
             <StyledSearchbox>
               <div>
-                <FiSearch style={{ fontSize: '1.6rem' }} />
+                <FiSearch style={{ fontSize: '1.5rem' }} />
               </div>
 
               <input placeholder="Search for a course" />
             </StyledSearchbox>
           ) : (
             <Hover>
-              <FiSearch style={{ color: '#0072ce', fontSize: '1.6rem' }} />
+              <FiSearch style={{ color: '#0072ce', fontSize: '1.5rem' }} />
             </Hover>
           )}
         </div>
@@ -111,10 +111,10 @@ const MyContent = props => {
             <div style={{ ...center }}>
               <div>
                 <div style={{ ...center }}>
-                  <Planet color="#0072ce" mood="sad" size={220} />
+                  <Planet color="#0072ce" mood="sad" size={180} />
                 </div>
                 <br />
-                <Text> You currently do not have any created content. </Text>
+                <Text align="center"> You currently do not have any created content. </Text>
                 <Link to="/create-content">
                   <Text align="center"> Create Content</Text>
                 </Link>

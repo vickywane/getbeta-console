@@ -7,7 +7,7 @@ import { useDropzone } from 'react-dropzone'
 
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
-import { Text, InputBody, Hover, Button, center, Body, StyledHover } from '../../styles/style'
+import { Text, InputBody, Hover, Button, center, Body } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
 
 const UserImage = styled.div`
@@ -18,7 +18,7 @@ const UserImage = styled.div`
   width: 220px;
   outline: none;
   height: 220px;
-  border-radius: 15%;
+  border-radius: 10%;
   ${media.lessThan('huge')`
   width: 250px;
   height: 250px;
@@ -26,11 +26,11 @@ const UserImage = styled.div`
   ${media.lessThan('large')`
   width: 180px;
   height: 180px;
-  border-radius: 10%;
+  border-radius: 7%;
   `};
   ${media.lessThan('small')`
-  width: 150px;
-  height: 150px;
+      width: 150px;
+      height: 150px;
   `};
 `
 
@@ -46,16 +46,19 @@ const DeleteButton = styled(Button)`
 `
 
 const StyledInputBody = styled(InputBody)`
-  margin: 0.5rem 0.5rem;
+  margin: 0.4rem 0.5rem;
   input {
+    color: #fff;
     width: 40rem;
     border: 0;
   }
   textarea {
     border: 0;
     width: 40rem;
+    color: #fff;
   }
   ${media.lessThan('huge')`
+    margin: 0.4rem 0.5rem;
       textarea , input {
         width: 40rem;
       }
@@ -67,7 +70,12 @@ const StyledInputBody = styled(InputBody)`
 `};
   ${media.lessThan('medium')`
 textarea , input {
-  width : 35rem;
+    width : 27rem;
+}
+`};
+  ${media.lessThan('small')`
+textarea , input {
+  width : 23rem;
 }
 `};
 `
@@ -78,8 +86,18 @@ const FormsGrid = styled.div`
   place-items: center;
   grid-gap: 1rem 2rem;
   ${media.lessThan('medium')`
-    grid-gap: 0 2rem;
+    display : flex
+     flex-direction : column;
+     align-items : center;
   `};
+`
+
+const MediaGrid = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${media.lessThan('medium')`
+    justify-content : center;
+ `}
 `
 
 const UpdateProfile = props => {
@@ -119,7 +137,7 @@ const UpdateProfile = props => {
       <Header goBack={true} />
 
       <Body style={{ height: window.innerHeight - 75, overflow: 'auto', padding: '1rem 2rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{}}>
           <div
             {...getRootProps({
               isDragActive,
@@ -146,11 +164,11 @@ const UpdateProfile = props => {
                 </Text>
               </div>
             ) : (
-              <div>
+              <MediaGrid>
                 {!userImage ? (
                   <UserImage image={TestImage}>
                     <input {...getInputProps()} />
-                    <div style={{ ...center, height: '18rem' }}>
+                    <div style={{ ...center, height: '15rem' }}>
                       <div
                         style={{
                           display: 'flex',
@@ -179,42 +197,29 @@ const UpdateProfile = props => {
                   </div>
                 )}
                 <br />
-              </div>
+              </MediaGrid>
             )}
           </div>
 
-          <div
+          {/* <div
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
           >
-            .
             <div style={{ display: 'flex' }}>
-              {Width > 1000 ? (
-                <Button>
-                  <div style={{ paddingRight: '0.5rem' }}>
-                    <FiKey style={{ color: 'white', fontSize: '1.5rem' }} />
-                  </div>
-                  Change Password
-                </Button>
-              ) : (
-                <StyledHover style={{ paddingRight: '0.5rem' }}>
-                  <FiKey style={{ color: 'black', fontSize: '1.5rem' }} />
-                </StyledHover>
-              )}
+              <Button>
+                <div style={{ paddingRight: '0.5rem' }}>
+                  <FiKey style={{ color: 'white', fontSize: '1.5rem' }} />
+                </div>
+                Change Password
+              </Button>
 
-              {Width > 900 ? (
-                <DeleteButton style={{ margin: '0 2rem' }} onClick={() => deleteAccount()}>
-                  <div style={{ paddingRight: '0.5rem' }}>
-                    <FiTrash2 style={{ color: 'white', fontSize: '1.5rem' }} />
-                  </div>
-                  Delete Account
-                </DeleteButton>
-              ) : (
-                <StyledHover style={{ paddingRight: '0.5rem' }}>
-                  <FiTrash2 style={{ color: 'red', fontSize: '1.5rem' }} />
-                </StyledHover>
-              )}
+              <DeleteButton style={{ margin: '0 2rem' }} onClick={() => deleteAccount()}>
+                <div style={{ paddingRight: '0.5rem' }}>
+                  <FiTrash2 style={{ color: 'white', fontSize: '1.5rem' }} />
+                </div>
+                Delete Account
+              </DeleteButton>
             </div>
-          </div>
+          </div> */}
         </div>
         <hr />
 

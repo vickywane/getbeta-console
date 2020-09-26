@@ -9,11 +9,11 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   background: #0072ce;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
-  margin-top: 3.6em;
-  padding: 1rem;
+  margin-top: 3.5em;
+  padding: 0.5rem;
   position: absolute;
   top: 0;
-  width: 50%;
+  width: 60%;
   left: 0;
   transition: all 250ms;
   @media (max-width: ${({ theme }) => theme.mobile}) {
@@ -32,9 +32,6 @@ const StyledMenu = styled.nav`
       color: ${({ theme }) => theme.primaryHover};
     }
   }
-  ${media.lessThan('small')`
-  width: 80%;
-  `}
 `
 
 const StyledBurger = styled.button`

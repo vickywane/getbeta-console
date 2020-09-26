@@ -4,7 +4,6 @@ import media from 'styled-media-query'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 
-import { USER_STATS } from '../../mockData'
 import { Text, Title, Section } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
 
@@ -14,7 +13,7 @@ const Body = styled.div`
   padding: 0.5rem 0.5rem;
 `
 
-const Cards = styled.div`
+const Card = styled.div`
   height: 23vh;
   width: 22rem;
   border-radius: 7px;
@@ -27,10 +26,18 @@ const Cards = styled.div`
    transform : translateY(-10%)
   }
   ${media.lessThan('large')`
-   width: 17rem;
-    height: 18vh;
+    width: 17rem;
+    height: 20vh;
   `};
-
+  ${media.lessThan('medium')`
+  border-radius: 4px;
+  width: 20rem;
+  height: 22vh;
+`};
+${media.lessThan('small')`
+width: 19rem;
+height: 22vh;
+`};
 `
 
 const center = {
@@ -77,33 +84,33 @@ const Home = props => {
       <Body>
         <Grid>
           <a style={{ textDecoration: 'none' }} href={`#courses`}>
-            <Cards background="#fff" style={{ ...center }}>
+            <Card background="#fff" style={{ ...center }}>
               <div>
                 <StyledTitle align="center"> {stats.totalCourses} </StyledTitle>
 
                 <Text align="center"> {stats.totalCourses < 2 ? 'Course' : 'Courses'} </Text>
               </div>
-            </Cards>
+            </Card>
           </a>
 
           <a style={{ textDecoration: 'none' }} href={`#contents`}>
-            <Cards background="#fff" style={{ ...center }}>
+            <Card background="#fff" style={{ ...center }}>
               <div>
                 <StyledTitle align="center"> {stats.totalContents} </StyledTitle>
 
                 <Text align="center"> {stats.totalContents < 2 ? 'Content' : 'Contents'} </Text>
               </div>
-            </Cards>
+            </Card>
           </a>
 
           <a style={{ textDecoration: 'none' }} href={`#bookings`}>
-            <Cards background="#fff" style={{ ...center }}>
+            <Card background="#fff" style={{ ...center }}>
               <div>
                 <StyledTitle align="center"> 0 </StyledTitle>
 
                 <Text align="center"> Bookings </Text>
               </div>
-            </Cards>
+            </Card>
           </a>
         </Grid>
 

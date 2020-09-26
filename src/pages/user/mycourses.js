@@ -116,10 +116,10 @@ const MyCourses = props => {
             <div style={{ ...center }}>
               <div>
                 <div style={{ ...center }}>
-                  <Planet color="#0072ce" size={200} mood="sad" />
+                  <Planet color="#0072ce" size={180} mood="sad" />
                 </div>
                 <br />
-                <Text> You dont have any created course. </Text>
+                <Text align="center"> You dont have any created course. </Text>
                 <Link to="/create-course">
                   {' '}
                   <Text align="center"> Create New Course </Text>{' '}

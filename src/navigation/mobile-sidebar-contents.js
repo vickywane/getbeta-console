@@ -24,7 +24,7 @@ const Routes = [
     id: 1,
     name: 'Profile',
     routeName: 'home',
-    icon: <FiUser style={{ fontSize: '1.2rem' }} />,
+    icon: <FiUser style={{ fontSize: '1.4rem' }} />,
     to: '/home'
   },
   {
@@ -32,42 +32,42 @@ const Routes = [
     name: 'Courses',
     routeName: 'courses',
 
-    icon: <IoIosList style={{ fontSize: '1.2rem' }} />,
+    icon: <IoIosList style={{ fontSize: '1.4rem' }} />,
     to: '/courses'
   },
   {
     id: 3,
     name: 'Bookings',
     routeName: 'booking',
-    icon: <FiGrid style={{ fontSize: '1.2rem' }} />,
+    icon: <FiGrid style={{ fontSize: '1.4rem' }} />,
     to: '/booking'
   },
   {
     id: 4,
     name: 'Live Sessions',
     routeName: 'sessions',
-    icon: <FiVideo style={{ fontSize: '1.2rem' }} />,
+    icon: <FiVideo style={{ fontSize: '1.4rem' }} />,
     to: '/sessions'
   },
   {
     id: 2,
     name: 'Online Content',
     routeName: 'contents',
-    icon: <FiBookOpen style={{ fontSize: '1.2rem' }} />,
+    icon: <FiBookOpen style={{ fontSize: '1.4rem' }} />,
     to: '/contents'
   },
   {
     id: 6,
     name: 'Preferences',
     routeName: 'preference',
-    icon: <FiSettings style={{ fontSize: '1.2rem' }} />,
+    icon: <FiSettings style={{ fontSize: '1.4rem' }} />,
     to: '/preference'
   },
   {
     id: 7,
     name: 'Analytics',
     routeName: 'analytics',
-    icon: <FiBarChart style={{ fontSize: '1.2rem' }} />,
+    icon: <FiBarChart style={{ fontSize: '1.4rem' }} />,
     to: '/analytics'
   }
 ]
@@ -94,13 +94,14 @@ const Notifications = ({ open, ...props }) => {
               <Link key={id} to={`${to}/`}>
                 <Item active={currentRoute === routeName}>
                   <div style={{ ...center, marginRight: '1rem' }}>
-                    <Hover style={{ marginRight: '0.2rem' }}>{icon}</Hover>
+                    <Hover style={{ marginRight: '0.4rem' }}>{icon}</Hover>
                   </div>
 
                   <div style={{ ...center }}>
                     <Text
                       style={{
-                        paddingTop: '10px',
+                        padding: 0,
+                        margin: 0,
                         fontWeight: currentRoute === routeName && 600
                       }}
                     >
@@ -112,26 +113,6 @@ const Notifications = ({ open, ...props }) => {
             )
           })}
         </Items>
-
-        <Item
-          onClick={() => props.UserStore.logOut()}
-          active
-          style={{
-            width: '100%',
-            position: 'absolute',
-            bottom: 0,
-            textAlign: 'center'
-          }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Hover>
-              <FiLogOut style={{ fontSize: '1.8rem' }} />
-            </Hover>
-            <div style={{ ...center }}>
-              <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
-            </div>
-          </div>
-        </Item>
       </Body>
     </StyledMenu>
   )

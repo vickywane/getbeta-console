@@ -1,23 +1,26 @@
 @font-face {
-  font-family: 'Montserrat Light';
-  src: url('./styles/029177df870cce2b384f0610a6e1f82a.woff2') format('woff2'),
-    /* chrome、firefox */ url('./styles/029177df870cce2b384f0610a6e1f82a.woff') format('woff');
+  font-family: 'Open Sans';
+  src: url('./styles/font/@font-face/629a55a7e793da068dc580d184cc0e31.eot'); /* IE9*/
+  src: url('./styles/font/@font-face/629a55a7e793da068dc580d184cc0e31.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */ url('./styles/font/@font-face/629a55a7e793da068dc580d184cc0e31.woff2')
+      format('woff2'),
+    /* chrome、firefox */ url('./styles/font/@font-face/629a55a7e793da068dc580d184cc0e31.woff')
+      format('woff'),
+    /* chrome、firefox */ url('./styles/font/@font-face/629a55a7e793da068dc580d184cc0e31.ttf')
+      format('truetype'),
+    /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+      url('./styles/font/@font-face/629a55a7e793da068dc580d184cc0e31.svg#Open Sans') format('svg'); /* iOS 4.1- */
 }
 
-@font-face {
-  font-family: 'Montserrat-Medium';
-  src: url('./styles/183e806217ba3fa460e97b3a0fcb7b48.woff2') format('woff2'),
-    /* chrome、firefox */ url('./styles/183e806217ba3fa460e97b3a0fcb7b48.woff') format('woff'); /* chrome、firefox */
+* {
+  font-family: 'Open Sans' !important;
+  font-style: normal;
+  font-weight: lighter;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('./styles/07689d4eaaa3d530d58826b5d7f84735.woff2') format('woff2'),
-    url('./styles/07689d4eaaa3d530d58826b5d7f84735.woff') format('woff');
-}
-
-/*contains some extra temporary styles*/
-/*currently having a hard time using styled-components correct with R-T-G ClassNames*/
 
 ::-webkit-scrollbar {
   width: 0px;
@@ -40,10 +43,6 @@
   max-width: 100%;
   text-align: right;
   /* background: url('./assets/images/test.png') center; */
-}
-
-* {
-  font-family: 'Montserrat Light' !important;
 }
 
 a {

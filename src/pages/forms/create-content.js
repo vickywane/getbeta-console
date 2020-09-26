@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Spinner } from 'react-bootstrap'
 import { FiUploadCloud } from 'react-icons/fi'
 import { useDropzone } from 'react-dropzone'
+import media from 'styled-media-query'
 
 import {
   Body,
@@ -19,14 +20,42 @@ const Image = styled.img`
   object-fit: contain;
   width: 250px;
   height: 200px;
+  ${media.lessThan('large')`
+  width: 200px;
+  height: 200px;
+  `};
+  ${media.lessThan('medium')`
+  width: 150px;
+  height: 150px;
+  `};
+  ${media.lessThan('small')`
+  width: 120px;
+  height: 120px;
+  `};
 `
+
+const StyledBody = styled.div`
+  padding: 0rem 2rem;
+  ${media.lessThan('medium')`
+  padding: 0rem 0.5rem;
+`};
+`
+
+const Grid = styled.div`
+  display: flex;
+  ${media.lessThan('medium')`
+        flex-direction : column;
+        align-items : center;
+    `};
+`
+
 const CreateContent = props => {
   const { createContent, isCreatingContent } = props.ContentStore
 
-  const [ContentName, setContentName] = useState('Teaching engineering to teenagers')
-  const [ContentDescription, setContentDescription] = useState('An article on programming')
-  const [ContentPrice, setContentPrice] = useState('$120')
-  const [ContentType, setContentType] = useState('Article')
+  const [ContentName, setContentName] = useState('')
+  const [ContentDescription, setContentDescription] = useState('')
+  const [ContentPrice, setContentPrice] = useState('')
+  const [ContentType, setContentType] = useState('')
   const [contentImage, setContentImage] = useState(null)
 
   const handleSubmit = () => {
@@ -46,7 +75,7 @@ const CreateContent = props => {
     <div>
       <Header goBack={true} screen="Create New Content " />
 
-      <Body style={{ padding: '0rem 2rem' }}>
+      <StyledBody>
         <br />
         {isCreatingContent ? (
           <div
@@ -61,7 +90,7 @@ const CreateContent = props => {
           </div>
         ) : (
           <div>
-            <div style={{ display: 'flex' }}>
+            <Grid>
               <div
                 {...getRootProps({
                   isDragActive,
@@ -82,8 +111,8 @@ const CreateContent = props => {
                   flexDirection: 'column'
                 }}
               >
-                .
-                <div style={{ ...center, marginBottom: '2rem' }}>
+                <p style={{ opacity: '0' }}> . </p>
+                <div style={{ ...center, marginBottom: '1rem' }}>
                   {!contentImage ? (
                     <StyledHover
                       {...getRootProps({
@@ -95,7 +124,7 @@ const CreateContent = props => {
                     >
                       <input {...getInputProps()} />
                       <Hover style={{ margin: '0 0.7rem', ...center }}>
-                        <FiUploadCloud style={{ fontSize: '1.8rem' }} />
+                        <FiUploadCloud style={{ fontSize: '1.6rem' }} />
                       </Hover>
 
                       <div style={{ paddingTop: '10px' }}>
@@ -109,8 +138,8 @@ const CreateContent = props => {
                   )}
                 </div>
               </div>
-            </div>
-            <hr />
+            </Grid>
+
             <form onSubmit={() => handleSubmit()}>
               {/* <MdTitle style={{fontWeight : 600}} >Create New Content</MdTitle> */}
 
@@ -171,9 +200,10 @@ const CreateContent = props => {
                 </Button>
               </div>
             </form>
+            <br />
           </div>
         )}
-      </Body>
+      </StyledBody>
     </div>
   )
 }

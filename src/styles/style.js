@@ -48,6 +48,7 @@ export const CreateCourseInputField = styled.div`
     height: 55px;
     width: 60rem;
     border: 1px solid #c0c0c0;
+    border-radius : 2px;
     color: #000;
     padding: 0.5rem 1rem;
     outline: 0px;
@@ -98,9 +99,19 @@ export const CreateCourseInputField = styled.div`
   }
   textarea {
     height: 10vh;
-    width: 26rem;
+    width: 27rem;
   }
   `}
+  ${media.lessThan('small')`
+  input {
+    height: 45px;
+    width: 23rem;
+  }
+  textarea {
+    height: 10vh;
+    width: 23rem;
+  }
+  `};
 `
 
 export const InputBody = styled.div`
@@ -111,7 +122,7 @@ export const InputBody = styled.div`
   }
   input {
     font-size: 1rem;
-    height: 55px;
+    height: 50px;
     color: #000;
     background: #b0cfea;
     padding: 0.6rem 1rem;
@@ -135,18 +146,13 @@ export const Title = styled.h4`
   text-align: ${props => props.align};
   font-family : Montserrat-Medium;
   color: ${props => props.color}
-  font-size: ${props => (props.small ? '1.3rem' : null)};
+  font-size: ${props => (props.small ? '1.2rem' : null)};
   ${media.lessThan('huge')`
     font-size : 1.2rem;
   `}
   ${media.lessThan('large')`
-  font-size : 1.1rem;
+  font-size : 1.2rem;
 `}
-
-${media.lessThan('medium')`
-font-size : 1.05rem;
-`}
-
 `
 
 export const MdTitle = styled.h3`
@@ -173,12 +179,12 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 40px;
   background: #0072ce;
   padding: 0.5rem 2rem;
   text-align: center;
-  font-size: 1rem;
-  border-radius: 5px;
+  font-size: 0.9rem;
+  border-radius: 3px;
   color: #fff;
   ${media.lessThan('large')`
      padding: 0.3rem 1.2rem;

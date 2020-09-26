@@ -8,7 +8,6 @@ import {
   FiBookOpen,
   FiGrid,
   FiSettings,
-  FiMenu,
   FiBarChart,
   FiChevronsLeft
 } from 'react-icons/fi'
@@ -32,8 +31,8 @@ export const Items = styled.ul`
 `
 
 export const Item = styled.li`
-  padding: 1rem 1.5rem;
-  margin: 1.5rem 0;
+  padding: 0.8rem 1rem;
+  margin: 0.5rem 0;
   display: flex;
   transition: all 300ms;
   list-style: none;
@@ -63,7 +62,7 @@ const Icon = styled.div`
   align-items: center;
   transition: all 350ms;
   border-radius: 5px;
-  padding: 0.5rem 0.5rem;
+  padding: 0.3rem 0.3rem;
   &: hover {
     cursor: pointer;
     color: #fff;
@@ -73,12 +72,12 @@ const Icon = styled.div`
 
 const SidebarBody = styled(Body)`
   background: #0072ce;
-  width: ${props => (props.isClosed ? '5rem' : '16rem')};
+  width: ${props => (props.isClosed ? '4rem' : '14rem')};
   ${media.lessThan('huge')`
-  width: ${props => (props.isClosed ? '5rem' : '15rem')};
+  width: ${props => (props.isClosed ? '4rem' : '11rem')};
   `}
   ${media.lessThan('large')`
-  width: ${props => (props.isClosed ? '5rem' : '20rem')};
+  width: ${props => (props.isClosed ? '4rem' : '10rem')};
   `}
   ${media.lessThan('medium')`
     display  : none;
@@ -106,7 +105,7 @@ const Sidebar = props => {
       id: 1,
       name: 'Profile',
       routeName: 'home',
-      icon: <FiUser style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <FiUser style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/home'
     },
     {
@@ -114,42 +113,42 @@ const Sidebar = props => {
       name: 'Courses',
       routeName: 'courses',
 
-      icon: <IoIosList style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <IoIosList style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/courses'
     },
     {
       id: 3,
       name: 'Bookings',
       routeName: 'booking',
-      icon: <FiGrid style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <FiGrid style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/booking'
     },
     {
       id: 4,
       name: 'Live Sessions',
       routeName: 'sessions',
-      icon: <FiVideo style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <FiVideo style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/sessions'
     },
     {
       id: 5,
       name: 'Online Content',
       routeName: 'contents',
-      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/contents'
     },
     {
       id: 6,
       name: 'Preferences',
       routeName: 'preference',
-      icon: <FiSettings style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <FiSettings style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/preference'
     },
     {
       id: 7,
       name: 'Analytics',
       routeName: 'analytics',
-      icon: <FiBarChart style={{ fontSize: !isClosed ? '1.5rem' : '1.5rem' }} />,
+      icon: <FiBarChart style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/analytics'
     }
   ]
@@ -164,7 +163,7 @@ const Sidebar = props => {
       >
         <div
           style={{
-            padding: '0.8rem 0.5rem',
+            padding: '0.8rem 0.3rem',
             display: 'flex',
             backgroundColor: '#16204f',
             boxShadow: '0 2px 3px grey',
@@ -173,7 +172,7 @@ const Sidebar = props => {
         >
           {!isClosed && (
             <div style={{ ...center }}>
-              <Title style={{ textAlign: 'center' }}>
+              <Title small style={{ textAlign: 'center', padding: '0 0.5rem' }}>
                 <a
                   target="_blank"
                   style={{ color: '#fff', textDecoration: 'none' }}
@@ -222,21 +221,24 @@ const Sidebar = props => {
 
         <Item
           onClick={() => props.UserStore.logOut()}
-          active
           style={{
-            width: isClosed ? '5rem' : '16rem',
+            width: isClosed ? '3rem' : '16rem',
             position: 'absolute',
             bottom: 0,
+            marginBottom: 0,
             textAlign: 'center'
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Hover>
-              <FiLogOut style={{ fontSize: '1.8rem' }} />
+              <FiLogOut style={{ fontSize: '1.6rem' }} />
             </Hover>
             {!isClosed && (
               <div style={{ ...center }}>
-                <Text style={{ fontWeight: 'bold', padding: '0rem 1rem' }}> Log Out </Text>
+                <Text style={{ fontWeight: 'bold', padding: '0rem 0.5rem', margin: 0 }}>
+                  {' '}
+                  Log Out{' '}
+                </Text>
               </div>
             )}
           </div>
