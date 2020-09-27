@@ -151,7 +151,7 @@ export const Title = styled.h4`
     font-size : 1.2rem;
   `}
   ${media.lessThan('large')`
-  font-size : 1.2rem;
+  font-size : 1.15rem;
 `}
 `
 
@@ -163,6 +163,9 @@ export const MdTitle = styled.h3`
     font-size: ${props => (props.small ? '1.5rem' : null)};
     ${media.lessThan('medium')`
       font-size : 1.3rem;
+    `};
+    ${media.lessThan('small')`
+      font-size : 1.1rem;
     `};
 `
 
@@ -215,7 +218,7 @@ export const CardGrid = styled.div`
   display: grid;
   grid-gap: 2rem 2rem;
   place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 `
 
 export const Card = styled.div`
@@ -242,28 +245,56 @@ export const HomeList = styled.ul`
 `
 
 export const Searchbox = styled.div`
-width  : 35rem;
-border : 1px solid #c0c0c0;
-border-radius : 3px;
-display : flex;
-padding   : 0.6rem 0.6rem;
-justify-content: space-between;
-background : #fff;
-input {
-    color : #0072ce;
-    padding : 0.2rem 1rem;
-    background : transparent;
-    width  : 42rem
+  width: 35rem;
+  border: 1px solid #c0c0c0;
+  border-radius: 3px;
+  display: flex;
+  padding: 0.6rem 0.6rem;
+  justify-content: space-between;
+  background: #fff;
+  input {
+    color: #0072ce;
+    padding: 0.2rem 1rem;
+    background: transparent;
+    width: 38rem;
     font-size: 1rem;
-    outline : 0;
-    border : 0;
+    outline: 0;
+    border: 0;
   }
   div {
-    color : #0072ce;
-    display  : flex;
-    justify-content : center;
-    align-items : center;
+    color: #0072ce;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+  ${media.lessThan('huge')`
+  width  : 35rem;
+input {
+  padding : 0.2rem 1rem;
+  width  : 35rem;
+}
+`};
+  ${media.lessThan('large')`
+  width  : 30rem;
+input {
+  padding : 0.2rem 1rem;
+  width  : 30rem;
+}
+`};
+  ${media.lessThan('medium')`
+  width  : 27rem;
+input {
+  padding : 0.2rem 1rem;
+  width  : 27rem;
+}
+`};
+  ${media.lessThan('small')`
+  width  : 23rem;
+input {
+  padding : 0.2rem 1rem;
+  width  : 24rem;
+}
+`};
 `
 
 export const StyledHover = styled(Hover)`

@@ -7,10 +7,10 @@ import MobileSidebar from '../../navigation/mobile-sidebar'
 import Notification from '../../navigation/mobile-sidebar-contents'
 import media from 'styled-media-query'
 
-import { SmallUserImage, Title, Hover, StyledHover, center } from '../../styles/style'
+import { SmallUserImage, Title, Text, Hover, StyledHover, center } from '../../styles/style'
 
 const Body = styled.div`
-  height: 70px;
+  height: 65px;
   width: 100%;
   dsplay: flex;
   jusfity-content: center;
@@ -74,13 +74,13 @@ const Header = props => {
           {goBack ? (
             <div style={{ ...center }}>
               <StyledHover style={{ padding: '0.4rem 0.4rem' }} onClick={() => navigate(-1)}>
-                <FiArrowLeft style={{ fontSize: '1.8rem' }} />
+                <FiArrowLeft style={{ fontSize: '1.6rem' }} />
               </StyledHover>
             </div>
           ) : (
             <Link to="/">
               <Icon>
-                <FiHome style={{ fontSize: '1.8rem' }} />
+                <FiHome style={{ fontSize: '1.6rem' }} />
               </Icon>
             </Link>
           )}
@@ -99,7 +99,7 @@ const Header = props => {
         <ScreenName>
           {screen && (
             <div style={{ ...center }}>
-              <Title color="#0072ce"> {screen} </Title>
+              <Text color="#0072ce"> {screen} </Text>
             </div>
           )}
         </ScreenName>

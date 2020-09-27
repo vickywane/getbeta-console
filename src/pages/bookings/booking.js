@@ -22,7 +22,6 @@ const Booking = props => {
   }, [])
 
   const allVendors = toJS(users)
-  const calendlyApi = process.env.REACT_APP_CALENDAR_API
 
   return (
     <div>
@@ -45,8 +44,8 @@ const Booking = props => {
                   <img
                     alt="User"
                     style={{
-                      height: '110px',
-                      width: '110px',
+                      height: '90px',
+                      width: '90px',
                       borderRadius: '50%',
                       cursor: 'pointer',
                       objectFit: 'contain',

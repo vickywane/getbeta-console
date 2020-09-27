@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import media from 'styled-media-query'
 
 import Header from '../../../components/headers/header'
 import { Text, Title, center } from '../../../styles/style'
@@ -9,17 +10,24 @@ import CreateSessionCard from './create-session-card'
 import { IoIosPeople } from 'react-icons/io'
 
 const Body = styled.div`
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
+  ${media.lessThan('medium')`
+    padding: 1rem 1rem;
+  `};
+  ${media.lessThan('medium')`
+    padding: 0.5rem 0.5rem;
+  `}
 `
 
 const CardBody = styled.div`
-  width: 90%;
-  height: 90%;
-  background: #fff;
+  padding-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 3px 4px grey;
+  color: #0072ce;
+  ${media.lessThan('medium')`
+    flex-direction : column;
+  `};
 `
 
 const Card = styled.div`
@@ -29,7 +37,7 @@ const Card = styled.div`
   display: flex;
   background: #fff;
   color: #0072ce;
-  margin: 0 3rem;
+  margin: 1.5rem 2rem;
   transition: all 400ms;
   justify-content: center;
   align-items: center;
@@ -41,64 +49,82 @@ const Card = styled.div`
     cursor: pointer;
     box-shadow: 0 2px 3px grey;
   }
+  ${media.lessThan('medium')`
+    border-radius: 3px;
+      width: 24rem;
+  `};
+  ${media.lessThan('small')`
+    width: 20rem;
+`};
+`
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 50% auto;
+  place-items: center;
+  ${media.lessThan('medium')`
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+  `};
 `
 
 const Sessions = props => {
   const [isCreating, setCreating] = useState(false)
 
   return (
-    <div style={{}}>
+    <div>
       <Header />
       {!isCreating && (
-        <div>
-          <CardBody style={{ width: '100%', height: '8vh', color: '#0072ce' }}>
-            <div style={{ display: 'flex', margin: '0 2rem' }}>
-              <div style={{ margin: '0 0.7rem', ...center }}>
-                <IoIosVideocam style={{ fontSize: '2rem' }} />
-              </div>
-              <div style={{ ...center }}>
-                <Text style={{ margin: 0, padding: 0 }}> 10 Live sessions </Text>
-              </div>
+        <CardBody style={{ background: '#d6e2f0cf' }}>
+          <div style={{ display: 'flex', margin: '0 2rem' }}>
+            <div style={{ margin: '0 0.7rem', ...center }}>
+              <IoIosVideocam style={{ fontSize: '1.8rem' }} />
             </div>
+            <div style={{ ...center }}>
+              <Text style={{ margin: 0, padding: 0 }}> 10 Live sessions </Text>
+            </div>
+          </div>
 
-            <div style={{ display: 'flex', margin: '0 2rem' }}>
-              <div style={{ margin: '0 0.7rem', ...center }}>
-                <IoIosPeople style={{ fontSize: '2rem' }} />
-              </div>
-              <div style={{ ...center }}>
-                <Text style={{ margin: 0, padding: 0 }}> 10 Group sessions </Text>
-              </div>
+          <div style={{ display: 'flex', margin: '0 2rem' }}>
+            <div style={{ margin: '0 0.7rem', ...center }}>
+              <IoIosPeople style={{ fontSize: '1.8rem' }} />
             </div>
+            <div style={{ ...center }}>
+              <Text style={{ margin: 0, padding: 0 }}> 10 Group sessions </Text>
+            </div>
+          </div>
 
-            <div style={{ display: 'flex', margin: '0 2rem' }}>
-              <div style={{ margin: '0 0.7rem', ...center }}>
-                <IoIosVideocam style={{ fontSize: '2rem' }} />
-              </div>
-              <div style={{ ...center }}>
-                <Text style={{ margin: 0, padding: 0 }}> 10 One - On - One sessions </Text>
-              </div>
+          <div style={{ display: 'flex', margin: '0 2rem' }}>
+            <div style={{ margin: '0 0.7rem', ...center }}>
+              <IoIosVideocam style={{ fontSize: '1.8rem' }} />
             </div>
-          </CardBody>
-        </div>
+            <div style={{ ...center }}>
+              <Text style={{ margin: 0, padding: 0 }}> 10 One - On - One sessions </Text>
+            </div>
+          </div>
+        </CardBody>
       )}
 
       <Body
         style={{
           display: 'flex',
           height: !isCreating ? window.innerHeight - 145 : window.innerHeight - 70,
+          overflow: 'auto',
           justifyContent: 'center',
           alignItems: 'center',
           background: '#d6e2f0cf'
         }}
       >
+        <br />
         {!isCreating ? (
-          <div style={{ display: 'flex' }}>
+          <Grid>
             <Card onClick={() => setCreating(!isCreating)}>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ textAlign: 'center', margin: '1rem 0' }}>
-                  <IoIosVideocam style={{ fontSize: '2.5rem' }} />
+                  <IoIosVideocam style={{ fontSize: '2.2rem' }} />
                 </div>
-                <Title small> Create Live Session </Title>
+                <Text small> Create Live Session </Text>
               </div>
             </Card>
 
@@ -106,14 +132,14 @@ const Sessions = props => {
               <Link to="/all-sessions">
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <div style={{ textAlign: 'center', margin: '1rem 0' }}>
-                    <IoIosLink style={{ fontSize: '2.5rem' }} />
+                    <IoIosLink style={{ fontSize: '2.2rem' }} />
                   </div>
 
-                  <Title small> Join Live Session </Title>
+                  <Text small> Join Live Session </Text>
                 </div>
               </Link>
             </Card>
-          </div>
+          </Grid>
         ) : (
           <CreateSessionCard handleClose={val => setCreating(val)} />
         )}

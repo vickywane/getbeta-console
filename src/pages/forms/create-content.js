@@ -54,7 +54,7 @@ const CreateContent = props => {
 
   const [ContentName, setContentName] = useState('')
   const [ContentDescription, setContentDescription] = useState('')
-  const [ContentPrice, setContentPrice] = useState('')
+  const [ContentPrice, setContentPrice] = useState(0)
   const [ContentType, setContentType] = useState('')
   const [contentImage, setContentImage] = useState(null)
 
@@ -104,38 +104,30 @@ const CreateContent = props => {
                 {isDragActive && <Text align="center"> Drop Image here </Text>}
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  flexDirection: 'column'
-                }}
-              >
-                <div style={{ ...center, marginBottom: '1rem' }}>
-                  {!contentImage ? (
-                    <div style={{ ...center }}>
-                      <StyledHover
-                        {...getRootProps({
-                          isDragActive,
-                          isDragAccept,
-                          isDragReject
-                        })}
-                        style={{ display: 'flex', padding: '7px' }}
-                      >
-                        <input {...getInputProps()} />
-                        <Hover style={{ margin: '0 0.6rem', ...center }}>
-                          <FiUploadCloud style={{ fontSize: '1.5rem' }} />
-                        </Hover>
+              <div style={{ ...center }}>
+                {!contentImage ? (
+                  <div style={{ ...center }}>
+                    <StyledHover
+                      {...getRootProps({
+                        isDragActive,
+                        isDragAccept,
+                        isDragReject
+                      })}
+                      style={{ display: 'flex', padding: '7px' }}
+                    >
+                      <input {...getInputProps()} />
+                      <Hover style={{ margin: '0 0.6rem', ...center }}>
+                        <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                      </Hover>
 
-                        <Text small style={{ padding: 0, margin: 0 }}>
-                          Upload Content Image{' '}
-                        </Text>
-                      </StyledHover>
-                    </div>
-                  ) : (
-                    <Text> {contentImage.path} </Text>
-                  )}
-                </div>
+                      <Text small style={{ padding: 0, margin: 0 }}>
+                        Upload Content Image{' '}
+                      </Text>
+                    </StyledHover>
+                  </div>
+                ) : (
+                  <Text> {contentImage.path} </Text>
+                )}
               </div>
             </Grid>
 

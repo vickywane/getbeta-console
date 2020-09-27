@@ -5,20 +5,28 @@ import { Spinner } from 'react-bootstrap'
 import { FaMoneyBill } from 'react-icons/fa'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
+import media from 'styled-media-query'
 
+import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
-import { Text, Title, Searchbox, StyledHover, Button, CardGrid, Card } from '../../../styles/style'
+import { Text, Searchbox, StyledHover, center, CardGrid, Card } from '../../../styles/style'
 import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
+  ${media.lessThan('medium')`
+  padding: 0.5rem 1rem;
+  `};
+  ${media.lessThan('small')`
+  padding: 0.5rem 0.5rem;
+  `};
 `
 
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
+const StyledFilter = styled(StyledHover)`
+  ${media.lessThan('medium')`
+  display : none;
+`};
+`
 
 const Contents = props => {
   const { fetchContents, isLoadingContents, contents } = props.ContentStore
@@ -28,33 +36,27 @@ const Contents = props => {
   }, [])
 
   const contentList = toJS(contents)
-  console.log(contentList)
-
+  const Width = useWindowWidth()
   return (
     <div>
-      <Header
-        backgroundColor="rgba(233, 241, 251, 0.81)"
-        showSearch={true}
-        searchText="Search For A Content Material"
-      />
+      <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
 
       <Body>
         <div style={{ margin: '0.5rem 0', justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
-            <StyledHover onClick={() => {}}>
+            <StyledFilter onClick={() => {}}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
-
-              <FiFilter style={{ fontSize: '1.7rem' }} />
-            </StyledHover>
+              <FiFilter style={{ fontSize: '1.5rem' }} />
+            </StyledFilter>
           </div>
 
           <div style={{ ...center }}>
             <Searchbox>
               <div>
-                <FiSearch style={{ fontSize: '1.6rem' }} />
+                <FiSearch style={{ fontSize: '1.5rem' }} />
               </div>
 
-              <input placeholder="Seach for a content" />
+              <input placeholder="Seach for a content" type="text" />
             </Searchbox>
           </div>
         </div>

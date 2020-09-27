@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FiX } from 'react-icons/fi'
+import media from 'styled-media-query'
 
 import { inject, observer } from 'mobx-react'
-import { Text, Body, Title, Button } from '../../../styles/style'
+import { Body, Title, Button } from '../../../styles/style'
 
 const Card = styled(Body)`
-  height: 75%;
-  width: 35%;
+  height: auto;
+  width: 33rem;
   background: #fff;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem;
   border-radius: 5px;
-  box-shadow: 0 3px 4px;
+  box-shadow: 0 2px 3px;
+  ${media.lessThan('medium')`
+    width: 27rem;
+  `};
+  ${media.lessThan('small')`
+    width : 25rem;
+  `};
 `
 
 const InputBody = styled.div`
@@ -19,6 +25,7 @@ const InputBody = styled.div`
   display: flex;
   flex-direction: column;
   label {
+    font-size: 0.9rem;
   }
   input {
     font-size: 0.9rem;
@@ -27,6 +34,16 @@ const InputBody = styled.div`
     border-radius: 1px;
     width: 29rem;
   }
+  ${media.lessThan('medium')`
+  input {
+    width: 26rem;
+  }
+  `};
+  ${media.lessThan('small')`
+  input {
+    width: 23rem;
+  }
+  `};
 `
 
 const CreateSession = props => {
@@ -38,7 +55,7 @@ const CreateSession = props => {
 
   return (
     <Card>
-      <Title style={{ padding: '1rem 0', textAlign: 'center', color: '#0072CE' }}>
+      <Title style={{ padding: '0.5rem 0', textAlign: 'center', color: '#0072CE' }}>
         Create Live Session
       </Title>
       <hr />

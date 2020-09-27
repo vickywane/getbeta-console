@@ -13,28 +13,33 @@ import {
   Text,
   Title,
   Button,
+  center,
   StyledHover,
-  Hover,
   CardGrid,
   Card,
-  Searchbox,
-  center
+  Searchbox
 } from '../../../styles/style'
 import { FiSearch, FiFilter } from 'react-icons/fi'
 
-const Body = styled.div`
-  padding: 1rem 3rem;
+const StyledCard = styled(Card)`
+  max-height: 42vh;
+  width: 26rem;
 `
 
-const StyledCard = styled(Card)`
-  height: auto;
-  width: 26rem;
+const Body = styled.div`
+  padding: 1rem 2rem;
+  ${media.lessThan('medium')`
+  padding: 0.5rem 1rem;
+  `};
+  ${media.lessThan('small')`
+  padding: 0.5rem 0.5rem;
+  `};
 `
 
 const StyledFilter = styled(StyledHover)`
   ${media.lessThan('medium')`
-    display : none;
-  `};
+  display : none;
+`};
 `
 
 const CoursesList = props => {
@@ -75,13 +80,11 @@ const CoursesList = props => {
       <Header
         backgroundColor="rgba(233, 241, 251, 0.81)"
         showSearch={true}
-        screen="All Courses"
+        screen="Courses"
         searchText="Search For A Course"
       />
 
       <Body>
-        <br />
-
         {isLoading ? (
           <div style={{ ...center }}>
             <br />
@@ -157,15 +160,15 @@ const CoursesList = props => {
                 <div style={{ justifyContent: 'space-between', display: 'flex' }}>
                   <div style={{ display: 'flex' }}>
                     <StyledFilter onClick={() => setModal(true)}>
-                      <Text style={{ margin: '0 0.5rem' }}> Filter Courses </Text>
-                      <FiFilter style={{ fontSize: '1.6rem' }} />
+                      <Text style={{ margin: '0 0.4rem', padding: 0 }}> Filter Courses </Text>
+                      <FiFilter style={{ fontSize: '1.5rem', margin: 0, padding: 0 }} />
                     </StyledFilter>
                   </div>
 
                   <div style={{ ...center }}>
                     <Searchbox>
                       <div>
-                        <FiSearch style={{ fontSize: '1.6rem' }} />
+                        <FiSearch style={{ fontSize: '1.5rem' }} />
                       </div>
 
                       <input placeholder="Seach for a course" />
