@@ -139,14 +139,23 @@ export const InputBody = styled.div`
     border-radius: 1px;
     width: 30rem;
   }
+  ${media.lessThan('medium')`
+    input , textarea {
+      width : 26rem;
+    }
+  `};
+  ${media.lessThan('small')`
+  input , textarea {
+    width : 23rem;
+  }
+    `};
 `
 
 export const Title = styled.h4`
   font-weight : ${props => props.weight};
   text-align: ${props => props.align};
-  font-family : Montserrat-Medium;
   color: ${props => props.color}
-  font-size: ${props => (props.small ? '1.2rem' : null)};
+  font-size: ${props => (props.small ? '1.2rem' : '1.3rem')};
   ${media.lessThan('huge')`
     font-size : 1.2rem;
   `}
@@ -158,9 +167,8 @@ export const Title = styled.h4`
 export const MdTitle = styled.h3`
     font-weight : ${props => props.weight};
     text-align: ${props => props.align};
-    font-family : Montserrat-Medium;
     color: ${props => props.color}
-    font-size: ${props => (props.small ? '1.5rem' : null)};
+    font-size: ${props => (props.small ? '1.3rem' : '1.4rem')};
     ${media.lessThan('medium')`
       font-size : 1.3rem;
     `};
@@ -172,8 +180,10 @@ export const MdTitle = styled.h3`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
-  ${media.lessThan('medium')`0.8rem`};
-  ${media.lessThan('small')`0.7rem`};
+  font-size: 1rem;
+  ${media.lessThan('large')` font-size : 0.9rem`};
+  ${media.lessThan('medium')` font-size : 0.8rem`};
+  ${media.lessThan('small')`font-size : 0.7rem`};
 `
 
 export const Button = styled.button`

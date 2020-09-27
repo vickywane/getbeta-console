@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/headers/header'
 import styled from 'styled-components'
+import media from 'styled-media-query'
 
 import { SUGGESTED_KEYWORDS } from '../../mockData'
-import { Body, Title, Text, Button, InputBody } from '../../styles/style'
+import { Body, Title, Text, Button, InputBody, center } from '../../styles/style'
 
 const Card = styled.div`
   height: 80%;
@@ -13,19 +14,23 @@ const Card = styled.div`
   background: #fff;
   border-radius: 7px;
   box-shadow: 0 3px 4px grey;
+  ${media.lessThan('medium')`
+    width : 30rem;
+  `};
+  ${media.lessThan('small')`
+    width : 24rem;
+  `};
 `
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  ${media.lessThan('medium')`
+      flex-direction : column;
+      align-items : center
+  `}
 `
-
-const center = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center'
-}
 
 const KeywordContainer = styled.div`
   height: 50px;
@@ -55,16 +60,15 @@ const Grid = styled.div`
 const Survey = props => {
   return (
     <div>
-      <Header />
+      <Header screen="User survey" />
       <Body
         style={{
-          ...center,
+          // ...center,
           height: window.innerHeight - 80,
-          padding: '2rem 2rem',
+          padding: '1rem 1rem',
           background: 'rgba(233, 241, 251, 0.81)'
         }}
       >
-        <br />
         <Container
           style={{
             width: '100%'
@@ -76,7 +80,6 @@ const Survey = props => {
               Help Us Serve You Better{' '}
             </Title>
             <hr />
-            <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <InputBody>
                 <input placeholder="Type a keyword based on your favourite feature" />
@@ -98,7 +101,7 @@ const Survey = props => {
                     id={item}
                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                   >
-                    <Text> {item} </Text>
+                    <Text align="center"> {item} </Text>
                   </KeywordContainer>
                 )
               })}

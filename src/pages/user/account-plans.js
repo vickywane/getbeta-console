@@ -83,7 +83,7 @@ const AccountPlans = props => {
           {SubscriptionPlans.map(({ price, id, name, features }) => {
             return (
               <Card key={id}>
-                <MdTitle style={{ fontWeight: 'bold' }}> {name} </MdTitle>
+                <MdTitle> {name} </MdTitle>
                 <ul>
                   {features.map(item => {
                     return (

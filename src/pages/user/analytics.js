@@ -8,12 +8,15 @@ import Header from '../../components/headers/header'
 import { UserAnalytics } from '../../mockData'
 
 const Card = styled.div`
-  height: 20vh;
+  height: auto;
   width: 25rem;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 2px 3px grey;
   background: #fff;
+  ${media.lessThan('small')`
+    width: 24rem;
+  `};
 `
 
 const Grid = styled.div`
@@ -21,6 +24,11 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   grid-gap: 3rem 1rem;
   place-items: center;
+  ${media.lessThan('medium')`
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+  `};
 `
 
 const List = styled.ul`

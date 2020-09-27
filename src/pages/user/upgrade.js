@@ -2,14 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 import { FiCheck } from 'react-icons/fi'
 import { navigate } from '@reach/router'
+import media from 'styled-media-query'
 
 import Header from '../../components/headers/header'
-import { Text, MdTitle, Title, Button, Body } from '../../styles/style'
+import { Text, MdTitle, Title, center, Button, Body } from '../../styles/style'
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 30% 70%;
   place-items: center;
+  ${media.lessThan('medium')`
+      display : flex;
+      flex-direction : column;
+      align-items : center;
+  `};
 `
 
 const Card = styled.div`
@@ -19,13 +25,8 @@ const Card = styled.div`
   color: #fff;
   padding: 1rem 1rem;
   border-radius: 5px;
+  margin: 1rem 0;
 `
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 
 const List = styled.div`
   padding: 0.5rem 0.5rem;
@@ -37,6 +38,7 @@ const List = styled.div`
       margin: 1rem 0.5rem;
     }
   }
+  ${media.lessThan('medium')`display : none`};
 `
 
 const InputBody = styled.div`
@@ -90,7 +92,7 @@ const Upgrade = props => {
                       <li>
                         <div style={{ display: 'flex' }}>
                           <div style={{ margin: '0 0.5rem' }}>
-                            <FiCheck style={{ fontSize: '1.6rem', color: 'green' }} />
+                            <FiCheck style={{ fontSize: '1.6rem', color: 'white' }} />
                           </div>
 
                           <Text> {items} </Text>
@@ -112,7 +114,6 @@ const Upgrade = props => {
           </Card>
 
           <Card>
-            <br />
             <MdTitle align="center"> Transaction Details </MdTitle>
 
             <form onSubmit={() => {}}>
