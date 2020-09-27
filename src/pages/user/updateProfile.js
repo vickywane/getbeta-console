@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
-import { FiTrash2, FiCamera, FiKey } from 'react-icons/fi'
+import { FiTrash2, FiUploadCloud, FiKey } from 'react-icons/fi'
 import { observer } from 'mobx-react'
 import { useDropzone } from 'react-dropzone'
 
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
-import { Text, InputBody, Hover, Button, center, Body } from '../../styles/style'
+import { Text, InputBody, Hover, Button, center, StyledHover, Body } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
 
 const UserImage = styled.div`
@@ -15,17 +15,17 @@ const UserImage = styled.div`
   object-fit: contain;
   background-position: center;
   background-size: cover;
-  width: 220px;
+  width: 200px;
   outline: none;
-  height: 220px;
-  border-radius: 10%;
+  height: 200px;
+  border-radius: 7%;
   ${media.lessThan('huge')`
-  width: 250px;
-  height: 250px;
-  `};
-  ${media.lessThan('large')`
   width: 180px;
   height: 180px;
+  `};
+  ${media.lessThan('large')`
+  width: 170px;
+  height: 170px;
   border-radius: 7%;
   `};
   ${media.lessThan('small')`
@@ -82,9 +82,8 @@ textarea , input {
 
 const FormsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
-  place-items: center;
-  grid-gap: 1rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  grid-gap: 1rem 1rem;
   ${media.lessThan('medium')`
     display : flex
      flex-direction : column;
@@ -98,6 +97,27 @@ const MediaGrid = styled.div`
   ${media.lessThan('medium')`
     justify-content : center;
  `}
+`
+
+const StyledBody = styled(Body)`
+  padding: 1rem 5rem;
+  ${media.lessThan('large')`
+    padding : 1rem 3rem;
+  `};
+  ${media.lessThan('medium')`
+    padding : 1rem 1.5rem;
+  `};
+  ${media.lessThan('small')`
+    padding : 1rem 0.5rem;
+  `};
+`
+
+const BioInput = styled.textarea`
+  width: 100%;
+  height: 30vh;
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: #000;
 `
 
 const UpdateProfile = props => {
@@ -136,7 +156,7 @@ const UpdateProfile = props => {
     <div>
       <Header goBack={true} />
 
-      <Body style={{ height: window.innerHeight - 75, overflow: 'auto', padding: '1rem 2rem' }}>
+      <StyledBody style={{ height: window.innerHeight - 75, overflow: 'auto' }}>
         <div style={{}}>
           <div
             {...getRootProps({
@@ -166,23 +186,37 @@ const UpdateProfile = props => {
             ) : (
               <MediaGrid>
                 {!userImage ? (
-                  <UserImage image={TestImage}>
-                    <input {...getInputProps()} />
-                    <div style={{ ...center, height: '15rem' }}>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        .
-                        <Hover style={{ marginBottom: '1rem', color: 'white' }}>
-                          <FiCamera style={{ fontSize: '1.8rem' }} />
-                        </Hover>
-                      </div>
+                  <div style={{ display: 'flex' }}>
+                    <UserImage image={TestImage}>
+                      <input {...getInputProps()} />
+                    </UserImage>
+
+                    <div style={{ ...center }}>
+                      {!userImage ? (
+                        <div style={{ ...center }}>
+                          <StyledHover
+                            {...getRootProps({
+                              isDragActive,
+                              isDragAccept,
+                              isDragReject
+                            })}
+                            style={{ display: 'flex', padding: '7px' }}
+                          >
+                            <input {...getInputProps()} />
+                            <Hover style={{ margin: '0 0.6rem', ...center }}>
+                              <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                            </Hover>
+
+                            <Text small style={{ padding: 0, margin: 0 }}>
+                              Upload Content Image{' '}
+                            </Text>
+                          </StyledHover>
+                        </div>
+                      ) : (
+                        <Text> {userImage.path} </Text>
+                      )}
                     </div>
-                  </UserImage>
+                  </div>
                 ) : (
                   <div style={{ display: 'flex' }}>
                     <img
@@ -297,7 +331,7 @@ const UpdateProfile = props => {
             Save Details
           </Button>
         </div>
-      </Body>
+      </StyledBody>
     </div>
   )
 }

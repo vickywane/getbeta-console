@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FiSearch } from 'react-icons/fi'
+import { FiSearch, FiCalendar, FiPhoneCall } from 'react-icons/fi'
 import { Link } from '@reach/router'
 import media from 'styled-media-query'
 
-import { USER_STATS } from '../../mockData'
-import { Text, Title, Section, Hover, Button, Searchbox } from '../../styles/style'
+import { Text, Title, Section, Hover, center, Searchbox } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -13,7 +12,17 @@ const Body = styled.div`
 const Data = [
   {
     id: 1,
-    name: 'Teaching maths to little preschoolers at a tender age'
+    reason: 'Learning Maths',
+    duration: '30mins',
+    date: '12-12-12',
+    with: 'Anonymous User'
+  },
+  {
+    id: 2,
+    reason: 'Learning English',
+    duration: '30mins',
+    date: '12-12-12',
+    with: 'Anonymous User'
   }
 ]
 
@@ -25,13 +34,8 @@ const ContentContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   box-shadow: 0 3px 5px #c0c0c0;
+  margin: 1.5rem 0;
 `
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 
 const StyledSearchbox = styled(Searchbox)`
 width  : 35rem;
@@ -61,8 +65,9 @@ const ContentImage = styled.div`
 `
 
 const Date = styled.div`
+  display: flex;
   ${media.lessThan('medium')`
-display : none;
+    display : none;
 `};
 `
 
@@ -100,16 +105,21 @@ const Mybookings = props => {
           </div>
           <hr />
           <ul style={{ margin: '0', padding: '0', listStyle: 'none' }}>
-            {Data.map(({ id, name }) => {
+            {Data.map(({ id, reason, date }) => {
               return (
                 <li key={id}>
                   <ContentContainer>
-                    <ContentImage />
+                    <ContentImage style={{ ...center }}>
+                      <FiPhoneCall style={{ fontSize: '1.5rem' }} />
+                    </ContentImage>
 
-                    <Text> {name} </Text>
+                    <Text> {reason} </Text>
 
                     <Date>
-                      <Text> 12 - 12 - 12 </Text>
+                      <div style={{ margin: '0 0.4rem' }}>
+                        <FiCalendar style={{ fontSize: '1.5rem' }} />
+                      </div>
+                      <Text style={{ padding: 0, margin: 0 }}> 12 - 12 - 12 </Text>
                     </Date>
                   </ContentContainer>
                 </li>

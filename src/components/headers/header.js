@@ -99,7 +99,10 @@ const Header = props => {
         <ScreenName>
           {screen && (
             <div style={{ ...center }}>
-              <Text color="#0072ce"> {screen} </Text>
+              <Text color="#0072ce" style={{ marginTop: '10px' }}>
+                {' '}
+                {screen}{' '}
+              </Text>
             </div>
           )}
         </ScreenName>
