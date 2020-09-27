@@ -100,7 +100,6 @@ class UserStore {
     })
       .then(res => {
         const { vendor, token } = res.data
-        console.log(vendor)
         // i am only storing in localStorage for test purpose
         // would switch later
         localStorage.setItem('token', token)
