@@ -5,7 +5,16 @@ import { Link } from '@reach/router'
 import { FiAlertTriangle } from 'react-icons/fi'
 
 import { observer } from 'mobx-react'
-import { Text, Title, Button, MdTitle, Hover, AuthCards, ErrorAlert } from '../../styles/style'
+import {
+  Text,
+  Title,
+  Button,
+  MdTitle,
+  Hover,
+  AuthCards,
+  ErrorAlert,
+  AuthInputFields
+} from '../../styles/style'
 
 import { Spinner } from 'react-bootstrap'
 
@@ -24,25 +33,6 @@ const Illustration = styled.div`
   ${media.lessThan('large')`
       display : none;
     `}
-`
-
-const InputBody = styled.div`
-  margin: 2rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  label {
-    font-size: 1.05em;
-    font-weight: 600;
-  }
-  input {
-    padding: 0.6rem 1rem;
-    height: 55px;
-    background: #fbfbfb;
-    font-size: 1.1rem;
-    border: 1px solid #c0c0c0;
-    border-radius: 1px;
-    width: 27rem;
-  }
 `
 
 const Login = props => {
@@ -74,20 +64,20 @@ const Login = props => {
               <Hover style={{ margin: '0 0.5rem' }}>
                 <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
               </Hover>
-              <Text style={{ fontWeight: 600 }}> Email or Password Invalid ! </Text>
+              <Text> Email or Password Invalid ! </Text>
             </div>
           </ErrorAlert>
 
           <section>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <MdTitle small style={{ fontWeight: 'bold' }} center>
+              <MdTitle small center>
                 Account Login
               </MdTitle>
             </div>
             <hr />
             {!isLoading ? (
               <form onSubmit={() => handleLogin()}>
-                <InputBody>
+                <AuthInputFields>
                   <label> Email Address </label>
                   <input
                     value={Email}
@@ -95,8 +85,8 @@ const Login = props => {
                     type="email"
                     placeholder="Your email address"
                   />
-                </InputBody>
-                <InputBody>
+                </AuthInputFields>
+                <AuthInputFields>
                   <label> Password </label>
                   <input
                     value={Password}
@@ -104,7 +94,7 @@ const Login = props => {
                     type="password"
                     placeholder="Your account password"
                   />
-                </InputBody>
+                </AuthInputFields>
                 <br />
               </form>
             ) : (

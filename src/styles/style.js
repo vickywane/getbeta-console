@@ -1,6 +1,44 @@
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
+export const AuthInputFields = styled.div`
+  margin: 2rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 1.1rem;
+  }
+  input {
+    background: #fbfbfb;
+    padding: 0.6rem 1rem;
+    border: 1px solid #c0c0c0;
+    border-radius: 1px;
+    width: 27rem;
+    height: 50px;
+    font-size: 1.1rem;
+  }
+  ${media.lessThan('medium')`
+label {
+  font-size: 1rem;
+}
+input {
+  padding: 0.6rem 0.7rem;
+  width: 26rem;
+  font-size: 1rem;
+}
+`}
+  ${media.lessThan('medium')`
+label {
+font-size: 1rem;
+}
+input {
+padding: 0.6rem 0.5rem;
+width: 24rem;
+font-size: 0.9rem;
+}
+`}
+`
+
 export const Dot = styled.div`
   height: 12px;
   margin: 0.4rem 0.5rem;
@@ -22,7 +60,7 @@ export const ErrorAlert = styled.div`
 `
 
 export const AuthCards = styled.div`
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +70,7 @@ export const AuthCards = styled.div`
     box-shadow: 0 2px 3px #c0c0c0;
     border-radius: 10px;
     section {
-      padding: 2rem 2rem;
+      padding: 1rem 1rem;
     }
   }
 `
@@ -152,9 +190,9 @@ export const InputBody = styled.div`
 `
 
 export const Title = styled.h4`
-  font-weight : ${props => props.weight};
+  font-weight: ${props => (props.weight ? props.weight : 'normal')};
   text-align: ${props => props.align};
-  color: ${props => props.color}
+  color: ${props => props.color};
   font-size: ${props => (props.small ? '1.2rem' : '1.3rem')};
   ${media.lessThan('huge')`
     font-size : 1.2rem;
@@ -165,14 +203,14 @@ export const Title = styled.h4`
 `
 
 export const MdTitle = styled.h3`
-    font-weight : ${props => props.weight};
-    text-align: ${props => props.align};
-    color: ${props => props.color}
-    font-size: ${props => (props.small ? '1.3rem' : '1.4rem')};
-    ${media.lessThan('medium')`
+  font-weight: ${props => props.weight};
+  text-align: ${props => props.align};
+  color: ${props => props.color};
+  font-size: ${props => (props.small ? '1.3rem' : '1.4rem')};
+  ${media.lessThan('medium')`
       font-size : 1.3rem;
     `};
-    ${media.lessThan('small')`
+  ${media.lessThan('small')`
       font-size : 1.1rem;
     `};
 `
@@ -227,12 +265,11 @@ export const SmallUserImage = styled.img`
 export const CardGrid = styled.div`
   display: grid;
   grid-gap: 2rem 2rem;
-  place-items: center;
   grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 `
 
 export const Card = styled.div`
-  height: auto;
+  height: 40vh;
   width: 25rem;
   box-shadow: 0 3px 4px #c0c0c0;
   border-radius: 5px;
@@ -305,6 +342,23 @@ input {
   width  : 24rem;
 }
 `};
+`
+
+export const StyledSearchbox = styled(Searchbox)`
+width  : 32rem;
+border : 1.7px solid #0072CE;
+border-radius : 30px;
+display : flex;
+background : #fff;
+padding   : 0.5rem 0.5rem;
+justify-content: space-between;
+input {
+    padding : 0.2rem 1rem;
+    width  : 30rem
+    outline : 0;
+    color : #0072CE;
+    border : 0;
+  }
 `
 
 export const StyledHover = styled(Hover)`

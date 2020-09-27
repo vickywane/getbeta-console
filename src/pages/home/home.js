@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 import * as scroll from 'react-scroll'
 import { Link as ScrollLink, Element } from 'react-scroll'
 
-import { Text, Title, Section } from '../../styles/style'
+import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
 
 import { Profile, Mybookings, MyContent, MyCourses } from '../user/'
@@ -41,12 +41,6 @@ width: 19rem;
 height: 23vh;
 `};
 `
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 
 const StyledTitle = styled(Title)`
   font-weight: 600;
@@ -90,7 +84,6 @@ const Home = props => {
             smooth={true}
             spy={true}
             // style={{ textDecoration: 'none' }}
-            onClick={() => alert('clicked')}
             // onSetActive={(to) => alert(to)}
             to={'courses'}
             duration={500}

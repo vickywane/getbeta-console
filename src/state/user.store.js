@@ -8,7 +8,7 @@ const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
 class UserStore {
-  @persist @observable isAuthenticated = true
+  @persist @observable isAuthenticated = false
   isLoading = false
   hasLoginError = false
   users = []
@@ -95,22 +95,20 @@ class UserStore {
     this.isLoading = true
 
     Axios.post(`${AUTH_ENDPOINT}/login`, {
-      data: {
-        email: email,
-        password: password
-      }
+      email: email,
+      password: password
     })
       .then(res => {
-        const { user, token } = res.data
-
+        const { vendor, token } = res.data
+        console.log(vendor)
         // i am only storing in localStorage for test purpose
         // would switch later
         localStorage.setItem('token', token)
-        localStorage.setItem('userId', user.id)
+        localStorage.setItem('userId', vendor.id)
 
         this.userDetail = {
-          name: user.fullname,
-          email: user.email
+          name: vendor.fullname,
+          email: vendor.email
         }
 
         this.isLoading = false
@@ -133,13 +131,14 @@ class UserStore {
     })
       .then(res => {
         const { _id, email, fullname } = res.data.savedUser
-        console.log(res, 'response')
+
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('userId', _id)
         this.userDetail = {
           name: fullname,
           email: email
         }
+        this.isAuthenticated = true
         navigate('console/*')
         Axios.post(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
           email: email,

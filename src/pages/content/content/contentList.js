@@ -6,10 +6,20 @@ import { FaMoneyBill } from 'react-icons/fa'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import media from 'styled-media-query'
+import ModalWrapper from '../../../components/modals/modalWrapper'
 
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
-import { Text, Searchbox, StyledHover, center, CardGrid, Card } from '../../../styles/style'
+import {
+  Text,
+  Searchbox,
+  StyledHover,
+  center,
+  CardGrid,
+  Card,
+  Title,
+  Button
+} from '../../../styles/style'
 import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
@@ -30,6 +40,7 @@ const StyledFilter = styled(StyledHover)`
 
 const Contents = props => {
   const { fetchContents, isLoadingContents, contents } = props.ContentStore
+  const [showModal, setModal] = useState(false)
 
   useEffect(() => {
     fetchContents()
@@ -40,11 +51,58 @@ const Contents = props => {
   return (
     <div>
       <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
+      <ModalWrapper
+        visibility={showModal}
+        size="lg"
+        closeModal={() => setModal(false)}
+        title="Filter Contents"
+      >
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+            <div style={{ ...center }}>
+              <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+            </div>
+
+            <Text style={{ margin: '0 0.7rem' }}> By Content Release Date </Text>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+            <div style={{ ...center }}>
+              <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+            </div>
+
+            <Text style={{ margin: '0 0.7rem' }}> By Content Viewer's Rating </Text>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+            <div style={{ ...center }}>
+              <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+            </div>
+
+            <Text style={{ margin: '0 0.7rem' }}> By Content Rating </Text>
+          </div>
+
+          <hr />
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <p style={{ opacity: '0' }}> .</p>
+
+              <Button
+                onClick={() => {
+                  setModal(false)
+                }}
+              >
+                Apply Filter
+              </Button>
+            </div>
+          </div>
+        </div>
+      </ModalWrapper>
 
       <Body>
         <div style={{ margin: '0.5rem 0', justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
-            <StyledFilter onClick={() => {}}>
+            <StyledFilter onClick={() => setModal(true)}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
               <FiFilter style={{ fontSize: '1.5rem' }} />
             </StyledFilter>
@@ -60,7 +118,7 @@ const Contents = props => {
             </Searchbox>
           </div>
         </div>
-        <br />
+        <hr />
 
         <CardGrid style={{ height: window.innerHeight - 170, overflow: 'auto' }}>
           {contentList.length < 1 ? (
@@ -73,13 +131,13 @@ const Contents = props => {
                 <Card key={_id}>
                   <img
                     style={{ height: '170px', width: '400px', objectFit: 'cover' }}
-                    alt="courses ilustration detail"
+                    alt="Contents ilustration detail"
                     src={require('../../../assets/images/college-chemistry.jpg')}
                   />
                   <br />
                   <div>
-                    <Link to={`course/${_id}`}>
-                      <h4> {title} </h4>
+                    <Link to={`Content/${_id}`}>
+                      <Title> {title} </Title>
                     </Link>
                     <Text> {descrp} </Text>
 

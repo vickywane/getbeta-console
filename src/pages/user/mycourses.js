@@ -7,12 +7,19 @@ import { toJS } from 'mobx'
 import { Planet } from 'react-kawaii'
 
 import media from 'styled-media-query'
-import { CourseCardsData } from '../../mockData'
-import { Text, Hover, Title, Section, Button, center, Searchbox } from '../../styles/style'
+import { Text, Hover, Title, Section, Button, center, StyledSearchbox } from '../../styles/style'
 import Chemistry from '../../assets/images/chemistry.jpeg'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
+  background: #fff;
+  border-radius: 5px;
+  ${media.lessThan('medium')`
+  padding: 0.5rem 1rem;
+`};
+  ${media.lessThan('small')`
+  padding: 0.5rem 0.5rem;
+`};
 `
 
 const Cards = styled.div`
@@ -33,23 +40,6 @@ const Cards = styled.div`
      width: 35rem;
     height: 30vh;
   `}
-`
-
-const StyledSearchbox = styled(Searchbox)`
-width  : 35rem;
-border : 1.7px solid #0072CE;
-border-radius : 30px;
-display : flex;
-background : #fff;
-padding   : 0.7rem 0.5rem;
-justify-content: space-between;
-input {
-    padding : 0.2rem 1rem;
-    width  : 33rem
-    outline : 0;
-    color : #0072CE;
-    border : 0;
-  }
 `
 
 const Grid = styled.div`

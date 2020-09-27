@@ -7,15 +7,21 @@ import { toJS } from 'mobx'
 import { Planet } from 'react-kawaii'
 import { Spinner, Dropdown } from 'react-bootstrap'
 import media from 'styled-media-query'
-import { FiMoreVertical, FiTrash2 } from 'react-icons/fi'
+import { FiTrash2 } from 'react-icons/fi'
 
 import useWindowWidth from '../../utils/hook_style'
-import { Text, Title, Section, HomeList, Hover, Searchbox, center } from '../../styles/style'
+import { Text, Title, Section, HomeList, Hover, center, StyledSearchbox } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
   background: #fff;
   border-radius: 5px;
+  ${media.lessThan('medium')`
+    padding: 0.5rem 1rem;
+  `};
+  ${media.lessThan('small')`
+    padding: 0.5rem 0.5rem;
+  `};
 `
 
 const ContentContainer = styled.div`
@@ -26,23 +32,6 @@ const ContentContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   box-shadow: 0 3px 5px #c0c0c0;
-`
-
-const StyledSearchbox = styled(Searchbox)`
-width  : 35rem;
-border : 1.7px solid #0072CE;
-border-radius : 30px;
-display : flex;
-background : #fff;
-padding   : 0.7rem 0.5rem;
-justify-content: space-between;
-input {
-    padding : 0.2rem 1rem;
-    width  : 33rem
-    outline : 0;
-    color : #0072CE;
-    border : 0;
-  }
 `
 
 const ContentImage = styled.div`
@@ -77,15 +66,15 @@ const MyContent = props => {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ ...center }}>
             <div style={{ display: 'flex' }}>
-              <Title small style={{ color: '#0072CE' }}>
+              <Title small style={{ color: '#0072CE', margin: 0, padding: 0 }}>
                 Contents
               </Title>
 
-              <Hover style={{ margin: '0 0.7rem' }}>
-                <Link to="/create-content">
-                  <FiPlus style={{ fontSize: '1.5rem' }} />
-                </Link>
-              </Hover>
+              <Link to="/create-content">
+                <Hover style={{ margin: '0 0.6rem', padding: 0 }}>
+                  <FiPlus style={{ fontSize: '1.5rem', padding: 0 }} />
+                </Hover>
+              </Link>
             </div>
           </div>
 
@@ -95,7 +84,7 @@ const MyContent = props => {
                 <FiSearch style={{ fontSize: '1.5rem' }} />
               </div>
 
-              <input placeholder="Search for a course" />
+              <input placeholder="Find your contents" />
             </StyledSearchbox>
           ) : (
             <Hover>

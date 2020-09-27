@@ -5,7 +5,15 @@ import * as Yup from 'yup'
 import { FiAlertTriangle } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
-import { Text, MdTitle, Button, ErrorAlert, Hover, AuthCards } from '../../styles/style'
+import {
+  Text,
+  MdTitle,
+  Button,
+  ErrorAlert,
+  Hover,
+  AuthCards,
+  AuthInputFields
+} from '../../styles/style'
 
 const Body = styled.div`
   display: grid;
@@ -15,23 +23,6 @@ const Body = styled.div`
       justify-content : center
       align-items : center;
   `};
-`
-const InputBody = styled.div`
-  margin: 2rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  label {
-    font-weight: 600;
-  }
-  input {
-    background: #fbfbfb;
-    padding: 0.6rem 1rem;
-    border: 1px solid #c0c0c0;
-    border-radius: 1px;
-    width: 27rem;
-    height: 55px;
-    font-size: 1.1rem;
-  }
 `
 
 const Illustration = styled.div`
@@ -93,85 +84,87 @@ const CreateAccount = props => {
               <Hover style={{ margin: '0 0.5rem' }}>
                 <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
               </Hover>
-              <Text style={{ fontWeight: 600 }}> Incorrect account credentials. Try Again </Text>
+              <Text> Incorrect account credentials. Try Again </Text>
             </div>
           </ErrorAlert>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <MdTitle style={{ fontWeight: 600 }} small center>
-              Create An Account
-            </MdTitle>
-          </div>
-          <hr />
+          <section>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <MdTitle small center>
+                Create An Account
+              </MdTitle>
+            </div>
+            <hr />
 
-          <form onSubmit={() => handleRegistration()}>
-            <InputBody>
-              <label> Full name </label>
-              <input
-                value={FullName}
-                onChange={e => setFullName(e.target.value)}
-                type="text"
-                placeholder="Your full name"
-              />
-            </InputBody>
+            <form onSubmit={() => handleRegistration()}>
+              <AuthInputFields>
+                <label> Full name </label>
+                <input
+                  value={FullName}
+                  onChange={e => setFullName(e.target.value)}
+                  type="text"
+                  placeholder="Your full name"
+                />
+              </AuthInputFields>
 
-            <InputBody>
-              <label> Email Address </label>
-              <input
-                value={Email}
-                onChange={e => setEmail(e.target.value)}
-                type="email"
-                placeholder="Your email address"
-              />
-            </InputBody>
+              <AuthInputFields>
+                <label> Email Address </label>
+                <input
+                  value={Email}
+                  onChange={e => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Your email address"
+                />
+              </AuthInputFields>
 
-            <InputBody>
-              <label> Password </label>
-              <input
-                value={Password}
-                onChange={e => {
-                  setPassword(e.target.value)
-                  e.preventDefault()
+              <AuthInputFields>
+                <label> Password </label>
+                <input
+                  value={Password}
+                  onChange={e => {
+                    setPassword(e.target.value)
+                    e.preventDefault()
+                  }}
+                  type="password"
+                  placeholder="Your account password"
+                />
+              </AuthInputFields>
+
+              <AuthInputFields>
+                <label> Confirm Password </label>
+                <input
+                  value={ConfirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  type="password"
+                  placeholder="Retype selected password"
+                />
+              </AuthInputFields>
+            </form>
+
+            <br />
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button
+                style={{
+                  background: Password !== ConfirmPassword && 'transparent',
+                  color: Password !== ConfirmPassword && '#0072ce'
                 }}
-                type="password"
-                placeholder="Your account password"
-              />
-            </InputBody>
+                onClick={() => handleRegistration()}
+                disabled={Password !== ConfirmPassword}
+              >
+                Create Account
+              </Button>
+            </div>
 
-            <InputBody>
-              <label> Confirm Password </label>
-              <input
-                value={ConfirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
-                type="password"
-                placeholder="Retype selected password"
-              />
-            </InputBody>
-          </form>
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Text style={{ margin: '0 1rem' }}> Own An Account </Text>
 
-          <br />
-
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button
-              style={{
-                background: Password !== ConfirmPassword && 'transparent',
-                color: Password !== ConfirmPassword && '#0072ce'
-              }}
-              onClick={() => handleRegistration()}
-              disabled={Password !== ConfirmPassword}
-            >
-              Create Account
-            </Button>
-          </div>
-
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Text style={{ margin: '0 1rem' }}> Own An Account </Text>
-
-            <Link to="/login">
-              <Text> Login </Text>
-            </Link>
-          </div>
+              <Link to="/login">
+                <Text> Login </Text>
+              </Link>
+            </div>
+          </section>
         </span>
       </AuthCards>
     </Body>

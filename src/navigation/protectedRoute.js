@@ -8,7 +8,7 @@ const ProtectedRoute = props => {
     case true:
       return <Component path={path} />
     case false:
-      return <Redirect to="/login" />
+      return <Redirect noThrow to="/login" />
     default:
       // add a create-account route ... maybe
       break

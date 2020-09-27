@@ -4,7 +4,7 @@ import { FiSearch, FiCalendar, FiPhoneCall } from 'react-icons/fi'
 import { Link } from '@reach/router'
 import media from 'styled-media-query'
 
-import { Text, Title, Section, Hover, center, Searchbox } from '../../styles/style'
+import { Text, Title, Section, Hover, center, StyledSearchbox } from '../../styles/style'
 
 const Body = styled.div`
   padding: 0.5rem 1.5rem;
@@ -35,23 +35,6 @@ const ContentContainer = styled.div`
   border-radius: 5px;
   box-shadow: 0 3px 5px #c0c0c0;
   margin: 1.5rem 0;
-`
-
-const StyledSearchbox = styled(Searchbox)`
-width  : 35rem;
-border : 1.7px solid #0072CE;
-border-radius : 30px;
-display : flex;
-background : #fff;
-padding   : 0.7rem 0.5rem;
-justify-content: space-between;
-input {
-    padding : 0.2rem 1rem;
-    width  : 33rem
-    outline : 0;
-    color : #0072CE;
-    border : 0;
-  }
 `
 
 const ContentImage = styled.div`
