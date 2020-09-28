@@ -2,31 +2,47 @@ import Axios from 'axios'
 import { action, observable, decorate } from 'mobx'
 import { create, persist } from 'mobx-persist'
 import { navigate } from '@reach/router'
+import localforage from 'localforage'
 
 const AUTH_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
 class UserStore {
-  @persist @observable isAuthenticated = false
-  isLoading = false
+  // USER DETAILS =============>
   hasLoginError = false
+  isLoading = false
   users = []
-  userStats = {
-    totalCourses: 0,
-    totalContents: 0
-  }
-
-  // might remove this
+  // TODO: merge the two objects
   userDetail = {
     name: '',
     email: ''
   }
+  userStats = {
+    totalCourses: 0,
+    totalContents: 0
+  }
+  // =============>
 
-  logOut = () => {
-    localStorage.clear()
+  // AUTH & ACCOUNT ACTIONS
+  @action setAuthState = state => {
+    if (state === null) console.log('no auth state added')
 
-    navigate('/login')
+    if (state) {
+      localforage
+        .setItem('isAuthenticated', state)
+        .catch(e => console.log(`error setting auth state: ${e}`))
+    } else {
+      localforage
+        .setItem('isAuthenticated', state)
+        .then(_ => {
+          console.log('user logged out')
+          localStorage.clear()
+
+          navigate('/login')
+        })
+        .catch(e => console.log(`error setting auth state: ${e}`))
+    }
   }
 
   setLoginError = val => {
@@ -111,7 +127,7 @@ class UserStore {
         }
 
         this.isLoading = false
-        this.isAuthenticated = true
+        this.setAuthState(true)
         navigate('console/*')
       })
       .catch(e => {
@@ -137,14 +153,16 @@ class UserStore {
           name: fullname,
           email: email
         }
-        this.isAuthenticated = true
+        localforage.setItem('isAuthenticated', true)
         navigate('console/*')
         Axios.post(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
           email: email,
           type: 'welcome'
         }).catch(e => console.log(`An error occurred from sending welcome-email : ${e}`))
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        console.log(e)
+      })
   }
 
   deleteAccount = () => {
@@ -156,6 +174,7 @@ class UserStore {
     })
       .then(res => {
         localStorage.clear()
+        this.setAuthState(false)
 
         navigate('/create-account')
       })
@@ -193,14 +212,14 @@ const DecoratedUserStore = decorate(UserStore, {
 
 export const store = new DecoratedUserStore()
 
-const hydrate = create({
-  storage: localStorage,
-  jsonify: false
-})
+// const hydrate = create({
+//   storage: localforage,
+//   jsonify: true
+// })
 
-hydrate('user-store', store)
-  .then(() => {
-    console.log('user-store has heen hydrated')
-  })
-  .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))
-  .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))
+// hydrate('userStore', store)
+//   .then(() => {
+//     console.log('user-store has heen hydrated')
+//   })
+//   .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))
+//   .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))

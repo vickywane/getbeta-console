@@ -35,6 +35,10 @@ const ContentContainer = styled.div`
   border-radius: 5px;
   box-shadow: 0 3px 5px #c0c0c0;
   margin: 1.5rem 0;
+  width: 26rem;
+  ${media.lessThan('small')`
+    width : 24rem;
+  `};
 `
 
 const ContentImage = styled.div`
@@ -51,6 +55,16 @@ const Date = styled.div`
   display: flex;
   ${media.lessThan('medium')`
     display : none;
+`};
+`
+
+const ListGrid = styled.ul`
+  display : grid;
+  grid-template-columns : repeat(auto-fit, minmax(28rem, 1fr))
+  place-items : center;
+  grid-gap : 1.5rem 1.5rem;
+  ${media.lessThan('small')`
+    grid-template-columns : repeat(auto-fit, minmax(25rem, 1fr))
 `};
 `
 
@@ -87,7 +101,7 @@ const Mybookings = props => {
             )}
           </div>
           <hr />
-          <ul style={{ margin: '0', padding: '0', listStyle: 'none' }}>
+          <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
             {Data.map(({ id, reason, date }) => {
               return (
                 <li key={id}>
@@ -108,7 +122,7 @@ const Mybookings = props => {
                 </li>
               )
             })}
-          </ul>
+          </ListGrid>
         </Section>
       </Body>
     </div>

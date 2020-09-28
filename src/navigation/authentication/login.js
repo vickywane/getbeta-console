@@ -122,7 +122,9 @@ const Login = props => {
                   width: '100%'
                 }}
                 disabled={Password.length < 5}
-                onClick={() => handleLogin()}
+                onClick={() => {
+                  handleLogin()
+                }}
               >
                 Login
               </Button>

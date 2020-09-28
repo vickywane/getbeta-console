@@ -220,7 +220,7 @@ const Sidebar = props => {
         </Items>
 
         <Item
-          onClick={() => props.UserStore.logOut()}
+          onClick={() => props.UserStore.setAuthState(false)}
           style={{
             width: isClosed ? '3rem' : '16rem',
             position: 'absolute',
