@@ -22,6 +22,8 @@ const ProtectedRoute = props => {
       default:
         break
     }
+  } else if (isAuthenticated === undefined) {
+    return <Redirect noThrow to="/login" />
   } else {
     return (
       <div
