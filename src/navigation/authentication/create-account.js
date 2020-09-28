@@ -49,6 +49,7 @@ const CreateAccount = props => {
   const [ConfirmPassword, setConfirmPassword] = useState('')
   const [detailsError, setDetailsError] = useState(false)
   const [mobileNumber, setMobileNumber] = useState('')
+  const [referrerName, setReferrerName] = useState('')
 
   const handleRegistration = () => {
     const isValid = accountSchema.isValid({
@@ -125,6 +126,16 @@ const CreateAccount = props => {
                   onChange={e => setMobileNumber(e.target.value)}
                   type="number"
                   placeholder="Your mobile address"
+                />
+              </AuthInputFields>
+
+              <AuthInputFields>
+                <label> Referrer Name </label>
+                <input
+                  value={referrerName}
+                  onChange={e => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="Referrer name"
                 />
               </AuthInputFields>
 

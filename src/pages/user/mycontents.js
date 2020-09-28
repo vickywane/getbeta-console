@@ -7,6 +7,7 @@ import { toJS } from 'mobx'
 import { Planet } from 'react-kawaii'
 import { Spinner, Dropdown } from 'react-bootstrap'
 import media from 'styled-media-query'
+import { Tab, Tabs } from 'react-bootstrap'
 
 import useWindowWidth from '../../utils/hook_style'
 import { Text, Title, Section, HomeList, Hover, center, StyledSearchbox } from '../../styles/style'
@@ -55,6 +56,7 @@ display : none;
 const MyContent = props => {
   const { getUserContents, contents, deleteContent, isLoadingContents } = props.ContentStore
   const [searchVisiblity, setSearchVisiblity] = useState(false)
+  const [TabState, setTabState] = useState('created-content')
 
   const Width = useWindowWidth()
   useEffect(() => {
@@ -70,8 +72,6 @@ const MyContent = props => {
       setSearchVisiblity(false)
     }
   }, [Width])
-
-  console.log(isLoadingContents)
 
   return (
     <Body>
@@ -119,7 +119,20 @@ const MyContent = props => {
       </div>
 
       <section>
-        <br />
+        <Tabs
+          id="contents-tab"
+          activeKey={TabState}
+          eventKey={'created-content'}
+          onSelect={k => setTabState(k)}
+        >
+          <Tab eventKey="created-content" title="Created Content">
+            <p> My created contents </p>
+          </Tab>
+
+          <Tab eventKey="purchased-content" title="Purchased Content">
+            <p> My Purchased Contents </p>
+          </Tab>
+        </Tabs>
 
         <HomeList>
           {isLoadingContents ? (

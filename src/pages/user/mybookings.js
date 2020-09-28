@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FiSearch, FiCalendar, FiPhoneCall } from 'react-icons/fi'
 import { Link } from '@reach/router'
 import media from 'styled-media-query'
+import { Tabs, Tab } from 'react-bootstrap'
 
 import { Text, Title, Section, Hover, center, StyledSearchbox } from '../../styles/style'
 
@@ -89,6 +90,7 @@ const ListGrid = styled.ul`
 `
 
 const Mybookings = props => {
+  const [TabState, setTabState] = useState('my-bookings')
   const { UserStore, Width } = props
 
   return (
@@ -125,6 +127,16 @@ const Mybookings = props => {
         </div>
 
         <section>
+          <Tabs id="bookings-tab" activeKey={TabState} onSelect={k => setTabState(k)}>
+            <Tab eventKey={'my-bookings'} title="My Bookings">
+              <p> My bookings </p>
+            </Tab>
+
+            <Tab eventKey={'bookings'} title="Bookings By Me">
+              <p> bookings for me </p>
+            </Tab>
+          </Tabs>
+
           <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
             {Data.map(({ id, reason, date }) => {
               return (

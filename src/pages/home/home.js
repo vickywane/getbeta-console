@@ -104,7 +104,10 @@ const Home = props => {
               <div>
                 <StyledTitle align="center"> {stats.totalCourses} </StyledTitle>
 
-                <Text align="center"> {stats.totalCourses < 2 ? 'Course' : 'Courses'} </Text>
+                <Text align="center">
+                  {' '}
+                  {stats.totalCourses < 2 ? 'Created Course' : 'Created Courses'}{' '}
+                </Text>
               </div>
             </Card>
           </ScrollLink>
@@ -114,7 +117,10 @@ const Home = props => {
               <div>
                 <StyledTitle align="center"> {stats.totalContents} </StyledTitle>
 
-                <Text align="center"> {stats.totalContents < 2 ? 'Content' : 'Contents'} </Text>
+                <Text align="center">
+                  {' '}
+                  {stats.totalContents < 2 ? 'Purchased Content' : 'Purchased Contents'}{' '}
+                </Text>
               </div>
             </Card>
           </ScrollLink>
@@ -130,7 +136,7 @@ const Home = props => {
               <div>
                 <StyledTitle align="center"> 0 </StyledTitle>
 
-                <Text align="center"> Bookings </Text>
+                <Text align="center"> My Bookings </Text>
               </div>
             </Card>
           </ScrollLink>
