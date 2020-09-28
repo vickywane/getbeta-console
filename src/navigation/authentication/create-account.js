@@ -48,6 +48,7 @@ const CreateAccount = props => {
   const [Password, setPassword] = useState('')
   const [ConfirmPassword, setConfirmPassword] = useState('')
   const [detailsError, setDetailsError] = useState(false)
+  const [mobileNumber, setMobileNumber] = useState('')
 
   const handleRegistration = () => {
     const isValid = accountSchema.isValid({
@@ -118,6 +119,16 @@ const CreateAccount = props => {
               </AuthInputFields>
 
               <AuthInputFields>
+                <label> Mobile Number </label>
+                <input
+                  value={mobileNumber}
+                  onChange={e => setMobileNumber(e.target.value)}
+                  type="number"
+                  placeholder="Your mobile address"
+                />
+              </AuthInputFields>
+
+              <AuthInputFields>
                 <label> Password </label>
                 <input
                   value={Password}
@@ -140,8 +151,6 @@ const CreateAccount = props => {
                 />
               </AuthInputFields>
             </form>
-
-            <br />
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button

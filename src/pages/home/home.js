@@ -61,6 +61,18 @@ const Grid = styled.div`
   `};
 `
 
+const MyGrid = styled.div`
+  display: grid;
+  grid-template-colunns: 50% 50%;
+  grid-gap: 1rem 1rem;
+  place-items: center;
+  ${media.lessThan('large')`
+    display : flex;
+    flex-direction : colunn;
+    align-items : center;
+  `};
+`
+
 const Home = props => {
   const { UserStore } = props
   const Width = useWindowWidth()
@@ -124,17 +136,17 @@ const Home = props => {
           </ScrollLink>
         </Grid>
 
+        <br />
+        <br />
+
         <Element name="contents">
           <Section>
             <MyContent Width={Width} />
           </Section>
         </Element>
 
-        <Element name="courses">
-          <Section>
-            <MyCourses Width={Width} />
-          </Section>
-        </Element>
+        <br />
+        <br />
 
         <Element name="bookings">
           <Section>

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 export const AuthInputFields = styled.div`
-  margin: 2rem 0.5rem;
+  margin: 1.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   label {
@@ -255,8 +255,8 @@ export const Hover = styled.div`
 `
 
 export const SmallUserImage = styled.img`
-  height: ${props => (props.small ? '45px' : '60px')};
-  width: ${props => (props.small ? '45px' : '60px')};
+  height: ${props => (props.small ? '40px' : '60px')};
+  width: ${props => (props.small ? '40px' : '60px')};
   border-radius: 50%;
   border: 2px solid #0072ce;
   object-fit: cover;
@@ -359,6 +359,15 @@ input {
     color : #0072CE;
     border : 0;
   }
+  ${media.lessThan('medium')`
+  width  : 28rem;
+  padding : 0.4rem 0.5rem;
+  input {
+    font-size : 0.8rem;
+    padding : 0.2rem 0.5rem;
+    width  : 26rem
+  }
+  `};
 `
 
 export const StyledHover = styled(Hover)`
@@ -379,7 +388,16 @@ export const StyledHover = styled(Hover)`
 `
 
 export const Section = styled.section`
+  padding: 1.5rem 3rem;
+  ${media.lessThan('large')`
+  padding: 1.5rem 2rem;
+`};
+  ${media.lessThan('medium')`
+    padding: 1.5rem 1rem;
+  `};
+  ${media.lessThan('small')`
   padding: 1.5rem 0.5rem;
+  `};
 `
 
 export const center = {

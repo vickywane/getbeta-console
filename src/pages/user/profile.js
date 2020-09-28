@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 import { Link, navigate } from '@reach/router'
-import UpdateProfile from './updateProfile'
+import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
 import { Text, MdTitle, Hover, Button } from '../../styles/style'
-import { FiPlus, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell } from 'react-icons/fi'
+import { FiPlus, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell, FiEdit } from 'react-icons/fi'
 
 const Image = styled.img`
   height: 130px;
@@ -36,6 +36,12 @@ const Image = styled.img`
 
 const Body = styled.div`
   padding: 0.5rem 3rem;
+  ${media.lessThan('medium')`
+    padding: 0.5rem 1rem;
+  `};
+  ${media.lessThan('small')`
+    padding: 0.5rem 0.5rem;
+  `}
 `
 
 const center = {
@@ -49,16 +55,23 @@ const StyledHover = styled(Hover)`
   background : #0072ce;
   border-radius : 5px;
   box-shadow : 0 1px 2px grey
-  height : 45px;
+  height : 40px;
   display : flex;
   justify-content : center;
   align-items :  center;
-  width : 45px;
+  width : 40px;
   color : #fff;
   ${media.lessThan('medium')`
       width : 40px;
       height : 40px;
   `}
+`
+
+const HedaerContainer = styled.div`
+  display: none;
+  ${media.lessThan('medium')`
+      display : flex;
+    `};
 `
 
 const Profile = props => {
@@ -69,9 +82,12 @@ const Profile = props => {
 
   return (
     <div>
+      <HedaerContainer>
+        <Header path="home" />
+      </HedaerContainer>
+
       {profilePane ? (
         <Body style={{ color: '#0072CE', background: 'rgba(233, 241, 251, 0.81)' }}>
-          {/* EDIT PROFILE  */}
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex' }}>
@@ -98,26 +114,24 @@ const Profile = props => {
             <div>
               <StyledHover
                 onClick={() => {
-                  navigate('/notifications', {})
+                  navigate('/update-profile', {})
                 }}
               >
-                <FiBell style={{ fontSize: '1.5rem' }} />
+                <FiEdit style={{ fontSize: '1.4rem' }} />
               </StyledHover>
             </div>
           </div>
 
           <br />
-          <div>
+
+          <br />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Link to="/subscriptions" style={{ textDecoration: 'none' }}>
               <div style={{ display: 'flex' }}>
-                <FiPlus style={{ fontSize: '1.5rem' }} />
+                <FiPlus style={{ fontSize: '1.4rem' }} />
                 <Text style={{ margin: '0 0.3rem' }}> Manage Subscription </Text>{' '}
               </div>
             </Link>
-          </div>
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button onClick={() => navigate('/update-profile', {})}> Edit Profile </Button>
 
             <Hover onClick={() => setProfilePane(!profilePane)}>
               <FiChevronsUp style={{ fontSize: '2rem' }} />
@@ -140,8 +154,8 @@ const Profile = props => {
               style={{
                 cursor: 'pointer',
                 borderWidth: '1px',
-                height: '60px',
-                width: '60px',
+                height: '45px',
+                width: '45px',
                 margin: '0 1rem'
               }}
               alt="user"
@@ -157,10 +171,10 @@ const Profile = props => {
             <div style={{ ...center, margin: '0 1rem' }}>
               <StyledHover
                 onClick={() => {
-                  navigate('/notifications', {})
+                  navigate('/update-profile', {})
                 }}
               >
-                <FiBell style={{ fontSize: '1.5rem' }} />
+                <FiEdit style={{ fontSize: '1.5rem' }} />
               </StyledHover>
             </div>
 

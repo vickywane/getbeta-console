@@ -7,7 +7,10 @@ import media from 'styled-media-query'
 import { Text, Title, Section, Hover, center, StyledSearchbox } from '../../styles/style'
 
 const Body = styled.div`
-  padding: 0.5rem 1.5rem;
+  box-shadow: 0 2px 3px grey;
+  section {
+    padding: 0.5rem 1.5rem;
+  }
 `
 const Data = [
   {
@@ -34,8 +37,17 @@ const ContentContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   box-shadow: 0 3px 5px #c0c0c0;
-  margin: 1.5rem 0;
-  width: 26rem;
+  margin: 1rem 0;
+  width: 40rem;
+  ${media.lessThan('huge')`
+    width: 37rem;
+  `};
+  ${media.lessThan('large')`
+    width: 40rem;
+  `};
+  ${media.lessThan('medium')`
+    width: 30rem;
+  `};
   ${media.lessThan('small')`
     width : 24rem;
   `};
@@ -59,13 +71,21 @@ const Date = styled.div`
 `
 
 const ListGrid = styled.ul`
-  display : grid;
-  grid-template-columns : repeat(auto-fit, minmax(28rem, 1fr))
-  place-items : center;
-  grid-gap : 1.5rem 1.5rem;
-  ${media.lessThan('small')`
-    grid-template-columns : repeat(auto-fit, minmax(25rem, 1fr))
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  place-items: center;
+  grid-gap: 1.5rem 1.5rem;
+  ${media.lessThan('huge')`
+    grid-template-columns: repeat(auto-fit, minmax(37rem, 1fr));
+  `}
+  ${media.lessThan('large')`
+  grid-template-columns : repeat(auto-fit, minmax(34rem, 1fr))
 `};
+  ${media.lessThan('medium')`
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+   `};
 `
 
 const Mybookings = props => {
@@ -73,34 +93,38 @@ const Mybookings = props => {
 
   return (
     <div>
-      <br />
-
       <Body>
-        <br />
-
-        <Section id="#courses">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ ...center }}>
-              <Title small style={{ color: '#0072CE' }}>
-                Bookings
-              </Title>
-            </div>
-
-            {Width >= 1200 ? (
-              <StyledSearchbox>
-                <div>
-                  <FiSearch style={{ fontSize: '1.6rem' }} />
-                </div>
-
-                <input placeholder="Search for a course" />
-              </StyledSearchbox>
-            ) : (
-              <Hover>
-                <FiSearch style={{ color: '#0072ce', fontSize: '1.6rem' }} />
-              </Hover>
-            )}
+        <div
+          style={{
+            background: '#E0E9F5',
+            display: 'flex',
+            padding: '0.7rem 0.5rem',
+            borderBottom: '1px solid #c0c0c0',
+            justifyContent: 'space-between'
+          }}
+        >
+          <div style={{ ...center }}>
+            <Text small style={{ color: '#0072CE' }}>
+              All Bookings
+            </Text>
           </div>
-          <hr />
+
+          {Width >= 1200 ? (
+            <StyledSearchbox>
+              <div>
+                <FiSearch style={{ fontSize: '1.6rem' }} />
+              </div>
+
+              <input placeholder="Search for a course" />
+            </StyledSearchbox>
+          ) : (
+            <Hover>
+              <FiSearch style={{ color: '#0072ce', fontSize: '1.4rem' }} />
+            </Hover>
+          )}
+        </div>
+
+        <section>
           <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
             {Data.map(({ id, reason, date }) => {
               return (
@@ -123,7 +147,7 @@ const Mybookings = props => {
               )
             })}
           </ListGrid>
-        </Section>
+        </section>
       </Body>
     </div>
   )

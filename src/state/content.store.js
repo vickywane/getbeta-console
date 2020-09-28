@@ -63,15 +63,22 @@ class ContentStore {
   updateContent = (id, newData) => {}
 
   getUserContents = () => {
+    this.isLoadingContents = true
     Axios.get(`${CONTENT_ENDPOINT}/${id}/contents/find`, {
       headers: {
         'x-auth-token': token
       }
     })
       .then(res => {
+        this.isLoadingContents = false
+
         this.contents = res.data.contents
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        this.isLoadingContents = false
+
+        console.log(e)
+      })
   }
 
   getContent = contentId => {
@@ -81,10 +88,13 @@ class ContentStore {
       }
     })
       .then(res => {
+        this.isLoadingContents = false
+
         this.content = res.data.content
-        // console.log(res.data.content , "conetn")
       })
       .catch(e => {
+        this.isLoadingContents = false
+
         console.log(e)
       })
   }

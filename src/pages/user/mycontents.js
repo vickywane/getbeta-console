@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { FiSearch, FiPlus, FiTrash, FiAlignCenter } from 'react-icons/fi'
+import { FiSearch, FiPlus, FiTrash2, FiX, FiAlignCenter } from 'react-icons/fi'
 import { navigate, Link } from '@reach/router'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
 import { Planet } from 'react-kawaii'
 import { Spinner, Dropdown } from 'react-bootstrap'
 import media from 'styled-media-query'
-import { FiTrash2 } from 'react-icons/fi'
 
 import useWindowWidth from '../../utils/hook_style'
 import { Text, Title, Section, HomeList, Hover, center, StyledSearchbox } from '../../styles/style'
 
 const Body = styled.div`
-  padding: 0.5rem 1.5rem;
   background: #fff;
   border-radius: 5px;
+  box-shadow: 0 2px 3px grey;
+  section {
+    padding: 0.5rem 1.5rem;
+  }
   ${media.lessThan('medium')`
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.7rem;
   `};
   ${media.lessThan('small')`
     padding: 0.5rem 0.5rem;
@@ -51,7 +53,8 @@ display : none;
 `
 
 const MyContent = props => {
-  const { getUserContents, contents, deleteContent } = props.ContentStore
+  const { getUserContents, contents, deleteContent, isLoadingContents } = props.ContentStore
+  const [searchVisiblity, setSearchVisiblity] = useState(false)
 
   const Width = useWindowWidth()
   useEffect(() => {
@@ -60,43 +63,72 @@ const MyContent = props => {
 
   let userContents = toJS(contents)
 
+  useEffect(() => {
+    if (Width >= 1200) {
+      setSearchVisiblity(true)
+    } else {
+      setSearchVisiblity(false)
+    }
+  }, [Width])
+
+  console.log(isLoadingContents)
+
   return (
     <Body>
-      <Section id="#contents">
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ ...center }}>
-            <div style={{ display: 'flex' }}>
-              <Title small style={{ color: '#0072CE', margin: 0, padding: 0 }}>
-                Contents
-              </Title>
+      <div
+        style={{
+          background: '#E0E9F5',
+          display: 'flex',
+          padding: '0.7rem 0.7rem',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid #c0c0c0'
+        }}
+      >
+        <div style={{ ...center, display: Width >= 1200 && !searchVisiblity && 'none' }}>
+          <div style={{ display: 'flex' }}>
+            <Text style={{ color: '#0072CE', margin: 0, padding: 0 }}>All Contents</Text>
 
-              <Link to="/create-content">
-                <Hover style={{ margin: '0 0.6rem', padding: 0 }}>
-                  <FiPlus style={{ fontSize: '1.5rem', padding: 0 }} />
-                </Hover>
-              </Link>
-            </div>
+            <Link to="/create-content">
+              <Hover style={{ margin: '0 0.3rem', padding: 0 }}>
+                <FiPlus style={{ fontSize: '1.5rem', padding: 0 }} />
+              </Hover>
+            </Link>
           </div>
-
-          {Width >= 1200 ? (
-            <StyledSearchbox>
-              <div>
-                <FiSearch style={{ fontSize: '1.5rem' }} />
-              </div>
-
-              <input placeholder="Find your contents" />
-            </StyledSearchbox>
-          ) : (
-            <Hover>
-              <FiSearch style={{ color: '#0072ce', fontSize: '1.5rem' }} />
-            </Hover>
-          )}
         </div>
-        <hr />
+
+        {searchVisiblity ? (
+          <StyledSearchbox>
+            <div>
+              <FiSearch style={{ fontSize: '1.4rem' }} />
+            </div>
+
+            <input placeholder="Find your contents" />
+
+            <div style={{ ...center }} onClick={() => setSearchVisiblity(false)}>
+              <FiX style={{ fontSize: '1.35rem' }} />
+            </div>
+          </StyledSearchbox>
+        ) : (
+          <Hover>
+            <FiSearch
+              onClick={() => setSearchVisiblity(true)}
+              style={{ color: '#0072ce', fontSize: '1.5rem' }}
+            />
+          </Hover>
+        )}
+      </div>
+
+      <section>
         <br />
 
         <HomeList>
-          {userContents.length === 0 ? (
+          {isLoadingContents ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <br />
+              <Spinner variant="primary" animation="grow" role="loading" />
+              <br />
+            </div>
+          ) : userContents.length === 0 ? (
             <div style={{ ...center }}>
               <div>
                 <div style={{ ...center }}>
@@ -109,8 +141,6 @@ const MyContent = props => {
                 </Link>
               </div>
             </div>
-          ) : userContents.length > 1 ? (
-            <Spinner variant="primary" animation="grow" role="loading" />
           ) : (
             userContents.map(({ _id, descrp, price, type, vendorId, title }) => {
               return (
@@ -153,7 +183,7 @@ const MyContent = props => {
             })
           )}
         </HomeList>
-      </Section>
+      </section>
     </Body>
   )
 }

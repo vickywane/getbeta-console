@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FiHome, FiSearch, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
+import { FiHome, FiBell, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { Link, navigate } from '@reach/router'
 import useWindowWidth from '../../utils/hook_style'
 import MobileSidebar from '../../navigation/mobile-sidebar'
@@ -13,7 +13,7 @@ const Body = styled.div`
   height: 65px;
   width: 100%;
   dsplay: flex;
-  jusfity-content: center;
+  justify-content: center;
   align-items: center;
   padding: 0.5rem 2rem;
   box-shadow: 0 2px 3px grey;
@@ -60,7 +60,7 @@ const ScreenName = styled.div`
 
 const Header = props => {
   const Width = useWindowWidth()
-  const { screen, goBack, backgroundColor } = props
+  const { screen, goBack, backgroundColor, path } = props
   const [openMobileSidebar, setMobileSidebar] = useState(false)
 
   return (
@@ -108,7 +108,15 @@ const Header = props => {
         </ScreenName>
 
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <SmallUserImage small src={require('../../assets/images/img.jpg')} />
+          {path === 'home' ? (
+            <div style={{ paddingTop: '5px' }}>
+              <Link to="/notifications">
+                <FiBell style={{ fontSize: '1.4rem' }} />
+              </Link>
+            </div>
+          ) : (
+            <SmallUserImage small src={require('../../assets/images/img.jpg')} />
+          )}
         </Link>
       </div>
     </Body>

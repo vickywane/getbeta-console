@@ -49,9 +49,14 @@ const Card = styled.div`
     cursor: pointer;
     box-shadow: 0 2px 3px grey;
   }
+  ${media.lessThan('large')`
+    border-radius: 3px;
+    width: 22rem;
+  `};
   ${media.lessThan('medium')`
     border-radius: 3px;
-      width: 24rem;
+    width: 23rem;
+    height: 26vh;
   `};
   ${media.lessThan('small')`
     width: 20rem;

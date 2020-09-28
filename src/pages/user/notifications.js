@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import media from 'styled-media-query'
 
 import { Body, Title, Text, center } from '../../styles/style'
 import Header from '../../components/headers/header'
@@ -64,7 +65,7 @@ const testData = [
 const Notification = styled.ul`
   padding: 1rem 1rem;
   list-style: none;
-  width: 50%;
+  width: 60%;
   background-color: white;
   box-shadow: 0 3px 4px #c0c0c0;
   li {
@@ -73,13 +74,20 @@ const Notification = styled.ul`
     justify-content: space-between;
     border-bottom: 1px solid #c0c0c0;
   }
+  ${media.lessThan('medium')`
+    width: 100%;
+  `};
 `
 
 const Image = styled.img`
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   object-fit: contain;
-  border-radius: 15px;
+  border-radius: 10px;
+  ${media.lessThan('medium')`
+    height: 60px;
+   width: 60px;
+  `};
 `
 
 const Notifications = props => {
@@ -93,7 +101,7 @@ const Notifications = props => {
         <Notification style={{}}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ ...center }}>
-              <Title style={{ fontWeight: 'bold' }}> Notifications </Title>
+              <Title> Notifications </Title>
             </div>
             <div style={{ ...center }}>
               <Text> Clear All </Text>
