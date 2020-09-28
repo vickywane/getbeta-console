@@ -6,9 +6,33 @@ import localforage from 'localforage'
 const ProtectedRoute = props => {
   const [isAuthenticated, setAuthenticated] = useState(null)
 
-  localforage.getItem('isAuthenticated').then(res => {
-    setAuthenticated(res)
-  })
+  /*
+  NOTE: The application's authenticated state is being store in LocalForage 
+        which takes few secs to be read, defaulting to a null value. To mitigate this, 
+        the if !== null conditional is being used and also for new users the authenticated is null, 
+        to mitigate this, we track for new users from the `App.js` state and check it here, then 
+        redirect to login page
+        
+  TODO: Improve this logic later on!
+  */
+
+  localforage
+    .getItem('isAuthenticated')
+    .then(res => {
+      if (res === null) {
+        localforage.getItem('newUser').then(res => {
+          console.log(res, 'new user')
+          if (res) {
+            setAuthenticated(false)
+          } else {
+            setAuthenticated(res)
+          }
+        })
+      } else {
+        setAuthenticated(res)
+      }
+    })
+    .catch(e => console.log('error', e))
 
   const { Component, path } = props
 
@@ -22,8 +46,6 @@ const ProtectedRoute = props => {
       default:
         break
     }
-  } else if (isAuthenticated === undefined) {
-    return <Redirect noThrow to="/login" />
   } else {
     return (
       <div

@@ -28,6 +28,8 @@ class UserStore {
   @action setAuthState = state => {
     if (state === null) console.log('no auth state added')
 
+    localforage.setItem('newUser', false)
+
     if (state) {
       localforage
         .setItem('isAuthenticated', state)

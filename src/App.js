@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Provider } from 'mobx-react'
 import { createGlobalStyle } from 'styled-components'
+import localforage from 'localforage'
 
 import ErrorBoundary from './components/errors/errorBoundary'
 import { VendorStore, ContentStore, CourseStore } from './state/'
@@ -20,6 +21,10 @@ const Wrapper = ({ children }) => {
 }
 
 const App = () => {
+  useEffect(() => {
+    localforage.setItem('newUser', true)
+  })
+
   return (
     <div>
       <GlobalStyle />
