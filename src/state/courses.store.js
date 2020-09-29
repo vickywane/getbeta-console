@@ -16,6 +16,7 @@ class CourseStore {
     this.isLoading = true
     Axios.get(`${COURSE_ENDPOINT}/courses/find-all`, { headers: { 'x-auth-token': token } })
       .then(res => {
+        console.log(res)
         this.courses = res.data.courses
         this.isLoading = false
       })

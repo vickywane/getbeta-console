@@ -7,7 +7,16 @@ import { useDropzone } from 'react-dropzone'
 
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
-import { Text, InputBody, Hover, Button, center, StyledHover, Body } from '../../styles/style'
+import {
+  Text,
+  InputBody,
+  Hover,
+  Button,
+  center,
+  StyledHover,
+  Title,
+  Body
+} from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
 
 const UserImage = styled.div`
@@ -256,7 +265,7 @@ const UpdateProfile = props => {
           </div> */}
         </div>
         <hr />
-
+        <Title> Edit Account Details </Title>
         <FormsGrid>
           <StyledInputBody>
             <label> Full Name </label>

@@ -82,6 +82,7 @@ class ContentStore {
   }
 
   getContent = contentId => {
+    this.isLoadingContents = true
     Axios.get(`${CONTENT_ENDPOINT}/${id}/${contentId}/find`, {
       headers: {
         'x-auth-token': token

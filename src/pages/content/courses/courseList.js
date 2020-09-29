@@ -51,6 +51,8 @@ const CoursesList = props => {
   }, [])
 
   const allCourses = toJS(courses)
+  // console.log(allCourses);
+
   if (errorLoading) {
     return (
       <div>

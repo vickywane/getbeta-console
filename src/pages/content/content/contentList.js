@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import { Spinner } from 'react-bootstrap'
 import { FaMoneyBill } from 'react-icons/fa'
 import { observer } from 'mobx-react'
@@ -136,9 +136,19 @@ const Contents = props => {
                   />
                   <br />
                   <div>
-                    <Link to={`Content/${_id}`}>
-                      <Title> {title} </Title>
-                    </Link>
+                    <Title
+                      style={{ color: '#0072ce', cursor: 'pointer' }}
+                      onClick={() => {
+                        navigate('/edit-content', {
+                          state: {
+                            contentId: _id
+                          }
+                        })
+                      }}
+                    >
+                      {title}
+                    </Title>
+
                     <Text> {descrp} </Text>
 
                     <span style={{ display: 'flex', justifyContent: 'space-between' }}>

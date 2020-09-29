@@ -79,7 +79,8 @@ const MyContent = props => {
         style={{
           background: '#E0E9F5',
           display: 'flex',
-          padding: '0.7rem 0.7rem',
+          height: '65px',
+          padding: '0.5rem 0.7rem',
           justifyContent: 'space-between',
           borderBottom: '1px solid #c0c0c0'
         }}
