@@ -13,6 +13,8 @@ class UserStore {
   hasLoginError = false
   isLoading = false
   users = []
+  @observable isUpdated = false
+
   // TODO: merge the two objects
   userDetail = {
     name: '',
@@ -81,8 +83,20 @@ class UserStore {
           Axios.post(`${AUTH_ENDPOINT}/upload`, formData, {
             headers: { 'x-auth-token': token, 'Content-Type': 'mutlipart/formdata' }
           })
-            .then(() => console.log('uploaded'))
+            .then(() => {
+              this.isUpdated = true
+
+              setTimeout(() => {
+                navigate('/console')
+              }, 1000)
+            })
             .catch(e => console.log(`file upload error : ${e}`))
+        } else {
+          this.isUpdated = true
+
+          setTimeout(() => {
+            navigate('/console')
+          }, 1000)
         }
       })
       .catch(e => console.log(`error updating user : ${e}`))

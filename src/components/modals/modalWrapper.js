@@ -9,7 +9,15 @@ const ModalWrapper = props => {
   return (
     <Modal style={{ marginTop: '3rem' }} show={visibility} onHide={() => closeModal()} size={size}>
       <Body style={{ padding: '0.5rem 1rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', height: '50px' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            height: '45px',
+            padding: '1rem 0',
+            borderBottom: '1px solid #c0c0c0'
+          }}
+        >
           <div style={{ display: 'flex' }}>
             <div style={{ ...center, marginRight: '0.5rem', color: '#0072ce' }}>{icon}</div>
 
@@ -20,13 +28,15 @@ const ModalWrapper = props => {
             </div>
           </div>
 
-          <StyledHover onClick={() => closeModal()} style={{ ...center }}>
-            <FiX style={{ fontSize: '1.6rem' }} />
-          </StyledHover>
+          <div
+            onClick={() => closeModal()}
+            style={{ ...center, cursor: 'pointer', color: '#0072ce' }}
+          >
+            <FiX style={{ fontSize: '1.4rem' }} />
+          </div>
         </div>
-        <hr />
 
-        <div style={{ margin: '0.8rem 0' }}>{children}</div>
+        <div style={{ margin: '0.5rem 0' }}>{children}</div>
       </Body>
     </Modal>
   )

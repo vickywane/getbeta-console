@@ -27,15 +27,15 @@ input {
   font-size: 1rem;
 }
 `}
-  ${media.lessThan('medium')`
-label {
-font-size: 1rem;
-}
-input {
-padding: 0.6rem 0.5rem;
-width: 24rem;
-font-size: 0.9rem;
-}
+  ${media.lessThan('small')`
+  label {
+  font-size: .95rem;
+  }
+  input {
+  padding: 0.6rem 0.5rem;
+  width: 24rem;
+  font-size: 0.9rem;
+  }
 `}
 `
 
@@ -219,9 +219,9 @@ export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
   font-size: 1rem;
-  ${media.lessThan('large')` font-size : 0.9rem`};
-  ${media.lessThan('medium')` font-size : 0.8rem`};
-  ${media.lessThan('small')`font-size : 0.7rem`};
+  ${media.lessThan('large')` font-size : 0.95rem`};
+  ${media.lessThan('medium')` font-size : 0.85rem`};
+  ${media.lessThan('small')`font-size : 0.8rem`};
 `
 
 export const Button = styled.button`
@@ -266,6 +266,12 @@ export const CardGrid = styled.div`
   display: grid;
   grid-gap: 2rem 2rem;
   grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  ${media.lessThan('large')`
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  `};
+  ${media.lessThan('medium')`
+      place-items : center;
+  `};
 `
 
 export const Card = styled.div`
@@ -273,13 +279,32 @@ export const Card = styled.div`
   width: 25rem;
   box-shadow: 0 3px 4px #c0c0c0;
   border-radius: 5px;
+  img {
+    height: 170px;
+    width: 400px;
+    objectfit: cover;
+  }
   h4 {
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   div {
     padding: 1rem 1rem;
   }
+  ${media.lessThan('large')`
+    height: 40vh;
+    width: 22rem;
+    img {
+     width  :  350px;
+    }
+  `};
+  ${media.lessThan('large')`
+  height: 40vh;
+  width: 24rem;
+  img {
+   width  :  385px;
+  }
+`};
 `
 
 export const HomeList = styled.ul`

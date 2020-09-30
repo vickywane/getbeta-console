@@ -133,7 +133,7 @@ const CreateAccount = props => {
                 <label> Referrer Name </label>
                 <input
                   value={referrerName}
-                  onChange={e => setEmail(e.target.value)}
+                  // onChange={e => setEmail(e.target.value)}
                   type="email"
                   placeholder="Referrer name"
                 />

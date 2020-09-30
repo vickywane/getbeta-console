@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
-import { FiTrash2, FiUploadCloud, FiKey } from 'react-icons/fi'
+import { FiUploadCloud, FiKey } from 'react-icons/fi'
 import { observer } from 'mobx-react'
 import { useDropzone } from 'react-dropzone'
+import { Alert } from 'react-bootstrap'
 
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
@@ -131,7 +132,7 @@ const BioInput = styled.textarea`
 
 const UpdateProfile = props => {
   const Width = useWindowWidth()
-  const { deleteAccount, updateUser, userDetail, getUserDetail } = props.UserStore
+  const { deleteAccount, updateUser, userDetail, getUserDetail, isUpdated } = props.UserStore
   const { name, email, bio } = userDetail
 
   const [isUploading, setUploading] = useState(false)
@@ -164,6 +165,12 @@ const UpdateProfile = props => {
   return (
     <div>
       <Header goBack={true} />
+
+      {isUpdated && (
+        <Alert variant="success">
+          <Text> Your profile details has been successfully updated! </Text>
+        </Alert>
+      )}
 
       <StyledBody style={{ height: window.innerHeight - 75, overflow: 'auto' }}>
         <div style={{}}>

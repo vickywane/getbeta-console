@@ -10,7 +10,7 @@ import media from 'styled-media-query'
 import { Tab, Tabs } from 'react-bootstrap'
 
 import useWindowWidth from '../../utils/hook_style'
-import { Text, Title, Section, HomeList, Hover, center, StyledSearchbox } from '../../styles/style'
+import { Text, HomeList, Hover, center, StyledSearchbox } from '../../styles/style'
 
 const Body = styled.div`
   background: #fff;
@@ -20,10 +20,14 @@ const Body = styled.div`
     padding: 0.5rem 1.5rem;
   }
   ${media.lessThan('medium')`
-    padding: 0.5rem 0.7rem;
+  section {
+    padding: 0.5rem 0.5rem;
+  }
   `};
   ${media.lessThan('small')`
-    padding: 0.5rem 0.5rem;
+  section {
+    padding: 0.5rem 0.3rem;
+  }
   `};
 `
 
@@ -86,7 +90,7 @@ const MyContent = props => {
         }}
       >
         <div style={{ ...center, display: Width >= 1200 && !searchVisiblity && 'none' }}>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', paddingTop: '10px' }}>
             <Text style={{ color: '#0072CE', margin: 0, padding: 0 }}>All Contents</Text>
 
             <Link to="/create-content">
@@ -127,76 +131,136 @@ const MyContent = props => {
           onSelect={k => setTabState(k)}
         >
           <Tab eventKey="created-content" title="Created Content">
-            <p> My created contents </p>
+            <HomeList>
+              {isLoadingContents ? (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <br />
+                  <Spinner variant="primary" animation="grow" role="loading" />
+                  <br />
+                </div>
+              ) : userContents.length === 0 ? (
+                <div style={{ ...center }}>
+                  <div>
+                    <div style={{ ...center }}>
+                      <Planet color="#0072ce" mood="sad" size={180} />
+                    </div>
+                    <br />
+                    <Text align="center"> You currently do not have any created content. </Text>
+                    <Link to="/create-content">
+                      <Text align="center"> Create Content</Text>
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                userContents.map(({ _id, dateCreated, descrp, price, type, vendorId, title }) => {
+                  console.log(dateCreated)
+                  return (
+                    <li key={_id}>
+                      <ContentContainer>
+                        <ContentImage />
+
+                        <Text
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            navigate('/edit-content', {
+                              state: {
+                                contentId: _id
+                              }
+                            })
+                          }}
+                        >
+                          {title}
+                        </Text>
+
+                        <div style={{ ...center }}>
+                          <div style={{ display: 'flex' }}>
+                            <Date style={{ margin: '0 1rem', ...center }}>
+                              <Text style={{ margin: 0 }}> 12 - 12 - 12 </Text>
+                            </Date>
+
+                            <Hover
+                              onClick={() => {
+                                deleteContent(_id)
+                              }}
+                              style={{ ...FiAlignCenter }}
+                            >
+                              <FiTrash2 style={{ fontSize: '1.4rem' }} />
+                            </Hover>
+                          </div>
+                        </div>
+                      </ContentContainer>
+                    </li>
+                  )
+                })
+              )}
+            </HomeList>
           </Tab>
 
           <Tab eventKey="purchased-content" title="Purchased Content">
-            <p> My Purchased Contents </p>
+            <HomeList>
+              {isLoadingContents ? (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <br />
+                  <Spinner variant="primary" animation="grow" role="loading" />
+                  <br />
+                </div>
+              ) : userContents.length === 0 ? (
+                <div style={{ ...center }}>
+                  <div>
+                    <div style={{ ...center }}>
+                      <Planet color="#0072ce" mood="sad" size={180} />
+                    </div>
+                    <br />
+                    <Text align="center"> You currently do not have any created content. </Text>
+                    <Link to="/create-content">
+                      <Text align="center"> Create Content</Text>
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                userContents.map(({ _id, descrp, price, type, vendorId, title }) => {
+                  return (
+                    <li key={_id}>
+                      <ContentContainer>
+                        <ContentImage />
+
+                        <Text
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            navigate('/edit-content', {
+                              state: {
+                                contentId: _id
+                              }
+                            })
+                          }}
+                        >
+                          {title}
+                        </Text>
+
+                        <div style={{ ...center }}>
+                          <div style={{ display: 'flex' }}>
+                            <Date style={{ margin: '0 1rem', ...center }}>
+                              <Text> 12 - 12 - 12 </Text>
+                            </Date>
+
+                            <Hover
+                              onClick={() => {
+                                deleteContent(_id)
+                              }}
+                              style={{ ...FiAlignCenter }}
+                            >
+                              <FiTrash2 style={{ fontSize: '1.6rem' }} />
+                            </Hover>
+                          </div>
+                        </div>
+                      </ContentContainer>
+                    </li>
+                  )
+                })
+              )}
+            </HomeList>
           </Tab>
         </Tabs>
-
-        <HomeList>
-          {isLoadingContents ? (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <br />
-              <Spinner variant="primary" animation="grow" role="loading" />
-              <br />
-            </div>
-          ) : userContents.length === 0 ? (
-            <div style={{ ...center }}>
-              <div>
-                <div style={{ ...center }}>
-                  <Planet color="#0072ce" mood="sad" size={180} />
-                </div>
-                <br />
-                <Text align="center"> You currently do not have any created content. </Text>
-                <Link to="/create-content">
-                  <Text align="center"> Create Content</Text>
-                </Link>
-              </div>
-            </div>
-          ) : (
-            userContents.map(({ _id, descrp, price, type, vendorId, title }) => {
-              return (
-                <li key={_id}>
-                  <ContentContainer>
-                    <ContentImage />
-
-                    <Text
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        navigate('/edit-content', {
-                          state: {
-                            contentId: _id
-                          }
-                        })
-                      }}
-                    >
-                      {title}
-                    </Text>
-
-                    <div style={{ ...center }}>
-                      <div style={{ display: 'flex' }}>
-                        <Date style={{ margin: '0 1rem', ...center }}>
-                          <Text> 12 - 12 - 12 </Text>
-                        </Date>
-
-                        <Hover
-                          onClick={() => {
-                            deleteContent(_id)
-                          }}
-                          style={{ ...FiAlignCenter }}
-                        >
-                          <FiTrash2 style={{ fontSize: '1.6rem' }} />
-                        </Hover>
-                      </div>
-                    </div>
-                  </ContentContainer>
-                </li>
-              )
-            })
-          )}
-        </HomeList>
       </section>
     </Body>
   )

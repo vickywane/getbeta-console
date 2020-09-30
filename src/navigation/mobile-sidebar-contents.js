@@ -9,12 +9,9 @@ import { Title, Text, Body, center } from '../styles/style'
 import {
   FiUser,
   FiVideo,
-  FiLogOut,
   FiBookOpen,
   FiGrid,
-  FiX,
   FiSettings,
-  FiMenu,
   FiBarChart,
   FiChevronsLeft
 } from 'react-icons/fi'

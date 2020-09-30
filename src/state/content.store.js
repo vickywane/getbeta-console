@@ -62,6 +62,21 @@ class ContentStore {
 
   updateContent = (id, newData) => {}
 
+  @action uploadContent = (id, content) => {
+    const formData = new FormData()
+    formData.append('file', content)
+
+    Axios.post(
+      `${CONTENT_ENDPOINT}/content/${id}/addfile`,
+      { formData },
+      { headers: { 'x-auth-token': token } }
+    )
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => console.log(e))
+  }
+
   getUserContents = () => {
     this.isLoadingContents = true
     Axios.get(`${CONTENT_ENDPOINT}/${id}/contents/find`, {

@@ -9,29 +9,13 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   background: #0072ce;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
-  margin-top: 3.5em;
+  margin-top: 3.45em;
   padding: 0.5rem;
   position: absolute;
   top: 0;
   width: 60%;
   left: 0;
   transition: all 250ms;
-  @media (max-width: ${({ theme }) => theme.mobile}) {
-    width: 100%;
-  }
-  a {
-    padding: 2rem 0;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s linear;
-    @media (max-width: ${({ theme }) => theme.mobile}) {
-      font-size: 1.5rem;
-      text-align: center;
-    }
-    &:hover {
-      color: ${({ theme }) => theme.primaryHover};
-    }
-  }
 `
 
 const StyledBurger = styled.button`
@@ -88,45 +72,9 @@ const StyledNotification = styled(IoIosNotificationsOutline)`
     }
 `
 
-const StyledSetting = styled(FiSettings)`
-  position: right;
-  left: 2rem;
-  font-size: 3.1rem;
-  color: #fff;
-  margin-right : 5px
-  transition: all 250ms
-  border: none;
-  padding: 0.7rem 0.7rem;
-  border-radius: 50%
-  z-index: 10;
-  &: hover {
-      color : #401364;
-      background: #fff;
-      cursor: pointer;
-    }
-`
-
-const StyledSearch = styled(FiSearch)`
-  position: right;
-  left: 2rem;
-  font-size: 3.1rem;
-  color: #fff;
-  margin-right : 5px
-  transition: all 250ms
-  border: none;
-  padding: 0.7rem 0.7rem;
-  border-radius: 50%
-  z-index: 10;
-  &: hover {
-      color : #401364;
-      background: #000;
-      cursor: pointer;
-    }
-`
-
 const Hover = styled.div`
   cursor: pointer;
   color: ${props => (props.white ? '#fff' : null)};
 `
 
-export { StyledMenu, StyledBurger, StyledNotification, Hover, StyledSetting, StyledSearch }
+export { StyledMenu, StyledBurger, StyledNotification, Hover }

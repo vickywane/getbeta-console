@@ -104,7 +104,7 @@ const Contents = props => {
           <div style={{ display: 'flex' }}>
             <StyledFilter onClick={() => setModal(true)}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
-              <FiFilter style={{ fontSize: '1.5rem' }} />
+              <FiFilter style={{ fontSize: '1.4rem' }} />
             </StyledFilter>
           </div>
 
@@ -130,7 +130,6 @@ const Contents = props => {
               return (
                 <Card key={_id}>
                   <img
-                    style={{ height: '170px', width: '400px', objectFit: 'cover' }}
                     alt="Contents ilustration detail"
                     src={require('../../../assets/images/college-chemistry.jpg')}
                   />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import {
   FiChevronRight,
@@ -12,6 +12,7 @@ import { observer } from 'mobx-react'
 import { Spinner } from 'react-bootstrap'
 import moment from 'moment'
 import media from 'styled-media-query'
+import { useDropzone } from 'react-dropzone'
 
 import ModalWrapper from '../../../components/modals/modalWrapper'
 import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
@@ -57,6 +58,13 @@ const List = styled.ul`
       flex-direction: row;
     }
   }
+  ${media.lessThan('medium')`
+  padding: 0 0.3rem;
+  margin: 1rem 0.3rem;
+      li {
+        margin: 1rem 0.5rem;
+      }
+  `};
 `
 
 const Body = styled.div`
@@ -68,8 +76,10 @@ const Body = styled.div`
 
 const InputBody = styled.div`
   label {
+    font-size: 1rem;
   }
   textarea {
+    font-size: 0.9rem;
     margin: 0.5rem 0.5rem;
     display: flex;
     padding: 1rem 1rem;
@@ -84,8 +94,9 @@ const InputBody = styled.div`
 
 const EditContent = props => {
   const [ModalVisibility, setModalVisibility] = useState(false)
+  const [Content, setContent] = useState(null)
 
-  const { getContent, content, isLoadingContents } = props.ContentStore
+  const { getContent, content, isLoadingContents, uploadContent } = props.ContentStore
   const { contentId } = props.location.state
   const [isContentOpen, setContentOpen] = useState(true)
 
@@ -94,6 +105,15 @@ const EditContent = props => {
   }, [])
 
   let data = toJS(content)
+
+  const onDrop = useCallback(([file]) => {
+    setContent(file)
+  }, [])
+
+  const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
+    onDrop,
+    accept: 'image/jpeg , image/jpg, image/png'
+  })
 
   return (
     <div>
@@ -129,6 +149,7 @@ const EditContent = props => {
                   setModalVisibility(false)
                 }}
               >
+                <input {...getInputProps()} />
                 Upload File
               </Button>
             </div>
@@ -167,14 +188,24 @@ const EditContent = props => {
               <FiCalendar style={{ fontSize: '1.4rem' }} />
             </Hover>
 
-            <Text style={{ ...center }}> {moment(data.createdAt).format('D MMMM YYYY')} </Text>
+            <Text style={{ ...center, margin: 0 }}>
+              {' '}
+              {moment(data.createdAt).format('D MMMM YYYY')}{' '}
+            </Text>
           </div>
 
           <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
           <br />
           <br />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid #c0c0c0',
+              padding: '0.7rem 0rem'
+            }}
+          >
             <div
               style={{ display: 'flex', cursor: 'pointer' }}
               onClick={() => setContentOpen(!isContentOpen)}

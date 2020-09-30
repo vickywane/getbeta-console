@@ -4,6 +4,8 @@ import { Spinner } from 'react-bootstrap'
 import { FiUploadCloud } from 'react-icons/fi'
 import { useDropzone } from 'react-dropzone'
 import media from 'styled-media-query'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
 
 import {
   Body,
@@ -48,6 +50,14 @@ const Grid = styled.div`
         align-items : center;
     `};
 `
+
+const tags = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
+
+const animatedComponents = makeAnimated()
 
 const CreateContent = props => {
   const { createContent, isCreatingContent } = props.ContentStore
@@ -174,6 +184,18 @@ const CreateContent = props => {
                 />
               </InputField>
 
+              <InputField>
+                <label> Content Tags </label>
+                <Select
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  // defaultValue={[colourOptions[4], colourOptions[5]]}
+                  isMulti
+                  options={tags}
+                />
+              </InputField>
+
+              <br />
               <div style={{ paddingLeft: '2%' }}>
                 <Button
                   style={{

@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { FiSearch, FiCalendar, FiPhoneCall } from 'react-icons/fi'
+import { IoIosCalendar } from 'react-icons/io'
 import { Link } from '@reach/router'
 import media from 'styled-media-query'
 import { Tabs, Tab } from 'react-bootstrap'
 
-import { Text, Title, Section, Hover, center, StyledSearchbox } from '../../styles/style'
+import { Text, Hover, center, StyledSearchbox } from '../../styles/style'
 
 const Body = styled.div`
   box-shadow: 0 2px 3px grey;
   section {
     padding: 0.5rem 1.5rem;
   }
+  ${media.lessThan('small')`
+    padding: 0.5rem 0.5rem;
+  `}
 `
 const Data = [
   {
@@ -94,74 +98,92 @@ const Mybookings = props => {
   const { UserStore, Width } = props
 
   return (
-    <div>
-      <Body>
-        <div
-          style={{
-            background: '#E0E9F5',
-            display: 'flex',
-            padding: '0.7rem 0.5rem',
-            borderBottom: '1px solid #c0c0c0',
-            justifyContent: 'space-between'
-          }}
-        >
-          <div style={{ ...center }}>
-            <Text small style={{ color: '#0072CE' }}>
-              All Bookings
-            </Text>
-          </div>
-
-          {Width >= 1200 ? (
-            <StyledSearchbox>
-              <div>
-                <FiSearch style={{ fontSize: '1.6rem' }} />
-              </div>
-
-              <input placeholder="Search for a course" />
-            </StyledSearchbox>
-          ) : (
-            <Hover>
-              <FiSearch style={{ color: '#0072ce', fontSize: '1.4rem' }} />
-            </Hover>
-          )}
+    <Body>
+      <div
+        style={{
+          background: '#E0E9F5',
+          display: 'flex',
+          height: '67px',
+          padding: '0.7rem 0.5rem',
+          borderBottom: '1px solid #c0c0c0',
+          justifyContent: 'space-between'
+        }}
+      >
+        <div style={{ ...center }}>
+          <Text small style={{ color: '#0072CE' }}>
+            All Bookings
+          </Text>
         </div>
 
-        <section>
-          <Tabs id="bookings-tab" activeKey={TabState} onSelect={k => setTabState(k)}>
-            <Tab eventKey={'my-bookings'} title="My Bookings">
-              <p> My bookings </p>
-            </Tab>
+        {Width >= 1200 ? (
+          <StyledSearchbox style={{ height: '50px' }}>
+            <div>
+              <FiSearch style={{ fontSize: '1.4rem' }} />
+            </div>
 
-            <Tab eventKey={'bookings'} title="Bookings By Me">
-              <p> bookings for me </p>
-            </Tab>
-          </Tabs>
+            <input placeholder="Search for a course" />
+          </StyledSearchbox>
+        ) : (
+          <Hover>
+            <FiSearch style={{ color: '#0072ce', fontSize: '1.4rem' }} />
+          </Hover>
+        )}
+      </div>
 
-          <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
-            {Data.map(({ id, reason, date }) => {
-              return (
-                <li key={id}>
-                  <ContentContainer>
-                    <ContentImage style={{ ...center }}>
-                      <FiPhoneCall style={{ fontSize: '1.5rem' }} />
-                    </ContentImage>
+      <section>
+        <Tabs id="bookings-tab" activeKey={TabState} onSelect={k => setTabState(k)}>
+          <Tab eventKey={'my-bookings'} title="My Bookings">
+            <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
+              {Data.map(({ id, reason, date }) => {
+                return (
+                  <li key={id}>
+                    <ContentContainer>
+                      <ContentImage style={{ ...center }}>
+                        <FiPhoneCall style={{ fontSize: '1.5rem' }} />
+                      </ContentImage>
 
-                    <Text> {reason} </Text>
+                      <Text> {reason} </Text>
 
-                    <Date>
-                      <div style={{ margin: '0 0.4rem' }}>
-                        <FiCalendar style={{ fontSize: '1.5rem' }} />
-                      </div>
-                      <Text style={{ padding: 0, margin: 0 }}> 12 - 12 - 12 </Text>
-                    </Date>
-                  </ContentContainer>
-                </li>
-              )
-            })}
-          </ListGrid>
-        </section>
-      </Body>
-    </div>
+                      <Date>
+                        <div style={{ margin: '0 0.4rem' }}>
+                          <FiCalendar style={{ fontSize: '1.4rem' }} />
+                        </div>
+                        <Text style={{ padding: 0, margin: 0 }}> 12 - 12 - 12 </Text>
+                      </Date>
+                    </ContentContainer>
+                  </li>
+                )
+              })}
+            </ListGrid>
+          </Tab>
+
+          <Tab eventKey={'bookings'} title="Bookings By Me">
+            <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
+              {Data.map(({ id, reason, date }) => {
+                return (
+                  <li key={id}>
+                    <ContentContainer>
+                      <ContentImage style={{ ...center }}>
+                        <FiPhoneCall style={{ fontSize: '1.5rem' }} />
+                      </ContentImage>
+
+                      <Text> {reason} </Text>
+
+                      <Date>
+                        <div style={{ margin: '0 0.4rem' }}>
+                          <IoIosCalendar style={{ fontSize: '1.4rem' }} />
+                        </div>
+                        <Text style={{ padding: 0, margin: 0 }}> 12 - 12 - 12 </Text>
+                      </Date>
+                    </ContentContainer>
+                  </li>
+                )
+              })}
+            </ListGrid>
+          </Tab>
+        </Tabs>
+      </section>
+    </Body>
   )
 }
 
