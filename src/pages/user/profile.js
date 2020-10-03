@@ -84,9 +84,7 @@ const Profile = props => {
 
   return (
     <div>
-      <HedaerContainer>
-        <Header path="home" />
-      </HedaerContainer>
+      <Header path="home" />
       {showConfirmationAlert && (
         <Alert
           style={{ margin: 0, outline: '0px' }}

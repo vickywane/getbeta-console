@@ -197,12 +197,18 @@ class UserStore {
       .catch(e => console.log(`Error occured : ${e}`))
   }
 
+  // Would contain a filter to filter selected users
   getUsers = () => {
+    this.isLoading = true
     Axios.get(`${AUTH_ENDPOINT}`)
       .then(res => {
         this.users = res.data.vendors
+        this.isLoading = false
       })
-      .catch(e => console.log())
+      .catch(e => {
+        this.isLoading = false
+        console.log(e)
+      })
   }
 }
 

@@ -219,8 +219,8 @@ export const MdTitle = styled.h3`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: 1rem;
-  ${media.lessThan('large')` font-size : 0.95rem`};
+  font-size: ${props => (props.small ? '.9rem' : '1rem')};
+  ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.95rem')}`};
   ${media.lessThan('medium')` font-size : 0.85rem`};
   ${media.lessThan('small')`font-size : 0.8rem`};
 `
