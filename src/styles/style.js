@@ -153,20 +153,21 @@ export const CreateCourseInputField = styled.div`
 `
 
 export const InputBody = styled.div`
-  margin: 2rem 0.5rem;
+  margin: 1.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   label {
   }
   input {
-    font-size: 1rem;
-    height: 50px;
+    font-size: 0.9rem;
+    height: 55px;
     color: #000;
-    background: #b0cfea;
+    background: transparent;
     padding: 0.6rem 1rem;
-    border: 1.5px solid #0072ce;
+    border: 1.5px solid #c0c0c0;
     border-radius: 3px;
-    width: 30rem;
+    width: auto;
+    flex: 1;
   }
   textarea {
     background: #b0cfea;

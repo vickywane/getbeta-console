@@ -14,6 +14,7 @@ import {
   Sessions,
   EditContent,
   AllSessions,
+  ContactUser,
   EditCourse,
   UpdateProfilePage,
   CreateCourse,
@@ -46,6 +47,7 @@ const Console = props => {
           <Upgrade path="/upgrade" UserStore={UserStore} />
           <EditCourse CourseStore={CourseStore} path="/edit-course" />
           <EditContent ContentStore={ContentStore} path="/edit-content" />
+          <ContactUser UserStore={UserStore} path="u/:username" />
           <Home UserStore={UserStore} default />
           <Bookings UserStore={UserStore} path="/booking" />
           <Preferences path="/preference" />

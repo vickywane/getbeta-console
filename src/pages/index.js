@@ -24,5 +24,6 @@ export { default as Upgrade } from './user/upgrade'
 export { default as UpdateProfilePage } from './user/updateProfile'
 
 export { default as CreateVendor } from './vendors/createVendor'
+export { default as ContactUser } from './user/contactUser'
 export { default as CreateContent } from './forms/create-content'
 export { default as Notification } from './user/notifications'

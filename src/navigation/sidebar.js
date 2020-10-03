@@ -108,14 +108,14 @@ const Sidebar = props => {
       icon: <FiUser style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/home'
     },
-    {
-      id: 2,
-      name: 'Courses',
-      routeName: 'courses',
+    // {
+    //   id: 2,
+    //   name: 'Courses',
+    //   routeName: 'courses',
 
-      icon: <IoIosList style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
-      to: '/courses'
-    },
+    //   icon: <IoIosList style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
+    //   to: '/courses'
+    // },
     {
       id: 3,
       name: 'Bookings',

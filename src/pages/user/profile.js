@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
+import { FiPlus, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell, FiEdit } from 'react-icons/fi'
+import { Alert } from 'react-bootstrap'
 
 import { Link, navigate } from '@reach/router'
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
 import { Text, MdTitle, Hover, Button } from '../../styles/style'
-import { FiPlus, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell, FiEdit } from 'react-icons/fi'
 
 const Image = styled.img`
   height: 130px;
@@ -79,13 +80,25 @@ const Profile = props => {
   const { name, email, bio } = UserStore.userDetail
   const [profilePane, setProfilePane] = useState(true)
   const [showModal, setModal] = useState(false)
+  const [showConfirmationAlert, setConfirmationAlert] = useState(true)
 
   return (
     <div>
       <HedaerContainer>
         <Header path="home" />
       </HedaerContainer>
-
+      {showConfirmationAlert && (
+        <Alert
+          style={{ margin: 0, outline: '0px' }}
+          variant="success"
+          onClose={() => setConfirmationAlert(false)}
+          dismissible
+        >
+          <Text align="center">
+            Welcome to GetBeta!. A confirmation email has been sent to your email address.{' '}
+          </Text>{' '}
+        </Alert>
+      )}
       {profilePane ? (
         <Body style={{ color: '#0072CE', background: 'rgba(233, 241, 251, 0.81)' }}>
           <br />

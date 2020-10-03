@@ -106,7 +106,7 @@ const Home = props => {
 
                 <Text align="center">
                   {' '}
-                  {stats.totalCourses < 2 ? 'Created Course' : 'Created Courses'}{' '}
+                  {stats.totalCourses < 2 ? 'Created Package' : 'Created Packages'}{' '}
                 </Text>
               </div>
             </Card>
@@ -137,6 +137,21 @@ const Home = props => {
                 <StyledTitle align="center"> 0 </StyledTitle>
 
                 <Text align="center"> My Bookings </Text>
+              </div>
+            </Card>
+          </ScrollLink>
+          <ScrollLink
+            smooth={true}
+            spy={true}
+            onClick={() => Scroll.scrollToTop()}
+            style={{ textDecoration: 'none' }}
+            to={`bookings`}
+          >
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center"> 0 </StyledTitle>
+
+                <Text align="center"> Bookings </Text>
               </div>
             </Card>
           </ScrollLink>

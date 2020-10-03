@@ -24,14 +24,14 @@ const Routes = [
     icon: <FiUser style={{ fontSize: '1.4rem' }} />,
     to: '/home'
   },
-  {
-    id: 2,
-    name: 'Courses',
-    routeName: 'courses',
+  // {
+  //   id: 2,
+  //   name: 'Courses',
+  //   routeName: 'courses',
 
-    icon: <IoIosList style={{ fontSize: '1.4rem' }} />,
-    to: '/courses'
-  },
+  //   icon: <IoIosList style={{ fontSize: '1.4rem' }} />,
+  //   to: '/courses'
+  // },
   {
     id: 3,
     name: 'Bookings',

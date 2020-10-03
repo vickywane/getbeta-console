@@ -127,7 +127,15 @@ const EditContent = props => {
       >
         <div>
           <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
-            <Button style={{ display: 'flex' }}>
+            <Button
+              style={{ display: 'flex' }}
+              {...getRootProps({
+                isDragActive,
+                isDragAccept,
+                isDragReject
+              })}
+            >
+              <input {...getInputProps()} />
               <div style={{ margin: '0 .5rem' }}>
                 <FiUploadCloud style={{ fontSize: '1.4rem' }} />
               </div>
@@ -149,8 +157,7 @@ const EditContent = props => {
                   setModalVisibility(false)
                 }}
               >
-                <input {...getInputProps()} />
-                Upload File
+                Upload Content File
               </Button>
             </div>
           </div>
@@ -188,12 +195,11 @@ const EditContent = props => {
               <FiCalendar style={{ fontSize: '1.4rem' }} />
             </Hover>
 
-            <Text style={{ ...center, margin: 0 }}>
-              {' '}
+            <Text style={{ ...center, paddingTop: '5px' }}>
               {moment(data.createdAt).format('D MMMM YYYY')}{' '}
             </Text>
           </div>
-
+          <br />
           <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
           <br />
           <br />

@@ -61,8 +61,8 @@ const Login = props => {
             display={hasLoginError ? 'flex' : 'none'}
           >
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Hover style={{ margin: '0 0.5rem' }}>
-                <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
+              <Hover style={{ margin: '0 0.3rem' }}>
+                <FiAlertTriangle style={{ fontSize: '1.4rem' }} />
               </Hover>
               <Text> Email or Password Invalid ! </Text>
             </div>
