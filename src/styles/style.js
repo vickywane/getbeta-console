@@ -91,6 +91,7 @@ export const CreateCourseInputField = styled.div`
     padding: 0.5rem 1rem;
     outline: 0px;
   }
+ 
   textarea {
     height: 10vh;
     width: 60rem;
@@ -240,10 +241,11 @@ export const Button = styled.button`
   color: #fff;
   ${media.lessThan('large')`
      padding: 0.3rem 1.2rem;
-     font-size : 1rem;
+     font-size : .9rem;
   `};
   ${media.lessThan('small')`
     padding: 0.3rem 1rem;
+    font-size : .8rem;
 `};
 `
 

@@ -4,7 +4,7 @@ import media from 'styled-media-query'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import * as scroll from 'react-scroll'
-import { Link as ScrollLink, Element } from 'react-scroll'
+import { Link, Element } from 'react-scroll'
 
 import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
@@ -22,7 +22,7 @@ const Card = styled.div`
   padding : 1rem 1rem
   box-shadow: 0 2px 3px #c0c0c0;
   transition : all 350ms;
-  background: ${props => props.background};
+  background: #fff;
   &: hover {
     cursor : pointer;
    transform : translateY(-10%)
@@ -61,29 +61,20 @@ const Grid = styled.div`
   `};
 `
 
-const MyGrid = styled.div`
-  display: grid;
-  grid-template-colunns: 50% 50%;
-  grid-gap: 1rem 1rem;
-  place-items: center;
-  ${media.lessThan('large')`
-    display : flex;
-    flex-direction : colunn;
-    align-items : center;
-  `};
-`
-
 const Home = props => {
   const { UserStore } = props
   const Width = useWindowWidth()
-  const { getUserDetail, userDetail, userStats } = UserStore
+  const { getUserDetail, userDetail, isLoading } = UserStore
 
   useEffect(() => {
     getUserDetail()
   }, [])
 
-  const stats = toJS(userStats)
+  const detail = toJS(userDetail)
   const Scroll = scroll.animateScroll
+
+  const { contents, courses, _id } = detail
+
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} Width={Width} />
@@ -91,80 +82,79 @@ const Home = props => {
       <br />
 
       <Body>
-        <Grid>
-          <ScrollLink
-            smooth={true}
-            spy={true}
-            // style={{ textDecoration: 'none' }}
-            // onSetActive={(to) => alert(to)}
-            to={'courses'}
-            duration={500}
-          >
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center"> {stats.totalCourses} </StyledTitle>
+        {!isLoading && (
+          <Grid>
+            <Link activeClass="active" smooth={true} spy={true} to="courses" duration={500}>
+              <Card background="#fff" style={{ ...center }}>
+                <div>
+                  <StyledTitle align="center">
+                    {contents !== undefined && contents.length}
+                  </StyledTitle>
 
-                <Text align="center">
-                  {' '}
-                  {stats.totalCourses < 2 ? 'Created Package' : 'Created Packages'}{' '}
-                </Text>
-              </div>
-            </Card>
-          </ScrollLink>
+                  <Text align="center">
+                    {contents !== undefined && contents.length < 2
+                      ? 'Created Package'
+                      : 'Created Packages'}
+                  </Text>
+                </div>
+              </Card>
+            </Link>
 
-          <ScrollLink style={{ textDecoration: 'none' }} to={`contents`}>
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center"> {stats.totalContents} </StyledTitle>
+            <Link style={{ textDecoration: 'none' }} to={`contents`}>
+              <Card background="#fff" style={{ ...center }}>
+                <div>
+                  <StyledTitle align="center">
+                    {courses !== undefined && courses.length}
+                  </StyledTitle>
 
-                <Text align="center">
-                  {' '}
-                  {stats.totalContents < 2 ? 'Purchased Content' : 'Purchased Contents'}{' '}
-                </Text>
-              </div>
-            </Card>
-          </ScrollLink>
+                  <Text align="center">
+                    {courses !== undefined && courses.length < 2
+                      ? 'Purchased Content'
+                      : 'Purchased Contents'}
+                  </Text>
+                </div>
+              </Card>
+            </Link>
 
-          <ScrollLink
-            smooth={true}
-            spy={true}
-            onClick={() => Scroll.scrollToTop()}
-            style={{ textDecoration: 'none' }}
-            to={`bookings`}
-          >
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center"> 0 </StyledTitle>
+            <Link
+              smooth={true}
+              spy={true}
+              onClick={() => Scroll.scrollToTop()}
+              style={{ textDecoration: 'none' }}
+              to={`bookings`}
+            >
+              <Card background="#fff" style={{ ...center }}>
+                <div>
+                  <StyledTitle align="center"> 0 </StyledTitle>
 
-                <Text align="center"> My Bookings </Text>
-              </div>
-            </Card>
-          </ScrollLink>
-          <ScrollLink
-            smooth={true}
-            spy={true}
-            onClick={() => Scroll.scrollToTop()}
-            style={{ textDecoration: 'none' }}
-            to={`bookings`}
-          >
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center"> 0 </StyledTitle>
+                  <Text align="center"> My Bookings </Text>
+                </div>
+              </Card>
+            </Link>
+            <Link
+              smooth={true}
+              spy={true}
+              onClick={() => Scroll.scrollToTop()}
+              style={{ textDecoration: 'none' }}
+              to={`bookings`}
+            >
+              <Card style={{ ...center, backgroundColor: 'white' }}>
+                <div>
+                  <StyledTitle align="center"> 0 </StyledTitle>
 
-                <Text align="center"> Bookings </Text>
-              </div>
-            </Card>
-          </ScrollLink>
-        </Grid>
+                  <Text align="center"> Bookings </Text>
+                </div>
+              </Card>
+            </Link>
+          </Grid>
+        )}
 
         <br />
         <br />
 
-        <Element name="contents">
-          <Section>
-            <MyContent Width={Width} />
-          </Section>
-        </Element>
+        <Section id="courses">
+          <MyContent id="courses" userId={_id} Width={Width} />
+        </Section>
 
         <br />
         <br />
@@ -174,6 +164,8 @@ const Home = props => {
             <Mybookings Width={Width} />
           </Section>
         </Element>
+
+        <div id="courses"> jain </div>
       </Body>
     </div>
   )

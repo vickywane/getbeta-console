@@ -3,6 +3,8 @@ import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
 
 const CONTENT_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
+const SUBSCRIPTIONS_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors/subscriptions`
+
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
@@ -37,7 +39,6 @@ class ContentStore {
       {
         headers: {
           'x-auth-token': token
-          // 'Content-type': 'multipart/form-data'
         }
       }
     )
@@ -55,12 +56,30 @@ class ContentStore {
           }).catch(e => console.log(e))
         }
 
-        navigate('/contents')
+        // navigate('/contents')
       })
       .catch(e => console.log(e))
   }
 
   updateContent = (id, newData) => {}
+
+  @observable contentSubscribers = []
+  @observable isLoading = false
+
+  @action subscribeToContent = userId => {}
+
+  @action userSubscribedContent = userId => {
+    this.isLoading = true
+    Axios.get(`${SUBSCRIPTIONS_ENDPOINT}/${userId}/subscribed-courses`)
+      .then(res => {
+        this.isLoading = false
+        console.log(res)
+      })
+      .catch(e => {
+        this.isLoading = false
+        console.log(e, 'error from ')
+      })
+  }
 
   @action uploadContent = (id, content) => {
     const formData = new FormData()
@@ -77,7 +96,7 @@ class ContentStore {
       .catch(e => console.log(e))
   }
 
-  getUserContents = () => {
+  getUserContents = id => {
     this.isLoadingContents = true
     Axios.get(`${CONTENT_ENDPOINT}/${id}/contents/find`, {
       headers: {

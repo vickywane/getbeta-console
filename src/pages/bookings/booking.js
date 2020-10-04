@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
+import media from 'styled-media-query'
 
-import UserPreviewCard from '../../components/userPreviewCard'
+import PaymentCard from '../../components/paymentCard'
 import Header from '../../components/headers/header'
 import { Body, Text, Title, Card, Button } from '../../styles/style'
 import Loading from '../../components/loading'
 
 const StyledCard = styled.div`
-  width: 35rem;
+  width: 34rem;
   height: auto;
   border-radius: 7px;
   padding-right: 10px;
@@ -20,15 +21,54 @@ const StyledCard = styled.div`
     grid-template-columns: 8rem auto;
     grid-gap: 0 1rem;
   }
+  ${media.lessThan('large')`
+      width : 30rem;
+  `};
+  ${media.lessThan('medium')`
+    width: 29rem;
+    span {
+      padding : 1rem 1rem;
+      display: flex;
+      flex-direction : column;
+      align-items : center;
+    }
+  `};
+  ${media.lessThan('small')`
+    width: 24rem;
+  `};
 `
 
 const CardGrid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(36rem, 1fr));
   list-style: none;
   li {
     margin: 1rem 1rem;
   }
+  ${media.lessThan('large')`
+    grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
+  `}
+  ${media.lessThan('medium')`
+  display : flex;
+  flex-direction : column;
+  align-items : center;
+    li {
+      margin: 1rem 0;
+    }
+  `};
+`
+
+const UserImage = styled.img`
+  height: 200px;
+  width: 140px;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 7px 0 0 7px;
+  ${media.lessThan('medium')`
+    height: 150px;
+    width: 150px;
+    border-radius : 50%;
+  `};
 `
 
 const Booking = props => {
@@ -48,14 +88,14 @@ const Booking = props => {
       <Header showSearch={true} searchText="Find A Professional" />
       <Body
         style={{
-          padding: '1rem',
+          padding: '0.5rem',
           height: window.innerHeight - 60,
           overflow: 'auto',
           background: 'rgba(233, 241, 251, 0.81)'
         }}
       >
         <br />
-        <UserPreviewCard
+        <PaymentCard
           modalVisibility={showBookingModal}
           userDetails={userDetails}
           closeModal={val => setBookingModal(val)}
@@ -65,38 +105,31 @@ const Booking = props => {
           {isLoading ? (
             <Loading />
           ) : (
-            allVendors.map(({ id, fullname, price, email, rating }) => {
+            allVendors.map(({ _id, fullname, price, email, rating }) => {
               return (
-                <li>
+                <li key={_id}>
                   <StyledCard>
                     <span>
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <img
-                          alt="User"
-                          style={{
-                            height: '200px',
-                            width: '130px',
-                            cursor: 'pointer',
-                            objectFit: 'cover'
-                          }}
-                          src={require('../../assets/images/img.jpg')}
-                        />
+                        <UserImage alt="User" src={require('../../assets/images/img.jpg')} />
                       </div>
 
                       <div>
                         <div style={{ padding: '1rem 0' }}>
-                          <Link to={`/u/${fullname.trim()}`}>
-                            <Title
-                              style={{ fontWeight: 500, cursor: 'pointer' }}
-                              color="#0072ce"
-                              small
-                              align="center"
-                            >
-                              {fullname}
-                            </Title>
-                          </Link>
+                          <Title
+                            onClick={() => {
+                              navigate(`/u/${fullname.trim()}`, {
+                                state: { id: _id }
+                              })
+                            }}
+                            style={{ fontWeight: 500, cursor: 'pointer' }}
+                            color="#0072ce"
+                            small
+                            align="center"
+                          >
+                            {fullname}
+                          </Title>
                           <Text small align="center">
-                            {' '}
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.{' '}
                           </Text>
                           <Text
@@ -105,7 +138,6 @@ const Booking = props => {
                             small
                             color="#808080"
                           >
-                            {' '}
                             12 Reviews{' '}
                           </Text>
 
@@ -113,7 +145,6 @@ const Booking = props => {
                             <Text small> Slots : 5 </Text>
 
                             <Text small style={{ color: '#0072ce' }}>
-                              {' '}
                               ${price} / mins{' '}
                             </Text>
                           </div>

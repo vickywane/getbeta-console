@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 import { FiPlus, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell, FiEdit } from 'react-icons/fi'
 import { Alert } from 'react-bootstrap'
+import { toJS } from 'mobx'
 
 import { Link, navigate } from '@reach/router'
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
 import { Text, MdTitle, Hover, Button } from '../../styles/style'
 
-const Image = styled.img`
+export const Image = styled.img`
   height: 130px;
   width: 130px;
   margin: 1rem 0;
@@ -35,8 +36,10 @@ const Image = styled.img`
   `};
 `
 
-const Body = styled.div`
+export const Body = styled.div`
   padding: 0.5rem 3rem;
+  olor: #0072ce;
+  background: rgba(233, 241, 251, 0.81);
   ${media.lessThan('medium')`
     padding: 0.5rem 1rem;
   `};
@@ -68,18 +71,11 @@ const StyledHover = styled(Hover)`
   `}
 `
 
-const HedaerContainer = styled.div`
-  display: none;
-  ${media.lessThan('medium')`
-      display : flex;
-    `};
-`
-
 const Profile = props => {
-  const { UserStore } = props
-  const { name, email, bio } = UserStore.userDetail
+  const userDetail = toJS(props.UserStore.userDetail)
+  const { fullname, email, bio } = userDetail
+
   const [profilePane, setProfilePane] = useState(true)
-  const [showModal, setModal] = useState(false)
   const [showConfirmationAlert, setConfirmationAlert] = useState(true)
 
   return (
@@ -98,7 +94,7 @@ const Profile = props => {
         </Alert>
       )}
       {profilePane ? (
-        <Body style={{ color: '#0072CE', background: 'rgba(233, 241, 251, 0.81)' }}>
+        <Body>
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex' }}>
@@ -113,7 +109,7 @@ const Profile = props => {
                 }}
               >
                 <div>
-                  <MdTitle align="center"> {name} </MdTitle>
+                  <MdTitle align="center"> {fullname} </MdTitle>
                   <Text align="center" style={{ textAlign: 'center' }}>
                     {' '}
                     {email}{' '}
@@ -161,7 +157,6 @@ const Profile = props => {
         >
           <div style={{ display: 'flex' }}>
             <Image
-              onClick={() => setModal(true)}
               style={{
                 cursor: 'pointer',
                 borderWidth: '1px',
@@ -174,7 +169,7 @@ const Profile = props => {
             />
 
             <div style={{ ...center }}>
-              <h4> {UserStore.userDetail.name} </h4>
+              <h4> {fullname} </h4>
             </div>
           </div>
 

@@ -6,47 +6,65 @@ import ModalWrapper from './modals/modalWrapper'
 import { Modal } from 'react-bootstrap'
 import { CardGrid, Body, Text, Title, Card, Button } from '../styles/style'
 import { Link } from '@reach/router'
-import { FiX } from 'react-icons/fi'
+import { FiClock, FiX } from 'react-icons/fi'
 
 const Image = styled.img`
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   margin: 1rem 0;
   object-fit: contain;
   border-radius: 5px;
 `
 
-const ModalBody = styled.div`
-  display: flex;
-  flex-direction: row;
-  ${media.lessThan('medium')``};
+const TransactionBody = styled.div`
+  background: rgba(233, 241, 251, 0.81);
+  padding: 1rem 1rem;
 `
 
 const UserPreviewCard = props => {
   const { closeModal, userDetails, modalVisibility } = props
 
   return (
-    <Modal show={modalVisibility} size="lg" style={{ padding: 0 }} onHide={() => closeModal(false)}>
-      <ModalBody>
+    <ModalWrapper
+      visibility={modalVisibility}
+      size="lg"
+      title="Booking Transaction"
+      style={{ padding: 0 }}
+      closeModal={() => closeModal(false)}
+    >
+      <div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Image alt="consultant" src={require('../assets/images/img.jpg')} />
         </div>
 
         <div>
-          <div>
-            <div>
-              <FiX style={{ fontSize: '1.6rem' }} />
-            </div>
-          </div>
           <Link to={`/u/${userDetails.fullname}`}>
             <Title small align="center">
               {userDetails.fullname}
             </Title>
           </Link>
-          <Text small align="center">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint autem officia sunt optio,
-            ea eaque ad, eveniet illum dolorem, beatae blanditiis? Dicta, facilis voluptas! Vel?
+          <Text align="center">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id dolores.
           </Text>
+          <TransactionBody>
+            <Title small> Booking Summary </Title>
+            <hr />
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex' }}>
+                <div style={{ margin: '0 .5rem' }}>
+                  <FiClock style={{ fontSize: '1.5rem' }} />
+                </div>
+
+                <Text> 50 minutes </Text>
+              </div>
+
+              <Text> $ 50 </Text>
+            </div>
+
+            <br />
+          </TransactionBody>
+
           <br />
 
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -84,12 +102,12 @@ const UserPreviewCard = props => {
                 })
               }
             >
-              Pay and Reserve Booking
+              Confirm Booking Transaction
             </Button>
           </div>
         </div>
-      </ModalBody>
-    </Modal>
+      </div>
+    </ModalWrapper>
   )
 }
 

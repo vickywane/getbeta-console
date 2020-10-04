@@ -10,7 +10,7 @@ import media from 'styled-media-query'
 import { SmallUserImage, Title, Text, Hover, StyledHover, center } from '../../styles/style'
 
 const Body = styled.div`
-  height: 65px;
+  height: 55px;
   width: 100%;
   dsplay: flex;
   justify-content: center;

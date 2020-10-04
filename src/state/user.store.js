@@ -15,15 +15,8 @@ class UserStore {
   users = []
   @observable isUpdated = false
 
-  // TODO: merge the two objects
-  userDetail = {
-    name: '',
-    email: ''
-  }
-  userStats = {
-    totalCourses: 0,
-    totalContents: 0
-  }
+  userDetail = []
+
   // =============>
 
   // AUTH & ACCOUNT ACTIONS
@@ -69,19 +62,14 @@ class UserStore {
       }
     )
       .then(res => {
-        const { fullname, email, contents, courses } = res.data
-
-        this.userDetail = {
-          name: fullname,
-          email: email
-        }
+        this.userDetail = res.data
 
         if (userImage) {
           const formData = new FormData()
           formData.append('file', userImage)
 
           Axios.post(`${AUTH_ENDPOINT}/upload`, formData, {
-            headers: { 'x-auth-token': token, 'Content-Type': 'mutlipart/formdata' }
+            headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
           })
             .then(() => {
               this.isUpdated = true
@@ -102,25 +90,39 @@ class UserStore {
       .catch(e => console.log(`error updating user : ${e}`))
   }
 
-  //@action
+  //TO GET LOGGED IN USER DETAIL
   getUserDetail = () => {
+    this.isLoading = true
     Axios.get(`${AUTH_ENDPOINT}/${id}`, {
       headers: { 'x-auth-token': token }
     })
       .then(res => {
-        const { fullname, email, contents, courses } = res.data.vendor
-
-        this.userStats = {
-          totalContents: contents.length,
-          totalCourses: courses.length
-        }
-
-        this.userDetail = {
-          name: fullname,
-          email: email
-        }
+        this.userDetail = res.data.vendor
+        this.isLoading = false
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        this.isLoading = false
+        console.log(e)
+      })
+  }
+
+  // TO GET ANOTHER SPECIFIC USER DETAILS
+  @observable user = []
+  @action
+  getUser = id => {
+    this.isLoading = true
+    Axios.get(`${AUTH_ENDPOINT}/${id}`, {
+      headers: { 'x-auth-token': token }
+    })
+      .then(res => {
+        this.isLoading = false
+
+        this.user = res.data.vendor
+      })
+      .catch(e => {
+        this.isLoading = false
+        console.log(e)
+      })
   }
 
   authUser = (email, password) => {

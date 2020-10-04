@@ -138,18 +138,18 @@ const Sidebar = props => {
       to: '/contents'
     },
     {
-      id: 6,
-      name: 'Preferences',
-      routeName: 'preference',
-      icon: <FiSettings style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
-      to: '/preference'
-    },
-    {
       id: 7,
       name: 'Analytics',
       routeName: 'analytics',
       icon: <FiBarChart style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/analytics'
+    },
+    {
+      id: 6,
+      name: 'Preferences',
+      routeName: 'preference',
+      icon: <FiSettings style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
+      to: '/preference'
     }
   ]
 

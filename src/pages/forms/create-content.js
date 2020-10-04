@@ -51,10 +51,20 @@ const Grid = styled.div`
     `};
 `
 
-const tags = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
+const contentTags = [
+  { value: 'Science', label: 'Science' },
+  { value: 'Arts', label: 'Arts' },
+  { value: 'Finance', label: 'Finance' },
+  { value: 'Commerce', label: 'Commerce' },
+  { value: 'Politics', label: 'Politics' },
+  { value: 'Education', label: 'Education' }
+]
+
+const contentType = [
+  { value: 'Article', label: 'Article' },
+  { value: 'Music', label: 'Music' },
+  { value: 'Image', label: 'Image' },
+  { value: 'Video', label: 'Video' }
 ]
 
 const animatedComponents = makeAnimated()
@@ -176,22 +186,23 @@ const CreateContent = props => {
 
               <InputField>
                 <label> Content Type </label>
-                <input
-                  onChange={e => setContentType(e.target.value)}
-                  value={ContentType}
-                  type="text"
-                  placeholder="Content Type"
-                />
-              </InputField>
-
-              <InputField>
-                <label> Content Tags </label>
                 <Select
                   closeMenuOnSelect={false}
                   components={animatedComponents}
                   // defaultValue={[colourOptions[4], colourOptions[5]]}
                   isMulti
-                  options={tags}
+                  options={contentType}
+                />
+              </InputField>
+
+              <InputField>
+                <label> Content contentTags </label>
+                <Select
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  // defaultValue={[colourOptions[4], colourOptions[5]]}
+                  isMulti
+                  options={contentTags}
                 />
               </InputField>
 
