@@ -67,8 +67,7 @@ class UserStore {
         if (userImage) {
           const formData = new FormData()
           formData.append('file', userImage)
-
-          Axios.post(`${AUTH_ENDPOINT}/upload`, formData, {
+          Axios.put(`${AUTH_ENDPOINT}/${id}/img`, formData, {
             headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
           })
             .then(() => {
@@ -87,7 +86,9 @@ class UserStore {
           }, 1000)
         }
       })
-      .catch(e => console.log(`error updating user : ${e}`))
+      .catch(e => {
+        console.log(`error updating user : ${e}`)
+      })
   }
 
   //TO GET LOGGED IN USER DETAIL
@@ -105,7 +106,7 @@ class UserStore {
         console.log(e)
       })
   }
-
+  // akuf
   // TO GET ANOTHER SPECIFIC USER DETAILS
   @observable user = []
   @action

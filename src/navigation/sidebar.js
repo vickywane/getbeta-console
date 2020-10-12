@@ -33,22 +33,24 @@ export const Items = styled.ul`
 export const Item = styled.li`
   padding: 0.8rem 1rem;
   margin: 0.5rem 0;
-  display: flex;
+  display: flex
   transition: all 300ms;
   list-style: none;
   background : ${props => props.active && '#fff'}
   color: ${props => props.active && '#0072ce'};
-  p {
-    font-size: 1rem;
-  }
   &: hover {
     color: #0072ce;
     cursor: pointer;
     background: #fff;
   }
-  ${media.lessThan('huge')`
+  ${media.lessThan('medium')`
     font-size : 0.9rem;
+    padding: 0.7rem 1rem;
   `}
+  ${media.lessThan('small')`
+    font-size : 0.8rem;
+    padding: 0.5rem 1rem;
+    `}
 `
 
 const Body = styled.div`
@@ -73,11 +75,8 @@ const Icon = styled.div`
 const SidebarBody = styled(Body)`
   background: #0072ce;
   width: ${props => (props.isClosed ? '4rem' : '14rem')};
-  ${media.lessThan('huge')`
-  width: ${props => (props.isClosed ? '4rem' : '11rem')};
-  `}
   ${media.lessThan('large')`
-  width: ${props => (props.isClosed ? '4rem' : '10rem')};
+  width: ${props => (props.isClosed ? '4rem' : '13rem')};
   `}
   ${media.lessThan('medium')`
     display  : none;
@@ -108,14 +107,13 @@ const Sidebar = props => {
       icon: <FiUser style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/home'
     },
-    // {
-    //   id: 2,
-    //   name: 'Courses',
-    //   routeName: 'courses',
-
-    //   icon: <IoIosList style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
-    //   to: '/courses'
-    // },
+    {
+      id: 5,
+      name: 'Online Content',
+      routeName: 'contents',
+      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
+      to: '/contents'
+    },
     {
       id: 3,
       name: 'Bookings',
@@ -129,13 +127,6 @@ const Sidebar = props => {
       routeName: 'sessions',
       icon: <FiVideo style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
       to: '/sessions'
-    },
-    {
-      id: 5,
-      name: 'Online Content',
-      routeName: 'contents',
-      icon: <FiBookOpen style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
-      to: '/contents'
     },
     {
       id: 7,

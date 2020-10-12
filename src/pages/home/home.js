@@ -37,8 +37,8 @@ const Card = styled.div`
   height: 24vh;
 `};
 ${media.lessThan('small')`
-width: 19rem;
-height: 23vh;
+  width: 18rem;
+  height: 12rem;
 `};
 `
 
@@ -74,7 +74,7 @@ const Home = props => {
   const Scroll = scroll.animateScroll
 
   const { contents, courses, _id } = detail
-
+  console.log(detail, 'details')
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} Width={Width} />
@@ -164,8 +164,6 @@ const Home = props => {
             <Mybookings Width={Width} />
           </Section>
         </Element>
-
-        <div id="courses"> jain </div>
       </Body>
     </div>
   )

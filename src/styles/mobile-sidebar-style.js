@@ -10,7 +10,6 @@ const StyledMenu = styled.nav`
   background: #0072ce;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   margin-top: 3.45em;
-  padding: 0.5rem;
   position: absolute;
   top: 0;
   width: 60%;
@@ -31,7 +30,6 @@ const StyledBurger = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
   z-index: 10;
   span {
     width: 2rem;
@@ -54,27 +52,4 @@ const StyledBurger = styled.button`
   }
 `
 
-const StyledNotification = styled(IoIosNotificationsOutline)`
-  position: right;
-  left: 2rem;
-  font-size: 3.3rem;
-  color: #fff;
-  margin-right : 5px
-  transition: all 250ms
-  border: none;
-  padding: 0.7rem 0.7rem;
-  border-radius: 50%
-  z-index: 10;
-  &: hover {
-      color : #401364;
-      background: #fff;
-      cursor: pointer;
-    }
-`
-
-const Hover = styled.div`
-  cursor: pointer;
-  color: ${props => (props.white ? '#fff' : null)};
-`
-
-export { StyledMenu, StyledBurger, StyledNotification, Hover }
+export { StyledMenu, StyledBurger }

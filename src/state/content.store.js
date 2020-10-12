@@ -42,12 +42,10 @@ class ContentStore {
         }
       }
     )
-      .then(res => {
+      .then(() => {
         this.isCreatingContent = false
 
         if (contentImage) {
-          console.log(contentImage)
-
           const formData = new FormData()
           formData.append('file', contentImage)
 
@@ -56,7 +54,7 @@ class ContentStore {
           }).catch(e => console.log(e))
         }
 
-        // navigate('/contents')
+        navigate('/contents')
       })
       .catch(e => console.log(e))
   }
@@ -81,19 +79,41 @@ class ContentStore {
       })
   }
 
-  @action uploadContent = (id, content) => {
-    const formData = new FormData()
-    formData.append('file', content)
+  @action
+  addContentFile = (id, contentFile) => {
+    this.isLoading = true
+    const contentfile = new FormData()
+    contentfile.append('file', contentFile)
 
-    Axios.post(
-      `${CONTENT_ENDPOINT}/content/${id}/addfile`,
-      { formData },
-      { headers: { 'x-auth-token': token } }
-    )
+    Axios.post(`${CONTENT_ENDPOINT}/content/${id}/addfile`, contentfile, {
+      headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
+    })
       .then(res => {
-        console.log(res)
+        this.isLoading = false
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        this.isLoading = false
+
+        console.log(e, 'error from content files')
+      })
+  }
+
+  @observable contentFiles = []
+  @action getContentFiles = id => {
+    this.isLoadingContents = true
+    Axios.get(`${CONTENT_ENDPOINT}/contents/${id}/find-files`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(res => {
+        this.isLoadingContents = false
+        this.contentFiles = res.data
+      })
+      .catch(e => {
+        console.log(`get files error : ${e}`)
+        this.isLoadingContents = false
+      })
   }
 
   getUserContents = id => {

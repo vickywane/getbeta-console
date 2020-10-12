@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Provider } from 'mobx-react'
 import { createGlobalStyle } from 'styled-components'
 import localforage from 'localforage'
+import { ThemeProvider } from '@chakra-ui/core'
+import { theme } from '@chakra-ui/core'
 
 import ErrorBoundary from './components/errors/errorBoundary'
 import { VendorStore, ContentStore, CourseStore } from './state/'
@@ -15,9 +17,22 @@ const GlobalStyle = createGlobalStyle`
    }
 `
 
+// Let's say you want to add custom colors
+const customTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    brand: {
+      900: '#1a365d',
+      800: '#153e75',
+      700: '#2a69ac'
+    }
+  }
+}
+
 //wraps chakra around the app
 const Wrapper = ({ children }) => {
-  return <div>{children}</div>
+  return <ThemeProvider theme={customTheme}>{children}</ThemeProvider>
 }
 
 const App = () => {

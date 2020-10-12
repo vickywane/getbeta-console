@@ -4,7 +4,8 @@ import { FiSearch, FiCalendar, FiPhoneCall } from 'react-icons/fi'
 import { IoIosCalendar } from 'react-icons/io'
 import { Link } from '@reach/router'
 import media from 'styled-media-query'
-import { Tabs, Tab } from 'react-bootstrap'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 
 import { Text, Hover, center, StyledSearchbox } from '../../styles/style'
 
@@ -14,7 +15,9 @@ const Body = styled.div`
     padding: 0.5rem 1.5rem;
   }
   ${media.lessThan('small')`
-    padding: 0.5rem 0.5rem;
+  section {
+    padding: 0.5rem 1.5rem;
+  }
   `}
 `
 const Data = [
@@ -54,7 +57,7 @@ const ContentContainer = styled.div`
     width: 30rem;
   `};
   ${media.lessThan('small')`
-    width : 24rem;
+    width : 20rem;
   `};
 `
 
@@ -131,8 +134,13 @@ const Mybookings = props => {
       </div>
 
       <section>
-        <Tabs id="bookings-tab" activeKey={TabState} onSelect={k => setTabState(k)}>
-          <Tab eventKey={'my-bookings'} title="My Bookings">
+        <Tabs>
+          <TabList>
+            <Tab style={{ fontSize: '.95rem' }}> My bookings </Tab>
+            <Tab style={{ fontSize: '.95rem' }}> Bookings By Me </Tab>
+          </TabList>
+
+          <TabPanel>
             <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
               {Data.map(({ id, reason, date }) => {
                 return (
@@ -155,9 +163,9 @@ const Mybookings = props => {
                 )
               })}
             </ListGrid>
-          </Tab>
+          </TabPanel>
 
-          <Tab eventKey={'bookings'} title="Bookings By Me">
+          <TabPanel>
             <ListGrid style={{ margin: '0', padding: '0', listStyle: 'none' }}>
               {Data.map(({ id, reason, date }) => {
                 return (
@@ -171,7 +179,7 @@ const Mybookings = props => {
 
                       <Date>
                         <div style={{ margin: '0 0.4rem' }}>
-                          <IoIosCalendar style={{ fontSize: '1.4rem' }} />
+                          <FiCalendar style={{ fontSize: '1.4rem' }} />
                         </div>
                         <Text style={{ padding: 0, margin: 0 }}> 12 - 12 - 12 </Text>
                       </Date>
@@ -180,7 +188,7 @@ const Mybookings = props => {
                 )
               })}
             </ListGrid>
-          </Tab>
+          </TabPanel>
         </Tabs>
       </section>
     </Body>

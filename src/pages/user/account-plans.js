@@ -56,20 +56,28 @@ const Bar = styled.div`
     justify-content: space-between;
     color: #0072ce;
   }
+  ${media.lessThan('medium')`
+       display : flex;
+       justify-content : center;
+       align-items : center;
+       padding: 1.5rem .5rem;
+  `};
 `
 
 const AccountPlans = props => {
+  const {} = props.location.state.userData
+
   return (
     <div>
       <Header goBack={true} />
 
-      <Body style={{ height: window.innerHeight - 80, overflow: 'auto' }}>
+      <div>
         <Bar>
           <span>
             <div style={{ display: 'flex' }}>
               <Dot background="#0072ce" />
               <Text>
-                <b> Current Plan : </b> Free Starter{' '}
+                <b> Current Plan : </b> Starter
               </Text>
             </div>
 
@@ -79,49 +87,51 @@ const AccountPlans = props => {
             </div>
           </span>
         </Bar>
-        <Grid>
-          {SubscriptionPlans.map(({ price, id, name, features }) => {
-            return (
-              <Card key={id}>
-                <MdTitle> {name} </MdTitle>
-                <ul>
-                  {features.map(item => {
-                    return (
-                      <li>
-                        <div style={{ display: 'flex' }}>
-                          <div style={{ margin: '0 0.5rem' }}>
-                            <FiCheck style={{ fontSize: '1.6rem', color: 'green' }} />
+        <Body style={{ height: window.innerHeight - 90, overflow: 'auto' }}>
+          <Grid>
+            {SubscriptionPlans.map(({ price, id, name, features }) => {
+              return (
+                <Card key={id}>
+                  <MdTitle> {name} </MdTitle>
+                  <ul>
+                    {features.map(item => {
+                      return (
+                        <li>
+                          <div style={{ display: 'flex' }}>
+                            <div style={{ margin: '0 0.5rem' }}>
+                              <FiCheck style={{ fontSize: '1.6rem', color: 'green' }} />
+                            </div>
+                            <Text> {item} </Text>
                           </div>
-                          <Text> {item} </Text>
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
-                <span>
-                  <MdTitle style={{ color: '#0072ce' }} align="center">
-                    {price}{' '}
-                  </MdTitle>
-                  <Text align="center"> per month </Text>
-                </span>
-                <Button
-                  onClick={() => {
-                    navigate('/upgrade', {
-                      state: {
-                        name: name,
-                        price: price,
-                        features: features
-                      }
-                    })
-                  }}
-                >
-                  Upgrade Plan{' '}
-                </Button>
-              </Card>
-            )
-          })}
-        </Grid>
-      </Body>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                  <span>
+                    <MdTitle style={{ color: '#0072ce' }} align="center">
+                      {price}{' '}
+                    </MdTitle>
+                    <Text align="center"> per month </Text>
+                  </span>
+                  <Button
+                    onClick={() => {
+                      navigate('/upgrade', {
+                        state: {
+                          name: name,
+                          price: price,
+                          features: features
+                        }
+                      })
+                    }}
+                  >
+                    Upgrade Plan{' '}
+                  </Button>
+                </Card>
+              )
+            })}
+          </Grid>
+        </Body>
+      </div>
     </div>
   )
 }

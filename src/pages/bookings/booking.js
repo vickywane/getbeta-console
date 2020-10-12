@@ -34,7 +34,7 @@ const StyledCard = styled.div`
     }
   `};
   ${media.lessThan('small')`
-    width: 24rem;
+    width: 20rem;
   `};
 `
 
@@ -68,6 +68,11 @@ const UserImage = styled.img`
     height: 150px;
     width: 150px;
     border-radius : 50%;
+  `};
+  ${media.lessThan('small')`
+    height: 120px;
+    width: 125px;
+      border-radius : 5%;
   `};
 `
 
@@ -131,14 +136,6 @@ const Booking = props => {
                           </Title>
                           <Text small align="center">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit.{' '}
-                          </Text>
-                          <Text
-                            align="center"
-                            style={{ padding: 0, margin: 0 }}
-                            small
-                            color="#808080"
-                          >
-                            12 Reviews{' '}
                           </Text>
 
                           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

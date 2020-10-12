@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FiMenu, FiX } from 'react-icons/fi'
 import { center } from '../styles/style'
-import { StyledBurger, StyledNotification } from '../styles/mobile-sidebar-style'
+import { StyledBurger } from '../styles/mobile-sidebar-style'
 
 const Burger = ({ open, setOpen, ...props }) => {
   const isExpanded = open ? true : false
@@ -18,9 +18,9 @@ const Burger = ({ open, setOpen, ...props }) => {
         style={{ outline: 0 }}
       >
         {open ? (
-          <FiX style={{ fontSize: '1.8rem', color: '#0072ce' }} />
+          <FiX style={{ fontSize: '1.6rem', color: '#0072ce' }} />
         ) : (
-          <FiMenu style={{ fontSize: '1.8rem', color: '#0072ce' }} />
+          <FiMenu style={{ fontSize: '1.6rem', color: '#0072ce' }} />
         )}
       </StyledBurger>
     </div>

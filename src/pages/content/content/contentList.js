@@ -28,7 +28,7 @@ const Body = styled.div`
   padding: 0.5rem 1rem;
   `};
   ${media.lessThan('small')`
-  padding: 0.5rem 0.5rem;
+  padding: 0.2rem 0.3rem;
   `};
 `
 
@@ -111,7 +111,7 @@ const Contents = props => {
           <div style={{ ...center }}>
             <Searchbox>
               <div>
-                <FiSearch style={{ fontSize: '1.5rem' }} />
+                <FiSearch style={{ fontSize: '1.4rem' }} />
               </div>
 
               <input placeholder="Seach for a content" type="text" />
@@ -154,9 +154,11 @@ const Contents = props => {
                       <Text> {type} </Text>
 
                       <span style={{ display: 'flex' }}>
-                        <FaMoneyBill style={{ fontSize: '1.7rem' }} />
+                        <div style={{ padding: 0, margin: 0 }}>
+                          <FaMoneyBill style={{ fontSize: '1.5rem' }} />
+                        </div>
 
-                        <Text style={{ margin: '0 0.5rem' }}> {price} </Text>
+                        <Text style={{ margin: '0 0.5rem', padding: 0 }}> {price} </Text>
                       </span>
                     </span>
                   </div>

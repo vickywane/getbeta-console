@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
-import { FiPlus, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell, FiEdit } from 'react-icons/fi'
-import { Alert } from 'react-bootstrap'
+import { FiPlus, FiX, FiChevronsDown, FiChevronsUp, FiTrash2, FiBell, FiEdit } from 'react-icons/fi'
 import { toJS } from 'mobx'
 
 import { Link, navigate } from '@reach/router'
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
-import { Text, MdTitle, Hover, Button } from '../../styles/style'
+import { Text, MdTitle, Hover, Button, Alert, Title } from '../../styles/style'
 
 export const Image = styled.img`
-  height: 130px;
-  width: 130px;
+  height: 160px;
+  width: 160px;
   margin: 1rem 0;
-  border-radius: 50%;
-  border: 5px solid #0072ce;
+  border-radius: 5%;
+  border: 3px solid #0072ce;
   object-fit: cover;
   &: hover {
     cursor: pointer;
@@ -29,22 +28,40 @@ export const Image = styled.img`
   width: 110px;
   `};
   ${media.lessThan('medium')`
-  height: 110px;
-  width: 110px;
+  height: 120px;
+  width: 120px;
   border: 0;
   border-radius: 8%;
+  `};
+  ${media.lessThan('small')`
+    height: 135px;
+    width: 135px;
+    border: 0;
+    border-radius: 8%;
   `};
 `
 
 export const Body = styled.div`
   padding: 0.5rem 3rem;
-  olor: #0072ce;
+  color: #0072ce;
   background: rgba(233, 241, 251, 0.81);
+  span {
+    display: flex;
+    margin: 2rem 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
   ${media.lessThan('medium')`
     padding: 0.5rem 1rem;
   `};
   ${media.lessThan('small')`
     padding: 0.5rem 0.5rem;
+    span {
+      display: flex;
+      margin: 1rem 1rem;
+      flex-direction : column;
+      align-items: center;
+    }
   `}
 `
 
@@ -64,16 +81,32 @@ const StyledHover = styled(Hover)`
   justify-content : center;
   align-items :  center;
   width : 40px;
+  font-size : 1.4rem;
   color : #fff;
   ${media.lessThan('medium')`
       width : 40px;
       height : 40px;
   `}
+  ${media.lessThan('small')`
+      width : 30px;
+      font-size : 1.2rem;
+      height : 30px;
+  `};
+`
+
+const ProfileContainer = styled.div`
+  display: flex;
+  ${media.lessThan('small')`
+      flex-direction : column;
+      align-items : center;
+      jusitfy-content : center;
+  `};
 `
 
 const Profile = props => {
   const userDetail = toJS(props.UserStore.userDetail)
-  const { fullname, email, bio } = userDetail
+
+  const { fullname, email, bio, img } = userDetail
 
   const [profilePane, setProfilePane] = useState(true)
   const [showConfirmationAlert, setConfirmationAlert] = useState(true)
@@ -82,24 +115,28 @@ const Profile = props => {
     <div>
       <Header path="home" />
       {showConfirmationAlert && (
-        <Alert
-          style={{ margin: 0, outline: '0px' }}
-          variant="success"
-          onClose={() => setConfirmationAlert(false)}
-          dismissible
-        >
-          <Text align="center">
-            Welcome to GetBeta!. A confirmation email has been sent to your email address.{' '}
-          </Text>{' '}
+        <Alert variant="success">
+          <div style={{ ...center }}>
+            <Text align="center">
+              Welcome to GetBeta!. A confirmation email has been sent to your email address.{' '}
+            </Text>
+          </div>
+
+          <span style={{ ...center }}>
+            <FiX onClick={() => setConfirmationAlert(false)} style={{ fontSize: '1.3rem' }} />
+          </span>
         </Alert>
       )}
       {profilePane ? (
         <Body>
-          <br />
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex' }}>
+          <span>
+            <ProfileContainer>
               <div style={{ ...center }}>
-                <Image onClick={() => navigate('/update-profile', {})} alt="user" src={TestImage} />
+                <Image
+                  onClick={() => navigate('/update-profile', {})}
+                  alt="user"
+                  src={img ? img : TestImage}
+                />
               </div>
 
               <div
@@ -116,7 +153,7 @@ const Profile = props => {
                   </Text>
                 </div>
               </div>
-            </div>
+            </ProfileContainer>
 
             <div>
               <StyledHover
@@ -124,24 +161,29 @@ const Profile = props => {
                   navigate('/update-profile', {})
                 }}
               >
-                <FiEdit style={{ fontSize: '1.4rem' }} />
+                <FiEdit />
               </StyledHover>
             </div>
-          </div>
-
-          <br />
+          </span>
 
           <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Link to="/subscriptions" style={{ textDecoration: 'none' }}>
-              <div style={{ display: 'flex' }}>
-                <FiPlus style={{ fontSize: '1.4rem' }} />
-                <Text style={{ margin: '0 0.3rem' }}> Manage Subscription </Text>{' '}
-              </div>
-            </Link>
+            <div
+              onClick={() =>
+                navigate('/subscriptions', {
+                  state: {
+                    userData: userDetail
+                  }
+                })
+              }
+              style={{ display: 'flex' }}
+            >
+              <FiPlus style={{ fontSize: '1.4rem' }} />
+              <Text style={{ margin: '0 0.3rem' }}> Manage Subscription </Text>{' '}
+            </div>
 
             <Hover onClick={() => setProfilePane(!profilePane)}>
-              <FiChevronsUp style={{ fontSize: '2rem' }} />
+              <FiChevronsUp style={{ fontSize: '1.6rem' }} />
             </Hover>
           </div>
         </Body>
@@ -155,38 +197,14 @@ const Profile = props => {
             background: '#d6e2f0cf'
           }}
         >
-          <div style={{ display: 'flex' }}>
-            <Image
-              style={{
-                cursor: 'pointer',
-                borderWidth: '1px',
-                height: '45px',
-                width: '45px',
-                margin: '0 1rem'
-              }}
-              alt="user"
-              src={require('../../assets/images/img.jpg')}
-            />
-
-            <div style={{ ...center }}>
-              <h4> {fullname} </h4>
-            </div>
+          <div style={{ ...center }}>
+            <Title small> {fullname} </Title>
           </div>
 
           <div style={{ display: 'flex' }}>
-            <div style={{ ...center, margin: '0 1rem' }}>
-              <StyledHover
-                onClick={() => {
-                  navigate('/update-profile', {})
-                }}
-              >
-                <FiEdit style={{ fontSize: '1.5rem' }} />
-              </StyledHover>
-            </div>
-
             <div style={{ ...center }}>
               <Hover onClick={() => setProfilePane(!profilePane)}>
-                <FiChevronsDown style={{ fontSize: '2rem' }} />
+                <FiChevronsDown style={{ fontSize: '1.6em' }} />
               </Hover>
             </div>
           </div>

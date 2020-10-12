@@ -4,36 +4,15 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 
 import { SUGGESTED_KEYWORDS } from '../../mockData'
-import { Body, Title, Text, Button, InputBody, center } from '../../styles/style'
+import { Body, Title, Text, Button, InputBody, center, PageHead, Hover } from '../../styles/style'
 import { FiSettings, FiSearch } from 'react-icons/fi'
-
-const Card = styled.div`
-  height: auto;
-  margin-top: 5rem;
-  width: 70%;
-  padding: 1rem 2rem;
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 0 3px 4px grey;
-  ${media.lessThan('medium')`
-    width : 30rem;
-  `};
-  ${media.lessThan('small')`
-    width : 24rem;
-  `};
-`
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
 const KeywordContainer = styled.div`
   height: 45px;
   width: auto;
   background: #5b7cd3;
   border: 1px solid #5b7cd3;
-  border-radius: 3px;
+  border-radius: 2px;
   p {
     font-size: 0.9rem;
     padding-top: 1rem;
@@ -43,109 +22,103 @@ const KeywordContainer = styled.div`
     background: #0072ce;
     cursor: pointer;
   }
+  ${media.lessThan('medium')`
+  height: 40px;
+
+  p {
+    font-size: 0.75rem;
+    color: #fff;
+  }
+  `};
+  ${media.lessThan('small')`
+  height: 35px;
+  p {
+    font-size: 0.75rem;
+    color: #fff;
+  }
+  `};
 `
 
 const Grid = styled.div`
   display: grid;
   grid-gap: 2rem 2rem;
-  place-items: centet;
   grid-template-columns: repeat(auto-fit, minmax(10rem, auto));
+  ${media.lessThan('small')`
+    grid-template-columns: repeat(auto-fit, minmax(6rem, auto));
+    grid-gap: .5rem 1rem;
+  `};
 `
 
 const List = styled.ul`
   list-style: none;
   padding: 0.5rem 0.5rem;
   li {
-    margin: 2rem 0.3rem;
+    margin: 1rem 0.3rem;
   }
 `
 
-const Survey = props => {
+const Preferences = props => {
   return (
     <div>
       <Header />
       <Body
         style={{
-          height: window.innerHeight - 80,
-          padding: '1rem 1rem',
-          background: 'rgba(233, 241, 251, 0.81)'
+          height: window.innerHeight - 60
         }}
       >
-        <Container>
-          <Card>
-            <div
-              style={{
-                height: '50px',
-                borderBottom: '1px solid #c0c0c0',
-                display: 'flex',
-                justifyContent: 'space-between'
-              }}
-            >
-              <div style={{ display: 'flex' }}>
-                <div style={{ margin: '0 .5rem' }}>
-                  <FiSettings style={{ fontSize: '1.5rem' }} />
-                </div>
-
-                <Text style={{ paddingTop: '5px' }}> User Preferences </Text>
-              </div>
-
-              <div style={{ display: 'flex' }}>
-                <div style={{ margin: '0 .5rem' }}>
-                  <FiSearch style={{ fontSize: '1.5rem' }} />
-                </div>
-              </div>
+        <PageHead>
+          <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              <Title style={{ paddingTop: '5px' }}> User Preferences </Title>
             </div>
 
-            <List>
-              <li>
-                <div>
-                  <Title> Personalize your content feed </Title>
-                  <Text small>
-                    Help us serve you better by personalizing your content feed to show items with
-                    the following keywords.
-                  </Text>
-                  <InputBody style={{ margin: '.5rem .2rem' }}>
-                    <input placeholder="Type a keyword based on your favourite feature" />
-                  </InputBody>
-                </div>
+            <div style={{ display: 'flex' }}>
+              <Hover style={{ margin: '0 .5rem' }}>
+                <FiSearch />
+              </Hover>
+            </div>
+          </span>
+        </PageHead>
 
-                <div>
-                  <Text> Default Suggestions </Text>
-                  <Grid>
-                    {SUGGESTED_KEYWORDS.map(item => {
-                      return (
-                        <KeywordContainer
-                          id={item}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                          }}
-                        >
-                          <p> {item} </p>
-                        </KeywordContainer>
-                      )
-                    })}
-                  </Grid>
-                </div>
-                <br />
-                <div>
-                  <Button> Submit Keyword </Button>
-                </div>
-              </li>
+        <List>
+          <li>
+            <div>
+              <Title> Personalize your content feed </Title>
+              <InputBody style={{ margin: '.5rem .2rem' }}>
+                <input placeholder="Add a new content keyword" />
+              </InputBody>
+            </div>
 
-              <li>
-                <div>
-                  <Title> Privacy </Title>
-                  <Text small>My privacy when using the GetBeta service</Text>
-                </div>
-              </li>
-            </List>
-          </Card>
-        </Container>
+            <div style={{ paddingTop: '10px' }}>
+              <Text small>
+                Personalize your content feed to show items with the following tags.
+              </Text>
+              <Grid>
+                {SUGGESTED_KEYWORDS.map(item => {
+                  return (
+                    <KeywordContainer id={item} style={{ ...center }}>
+                      <p style={{ ...center }}> {item} </p>
+                    </KeywordContainer>
+                  )
+                })}
+              </Grid>
+            </div>
+            <br />
+            <div>
+              <Button> Submit Keyword </Button>
+            </div>
+          </li>
+
+          <li>
+            <div>
+              <Title> Privacy </Title>
+              <Text small>My privacy when using the GetBeta service</Text>
+            </div>
+          </li>
+        </List>
       </Body>
     </div>
   )
 }
 
-export default Survey
+export default Preferences

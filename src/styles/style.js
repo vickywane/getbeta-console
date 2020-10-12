@@ -1,6 +1,26 @@
 import styled from 'styled-components'
 import media from 'styled-media-query'
 
+export const Alert = styled.div`
+  color: #155724;
+  height: 60px;
+  display: flex;
+  padding: 0 1rem;
+  justify-content: space-between;
+  background-color: #d4edda;
+  border-color: #c3e6c;
+  ${media.lessThan('small')`
+      padding : 10px 10px;
+      display : flex;
+      height: 60px;
+      flex-direction: column;
+      align-items : center;
+      span {
+        opacity : 0;
+      }
+  `};
+`
+
 export const AuthInputFields = styled.div`
   margin: 1.5rem 0.5rem;
   display: flex;
@@ -39,12 +59,35 @@ input {
 `}
 `
 
+export const PageHead = styled.div`
+  display: flex;
+  height: 50px;
+  border-bottom: 1px solid #c0c0c0;
+  align-items: center;
+  justify-content: center;
+  span {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    jusitfy-content: space-between;
+  }
+  ${media.lessThan('medium')`
+      height : 40px;
+   `};
+`
+
 export const Dot = styled.div`
   height: 12px;
   margin: 0.4rem 0.5rem;
   width: 12px;
   border-radius: 50%;
   background-color: #0072ce;
+  ${media.lessThan('medium')`
+  height: 10px;
+  width: 10px;
+  margin: 0.3rem 0.3rem;
+
+  `}
 `
 
 export const ErrorAlert = styled.div`
@@ -186,7 +229,8 @@ export const InputBody = styled.div`
   `};
   ${media.lessThan('small')`
   input , textarea {
-    width : 23rem;
+    font-size: 0.8rem;
+    width : 100%;
   }
     `};
 `
@@ -195,13 +239,19 @@ export const Title = styled.h4`
   font-weight: ${props => (props.weight ? props.weight : 'normal')};
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '1.2rem' : '1.3rem')};
+  font-size: ${props => (props.small ? '1.15rem' : '1.2rem')};
   ${media.lessThan('huge')`
     font-size : 1.2rem;
   `}
   ${media.lessThan('large')`
   font-size : 1.15rem;
 `}
+  ${media.lessThan('medium')`
+    font-size : 1.05rem;
+  `};
+  ${media.lessThan('small')`
+    font-size : .9rem;
+`};
 `
 
 export const MdTitle = styled.h3`
@@ -244,22 +294,38 @@ export const Button = styled.button`
      font-size : .9rem;
   `};
   ${media.lessThan('small')`
-    padding: 0.3rem 1rem;
-    font-size : .8rem;
+    padding: 0.3rem .7rem;
+    height: 37px;
+    font-size : .75rem;
 `};
 `
 
-export const Body = styled.div``
+export const Body = styled.div`
+  padding: 0.5rem 1.5rem;
+  ${media.lessThan('medium')`
+    padding : .5rem 1rem;
+  `};
+  ${media.lessThan('medium')`
+    padding : .5rem .5rem;
+  `};
+`
 
 export const Hover = styled.div`
+  font-size: 1.35rem;
   &: hover {
     cursor: pointer;
   }
+  ${media.lessThan('medium')`
+   font-size : 1.25rem;
+  `};
+  ${media.lessThan('medium')`
+  font-size : 1.2rem;
+ `};
 `
 
 export const SmallUserImage = styled.img`
-  height: ${props => (props.small ? '40px' : '60px')};
-  width: ${props => (props.small ? '40px' : '60px')};
+  height: ${props => (props.small ? '37px' : '60px')};
+  width: ${props => (props.small ? '37px' : '60px')};
   border-radius: 50%;
   border: 2px solid #0072ce;
   object-fit: cover;
@@ -283,9 +349,9 @@ export const Card = styled.div`
   box-shadow: 0 3px 4px #c0c0c0;
   border-radius: 5px;
   img {
-    height: 170px;
+    height: 150px;
     width: 400px;
-    objectfit: cover;
+    object-fit: cover;
   }
   h4 {
     font-weight: 500;
@@ -295,19 +361,30 @@ export const Card = styled.div`
     padding: 1rem 1rem;
   }
   ${media.lessThan('large')`
-    height: 40vh;
-    width: 22rem;
-    img {
-     width  :  350px;
-    }
-  `};
-  ${media.lessThan('large')`
   height: 40vh;
   width: 24rem;
-  img {
-   width  :  385px;
+   img {
+    height: 150px;
+    width: 400px;
+    object-fit: cover;
+  }
+  h4 {
+    font-weight: 500;
+    font-size: 1.1rem;
   }
 `};
+  ${media.lessThan('small')`
+    height: 40vh;
+    width: 20rem;
+    img {
+    height: 140px;
+      width: 19rem;
+    }
+    h4 {
+      font-weight: normal;
+      font-size : 1.1rem;
+    }
+  `};
 `
 
 export const HomeList = styled.ul`
@@ -364,11 +441,13 @@ input {
 }
 `};
   ${media.lessThan('small')`
-  width  : 23rem;
-input {
-  padding : 0.2rem 1rem;
-  width  : 24rem;
-}
+  padding: 0.4rem 0.6rem;
+  width  : 21rem;
+  input {
+    padding : 0.2rem .7rem;
+    width  : 100%;
+    font-size : .8rem;
+  }
 `};
 `
 
@@ -408,11 +487,27 @@ export const StyledHover = styled(Hover)`
   background: transparent;
   margin: 0 1rem;
   transition: all 400ms;
+  font-size: 1.4rem;
   &: hover {
     cursor: pointer;
     color: #fff;
     background: #0072ce;
   }
+  ${media.lessThan('medium')`
+    margin: 0 .5rem;
+    font-size : 1.3rem;
+    border-radius: 2px;
+    &: hover {
+      cursor: pointer;
+      background: transparent;
+      color: #0072ce;
+    }
+  `};
+  ${media.lessThan('small')`
+    margin: 0 .5rem;
+    font-size : 1.15rem;
+    border-radius: 2px;
+    `};
 `
 
 export const Section = styled.section`
@@ -424,7 +519,7 @@ export const Section = styled.section`
     padding: 1.5rem 1rem;
   `};
   ${media.lessThan('small')`
-  padding: 1.5rem 0.5rem;
+  padding: 1rem 0.2rem;
   `};
 `
 
