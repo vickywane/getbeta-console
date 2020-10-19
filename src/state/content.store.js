@@ -108,7 +108,7 @@ class ContentStore {
     })
       .then(res => {
         this.isLoadingContents = false
-        this.contentFiles = res.data
+        this.contentFiles = res.data.contentfiles
       })
       .catch(e => {
         console.log(`get files error : ${e}`)

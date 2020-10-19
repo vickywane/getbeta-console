@@ -258,7 +258,7 @@ export const MdTitle = styled.h3`
   font-weight: ${props => props.weight};
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '1.3rem' : '1.4rem')};
+  font-size: ${props => (props.small ? '1.3rem' : '1.6rem')};
   ${media.lessThan('medium')`
       font-size : 1.3rem;
     `};

@@ -14,9 +14,11 @@ import { Spinner } from 'react-bootstrap'
 import moment from 'moment'
 import media from 'styled-media-query'
 import { useDropzone } from 'react-dropzone'
+import { CSSTransition } from 'react-transition-group'
+import * as Lodash from 'lodash'
 
 import useWindowWidth from '../../../utils/hook_style'
-
+import Player from './player'
 import ModalWrapper from '../../../components/modals/modalWrapper'
 import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
 import Header from '../../../components/headers/header'
@@ -43,13 +45,21 @@ const List = styled.ul`
   padding: 0;
   li {
     margin: 1rem 1rem;
+    padding: 5px 5px;
     display: flex;
+    transition: all 300ms;
     flex-direction: column;
+    border-radius: 7px;
     span {
       padding: 10px 0;
       justify-content: space-between;
       display: flex;
       flex-direction: row;
+    }
+  }
+  &: hover {
+    li {
+      border: 1px solid #c0c0c0;
     }
   }
   ${media.lessThan('medium')`
@@ -124,10 +134,10 @@ const Preview = styled.div`
 
 const ContentBody = styled.div`
   display: grid;
-  grid-template-columns: auto 25rem;
+  grid-template-columns: ${props => (props.showPreview ? 'auto 25rem' : 'auto')};
   transition: all 300ms;
   ${media.lessThan('large')`
-    grid-template-columns: auto 17rem;
+    grid-template-columns:  ${props => (props.showPreview ? 'auto 17rem' : 'auto')};
   `};
   ${media.lessThan('medium')`
     grid-template-columns: auto;
@@ -135,10 +145,18 @@ const ContentBody = styled.div`
 `
 
 const ContentFileOverview = styled.div`
+  display: ${props => (props.open ? 'flex' : 'none')};
   border-left: 1px solid #c0c0c0;
   ${media.lessThan('medium')`
       display : none;
   `};
+`
+
+const ContentTitle = styled(Title)`
+  &:hover {
+    cursor: pointer;
+    color: #0072ce;
+  }
 `
 
 const EditContent = props => {
@@ -146,6 +164,9 @@ const EditContent = props => {
 
   const [ModalVisibility, setModalVisibility] = useState(false)
   const [Content, setContent] = useState(null)
+  const [currentView, setCurrentView] = useState('content')
+  const [showContentPreview, setContentPreview] = useState(true)
+  const [contentTitle, setContentTitle] = useState('')
 
   const {
     getContent,
@@ -165,6 +186,14 @@ const EditContent = props => {
 
   let data = toJS(content)
   const files = toJS(contentFiles)
+
+  useEffect(() => {
+    if (Lodash.isEmpty(files)) {
+      setContentPreview(false)
+    } else {
+      setContentPreview(true)
+    }
+  }, [files])
 
   const onDrop = useCallback(([file]) => {
     setContent(file)
@@ -191,20 +220,34 @@ const EditContent = props => {
       >
         <div>
           <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 0' }}>
-            <Button
-              style={{ display: 'flex' }}
-              {...getRootProps({
-                isDragActive,
-                isDragAccept,
-                isDragReject
-              })}
-            >
-              <input {...getInputProps()} />
-              <Hover style={{ margin: '0 .5rem' }}>
-                <FiUploadCloud />
-              </Hover>
-              Add Content File
-            </Button>
+            {!Content ? (
+              <Button
+                style={{ display: 'flex' }}
+                {...getRootProps({
+                  isDragActive,
+                  isDragAccept,
+                  isDragReject
+                })}
+              >
+                <input {...getInputProps()} />
+                <Hover style={{ margin: '0 .5rem' }}>
+                  <FiUploadCloud />
+                </Hover>
+                Add Content File
+              </Button>
+            ) : (
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <img
+                  alt="a default content cover for uploads"
+                  src={require('../../../assets/images/image-icon.png')}
+                  style={{ height: '90px', width: '90px', objectFit: 'contain' }}
+                />
+
+                <div style={{ ...center }}>
+                  <Text style={{ margin: '0 .5rem' }}> {Content && Content.path} </Text>
+                </div>
+              </div>
+            )}
           </div>
           <InputBody>
             <label> File Description </label>
@@ -234,128 +277,158 @@ const EditContent = props => {
         </div>
       </ModalWrapper>
 
-      {isLoadingContents ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          <br />
-          <Spinner variant="primary" animation="grow" role="loading" />
-        </div>
-      ) : (
+      <CSSTransition in={currentView === 'player'} timeout={300} unmountOnExit>
+        <Player title={contentTitle} goBack={() => setCurrentView('content')} />
+      </CSSTransition>
+
+      <CSSTransition in={currentView === 'content'} timeout={300} unmountOnExit>
         <div>
-          <ContentBody>
-            <Body>
-              <Head>
-                <div style={{ ...center }}>
-                  <Title> {data.title} </Title>
-                </div>
-
-                <div style={{ ...center }}>
-                  <Hover>
-                    <FiMoreVertical style={{ fontSize: '1.4rem' }} />
-                  </Hover>
-                </div>
-              </Head>
-
-              <div style={{ display: 'flex' }}>
-                <Hover style={{ margin: '0 .4rem' }}>
-                  <FiCalendar />
-                </Hover>
-
-                <Text style={{ ...center, paddingTop: '5px' }}>
-                  {moment(data.createdAt).format('D MMMM YYYY')}
-                </Text>
-              </div>
+          {isLoadingContents ? (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
               <br />
-              <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
-              <br />
-              <div>
-                <div style={{ display: 'flex' }}>
-                  <div style={{ margin: '0 .4rem' }}>
-                    <IoMdPeople />
-                  </div>
+              <Spinner variant="primary" animation="grow" role="loading" />
+            </div>
+          ) : (
+            <div>
+              <ContentBody showPreview={showContentPreview}>
+                <Body>
+                  <Head>
+                    <div style={{ ...center }}>
+                      <Title> {data.title} </Title>
+                    </div>
 
-                  <div style={{ paddingTop: '5px' }}>
-                    <Text>
-                      {data.subscribers !== undefined && data.subscribers.length} Subscribers
+                    <div style={{ ...center }}>
+                      <Hover>
+                        <FiMoreVertical style={{ fontSize: '1.4rem' }} />
+                      </Hover>
+                    </div>
+                  </Head>
+
+                  <div style={{ display: 'flex' }}>
+                    <Hover style={{ margin: '0 .4rem' }}>
+                      <FiCalendar />
+                    </Hover>
+
+                    <Text style={{ ...center, paddingTop: '5px' }}>
+                      {moment(data.createdAt).format('D MMMM YYYY')}
                     </Text>
                   </div>
-                </div>
-              </div>
+                  <br />
+                  <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
+                  <br />
+                  <div>
+                    <div style={{ display: 'flex' }}>
+                      <div style={{ margin: '0 .4rem' }}>
+                        <IoMdPeople />
+                      </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  borderBottom: '1px solid #c0c0c0',
-                  padding: '0.5rem 0rem'
-                }}
-              >
-                <div
-                  style={{ display: 'flex', cursor: 'pointer' }}
-                  onClick={() => setContentOpen(!isContentOpen)}
-                >
-                  <Hover style={{ margin: '0 0.5rem' }}>
-                    <FiChevronRight
-                      style={{
-                        transition: 'all 250ms',
-                        fontSize: '1.3rem',
-                        transform: isContentOpen && 'rotate(90deg)'
-                      }}
-                    />
-                  </Hover>
+                      <div style={{ paddingTop: '5px' }}>
+                        <Text>
+                          {data.subscribers !== undefined && data.subscribers.length} Subscribers
+                        </Text>
+                      </div>
+                    </div>
+                  </div>
 
-                  <Title style={{ paddingTop: '7px' }}> Content Files </Title>
-                </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      borderBottom: '1px solid #c0c0c0',
+                      padding: '0.5rem 0rem'
+                    }}
+                  >
+                    <div
+                      style={{ display: 'flex', cursor: 'pointer' }}
+                      onClick={() => setContentOpen(!isContentOpen)}
+                    >
+                      <Hover style={{ margin: '0 0.5rem' }}>
+                        <FiChevronRight
+                          style={{
+                            transition: 'all 250ms',
+                            fontSize: '1.3rem',
+                            transform: isContentOpen && 'rotate(90deg)'
+                          }}
+                        />
+                      </Hover>
 
-                {Width >= 700 ? (
-                  <Button onClick={() => setModalVisibility(true)}>Add Content File</Button>
-                ) : (
-                  <StyledHover onClick={() => setModalVisibility(true)}>
-                    <FiPlus />
-                  </StyledHover>
-                )}
-              </div>
-              {isContentOpen && (
-                <List>
-                  {data.contentfiles !== undefined &&
-                    data.contentfiles.map(({ id, name }) => {
-                      return (
-                        <li key={id}>
-                          <span>
-                            <div style={{ display: 'flex' }}>
-                              <Title style={{ margin: '0 .5rem' }}>{name}. </Title>
+                      <Title style={{ paddingTop: '7px' }}> Content Files </Title>
+                    </div>
 
-                              {Width >= 600 && <Text color="grey"> Uploaded 5 minutes ago </Text>}
-                            </div>
-                          </span>
-                          <Text style={{ marginLeft: '15px' }}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-                            aperiam optio perferendis magni beatae in excepturi nulla vero
-                            aspernatur hic.
-                          </Text>
-                        </li>
-                      )
-                    })}
-                </List>
-              )}
-            </Body>
+                    {Width >= 700 ? (
+                      <Button onClick={() => setModalVisibility(true)}>Add Content File</Button>
+                    ) : (
+                      <StyledHover onClick={() => setModalVisibility(true)}>
+                        <FiPlus />
+                      </StyledHover>
+                    )}
+                  </div>
 
-            <ContentFileOverview>
-              <Body>
-                <br />
-                <Preview>
-                  <Text> Select a file to preview </Text>
-                </Preview>
-              </Body>
-            </ContentFileOverview>
-          </ContentBody>
+                  {Lodash.isEmpty(files) ? (
+                    <div>
+                      <br />
+                      <br />
+                      <Title color="grey" align="center">
+                        You dont have any content file. <br /> Use the <b> Add Content File</b>{' '}
+                        button to add your first content file{' '}
+                      </Title>
+                    </div>
+                  ) : (
+                    isContentOpen && (
+                      <List>
+                        {data.contentfiles !== undefined &&
+                          data.contentfiles.map(({ id, name }) => {
+                            return (
+                              <li key={id} onClick={() => {}}>
+                                <span>
+                                  <div style={{ display: 'flex' }}>
+                                    <ContentTitle
+                                      onClick={() => {
+                                        setContentTitle(name)
+                                        setCurrentView('player')
+                                      }}
+                                      style={{ margin: '0 .5rem' }}
+                                    >
+                                      {name}.{' '}
+                                    </ContentTitle>
+
+                                    {Width >= 600 && (
+                                      <Text color="grey"> Uploaded 5 minutes ago </Text>
+                                    )}
+                                  </div>
+                                </span>
+                                <Text style={{ marginLeft: '15px' }}>
+                                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                  Repellendus aperiam optio perferendis magni beatae in excepturi
+                                  nulla vero aspernatur hic.
+                                </Text>
+                              </li>
+                            )
+                          })}
+                      </List>
+                    )
+                  )}
+                </Body>
+
+                <ContentFileOverview open={showContentPreview}>
+                  <Body>
+                    <br />
+                    <Preview>
+                      <Text> Select a file to preview </Text>
+                    </Preview>
+                  </Body>
+                </ContentFileOverview>
+              </ContentBody>
+            </div>
+          )}
         </div>
-      )}
+      </CSSTransition>
     </div>
   )
 }
