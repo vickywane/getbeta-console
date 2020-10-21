@@ -25,7 +25,13 @@ function ContentCard(props) {
 
   return (
     <div>
-      <Box maxW="sm" borderWidth="2px" rounded="lg" overflow="hidden">
+      <Box
+        style={{ border: '1px solid grey' }}
+        maxW="sm"
+        borderWidth="2px"
+        rounded="lg"
+        overflow="hidden"
+      >
         <Image objectFit="cover" size={'100%'} src={property.imageUrl} alt={property.imageAlt} />
 
         <Box p="6">
