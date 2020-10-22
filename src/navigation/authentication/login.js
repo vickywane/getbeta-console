@@ -64,7 +64,7 @@ const Login = props => {
               <Hover style={{ margin: '0 0.3rem' }}>
                 <FiAlertTriangle style={{ fontSize: '1.4rem' }} />
               </Hover>
-              <Text> Email or Password Invalid ! </Text>
+              <Text style={{ paddingTop: '5px' }}> Email or Password Invalid ! </Text>
             </div>
           </ErrorAlert>
 
@@ -95,7 +95,6 @@ const Login = props => {
                     placeholder="Your account password"
                   />
                 </AuthInputFields>
-                <br />
               </form>
             ) : (
               <div

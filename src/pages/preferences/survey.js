@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/headers/header'
 import styled from 'styled-components'
 import media from 'styled-media-query'
+import { Switch } from '@chakra-ui/core'
+import * as Lodash from 'lodash'
 
 import { SUGGESTED_KEYWORDS } from '../../mockData'
 import { Body, Title, Text, Button, InputBody, center, PageHead, Hover } from '../../styles/style'
@@ -58,6 +60,15 @@ const List = styled.ul`
 `
 
 const Preferences = props => {
+  const [tags, setTags] = useState([
+    'Physics',
+    'Adult Education',
+    'PreSchool',
+    'Civic Education',
+    'Mass Communication'
+  ])
+  const [newTag, setNewTag] = useState('')
+
   return (
     <div>
       <Header />
@@ -66,26 +77,26 @@ const Preferences = props => {
           height: window.innerHeight - 60
         }}
       >
-        <PageHead>
-          <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>
-              <Title style={{ paddingTop: '5px' }}> User Preferences </Title>
-            </div>
-
-            <div style={{ display: 'flex' }}>
-              <Hover style={{ margin: '0 .5rem' }}>
-                <FiSearch />
-              </Hover>
-            </div>
-          </span>
-        </PageHead>
-
         <List>
           <li>
             <div>
               <Title> Personalize your content feed </Title>
+              <hr />
               <InputBody style={{ margin: '.5rem .2rem' }}>
-                <input placeholder="Add a new content keyword" />
+                <input
+                  type="text"
+                  onChange={e => setNewTag(e.target.value)}
+                  placeholder="Add a new content keyword"
+                />
+
+                <button
+                  onClick={() => {
+                    setTags(newTag)
+                  }}
+                  style={{ fontSize: '.9rem' }}
+                >
+                  Save
+                </button>
               </InputBody>
             </div>
 
@@ -94,25 +105,30 @@ const Preferences = props => {
                 Personalize your content feed to show items with the following tags.
               </Text>
               <Grid>
-                {SUGGESTED_KEYWORDS.map(item => {
-                  return (
-                    <KeywordContainer id={item} style={{ ...center }}>
-                      <p style={{ ...center }}> {item} </p>
-                    </KeywordContainer>
-                  )
-                })}
+                {!Lodash.isEmpty(tags) &&
+                  tags.map(item => {
+                    return (
+                      <KeywordContainer id={item} style={{ ...center }}>
+                        <p style={{ ...center }}> {item} </p>
+                      </KeywordContainer>
+                    )
+                  })}
               </Grid>
             </div>
             <br />
-            <div>
-              <Button> Submit Keyword </Button>
-            </div>
           </li>
-
+          <br />
           <li>
             <div>
               <Title> Privacy </Title>
-              <Text small>My privacy when using the GetBeta service</Text>
+              <hr />
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Text> Open for bookings and consultations</Text>
+
+                <div>
+                  <Switch color="teal"  size="lg" />
+                </div>
+              </div>
             </div>
           </li>
         </List>

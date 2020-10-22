@@ -8,7 +8,6 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
 import {
-  Body,
   Text,
   Button,
   Hover,
@@ -96,7 +95,6 @@ const CreateContent = props => {
       <Header goBack={true} screen="Create New Content " />
 
       <StyledBody>
-        <br />
         {isCreatingContent ? (
           <div
             style={{
@@ -198,6 +196,7 @@ const CreateContent = props => {
               <InputField>
                 <label> Content contentTags </label>
                 <Select
+                style={{fontSize : ".9rem"}}
                   closeMenuOnSelect={false}
                   components={animatedComponents}
                   // defaultValue={[colourOptions[4], colourOptions[5]]}

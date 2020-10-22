@@ -8,6 +8,7 @@ import { toJS } from 'mobx'
 import media from 'styled-media-query'
 import ModalWrapper from '../../../components/modals/modalWrapper'
 
+import ContentCard from '../../../components/contentCard'
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
 import {
@@ -23,7 +24,7 @@ import {
 import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   ${media.lessThan('medium')`
   padding: 0.5rem 1rem;
   `};
@@ -38,15 +39,38 @@ const StyledFilter = styled(StyledHover)`
 `};
 `
 
+const FilterButton = styled(Button)`
+  display: none;
+  ${media.lessThan('small')`
+      display : flex;
+      height : 35px;
+  `};
+`
+
 const Contents = props => {
   const { fetchContents, isLoadingContents, contents } = props.ContentStore
   const [showModal, setModal] = useState(false)
+  const [filter, setFilter] = useState('')
+  const [Data, setData] = useState([])
 
   useEffect(() => {
     fetchContents()
   }, [])
 
-  const contentList = toJS(contents)
+  let contentList = toJS(contents)
+
+  useEffect(() => {
+    // DATA FILTERING HERE
+    console.log(contentList, 'effect')
+    setData(contentList)
+
+    if (filter.length > 2) {
+      const filtered = contentList.filter(data => data.vendorId === filter)
+
+      setData(filtered)
+    }
+  }, [contents, filter])
+
   const Width = useWindowWidth()
   return (
     <div>
@@ -80,6 +104,18 @@ const Contents = props => {
             </div>
 
             <Text style={{ margin: '0 0.7rem' }}> By Content Rating </Text>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
+            <div style={{ ...center }}>
+              <input
+                onClick={() => setFilter(localStorage.getItem('userId'))}
+                style={{ width: '2rem', height: '1.3rem' }}
+                type="radio"
+              />
+            </div>
+
+            <Text style={{ margin: '0 0.7rem' }}> Show only content created by me</Text>
           </div>
 
           <hr />
@@ -118,53 +154,58 @@ const Contents = props => {
             </Searchbox>
           </div>
         </div>
-        <hr />
+        <div
+          style={{
+            marginBottom: '5px',
+            borderBottom: '1px solid #c0c0c0',
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <FilterButton onClick={() => setModal(true)}> Filter Result </FilterButton>
 
-        <CardGrid style={{ height: window.innerHeight - 170, overflow: 'auto' }}>
-          {contentList.length < 1 ? (
+          <div style={{ paddingTop: '10px' }}>
+            <Text> {Data.length} results </Text>
+          </div>
+        </div>
+
+        <CardGrid
+          style={{ paddingLeft: '1rem', height: window.innerHeight - 150, overflow: 'auto' }}
+        >
+          {Data.length < 1 ? (
             <div style={{ ...center }}>
               <Spinner variant="primary" animation="grow" role="loading" />
             </div>
           ) : (
-            contentList.map(({ _id, title, descrp, type, price }) => {
-              return (
-                <Card key={_id}>
-                  <img
-                    alt="Contents ilustration detail"
-                    src={require('../../../assets/images/college-chemistry.jpg')}
-                  />
-                  <br />
-                  <div>
-                    <Title
-                      style={{ color: '#0072ce', cursor: 'pointer' }}
-                      onClick={() => {
-                        navigate('/edit-content', {
-                          state: {
-                            contentId: _id
-                          }
-                        })
-                      }}
-                    >
-                      {title}
-                    </Title>
-
-                    <Text> {descrp} </Text>
-
-                    <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Text> {type} </Text>
-
-                      <span style={{ display: 'flex' }}>
-                        <div style={{ padding: 0, margin: 0 }}>
-                          <FaMoneyBill style={{ fontSize: '1.5rem' }} />
-                        </div>
-
-                        <Text style={{ margin: '0 0.5rem', padding: 0 }}> {price} </Text>
-                      </span>
-                    </span>
-                  </div>
-                </Card>
-              )
-            })
+            Data.map(
+              ({
+                _id,
+                subscribers,
+                contentfiles,
+                createdAt,
+                descrp,
+                price,
+                type,
+                vendorId,
+                title
+              }) => {
+                return (
+                  <li key={_id}>
+                    <ContentCard
+                      id={_id}
+                      createdAt={createdAt}
+                      descrp={descrp}
+                      price={price}
+                      contentfiles={contentfiles}
+                      type={type}
+                      subscribers={subscribers}
+                      vendorId={vendorId}
+                      title={title}
+                    />
+                  </li>
+                )
+              }
+            )
           )}
         </CardGrid>
       </Body>
