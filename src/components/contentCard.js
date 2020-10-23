@@ -26,8 +26,9 @@ function ContentCard(props) {
   return (
     <div>
       <Box
-        style={{ border: '1px solid grey' }}
+        style={{ border: '1px solid #c0c0c0' }}
         maxW="sm"
+        w={"80%"}
         borderWidth="2px"
         rounded="lg"
         overflow="hidden"
@@ -52,7 +53,7 @@ function ContentCard(props) {
             style={{ cursor: 'pointer' }}
             mt="1"
             fontWeight="semibold"
-            as="h5"
+            as="h6"
             lineHeight="tight"
             isTruncated
           >
@@ -67,7 +68,8 @@ function ContentCard(props) {
             textTransform="uppercase"
             ml="2"
           >
-            {contentfiles.length} Files &bull; {subscribers.length} Subscribers
+            {/* THROWS ERROR FOR USERS WHO USED THE APP BEFORE CONTENTFILES WHERE ADDED */}
+            {/* {contentfiles && contentfiles.length} Files &bull; {subscribers.length} Subscribers */}
           </Box>
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

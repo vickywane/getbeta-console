@@ -130,16 +130,6 @@ const CreateAccount = props => {
               </AuthInputFields>
 
               <AuthInputFields>
-                <label> Referrer Name </label>
-                <input
-                  value={referrerName}
-                  // onChange={e => setEmail(e.target.value)}
-                  type="email"
-                  placeholder="Referrer name"
-                />
-              </AuthInputFields>
-
-              <AuthInputFields>
                 <label> Password </label>
                 <input
                   value={Password}

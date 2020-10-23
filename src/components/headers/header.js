@@ -19,7 +19,7 @@ const Body = styled.div`
   box-shadow: 0 2px 3px grey;
   ${media.lessThan('medium')`
     padding: 0.5rem 1rem;
-    height: 60px;
+    height: 55px;
   `};
 `
 

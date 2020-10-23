@@ -48,13 +48,16 @@ input {
 }
 `}
   ${media.lessThan('small')`
+  margin: 1rem 0.5rem;
+
   label {
   font-size: .95rem;
   }
   input {
-  padding: 0.6rem 0.5rem;
-  width: 24rem;
-  font-size: 0.9rem;
+    height : 45px;
+  padding: 0.5rem 0.5rem;
+  width: 20.5rem;
+  font-size: 0.85rem;
   }
 `}
 `
@@ -91,10 +94,9 @@ export const Dot = styled.div`
 `
 
 export const ErrorAlert = styled.div`
-  height: 60px;
+  height: 50px;
   display: ${props => props.display};
   transition: all 700ms;
-  margin-bottom: 1rem;
   border-radius: 10px 10px 0px 0;
   background: red;
   justify-content: center;
@@ -113,7 +115,7 @@ export const AuthCards = styled.div`
     box-shadow: 0 2px 3px #c0c0c0;
     border-radius: 10px;
     section {
-      padding: 1rem 1rem;
+      padding: 0.8rem 1rem;
     }
   }
 `
@@ -177,21 +179,25 @@ export const CreateCourseInputField = styled.div`
   ${media.lessThan('medium')`
   input {
     height: 50px;
-    width: 27rem;
+    width: 100%;
   }
   textarea {
     height: 10vh;
-    width: 27rem;
+    width: 100%;
   }
   `}
   ${media.lessThan('small')`
+  margin : .7rem .4rem;
+  label {
+    font-size : .85rem;
+  }
   input {
     height: 45px;
-    width: 23rem;
+    width: 100%;
   }
   textarea {
-    height: 10vh;
-    width: 23rem;
+    height: 15vh;
+    width: 100%;
   }
   `};
 `
@@ -341,6 +347,9 @@ export const CardGrid = styled.div`
   ${media.lessThan('medium')`
       place-items : center;
   `};
+  li {
+    list-style: none;
+  }
 `
 
 export const Card = styled.div`
@@ -365,7 +374,7 @@ export const Card = styled.div`
   width: 24rem;
    img {
     height: 150px;
-    width: 400px;
+    width: 380px;
     object-fit: cover;
   }
   h4 {
@@ -392,7 +401,7 @@ export const HomeList = styled.ul`
   padding: 0;
   list-style: none;
   li {
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 `
 

@@ -132,7 +132,7 @@ const UpdateProfile = props => {
   } = props.UserStore
 
   const userData = toJS(userDetail)
-  const [currentView, setCurrentView] = useState('verify-account')
+  const [currentView, setCurrentView] = useState('update-profile')
   const { fullname, email, bio } = userData
 
   const [isUploading, setUploading] = useState(false)
@@ -204,17 +204,17 @@ const UpdateProfile = props => {
               <div style={{ ...center }}>
                 <Text align="center">
                   Few questions more to confirm your account.
-                  <span
+                  <div
                     onClick={() => setCurrentView('verify-account')}
                     style={{
                       textDecoration: 'underline',
                       color: 'black',
                       margin: '0 .5rem',
-                      cursor: '  pointer'
+                      cursor: 'pointer'
                     }}
                   >
                     Verify Now
-                  </span>
+                  </div>
                 </Text>
               </div>
 

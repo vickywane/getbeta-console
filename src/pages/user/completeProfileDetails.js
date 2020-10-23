@@ -3,8 +3,10 @@ import { Textarea, Checkbox } from '@chakra-ui/core'
 import styled from 'styled-components'
 import { CSSTransition } from 'react-transition-group'
 import { FiMail } from 'react-icons/fi'
+import { IoLogoWhatsapp, IoLogoFacebook } from 'react-icons/io'
+import media from 'styled-media-query'
 
-import { Body, Text, Button, PageHead, MdTitle, InputBody } from '../../styles/style'
+import { Body, Text, Button, center, MdTitle, InputBody } from '../../styles/style'
 
 const Box = styled.div`
   width: auto;
@@ -56,15 +58,15 @@ const Health = [
 const expertise = ['Professional', 'Certified Professional', 'Intermediate', 'Beginner']
 
 const audience = [
-  { id: 1, name: 'Whatsapp', icon: <FiMail style={{ fontSize: '1.3rem' }} /> },
+  { id: 1, name: 'Whatsapp', icon: <IoLogoWhatsapp style={{ fontSize: '1.3rem' }} /> },
   { id: 1, name: 'Email List', icon: <FiMail style={{ fontSize: '1.3rem' }} /> },
-  { id: 1, name: 'Social Media Followers', icon: <FiMail style={{ fontSize: '1.3rem' }} /> }
+  { id: 1, name: 'Social Media Followers', icon: <IoLogoFacebook style={{ fontSize: '1.3rem' }} /> }
 ]
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  grid-gap: 2rem 2rem;
+  grid-gap: 1rem 2rem;
   li {
     list-style: none;
   }
@@ -103,7 +105,7 @@ const EntertainmentQuestions = props => (
 
 const LiteratureQuestions = props => (
   <Grid>
-    {industries.map(({ id, name }) => (
+    {literature.map(({ id, name }) => (
       <li>
         <Box key={id}>
           <div>
@@ -123,7 +125,7 @@ const LiteratureQuestions = props => (
 
 const FormalQuestions = props => (
   <Grid>
-    {industries.map(({ id, name }) => (
+    {formalEducation.map(({ id, name }) => (
       <li>
         <Box key={id}>
           <div>
@@ -143,7 +145,7 @@ const FormalQuestions = props => (
 
 const VocationalQuestions = props => (
   <Grid>
-    {industries.map(({ id, name }) => (
+    {vocational.map(({ id, name }) => (
       <li>
         <Box key={id}>
           <div>
@@ -163,7 +165,7 @@ const VocationalQuestions = props => (
 
 const HealthQuestions = props => (
   <Grid>
-    {industries.map(({ id, name }) => (
+    {Health.map(({ id, name }) => (
       <li>
         <Box key={id}>
           <div>
@@ -181,6 +183,16 @@ const HealthQuestions = props => (
   </Grid>
 )
 
+const Container = styled.div`
+  width: 70rem;
+  ${media.lessThan('large')`
+      width : 50rem; 
+    `};
+  ${media.lessThan('medium')`
+    width : 100%; 
+    `};
+`
+
 function CompleteProfileDetails(props) {
   const {} = props
 
@@ -196,7 +208,7 @@ function CompleteProfileDetails(props) {
         justifyContent: 'center'
       }}
     >
-      <div style={{ width: '70rem' }}>
+      <Container>
         <br />
         <MdTitle align="center"> Let's know you better</MdTitle>
         <Text align="center">
@@ -243,23 +255,23 @@ function CompleteProfileDetails(props) {
               </CSSTransition>
 
               <CSSTransition in={industry === 'Literature'} unmountOnExit timeout={300}>
-                <EntertainmentQuestions setCategories={val => setIndustry(val)} />
+                <LiteratureQuestions setCategories={val => setIndustry(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Formal Education'} unmountOnExit timeout={300}>
-                <EntertainmentQuestions setCategories={val => setIndustry(val)} />
+                <FormalQuestions setCategories={val => setIndustry(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Vocational Skill'} unmountOnExit timeout={300}>
-                <EntertainmentQuestions setCategories={val => setIndustry(val)} />
+                <VocationalQuestions setCategories={val => setIndustry(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Health & Wellnes'} unmountOnExit timeout={300}>
-                <EntertainmentQuestions setCategories={val => setIndustry(val)} />
+                <HealthQuestions setCategories={val => setIndustry(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Literature'} unmountOnExit timeout={300}>
-                <EntertainmentQuestions setCategories={val => setIndustry(val)} />
+                <LiteratureQuestions setCategories={val => setIndustry(val)} />
               </CSSTransition>
             </InputBody>
           </div>
@@ -330,11 +342,21 @@ function CompleteProfileDetails(props) {
 
           <div style={{ display: 'flex' }}>
             <div style={{ margin: '0 1rem' }}>
-              <StyledCheckbox>Yes</StyledCheckbox>
+              <div style={{ display: 'flex' }}>
+                <StyledCheckbox />
+                <div style={{ ...center }}>
+                  <Text style={{ margin: '0 1rem' }}> Yes </Text>
+                </div>
+              </div>
             </div>
 
             <div style={{ margin: '0 1rem' }}>
-              <StyledCheckbox>No</StyledCheckbox>
+              <div style={{ display: 'flex' }}>
+                <StyledCheckbox />
+                <div style={{ ...center }}>
+                  <Text style={{ margin: '0 1rem' }}> No </Text>
+                </div>
+              </div>
             </div>
           </div>
         </InputBody>
@@ -364,7 +386,7 @@ function CompleteProfileDetails(props) {
           <Button> Submit Later </Button>
           <Button> Submit My Answers </Button>
         </div>
-      </div>
+      </Container>
     </Body>
   )
 }

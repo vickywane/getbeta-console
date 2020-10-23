@@ -5,6 +5,7 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import * as scroll from 'react-scroll'
 import { Link, Element } from 'react-scroll'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
@@ -71,10 +72,8 @@ const Home = props => {
   }, [])
 
   const detail = toJS(userDetail)
-  const Scroll = scroll.animateScroll
-
   const { contents, courses, _id } = detail
-  console.log(detail, 'details')
+
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} Width={Width} />
@@ -84,7 +83,7 @@ const Home = props => {
       <Body>
         {!isLoading && (
           <Grid>
-            <Link activeClass="active" smooth={true} spy={true} to="courses" duration={500}>
+            <AnchorLink href="#packages">
               <Card background="#fff" style={{ ...center }}>
                 <div>
                   <StyledTitle align="center">
@@ -98,9 +97,9 @@ const Home = props => {
                   </Text>
                 </div>
               </Card>
-            </Link>
+            </AnchorLink>
 
-            <Link style={{ textDecoration: 'none' }} to={`contents`}>
+            <AnchorLink href="#courses">
               <Card background="#fff" style={{ ...center }}>
                 <div>
                   <StyledTitle align="center">
@@ -114,15 +113,9 @@ const Home = props => {
                   </Text>
                 </div>
               </Card>
-            </Link>
+            </AnchorLink>
 
-            <Link
-              smooth={true}
-              spy={true}
-              onClick={() => Scroll.scrollToTop()}
-              style={{ textDecoration: 'none' }}
-              to={`bookings`}
-            >
+            <AnchorLink href="#bookings">
               <Card background="#fff" style={{ ...center }}>
                 <div>
                   <StyledTitle align="center"> 0 </StyledTitle>
@@ -130,14 +123,8 @@ const Home = props => {
                   <Text align="center"> My Bookings </Text>
                 </div>
               </Card>
-            </Link>
-            <Link
-              smooth={true}
-              spy={true}
-              onClick={() => Scroll.scrollToTop()}
-              style={{ textDecoration: 'none' }}
-              to={`bookings`}
-            >
+            </AnchorLink>
+            <AnchorLink to="#bookings">
               <Card style={{ ...center, backgroundColor: 'white' }}>
                 <div>
                   <StyledTitle align="center"> 0 </StyledTitle>
@@ -145,7 +132,7 @@ const Home = props => {
                   <Text align="center"> Bookings </Text>
                 </div>
               </Card>
-            </Link>
+            </AnchorLink>
           </Grid>
         )}
 
@@ -159,11 +146,9 @@ const Home = props => {
         <br />
         <br />
 
-        <Element name="bookings">
-          <Section>
-            <Mybookings Width={Width} />
-          </Section>
-        </Element>
+        <Section id="bookings" >
+          <Mybookings Width={Width} />
+        </Section>
       </Body>
     </div>
   )

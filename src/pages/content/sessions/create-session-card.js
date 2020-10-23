@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
+// import { ZoomMtg } from '@zoomus/websdk'
 
 import { inject, observer } from 'mobx-react'
 import { Body, Title, Button } from '../../../styles/style'
+
+// ZoomMtg.preLoadWasm()
+// ZoomMtg.prepareJssdk()
 
 const Card = styled(Body)`
   height: auto;
@@ -41,10 +45,49 @@ const InputBody = styled.div`
   `};
   ${media.lessThan('small')`
   input {
-    width: 23rem;
+    width: 21rem;
   }
   `};
 `
+
+// var signature =
+//   'VGZQWHRYaVI1VHhCaEhWQTV0ZHEzTjR2M01veks3ZnhOUUYwLjEyMTIuMTYwMzM1Mzk5MjA3My4wLmlJeFJmdHFGa1FZS09XMHdURnBET0k2a0twSFRsUDQxdmMxR1FqY2hHS0k9'
+// var apiKey = process.env.REACT_ZOOM_KEY
+// var meetingNumber = 123456789
+// var role = 0
+// var leaveUrl = 'http://localhost:9999'
+// var userName = 'WebSDK'
+// var userEmail = ''
+// var passWord = ''
+
+// const handleJoin = () => {
+//   ZoomMtg.init({
+//     leaveUrl: leaveUrl,
+//     isSupportAV: true,
+//     success: success => {
+//       console.log(success)
+
+//       ZoomMtg.join({
+//         signature: signature,
+//         meetingNumber: meetingNumber,
+//         userName: userName,
+//         role: role,
+//         apiKey: apiKey,
+//         userEmail: userEmail,
+//         passWord: passWord,
+//         success: success => {
+//           console.log(success)
+//         },
+//         error: error => {
+//           console.log(error)
+//         }
+//       })
+//     },
+//     error: error => {
+//       console.log(error)
+//     }
+//   })
+// }
 
 const CreateSession = props => {
   const { handleClose } = props
@@ -100,7 +143,6 @@ const CreateSession = props => {
               placeholder=" Amount"
             />
           </InputBody>
-          <br />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button
               onClick={() => handleClose(false)}
@@ -108,7 +150,7 @@ const CreateSession = props => {
             >
               Cancel
             </Button>
-            <Button>Create Session</Button>
+            <Button onClick={() => alert('clicked')}>Create Session</Button>
           </div>
         </div>
       </div>

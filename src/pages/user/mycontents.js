@@ -36,30 +36,11 @@ const Body = styled.div`
   `};
 `
 
-const ContentContainer = styled.div`
-  padding: 1rem;
-  display: flex;
-  background: #fff;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-  box-shadow: 0 3px 5px #c0c0c0;
-`
-
-const ContentImage = styled.div`
-  height: 45px;
-  width: 50px;
-  border-radius: 3px;
-  border: 1px solid #c0c0c0;
-  ${media.lessThan('medium')`
-      display : none;
-  `};
-`
-
-const Date = styled.div`
-  ${media.lessThan('medium')`
-display : none;
-`};
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 1rem 1rem;
+  place-items : center;
 `
 
 const MyContent = props => {
@@ -82,8 +63,6 @@ const MyContent = props => {
   }, [])
 
   let userContents = toJS(contents)
-
-  console.log(userContents, 'contents')
 
   useEffect(() => {
     if (Width >= 1200) {
@@ -165,35 +144,37 @@ const MyContent = props => {
                 </div>
               </div>
             ) : (
-              userContents.map(
-                ({
-                  _id,
-                  subscribers,
-                  contentfiles,
-                  createdAt,
-                  descrp,
-                  price,
-                  type,
-                  vendorId,
-                  title
-                }) => {
-                  return (
-                    <li key={_id}>
-                      <ContentCard
-                        id={_id}
-                        createdAt={createdAt}
-                        descrp={descrp}
-                        price={price}
-                        contentfiles={contentfiles}
-                        subscribers={subscribers}
-                        type={type}
-                        vendorId={vendorId}
-                        title={title}
-                      />
-                    </li>
-                  )
-                }
-              )
+              <Grid>
+                {userContents.map(
+                  ({
+                    _id,
+                    subscribers,
+                    contentfiles,
+                    createdAt,
+                    descrp,
+                    price,
+                    type,
+                    vendorId,
+                    title
+                  }) => {
+                    return (
+                      <li key={_id}>
+                        <ContentCard
+                          id={_id}
+                          createdAt={createdAt}
+                          descrp={descrp}
+                          price={price}
+                          contentfiles={contentfiles}
+                          subscribers={subscribers}
+                          type={type}
+                          vendorId={vendorId}
+                          title={title}
+                        />
+                      </li>
+                    )
+                  }
+                )}
+              </Grid>
             )}
           </HomeList>
         ) : (
@@ -229,35 +210,37 @@ const MyContent = props => {
                     </div>
                   </div>
                 ) : (
-                  userContents.map(
-                    ({
-                      _id,
-                      subscribers,
-                      contentfiles,
-                      createdAt,
-                      descrp,
-                      price,
-                      type,
-                      vendorId,
-                      title
-                    }) => {
-                      return (
-                        <li key={_id}>
-                          <ContentCard
-                            id={_id}
-                            createdAt={createdAt}
-                            descrp={descrp}
-                            price={price}
-                            contentfiles={contentfiles}
-                            type={type}
-                            subscribers={subscribers}
-                            vendorId={vendorId}
-                            title={title}
-                          />
-                        </li>
-                      )
-                    }
-                  )
+                  <Grid>
+                    {userContents.map(
+                      ({
+                        _id,
+                        subscribers,
+                        contentfiles,
+                        createdAt,
+                        descrp,
+                        price,
+                        type,
+                        vendorId,
+                        title
+                      }) => {
+                        return (
+                          <li key={_id}>
+                            <ContentCard
+                              id={_id}
+                              createdAt={createdAt}
+                              descrp={descrp}
+                              price={price}
+                              contentfiles={contentfiles}
+                              type={type}
+                              subscribers={subscribers}
+                              vendorId={vendorId}
+                              title={title}
+                            />
+                          </li>
+                        )
+                      }
+                    )}
+                  </Grid>
                 )}
               </HomeList>
             </TabPanel>
@@ -283,36 +266,37 @@ const MyContent = props => {
                     </div>
                   </div>
                 ) : (
-                  userContents.map(
-                    ({
-                      _id,
-                      subscribers,
-                      contentfiles,
-                      createdAt,
-                      descrp,
-                      price,
-                      type,
-                      vendorId,
-                      title
-                    }) => {
-                      return (
-                        <li key={_id}>
-                          <ContentCard
-                            id={_id}
-                            createdAt={createdAt}
-                            subscribers={subscribers}
-                            contentfiles={contentfiles}
-                            subscribers={subscribers}
-                            descrp={descrp}
-                            price={price}
-                            type={type}
-                            vendorId={vendorId}
-                            title={title}
-                          />
-                        </li>
-                      )
-                    }
-                  )
+                  <Grid>
+                    {userContents.map(
+                      ({
+                        _id,
+                        subscribers,
+                        contentfiles,
+                        createdAt,
+                        descrp,
+                        price,
+                        type,
+                        vendorId,
+                        title
+                      }) => {
+                        return (
+                          <li key={_id}>
+                            <ContentCard
+                              id={_id}
+                              createdAt={createdAt}
+                              descrp={descrp}
+                              price={price}
+                              contentfiles={contentfiles}
+                              type={type}
+                              subscribers={subscribers}
+                              vendorId={vendorId}
+                              title={title}
+                            />
+                          </li>
+                        )
+                      }
+                    )}
+                  </Grid>
                 )}
               </HomeList>
             </TabPanel>
