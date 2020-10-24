@@ -59,7 +59,24 @@ class ContentStore {
       .catch(e => console.log(e))
   }
 
-  updateContent = (id, newData) => {}
+  updateContent = (id, title, description) => {
+    this.isLoading = true
+    Axios.post(
+      `${CONTENT_ENDPOINT}/`,
+      { title, description },
+      { headers: { 'x-auth-token': token } }
+    )
+      .then(response => {
+        this.isLoading = false
+
+        this.content = response.data.content
+      })
+      .catch(e => {
+        this.isLoading = false
+
+        console.log(`Error from updating content : ${e}`)
+      })
+  }
 
   @observable contentSubscribers = []
   @observable isLoading = false

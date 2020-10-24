@@ -118,7 +118,7 @@ const Profile = props => {
         <Alert variant="success">
           <div style={{ ...center }}>
             <Text align="center">
-              Welcome to GetBeta!. A confirmation email has been sent to your email address.{' '}
+              Welcome to GetBeta! A confirmation email has been sent to your email address.{' '}
             </Text>
           </div>
 

@@ -14,13 +14,13 @@ const testData = [
   },
   {
     id: 2,
-    title: 'Some second crazy test notification',
+    title: 'Some  crazy test notification',
     date: new Date(),
     from: 'Anonymouse User'
   },
   {
     id: 3,
-    title: 'Some third crazy test notification',
+    title: 'Some  crazy test notification',
     date: new Date(),
     from: 'Anonymouse User'
   },
@@ -32,13 +32,13 @@ const testData = [
   },
   {
     id: 2,
-    title: 'Some second crazy test notification',
+    title: 'Some  crazy test notification',
     date: new Date(),
     from: 'Anonymouse User'
   },
   {
     id: 3,
-    title: 'Some third crazy test notification',
+    title: 'Some  crazy test notification',
     date: new Date(),
     from: 'Anonymouse User'
   },
@@ -50,13 +50,13 @@ const testData = [
   },
   {
     id: 2,
-    title: 'Some second crazy test notification',
+    title: 'Some  crazy test notification',
     date: new Date(),
     from: 'Anonymouse User'
   },
   {
     id: 3,
-    title: 'Some third crazy test notification',
+    title: 'Some  crazy test notification',
     date: new Date(),
     from: 'Anonymouse User'
   }
@@ -74,8 +74,18 @@ const Notification = styled.ul`
     justify-content: space-between;
     border-bottom: 1px solid #c0c0c0;
   }
-  ${media.lessThan('medium')`
+  ${media.lessThan('large')`
     width: 100%;
+    li {
+      padding: 1rem .5rem;
+    }
+  `};
+`
+
+const Time = styled.div`
+  display: flex;
+  ${media.lessThan('small')`
+      display : none;
   `};
 `
 
@@ -88,6 +98,11 @@ const Image = styled.img`
     height: 60px;
    width: 60px;
   `};
+  ${media.lessThan('medium')`
+  height: 40px;
+  width: 40px;
+  border-radius : 50%;
+`};
 `
 
 const Notifications = props => {
@@ -95,7 +110,7 @@ const Notifications = props => {
 
   return (
     <div>
-      <Header goBack={true} />
+      <Header screen={'Notifications'} goBack={true} />
 
       <Body style={{ background: '#fbfbfb', display: 'flex', justifyContent: 'center' }}>
         <Notification style={{}}>
@@ -120,9 +135,9 @@ const Notifications = props => {
                     <Text> {title} </Text>
                   </div>
 
-                  <div style={{ ...center }}>
-                    <Text> 5 days </Text>
-                  </div>
+                  <Time style={{ ...center }}>
+                    <Text> 2 Hour </Text>
+                  </Time>
                 </li>
               )
             })}

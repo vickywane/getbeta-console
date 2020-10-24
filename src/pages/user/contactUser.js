@@ -4,6 +4,7 @@ import { FiTwitter, FiInstagram, FiMail } from 'react-icons/fi'
 import styled from 'styled-components'
 import { toJS } from 'mobx'
 import moment from 'moment'
+import media from 'styled-media-query'
 
 import Contents from '../user/mycontents'
 import Loading from '../../components/loading'
@@ -15,6 +16,12 @@ const Flex = styled.div`
   display: flex;
   flex-direction: ${props => props.direction};
   justify-content: ${props => props.justify};
+`
+
+const ContactContainer = styled.div`
+  display: flex;
+  flex-direction: flex;
+  justify-content: center;
 `
 
 const ContactUser = props => {
@@ -31,41 +38,49 @@ const ContactUser = props => {
     <div>
       <Header goBack={true} />
 
-      <div style={{ height: window.innerHeight - 50 }}>
+      <div style={{ height: window.innerHeight - 50, overflow: 'auto' }}>
         {isLoading ? (
           <Loading />
         ) : (
           <div>
             <Body>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image alt="user" src={require('../../assets/images/img.jpg')} />
-              </div>
+              <ContactContainer>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image alt="user" src={require('../../assets/images/img.jpg')} />
+                </div>
 
-              <div>
-                <Title align="center"> {fullname} </Title>
-                <Text align="center"> {email} </Text>
-                <Text align="center"> Joined : {moment(createdAt).format('DD, MMMM, YYYY')} </Text>
-              </div>
+                <div style={{ marginLeft: '2rem' }}>
+                  <br />
 
-              <Flex direction="row" justify="center">
-                <Hover style={{ margin: '0 1rem' }}>
-                  <FiTwitter style={{ fontSize: '1.5rem' }} />{' '}
-                </Hover>
+                  <div>
+                    <Title align="center"> {fullname} </Title>
+                    <Text align="center"> {email} </Text>
+                    <Text align="center">
+                      {' '}
+                      Joined : {moment(createdAt).format('DD, MMMM, YYYY')}{' '}
+                    </Text>
+                  </div>
 
-                <Hover style={{ margin: '0 1rem' }}>
-                  <FiInstagram style={{ fontSize: '1.5rem' }} />{' '}
-                </Hover>
+                  <Flex direction="row" justify="center">
+                    <Hover style={{ margin: '0 1rem' }}>
+                      <FiTwitter style={{ fontSize: '1.5rem' }} />{' '}
+                    </Hover>
 
-                <Hover style={{ margin: '0 1rem' }}>
-                  <FiMail style={{ fontSize: '1.5rem' }} />{' '}
-                </Hover>
-              </Flex>
-              <br />
+                    <Hover style={{ margin: '0 1rem' }}>
+                      <FiInstagram style={{ fontSize: '1.5rem' }} />{' '}
+                    </Hover>
 
+                    <Hover style={{ margin: '0 1rem' }}>
+                      <FiMail style={{ fontSize: '1.5rem' }} />{' '}
+                    </Hover>
+                  </Flex>
+
+                  <br />
+                </div>
+              </ContactContainer>
               <div style={{ ...center }}>
                 <Button style={{ width: '20rem' }}>Book Now</Button>
               </div>
-              <br />
             </Body>
 
             <Body style={{ backgroundColor: 'white', width: '100%', background: '#fff' }}>

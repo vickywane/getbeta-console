@@ -94,11 +94,10 @@ const CreateContent = props => {
     <div>
       <Header goBack={true} screen="Create New Content " />
 
-      <StyledBody>
+      <StyledBody style={{ height: window.innerHeight - 70, overflow: 'auto' }}>
         {isCreatingContent ? (
           <div
             style={{
-              height: window.innerHeight - 150,
               display: 'flex',
               justifyContent: 'center',
               alignContent: 'center'
@@ -107,123 +106,125 @@ const CreateContent = props => {
             <Spinner type="grow" />
           </div>
         ) : (
-          <div>
-            <Grid>
-              <div
-                {...getRootProps({
-                  isDragActive,
-                  isDragAccept,
-                  isDragReject
-                })}
-              >
-                <input {...getInputProps()} />
-
-                <Image src={require('../../assets/images/image-icon.png')} />
-                {isDragActive && <Text align="center"> Drop Image here </Text>}
-              </div>
-
-              <div style={{ ...center }}>
-                {!contentImage ? (
-                  <div style={{ ...center }}>
-                    <StyledHover
-                      {...getRootProps({
-                        isDragActive,
-                        isDragAccept,
-                        isDragReject
-                      })}
-                      style={{ display: 'flex', padding: '7px' }}
-                    >
-                      <input {...getInputProps()} />
-                      <Hover style={{ margin: '0 0.6rem', ...center }}>
-                        <FiUploadCloud style={{ fontSize: '1.5rem' }} />
-                      </Hover>
-
-                      <Text small style={{ padding: 0, margin: 0 }}>
-                        Upload Content Image{' '}
-                      </Text>
-                    </StyledHover>
-                  </div>
-                ) : (
-                  <Text> {contentImage.path} </Text>
-                )}
-              </div>
-            </Grid>
-
-            <form onSubmit={() => handleSubmit()}>
-              {/* <MdTitle style={{fontWeight : 600}} >Create New Content</MdTitle> */}
-
-              <InputField>
-                <label> Content Name </label>
-                <input
-                  onChange={e => setContentName(e.target.value)}
-                  value={ContentName}
-                  type="text"
-                  placeholder="Content Name"
-                />
-              </InputField>
-
-              <InputField>
-                <label> Content Description </label>
-                <textarea
-                  onChange={e => setContentDescription(e.target.value)}
-                  value={ContentDescription}
-                  type="text"
-                  placeholder="A description of your new Content"
-                />
-              </InputField>
-
-              <InputField>
-                <label> Content Price </label>
-                <input
-                  onChange={e => setContentPrice(e.target.value)}
-                  value={ContentPrice}
-                  type="text"
-                  placeholder="Content Price"
-                />
-              </InputField>
-
-              <InputField>
-                <label> Content Type </label>
-                <Select
-                  closeMenuOnSelect={false}
-                  components={animatedComponents}
-                  // defaultValue={[colourOptions[4], colourOptions[5]]}
-                  isMulti
-                  options={contentType}
-                />
-              </InputField>
-
-              <InputField>
-                <label> Content contentTags </label>
-                <Select
-                style={{fontSize : ".9rem"}}
-                  closeMenuOnSelect={false}
-                  components={animatedComponents}
-                  // defaultValue={[colourOptions[4], colourOptions[5]]}
-                  isMulti
-                  options={contentTags}
-                />
-              </InputField>
-
-              <br />
-              <div style={{ paddingLeft: '2%' }}>
-                <Button
-                  style={{
-                    background: ContentName.length < 5 && 'transparent',
-                    color: ContentName.length < 5 && '#0072ce'
-                  }}
-                  disabled={ContentName.length < 5}
-                  onClick={e => {
-                    e.preventDefault()
-
-                    handleSubmit()
-                  }}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div>
+              <Grid>
+                <div
+                  {...getRootProps({
+                    isDragActive,
+                    isDragAccept,
+                    isDragReject
+                  })}
                 >
-                  Submit Content{' '}
-                </Button>
-              </div>
-            </form>
-            <br />
+                  <input {...getInputProps()} />
+
+                  <Image src={require('../../assets/images/image-icon.png')} />
+                  {isDragActive && <Text align="center"> Drop Image here </Text>}
+                </div>
+
+                <div style={{ ...center }}>
+                  {!contentImage ? (
+                    <div style={{ ...center }}>
+                      <StyledHover
+                        {...getRootProps({
+                          isDragActive,
+                          isDragAccept,
+                          isDragReject
+                        })}
+                        style={{ display: 'flex', padding: '7px' }}
+                      >
+                        <input {...getInputProps()} />
+                        <Hover style={{ margin: '0 0.6rem', ...center }}>
+                          <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                        </Hover>
+
+                        <Text small style={{ padding: 0, margin: 0 }}>
+                          Upload Content Image{' '}
+                        </Text>
+                      </StyledHover>
+                    </div>
+                  ) : (
+                    <Text> {contentImage.path} </Text>
+                  )}
+                </div>
+              </Grid>
+              <form onSubmit={() => handleSubmit()}>
+                {/* <MdTitle style={{fontWeight : 600}} >Create New Content</MdTitle> */}
+
+                <InputField>
+                  <label> Content Name </label>
+                  <input
+                    onChange={e => setContentName(e.target.value)}
+                    value={ContentName}
+                    type="text"
+                    placeholder="Content Name"
+                  />
+                </InputField>
+
+                <InputField>
+                  <label> Content Description </label>
+                  <textarea
+                    onChange={e => setContentDescription(e.target.value)}
+                    value={ContentDescription}
+                    type="text"
+                    placeholder="A description of your new Content"
+                  />
+                </InputField>
+
+                <InputField>
+                  <label> Content Price </label>
+                  <input
+                    onChange={e => setContentPrice(e.target.value)}
+                    value={ContentPrice}
+                    type="text"
+                    placeholder="Content Price"
+                  />
+                </InputField>
+
+                <InputField>
+                  <label> Content Type </label>
+                  <Select
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    // defaultValue={[colourOptions[4], colourOptions[5]]}
+                    isMulti
+                    options={contentType}
+                  />
+                </InputField>
+
+                <InputField>
+                  <label> Content contentTags </label>
+                  <Select
+                    style={{ fontSize: '.9rem' }}
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    // defaultValue={[colourOptions[4], colourOptions[5]]}
+                    isMulti
+                    options={contentTags}
+                  />
+                </InputField>
+
+                <br />
+                <div style={{ ...center }}>
+                  <Button
+                    style={{
+                      width: '90%',
+                      background: ContentName.length < 5 && 'transparent',
+                      color: ContentName.length < 5 && '#0072ce'
+                    }}
+                    disabled={ContentName.length < 5}
+                    onClick={e => {
+                      e.preventDefault()
+
+                      handleSubmit()
+                    }}
+                  >
+                    Submit Content{' '}
+                  </Button>
+                </div>
+              </form>
+              <br />
+            </div>
           </div>
         )}
       </StyledBody>

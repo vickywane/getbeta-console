@@ -42,6 +42,11 @@ class UserStore {
     }
   }
 
+  @action
+  handlePasswordReset = Email => {
+    Axios.post("", Email ).then(() => {}).catch(e => {})
+  }
+
   setLoginError = val => {
     this.hasLoginError = val
   }

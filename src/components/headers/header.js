@@ -100,7 +100,6 @@ const Header = props => {
           {screen && (
             <div style={{ ...center }}>
               <Text color="#0072ce" style={{ marginTop: '10px' }}>
-                {' '}
                 {screen}{' '}
               </Text>
             </div>

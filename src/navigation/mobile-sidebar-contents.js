@@ -132,7 +132,7 @@ const Notifications = ({ open, ...props }) => {
           style={{
             width: '16rem',
             position: 'absolute',
-            bottom: 0,
+            bottom: 5,
             marginBottom: 0,
             textAlign: 'center'
           }}
