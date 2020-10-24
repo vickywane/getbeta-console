@@ -48,15 +48,14 @@ input {
 }
 `}
   ${media.lessThan('small')`
-  margin: 1rem 0.5rem;
-
+  margin: 1rem 0.2rem;
   label {
   font-size: .95rem;
   }
   input {
-    height : 45px;
+  height : 42px;
   padding: 0.5rem 0.5rem;
-  width: 20.5rem;
+  width: 19rem;
   font-size: 0.85rem;
   }
 `}
@@ -125,9 +124,10 @@ export const CreateCourseInputField = styled.div`
   flex-direction: column;
   margin: 1rem 1rem;
   label {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   input {
+    font-size : .95rem;
     height: 55px;
     width: 60rem;
     border: 1px solid #c0c0c0;
@@ -138,7 +138,8 @@ export const CreateCourseInputField = styled.div`
   }
  
   textarea {
-    height: 10vh;
+    font-size : .95rem;
+    height: 15vh;
     width: 60rem;
     border: 1px solid #c0c0c0;
     color: #000;
@@ -151,14 +152,10 @@ export const CreateCourseInputField = styled.div`
     font-size : 1rem;
     width: 37rem;
   }
-  label {
-    font-size: 1.1rem;
-  }
   textarea {
     height: 10vh;
     width: 37rem;
     font-size : 1rem;
-
   }
   `};
   ${media.lessThan('large')`
@@ -220,7 +217,7 @@ export const InputBody = styled.div`
     flex: 1;
   }
   textarea {
-    background: #b0cfea;
+    background: transparent;
     font-size: 1rem;
     height: 10vh;
     padding: 0.6rem 1rem;

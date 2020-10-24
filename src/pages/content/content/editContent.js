@@ -5,7 +5,8 @@ import {
   FiMoreVertical,
   FiUploadCloud,
   FiCalendar,
-  FiDownload,
+  FiCheck,
+  FiEdit,
   FiPlus
 } from 'react-icons/fi'
 import { toJS } from 'mobx'
@@ -93,6 +94,10 @@ const InputBody = styled.div`
   label {
     font-size: 1rem;
   }
+  input {
+    width: 60%;
+    font-size: 1rem;
+  }
   textarea {
     font-size: 0.9rem;
     margin: 0.5rem 0.5rem;
@@ -108,6 +113,14 @@ const InputBody = styled.div`
   ${media.lessThan('medium')`
       label {
         font-size : .85rem;
+      }
+      input {
+        height : 40px;
+        padding : .3rem .6rem;
+        border  : 1px solid #c0c0c0;
+        width : 18.5rem;
+        border-radius : 2px;
+        font-size : .80rem;
       }
       textarea {
         font-size : .8rem;
@@ -167,12 +180,16 @@ const EditContent = props => {
   const [currentView, setCurrentView] = useState('content')
   const [showContentPreview, setContentPreview] = useState(true)
   const [contentTitle, setContentTitle] = useState('')
+  const [isEditing, setEditing] = useState(false)
+  const [updateTitle, setUpdateTitle] = useState('')
+  const [updateDescription, setUpdatedDescription] = useState('')
 
   const {
     getContent,
     content,
     isLoadingContents,
     getContentFiles,
+    updateContent,
     contentFiles,
     addContentFile
   } = props.ContentStore
@@ -206,6 +223,12 @@ const EditContent = props => {
 
   const uploadContentFile = () => {
     addContentFile(contentId, Content)
+  }
+
+  const handleUpdate = () => {
+    setEditing(false)
+
+    updateContent(contentId, updateTitle, updateDescription)
   }
 
   return (
@@ -300,13 +323,30 @@ const EditContent = props => {
                 <Body>
                   <Head>
                     <div style={{ ...center }}>
-                      <Title> {data.title} </Title>
+                      {isEditing ? (
+                        <InputBody>
+                          <input
+                            placeholder={data.title}
+                            onChange={e => {
+                              setUpdateTitle(e.target.value)
+                            }}
+                          />
+                        </InputBody>
+                      ) : (
+                        <Title> {data.title} </Title>
+                      )}
                     </div>
 
                     <div style={{ ...center }}>
-                      <Hover>
-                        <FiMoreVertical style={{ fontSize: '1.4rem' }} />
-                      </Hover>
+                      {!isEditing ? (
+                        <Hover onClick={_ => setEditing(true)}>
+                          <FiEdit style={{ fontSize: '1.4rem' }} />
+                        </Hover>
+                      ) : (
+                        <Hover onClick={_ => handleUpdate()}>
+                          <FiCheck style={{ fontSize: '1.3rem' }} />
+                        </Hover>
+                      )}
                     </div>
                   </Head>
 
@@ -320,8 +360,16 @@ const EditContent = props => {
                     </Text>
                   </div>
                   <br />
-                  <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
-                  <br />
+                  {!isEditing ? (
+                    <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
+                  ) : (
+                    <InputBody>
+                      <textarea
+                        placeholder={data.descrp}
+                        onChange={e => setUpdatedDescription(e.target.value)}
+                      />
+                    </InputBody>
+                  )}
                   <div>
                     <div style={{ display: 'flex' }}>
                       <div style={{ margin: '0 .4rem' }}>

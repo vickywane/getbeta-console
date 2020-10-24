@@ -2,15 +2,14 @@ import React from 'react'
 import { Box, Image, Badge } from '@chakra-ui/core'
 import styled from 'styled-components'
 import moment from 'moment'
-import { subscribe } from 'graphql'
 import { navigate } from '@reach/router'
 
 const property = {
-  imageUrl: 'https://bit.ly/2Z4KKcF',
-  imageAlt: 'Rear view of modern home with pool',
+  imageUrl:
+    'https://res.cloudinary.com/dkfptto8m/image/upload/v1603528071/freelance/placeholer.png',
+  imageAlt: 'placeholder for a content file',
   beds: 3,
   baths: 2,
-  title: 'Modern home in city center in the heart of historic Los Angeles',
   formattedPrice: '$1,900.00',
   reviewCount: 34,
   rating: 4
@@ -28,7 +27,7 @@ function ContentCard(props) {
       <Box
         style={{ border: '1px solid #c0c0c0' }}
         maxW="sm"
-        w={"80%"}
+        w={'85%'}
         borderWidth="2px"
         rounded="lg"
         overflow="hidden"

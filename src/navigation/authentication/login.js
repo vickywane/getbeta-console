@@ -13,7 +13,8 @@ import {
   Hover,
   AuthCards,
   ErrorAlert,
-  AuthInputFields
+  AuthInputFields,
+  center
 } from '../../styles/style'
 
 import { Spinner } from 'react-bootstrap'
@@ -35,9 +36,12 @@ const Illustration = styled.div`
     `}
 `
 
+//TODO: Split reset logic to seperate component
+
 const Login = props => {
   const { authUser, isLoading, errorMessage, hasLoginError, setLoginError } = props.UserStore
 
+  const [resetPassword, setPasswordReset] = useState(false)
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
 
@@ -49,6 +53,8 @@ const Login = props => {
     setTimeout(() => {
       setLoginError(!hasLoginError)
     }, 2500)
+
+  const handlePasswordReset = () => {}
 
   return (
     <Body style={{ height: window.innerHeight, background: '#fbfbfb' }}>
@@ -68,77 +74,146 @@ const Login = props => {
             </div>
           </ErrorAlert>
 
-          <section>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <MdTitle small center>
-                Account Login
-              </MdTitle>
-            </div>
-            <hr />
-            {!isLoading ? (
-              <form onSubmit={() => handleLogin()}>
-                <AuthInputFields>
-                  <label> Email Address </label>
-                  <input
-                    value={Email}
-                    onChange={e => setEmail(e.target.value)}
-                    type="email"
-                    placeholder="Your email address"
-                  />
-                </AuthInputFields>
-                <AuthInputFields>
-                  <label> Password </label>
-                  <input
-                    value={Password}
-                    onChange={e => setPassword(e.target.value)}
-                    type="password"
-                    placeholder="Your account password"
-                  />
-                </AuthInputFields>
-              </form>
-            ) : (
+          {!resetPassword ? (
+            <section>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <MdTitle small center>
+                  Account Login
+                </MdTitle>
+              </div>
+              <hr />
+              {!isLoading ? (
+                <form onSubmit={() => handleLogin()}>
+                  <AuthInputFields>
+                    <label> Email Address </label>
+                    <input
+                      value={Email}
+                      onChange={e => setEmail(e.target.value)}
+                      type="email"
+                      placeholder="Your email address"
+                    />
+                  </AuthInputFields>
+                  <AuthInputFields>
+                    <label> Password </label>
+                    <input
+                      value={Password}
+                      onChange={e => setPassword(e.target.value)}
+                      type="password"
+                      placeholder="Your account password"
+                    />
+                  </AuthInputFields>
+                </form>
+              ) : (
+                <div
+                  style={{
+                    height: '28.5vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Spinner variant="primary" animation="grow" role="loading" />
+                </div>
+              )}
               <div
                 style={{
-                  height: '27vh',
                   display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
+                  justifyContent: 'center'
                 }}
               >
-                <Spinner variant="primary" animation="grow" role="loading" />
+                <Button
+                  style={{
+                    background: Password.length < 5 && !isLoading && 'transparent',
+                    color: Password.length < 5 && '#0072ce',
+                    width: '95%'
+                  }}
+                  disabled={Password.length < 5}
+                  onClick={() => {
+                    handleLogin()
+                  }}
+                >
+                  Login
+                </Button>
               </div>
-            )}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <Button
+              <br />
+              <br />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Text style={{ margin: '0 .7rem' }}>Don't Own An Account ? </Text>
+
+                <Link to="/create-account">
+                  <Text> Create An Account </Text>
+                </Link>
+              </div>
+
+              <div style={{ ...center }}>
+                <Link to="#" onClick={() => setPasswordReset(true)}>
+                  <Text> Forgot Password ? </Text>
+                </Link>
+              </div>
+            </section>
+          ) : (
+            <section>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <MdTitle small center>
+                  Reset Account Password
+                </MdTitle>
+              </div>
+              <hr />
+              {!isLoading ? (
+                <form onSubmit={() => handleLogin()}>
+                  <AuthInputFields>
+                    <label> Account Email Address </label>
+                    <input
+                      value={Password}
+                      onChange={e => setPassword(e.target.value)}
+                      type="email"
+                      placeholder="Registered Email Address"
+                    />
+                  </AuthInputFields>
+                </form>
+              ) : (
+                <div
+                  style={{
+                    height: '28.5vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Spinner variant="primary" animation="grow" role="loading" />
+                </div>
+              )}
+              <div
                 style={{
-                  background: Password.length < 5 && !isLoading && 'transparent',
-                  color: Password.length < 5 && '#0072ce',
-                  width: '100%'
-                }}
-                disabled={Password.length < 5}
-                onClick={() => {
-                  handleLogin()
+                  display: 'flex',
+                  justifyContent: 'center'
                 }}
               >
-                Login
-              </Button>
-            </div>
-            <br />
-            <br />
-            <br />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Text style={{ margin: '0 1rem' }}>Don't Own An Account ? </Text>
+                <Button
+                  style={{
+                    background: Password.length < 5 && !isLoading && 'transparent',
+                    color: Password.length < 5 && '#0072ce',
+                    width: '95%'
+                  }}
+                  disabled={Password.length < 5}
+                  onClick={() => {
+                    handlePasswordReset()
+                  }}
+                >
+                  Send Reset Link
+                </Button>
+              </div>
+              <br />
+              <br />
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Text style={{ margin: '0 .7rem' }}>Login Instead ? </Text>
 
-              <Link to="/create-account">
-                <Text> Create An Account </Text>
-              </Link>
-            </div>
-          </section>
+                <Link to="#" onClick={_ => setPasswordReset(false)}>
+                  <Text> Login </Text>
+                </Link>
+              </div>
+            </section>
+          )}
         </span>
       </AuthCards>
     </Body>

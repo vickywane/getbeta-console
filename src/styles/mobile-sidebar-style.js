@@ -9,7 +9,7 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   background: #0072ce;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
-  margin-top: 3.45em;
+  margin-top: 3em;
   position: absolute;
   top: 0;
   width: 60%;

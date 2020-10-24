@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import * as scroll from 'react-scroll'
-import { Link, Element } from 'react-scroll'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 import { Text, Title, Section, center } from '../../styles/style'
@@ -83,7 +81,7 @@ const Home = props => {
       <Body>
         {!isLoading && (
           <Grid>
-            <AnchorLink href="#packages">
+            <AnchorLink style={{ textDecoration: 'none' }} href="#packages">
               <Card background="#fff" style={{ ...center }}>
                 <div>
                   <StyledTitle align="center">
@@ -99,7 +97,7 @@ const Home = props => {
               </Card>
             </AnchorLink>
 
-            <AnchorLink href="#courses">
+            <AnchorLink style={{ textDecoration: 'none' }} href="#courses">
               <Card background="#fff" style={{ ...center }}>
                 <div>
                   <StyledTitle align="center">
@@ -115,7 +113,7 @@ const Home = props => {
               </Card>
             </AnchorLink>
 
-            <AnchorLink href="#bookings">
+            <AnchorLink style={{ textDecoration: 'none' }} href="#bookings">
               <Card background="#fff" style={{ ...center }}>
                 <div>
                   <StyledTitle align="center"> 0 </StyledTitle>
@@ -124,7 +122,7 @@ const Home = props => {
                 </div>
               </Card>
             </AnchorLink>
-            <AnchorLink to="#bookings">
+            <AnchorLink style={{ textDecoration: 'none' }} to="#bookings">
               <Card style={{ ...center, backgroundColor: 'white' }}>
                 <div>
                   <StyledTitle align="center"> 0 </StyledTitle>
@@ -146,7 +144,7 @@ const Home = props => {
         <br />
         <br />
 
-        <Section id="bookings" >
+        <Section id="bookings">
           <Mybookings Width={Width} />
         </Section>
       </Body>
