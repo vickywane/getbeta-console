@@ -27,7 +27,7 @@ function ContentCard(props) {
       <Box
         style={{ border: '1px solid #c0c0c0' }}
         maxW="sm"
-        w={'85%'}
+        w={'80%'}
         borderWidth="2px"
         rounded="lg"
         overflow="hidden"
