@@ -28,10 +28,10 @@ export const Image = styled.img`
   width: 110px;
   `};
   ${media.lessThan('medium')`
-  height: 120px;
-  width: 120px;
+  height: 110px;
+  width: 110px;
   border: 0;
-  border-radius: 8%;
+  border-radius: 5%;
   `};
   ${media.lessThan('small')`
     height: 135px;
@@ -118,13 +118,9 @@ const Profile = props => {
         <Alert variant="success">
           <div style={{ ...center }}>
             <Text align="center">
-              Welcome to GetBeta! A confirmation email has been sent to your email address.{' '}
+              Welcome to GetBeta! A confirmation email has been sent to your email address.
             </Text>
           </div>
-
-          <span style={{ ...center }}>
-            <FiX onClick={() => setConfirmationAlert(false)} style={{ fontSize: '1.3rem' }} />
-          </span>
         </Alert>
       )}
       {profilePane ? (

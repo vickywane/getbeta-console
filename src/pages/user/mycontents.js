@@ -200,7 +200,7 @@ const MyContent = props => {
                   <div style={{ ...center }}>
                     <div>
                       <div style={{ ...center }}>
-                        <Planet color="#0072ce" mood="sad" size={150} />
+                        <Planet color="#0072ce" mood="sad" size={140} />
                       </div>
                       <br />
                       <Text align="center"> You currently do not have any created content. </Text>
@@ -256,7 +256,7 @@ const MyContent = props => {
                   <div style={{ ...center }}>
                     <div>
                       <div style={{ ...center }}>
-                        <Planet color="#0072ce" mood="sad" size={180} />
+                        <Planet color="#0072ce" mood="sad" size={140} />
                       </div>
                       <br />
                       <Text align="center"> You currently do not have any created content. </Text>

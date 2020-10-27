@@ -129,6 +129,20 @@ const Sidebar = props => {
       to: '/sessions'
     },
     {
+      id: 5,
+      name: 'Creators Hub',
+      routeName: 'sessions',
+      icon: <FiVideo style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
+      to: '/creators'
+    },
+    {
+      id: 6,
+      name: '3rd Party Integrations',
+      routeName: 'sessions',
+      icon: <FiVideo style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
+      to: '/integrations'
+    },
+    {
       id: 7,
       name: 'Analytics',
       routeName: 'analytics',
@@ -136,7 +150,7 @@ const Sidebar = props => {
       to: '/analytics'
     },
     {
-      id: 6,
+      id: 8,
       name: 'Preferences',
       routeName: 'preference',
       icon: <FiSettings style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,

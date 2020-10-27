@@ -50,6 +50,9 @@ const UserImage = styled.div`
 const StyledInputBody = styled(InputBody)`
   margin: 0.4rem 0.5rem;
   width: 100%;
+  label {
+    font-size : 1.05rem;
+  }
   input {
     color: #000;
     width: 40rem;
@@ -73,9 +76,13 @@ const StyledInputBody = styled(InputBody)`
   }
 `};
   ${media.lessThan('medium')`
-textarea , input {
-    width : 35rem;
-}
+  label {
+    font-size : .95rem;
+  }
+  textarea , input {
+    font-size : .9rem;
+      width : 100%;
+  }
 `};
   ${media.lessThan('small')`
   label {
@@ -134,6 +141,8 @@ const UpdateProfile = props => {
   const userData = toJS(userDetail)
   const [currentView, setCurrentView] = useState('update-profile')
   const { fullname, email, bio } = userData
+  console.log(userData , "users data");
+
 
   const [isUploading, setUploading] = useState(false)
 
@@ -303,7 +312,6 @@ const UpdateProfile = props => {
               </div>
             </div>
             <hr />
-            <Title small> Edit Account Details </Title>
             <FormsGrid>
               <StyledInputBody>
                 <label> Full Name </label>
@@ -330,7 +338,7 @@ const UpdateProfile = props => {
               <StyledInputBody>
                 <label> Mobile Number </label>
                 <input
-                  type="number"
+                  type="tel"
                   placeholder={Number}
                   value={Number}
                   onChange={e => {

@@ -12,9 +12,12 @@ const StyledMenu = styled.nav`
   margin-top: 3em;
   position: absolute;
   top: 0;
-  width: 60%;
+  width: 40%;
   left: 0;
   transition: all 250ms;
+  ${media.lessThan('small')`
+    width: 60%;
+  `};
 `
 
 const StyledBurger = styled.button`

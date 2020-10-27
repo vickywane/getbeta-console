@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 import { Link } from '@reach/router'
-import { FiAlertTriangle } from 'react-icons/fi'
+import {FiCheck ,  FiAlertTriangle } from 'react-icons/fi'
 
 import { observer } from 'mobx-react'
 import {
@@ -39,7 +39,16 @@ const Illustration = styled.div`
 //TODO: Split reset logic to seperate component
 
 const Login = props => {
-  const { authUser, isLoading, errorMessage, hasLoginError, setLoginError } = props.UserStore
+  const {
+    authUser,
+    sentResetLink,
+    isSendingResetLink,
+    isLoading,
+    errorMessage,
+    forgotPassword,
+    hasLoginError,
+    setLoginError
+  } = props.UserStore
 
   const [resetPassword, setPasswordReset] = useState(false)
   const [Email, setEmail] = useState('')
@@ -54,7 +63,17 @@ const Login = props => {
       setLoginError(!hasLoginError)
     }, 2500)
 
-  const handlePasswordReset = () => {}
+  const handlePasswordReset = () => {
+    forgotPassword(Email)
+  }
+
+  useEffect(() => {
+    if (sentResetLink) {
+      setTimeout(() => {
+        setPasswordReset(false)
+      }, 4000)
+    }
+  }, [sentResetLink])
 
   return (
     <Body style={{ height: window.innerHeight, background: '#fbfbfb' }}>
@@ -153,13 +172,29 @@ const Login = props => {
             </section>
           ) : (
             <section>
+              {sentResetLink && (
+                <ErrorAlert
+                  color="#155724"
+                  background="#d4edda"
+                  style={{ opacity: hasLoginError ? 1 : 0 }}
+                  display={hasLoginError ? 'flex' : 'none'}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Hover style={{ margin: '0 0.3rem' }}>
+                      <FiCheck style={{ fontSize: '1.4rem' }} />
+                    </Hover>
+                    <Text style={{ paddingTop: '5px' }}> Password reset link sent! </Text>
+                  </div>
+                </ErrorAlert>
+              )}
+
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <MdTitle small center>
                   Reset Account Password
                 </MdTitle>
               </div>
               <hr />
-              {!isLoading ? (
+              {!isSendingResetLink ? (
                 <form onSubmit={() => handleLogin()}>
                   <AuthInputFields>
                     <label> Account Email Address </label>

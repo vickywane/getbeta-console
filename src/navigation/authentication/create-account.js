@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 import * as Yup from 'yup'
-import { FiAlertTriangle } from 'react-icons/fi'
+import {  FiAlertTriangle } from 'react-icons/fi'
 import { Link } from '@reach/router'
 
 import {
@@ -49,7 +49,6 @@ const CreateAccount = props => {
   const [ConfirmPassword, setConfirmPassword] = useState('')
   const [detailsError, setDetailsError] = useState(false)
   const [mobileNumber, setMobileNumber] = useState('')
-  const [referrerName, setReferrerName] = useState('')
 
   const handleRegistration = () => {
     const isValid = accountSchema.isValid({
@@ -60,7 +59,7 @@ const CreateAccount = props => {
 
     isValid.then(res => {
       if (res) {
-        createAccount(FullName, Email, Password, ConfirmPassword)
+        createAccount(FullName, Email, Password, ConfirmPassword, mobileNumber)
       } else {
         setDetailsError(true)
       }
@@ -124,8 +123,10 @@ const CreateAccount = props => {
                 <input
                   value={mobileNumber}
                   onChange={e => setMobileNumber(e.target.value)}
-                  type="number"
-                  placeholder="Your mobile address"
+                  type="tel"
+                  name="phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  placeholder="Your mobile number"
                 />
               </AuthInputFields>
 

@@ -32,8 +32,8 @@ const Card = styled.div`
   `};
   ${media.lessThan('medium')`
   border-radius: 4px;
-  width: 20rem;
-  height: 24vh;
+  width: 15rem;
+  height: 20vh;
 `};
 ${media.lessThan('small')`
   width: 18rem;
@@ -54,8 +54,8 @@ const Grid = styled.div`
   ${media.lessThan('large')`
        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   `};
-  ${media.lessThan('large')`
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  ${media.lessThan('medium')`
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     grid-gap: 2rem 1rem;
   `};
 `
@@ -142,11 +142,11 @@ const Home = props => {
         </Section>
 
         <br />
-        <br />
+        {/* <br />
 
         <Section id="bookings">
           <Mybookings Width={Width} />
-        </Section>
+        </Section> */}
       </Body>
     </div>
   )

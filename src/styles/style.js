@@ -35,20 +35,21 @@ export const AuthInputFields = styled.div`
     border-radius: 1px;
     width: 27rem;
     height: 50px;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   ${media.lessThan('medium')`
-label {
-  font-size: 1rem;
-}
+  margin: 1rem 0.2rem;
+  label {
+    font-size: .95rem;
+  }
 input {
+  height: 45px;
   padding: 0.6rem 0.7rem;
   width: 26rem;
-  font-size: 1rem;
+  font-size: .9rem;
 }
 `}
   ${media.lessThan('small')`
-  margin: 1rem 0.2rem;
   label {
   font-size: .95rem;
   }
@@ -56,7 +57,7 @@ input {
   height : 42px;
   padding: 0.5rem 0.5rem;
   width: 19rem;
-  font-size: 0.85rem;
+  font-size: 0.80rem;
   }
 `}
 `
@@ -97,10 +98,10 @@ export const ErrorAlert = styled.div`
   display: ${props => props.display};
   transition: all 700ms;
   border-radius: 10px 10px 0px 0;
-  background: red;
+  background: ${props => props.background ? props.background : "red"};
+  color: ${props => props.color ? props.color : "#fff"};
   justify-content: center;
   align-items: center;
-  color: #fff;
 `
 
 export const AuthCards = styled.div`
@@ -257,13 +258,13 @@ export const Title = styled.h4`
 `};
 `
 
-export const MdTitle = styled.h3`
+export const MdTitle = styled.h4`
   font-weight: ${props => props.weight};
   text-align: ${props => props.align};
   color: ${props => props.color};
   font-size: ${props => (props.small ? '1.3rem' : '1.6rem')};
   ${media.lessThan('medium')`
-      font-size : 1.3rem;
+      font-size : 1.2rem;
     `};
   ${media.lessThan('small')`
       font-size : 1.1rem;
@@ -273,7 +274,7 @@ export const MdTitle = styled.h3`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '.9rem' : '1rem')};
+  font-size: ${props => (props.small ? '.85rem' : '.95rem')};
   ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.95rem')}`};
   ${media.lessThan('medium')` font-size : 0.85rem`};
   ${media.lessThan('small')`font-size : 0.8rem`};

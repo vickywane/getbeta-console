@@ -23,6 +23,9 @@ export { default as Analytics } from './user/analytics'
 export { default as Upgrade } from './user/upgrade'
 export { default as UpdateProfilePage } from './user/updateProfile'
 
+
+export { default as CreatorsHub } from './user/creators-hub'
+export { default as Integrations } from './integrations/integrations'
 export { default as CreateVendor } from './vendors/createVendor'
 export { default as ContactUser } from './user/contactUser'
 export { default as CreateContent } from './forms/create-content'

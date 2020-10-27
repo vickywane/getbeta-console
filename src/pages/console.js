@@ -23,6 +23,8 @@ import {
   Upgrade,
   CoursePage,
   Notification,
+  CreatorsHub,
+  Integrations,
   Courselist,
   CreateSession
 } from './'
@@ -57,6 +59,8 @@ const Console = props => {
           <CoursePage CourseStore={CourseStore} path="/course" />
           <Ticket path="/ticket" />
           <AllSessions path="/all-sessions" />
+          <CreatorsHub path="/creators" />
+          <Integrations path="/integrations" />
           <CreateSession path="/create-session/" />
           <Contents ContentStore={ContentStore} path="/contents" />
           <CreateContent ContentStore={ContentStore} path="/create-content" />

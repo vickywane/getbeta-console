@@ -60,9 +60,22 @@ const Routes = [
     ),
     to: '/sessions'
   },
-
+  {
+    id: 5,
+    name: 'Creators Hub',
+    routeName: 'sessions',
+    icon: <FiVideo />,
+    to: '/creators'
+  },
   {
     id: 6,
+    name: '3rd Party Integrations',
+    routeName: 'sessions',
+    icon: <FiVideo />,
+    to: '/integrations'
+  },
+  {
+    id: 7,
     name: 'Preferences',
     routeName: 'preference',
     icon: (
@@ -73,7 +86,7 @@ const Routes = [
     to: '/preference'
   },
   {
-    id: 7,
+    id: 8,
     name: 'Analytics',
     routeName: 'analytics',
     icon: (
@@ -127,19 +140,19 @@ const Notifications = ({ open, ...props }) => {
           })}
         </Items>
 
-        <Item
+        <div
           onClick={() => props.UserStore.setAuthState(false)}
           style={{
-            width: '16rem',
             position: 'absolute',
-            bottom: 5,
+            bottom: 15,
+            cursor: 'pointer',
             marginBottom: 0,
             textAlign: 'center'
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Hover>
-              <FiLogOut style={{ fontSize: '1.3rem' }} />
+              <FiLogOut style={{ fontSize: '1.2rem' }} />
             </Hover>
 
             <div style={{ ...center }}>
@@ -148,7 +161,7 @@ const Notifications = ({ open, ...props }) => {
               </Text>
             </div>
           </div>
-        </Item>
+        </div>
       </Body>
     </StyledMenu>
   )

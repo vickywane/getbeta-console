@@ -16,7 +16,6 @@ class UserStore {
   @observable isUpdated = false
 
   userDetail = []
-
   // =============>
 
   // AUTH & ACCOUNT ACTIONS
@@ -44,7 +43,9 @@ class UserStore {
 
   @action
   handlePasswordReset = Email => {
-    Axios.post("", Email ).then(() => {}).catch(e => {})
+    Axios.post('', Email)
+      .then(() => {})
+      .catch(e => {})
   }
 
   setLoginError = val => {
@@ -131,6 +132,32 @@ class UserStore {
       })
   }
 
+  @observable
+  sentResetLink = false
+  @observable
+  isSendingResetLink = false
+
+  @action
+  forgotPassword = email => {
+    this.isSendingResetLink = true
+
+    Axios(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
+      method: 'POST',
+      data: {
+        reciever: email,
+        type: 'forgot-email'
+      }
+    })
+      .then(() => {
+        this.isSendingResetLink = false
+        this.sentResetLink = true
+      })
+      .catch(e => {
+        this.isSendingResetLink = false
+        console.log('error sending reset link')
+      })
+  }
+
   authUser = (email, password) => {
     this.isLoading = true
 
@@ -161,12 +188,13 @@ class UserStore {
       })
   }
 
-  createAccount = (fullname, email, password, confirmPassword) => {
+  createAccount = (fullname, email, password, confirmPassword, mobileNumber) => {
     Axios.post(`${AUTH_ENDPOINT}/register`, {
       fullname: fullname,
       email: email,
       password: password,
-      passwordCheck: confirmPassword
+      passwordCheck: confirmPassword,
+      cell_no: mobileNumber
     })
       .then(res => {
         const { _id, email, fullname } = res.data.savedUser
@@ -178,14 +206,23 @@ class UserStore {
           email: email
         }
         localforage.setItem('isAuthenticated', true)
+
         navigate('console/*')
-        Axios.post(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
-          email: email,
-          type: 'welcome'
-        }).catch(e => console.log(`An error occurred from sending welcome-email : ${e}`))
+
+        // this shouldnt break the auth flow if it fails
+
+        Axios(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
+          method: 'POST',
+          data: {
+            reciever: email,
+            type: 'welcome'
+          }
+        })
+          .then(() => {})
+          .catch(e => {})
       })
       .catch(e => {
-        console.log(e)
+        console.log(`Create user error ${e}`)
       })
   }
 

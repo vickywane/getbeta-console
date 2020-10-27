@@ -21,7 +21,6 @@ const ProtectedRoute = props => {
     .then(res => {
       if (res === null) {
         localforage.getItem('newUser').then(res => {
-          console.log(res, 'new user')
           if (res) {
             setAuthenticated(false)
           } else {
