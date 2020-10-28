@@ -11,7 +11,7 @@ const property = {
   beds: 3,
   baths: 2,
   formattedPrice: '$1,900.00',
-  reviewCount: 34,
+  reviewCount: 0,
   rating: 4
 }
 
@@ -32,7 +32,13 @@ function ContentCard(props) {
         rounded="lg"
         overflow="hidden"
       >
-        <Image objectFit="cover" size={'100%'} src={property.imageUrl} alt={property.imageAlt} />
+        <Image
+          height={150}
+          objectFit="cover"
+          size={'100%'}
+          src={property.imageUrl}
+          alt={property.imageAlt}
+        />
 
         <Box p="6">
           <Box d="flex" alignItems="baseline">

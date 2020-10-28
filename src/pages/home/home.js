@@ -72,6 +72,8 @@ const Home = props => {
   const detail = toJS(userDetail)
   const { contents, courses, _id } = detail
 
+  console.log(contents , "contents");
+
   return (
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} Width={Width} />

@@ -179,10 +179,11 @@ const EditContent = props => {
   const [Content, setContent] = useState(null)
   const [currentView, setCurrentView] = useState('content')
   const [showContentPreview, setContentPreview] = useState(true)
-  const [contentTitle, setContentTitle] = useState('')
   const [isEditing, setEditing] = useState(false)
-  const [updateTitle, setUpdateTitle] = useState('')
-  const [updateDescription, setUpdatedDescription] = useState('')
+  const [contentFileUrl, setcontentFileUrl] = useState(null)
+
+  // for the content player
+  const [contentDetail, setContentDetail] = useState(null)
 
   const {
     getContent,
@@ -211,6 +212,9 @@ const EditContent = props => {
       setContentPreview(true)
     }
   }, [files])
+
+  const [updateTitle, setUpdateTitle] = useState(data.title)
+  const [updateDescription, setUpdatedDescription] = useState(data.descrp)
 
   const onDrop = useCallback(([file]) => {
     setContent(file)
@@ -301,7 +305,7 @@ const EditContent = props => {
       </ModalWrapper>
 
       <CSSTransition in={currentView === 'player'} timeout={300} unmountOnExit>
-        <Player title={contentTitle} goBack={() => setCurrentView('content')} />
+        <Player contentDetails={contentDetail} goBack={() => setCurrentView('content')} />
       </CSSTransition>
 
       <CSSTransition in={currentView === 'content'} timeout={300} unmountOnExit>
@@ -326,6 +330,8 @@ const EditContent = props => {
                       {isEditing ? (
                         <InputBody>
                           <input
+                            type="text"
+                            value={updateTitle}
                             placeholder={data.title}
                             onChange={e => {
                               setUpdateTitle(e.target.value)
@@ -365,6 +371,8 @@ const EditContent = props => {
                   ) : (
                     <InputBody>
                       <textarea
+                        type="text"
+                        value={updateDescription}
                         placeholder={data.descrp}
                         onChange={e => setUpdatedDescription(e.target.value)}
                       />
@@ -431,19 +439,24 @@ const EditContent = props => {
                     isContentOpen && (
                       <List>
                         {data.contentfiles !== undefined &&
-                          data.contentfiles.map(({ id, name }) => {
+                          data.contentfiles.map(({ id, name, filename, url }) => {
                             return (
                               <li key={id} onClick={() => {}}>
                                 <span>
                                   <div style={{ display: 'flex' }}>
                                     <ContentTitle
                                       onClick={() => {
-                                        setContentTitle(name)
+                                        setContentDetail({
+                                          name: name,
+                                          url: url,
+                                          description:
+                                            'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
+                                        })
                                         setCurrentView('player')
                                       }}
                                       style={{ margin: '0 .5rem' }}
                                     >
-                                      {name}.{' '}
+                                      {filename}.{' '}
                                     </ContentTitle>
 
                                     {Width >= 600 && (
@@ -452,9 +465,9 @@ const EditContent = props => {
                                   </div>
                                 </span>
                                 <Text style={{ marginLeft: '15px' }}>
-                                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                  Repellendus aperiam optio perferendis magni beatae in excepturi
-                                  nulla vero aspernatur hic.
+                                  Content file description is lorem ipsum dolor sit amet consectetur
+                                  adipisicing elit. Repellendus aperiam optio perferendis magni
+                                  beatae in.
                                 </Text>
                               </li>
                             )

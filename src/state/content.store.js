@@ -59,14 +59,15 @@ class ContentStore {
       .catch(e => console.log(e))
   }
 
-  updateContent = (id, title, description) => {
+  updateContent = (contentId, title, description) => {
     this.isLoading = true
     Axios.post(
-      `${CONTENT_ENDPOINT}/`,
+      `${CONTENT_ENDPOINT}/${id}/${contentId}/update`,
       { title, description },
       { headers: { 'x-auth-token': token } }
     )
       .then(response => {
+        console.log(response);
         this.isLoading = false
 
         this.content = response.data.content

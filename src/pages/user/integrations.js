@@ -1,9 +1,36 @@
 import React from 'react'
+import styled from 'styled-components'
+import { Title, Body, Text, center, Button, MdTitle } from '../../styles/style'
+import Header from '../../components/headers/header'
+
+const StyledBody = styled(Body)`
+  div {
+    width: 50rem;
+  }
+`
 
 const Integrations = props => {
   return (
     <div>
-      <p> integrations page </p>
+      <Header />
+      <StyledBody bold style={{ ...center, height: window.innerHeight - 70 }}>
+        <div>
+          <MdTitle align="center"> 3rd Party Integrations -- Coming Soon</MdTitle>
+          <Text align="center">
+            The creator's hub is a , consectetur adipisicing elit. Beatae praesentium maiores
+            impedit qui expedita earum obcaecati ratione nisi minus reiciendis. Fuga, quod ipsam.
+            Voluptates unde, in ad facere maiores minus.
+          </Text>
+
+          <Text color="grey" align="center">
+            We would notify you when this feature is fully released and active.{' '}
+          </Text>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button> Notify Me When Active </Button>
+          </div>
+        </div>
+      </StyledBody>
     </div>
   )
 }

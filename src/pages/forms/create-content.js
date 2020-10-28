@@ -21,6 +21,7 @@ const Image = styled.img`
   object-fit: contain;
   width: 250px;
   height: 200px;
+  border-radius: 20px;
   ${media.lessThan('large')`
   width: 200px;
   height: 200px;
@@ -107,7 +108,7 @@ const CreateContent = props => {
           </div>
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div>
+            <div style={{ width: '100%' }}>
               <Grid>
                 <div
                   {...getRootProps({
@@ -118,7 +119,11 @@ const CreateContent = props => {
                 >
                   <input {...getInputProps()} />
 
-                  <Image src={require('../../assets/images/image-icon.png')} />
+                  <Image
+                    src={
+                      'https://res.cloudinary.com/dkfptto8m/image/upload/v1603528071/freelance/placeholer.png'
+                    }
+                  />
                   {isDragActive && <Text align="center"> Drop Image here </Text>}
                 </div>
 
