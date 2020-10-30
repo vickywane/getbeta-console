@@ -439,7 +439,7 @@ const EditContent = props => {
                     isContentOpen && (
                       <List>
                         {data.contentfiles !== undefined &&
-                          data.contentfiles.map(({ id, name, filename, url }) => {
+                          data.contentfiles.map(({ id,  filename, url }) => {
                             return (
                               <li key={id} onClick={() => {}}>
                                 <span>
@@ -447,7 +447,7 @@ const EditContent = props => {
                                     <ContentTitle
                                       onClick={() => {
                                         setContentDetail({
-                                          name: name,
+                                          name: filename,
                                           url: url,
                                           description:
                                             'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'

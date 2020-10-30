@@ -35,7 +35,6 @@ export default class ErrorBoundary extends React.Component {
           <h1 style={{ fontSize: '2.5rem', textAlign: 'center' }}>
             Something went wrong internally !
           </h1>
-          ;
         </div>
       )
     }

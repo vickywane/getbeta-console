@@ -3,6 +3,7 @@ import { action, observable, decorate } from 'mobx'
 import { create, persist } from 'mobx-persist'
 import { navigate } from '@reach/router'
 import localforage from 'localforage'
+import * as Sentry from '@sentry/react'
 
 const AUTH_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 const id = localStorage.getItem('userId')
@@ -20,24 +21,23 @@ class UserStore {
 
   // AUTH & ACCOUNT ACTIONS
   @action setAuthState = state => {
-    if (state === null) console.log('no auth state added')
+    if (state === null) console.log('missing auth state')
 
     localforage.setItem('newUser', false)
 
     if (state) {
-      localforage
-        .setItem('isAuthenticated', state)
-        .catch(e => console.log(`error setting auth state: ${e}`))
+      localforage.setItem('isAuthenticated', state)
     } else {
       localforage
         .setItem('isAuthenticated', state)
         .then(_ => {
-          console.log('user logged out')
           localStorage.clear()
 
           navigate('/login')
         })
-        .catch(e => console.log(`error setting auth state: ${e}`))
+        .catch(e => {
+          Sentry.captureException(e, 'error from setting auth state')
+        })
     }
   }
 
@@ -83,7 +83,7 @@ class UserStore {
                 navigate('/console')
               }, 1000)
             })
-            .catch(e => console.log(`file upload error : ${e}`))
+            .catch(e => Sentry.captureException(e, 'error uploading user image'))
         } else {
           this.isUpdated = true
 
@@ -93,7 +93,7 @@ class UserStore {
         }
       })
       .catch(e => {
-        console.log(`error updating user : ${e}`)
+        Sentry.captureException(e, "error from updating a user's details")
       })
   }
 
@@ -109,7 +109,7 @@ class UserStore {
       })
       .catch(e => {
         this.isLoading = false
-        console.log(e)
+        Sentry.captureException(e, "error from getting user's details")
       })
   }
   // akuf
@@ -128,7 +128,8 @@ class UserStore {
       })
       .catch(e => {
         this.isLoading = false
-        console.log(e)
+
+        Sentry.captureException(e, 'error from getting single user')
       })
   }
 
@@ -154,7 +155,7 @@ class UserStore {
       })
       .catch(e => {
         this.isSendingResetLink = false
-        console.log('error sending reset link')
+        Sentry.captureException(e, 'error sending password reset link')
       })
   }
 
@@ -184,7 +185,7 @@ class UserStore {
       .catch(e => {
         this.hasLoginError = !this.hasLoginError
         this.isLoading = false
-        console.log(`Error from login : ${e}`)
+        Sentry.captureException(e, `error logging in user ${email} `)
       })
   }
 
@@ -219,10 +220,10 @@ class UserStore {
           }
         })
           .then(() => {})
-          .catch(e => {})
+          .catch(e => Sentry.captureException(e, `error sending welcome-email to ${email} `))
       })
       .catch(e => {
-        console.log(`Create user error ${e}`)
+        Sentry.captureException(e, `error creating user ${email} `)
       })
   }
 
@@ -239,7 +240,7 @@ class UserStore {
 
         navigate('/create-account')
       })
-      .catch(e => console.log(`Error occured : ${e}`))
+      .catch(e => Sentry.captureException(e, `error deleting user ${id} account`))
   }
 
   // Would contain a filter to filter selected users
@@ -252,7 +253,7 @@ class UserStore {
       })
       .catch(e => {
         this.isLoading = false
-        console.log(e)
+        Sentry.captureException(e, 'error getting users for booking')
       })
   }
 }
@@ -278,15 +279,3 @@ const DecoratedUserStore = decorate(UserStore, {
 })
 
 export const store = new DecoratedUserStore()
-
-// const hydrate = create({
-//   storage: localforage,
-//   jsonify: true
-// })
-
-// hydrate('userStore', store)
-//   .then(() => {
-//     console.log('user-store has heen hydrated')
-//   })
-//   .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))
-//   .catch(e => console.log(`An error coccured while hydrating user-store : ${e}`))

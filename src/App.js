@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 import localforage from 'localforage'
 import { ThemeProvider } from '@chakra-ui/core'
 import { theme } from '@chakra-ui/core'
+import { ErrorBoundary as SentryErrorBoundary } from '@sentry/react'
 
 import ErrorBoundary from './components/errors/errorBoundary'
 import { VendorStore, ContentStore, CourseStore } from './state/'
