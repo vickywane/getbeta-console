@@ -17,6 +17,9 @@ const Body = styled.div`
   align-items: center;
   padding: 0.5rem 2rem;
   box-shadow: 0 2px 3px grey;
+  ${media.lessThan('large')`
+  padding: 0.5rem 1rem;
+`};
   ${media.lessThan('medium')`
     padding: 0.5rem 1rem;
     height: 55px;

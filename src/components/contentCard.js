@@ -3,6 +3,8 @@ import { Box, Image, Badge } from '@chakra-ui/core'
 import styled from 'styled-components'
 import moment from 'moment'
 import { navigate } from '@reach/router'
+import { FiCalendar } from 'react-icons/fi'
+import { Hover, Text, center } from '../styles/style'
 
 const property = {
   imageUrl:
@@ -32,20 +34,26 @@ function ContentCard(props) {
         rounded="lg"
         overflow="hidden"
       >
-        <Image
-          height={150}
-          objectFit="cover"
-          size={'100%'}
-          src={property.imageUrl}
-          alt={property.imageAlt}
-        />
+        <Image objectFit="cover" size={'100%'} src={property.imageUrl} alt={property.imageAlt} />
 
-        <Box p="6">
-          <Box d="flex" alignItems="baseline">
-            <Badge rounded="full" px="2" variantColor="teal">
-              {type}
-            </Badge>
-          </Box>
+        <Box p="2">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box d="flex" alignItems="baseline">
+              <Badge rounded="full" px="2" variantColor="teal">
+                {type}
+              </Badge>
+            </Box>
+
+            <div style={{ display: 'flex' }}>
+              <Hover>
+                <FiCalendar style={{ fontSize: '1rem' }} />
+              </Hover>
+
+              <div style={{ padding: '.5rem .3rem' }}>
+                <Text> {moment(createdAt).format('DD, MMM')} </Text>
+              </div>
+            </div>
+          </div>
 
           <Box
             onClick={() =>
@@ -56,9 +64,9 @@ function ContentCard(props) {
               })
             }
             style={{ cursor: 'pointer' }}
-            mt="1"
-            fontWeight="semibold"
+            fontWeight="medium"
             as="h6"
+            textAlign="center"
             lineHeight="tight"
             isTruncated
           >
@@ -78,10 +86,9 @@ function ContentCard(props) {
           </Box>
 
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box>
-              $ {price}
-              <Box as="span" color="gray.600" fontSize="sm">
-                {moment(createdAt).format(' DD, MMM')}
+            <Box d="flex" mt="1" alignItems="center">
+              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                ${price}
               </Box>
             </Box>
 
@@ -91,7 +98,7 @@ function ContentCard(props) {
                 .map((_, i) => (
                   <StarIcon key={i} color={i < property.rating ? 'teal.500' : 'gray.300'} />
                 ))}
-              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+              <Box as="span" ml="1" color="gray.600" fontSize="sm">
                 {property.reviewCount} reviews
               </Box>
             </Box>

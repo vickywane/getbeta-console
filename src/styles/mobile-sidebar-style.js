@@ -12,7 +12,7 @@ const StyledMenu = styled.nav`
   margin-top: 3em;
   position: absolute;
   top: 0;
-  width: 40%;
+  width: 45%;
   left: 0;
   transition: all 250ms;
   ${media.lessThan('small')`

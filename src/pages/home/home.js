@@ -58,6 +58,11 @@ const Grid = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     grid-gap: 2rem 1rem;
   `};
+  ${media.lessThan('small')`
+    display : flex;
+    flex-direction : column;
+    align-items: center;
+  `};
 `
 
 const Home = props => {

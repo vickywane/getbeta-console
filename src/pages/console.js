@@ -73,4 +73,4 @@ const Console = props => {
   )
 }
 
-export default inject('VendorStore', 'CourseStore', 'ContentStore', 'UserStore')(observer(Console))
+export default inject('CourseStore', 'ContentStore', 'UserStore')(observer(Console))

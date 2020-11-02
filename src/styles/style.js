@@ -98,8 +98,8 @@ export const ErrorAlert = styled.div`
   display: ${props => props.display};
   transition: all 700ms;
   border-radius: 10px 10px 0px 0;
-  background: ${props => props.background ? props.background : "red"};
-  color: ${props => props.color ? props.color : "#fff"};
+  background: ${props => (props.background ? props.background : 'red')};
+  color: ${props => (props.color ? props.color : '#fff')};
   justify-content: center;
   align-items: center;
 `
@@ -125,23 +125,31 @@ export const CreateCourseInputField = styled.div`
   flex-direction: column;
   margin: 1rem 1rem;
   label {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+  select {
+    background: transparent;
+    font-size : .9rem;
+    border : 1px solid #c0c0c0;
+  }
+
+  option {
+    font-size : .9rem;
   }
   input {
-    font-size : .95rem;
+    font-size : .9rem;
     height: 55px;
-    width: 60rem;
+    width: 55rem;
     border: 1px solid #c0c0c0;
     border-radius : 2px;
     color: #000;
     padding: 0.5rem 1rem;
     outline: 0px;
   }
- 
   textarea {
     font-size : .95rem;
     height: 15vh;
-    width: 60rem;
+    width: 55rem;
     border: 1px solid #c0c0c0;
     color: #000;
     padding: 0.5rem 1rem;
@@ -162,7 +170,7 @@ export const CreateCourseInputField = styled.div`
   ${media.lessThan('large')`
   input {
     height: 50px;
-    width: 33rem;
+    width: 100%;
     font-size : 0.9rem;
   }
   label {
@@ -170,7 +178,7 @@ export const CreateCourseInputField = styled.div`
   }
   textarea {
     height: 10vh;
-    width: 33rem;
+    width: 100%;
     font-size : 0.9rem;
   }
   `}
@@ -187,16 +195,27 @@ export const CreateCourseInputField = styled.div`
   ${media.lessThan('small')`
   margin : .7rem .4rem;
   label {
-    font-size : .85rem;
+    font-size : .8rem;
   }
   input {
     height: 45px;
     width: 100%;
+    font-size : .75rem;
   }
   textarea {
     height: 15vh;
+    font-size : .75rem;
     width: 100%;
   }
+
+    select {
+      font-size : .8rem;
+      border : 1px solid #c0c0c0;
+    }
+
+    option {
+      font-size : .8rem;
+    }
   `};
 `
 
@@ -243,7 +262,7 @@ export const Title = styled.h4`
   font-weight: ${props => (props.weight ? props.weight : 'normal')};
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '1.15rem' : '1.2rem')};
+  font-size: ${props => (props.small ? '1.1rem' : '1.2rem')};
   ${media.lessThan('huge')`
     font-size : 1.2rem;
   `}
@@ -262,7 +281,7 @@ export const MdTitle = styled.h4`
   font-weight: ${props => props.weight};
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '1.3rem' : '1.6rem')};
+  font-size: ${props => (props.small ? '1.3rem' : '1.4rem')};
   ${media.lessThan('medium')`
       font-size : 1.2rem;
     `};
@@ -274,10 +293,9 @@ export const MdTitle = styled.h4`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '.85rem' : '.95rem')};
-  ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.95rem')}`};
-  ${media.lessThan('medium')` font-size : 0.85rem`};
-  ${media.lessThan('small')`font-size : 0.8rem`};
+  font-size: ${props => (props.small ? '.8rem' : '.9rem')};
+  ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.9rem')}`};
+  ${media.lessThan('small')`font-size : 0.75rem`};
 `
 
 export const Button = styled.button`
@@ -463,7 +481,7 @@ width  : 32rem;
 border : 1.7px solid #0072CE;
 border-radius : 30px;
 display : flex;
-background : #fff;
+background : #c1cfe3;
 padding   : 0.5rem 0.5rem;
 justify-content: space-between;
 input {
@@ -474,12 +492,22 @@ input {
     border : 0;
   }
   ${media.lessThan('medium')`
-  width  : 28rem;
+  width  : 24rem;
+  padding : 0.5rem 0.5rem;
+  input {
+  border-radius : 15px;
+    font-size : 0.8rem;
+    padding : 0.2rem 0.5rem;
+    width  : 23rem
+  }
+  `};
+  ${media.lessThan('small')`
+  width  : 100%;
   padding : 0.4rem 0.5rem;
   input {
     font-size : 0.8rem;
     padding : 0.2rem 0.5rem;
-    width  : 26rem
+    width  : 90%;
   }
   `};
 `

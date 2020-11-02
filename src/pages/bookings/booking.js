@@ -40,7 +40,7 @@ const StyledCard = styled.div`
 
 const CardGrid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(36rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   list-style: none;
   li {
     margin: 1rem 1rem;
@@ -59,8 +59,8 @@ const CardGrid = styled.ul`
 `
 
 const UserImage = styled.img`
-  height: 200px;
-  width: 140px;
+  height: 170px;
+  width: 130px;
   cursor: pointer;
   object-fit: cover;
   border-radius: 7px 0 0 7px;

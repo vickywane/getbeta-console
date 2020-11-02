@@ -40,7 +40,26 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   grid-gap: 1rem 1rem;
-  place-items : center;
+  place-items: center;
+  ${media.lessThan('medium')`
+    grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+  `}
+  ${media.lessThan('small')`
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));  
+    margin-left : 1.5rem;
+  `}
+`
+
+const ContentHead = styled.div`
+  background: #e0e9f5;
+  display: flex;
+  height: 65px;
+  padding: 0.5rem 0.7rem;
+  justify-content: space-between;
+  border-bottom: 1px solid #c0c0c0;
+  ${media.lessThan('medium')`
+    height: 55px;
+  `};
 `
 
 const MyContent = props => {
@@ -74,51 +93,42 @@ const MyContent = props => {
 
   return (
     <Body>
-      <div
-        style={{
-          background: '#E0E9F5',
-          display: 'flex',
-          height: '65px',
-          padding: '0.5rem 0.7rem',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid #c0c0c0'
-        }}
-      >
+      <ContentHead>
         <div style={{ ...center, display: Width >= 1200 && !searchVisiblity && 'none' }}>
-          <div style={{ display: 'flex', paddingTop: '10px' }}>
-            <Title style={{ color: '#0072CE', margin: 0, padding: 0 }}>All Contents</Title>
-
-            {!showAllPublicContent && (
-              <Hover
+          <div style={{ display: 'flex', paddingTop: '12px' }}>
+            {!showAllPublicContent ? (
+              <Title
                 onClick={() =>
                   navigate(TabState === 'created-content' ? '/create-content' : '/contents')
                 }
-                style={{ margin: '0 0.3rem', padding: 0 }}
+                style={{ cursor: 'pointer', color: '#0072CE', margin: 0, padding: 0 }}
               >
-                <FiPlus />
-              </Hover>
+                Create Content
+              </Title>
+            ) : (
+              <Title style={{ color: '#0072CE', margin: 0, padding: 0 }}>All Contents</Title>
             )}
           </div>
         </div>
 
         {searchVisiblity ? (
           <StyledSearchbox>
-            <div>
-              <FiSearch style={{ fontSize: '1.35rem' }} />
-            </div>
+            <Hover>
+              <FiSearch />
+            </Hover>
 
             <input placeholder="Find your contents" />
 
-            <div style={{ ...center }} onClick={() => setSearchVisiblity(false)}>
-              <FiX style={{ fontSize: '1.35rem' }} />
-            </div>
+            <Hover style={{ ...center }} onClick={() => setSearchVisiblity(false)}>
+              <FiX />
+            </Hover>
           </StyledSearchbox>
         ) : (
           <Hover>
             <FiSearch onClick={() => setSearchVisiblity(true)} style={{ color: '#0072ce' }} />
           </Hover>
         )}
-      </div>
+      </ContentHead>
 
       <section>
         {showAllPublicContent ? (
@@ -180,10 +190,10 @@ const MyContent = props => {
         ) : (
           <Tabs>
             <TabList>
-              <Tab style={{ fontSize: '.95rem' }} onClick={() => setTabState('created-content')}>
+              <Tab style={{ fontSize: '.85rem' }} onClick={() => setTabState('created-content')}>
                 My Content
               </Tab>
-              <Tab style={{ fontSize: '.95rem' }} onClick={() => setTabState('purchased-content')}>
+              <Tab style={{ fontSize: '.85rem' }} onClick={() => setTabState('purchased-content')}>
                 Puchased Content
               </Tab>
             </TabList>

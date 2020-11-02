@@ -42,10 +42,30 @@ class UserStore {
   }
 
   @action
+  saveUserSurvey = data => {
+    this.isLoading = true
+    Axios.post(
+      `${AUTH_ENDPOINT}/${id}/interview`,
+      { data },
+      {
+        headers: {
+          'x-auth-token': token
+        }
+      }
+    )
+      .then(res => {
+        this.isLoading = true
+
+        console.log(res)
+      })
+      .catch(e => Sentry.captureException(e, 'error setting user survey'))
+  }
+
+  @action
   handlePasswordReset = Email => {
     Axios.post('', Email)
       .then(() => {})
-      .catch(e => {})
+      .catch(e => Sentry.captureException(e))
   }
 
   setLoginError = val => {

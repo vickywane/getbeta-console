@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group'
 import { FiMail } from 'react-icons/fi'
 import { IoLogoWhatsapp, IoLogoFacebook } from 'react-icons/io'
 import media from 'styled-media-query'
+import { observer, inject } from 'mobx-react'
 
 import { Body, Text, Button, center, MdTitle, InputBody } from '../../styles/style'
 
@@ -194,10 +195,37 @@ const Container = styled.div`
 `
 
 function CompleteProfileDetails(props) {
-  const {} = props
+  const { saveUserSurvey } = props.UserStore
 
   const [name, setName] = useState('')
   const [industry, setIndustry] = useState('')
+  const [role, setRole] = useState('')
+  const [literature, setLiterature] = useState('')
+  const [education, setEducation] = useState('')
+  const [skill, setSkill] = useState('')
+  const [health, setHealth] = useState('')
+  const [level, setLevel] = useState('')
+  const [hasAudience, setHasAudience] = useState(false)
+  const [audienceKind, setaudienceKind] = useState('')
+  const [referer, setReferer] = useState('')
+  const [focus, setFocus] = useState('')
+
+  const handleSurveySave = () => {
+    const data = {
+      industry: industry,
+      role: role,
+      literature: literature,
+      formalEdu: education,
+      skill: skill,
+      health: health,
+      level: level,
+      focus: focus,
+      hasAudiene: hasAudience,
+      audienceKind: audienceKind,
+      heardFrom: referer
+    }
+    saveUserSurvey(data)
+  }
 
   return (
     <Body
@@ -250,24 +278,24 @@ function CompleteProfileDetails(props) {
                 </span>
               </label>
 
-              <CSSTransition in={industry === 'Enterainment'} unmountOnExit timeout={300}>
+              <CSSTransition in={industry === 'Entertainment'} unmountOnExit timeout={300}>
                 <EntertainmentQuestions setCategories={val => setIndustry(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Literature'} unmountOnExit timeout={300}>
-                <LiteratureQuestions setCategories={val => setIndustry(val)} />
+                <LiteratureQuestions setCategories={val => setLiterature(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Formal Education'} unmountOnExit timeout={300}>
-                <FormalQuestions setCategories={val => setIndustry(val)} />
+                <FormalQuestions setCategories={val => setEducation(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Vocational Skill'} unmountOnExit timeout={300}>
-                <VocationalQuestions setCategories={val => setIndustry(val)} />
+                <VocationalQuestions setCategories={val => setSkill(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Health & Wellnes'} unmountOnExit timeout={300}>
-                <HealthQuestions setCategories={val => setIndustry(val)} />
+                <HealthQuestions setCategories={val => setHealth(val)} />
               </CSSTransition>
 
               <CSSTransition in={industry === 'Literature'} unmountOnExit timeout={300}>
@@ -306,7 +334,12 @@ function CompleteProfileDetails(props) {
             </span>
           </label>
 
-          <input type="text" placeholder="An example focus is ...." />
+          <input
+            type="text"
+            value={focus}
+            onChange={({ target }) => setFocus(target.value)}
+            placeholder="An example focus is ...."
+          />
         </InputBody>
         <InputBody>
           <label>
@@ -343,7 +376,7 @@ function CompleteProfileDetails(props) {
           <div style={{ display: 'flex' }}>
             <div style={{ margin: '0 1rem' }}>
               <div style={{ display: 'flex' }}>
-                <StyledCheckbox />
+                <StyledCheckbox onClick={() => setHasAudience(true)} />
                 <div style={{ ...center }}>
                   <Text style={{ margin: '0 1rem' }}> Yes </Text>
                 </div>
@@ -352,7 +385,7 @@ function CompleteProfileDetails(props) {
 
             <div style={{ margin: '0 1rem' }}>
               <div style={{ display: 'flex' }}>
-                <StyledCheckbox />
+                <StyledCheckbox onClick={() => setHasAudience(false)} />
                 <div style={{ ...center }}>
                   <Text style={{ margin: '0 1rem' }}> No </Text>
                 </div>
@@ -384,11 +417,11 @@ function CompleteProfileDetails(props) {
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button> Submit Later </Button>
-          <Button> Submit My Answers </Button>
+          <Button onClick={() => handleSurveySave()}> Submit My Answers </Button>
         </div>
       </Container>
     </Body>
   )
 }
 
-export default CompleteProfileDetails
+export default inject('UserStore')(observer(CompleteProfileDetails))

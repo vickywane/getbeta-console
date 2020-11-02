@@ -7,8 +7,6 @@ import './App.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-console.log(process.env.REACT_APP_SENTRY_DSN, "sentry dsn");
-
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
 

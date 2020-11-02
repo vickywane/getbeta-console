@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
+import * as Sentry from '@sentry/react'
 
 const CONTENT_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 const SUBSCRIPTIONS_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors/subscriptions`
@@ -51,12 +52,12 @@ class ContentStore {
 
           Axios.post(`${CONTENT_ENDPOINT}/addfile`, formData, {
             headers: { 'x-auth-token': token, 'Content-Type': 'mulipart/formdata' }
-          }).catch(e => console.log(e))
+          }).catch(e => Sentry.captureException(e))
         }
 
         navigate('/contents')
       })
-      .catch(e => console.log(e))
+      .catch(e => Sentry.captureException(e))
   }
 
   updateContent = (contentId, title, description) => {
@@ -67,7 +68,6 @@ class ContentStore {
       { headers: { 'x-auth-token': token } }
     )
       .then(response => {
-        console.log(response);
         this.isLoading = false
 
         this.content = response.data.content
@@ -75,7 +75,7 @@ class ContentStore {
       .catch(e => {
         this.isLoading = false
 
-        console.log(`Error from updating content : ${e}`)
+        Sentry.captureException(e)
       })
   }
 
@@ -89,11 +89,10 @@ class ContentStore {
     Axios.get(`${SUBSCRIPTIONS_ENDPOINT}/${userId}/subscribed-courses`)
       .then(res => {
         this.isLoading = false
-        console.log(res)
       })
       .catch(e => {
         this.isLoading = false
-        console.log(e, 'error from ')
+        Sentry.captureException(e)
       })
   }
 
@@ -112,7 +111,7 @@ class ContentStore {
       .catch(e => {
         this.isLoading = false
 
-        console.log(e, 'error from content files')
+        Sentry.captureException(e)
       })
   }
 
@@ -129,7 +128,7 @@ class ContentStore {
         this.contentFiles = res.data.contentfiles
       })
       .catch(e => {
-        console.log(`get files error : ${e}`)
+        Sentry.captureException(e)
         this.isLoadingContents = false
       })
   }
@@ -149,7 +148,7 @@ class ContentStore {
       .catch(e => {
         this.isLoadingContents = false
 
-        console.log(e)
+        Sentry.captureException(e)
       })
   }
 
@@ -168,7 +167,7 @@ class ContentStore {
       .catch(e => {
         this.isLoadingContents = false
 
-        console.log(e)
+        Sentry.captureException(e)
       })
   }
 
@@ -177,7 +176,7 @@ class ContentStore {
       headers: { 'x-auth-token': token }
     })
       .then(res => console.log(res))
-      .catch(e => console.log(e))
+      .catch(e => Sentry.captureException(e))
   }
 }
 

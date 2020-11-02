@@ -7,7 +7,7 @@ import { theme } from '@chakra-ui/core'
 import { ErrorBoundary as SentryErrorBoundary } from '@sentry/react'
 
 import ErrorBoundary from './components/errors/errorBoundary'
-import { VendorStore, ContentStore, CourseStore } from './state/'
+import { ContentStore, CourseStore } from './state/'
 import { store as UserStore } from './state/user.store'
 import Router from './navigation/router'
 
@@ -45,12 +45,7 @@ const App = () => {
     <div>
       <GlobalStyle />
       <ErrorBoundary>
-        <Provider
-          VendorStore={VendorStore}
-          ContentStore={ContentStore}
-          CourseStore={CourseStore}
-          UserStore={UserStore}
-        >
+        <Provider ContentStore={ContentStore} CourseStore={CourseStore} UserStore={UserStore}>
           <Wrapper>
             <Router />
           </Wrapper>

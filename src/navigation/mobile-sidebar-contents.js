@@ -9,6 +9,7 @@ import {
   FiUser,
   FiVideo,
   FiLogOut,
+  FiZap,
   FiBookOpen,
   FiGrid,
   FiSettings,
@@ -63,15 +64,15 @@ const Routes = [
   {
     id: 5,
     name: 'Creators Hub',
-    routeName: 'sessions',
+    routeName: 'creators',
     icon: <FiVideo />,
     to: '/creators'
   },
   {
     id: 6,
     name: '3rd Party Integrations',
-    routeName: 'sessions',
-    icon: <FiVideo />,
+    routeName: 'integrations',
+    icon: <FiZap />,
     to: '/integrations'
   },
   {
@@ -119,8 +120,8 @@ const Notifications = ({ open, ...props }) => {
             return (
               <Link key={id} to={`${to}/`}>
                 <Item active={currentRoute === routeName}>
-                  <div style={{ ...center, marginRight: '.5rem' }}>
-                    <Hover style={{ marginRight: '0.4rem' }}>{icon}</Hover>
+                  <div style={{ ...center, marginRight: '.3rem', marginLeft: '.7rem' }}>
+                    <Hover style={{ marginRight: '0.2rem' }}>{icon}</Hover>
                   </div>
 
                   <div style={{ ...center }}>

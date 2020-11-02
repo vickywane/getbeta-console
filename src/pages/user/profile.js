@@ -175,7 +175,10 @@ const Profile = props => {
               style={{ display: 'flex' }}
             >
               <FiPlus style={{ fontSize: '1.4rem' }} />
-              <Text style={{ margin: '0 0.3rem' }}> Manage Subscription </Text>{' '}
+              <Text style={{ margin: '0 0.2rem', cursor: 'pointer' }}>
+                {' '}
+                Manage Subscription{' '}
+              </Text>{' '}
             </div>
 
             <Hover onClick={() => setProfilePane(!profilePane)}>

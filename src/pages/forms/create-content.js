@@ -4,8 +4,9 @@ import { Spinner } from 'react-bootstrap'
 import { FiUploadCloud } from 'react-icons/fi'
 import { useDropzone } from 'react-dropzone'
 import media from 'styled-media-query'
-import Select from 'react-select'
+// import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
+import { Stack, Select } from '@chakra-ui/core'
 
 import {
   Text,
@@ -19,14 +20,15 @@ import Header from '../../components/headers/header'
 
 const Image = styled.img`
   object-fit: contain;
-  width: 250px;
+  width: 230px;
   height: 200px;
-  border-radius: 20px;
+  border-radius: 15px;
   ${media.lessThan('large')`
   width: 200px;
   height: 200px;
   `};
   ${media.lessThan('medium')`
+  border-radius: 20px;
   width: 150px;
   height: 150px;
   `};
@@ -51,23 +53,12 @@ const Grid = styled.div`
     `};
 `
 
-const contentTags = [
-  { value: 'Science', label: 'Science' },
-  { value: 'Arts', label: 'Arts' },
-  { value: 'Finance', label: 'Finance' },
-  { value: 'Commerce', label: 'Commerce' },
-  { value: 'Politics', label: 'Politics' },
-  { value: 'Education', label: 'Education' }
-]
-
-const contentType = [
-  { value: 'Article', label: 'Article' },
-  { value: 'Music', label: 'Music' },
-  { value: 'Image', label: 'Image' },
-  { value: 'Video', label: 'Video' }
-]
-
-const animatedComponents = makeAnimated()
+const InputsContainer = styled.div`
+  margin: 1.5rem 0.5rem;
+  ${media.lessThan('large')`
+    width : 100%;    
+  `}
+`
 
 const CreateContent = props => {
   const { createContent, isCreatingContent } = props.ContentStore
@@ -108,7 +99,7 @@ const CreateContent = props => {
           </div>
         ) : (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ width: '100%' }}>
+            <InputsContainer>
               <Grid>
                 <div
                   {...getRootProps({
@@ -140,7 +131,7 @@ const CreateContent = props => {
                       >
                         <input {...getInputProps()} />
                         <Hover style={{ margin: '0 0.6rem', ...center }}>
-                          <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                          <FiUploadCloud />
                         </Hover>
 
                         <Text small style={{ padding: 0, margin: 0 }}>
@@ -154,8 +145,6 @@ const CreateContent = props => {
                 </div>
               </Grid>
               <form onSubmit={() => handleSubmit()}>
-                {/* <MdTitle style={{fontWeight : 600}} >Create New Content</MdTitle> */}
-
                 <InputField>
                   <label> Content Name </label>
                   <input
@@ -186,28 +175,31 @@ const CreateContent = props => {
                   />
                 </InputField>
 
-                <InputField>
-                  <label> Content Type </label>
-                  <Select
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}
-                    // defaultValue={[colourOptions[4], colourOptions[5]]}
-                    isMulti
-                    options={contentType}
-                  />
-                </InputField>
+                <Stack spacing={3}>
+                  <InputField>
+                    <label> Content Type </label>
+                    <Select
+                      onChange={e => setContentType(e.target.value)}
+                      size="md"
+                      placeholder="Article"
+                    >
+                      <option value="Music"> Music </option>
+                      <option value="Video">Video </option>
+                      <option value="Document"> Document </option>
+                    </Select>
+                  </InputField>
 
-                <InputField>
-                  <label> Content contentTags </label>
-                  <Select
-                    style={{ fontSize: '.9rem' }}
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}
-                    // defaultValue={[colourOptions[4], colourOptions[5]]}
-                    isMulti
-                    options={contentTags}
-                  />
-                </InputField>
+                  <InputField>
+                    <label> Content Tags </label>
+                    <Select size="md" placeholder="Health">
+                      <option value="Health"> Health Care </option>
+                      <option value="Arts">Arts </option>
+                      <option value="Commerce"> Commerce </option>
+                      <option value="Politics"> Politics </option>
+                      <option value="Education"> Education </option>
+                    </Select>
+                  </InputField>
+                </Stack>
 
                 <br />
                 <div style={{ ...center }}>
@@ -229,7 +221,7 @@ const CreateContent = props => {
                 </div>
               </form>
               <br />
-            </div>
+            </InputsContainer>
           </div>
         )}
       </StyledBody>
