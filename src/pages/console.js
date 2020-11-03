@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Router, Root } from '@reach/router'
+import { Router,  } from '@reach/router'
 import { inject, observer } from 'mobx-react'
 
 import {
