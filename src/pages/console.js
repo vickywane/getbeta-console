@@ -12,20 +12,16 @@ import {
   AccountPlans,
   Preferences,
   Sessions,
-  EditContent,
+  Content,
   AllSessions,
   ContactUser,
-  EditCourse,
   UpdateProfilePage,
-  CreateCourse,
   Analytics,
   CreateContent,
   Upgrade,
-  CoursePage,
   Notification,
   CreatorsHub,
   Integrations,
-  Courselist,
   CreateSession
 } from './'
 
@@ -47,16 +43,13 @@ const Console = props => {
           <Analytics path="/analytics" UserStore={UserStore} />
           <AccountPlans path="/subscriptions" UserStore={UserStore} />
           <Upgrade path="/upgrade" UserStore={UserStore} />
-          <EditCourse CourseStore={CourseStore} path="/edit-course" />
-          <EditContent ContentStore={ContentStore} path="/edit-content" />
+          <Content ContentStore={ContentStore} path="/content" />
           <ContactUser UserStore={UserStore} path="u/:username" />
           <Home UserStore={UserStore} default />
           <Bookings UserStore={UserStore} path="/booking" />
           <Preferences path="/preference" />
           <Sessions path="/sessions" />
           <CreateVendor path="/upgrade" UserStore={UserStore} />
-          <Courselist CourseStore={CourseStore} path="/courses" />
-          <CoursePage CourseStore={CourseStore} path="/course" />
           <Ticket path="/ticket" />
           <AllSessions path="/all-sessions" />
           <CreatorsHub path="/creators" />
@@ -64,7 +57,6 @@ const Console = props => {
           <CreateSession path="/create-session/" />
           <Contents ContentStore={ContentStore} path="/contents" />
           <CreateContent ContentStore={ContentStore} path="/create-content" />
-          <CreateCourse CourseStore={CourseStore} path="/create-course" />
           <UpdateProfilePage UserStore={UserStore} path="/update-profile" />
           <Notification UserStore={UserStore} path="/notifications" />
         </Router>

@@ -6,8 +6,17 @@ import useWindowWidth from '../../utils/hook_style'
 import MobileSidebar from '../../navigation/mobile-sidebar'
 import Notification from '../../navigation/mobile-sidebar-contents'
 import media from 'styled-media-query'
+import { FiSearch, FiFilter } from 'react-icons/fi'
 
-import { SmallUserImage, Title, Text, Hover, StyledHover, center } from '../../styles/style'
+import {
+  SmallUserImage,
+  Title,
+  Searchbox,
+  Text,
+  Hover,
+  StyledHover,
+  center
+} from '../../styles/style'
 
 const Body = styled.div`
   height: 55px;
@@ -24,6 +33,10 @@ const Body = styled.div`
     padding: 0.5rem 1rem;
     height: 55px;
   `};
+  ${media.lessThan('small')`
+  padding: 0.5rem .5rem;
+  height: 55px;
+`};
 `
 
 const Icon = styled.div`
@@ -63,7 +76,7 @@ const ScreenName = styled.div`
 
 const Header = props => {
   const Width = useWindowWidth()
-  const { screen, goBack, backgroundColor, path } = props
+  const { screen, goBack, backgroundColor, path, showSearch } = props
   const [openMobileSidebar, setMobileSidebar] = useState(false)
 
   return (

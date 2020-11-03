@@ -66,7 +66,7 @@ const CreateContent = props => {
   const [ContentName, setContentName] = useState('')
   const [ContentDescription, setContentDescription] = useState('')
   const [ContentPrice, setContentPrice] = useState(0)
-  const [ContentType, setContentType] = useState('')
+  const [ContentType, setContentType] = useState('Article')
   const [contentImage, setContentImage] = useState(null)
 
   const handleSubmit = () => {
@@ -181,8 +181,10 @@ const CreateContent = props => {
                     <Select
                       onChange={e => setContentType(e.target.value)}
                       size="md"
+                      defaultValue="Article"
                       placeholder="Article"
                     >
+                      <option value="Article"> Article </option>
                       <option value="Music"> Music </option>
                       <option value="Video">Video </option>
                       <option value="Document"> Document </option>

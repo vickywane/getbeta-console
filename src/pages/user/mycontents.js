@@ -41,8 +41,11 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   grid-gap: 1rem 1rem;
   place-items: center;
+  ${media.lessThan('large')`
+  grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+`}
   ${media.lessThan('medium')`
-    grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   `}
   ${media.lessThan('small')`
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));  
@@ -254,6 +257,7 @@ const MyContent = props => {
                 )}
               </HomeList>
             </TabPanel>
+
             <TabPanel>
               <HomeList>
                 {isLoadingContents ? (

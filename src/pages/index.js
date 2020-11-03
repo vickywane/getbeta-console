@@ -13,7 +13,7 @@ export { default as Ticket } from './tickets/ticket'
 export { default as Console } from './console'
 export { default as CreateSession } from './content/sessions/create-session-card'
 export { default as Contents } from './content/content/contentList'
-export { default as EditContent } from './content/content/editContent'
+export { default as Content } from './content/content/content'
 export { default as EditCourse } from './content/courses/editCourse'
 
 export { default as CreateCourse } from './forms/create-course'
@@ -22,7 +22,6 @@ export { default as AccountPlans } from './user/account-plans'
 export { default as Analytics } from './user/analytics'
 export { default as Upgrade } from './user/upgrade'
 export { default as UpdateProfilePage } from './user/updateProfile'
-
 
 export { default as CreatorsHub } from './user/creators-hub'
 export { default as Integrations } from './integrations/integrations'

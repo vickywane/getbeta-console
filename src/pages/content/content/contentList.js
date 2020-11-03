@@ -11,16 +11,7 @@ import ModalWrapper from '../../../components/modals/modalWrapper'
 import ContentCard from '../../../components/contentCard'
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
-import {
-  Text,
-  Searchbox,
-  StyledHover,
-  center,
-  CardGrid,
-  Card,
-  Title,
-  Button
-} from '../../../styles/style'
+import { Text, Searchbox, StyledHover, center, CardGrid, Button } from '../../../styles/style'
 import { FiSearch, FiFilter } from 'react-icons/fi'
 
 const Body = styled.div`
@@ -61,7 +52,6 @@ const Contents = props => {
 
   useEffect(() => {
     // DATA FILTERING HERE
-    console.log(contentList, 'effect')
     setData(contentList)
 
     if (filter.length > 2) {
@@ -72,6 +62,7 @@ const Contents = props => {
   }, [contents, filter])
 
   const Width = useWindowWidth()
+
   return (
     <div>
       <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
@@ -138,34 +129,24 @@ const Contents = props => {
       <Body>
         <div style={{ margin: '0.5rem 0', justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
+            <FilterButton onClick={() => setModal(true)}>
+              {' '}
+              <FiFilter style={{ fontSize: '1.2rem' }} />{' '}
+            </FilterButton>
             <StyledFilter onClick={() => setModal(true)}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
-              <FiFilter style={{ fontSize: '1.4rem' }} />
+              <FiFilter style={{ fontSize: '1.3rem' }} />
             </StyledFilter>
           </div>
 
           <div style={{ ...center }}>
             <Searchbox>
-              <div>
-                <FiSearch style={{ fontSize: '1.4rem' }} />
+              <div style={{ paddingTop: '5px' }}>
+                <FiSearch style={{ fontSize: '1.3rem' }} />
               </div>
 
               <input placeholder="Seach for a content" type="text" />
             </Searchbox>
-          </div>
-        </div>
-        <div
-          style={{
-            marginBottom: '5px',
-            borderBottom: '1px solid #c0c0c0',
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}
-        >
-          <FilterButton onClick={() => setModal(true)}> Filter Result </FilterButton>
-
-          <div style={{ paddingTop: '10px' }}>
-            <Text> {Data.length} results </Text>
           </div>
         </div>
 

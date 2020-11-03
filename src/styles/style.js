@@ -264,16 +264,16 @@ export const Title = styled.h4`
   color: ${props => props.color};
   font-size: ${props => (props.small ? '1.1rem' : '1.2rem')};
   ${media.lessThan('huge')`
-    font-size : 1.2rem;
+    font-size : 1rem;
   `}
   ${media.lessThan('large')`
-  font-size : 1.15rem;
+  font-size : 1rem;
 `}
   ${media.lessThan('medium')`
-    font-size : 1.05rem;
+    font-size : 1rem;
   `};
   ${media.lessThan('small')`
-    font-size : .9rem;
+    font-size : .85rem;
 `};
 `
 
@@ -294,6 +294,7 @@ export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
   font-size: ${props => (props.small ? '.8rem' : '.9rem')};
+  font-family: Open Sans;
   ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.9rem')}`};
   ${media.lessThan('small')`font-size : 0.75rem`};
 `
@@ -333,15 +334,15 @@ export const Body = styled.div`
 `
 
 export const Hover = styled.div`
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   &: hover {
     cursor: pointer;
   }
   ${media.lessThan('medium')`
-   font-size : 1.25rem;
+   font-size : 1.2rem;
   `};
-  ${media.lessThan('medium')`
-  font-size : 1.2rem;
+  ${media.lessThan('small')`
+  font-size : 1rem;
  `};
 `
 
@@ -356,7 +357,7 @@ export const SmallUserImage = styled.img`
 export const CardGrid = styled.div`
   display: grid;
   grid-gap: 2rem 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   ${media.lessThan('large')`
   grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
   `};
@@ -366,6 +367,9 @@ export const CardGrid = styled.div`
   li {
     list-style: none;
   }
+  ${media.lessThan('small')`
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  `};
 `
 
 export const Card = styled.div`
@@ -426,15 +430,16 @@ export const Searchbox = styled.div`
   border: 1px solid #c0c0c0;
   border-radius: 3px;
   display: flex;
-  padding: 0.6rem 0.6rem;
+  padding: 0.4rem 0.6rem;
+
   justify-content: space-between;
-  background: #fff;
+  background: transparent;
   input {
     color: #0072ce;
     padding: 0.2rem 1rem;
     background: transparent;
     width: 38rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     outline: 0;
     border: 0;
   }

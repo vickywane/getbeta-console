@@ -18,12 +18,15 @@ import { useDropzone } from 'react-dropzone'
 import { CSSTransition } from 'react-transition-group'
 import * as Lodash from 'lodash'
 
+import ContentFilePreview from '../../../components/contentFilePreview'
+import ContentFileCard from '../../../components/contentFileCard'
 import useWindowWidth from '../../../utils/hook_style'
 import Player from './player'
 import ModalWrapper from '../../../components/modals/modalWrapper'
 import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
 import Header from '../../../components/headers/header'
 import { IoMdPeople } from 'react-icons/io'
+import { isNull } from 'util'
 
 const Head = styled.div`
   display: flex;
@@ -40,54 +43,14 @@ const Head = styled.div`
 `};
 `
 
-const List = styled.ul`
-  margin: 1rem 0;
-  list-style: none;
-  padding: 0;
-  li {
-    margin: 1rem 1rem;
-    padding: 5px 5px;
-    display: flex;
-    transition: all 300ms;
-    flex-direction: column;
-    border-radius: 7px;
-    span {
-      padding: 10px 0;
-      justify-content: space-between;
-      display: flex;
-      flex-direction: row;
-    }
-  }
-  &: hover {
-    li {
-      border: 1px solid #c0c0c0;
-    }
-  }
-  ${media.lessThan('medium')`
-   padding: 0rem;
-   margin: 0rem;
-   li {
-      margin: 1rem 0.5rem;
-      span {
-        padding-bottom : 10px 0;
-      }
-    }
-  `};
-  ${media.lessThan('small')`
-   li {
-      margin: 1rem 0.2rem;
-      span {
-        padding-bottom : 10px 0;
-      }
-    }
-  `};
-`
-
 const Body = styled.div`
-  padding: 0.5rem 1.5rem;
-  ${media.lessThan('medium')`
+  padding: 0.5rem 1rem;
+  ${media.lessThan('large')`
     padding : .5rem .5rem;
   `};
+  ${media.lessThan('small')`
+  padding : .5rem .1rem;
+`};
 `
 
 const InputBody = styled.div`
@@ -107,7 +70,7 @@ const InputBody = styled.div`
     border: 1px solid #c0c0c0;
     border-radius: 5px;
     height: 20vh;
-    width: 95%;
+    width: 100%;
     color: #000;
   }
   ${media.lessThan('medium')`
@@ -130,27 +93,12 @@ const InputBody = styled.div`
   `};
 `
 
-const Preview = styled.div`
-  height: 15rem;
-  width: 20rem;
-  background: #c0c0c0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  text-align: center;
-  ${media.lessThan('large')`
-  height: 13rem;
-  width: 15rem;
-`};
-`
-
 const ContentBody = styled.div`
   display: grid;
-  grid-template-columns: ${props => (props.showPreview ? 'auto 25rem' : 'auto')};
+  grid-template-columns: ${props => (props.showPreview ? 'auto 22rem' : 'auto')};
   transition: all 300ms;
   ${media.lessThan('large')`
-    grid-template-columns:  ${props => (props.showPreview ? 'auto 17rem' : 'auto')};
+    grid-template-columns:  ${props => (props.showPreview ? 'auto 15rem' : 'auto')};
   `};
   ${media.lessThan('medium')`
     grid-template-columns: auto;
@@ -165,13 +113,6 @@ const ContentFileOverview = styled.div`
   `};
 `
 
-const ContentTitle = styled(Title)`
-  &:hover {
-    cursor: pointer;
-    color: #0072ce;
-  }
-`
-
 const EditContent = props => {
   const Width = useWindowWidth()
 
@@ -181,9 +122,12 @@ const EditContent = props => {
   const [showContentPreview, setContentPreview] = useState(true)
   const [isEditing, setEditing] = useState(false)
   const [contentFileUrl, setcontentFileUrl] = useState(null)
+  const [headerName, setHeaderName] = useState('')
 
   // for the content player
   const [contentDetail, setContentDetail] = useState(null)
+  const [contentFileDescripiton, setContentFileDescription] = useState('')
+  const [previewUrl, setPreviewUrl] = useState(null)
 
   const {
     getContent,
@@ -192,6 +136,7 @@ const EditContent = props => {
     getContentFiles,
     updateContent,
     contentFiles,
+    isCreatingContentFile,
     addContentFile
   } = props.ContentStore
   const { contentId } = props.location.state
@@ -221,12 +166,12 @@ const EditContent = props => {
   }, [])
 
   const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
-    onDrop,
-    accept: 'image/jpeg , image/jpg, image/png'
+    onDrop
+    // accept: 'image/jpeg , image/jpg, image/png'
   })
 
   const uploadContentFile = () => {
-    addContentFile(contentId, Content)
+    addContentFile(contentId, Content, contentFileDescripiton)
   }
 
   const handleUpdate = () => {
@@ -237,12 +182,15 @@ const EditContent = props => {
 
   return (
     <div>
-      <Header goBack={true} />
+      <Header goBack={true} screen={headerName} />
 
       <ModalWrapper
         visibility={ModalVisibility}
         size="lg"
-        closeModal={() => setModalVisibility(false)}
+        closeModal={() => {
+          setContent(null)
+          setModalVisibility(false)
+        }}
         title="Upload Content File"
       >
         <div>
@@ -278,7 +226,13 @@ const EditContent = props => {
           </div>
           <InputBody>
             <label> File Description </label>
-            <textarea placeholder="A description of your content file" type="text" />
+            <textarea
+              onChange={e => setContentFileDescription(e.target.value)}
+              type="text"
+              value={contentFileDescripiton}
+              placeholder="A description of your content file"
+              type="text"
+            />
           </InputBody>
 
           <hr />
@@ -294,10 +248,15 @@ const EditContent = props => {
                 }}
                 onClick={() => {
                   uploadContentFile()
-                  setModalVisibility(false)
+                  // setModalVisibility(false)
                 }}
               >
-                Upload Content File
+                {!isCreatingContentFile ? 'Upload' : 'Uploading'} Content File
+                {isCreatingContentFile && (
+                  <div style={{ paddingLeft: '.7rem' }}>
+                    <Spinner size="sm" animation="border" role="status" />{' '}
+                  </div>
+                )}
               </Button>
             </div>
           </div>
@@ -322,9 +281,9 @@ const EditContent = props => {
               <Spinner variant="primary" animation="grow" role="loading" />
             </div>
           ) : (
-            <div>
-              <ContentBody showPreview={showContentPreview}>
-                <Body>
+            <ContentBody showPreview={showContentPreview}>
+              <div>
+                <Body style={{ backgroundColor: '#f2f2f2' }}>
                   <Head>
                     <div style={{ ...center }}>
                       {isEditing ? (
@@ -346,7 +305,7 @@ const EditContent = props => {
                     <div style={{ ...center }}>
                       {!isEditing ? (
                         <Hover onClick={_ => setEditing(true)}>
-                          <FiEdit style={{ fontSize: '1.4rem' }} />
+                          <FiEdit style={{ fontSize: '1.3rem' }} />
                         </Hover>
                       ) : (
                         <Hover onClick={_ => handleUpdate()}>
@@ -356,16 +315,30 @@ const EditContent = props => {
                     </div>
                   </Head>
 
-                  <div style={{ display: 'flex' }}>
-                    <Hover style={{ margin: '0 .4rem' }}>
-                      <FiCalendar />
-                    </Hover>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex' }}>
+                      <Hover style={{ margin: '0 .4rem' }}>
+                        <FiCalendar />
+                      </Hover>
 
-                    <Text style={{ ...center, paddingTop: '5px' }}>
-                      {moment(data.createdAt).format('D MMMM YYYY')}
-                    </Text>
+                      <Text small style={{ ...center, paddingTop: '8px' }}>
+                        {moment(data.createdAt).format('D MMMM YYYY')}
+                      </Text>
+                    </div>
+
+                    <div style={{ display: 'flex' }}>
+                      <div style={{ margin: '0 .4rem' }}>
+                        <IoMdPeople />
+                      </div>
+
+                      <div style={{ paddingTop: '5px' }}>
+                        <Text small>
+                          {data.subscribers !== undefined && data.subscribers.length} Subscribers
+                        </Text>
+                      </div>
+                    </div>
                   </div>
-                  <br />
+
                   {!isEditing ? (
                     <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
                   ) : (
@@ -378,19 +351,6 @@ const EditContent = props => {
                       />
                     </InputBody>
                   )}
-                  <div>
-                    <div style={{ display: 'flex' }}>
-                      <div style={{ margin: '0 .4rem' }}>
-                        <IoMdPeople />
-                      </div>
-
-                      <div style={{ paddingTop: '5px' }}>
-                        <Text>
-                          {data.subscribers !== undefined && data.subscribers.length} Subscribers
-                        </Text>
-                      </div>
-                    </div>
-                  </div>
 
                   <div
                     style={{
@@ -404,7 +364,7 @@ const EditContent = props => {
                       style={{ display: 'flex', cursor: 'pointer' }}
                       onClick={() => setContentOpen(!isContentOpen)}
                     >
-                      <Hover style={{ margin: '0 0.5rem' }}>
+                      <Hover style={{ margin: '0 0.3rem' }}>
                         <FiChevronRight
                           style={{
                             transition: 'all 250ms',
@@ -414,7 +374,10 @@ const EditContent = props => {
                         />
                       </Hover>
 
-                      <Title style={{ paddingTop: '7px' }}> Content Files </Title>
+                      <Title style={{ paddingTop: '7px' }} small>
+                        {' '}
+                        Content Files{' '}
+                      </Title>
                     </div>
 
                     {Width >= 700 ? (
@@ -425,68 +388,44 @@ const EditContent = props => {
                       </StyledHover>
                     )}
                   </div>
-
-                  {Lodash.isEmpty(files) ? (
-                    <div>
-                      <br />
-                      <br />
-                      <Title color="grey" align="center">
-                        You dont have any content file. <br /> Use the <b> Add Content File</b>{' '}
-                        button to add your first content file{' '}
-                      </Title>
-                    </div>
-                  ) : (
-                    isContentOpen && (
-                      <List>
-                        {data.contentfiles !== undefined &&
-                          data.contentfiles.map(({ id,  filename, url }) => {
-                            return (
-                              <li key={id} onClick={() => {}}>
-                                <span>
-                                  <div style={{ display: 'flex' }}>
-                                    <ContentTitle
-                                      onClick={() => {
-                                        setContentDetail({
-                                          name: filename,
-                                          url: url,
-                                          description:
-                                            'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
-                                        })
-                                        setCurrentView('player')
-                                      }}
-                                      style={{ margin: '0 .5rem' }}
-                                    >
-                                      {filename}.{' '}
-                                    </ContentTitle>
-
-                                    {Width >= 600 && (
-                                      <Text color="grey"> Uploaded 5 minutes ago </Text>
-                                    )}
-                                  </div>
-                                </span>
-                                <Text style={{ marginLeft: '15px' }}>
-                                  Content file description is lorem ipsum dolor sit amet consectetur
-                                  adipisicing elit. Repellendus aperiam optio perferendis magni
-                                  beatae in.
-                                </Text>
-                              </li>
-                            )
-                          })}
-                      </List>
-                    )
-                  )}
                 </Body>
 
-                <ContentFileOverview open={showContentPreview}>
-                  <Body>
+                {Lodash.isEmpty(files) ? (
+                  <div>
                     <br />
-                    <Preview>
-                      <Text> Select a file to preview </Text>
-                    </Preview>
-                  </Body>
-                </ContentFileOverview>
-              </ContentBody>
-            </div>
+                    <br />
+                    <Title small color="grey" align="center">
+                      You dont have any content file. <br /> Use the <b> Add Content File</b> button
+                      to add your first content file{' '}
+                    </Title>
+                  </div>
+                ) : (
+                  isContentOpen && (
+                    <ContentFileCard
+                      setPreviewUrl={val => setPreviewUrl(val)}
+                      setContentDetail={({ filename, url }) =>
+                        setContentDetail({
+                          name: filename,
+                          url: url,
+                          description:
+                            'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
+                        })
+                      }
+                      contentStore={props.ContentStore}
+                      data={data}
+                      setCurrentView={() => setCurrentView('player')}
+                      setHeaderName={val => setHeaderName(val)}
+                      Width={Width}
+                      files={files}
+                    />
+                  )
+                )}
+              </div>
+
+              <ContentFileOverview open={showContentPreview}>
+                <ContentFilePreview url={previewUrl} />
+              </ContentFileOverview>
+            </ContentBody>
           )}
         </div>
       </CSSTransition>

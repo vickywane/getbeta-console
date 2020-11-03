@@ -36,8 +36,8 @@ const Card = styled.div`
   height: 20vh;
 `};
 ${media.lessThan('small')`
-  width: 18rem;
-  height: 12rem;
+  width: 10rem;
+  height: 9rem;
 `};
 `
 
@@ -59,9 +59,8 @@ const Grid = styled.div`
     grid-gap: 2rem 1rem;
   `};
   ${media.lessThan('small')`
-    display : flex;
-    flex-direction : column;
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-gap: 2rem 1rem;
   `};
 `
 

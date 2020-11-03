@@ -84,6 +84,9 @@ class ContentStore {
 
   @action subscribeToContent = userId => {}
 
+  @observable
+  isCreatingContentFile = false
+
   @action userSubscribedContent = userId => {
     this.isLoading = true
     Axios.get(`${SUBSCRIPTIONS_ENDPOINT}/${userId}/subscribed-courses`)
@@ -99,6 +102,7 @@ class ContentStore {
   @action
   addContentFile = (id, contentFile) => {
     this.isLoading = true
+    this.isCreatingContentFile = true
     const contentfile = new FormData()
     contentfile.append('file', contentFile)
 
@@ -106,11 +110,11 @@ class ContentStore {
       headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
     })
       .then(res => {
+        this.isCreatingContentFile = false
         this.isLoading = false
       })
       .catch(e => {
         this.isLoading = false
-
         Sentry.captureException(e)
       })
   }
@@ -177,6 +181,30 @@ class ContentStore {
     })
       .then(res => console.log(res))
       .catch(e => Sentry.captureException(e))
+  }
+
+  @observable
+  contentDeleted = false
+
+  @action
+  deleteContentFile = contentId => {
+    console.log(contentId, 'id')
+    this.isLoading = true
+
+    Axios.delete(`${CONTENT_ENDPOINT}/${contentId}/delete-file`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(() => {
+        this.contentDeleted = true
+
+        setTimeout(() => (this.contentDeleted = false), 3000)
+      })
+      .catch(e => {
+        Sentry.captureException(e)
+        this.isLoading = false
+      })
   }
 }
 
