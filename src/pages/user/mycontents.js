@@ -48,8 +48,8 @@ const Grid = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   `}
   ${media.lessThan('small')`
+    grid-gap: .5rem 1rem;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));  
-    margin-left : 1.5rem;
   `}
 `
 
@@ -66,13 +66,7 @@ const ContentHead = styled.div`
 `
 
 const MyContent = props => {
-  const {
-    getUserContents,
-    contents,
-    deleteContent,
-    isLoadingContents,
-    userSubscribedContent
-  } = props.ContentStore
+  const { getUserContents, contents, isLoadingContents, userSubscribedContent } = props.ContentStore
   const { userId, showAllPublicContent } = props
 
   const [searchVisiblity, setSearchVisiblity] = useState(false)

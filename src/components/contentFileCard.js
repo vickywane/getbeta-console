@@ -71,7 +71,7 @@ const ContentFileCard = props => {
   return (
     <List>
       {files !== undefined &&
-        files.map(({ _id, filename, url }) => {
+        files.map(({ _id, filename, dateCreated, url }) => {
           const name = filename.split('.')[0]
 
           return (
@@ -94,6 +94,7 @@ const ContentFileCard = props => {
                         setContentDetail({
                           name: filename,
                           url: url,
+                          dateCreated: dateCreated,
                           description:
                             'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
                         })
