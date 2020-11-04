@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import Player from 'react-player'
-import { FiX, FiDownload } from 'react-icons/fi'
+import { FiX, FiDownload, FiClock } from 'react-icons/fi'
+import { IoMdDownload } from 'react-icons/io'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 import { saveAs } from 'file-saver'
+import { Box } from '@chakra-ui/core'
+import moment from 'moment'
 
-import { PageHead, Title, Text, Hover, Body, center, Button } from '../../../styles/style'
+import useWindowWidth from '../../../utils/hook_style'
+import { Title, Text, Hover, Body, center, Button } from '../../../styles/style'
 
 const ContentImage = styled.img`
-  height: 60%;
+  height: 100%;
   width: 100%;
   object-fit: contain;
   ${media.lessThan('large')`
@@ -17,6 +21,8 @@ const ContentImage = styled.img`
       width: 100%;
   `}
 `
+
+const ContentContainer = styled.div``
 
 const Grid = styled.div`
   display: grid;
@@ -27,10 +33,18 @@ const Grid = styled.div`
   `};
 `
 
+const StyledBody = styled(Body)`
+  background-color: #f2f2f2;
+  border-left: 1px solid #c0c0c0;
+  ${media.lessThan('large')`
+    border-left: 0;
+  `};
+`
+
 const ContentPlayer = props => {
   const { goBack, contentDetails } = props
   const [contentFileType, setContentFileType] = useState('')
-  // const { name, url, description } = contentDetails
+  // const { name, url, description  , dateCreated} = contentDetails
 
   const url = 'https://storage.googleapis.com/get-beta/Screenshot_from_2020-10-31_21-33-00.png'
   const name = 'Screenshot_from_2020-10-31_21-33-00.png'
@@ -61,19 +75,28 @@ const ContentPlayer = props => {
     return () => getFileType(fileType)
   }, [])
 
+  const ReviewInput = styled.div`
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 0.9rem;
+    }
+    textarea {
+      font-size: 0.9rem;
+      border: 1px solid grey;
+      border-radius: 5px;
+      height: 15vh;
+      padding: 0.5rem 1rem;
+      background: #fff;
+    }
+  `
+
+  const Width = useWindowWidth()
+
   const handleDownload = () => {}
 
   return (
     <div>
-      {/* <PageHead>
-        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-          <Hover onClick={() => goBack()} style={{ margin: '0 .5rem' }}>
-            <FiX style={{ fontSize: '1.4rem' }} />
-          </Hover>
-          <Title style={{ paddingTop: '6px' }}> {contentName} </Title>.
-        </div>
-      </PageHead> */}
-
       <div>
         {contentFileType === 'video' ? (
           <Grid>
@@ -85,34 +108,65 @@ const ContentPlayer = props => {
           </Grid>
         ) : (
           <Grid>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <ContentContainer
+              style={{
+                height: Width >= 1500 && window.innerHeight - 50,
+                display: 'flex',
+                backgroundColor: '#f2f2f2',
+                justifyContent: 'center'
+              }}
+            >
               <ContentImage src={url} alt="a content file" />
-            </div>
-            <Body style={{ backgroundColor: '#f2f2f2' }}>
+            </ContentContainer>
+            <StyledBody>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div style={{ ...center, paddingTop: '10px' }}>
-                    <Title small> {contentName} </Title>
+                    <Box
+                      color="gray.700"
+                      fontWeight="semibold"
+                      letterSpacing="wide"
+                      fontSize="xs"
+                      textTransform="uppercase"
+                      ml="1"
+                      isTruncated
+                    >
+                      {contentName}
+                    </Box>
                   </div>
 
-                  <Button
-                    onClick={() => {
-                      saveAs(url, 'image.png')
-                    }}
-                    small
-                  >
-                    Download File
-                  </Button>
+                  <Hover>
+                    <IoMdDownload />
+                  </Hover>
                 </div>
                 <hr />
+
+                <div style={{ display: 'flex' }}>
+                  <Hover style={{ margin: '0 .3rem' }}>
+                    <FiClock />
+                  </Hover>
+
+                  <Text style={{ paddingTop: '5px' }}>
+                    {' '}
+                    {moment('Wed Nov 04 2020 00:02:23 GMT+0100').format('dddd-yy-mm')}{' '}
+                  </Text>
+                </div>
                 <Text> {description} </Text>
               </div>
               <br />
 
               <div style={{}}>
-                <Title> 0 Reviews </Title>
+                <Title small> 0 Content Reviews </Title>
+
+                <hr />
               </div>
-            </Body>
+
+              <ReviewInput>
+                <label> Your content review</label>
+
+                <textarea placeholder="Your own content review" />
+              </ReviewInput>
+            </StyledBody>
           </Grid>
         )}
       </div>

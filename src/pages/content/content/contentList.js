@@ -130,8 +130,7 @@ const Contents = props => {
         <div style={{ margin: '0.5rem 0', justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
             <FilterButton onClick={() => setModal(true)}>
-              {' '}
-              <FiFilter style={{ fontSize: '1.2rem' }} />{' '}
+              <FiFilter style={{ fontSize: '1.1rem' }} />{' '}
             </FilterButton>
             <StyledFilter onClick={() => setModal(true)}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>

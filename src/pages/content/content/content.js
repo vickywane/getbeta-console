@@ -26,7 +26,6 @@ import ModalWrapper from '../../../components/modals/modalWrapper'
 import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
 import Header from '../../../components/headers/header'
 import { IoMdPeople } from 'react-icons/io'
-import { isNull } from 'util'
 
 const Head = styled.div`
   display: flex;
@@ -118,7 +117,7 @@ const EditContent = props => {
 
   const [ModalVisibility, setModalVisibility] = useState(false)
   const [Content, setContent] = useState(null)
-  const [currentView, setCurrentView] = useState('content')
+  const [currentView, setCurrentView] = useState('player')
   const [showContentPreview, setContentPreview] = useState(true)
   const [isEditing, setEditing] = useState(false)
   const [contentFileUrl, setcontentFileUrl] = useState(null)
@@ -403,10 +402,11 @@ const EditContent = props => {
                   isContentOpen && (
                     <ContentFileCard
                       setPreviewUrl={val => setPreviewUrl(val)}
-                      setContentDetail={({ filename, url }) =>
+                      setContentDetail={({ filename, url, dateCreated }) =>
                         setContentDetail({
                           name: filename,
                           url: url,
+                          dateCreated: dateCreated,
                           description:
                             'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
                         })

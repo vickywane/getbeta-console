@@ -262,7 +262,7 @@ export const Title = styled.h4`
   font-weight: ${props => (props.weight ? props.weight : 'normal')};
   text-align: ${props => props.align};
   color: ${props => props.color};
-  font-size: ${props => (props.small ? '1.1rem' : '1.2rem')};
+  font-size: ${props => (props.small ? '1.05rem' : '1.15em')};
   ${media.lessThan('huge')`
     font-size : 1rem;
   `}
@@ -464,7 +464,7 @@ input {
 }
 `};
   ${media.lessThan('medium')`
-  width  : 27rem;
+  width  : 25rem;
 input {
   padding : 0.2rem 1rem;
   width  : 27rem;
@@ -472,9 +472,9 @@ input {
 `};
   ${media.lessThan('small')`
   padding: 0.4rem 0.6rem;
-  width  : 21rem;
+  width  : 19rem;
   input {
-    padding : 0.2rem .7rem;
+    padding : 0.2rem .3rem;
     width  : 100%;
     font-size : .8rem;
   }
