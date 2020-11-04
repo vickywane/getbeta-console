@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 import * as Yup from 'yup'
-import {  FiAlertTriangle } from 'react-icons/fi'
+import { FiAlertTriangle } from 'react-icons/fi'
 import { Link } from '@reach/router'
+import { Spinner } from 'react-bootstrap'
+
+import { observer } from 'mobx-react'
 
 import {
   Text,
@@ -41,7 +44,7 @@ const accountSchema = Yup.object().shape({
 })
 
 const CreateAccount = props => {
-  const { createAccount } = props.UserStore
+  const { createAccount, isLoading } = props.UserStore
 
   const [FullName, setFullName] = useState('')
   const [Email, setEmail] = useState('')
@@ -163,7 +166,13 @@ const CreateAccount = props => {
                 onClick={() => handleRegistration()}
                 disabled={Password !== ConfirmPassword}
               >
-                Create Account
+                {isLoading ? 'Creating Account' : 'Create Account'}
+
+                {isLoading && (
+                  <div style={{ paddingLeft: '.7rem' }}>
+                    <Spinner size="sm" animation="border" role="status" />
+                  </div>
+                )}
               </Button>
             </div>
 
@@ -182,4 +191,4 @@ const CreateAccount = props => {
   )
 }
 
-export default CreateAccount
+export default observer(CreateAccount)

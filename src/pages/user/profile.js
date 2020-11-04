@@ -137,7 +137,7 @@ const Profile = props => {
 
               <div
                 style={{
-                  marginLeft: '2rem',
+                  marginLeft: '1rem',
                   ...center
                 }}
               >

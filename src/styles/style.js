@@ -125,7 +125,7 @@ export const CreateCourseInputField = styled.div`
   flex-direction: column;
   margin: 1rem 1rem;
   label {
-    font-size: 1rem;
+    font-size: .95rem;
   }
   select {
     background: transparent;
@@ -313,8 +313,8 @@ export const Button = styled.button`
   border-radius: 3px;
   color: #fff;
   ${media.lessThan('large')`
-     padding: 0.3rem 1.2rem;
-     font-size : .9rem;
+     padding: 0.3rem 1rem;
+     font-size : .85rem;
   `};
   ${media.lessThan('small')`
     padding: 0.3rem .7rem;
@@ -521,7 +521,7 @@ export const StyledHover = styled(Hover)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 0.7rem;
+  padding: 0 0.5rem;
   border-radius: 5px;
   color: #0072ce;
   background: transparent;

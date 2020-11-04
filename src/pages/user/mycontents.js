@@ -42,7 +42,7 @@ const Grid = styled.div`
   grid-gap: 1rem 1rem;
   place-items: center;
   ${media.lessThan('large')`
-  grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 `}
   ${media.lessThan('medium')`
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));

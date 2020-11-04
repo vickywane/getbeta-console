@@ -42,6 +42,9 @@ const Card = styled.div`
   span {
     padding: 0 0.5rem;
   }
+  ${media.lessThan('medium')`
+  width: 17rem;
+`};
   ${media.lessThan('small')`
      width: 22rem;
   `};

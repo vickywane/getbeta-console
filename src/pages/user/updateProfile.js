@@ -6,6 +6,8 @@ import { observer } from 'mobx-react'
 import { useDropzone } from 'react-dropzone'
 import { toJS } from 'mobx'
 import { CSSTransition } from 'react-transition-group'
+import { Link } from '@reach/router'
+import { Spinner } from 'react-bootstrap'
 
 import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
@@ -21,25 +23,24 @@ import {
   Alert
 } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
-import CompleteProfile from './completeProfileDetails'
 
 const UserImage = styled.div`
   background-image: url(${props => props.image});
   object-fit: contain;
   background-position: center;
   background-size: cover;
-  width: 200px;
+  width: 185px;
   outline: none;
-  height: 200px;
+  height: 185px;
   border-radius: 7%;
   ${media.lessThan('huge')`
-  width: 180px;
-  height: 180px;
-  `};
-  ${media.lessThan('large')`
   width: 170px;
   height: 170px;
-  border-radius: 7%;
+  `};
+  ${media.lessThan('large')`
+  width: 150px;
+  height: 150px;
+  border-radius: 3%;
   `};
   ${media.lessThan('small')`
       width: 125px;
@@ -51,18 +52,18 @@ const StyledInputBody = styled(InputBody)`
   margin: 0.4rem 0.5rem;
   width: 100%;
   label {
-    font-size : 1.05rem;
+    font-size: 0.95rem;
   }
   input {
     color: #000;
     width: 40rem;
+    font-size: 0.95rem;
     height: 53px;
     border: 1px solid #c0c0c0;
   }
   textarea {
     border: 1px solid #c0c0c0;
     width: 40rem;
-    color: #c0c0c0;
   }
   ${media.lessThan('huge')`
     margin: 0.4rem 0.5rem;
@@ -141,8 +142,6 @@ const UpdateProfile = props => {
   const userData = toJS(userDetail)
   const [currentView, setCurrentView] = useState('update-profile')
   const { fullname, email, bio } = userData
-  console.log(userData , "users data");
-
 
   const [isUploading, setUploading] = useState(false)
 
@@ -151,9 +150,9 @@ const UpdateProfile = props => {
   const [userName, setUserName] = useState(fullname)
   const [userEmail, setUserEmail] = useState(email)
   const [Bio, setBio] = useState(bio)
-  const [Number, setNumber] = useState('')
-  const [Occupation, setOccupation] = useState('')
-  const [Education, setEduction] = useState('')
+  const [Number, setNumber] = useState(userData.cell_no)
+  const [Occupation, setOccupation] = useState(userData.occupation)
+  const [Education, setEduction] = useState(userData.hle)
   const [userImage, setUserImage] = useState(null)
 
   const updateUserAccount = () => {
@@ -193,46 +192,30 @@ const UpdateProfile = props => {
       )}
 
       <CSSTransition
-        unmountOnExit
-        in={currentView === 'verify-account'}
-        timeout={300}
-        classNames=""
-      >
-        <CompleteProfile goBack={() => setCurrentView('update-profile')} />
-      </CSSTransition>
-
-      <CSSTransition
         in={currentView === 'update-profile'}
         timeout={300}
         classNames=""
         unmountOnExit
       >
         <div>
-          {!completedProfile && (
+          {!userData.hasAnswered && (
             <Alert variant="success">
               <div style={{ ...center }}>
-                <Text align="center">
-                  Few questions more to confirm your account.
-                  <div
-                    onClick={() => setCurrentView('verify-account')}
-                    style={{
-                      textDecoration: 'underline',
-                      color: 'black',
-                      margin: '0 .5rem',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Verify Now
-                  </div>
-                </Text>
+                <Text align="center">Few questions more to confirm your account.</Text>
               </div>
 
-              <span style={{ ...center }}>
-                <FiX onClick={() => setCompleteProfile(true)} style={{ fontSize: '1.3rem' }} />
-              </span>
+              <Link
+                to="/user-survey"
+                style={{
+                  ...center,
+                  margin: '0 .5rem'
+                }}
+              >
+                <Text> Verify Now </Text>
+              </Link>
             </Alert>
           )}
-          <StyledBody style={{ height: window.innerHeight - 110, overflow: 'auto' }}>
+          <StyledBody style={{ height: window.innerHeight - 80, overflow: 'auto' }}>
             <div style={{}}>
               <div
                 {...getRootProps({
@@ -263,7 +246,7 @@ const UpdateProfile = props => {
                   <MediaGrid>
                     {!userImage ? (
                       <div style={{ display: 'flex' }}>
-                        <UserImage image={TestImage}>
+                        <UserImage image={!userData.img ? TestImage : userData.img}>
                           <input {...getInputProps()} />
                         </UserImage>
 
@@ -383,7 +366,12 @@ const UpdateProfile = props => {
             <hr />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button onClick={() => updateUserAccount()} style={{ width: '20rem' }}>
-                Save Details
+                {isLoading ? 'Saving ' : 'Save'} Details
+                {isLoading && (
+                  <div style={{ paddingLeft: '.7rem' }}>
+                    <Spinner size="sm" animation="border" role="status" />
+                  </div>
+                )}
               </Button>
             </div>
           </StyledBody>

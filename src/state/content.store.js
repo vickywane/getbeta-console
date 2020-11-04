@@ -15,6 +15,9 @@ class ContentStore {
   isCreatingContent = false
   isLoadingContents = false
 
+  @observable contentSubscribers = []
+  @observable isLoading = false
+
   fetchContents = () => {
     this.isLoadingContents = true
     Axios.get(`${CONTENT_ENDPOINT}/contents/find/all`, { headers: { 'x-auth-token': token } })
@@ -26,7 +29,7 @@ class ContentStore {
   }
 
   createContent = (contentName, contentDescription, contentPrice, contentType, contentImage) => {
-    this.isCreatingContent = true
+    this.isLoading = true
 
     Axios.post(
       `${CONTENT_ENDPOINT}/${id}/addContent`,
@@ -44,8 +47,6 @@ class ContentStore {
       }
     )
       .then(() => {
-        this.isCreatingContent = false
-
         if (contentImage) {
           const formData = new FormData()
           formData.append('file', contentImage)
@@ -55,9 +56,13 @@ class ContentStore {
           }).catch(e => Sentry.captureException(e))
         }
 
+        this.isLoading = false
         navigate('/contents')
       })
-      .catch(e => Sentry.captureException(e))
+      .catch(e => {
+        this.isLoading = false
+        Sentry.captureException(e)
+      })
   }
 
   updateContent = (contentId, title, description) => {
@@ -78,9 +83,6 @@ class ContentStore {
         Sentry.captureException(e)
       })
   }
-
-  @observable contentSubscribers = []
-  @observable isLoading = false
 
   @action subscribeToContent = userId => {}
 

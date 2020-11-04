@@ -56,6 +56,8 @@ class UserStore {
       .then(res => {
         this.isLoading = true
 
+        setTimeout(() => (this.isLoading = false), 3000)
+
         console.log(res)
       })
       .catch(e => Sentry.captureException(e, 'error setting user survey'))
@@ -73,6 +75,7 @@ class UserStore {
   }
 
   updateUser = (userName, userEmail, Bio, Number, Occupation, Education, userImage) => {
+    this.isLoading = true
     Axios.put(
       `${AUTH_ENDPOINT}/${id}`,
       {
@@ -97,22 +100,23 @@ class UserStore {
             headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
           })
             .then(() => {
-              this.isUpdated = true
-
               setTimeout(() => {
+                this.isLoading = false
+
                 navigate('/console')
               }, 1000)
             })
             .catch(e => Sentry.captureException(e, 'error uploading user image'))
         } else {
-          this.isUpdated = true
-
           setTimeout(() => {
+            this.isLoading = false
+
             navigate('/console')
           }, 1000)
         }
       })
       .catch(e => {
+        this.isLoading = false
         Sentry.captureException(e, "error from updating a user's details")
       })
   }
@@ -210,6 +214,8 @@ class UserStore {
   }
 
   createAccount = (fullname, email, password, confirmPassword, mobileNumber) => {
+    this.isLoading = true
+
     Axios.post(`${AUTH_ENDPOINT}/register`, {
       fullname: fullname,
       email: email,
@@ -226,6 +232,8 @@ class UserStore {
           name: fullname,
           email: email
         }
+
+        this.isLoading = false
         localforage.setItem('isAuthenticated', true)
 
         navigate('console/*')
@@ -243,6 +251,8 @@ class UserStore {
           .catch(e => Sentry.captureException(e, `error sending welcome-email to ${email} `))
       })
       .catch(e => {
+        this.isLoading = false
+        console.log(e)
         Sentry.captureException(e, `error creating user ${email} `)
       })
   }

@@ -20,6 +20,7 @@ import {
   CreateContent,
   Upgrade,
   Notification,
+  UserSurvey,
   CreatorsHub,
   Integrations,
   CreateSession
@@ -59,6 +60,7 @@ const Console = props => {
           <CreateContent ContentStore={ContentStore} path="/create-content" />
           <UpdateProfilePage UserStore={UserStore} path="/update-profile" />
           <Notification UserStore={UserStore} path="/notifications" />
+          <UserSurvey UserStore={UserStore} path="/user-survey" />
         </Router>
       </div>
     </Grid>

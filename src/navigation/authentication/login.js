@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 import { Link } from '@reach/router'
-import {FiCheck ,  FiAlertTriangle } from 'react-icons/fi'
+import { FiCheck, FiAlertTriangle } from 'react-icons/fi'
 
 import { observer } from 'mobx-react'
 import {
@@ -101,39 +101,27 @@ const Login = props => {
                 </MdTitle>
               </div>
               <hr />
-              {!isLoading ? (
-                <form onSubmit={() => handleLogin()}>
-                  <AuthInputFields>
-                    <label> Email Address </label>
-                    <input
-                      value={Email}
-                      onChange={e => setEmail(e.target.value)}
-                      type="email"
-                      placeholder="Your email address"
-                    />
-                  </AuthInputFields>
-                  <AuthInputFields>
-                    <label> Password </label>
-                    <input
-                      value={Password}
-                      onChange={e => setPassword(e.target.value)}
-                      type="password"
-                      placeholder="Your account password"
-                    />
-                  </AuthInputFields>
-                </form>
-              ) : (
-                <div
-                  style={{
-                    height: '28.5vh',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <Spinner variant="primary" animation="grow" role="loading" />
-                </div>
-              )}
+              <form onSubmit={() => handleLogin()}>
+                <AuthInputFields>
+                  <label> Email Address </label>
+                  <input
+                    value={Email}
+                    onChange={e => setEmail(e.target.value)}
+                    type="email"
+                    placeholder="Your email address"
+                  />
+                </AuthInputFields>
+                <AuthInputFields>
+                  <label> Password </label>
+                  <input
+                    value={Password}
+                    onChange={e => setPassword(e.target.value)}
+                    type="password"
+                    placeholder="Your account password"
+                  />
+                </AuthInputFields>
+              </form>
+
               <div
                 style={{
                   display: 'flex',
@@ -151,7 +139,13 @@ const Login = props => {
                     handleLogin()
                   }}
                 >
-                  Login
+                  {isLoading ? 'Logging In' : 'Login'}
+
+                  {isLoading && (
+                    <div style={{ paddingLeft: '.7rem' }}>
+                      <Spinner size="sm" animation="border" role="status" />
+                    </div>
+                  )}
                 </Button>
               </div>
               <br />

@@ -6,14 +6,16 @@ import { FiMail } from 'react-icons/fi'
 import { IoLogoWhatsapp, IoLogoFacebook } from 'react-icons/io'
 import media from 'styled-media-query'
 import { observer, inject } from 'mobx-react'
+import Header from '../../components/headers/header'
 
-import { Body, Text, Button, center, MdTitle, InputBody } from '../../styles/style'
+import { Body, Text, Button, center, MdTitle } from '../../styles/style'
 
 const Box = styled.div`
   width: auto;
   padding : .5rem
-  height: 47px;
+  height: 45px;
   border-radius: 2px;
+  font-size : 1rem;
   border: 1px solid #c0c0c0;
   display : flex;
   justify-content : center;
@@ -42,7 +44,7 @@ const literature = [
 const formalEducation = [
   { id: 1, name: 'School Teacher' },
   { id: 2, name: 'Private Tutor' },
-  { id: 3, nmame: 'Student Tutor' }
+  { id: 3, name: 'Student Tutor' }
 ]
 
 const vocational = [
@@ -59,9 +61,9 @@ const Health = [
 const expertise = ['Professional', 'Certified Professional', 'Intermediate', 'Beginner']
 
 const audience = [
-  { id: 1, name: 'Whatsapp', icon: <IoLogoWhatsapp style={{ fontSize: '1.3rem' }} /> },
-  { id: 1, name: 'Email List', icon: <FiMail style={{ fontSize: '1.3rem' }} /> },
-  { id: 1, name: 'Social Media Followers', icon: <IoLogoFacebook style={{ fontSize: '1.3rem' }} /> }
+  { id: 1, name: 'Whatsapp', icon: <IoLogoWhatsapp style={{ fontSize: '1.2rem' }} /> },
+  { id: 1, name: 'Email List', icon: <FiMail style={{ fontSize: '1.2rem' }} /> },
+  { id: 1, name: 'Social Media Followers', icon: <IoLogoFacebook style={{ fontSize: '1.2rem' }} /> }
 ]
 
 const Grid = styled.div`
@@ -194,10 +196,40 @@ const Container = styled.div`
     `};
 `
 
-function CompleteProfileDetails(props) {
-  const { saveUserSurvey } = props.UserStore
+export const InputBody = styled.div`
+  margin: 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  label {
+    font-size: 0.95rem;
+  }
+  input {
+    font-size: 0.9rem;
+    height: 55px;
+    color: #000;
+    background: transparent;
+    padding: 0.6rem 1rem;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    width: 100%;
+    flex: 1;
+  }
+  ${media.lessThan('medium')`
+    input , textarea {
+      width: 100%;
+    }
+  `};
+  ${media.lessThan('small')`
+  input , textarea {
+    font-size: 0.8rem;
+    width : 100%;
+  }
+    `};
+`
 
-  const [name, setName] = useState('')
+function CompleteProfileDetails(props) {
+  const { saveUserSurvey, isLoading } = props.UserStore
+
   const [industry, setIndustry] = useState('')
   const [role, setRole] = useState('')
   const [literature, setLiterature] = useState('')
@@ -220,56 +252,58 @@ function CompleteProfileDetails(props) {
       health: health,
       level: level,
       focus: focus,
-      hasAudiene: hasAudience,
+      hasAudience: hasAudience,
       audienceKind: audienceKind,
       heardFrom: referer
     }
+
     saveUserSurvey(data)
   }
 
   return (
-    <Body
-      style={{
-        display: 'flex',
-        height: window.innerHeight - 80,
-        overflow: 'auto',
-        justifyContent: 'center'
-      }}
-    >
-      <Container>
-        <br />
-        <MdTitle align="center"> Let's know you better</MdTitle>
-        <Text align="center">
-          We would like to know more about you through the following questions :
-        </Text>
-        <hr />
-        <InputBody>
-          <label>
-            What's your industry ? <br />
-            <span style={{ fontSize: '.8rem', color: 'grey' }}>
-              Select one option from the categories
-            </span>
-          </label>
-          <Grid>
-            {industries.map(({ id, name }) => (
-              <li>
-                <Box key={id}>
-                  <div key={id}>
-                    <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-                    <StyledCheckbox
-                      onChange={_ => setIndustry(name)}
-                      size="lg"
-                      variantColor="blue"
-                    />
-                  </div>
-                </Box>
-              </li>
-            ))}
-          </Grid>
-        </InputBody>
+    <div>
+      <Header goBack />
+      <Body
+        style={{
+          display: 'flex',
+          height: window.innerHeight - 50,
+          overflow: 'auto',
+          justifyContent: 'center'
+        }}
+      >
+        <Container>
+          <br />
+          <MdTitle align="center"> Let's know you better</MdTitle>
+          <Text align="center">
+            We would like to know more about you through the following questions :
+          </Text>
+          <hr />
+          <InputBody>
+            <label>
+              What's your industry ? <br />
+              <span style={{ fontSize: '.8rem', color: 'grey' }}>
+                Select one option from the categories
+              </span>
+            </label>
+            <Grid>
+              {industries.map(({ id, name }) => (
+                <li>
+                  <Box key={id}>
+                    <div key={id}>
+                      <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
+                      <StyledCheckbox
+                        onChange={_ => setIndustry(name)}
+                        size="lg"
+                        variantColor="blue"
+                      />
+                    </div>
+                  </Box>
+                </li>
+              ))}
+            </Grid>
+          </InputBody>
 
-        {industry.length > 1 && (
-          <div>
+          {industry.length > 1 && (
             <InputBody>
               <label>
                 What's your role ? <br />
@@ -294,133 +328,116 @@ function CompleteProfileDetails(props) {
                 <VocationalQuestions setCategories={val => setSkill(val)} />
               </CSSTransition>
 
-              <CSSTransition in={industry === 'Health & Wellnes'} unmountOnExit timeout={300}>
+              <CSSTransition in={industry === 'Health & Wellness'} unmountOnExit timeout={300}>
                 <HealthQuestions setCategories={val => setHealth(val)} />
               </CSSTransition>
-
-              <CSSTransition in={industry === 'Literature'} unmountOnExit timeout={300}>
-                <LiteratureQuestions setCategories={val => setIndustry(val)} />
-              </CSSTransition>
             </InputBody>
-          </div>
-        )}
+          )}
 
-        <InputBody>
-          <label>
-            What's your expertise level ? <br />
-            <span style={{ fontSize: '.8rem', color: 'grey' }}>
-              Select one option from the categories
-            </span>
-          </label>
+          <InputBody>
+            <label>
+              What's your expertise level ? <br />
+              <span style={{ fontSize: '.8rem', color: 'grey' }}>
+                Select one option from the categories
+              </span>
+            </label>
 
-          <Grid>
-            {expertise.map(name => (
-              <li>
-                <Box key={name}>
-                  <div>
-                    <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-                    <StyledCheckbox size="lg" variantColor="blue" />
-                  </div>
-                </Box>
-              </li>
-            ))}
-          </Grid>
-        </InputBody>
-        <InputBody>
-          <label>
-            What's your focus ? <br />
-            <span style={{ fontSize: '.8rem', color: 'grey' }}>
-              Select one option from the categories
-            </span>
-          </label>
-
-          <input
-            type="text"
-            value={focus}
-            onChange={({ target }) => setFocus(target.value)}
-            placeholder="An example focus is ...."
-          />
-        </InputBody>
-        <InputBody>
-          <label>
-            What kind of audience ? <br />
-            <span style={{ fontSize: '.8rem', color: 'grey' }}>
-              Select one option from the categories
-            </span>
-          </label>
-
-          <Grid>
-            {audience.map(({ id, name, icon }) => (
-              <li>
-                <Box key={id}>
-                  <div>
-                    <span style={{ display: 'flex' }}>
-                      <span style={{ margin: '.8rem .5rem' }}>{icon}</span>
+            <Grid>
+              {expertise.map(name => (
+                <li>
+                  <Box key={name}>
+                    <div>
                       <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-                    </span>
-                    <StyledCheckbox size="lg" variantColor="blue" />
+                      <StyledCheckbox
+                        size="lg"
+                        variantColor="blue"
+                        onClick={() => setLevel(name)}
+                      />
+                    </div>
+                  </Box>
+                </li>
+              ))}
+            </Grid>
+          </InputBody>
+          <InputBody>
+            <label>
+              What's your focus ? <br />
+              <span style={{ fontSize: '.8rem', color: 'grey' }}>
+                Select one option from the categories
+              </span>
+            </label>
+
+            <input
+              type="text"
+              value={focus}
+              onChange={({ target }) => setFocus(target.value)}
+              placeholder="An example focus is ...."
+            />
+          </InputBody>
+          <InputBody>
+            <label>
+              What kind of audience ? <br />
+              <span style={{ fontSize: '.8rem', color: 'grey' }}>
+                Select one option from the categories
+              </span>
+            </label>
+
+            <Grid>
+              {audience.map(({ id, name, icon }) => (
+                <li>
+                  <Box key={id}>
+                    <div>
+                      <span style={{ display: 'flex' }}>
+                        <span style={{ margin: '.8rem .5rem' }}>{icon}</span>
+                        <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
+                      </span>
+                      <StyledCheckbox
+                        onClick={() => setaudienceKind(name)}
+                        size="lg"
+                        variantColor="blue"
+                      />
+                    </div>
+                  </Box>
+                </li>
+              ))}
+            </Grid>
+          </InputBody>
+          <InputBody>
+            <label>
+              Do you have an audience? <br />
+              <span style={{ fontSize: '.8rem', color: 'grey' }}>
+                Select one option from the categories
+              </span>
+            </label>
+
+            <div style={{ display: 'flex' }}>
+              <div style={{ margin: '0 1rem' }}>
+                <div style={{ display: 'flex' }}>
+                  <StyledCheckbox onClick={() => setHasAudience(true)} />
+                  <div style={{ ...center }}>
+                    <Text style={{ margin: '0 1rem' }}> Yes </Text>
                   </div>
-                </Box>
-              </li>
-            ))}
-          </Grid>
-        </InputBody>
-        <InputBody>
-          <label>
-            What's your industry ? <br />
-            <span style={{ fontSize: '.8rem', color: 'grey' }}>
-              Select one option from the categories
-            </span>
-          </label>
+                </div>
+              </div>
 
-          <div style={{ display: 'flex' }}>
-            <div style={{ margin: '0 1rem' }}>
-              <div style={{ display: 'flex' }}>
-                <StyledCheckbox onClick={() => setHasAudience(true)} />
-                <div style={{ ...center }}>
-                  <Text style={{ margin: '0 1rem' }}> Yes </Text>
+              <div style={{ margin: '0 1rem' }}>
+                <div style={{ display: 'flex' }}>
+                  <StyledCheckbox onClick={() => setHasAudience(false)} />
+                  <div style={{ ...center }}>
+                    <Text style={{ margin: '0 1rem' }}> No </Text>
+                  </div>
                 </div>
               </div>
             </div>
+          </InputBody>
 
-            <div style={{ margin: '0 1rem' }}>
-              <div style={{ display: 'flex' }}>
-                <StyledCheckbox onClick={() => setHasAudience(false)} />
-                <div style={{ ...center }}>
-                  <Text style={{ margin: '0 1rem' }}> No </Text>
-                </div>
-              </div>
-            </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button> Submit Later </Button>
+            <Button onClick={() => handleSurveySave()}> Submit My Answers </Button>
           </div>
-        </InputBody>
-        <InputBody>
-          <label>
-            What kind of audience ? <br />
-            <span style={{ fontSize: '.8rem', color: 'grey' }}>
-              Select one option from the categories
-            </span>
-          </label>
-
-          <Grid>
-            {industries.map(({ id, name }) => (
-              <li>
-                <Box key={id}>
-                  <div>
-                    <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-                    <StyledCheckbox style={{ width: '20px' }} size="lg" variantColor="blue" />
-                  </div>
-                </Box>
-              </li>
-            ))}
-          </Grid>
-        </InputBody>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button> Submit Later </Button>
-          <Button onClick={() => handleSurveySave()}> Submit My Answers </Button>
-        </div>
-      </Container>
-    </Body>
+        </Container>
+      </Body>
+    </div>
   )
 }
 

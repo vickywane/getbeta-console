@@ -254,7 +254,7 @@ const EditContent = props => {
                 {!isCreatingContentFile ? 'Upload' : 'Uploading'} Content File
                 {isCreatingContentFile && (
                   <div style={{ paddingLeft: '.7rem' }}>
-                    <Spinner size="sm" animation="border" role="status" />{' '}
+                    <Spinner size="sm" animation="border" role="status" />
                   </div>
                 )}
               </Button>

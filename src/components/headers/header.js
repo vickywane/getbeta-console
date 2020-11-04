@@ -90,13 +90,13 @@ const Header = props => {
           {goBack ? (
             <div style={{ ...center }}>
               <StyledHover style={{ padding: '0.4rem 0.4rem' }} onClick={() => navigate(-1)}>
-                <FiArrowLeft style={{ fontSize: '1.6rem' }} />
+                <FiArrowLeft />
               </StyledHover>
             </div>
           ) : (
             <Link to="/">
               <Icon>
-                <FiHome style={{ fontSize: '1.6rem' }} />
+                <FiHome />
               </Icon>
             </Link>
           )}

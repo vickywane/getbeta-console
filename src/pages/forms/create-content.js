@@ -4,9 +4,9 @@ import { Spinner } from 'react-bootstrap'
 import { FiUploadCloud } from 'react-icons/fi'
 import { useDropzone } from 'react-dropzone'
 import media from 'styled-media-query'
-// import Select from 'react-select'
-import makeAnimated from 'react-select/animated'
 import { Stack, Select } from '@chakra-ui/core'
+import { observer } from 'mobx-react'
+import * as Yup from 'yup'
 
 import {
   Text,
@@ -60,8 +60,17 @@ const InputsContainer = styled.div`
   `}
 `
 
+const contentSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  description: Yup.string()
+    .min(10)
+    .required(),
+  price: Yup.number(),
+  type: Yup.string()
+})
+
 const CreateContent = props => {
-  const { createContent, isCreatingContent } = props.ContentStore
+  const { createContent, isCreatingContent, isLoading } = props.ContentStore
 
   const [ContentName, setContentName] = useState('')
   const [ContentDescription, setContentDescription] = useState('')
@@ -70,7 +79,18 @@ const CreateContent = props => {
   const [contentImage, setContentImage] = useState(null)
 
   const handleSubmit = () => {
-    createContent(ContentName, ContentDescription, ContentPrice, ContentType, contentImage)
+    const isValidContent = contentSchema.isValid({
+      name: ContentName,
+      description: ContentDescription,
+      price: ContentPrice,
+      type: ContentType
+    })
+
+    isValidContent
+      .then(() => {
+        createContent(ContentName, ContentDescription, ContentPrice, ContentType, contentImage)
+      })
+      .catch(e => {})
   }
 
   const onDrop = useCallback(([file]) => {
@@ -218,7 +238,12 @@ const CreateContent = props => {
                       handleSubmit()
                     }}
                   >
-                    Submit Content{' '}
+                    {isLoading ? 'Creating' : 'Create'} Content
+                    {isLoading && (
+                      <div style={{ paddingLeft: '.7rem' }}>
+                        <Spinner size="sm" animation="border" role="status" />
+                      </div>
+                    )}
                   </Button>
                 </div>
               </form>
@@ -231,4 +256,4 @@ const CreateContent = props => {
   )
 }
 
-export default CreateContent
+export default observer(CreateContent)
