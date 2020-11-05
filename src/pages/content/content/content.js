@@ -57,8 +57,11 @@ const InputBody = styled.div`
     font-size: 1rem;
   }
   input {
-    width: 60%;
-    font-size: 1rem;
+    width: 60rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.85rem;
+    border: 1px solid #c0c0c0;
+    height: 42px;
   }
   textarea {
     font-size: 0.9rem;
