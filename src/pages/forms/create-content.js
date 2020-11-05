@@ -107,150 +107,138 @@ const CreateContent = props => {
       <Header goBack={true} screen="Create New Content " />
 
       <StyledBody style={{ height: window.innerHeight - 70, overflow: 'auto' }}>
-        {isCreatingContent ? (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignContent: 'center'
-            }}
-          >
-            <Spinner type="grow" />
-          </div>
-        ) : (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <InputsContainer>
-              <Grid>
-                <div
-                  {...getRootProps({
-                    isDragActive,
-                    isDragAccept,
-                    isDragReject
-                  })}
-                >
-                  <input {...getInputProps()} />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <InputsContainer>
+            <Grid>
+              <div
+                {...getRootProps({
+                  isDragActive,
+                  isDragAccept,
+                  isDragReject
+                })}
+              >
+                <input {...getInputProps()} />
 
-                  <Image
-                    src={
-                      'https://res.cloudinary.com/dkfptto8m/image/upload/v1603528071/freelance/placeholer.png'
-                    }
-                  />
-                  {isDragActive && <Text align="center"> Drop Image here </Text>}
-                </div>
+                <Image
+                  src={
+                    'https://res.cloudinary.com/dkfptto8m/image/upload/v1603528071/freelance/placeholer.png'
+                  }
+                />
+                {isDragActive && <Text align="center"> Drop Image here </Text>}
+              </div>
 
-                <div style={{ ...center }}>
-                  {!contentImage ? (
-                    <div style={{ ...center }}>
-                      <StyledHover
-                        {...getRootProps({
-                          isDragActive,
-                          isDragAccept,
-                          isDragReject
-                        })}
-                        style={{ display: 'flex', padding: '7px' }}
-                      >
-                        <input {...getInputProps()} />
-                        <Hover style={{ margin: '0 0.6rem', ...center }}>
-                          <FiUploadCloud />
-                        </Hover>
-
-                        <Text small style={{ padding: 0, margin: 0 }}>
-                          Upload Content Image{' '}
-                        </Text>
-                      </StyledHover>
-                    </div>
-                  ) : (
-                    <Text> {contentImage.path} </Text>
-                  )}
-                </div>
-              </Grid>
-              <form onSubmit={() => handleSubmit()}>
-                <InputField>
-                  <label> Content Name </label>
-                  <input
-                    onChange={e => setContentName(e.target.value)}
-                    value={ContentName}
-                    type="text"
-                    placeholder="Content Name"
-                  />
-                </InputField>
-
-                <InputField>
-                  <label> Content Description </label>
-                  <textarea
-                    onChange={e => setContentDescription(e.target.value)}
-                    value={ContentDescription}
-                    type="text"
-                    placeholder="A description of your new Content"
-                  />
-                </InputField>
-
-                <InputField>
-                  <label> Content Price </label>
-                  <input
-                    onChange={e => setContentPrice(e.target.value)}
-                    value={ContentPrice}
-                    type="text"
-                    placeholder="Content Price"
-                  />
-                </InputField>
-
-                <Stack spacing={3}>
-                  <InputField>
-                    <label> Content Type </label>
-                    <Select
-                      onChange={e => setContentType(e.target.value)}
-                      size="md"
-                      defaultValue="Article"
-                      placeholder="Article"
+              <div style={{ ...center }}>
+                {!contentImage ? (
+                  <div style={{ ...center }}>
+                    <StyledHover
+                      {...getRootProps({
+                        isDragActive,
+                        isDragAccept,
+                        isDragReject
+                      })}
+                      style={{ display: 'flex', padding: '7px' }}
                     >
-                      <option value="Article"> Article </option>
-                      <option value="Music"> Music </option>
-                      <option value="Video">Video </option>
-                      <option value="Document"> Document </option>
-                    </Select>
-                  </InputField>
+                      <input {...getInputProps()} />
+                      <Hover style={{ margin: '0 0.6rem', ...center }}>
+                        <FiUploadCloud />
+                      </Hover>
 
-                  <InputField>
-                    <label> Content Tags </label>
-                    <Select size="md" placeholder="Health">
-                      <option value="Health"> Health Care </option>
-                      <option value="Arts">Arts </option>
-                      <option value="Commerce"> Commerce </option>
-                      <option value="Politics"> Politics </option>
-                      <option value="Education"> Education </option>
-                    </Select>
-                  </InputField>
-                </Stack>
+                      <Text small style={{ padding: 0, margin: 0 }}>
+                        Upload Content Image{' '}
+                      </Text>
+                    </StyledHover>
+                  </div>
+                ) : (
+                  <Text> {contentImage.path} </Text>
+                )}
+              </div>
+            </Grid>
+            <form onSubmit={() => handleSubmit()}>
+              <InputField>
+                <label> Content Name </label>
+                <input
+                  onChange={e => setContentName(e.target.value)}
+                  value={ContentName}
+                  type="text"
+                  placeholder="Content Name"
+                />
+              </InputField>
 
-                <br />
-                <div style={{ ...center }}>
-                  <Button
-                    style={{
-                      width: '90%',
-                      background: ContentName.length < 5 && 'transparent',
-                      color: ContentName.length < 5 && '#0072ce'
-                    }}
-                    disabled={ContentName.length < 5}
-                    onClick={e => {
-                      e.preventDefault()
+              <InputField>
+                <label> Content Description </label>
+                <textarea
+                  onChange={e => setContentDescription(e.target.value)}
+                  value={ContentDescription}
+                  type="text"
+                  placeholder="A description of your new Content"
+                />
+              </InputField>
 
-                      handleSubmit()
-                    }}
+              <InputField>
+                <label> Content Price </label>
+                <input
+                  onChange={e => setContentPrice(e.target.value)}
+                  value={ContentPrice}
+                  type="text"
+                  placeholder="Content Price"
+                />
+              </InputField>
+
+              <Stack spacing={3}>
+                <InputField>
+                  <label> Content Type </label>
+                  <Select
+                    onChange={e => setContentType(e.target.value)}
+                    size="md"
+                    defaultValue="Article"
+                    placeholder="Article"
                   >
-                    {isLoading ? 'Creating' : 'Create'} Content
-                    {isLoading && (
-                      <div style={{ paddingLeft: '.7rem' }}>
-                        <Spinner size="sm" animation="border" role="status" />
-                      </div>
-                    )}
-                  </Button>
-                </div>
-              </form>
+                    <option value="Article"> Article </option>
+                    <option value="Music"> Music </option>
+                    <option value="Video">Video </option>
+                    <option value="Document"> Document </option>
+                  </Select>
+                </InputField>
+
+                <InputField>
+                  <label> Content Tags </label>
+                  <Select size="md" placeholder="Health">
+                    <option value="Health"> Health Care </option>
+                    <option value="Arts">Arts </option>
+                    <option value="Commerce"> Commerce </option>
+                    <option value="Politics"> Politics </option>
+                    <option value="Education"> Education </option>
+                  </Select>
+                </InputField>
+              </Stack>
+
               <br />
-            </InputsContainer>
-          </div>
-        )}
+              <div style={{ ...center }}>
+                <Button
+                  style={{
+                    width: '90%',
+                    background: ContentName.length < 5 && 'transparent',
+                    color: ContentName.length < 5 && '#0072ce'
+                  }}
+                  disabled={ContentName.length < 5}
+                  onClick={e => {
+                    e.preventDefault()
+
+                    handleSubmit()
+                  }}
+                >
+                  {isLoading ? 'Creating' : 'Create'} Content
+                  {isLoading && (
+                    <div style={{ paddingLeft: '.7rem' }}>
+                      <Spinner size="sm" animation="border" role="status" />
+                    </div>
+                  )}
+                </Button>
+              </div>
+            </form>
+            <br />
+          </InputsContainer>
+        </div>
       </StyledBody>
     </div>
   )

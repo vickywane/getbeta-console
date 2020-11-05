@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link, navigate } from '@reach/router'
 import { Spinner } from 'react-bootstrap'
-import { FaMoneyBill } from 'react-icons/fa'
+import { FiSearch, FiFilter, FiChevronDown } from 'react-icons/fi'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import media from 'styled-media-query'
@@ -11,8 +10,7 @@ import ModalWrapper from '../../../components/modals/modalWrapper'
 import ContentCard from '../../../components/contentCard'
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
-import { Text, Searchbox, StyledHover, center, CardGrid, Button } from '../../../styles/style'
-import { FiSearch, FiFilter } from 'react-icons/fi'
+import { Text, Searchbox, Hover, center, CardGrid, Button } from '../../../styles/style'
 
 const Body = styled.div`
   padding: 1rem 1rem;
@@ -22,12 +20,6 @@ const Body = styled.div`
   ${media.lessThan('small')`
   padding: 0.2rem 0.3rem;
   `};
-`
-
-const StyledFilter = styled(StyledHover)`
-  ${media.lessThan('medium')`
-  display : none;
-`};
 `
 
 const FilterButton = styled(Button)`
@@ -130,12 +122,19 @@ const Contents = props => {
         <div style={{ margin: '0.5rem 0', justifyContent: 'space-between', display: 'flex' }}>
           <div style={{ display: 'flex' }}>
             <FilterButton onClick={() => setModal(true)}>
-              <FiFilter style={{ fontSize: '1.1rem' }} />{' '}
+              <FiFilter style={{ fontSize: '1.1rem' }} />
             </FilterButton>
-            <StyledFilter onClick={() => setModal(true)}>
+            {/* <StyledFilter onClick={() => setModal(true)}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
               <FiFilter style={{ fontSize: '1.3rem' }} />
-            </StyledFilter>
+            </StyledFilter> */}
+
+            <div>
+              <Text> Showing {contentList.length} packages. </Text>
+              <Text>
+                Sort By :<span style={{ textDecoration: 'underline' }}>Recently Added</span>
+              </Text>
+            </div>
           </div>
 
           <div style={{ ...center }}>

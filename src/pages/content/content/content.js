@@ -117,7 +117,7 @@ const EditContent = props => {
 
   const [ModalVisibility, setModalVisibility] = useState(false)
   const [Content, setContent] = useState(null)
-  const [currentView, setCurrentView] = useState('player')
+  const [currentView, setCurrentView] = useState('content')
   const [showContentPreview, setContentPreview] = useState(true)
   const [isEditing, setEditing] = useState(false)
   const [contentFileUrl, setcontentFileUrl] = useState(null)
@@ -149,6 +149,8 @@ const EditContent = props => {
   let data = toJS(content)
   const files = toJS(contentFiles)
 
+  console.log(data)
+
   useEffect(() => {
     if (Lodash.isEmpty(files)) {
       setContentPreview(false)
@@ -166,7 +168,6 @@ const EditContent = props => {
 
   const { getRootProps, isDragActive, isDragAccept, getInputProps, isDragReject } = useDropzone({
     onDrop
-    // accept: 'image/jpeg , image/jpg, image/png'
   })
 
   const uploadContentFile = () => {
@@ -223,16 +224,6 @@ const EditContent = props => {
               </div>
             )}
           </div>
-          <InputBody>
-            <label> File Description </label>
-            <textarea
-              onChange={e => setContentFileDescription(e.target.value)}
-              type="text"
-              value={contentFileDescripiton}
-              placeholder="A description of your content file"
-              type="text"
-            />
-          </InputBody>
 
           <hr />
           <div>
@@ -282,7 +273,7 @@ const EditContent = props => {
           ) : (
             <ContentBody showPreview={showContentPreview}>
               <div>
-                <Body style={{ backgroundColor: '#f2f2f2' }}>
+                <Body style={{ background: 'rgba(233, 241, 251, 0.81)' }}>
                   <Head>
                     <div style={{ ...center }}>
                       {isEditing ? (
@@ -297,7 +288,7 @@ const EditContent = props => {
                           />
                         </InputBody>
                       ) : (
-                        <Title> {data.title} </Title>
+                        <Title small> {data.title} </Title>
                       )}
                     </div>
 

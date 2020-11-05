@@ -21,12 +21,9 @@ const property = {
   rating: 4
 }
 
-const StarIcon = styled.div`
-  color: ${props => props.color};
-`
-
 const ImageBody = styled.div`
   height: 220px;
+  padding: 0.5rem 0.5rem;
   width: 100%;
   background-image: url(${props => props.src});
   background-position: center;
@@ -44,6 +41,10 @@ const Card = styled.div`
   section {
     padding: 0.5rem 0.1rem;
   }
+
+  &: hover {
+    box-shadow: 0 1px 2px grey;
+  }
   ${media.lessThan('medium')`
   width: 17rem;
 `};
@@ -52,22 +53,43 @@ const Card = styled.div`
   `};
 `
 
+const HoverCircle = styled.div`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 300ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &: hover {
+    color: #fff;
+    background: #b21b00;
+  }
+`
+
 function ContentCard(props) {
-  const { id, createdAt, descrp, price, type, contentfiles, vendorId, subscribers, title } = props
+  const {
+    id,
+    createdAt,
+    price,
+    coverImage,
+    type,
+    contentfiles,
+    vendorId,
+    subscribers,
+    title
+  } = props
   const { deleteContent } = props.ContentStore
   const userId = localStorage.getItem('userId')
 
   return (
     <Card style={{ border: '1px solid #c0c0c0' }}>
-      <ImageBody objectFit="cover" src={property.imageUrl} alt={property.imageAlt}>
-        <div style={{ textAlign: 'right', paddingRight: '.5rem' }}>
-          {vendorId === userId && (
-            <Hover onClick={() => deleteContent(id)}>
-              <FiTrash2 style={{ fontSize: '1.3rem' }} />
-            </Hover>
-          )}
-        </div>
-
+      <ImageBody
+        objectFit="cover"
+        src={coverImage ? coverImage : property.imageUrl}
+        alt={property.imageAlt}
+      >
         <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 .6rem' }}>
           <Box d="flex" alignItems="baseline">
             <Badge rounded="full" px="5" fontSize={12} variantColor="teal">
@@ -78,6 +100,14 @@ function ContentCard(props) {
           <Box as="span" color="gray.800" fontSize="sm">
             {property.reviewCount} reviews
           </Box>
+        </div>
+
+        <div style={{ textAlign: 'right', paddingRight: '.5rem' }}>
+          {vendorId === userId && (
+            <HoverCircle onClick={() => deleteContent(id)}>
+              <FiTrash2 style={{ fontSize: '1.3rem' }} />
+            </HoverCircle>
+          )}
         </div>
       </ImageBody>
       <section>

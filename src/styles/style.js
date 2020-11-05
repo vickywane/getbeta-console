@@ -442,6 +442,9 @@ export const Searchbox = styled.div`
     font-size: 0.9rem;
     outline: 0;
     border: 0;
+    &:focus {
+      border: 2px solid red;
+    }
   }
   div {
     color: #0072ce;
@@ -449,6 +452,7 @@ export const Searchbox = styled.div`
     justify-content: center;
     align-items: center;
   }
+
   ${media.lessThan('huge')`
   width  : 35rem;
 input {

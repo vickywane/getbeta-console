@@ -116,10 +116,6 @@ const MyContent = props => {
             </Hover>
 
             <input placeholder="Find your contents" />
-
-            <Hover style={{ ...center }} onClick={() => setSearchVisiblity(false)}>
-              <FiX />
-            </Hover>
           </StyledSearchbox>
         ) : (
           <Hover>
@@ -228,6 +224,7 @@ const MyContent = props => {
                         descrp,
                         price,
                         type,
+                        coverImage,
                         vendorId,
                         title
                       }) => {
@@ -235,6 +232,7 @@ const MyContent = props => {
                           <li key={_id}>
                             <ContentCard
                               id={_id}
+                              coverImage={coverImage}
                               createdAt={createdAt}
                               descrp={descrp}
                               price={price}
