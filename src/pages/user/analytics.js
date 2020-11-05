@@ -15,7 +15,7 @@ const Card = styled.div`
   box-shadow: 0 2px 3px grey;
   background: #fff;
   ${media.lessThan('small')`
-    width: 24rem;
+    width: 23rem;
   `};
 `
 
@@ -51,20 +51,26 @@ const Analytics = props => {
           {UserAnalytics[0].financials.map(({ name, id, Annual, Monthly, Weekly }) => {
             return (
               <Card key={id}>
-                <Title style={{ fontWeight: 'bold' }}> {name} </Title>
+                <Title small> {name} </Title>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <List>
-                    <li> Annual : {Annual} </li>
-                    <li> Monthly : {Monthly} </li>
-                    <li> Weekly : {Weekly} </li>
+                    <li>
+                      <Text> Annual : {Annual} </Text>
+                    </li>
+                    <li>
+                      <Text> Monthly : {Monthly} </Text>
+                    </li>
+                    <li>
+                      <Text> Weekly : {Weekly} </Text>
+                    </li>
                   </List>
 
                   <div style={{ ...center, flexDirection: 'column' }}>
                     <Hover>
-                      <FiBarChart style={{ fontSize: '4rem', color: '#0072ce' }} />
+                      <FiBarChart style={{ fontSize: '3rem', color: '#0072ce' }} />
                     </Hover>
-                    <Title> Mom Growth </Title>
+                    <Title small> Mom Growth </Title>
                   </div>
                 </div>
               </Card>
@@ -74,20 +80,26 @@ const Analytics = props => {
           {UserAnalytics[0].content.map(({ name, id, Free, paid, views }) => {
             return (
               <Card key={id}>
-                <Title style={{ fontWeight: 'bold' }}> {name} </Title>
+                <Title small> {name} </Title>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <List>
-                    <li> Free : {Free} </li>
-                    <li> Paid : {paid} </li>
-                    <li> Views : {views} </li>
+                    <li>
+                      <Text> Free : {Free} </Text>
+                    </li>
+                    <li>
+                      <Text> Paid : {paid} </Text>
+                    </li>
+                    <li>
+                      <Text> Views : {views} </Text>
+                    </li>
                   </List>
 
                   <div style={{ ...center, flexDirection: 'column' }}>
                     <Hover>
-                      <FiBarChart style={{ fontSize: '4rem', color: '#0072ce' }} />
+                      <FiBarChart style={{ fontSize: '3rem', color: '#0072ce' }} />
                     </Hover>
-                    <Title> Views </Title>
+                    <Title small> Views </Title>
                   </div>
                 </div>
               </Card>
@@ -97,20 +109,26 @@ const Analytics = props => {
           {UserAnalytics[0].courses.map(({ name, id, free, paid, enrollment }) => {
             return (
               <Card key={id}>
-                <Title style={{ fontWeight: 'bold' }}> {name} </Title>
+                <Title small> {name} </Title>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <List>
-                    <li> Free : {free} </li>
-                    <li> Paid : {paid} </li>
-                    <li> Enrollment : {enrollment} </li>
+                    <li>
+                      <Text> Free : {free} </Text>
+                    </li>
+                    <li>
+                      <Text> Paid : {paid} </Text>
+                    </li>
+                    <li>
+                      <Text> Enrollment : {enrollment} </Text>
+                    </li>
                   </List>
 
                   <div style={{ ...center, flexDirection: 'column' }}>
                     <Hover>
-                      <FiBarChart style={{ fontSize: '4rem', color: '#0072ce' }} />
+                      <FiBarChart style={{ fontSize: '3rem', color: '#0072ce' }} />
                     </Hover>
-                    <Title> Enrollment </Title>
+                    <Title small> Enrollment </Title>
                   </div>
                 </div>
               </Card>
@@ -120,19 +138,23 @@ const Analytics = props => {
           {UserAnalytics[0].bookings.map(({ name, id, physical, virtual }) => {
             return (
               <Card key={id}>
-                <Title style={{ fontWeight: 'bold' }}> {name} </Title>
+                <Title small> {name} </Title>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <List>
-                    <li> Physical : {physical} </li>
-                    <li> Virtual : {virtual} </li>
+                    <li>
+                      <Text> Physical : {physical} </Text>
+                    </li>
+                    <li>
+                      <Text> Virtual : {virtual} </Text>
+                    </li>
                   </List>
 
                   <div style={{ ...center, flexDirection: 'column' }}>
                     <Hover>
-                      <FiBarChart style={{ fontSize: '4rem', color: '#0072ce' }} />
+                      <FiBarChart style={{ fontSize: '3rem', color: '#0072ce' }} />
                     </Hover>
-                    <Title> MoM Growth </Title>
+                    <Title small> MoM Growth </Title>
                   </div>
                 </div>
               </Card>
@@ -142,19 +164,23 @@ const Analytics = props => {
           {UserAnalytics[0].live.map(({ name, id, free, paid }) => {
             return (
               <Card key={id}>
-                <Title style={{ fontWeight: 'bold' }}> {name} </Title>
+                <Title small> {name} </Title>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <List>
-                    <li> Free : {free} </li>
-                    <li> Paid : {paid} </li>
+                    <li>
+                      <Text> Free : {free} </Text>
+                    </li>
+                    <li>
+                      <Text> Paid : {paid} </Text>
+                    </li>
                   </List>
 
                   <div style={{ ...center, flexDirection: 'column' }}>
                     <Hover>
-                      <FiBarChart style={{ fontSize: '4rem', color: '#0072ce' }} />
+                      <FiBarChart style={{ fontSize: '3rem', color: '#0072ce' }} />
                     </Hover>
-                    <Title> MoM Growth </Title>
+                    <Title small> MoM Growth </Title>
                   </div>
                 </div>
               </Card>

@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import moment from 'moment'
 import { navigate } from '@reach/router'
 import { FiCalendar, FiTrash2, FiMousePointer } from 'react-icons/fi'
+import { IoMdCalendar, IoMdShareAlt } from 'react-icons/io'
+
 import { Hover, Text, center } from '../styles/style'
 import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
@@ -40,7 +42,7 @@ const Card = styled.div`
   width: 20rem;
   border-radius: 5px;
   section {
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 0.1rem;
   }
   ${media.lessThan('medium')`
   width: 17rem;
@@ -65,11 +67,40 @@ function ContentCard(props) {
             </Hover>
           )}
         </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 .6rem' }}>
+          <Box d="flex" alignItems="baseline">
+            <Badge rounded="full" px="5" fontSize={12} variantColor="teal">
+              {type}
+            </Badge>
+          </Box>
+
+          <Box as="span" color="gray.800" fontSize="sm">
+            {property.reviewCount} reviews
+          </Box>
+        </div>
       </ImageBody>
       <section>
-        <div style={{ display: 'flex', padding: '0 .5rem', justifyContent: 'space-between' }}>
+        <Box
+          onClick={() =>
+            navigate('/content', {
+              state: {
+                contentId: id
+              }
+            })
+          }
+          style={{ cursor: 'pointer' }}
+          fontWeight="normal"
+          as="h6"
+          textAlign="center"
+          lineHeight="tight"
+          isTruncated
+        >
+          {title}
+        </Box>
+        <div style={{ display: 'flex', padding: '.3rem .5rem', justifyContent: 'space-between' }}>
           <Box
-            color="gray.500"
+            color="gray.700"
             fontWeight="semibold"
             letterSpacing="wide"
             fontSize="xs"
@@ -79,73 +110,45 @@ function ContentCard(props) {
           </Box>
 
           <Box
-            color="gray.500"
+            color="gray.700"
             fontWeight="semibold"
             letterSpacing="wide"
             fontSize="xs"
             textTransform="uppercase"
-            ml="2"
           >
             {subscribers.length} Subscribers
           </Box>
         </div>
 
-        <Box p="1">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box d="flex" alignItems="baseline">
-              <Badge rounded="full" px="2" variantColor="teal">
-                {type}
-              </Badge>
-            </Box>
-
-            <div style={{ display: 'flex' }}>
-              <Hover>
-                <FiCalendar />
-              </Hover>
-
-              <div style={{ padding: '.3rem .3rem' }}>
-                <Text> {moment(createdAt).format('DD, MMM, YY')} </Text>
-              </div>
-            </div>
-          </div>
-
-          <Box
-            onClick={() =>
-              navigate('/content', {
-                state: {
-                  contentId: id
-                }
-              })
-            }
-            style={{ cursor: 'pointer' }}
-            fontWeight="normal"
-            as="h6"
-            textAlign="center"
-            lineHeight="tight"
-            isTruncated
-          >
-            {title}
-          </Box>
-
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box d="flex" mt="1" alignItems="center">
-              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ ...center }}>
+            <Box d="flex" alignItems="center">
+              <Box as="span" color="gray.600" fontSize="sm">
                 ${price}
               </Box>
             </Box>
-
-            <Box d="flex" mt="2" alignItems="center">
-              {Array(5)
-                .fill('')
-                .map((_, i) => (
-                  <StarIcon key={i} color={i < property.rating ? 'teal.500' : 'gray.300'} />
-                ))}
-              <Box as="span" ml="1" color="gray.600" fontSize="sm">
-                {property.reviewCount} reviews
-              </Box>
-            </Box>
           </div>
-        </Box>
+
+          <div style={{ display: 'flex' }}>
+            <Hover>
+              <IoMdCalendar />
+            </Hover>
+
+            <div style={{ padding: '.6rem .2rem' }}>
+              <Text small> {moment(createdAt).format('DD, MMM, YY')} </Text>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Hover style={{ display: 'flex' }}>
+            <Text small style={{ margin: '.2rem .3rem' }}>
+              Share Content
+            </Text>
+
+            <IoMdShareAlt />
+          </Hover>
+        </div>
       </section>
     </Card>
   )

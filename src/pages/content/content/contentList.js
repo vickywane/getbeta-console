@@ -75,7 +75,7 @@ const Contents = props => {
         <div>
           <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
             <div style={{ ...center }}>
-              <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+              <input style={{ width: '1.5rem', height: '1.3rem' }} type="radio" />
             </div>
 
             <Text style={{ margin: '0 0.7rem' }}> By Content Release Date </Text>
@@ -83,7 +83,7 @@ const Contents = props => {
 
           <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
             <div style={{ ...center }}>
-              <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+              <input style={{ width: '1.5rem', height: '1.3rem' }} type="radio" />
             </div>
 
             <Text style={{ margin: '0 0.7rem' }}> By Content Viewer's Rating </Text>
@@ -91,7 +91,7 @@ const Contents = props => {
 
           <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
             <div style={{ ...center }}>
-              <input style={{ width: '2rem', height: '1.3rem' }} type="radio" />
+              <input style={{ width: '1.5rem', height: '1.3rem' }} type="radio" />
             </div>
 
             <Text style={{ margin: '0 0.7rem' }}> By Content Rating </Text>
@@ -101,7 +101,7 @@ const Contents = props => {
             <div style={{ ...center }}>
               <input
                 onClick={() => setFilter(localStorage.getItem('userId'))}
-                style={{ width: '2rem', height: '1.3rem' }}
+                style={{ width: '1.5rem', height: '1.3rem' }}
                 type="radio"
               />
             </div>

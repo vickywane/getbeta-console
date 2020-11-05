@@ -98,6 +98,7 @@ const MyContent = props => {
                 onClick={() =>
                   navigate(TabState === 'created-content' ? '/create-content' : '/contents')
                 }
+                small
                 style={{ cursor: 'pointer', color: '#0072CE', margin: 0, padding: 0 }}
               >
                 Create Content

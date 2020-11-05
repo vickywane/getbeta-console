@@ -96,7 +96,7 @@ const Header = props => {
           ) : (
             <Link to="/">
               <Icon>
-                <FiHome />
+                <FiHome style={{ fontSize: '1.3rem' }} />
               </Icon>
             </Link>
           )}
@@ -126,7 +126,7 @@ const Header = props => {
           {path === 'home' ? (
             <div style={{ paddingTop: '5px' }}>
               <Link to="/notifications">
-                <FiBell style={{ fontSize: '1.4rem' }} />
+                <FiBell style={{ fontSize: '1.3rem' }} />
               </Link>
             </div>
           ) : (

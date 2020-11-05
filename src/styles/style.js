@@ -305,11 +305,11 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: 35px;
   background: #0072ce;
   padding: 0.5rem 2rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   border-radius: 3px;
   color: #fff;
   ${media.lessThan('large')`
@@ -484,9 +484,9 @@ input {
 export const StyledSearchbox = styled(Searchbox)`
 width  : 32rem;
 border : 1.7px solid #0072CE;
-border-radius : 30px;
+border-radius : 7px;
 display : flex;
-background : #c1cfe3;
+background : #fff;
 padding   : 0.5rem 0.5rem;
 justify-content: space-between;
 input {
