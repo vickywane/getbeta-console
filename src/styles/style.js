@@ -22,20 +22,23 @@ export const Alert = styled.div`
 `
 
 export const AuthInputFields = styled.div`
-  margin: 1.5rem 0.5rem;
+  margin: 1.2rem 0.5rem;
   display: flex;
   flex-direction: column;
   label {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   input {
     background: #fbfbfb;
     padding: 0.6rem 1rem;
     border: 1px solid #c0c0c0;
-    border-radius: 1px;
+    border-radius: 3px;
     width: 27rem;
-    height: 50px;
-    font-size: 1rem;
+    height: 47px;
+    font-size: 0.9rem;
+    &:focus {
+      box-shadow: 0 0 1.5px 1.5px #0072ce;
+    }
   }
   ${media.lessThan('medium')`
   margin: 1rem 0.2rem;
@@ -138,8 +141,8 @@ export const CreateCourseInputField = styled.div`
   }
   input {
     font-size : .9rem;
-    height: 55px;
-    width: 55rem;
+    height: 45px;
+    width: 100%;
     border: 1px solid #c0c0c0;
     border-radius : 2px;
     color: #000;
@@ -159,7 +162,7 @@ export const CreateCourseInputField = styled.div`
   input {
     height: 50px;
     font-size : 1rem;
-    width: 37rem;
+    width: 100%;
   }
   textarea {
     height: 10vh;
@@ -169,7 +172,7 @@ export const CreateCourseInputField = styled.div`
   `};
   ${media.lessThan('large')`
   input {
-    height: 50px;
+    height: 45px;
     width: 100%;
     font-size : 0.9rem;
   }

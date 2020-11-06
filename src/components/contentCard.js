@@ -102,7 +102,8 @@ function ContentCard(props) {
           </Box>
         </div>
 
-        <div style={{ textAlign: 'right', paddingRight: '.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          .
           {vendorId === userId && (
             <HoverCircle onClick={() => deleteContent(id)}>
               <FiTrash2 style={{ fontSize: '1.3rem' }} />
@@ -164,7 +165,7 @@ function ContentCard(props) {
               <IoMdCalendar />
             </Hover>
 
-            <div style={{ padding: '.6rem .2rem' }}>
+            <div style={{ padding: '.5rem .2rem' }}>
               <Text small> {moment(createdAt).format('DD, MMM, YY')} </Text>
             </div>
           </div>
@@ -172,7 +173,7 @@ function ContentCard(props) {
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Hover style={{ display: 'flex' }}>
-            <Text small style={{ margin: '.2rem .3rem' }}>
+            <Text small style={{ margin: '.1rem .3rem' }}>
               Share Content
             </Text>
 

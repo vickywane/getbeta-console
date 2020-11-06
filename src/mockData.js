@@ -7,7 +7,9 @@ export const SubscriptionPlans = [
       'Single User Account',
       'Online Content',
       'Create and Market Courses',
-      'Create and Schedule Meetings'
+      'Create and Schedule Meetings',
+      '500mb Storage Space',
+      '5% transaction fee per sale'
     ]
   },
   {
@@ -20,7 +22,8 @@ export const SubscriptionPlans = [
       'Sell Courses',
       'Create Meetings Team',
       'Team Collaborations',
-      'Analytics and Reports'
+      'Analytics and Reports',
+      '3gb Storage Space'
     ]
   },
   {

@@ -22,7 +22,7 @@ const Image = styled.img`
   object-fit: contain;
   width: 230px;
   height: 200px;
-  border-radius: 15px;
+  border-radius: 20px;
   ${media.lessThan('large')`
   width: 200px;
   height: 200px;
@@ -47,6 +47,7 @@ const StyledBody = styled.div`
 
 const Grid = styled.div`
   display: flex;
+  justify-content: center;
   ${media.lessThan('medium')`
         flex-direction : column;
         align-items : center;
@@ -69,8 +70,18 @@ const contentSchema = Yup.object().shape({
   type: Yup.string()
 })
 
+const FormGrid = styled.div`
+  display: grid;
+  grid-template-columns: 50% 50%;
+  ${media.lessThan('medium')`
+      display : flex;
+      flex-direction : column
+       
+    `}
+`
+
 const CreateContent = props => {
-  const { createContent, isCreatingContent, isLoading } = props.ContentStore
+  const { createContent, isLoading } = props.ContentStore
 
   const [ContentName, setContentName] = useState('')
   const [ContentDescription, setContentDescription] = useState('')
@@ -78,10 +89,13 @@ const CreateContent = props => {
   const [ContentType, setContentType] = useState('Article')
   const [contentImage, setContentImage] = useState(null)
 
+  const [contentNameValid, setContentNameValidity] = useState(true)
+
   const handleSubmit = () => {
     const isValidContent = contentSchema.isValid({
       name: ContentName,
       description: ContentDescription,
+
       price: ContentPrice,
       type: ContentType
     })
@@ -121,7 +135,9 @@ const CreateContent = props => {
 
                 <Image
                   src={
-                    'https://res.cloudinary.com/dkfptto8m/image/upload/v1603528071/freelance/placeholer.png'
+                    !contentImage
+                      ? 'https://res.cloudinary.com/dkfptto8m/image/upload/v1603528071/freelance/placeholer.png'
+                      : require('../../assets/images/image-icon.png')
                   }
                 />
                 {isDragActive && <Text align="center"> Drop Image here </Text>}
@@ -149,10 +165,12 @@ const CreateContent = props => {
                     </StyledHover>
                   </div>
                 ) : (
-                  <Text> {contentImage.path} </Text>
+                  <Text style={{ margin: '0 .5rem' }}> {contentImage.path} </Text>
                 )}
               </div>
             </Grid>
+
+            <hr />
             <form onSubmit={() => handleSubmit()}>
               <InputField>
                 <label> Content Name </label>
@@ -160,8 +178,21 @@ const CreateContent = props => {
                   onChange={e => setContentName(e.target.value)}
                   value={ContentName}
                   type="text"
+                  onBlur={e =>
+                    Yup.object()
+                      .shape({ name: Yup.string().min(10) })
+                      .isValid({ name: e.target.value })
+                      .then(e => setContentNameValidity(e))
+                  }
+                  style={{ boxShadow: !contentNameValid && '0 0 1px 1px red' }}
                   placeholder="Content Name"
                 />
+
+                {!contentNameValid && (
+                  <Text color="red" style={{ paddingTop: '5px' }} small>
+                    Your content name is too short for a valid content
+                  </Text>
+                )}
               </InputField>
 
               <InputField>
@@ -175,16 +206,17 @@ const CreateContent = props => {
               </InputField>
 
               <InputField>
-                <label> Content Price </label>
-                <input
-                  onChange={e => setContentPrice(e.target.value)}
-                  value={ContentPrice}
-                  type="text"
-                  placeholder="Content Price"
-                />
+                <label> Content Tags </label>
+                <Select size="md" placeholder="Health">
+                  <option value="Health"> Health Care </option>
+                  <option value="Arts">Arts </option>
+                  <option value="Commerce"> Commerce </option>
+                  <option value="Politics"> Politics </option>
+                  <option value="Education"> Education </option>
+                </Select>
               </InputField>
 
-              <Stack spacing={3}>
+              <FormGrid spacing={3}>
                 <InputField>
                   <label> Content Type </label>
                   <Select
@@ -201,16 +233,15 @@ const CreateContent = props => {
                 </InputField>
 
                 <InputField>
-                  <label> Content Tags </label>
-                  <Select size="md" placeholder="Health">
-                    <option value="Health"> Health Care </option>
-                    <option value="Arts">Arts </option>
-                    <option value="Commerce"> Commerce </option>
-                    <option value="Politics"> Politics </option>
-                    <option value="Education"> Education </option>
-                  </Select>
+                  <label> Content Price </label>
+                  <input
+                    onChange={e => setContentPrice(e.target.value)}
+                    value={ContentPrice}
+                    type="text"
+                    placeholder="Content Price"
+                  />
                 </InputField>
-              </Stack>
+              </FormGrid>
 
               <br />
               <div style={{ ...center }}>

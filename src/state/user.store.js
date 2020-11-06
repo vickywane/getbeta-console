@@ -6,6 +6,8 @@ import localforage from 'localforage'
 import * as Sentry from '@sentry/react'
 
 const AUTH_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
+const EMAIL_ENDPOINT = process.env.REACT_APP_EMAIL_ENDPOINT
+
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
 
@@ -175,6 +177,13 @@ class UserStore {
     })
       .then(() => {
         this.isSendingResetLink = false
+
+        fetch(`${EMAIL_ENDPOINT}?email=${email}&type=forgot-password`)
+          .then(res => {})
+          .catch(e => {
+            Sentry.captureException(e, `error sending welcome-email to ${email} `)
+          })
+
         this.sentResetLink = true
       })
       .catch(e => {
@@ -238,17 +247,14 @@ class UserStore {
 
         navigate('console/*')
 
-        // this shouldnt break the auth flow if it fails
-
-        Axios(`${process.env.REACT_APP_EMAIL_ENDPOINT}`, {
-          method: 'POST',
-          data: {
-            reciever: email,
-            type: 'welcome'
-          }
-        })
-          .then(() => {})
-          .catch(e => Sentry.captureException(e, `error sending welcome-email to ${email} `))
+        // TODO: This should be made a POST request
+        fetch(`${EMAIL_ENDPOINT}?email=${email}&name=${fullname}&type=welcome`)
+          .then(res => {
+            console.log(res)
+          })
+          .catch(e => {
+            Sentry.captureException(e, `error sending welcome-email to ${email} `)
+          })
       })
       .catch(e => {
         this.isLoading = false

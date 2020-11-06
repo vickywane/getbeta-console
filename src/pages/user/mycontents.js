@@ -194,6 +194,10 @@ const MyContent = props => {
 
             <TabPanel>
               <HomeList>
+                <div>
+                  <Text small> {userContents.length} Contents </Text>
+                </div>
+
                 {isLoadingContents ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <br />

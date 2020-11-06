@@ -17,6 +17,7 @@ import {
   AuthCards,
   AuthInputFields
 } from '../../styles/style'
+import { yupToFormErrors } from 'formik'
 
 const Body = styled.div`
   display: grid;
@@ -42,6 +43,7 @@ const accountSchema = Yup.object().shape({
     .required(),
   email: Yup.string().email()
 })
+const mobileReg = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
 
 const CreateAccount = props => {
   const { createAccount, isLoading } = props.UserStore
@@ -51,7 +53,9 @@ const CreateAccount = props => {
   const [Password, setPassword] = useState('')
   const [ConfirmPassword, setConfirmPassword] = useState('')
   const [detailsError, setDetailsError] = useState(false)
-  const [mobileNumber, setMobileNumber] = useState('')
+  const [mobileNumber, setMobileNumber] = useState(null)
+
+  const [emailIsValid, setEmailValidity] = useState(true)
 
   const handleRegistration = () => {
     const isValid = accountSchema.isValid({
@@ -105,7 +109,9 @@ const CreateAccount = props => {
                 <label> Full name </label>
                 <input
                   value={FullName}
-                  onChange={e => setFullName(e.target.value)}
+                  onChange={e => {
+                    setFullName(e.target.value)
+                  }}
                   type="text"
                   placeholder="Your full name"
                 />
@@ -116,9 +122,22 @@ const CreateAccount = props => {
                 <input
                   value={Email}
                   onChange={e => setEmail(e.target.value)}
+                  onBlur={e =>
+                    Yup.object()
+                      .shape({ email: Yup.string().email() })
+                      .isValid({ email: e.target.value })
+                      .then(e => setEmailValidity(e))
+                  }
+                  style={{ boxShadow: !emailIsValid && '0 0 1.5px 1.5px red' }}
                   type="email"
                   placeholder="Your email address"
                 />
+                {!emailIsValid && (
+                  <Text color="red" style={{ paddingTop: '5px' }} small>
+                    {' '}
+                    Please use a valid email addresss{' '}
+                  </Text>
+                )}
               </AuthInputFields>
 
               <AuthInputFields>
@@ -126,7 +145,13 @@ const CreateAccount = props => {
                 <input
                   value={mobileNumber}
                   onChange={e => setMobileNumber(e.target.value)}
-                  type="tel"
+                  type="number"
+                  onBlur={({ target }) => {
+                    Yup.object()
+                      .shape({ cell_no: Yup.string().matches(mobileReg) })
+                      .isValid({ cell_no: target.value })
+                      .then(r => {})
+                  }}
                   name="phone"
                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   placeholder="Your mobile number"
@@ -160,6 +185,7 @@ const CreateAccount = props => {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 style={{
+                  width: '15rem',
                   background: Password !== ConfirmPassword && 'transparent',
                   color: Password !== ConfirmPassword && '#0072ce'
                 }}
