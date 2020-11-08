@@ -111,11 +111,12 @@ class ContentStore {
 
   @action
   addContentFile = (id, contentFile) => {
+
     this.isLoading = true
     this.isCreatingContentFile = true
     const contentfile = new FormData()
     contentfile.append('file', contentFile)
-
+    console.log(contentfile.get("file"), "form body");
     Axios.post(`${CONTENT_ENDPOINT}/content/${id}/addfile`, contentfile, {
       headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
     })

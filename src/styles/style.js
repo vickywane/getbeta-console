@@ -308,6 +308,7 @@ export const MdTitle = styled.h4`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
+  word-break : break-all;
   font-size: ${props => (props.small ? '.8rem' : '.9rem')};
   font-family: Open Sans;
   ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.9rem')}`};
