@@ -147,9 +147,9 @@ class ContentStore {
 
   getUserContents = id => {
     this.isLoadingContents = true
-    Axios.get(`${CONTENT_ENDPOINT}/${id}/contents/find`, {
+    Axios.get(`${CONTENT_ENDPOINT}/${localStorage.getItem("userId")}/contents/find`, {
       headers: {
-        'x-auth-token': token
+        'x-auth-token': localStorage.getItem("token")
       }
     })
       .then(res => {

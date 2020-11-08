@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled from 'styled-components'
 import {
   FiChevronRight,
@@ -9,6 +9,17 @@ import {
   FiEdit,
   FiPlus
 } from 'react-icons/fi'
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  useDisclosure,
+  DrawerContent,
+  DrawerCloseButton
+} from '@chakra-ui/core'
+
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { Spinner } from 'react-bootstrap'
@@ -26,6 +37,7 @@ import ModalWrapper from '../../../components/modals/modalWrapper'
 import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
 import Header from '../../../components/headers/header'
 import { IoMdPeople } from 'react-icons/io'
+import { FiX } from 'react-icons/fi'
 
 const Head = styled.div`
   display: flex;
@@ -117,13 +129,13 @@ const ContentFileOverview = styled.div`
 
 const EditContent = props => {
   const Width = useWindowWidth()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [ModalVisibility, setModalVisibility] = useState(false)
   const [Content, setContent] = useState(null)
   const [currentView, setCurrentView] = useState('content')
   const [showContentPreview, setContentPreview] = useState(true)
   const [isEditing, setEditing] = useState(false)
-  const [contentFileUrl, setcontentFileUrl] = useState(null)
   const [headerName, setHeaderName] = useState('')
 
   // for the content player
@@ -138,6 +150,7 @@ const EditContent = props => {
     getContentFiles,
     updateContent,
     contentFiles,
+    isLoading,
     isCreatingContentFile,
     addContentFile
   } = props.ContentStore
@@ -151,8 +164,6 @@ const EditContent = props => {
 
   let data = toJS(content)
   const files = toJS(contentFiles)
-
-  console.log(data)
 
   useEffect(() => {
     if (Lodash.isEmpty(files)) {
@@ -182,6 +193,8 @@ const EditContent = props => {
 
     updateContent(contentId, updateTitle, updateDescription)
   }
+
+  const btnRef = useRef()
 
   return (
     <div>
@@ -256,6 +269,64 @@ const EditContent = props => {
         </div>
       </ModalWrapper>
 
+      <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose} finalFocusRef={btnRef}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>
+            <Title> Edit Content </Title>{' '}
+          </DrawerHeader>
+          <hr />
+          <DrawerBody>
+            <div>
+              <InputBody>
+                <label> Content Title </label>
+                <input
+                  type="text"
+                  value={updateTitle}
+                  placeholder={data.title}
+                  onChange={e => {
+                    setUpdateTitle(e.target.value)
+                  }}
+                />
+              </InputBody>
+              <br />
+              <InputBody>
+                <label> Content Description </label>
+                <textarea
+                  type="text"
+                  value={updateDescription}
+                  placeholder={data.descrp}
+                  onChange={e => setUpdatedDescription(e.target.value)}
+                />
+              </InputBody>
+            </div>
+          </DrawerBody>
+
+          <DrawerFooter>
+            <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+              <Button onClick={onClose} style={{ background: 'grey' }}>
+                Cancel
+              </Button>
+
+              <Button
+                onClick={() => {
+                  handleUpdate()
+                  onClose()
+                }}
+              >
+                {isLoading ? 'Saving' : 'Save'} Changes.
+                {isLoading && (
+                  <div style={{ paddingLeft: '.7rem' }}>
+                    <Spinner size="sm" animation="border" role="status" />
+                  </div>
+                )}
+              </Button>
+            </div>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+
       <CSSTransition in={currentView === 'player'} timeout={300} unmountOnExit>
         <Player contentDetails={contentDetail} goBack={() => setCurrentView('content')} />
       </CSSTransition>
@@ -297,7 +368,7 @@ const EditContent = props => {
 
                     <div style={{ ...center }}>
                       {!isEditing ? (
-                        <Hover onClick={_ => setEditing(true)}>
+                        <Hover onClick={onOpen}>
                           <FiEdit style={{ fontSize: '1.3rem' }} />
                         </Hover>
                       ) : (

@@ -126,14 +126,15 @@ class UserStore {
   //TO GET LOGGED IN USER DETAIL
   getUserDetail = () => {
     this.isLoading = true
-    Axios.get(`${AUTH_ENDPOINT}/${id}`, {
-      headers: { 'x-auth-token': token }
+    Axios.get(`${AUTH_ENDPOINT}/${localStorage.getItem('userId')}`, {
+      headers: { 'x-auth-token': localStorage.getItem('token') }
     })
       .then(res => {
         this.userDetail = res.data.vendor
         this.isLoading = false
       })
       .catch(e => {
+        console.log('error gtting user detail', e)
         this.isLoading = false
         Sentry.captureException(e, "error from getting user's details")
       })
@@ -205,6 +206,7 @@ class UserStore {
         // would switch later
         localStorage.setItem('token', token)
         localStorage.setItem('userId', vendor.id)
+        this.userId = vendor.id
 
         this.userDetail = {
           name: vendor.fullname,
