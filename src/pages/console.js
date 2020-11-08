@@ -10,7 +10,7 @@ import {
   Ticket,
   CreateVendor,
   AccountPlans,
-  Preferences,
+  Settings,
   Sessions,
   Content,
   AllSessions,
@@ -50,7 +50,7 @@ const Console = props => {
           <ContactUser UserStore={UserStore} path="u/:username" />
           <Home UserStore={UserStore} default />
           <Bookings UserStore={UserStore} path="/booking" />
-          <Preferences path="/preference" />
+          <Settings path="/settings" />
           <Sessions path="/sessions" />
           <CreateVendor path="/upgrade" UserStore={UserStore} />
           <Ticket path="/ticket" />

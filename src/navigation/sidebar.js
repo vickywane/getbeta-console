@@ -155,7 +155,7 @@ const Sidebar = props => {
       name: 'Preferences',
       routeName: 'preference',
       icon: <FiSettings style={{ fontSize: !isClosed ? '1.3rem' : '1.3rem' }} />,
-      to: '/preference'
+      to: '/settings'
     }
   ]
 
