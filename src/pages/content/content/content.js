@@ -19,7 +19,7 @@ import {
   DrawerContent,
   DrawerCloseButton
 } from '@chakra-ui/core'
-
+import { navigate } from '@reach/router'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { Spinner } from 'react-bootstrap'
@@ -164,6 +164,8 @@ const EditContent = props => {
 
   let data = toJS(content)
   const files = toJS(contentFiles)
+
+  console.log(data, "conteent data");
 
   useEffect(() => {
     if (Lodash.isEmpty(files)) {

@@ -47,11 +47,7 @@ class ContentStore {
       }
     )
       .then(result => {
-        console.log(contentImage)
-
         if (contentImage) {
-          console.log(contentImage)
-
           const { _id } = result.data.content
 
           const formData = new FormData()
@@ -59,7 +55,13 @@ class ContentStore {
 
           Axios.put(`${CONTENT_ENDPOINT}/${id}/${_id}/img`, formData, {
             headers: { 'x-auth-token': token, 'Content-Type': 'mulipart/formdata' }
-          }).catch(e => Sentry.captureException(e))
+          })
+            .then(() => {
+              this.isLoading = false
+
+              navigate('/contents')
+            })
+            .catch(e => Sentry.captureException(e))
         }
 
         this.isLoading = false
@@ -147,9 +149,9 @@ class ContentStore {
 
   getUserContents = id => {
     this.isLoadingContents = true
-    Axios.get(`${CONTENT_ENDPOINT}/${localStorage.getItem("userId")}/contents/find`, {
+    Axios.get(`${CONTENT_ENDPOINT}/${localStorage.getItem('userId')}/contents/find`, {
       headers: {
-        'x-auth-token': localStorage.getItem("token")
+        'x-auth-token': localStorage.getItem('token')
       }
     })
       .then(res => {

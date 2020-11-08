@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import media from 'styled-media-query'
 import { FiMoreHorizontal, FiTrash2, FiDownload } from 'react-icons/fi'
+import { navigate } from '@reach/router'
 
 import { Title, Text, Hover } from '../styles/style'
 
@@ -98,7 +99,19 @@ const ContentFileCard = props => {
                           description:
                             'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
                         })
-                        setCurrentView('player')
+
+                        navigate('/player', {
+                          state: {
+                            contentDetails: {
+                              name: filename,
+                              url: url,
+                              dateCreated: dateCreated,
+                              description:
+                                'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
+                            }
+                          }
+                        })
+                        // setCurrentView('player')
                       }}
                       style={{ margin: '0 .5rem' }}
                     >

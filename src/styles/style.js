@@ -134,10 +134,16 @@ export const CreateCourseInputField = styled.div`
     background: transparent;
     font-size : .9rem;
     border : 1px solid #c0c0c0;
+    &:focus {
+      box-shadow: 0 0 1.5px 1.5px #0072ce;
+    }
   }
 
   option {
     font-size : .9rem;
+    &:focus {
+      box-shadow: 0 0 1.5px 1.5px #0072ce;
+    }
   }
   input {
     font-size : .9rem;
@@ -148,6 +154,9 @@ export const CreateCourseInputField = styled.div`
     color: #000;
     padding: 0.5rem 1rem;
     outline: 0px;
+    &:focus {
+      box-shadow: 0 0 1.5px 1.5px #0072ce;
+    }
   }
   textarea {
     font-size : .95rem;
@@ -157,6 +166,9 @@ export const CreateCourseInputField = styled.div`
     color: #000;
     padding: 0.5rem 1rem;
     outline: 0px;
+    &:focus {
+      box-shadow: 0 0 1.5px 1.5px #0072ce;
+    }
   }
   ${media.lessThan('huge')`
   input {

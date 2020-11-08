@@ -19,6 +19,7 @@ import {
   Analytics,
   CreateContent,
   Upgrade,
+  ContentPlayer,
   Notification,
   UserSurvey,
   CreatorsHub,
@@ -41,6 +42,7 @@ const Console = props => {
 
       <div style={{ width: '100%' }}>
         <Router>
+          <ContentPlayer path="/player" UserStore={UserStore} />
           <Analytics path="/analytics" UserStore={UserStore} />
           <AccountPlans path="/subscriptions" UserStore={UserStore} />
           <Upgrade path="/upgrade" UserStore={UserStore} />
