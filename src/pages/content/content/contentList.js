@@ -55,6 +55,17 @@ const Contents = props => {
 
   const Width = useWindowWidth()
 
+  const Grid = styled.div`
+    display : flex;
+    flex-direction : row;
+    justify-content : space-between;
+    ${media.lessThan("medium")`
+      display : flex;
+      flex-direction : column;
+      justify-content : space-between;
+    `};  
+  `
+
   return (
     <div>
       <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
@@ -119,20 +130,20 @@ const Contents = props => {
       </ModalWrapper>
 
       <Body>
-        <div style={{ margin: '0.5rem 0', justifyContent: 'space-between', display: 'flex' }}>
+        <Grid style={{ margin: '0.5rem 0'}}>
           <div style={{ display: 'flex' }}>
-            <FilterButton onClick={() => setModal(true)}>
+            {/* <FilterButton onClick={() => setModal(true)}>
               <FiFilter style={{ fontSize: '1.1rem' }} />
-            </FilterButton>
+            </FilterButton> */}
             {/* <StyledFilter onClick={() => setModal(true)}>
               <Text style={{ margin: '0 0.5rem' }}> Filter Content </Text>
               <FiFilter style={{ fontSize: '1.3rem' }} />
             </StyledFilter> */}
 
-            <div>
-              <Text> Showing {contentList.length} packages. </Text>
-              <Text>
-                Sort By :<span style={{ textDecoration: 'underline' }}>Recently Added</span>
+            <div style={{display : "flex"}} >
+              <Text> Showing {contentList.length} packages </Text>
+              <Text style={{marginLeft : "10px"}} >
+                Sort By :<span style={{ cursor : "pointer", textDecoration: 'underline' }}>Recently Added</span>
               </Text>
             </div>
           </div>
@@ -146,7 +157,7 @@ const Contents = props => {
               <input placeholder="Seach for a content" type="text" />
             </Searchbox>
           </div>
-        </div>
+        </Grid>
 
         <CardGrid
           style={{ paddingLeft: '1rem', height: window.innerHeight - 150, overflow: 'auto' }}

@@ -135,12 +135,12 @@ const Preferences = props => {
             <div>
               <Title> Account Privacy </Title>
               <hr />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Text> Open for bookings and consultations</Text>
-
-                <div>
+              <div style={{ display: 'flex' }}>
+              <div style={{marginRight: "1rem"}} >
                   <Switch color="teal" size="lg" />
                 </div>
+              
+                <Text> Open for bookings and consultations</Text>
               </div>
             </div>
           </li>
