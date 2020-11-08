@@ -40,7 +40,7 @@ const Console = props => {
     <Grid>
       <Sidebar UserStore={UserStore} />
 
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', height: '100%' }}>
         <Router>
           <ContentPlayer path="/player" UserStore={UserStore} />
           <Analytics path="/analytics" UserStore={UserStore} />

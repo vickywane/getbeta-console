@@ -14,6 +14,8 @@ import { Text, Searchbox, Hover, center, CardGrid, Button } from '../../../style
 
 const Body = styled.div`
   padding: 1rem 1rem;
+  height: calc(100vh - 55px);
+  overflow: auto;
   ${media.lessThan('medium')`
   padding: 0.5rem 1rem;
   `};
@@ -67,7 +69,7 @@ const Contents = props => {
   `
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
       <ModalWrapper
         visibility={showModal}
@@ -159,9 +161,7 @@ const Contents = props => {
           </div>
         </Grid>
 
-        <CardGrid
-          style={{ paddingLeft: '1rem', height: window.innerHeight - 150, overflow: 'auto' }}
-        >
+        <CardGrid style={{ paddingLeft: '1rem', overflow: 'auto' }}>
           {Data.length < 1 ? (
             <div style={{ ...center }}>
               <Spinner variant="primary" animation="grow" role="loading" />

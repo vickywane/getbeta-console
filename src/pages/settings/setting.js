@@ -55,7 +55,7 @@ const List = styled.ul`
   list-style: none;
   padding: 0.5rem 0.5rem;
   li {
-    margin: .5rem 0.3rem;
+    margin: 0.5rem 0.3rem;
   }
 `
 
@@ -71,7 +71,7 @@ const BtnGrid = styled.div`
 
 const StyledBody = styled(Body)`
   height: calc(100vh - 55px);
-  overflow : auto;
+  overflow: auto;
 `
 
 const Preferences = props => {

@@ -84,48 +84,46 @@ const Home = props => {
       <Body>
         {!isLoading && (
           <Grid>
-              <Card background="#fff" style={{ ...center }}>
-                <div>
-                  <StyledTitle align="center">
-                    {contents !== undefined && contents.length}
-                  </StyledTitle>
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center">
+                  {contents !== undefined && contents.length}
+                </StyledTitle>
 
-                  <Text align="center">
-                    {contents !== undefined && contents.length < 2
-                      ? 'Created Package'
-                      : 'Created Packages'}
-                  </Text>
-                </div>
-              </Card>
+                <Text align="center">
+                  {contents !== undefined && contents.length < 2
+                    ? 'Created Package'
+                    : 'Created Packages'}
+                </Text>
+              </div>
+            </Card>
 
-              <Card background="#fff" style={{ ...center }}>
-                <div>
-                  <StyledTitle align="center">
-                    {courses !== undefined && courses.length}
-                  </StyledTitle>
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center">{courses !== undefined && courses.length}</StyledTitle>
 
-                  <Text align="center">
-                    {courses !== undefined && courses.length < 2
-                      ? 'Purchased Content'
-                      : 'Purchased Contents'}
-                  </Text>
-                </div>
-              </Card>
+                <Text align="center">
+                  {courses !== undefined && courses.length < 2
+                    ? 'Purchased Content'
+                    : 'Purchased Contents'}
+                </Text>
+              </div>
+            </Card>
 
-              <Card background="#fff" style={{ ...center }}>
-                <div>
-                  <StyledTitle align="center"> 0 </StyledTitle>
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center"> 0 </StyledTitle>
 
-                  <Text align="center"> My Bookings </Text>
-                </div>
-              </Card>
-              <Card style={{ ...center, backgroundColor: 'white' }}>
-                <div>
-                  <StyledTitle align="center"> 0 </StyledTitle>
+                <Text align="center"> My Bookings </Text>
+              </div>
+            </Card>
+            <Card style={{ ...center, backgroundColor: 'white' }}>
+              <div>
+                <StyledTitle align="center"> 0 </StyledTitle>
 
-                  <Text align="center"> Bookings </Text>
-                </div>
-              </Card>
+                <Text align="center"> Bookings </Text>
+              </div>
+            </Card>
           </Grid>
         )}
 

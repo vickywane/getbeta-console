@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Link, useLocation } from '@reach/router'
 import {
   FiUser,
-  FiVideo,FiZap,
+  FiVideo,
+  FiZap,
   FiLogOut,
   FiBookOpen,
   FiGrid,
@@ -14,7 +15,6 @@ import {
 import { IoIosList } from 'react-icons/io'
 import useWindowWith from '../utils/hook_style'
 import media from 'styled-media-query'
-
 
 import { Hover, Text, Title, center } from '../styles/style'
 

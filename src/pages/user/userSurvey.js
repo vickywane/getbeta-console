@@ -19,10 +19,9 @@ import {
   MdTitle
 } from '../../styles/style'
 
-
 const StyledBody = styled(Body)`
-  height : calc(100vh - 70px);
-  overflow : auto;
+  height: calc(100vh - 70px);
+  overflow: auto;
 `
 
 const Box = styled.div`
@@ -235,7 +234,7 @@ function CompleteProfileDetails(props) {
   }
 
   return (
-    <div style={{height : "100%"}} >
+    <div style={{ height: '100%' }}>
       <Header goBack />
       <StyledBody
         style={{
@@ -346,7 +345,6 @@ function CompleteProfileDetails(props) {
                         <span style={{ margin: '.8rem .5rem' }}>{icon}</span>
                         <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
                       </span>
-                   
                     </div>
                   </Box>
                 </li>
