@@ -48,6 +48,11 @@ const FilterButton = styled(Button)`
   `};
 `
 
+const StyledBody = styled(Body)`
+  height: calc(100vh - 130px);
+  overflow: auto;
+`
+
 const Booking = props => {
   const { getUsers, users, isLoading } = props.UserStore
   const { Width } = props
@@ -64,7 +69,7 @@ const Booking = props => {
   const allVendors = toJS(users)
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header showSearch={true} searchText="Find A Professional" />
 
       <ModalWrapper
@@ -151,11 +156,9 @@ const Booking = props => {
         </div>
       </Body>
 
-      <Body
+      <StyledBody
         style={{
           padding: '0.5rem',
-          height: window.innerHeight - 50,
-          overflow: 'auto',
           background: 'rgba(233, 241, 251, 0.81)'
         }}
       >
@@ -184,7 +187,7 @@ const Booking = props => {
             })
           )}
         </CardGrid>
-      </Body>
+      </StyledBody>
     </div>
   )
 }

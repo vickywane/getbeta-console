@@ -59,6 +59,10 @@ const List = styled.ul`
   }
 `
 
+const StyledBody = styled(Body)`
+  height: calc(100vh - 120px);
+`
+
 const Preferences = props => {
   const [tags, setTags] = useState([
     'Physics',
@@ -72,11 +76,7 @@ const Preferences = props => {
   return (
     <div>
       <Header />
-      <Body
-        style={{
-          height: window.innerHeight - 60
-        }}
-      >
+      <StyledBody>
         <List>
           <li>
             <div>
@@ -126,13 +126,13 @@ const Preferences = props => {
                 <Text> Open for bookings and consultations</Text>
 
                 <div>
-                  <Switch color="teal"  size="lg" />
+                  <Switch color="teal" size="lg" />
                 </div>
               </div>
             </div>
           </li>
         </List>
-      </Body>
+      </StyledBody>
     </div>
   )
 }

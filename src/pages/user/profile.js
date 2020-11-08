@@ -43,6 +43,7 @@ export const Image = styled.img`
 
 export const Body = styled.div`
   padding: 0.5rem 3rem;
+
   color: #0072ce;
   background: rgba(233, 241, 251, 0.81);
   span {

@@ -117,6 +117,7 @@ const MediaGrid = styled.div`
 
 const StyledBody = styled(Body)`
   padding: 1rem 5rem;
+  height: calc(100vh - 120px);
   ${media.lessThan('large')`
     padding : 1rem 3rem;
   `};
@@ -180,7 +181,7 @@ const UpdateProfile = props => {
   })
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header goBack={true} />
 
       {isUpdated && (
@@ -191,192 +192,185 @@ const UpdateProfile = props => {
         </Alert>
       )}
 
-      <CSSTransition
-        in={currentView === 'update-profile'}
-        timeout={300}
-        classNames=""
-        unmountOnExit
-      >
-        <div>
-          {!userData.hasAnswered && (
-            <Alert variant="success">
-              <div style={{ ...center }}>
-                <Text align="center">Few questions more to confirm your account.</Text>
-              </div>
+      <div>
+        {!userData.hasAnswered && (
+          <Alert variant="success">
+            <div style={{ ...center }}>
+              <Text align="center">Few questions more to confirm your account.</Text>
+            </div>
 
-              <Link
-                to="/user-survey"
-                style={{
-                  ...center,
-                  margin: '0 .5rem'
+            <Link
+              to="/user-survey"
+              style={{
+                ...center,
+                margin: '0 .5rem'
+              }}
+            >
+              <Text> Verify Now </Text>
+            </Link>
+          </Alert>
+        )}
+        <StyledBody>
+          <div style={{}}>
+            <div
+              {...getRootProps({
+                isDragActive,
+                isDragAccept,
+                isDragReject
+              })}
+            >
+              {isUploading ? (
+                <div
+                  style={{
+                    borderRadius: '6px',
+                    marginLeft: '3rem',
+                    display: 'flex',
+                    ...center,
+                    height: '100%',
+                    width: '100%',
+                    flex: 1,
+                    border: '3px dashed #0072ce',
+                    background: '#fbfbfb'
+                  }}
+                >
+                  <Text align="center">
+                    Tap to select a image <br /> Or Drag 'n' Drop image{' '}
+                  </Text>
+                </div>
+              ) : (
+                <MediaGrid>
+                  {!userImage ? (
+                    <div style={{ display: 'flex' }}>
+                      <UserImage image={!userData.img ? TestImage : userData.img}>
+                        <input {...getInputProps()} />
+                      </UserImage>
+
+                      <div style={{ ...center }}>
+                        {!userImage ? (
+                          <div style={{ ...center }}>
+                            <StyledHover
+                              {...getRootProps({
+                                isDragActive,
+                                isDragAccept,
+                                isDragReject
+                              })}
+                              style={{ display: 'flex', padding: '7px' }}
+                            >
+                              <input {...getInputProps()} />
+                              <Hover style={{ margin: '0 0.6rem', ...center }}>
+                                <FiUploadCloud style={{ fontSize: '1.5rem' }} />
+                              </Hover>
+
+                              <Text small style={{ padding: 0, margin: 0 }}>
+                                Upload Content Image{' '}
+                              </Text>
+                            </StyledHover>
+                          </div>
+                        ) : (
+                          <Text> {userImage.path} </Text>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex' }}>
+                      <img
+                        alt="default file placeholde"
+                        style={{ height: '120px', width: '120px' }}
+                        src={require('../../assets/images/image-icon.png')}
+                      />
+
+                      <div style={{ ...center }}>
+                        <Text> {userImage.name} </Text>
+                      </div>
+                    </div>
+                  )}
+                  <br />
+                </MediaGrid>
+              )}
+            </div>
+          </div>
+          <hr />
+          <FormsGrid>
+            <StyledInputBody>
+              <label> Full Name </label>
+              <input
+                type="text"
+                placeholder={userName}
+                value={userName}
+                onChange={e => {
+                  setUserName(e.target.value)
                 }}
-              >
-                <Text> Verify Now </Text>
-              </Link>
-            </Alert>
-          )}
-          <StyledBody style={{ height: window.innerHeight - 80, overflow: 'auto' }}>
-            <div style={{}}>
-              <div
-                {...getRootProps({
-                  isDragActive,
-                  isDragAccept,
-                  isDragReject
-                })}
-              >
-                {isUploading ? (
-                  <div
-                    style={{
-                      borderRadius: '6px',
-                      marginLeft: '3rem',
-                      display: 'flex',
-                      ...center,
-                      height: '100%',
-                      width: '100%',
-                      flex: 1,
-                      border: '3px dashed #0072ce',
-                      background: '#fbfbfb'
-                    }}
-                  >
-                    <Text align="center">
-                      Tap to select a image <br /> Or Drag 'n' Drop image{' '}
-                    </Text>
-                  </div>
-                ) : (
-                  <MediaGrid>
-                    {!userImage ? (
-                      <div style={{ display: 'flex' }}>
-                        <UserImage image={!userData.img ? TestImage : userData.img}>
-                          <input {...getInputProps()} />
-                        </UserImage>
+              />
+            </StyledInputBody>
+            <StyledInputBody>
+              <label> Email Address </label>
+              <input
+                type="text"
+                placeholder={userEmail}
+                value={userEmail}
+                onChange={e => {
+                  setUserEmail(e.target.value)
+                }}
+              />
+            </StyledInputBody>
+            <StyledInputBody>
+              <label> Mobile Number </label>
+              <input
+                type="tel"
+                placeholder={Number}
+                value={Number}
+                onChange={e => {
+                  setNumber(e.target.value)
+                }}
+              />
+            </StyledInputBody>
+            <StyledInputBody>
+              <label> Highest Level of Education </label>
+              <input
+                type="text"
+                placeholder={'Eductional Status'}
+                value={Education}
+                onChange={e => {
+                  setEduction(e.target.value)
+                }}
+              />
+            </StyledInputBody>
+            <StyledInputBody>
+              <label> Occupation </label>
+              <input
+                type="text"
+                placeholder={Occupation}
+                value={Occupation && Occupation}
+                onChange={e => {
+                  setOccupation(e.target.value)
+                }}
+              />
+            </StyledInputBody>
+            <StyledInputBody>
+              <label> Brief Biography </label>
+              <textarea
+                type="text"
+                placeholder={Bio || 'A short description about me'}
+                onChange={e => {
+                  setBio(e.target.value)
+                }}
+              />
+            </StyledInputBody>
+          </FormsGrid>
 
-                        <div style={{ ...center }}>
-                          {!userImage ? (
-                            <div style={{ ...center }}>
-                              <StyledHover
-                                {...getRootProps({
-                                  isDragActive,
-                                  isDragAccept,
-                                  isDragReject
-                                })}
-                                style={{ display: 'flex', padding: '7px' }}
-                              >
-                                <input {...getInputProps()} />
-                                <Hover style={{ margin: '0 0.6rem', ...center }}>
-                                  <FiUploadCloud style={{ fontSize: '1.5rem' }} />
-                                </Hover>
-
-                                <Text small style={{ padding: 0, margin: 0 }}>
-                                  Upload Content Image{' '}
-                                </Text>
-                              </StyledHover>
-                            </div>
-                          ) : (
-                            <Text> {userImage.path} </Text>
-                          )}
-                        </div>
-                      </div>
-                    ) : (
-                      <div style={{ display: 'flex' }}>
-                        <img
-                          alt="default file placeholde"
-                          style={{ height: '120px', width: '120px' }}
-                          src={require('../../assets/images/image-icon.png')}
-                        />
-
-                        <div style={{ ...center }}>
-                          <Text> {userImage.name} </Text>
-                        </div>
-                      </div>
-                    )}
-                    <br />
-                  </MediaGrid>
-                )}
-              </div>
-            </div>
-            <hr />
-            <FormsGrid>
-              <StyledInputBody>
-                <label> Full Name </label>
-                <input
-                  type="text"
-                  placeholder={userName}
-                  value={userName}
-                  onChange={e => {
-                    setUserName(e.target.value)
-                  }}
-                />
-              </StyledInputBody>
-              <StyledInputBody>
-                <label> Email Address </label>
-                <input
-                  type="text"
-                  placeholder={userEmail}
-                  value={userEmail}
-                  onChange={e => {
-                    setUserEmail(e.target.value)
-                  }}
-                />
-              </StyledInputBody>
-              <StyledInputBody>
-                <label> Mobile Number </label>
-                <input
-                  type="tel"
-                  placeholder={Number}
-                  value={Number}
-                  onChange={e => {
-                    setNumber(e.target.value)
-                  }}
-                />
-              </StyledInputBody>
-              <StyledInputBody>
-                <label> Highest Level of Education </label>
-                <input
-                  type="text"
-                  placeholder={'Eductional Status'}
-                  value={Education}
-                  onChange={e => {
-                    setEduction(e.target.value)
-                  }}
-                />
-              </StyledInputBody>
-              <StyledInputBody>
-                <label> Occupation </label>
-                <input
-                  type="text"
-                  placeholder={Occupation}
-                  value={Occupation && Occupation}
-                  onChange={e => {
-                    setOccupation(e.target.value)
-                  }}
-                />
-              </StyledInputBody>
-              <StyledInputBody>
-                <label> Brief Biography </label>
-                <textarea
-                  type="text"
-                  placeholder={Bio || 'A short description about me'}
-                  onChange={e => {
-                    setBio(e.target.value)
-                  }}
-                />
-              </StyledInputBody>
-            </FormsGrid>
-
-            <hr />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button onClick={() => updateUserAccount()} style={{ width: '20rem' }}>
-                {isLoading ? 'Saving ' : 'Save'} Details
-                {isLoading && (
-                  <div style={{ paddingLeft: '.7rem' }}>
-                    <Spinner size="sm" animation="border" role="status" />
-                  </div>
-                )}
-              </Button>
-            </div>
-          </StyledBody>
-        </div>
-      </CSSTransition>
+          <hr />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button onClick={() => updateUserAccount()} style={{ width: '20rem' }}>
+              {isLoading ? 'Saving ' : 'Save'} Details
+              {isLoading && (
+                <div style={{ paddingLeft: '.7rem' }}>
+                  <Spinner size="sm" animation="border" role="status" />
+                </div>
+              )}
+            </Button>
+          </div>
+        </StyledBody>
+      </div>
     </div>
   )
 }
