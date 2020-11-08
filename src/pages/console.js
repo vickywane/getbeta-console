@@ -10,7 +10,7 @@ import {
   Ticket,
   CreateVendor,
   AccountPlans,
-  Preferences,
+  Settings,
   Sessions,
   Content,
   AllSessions,
@@ -19,6 +19,7 @@ import {
   Analytics,
   CreateContent,
   Upgrade,
+  ContentPlayer,
   Notification,
   UserSurvey,
   CreatorsHub,
@@ -41,6 +42,7 @@ const Console = props => {
 
       <div style={{ width: '100%', height: '100%' }}>
         <Router>
+          <ContentPlayer path="/player" UserStore={UserStore} />
           <Analytics path="/analytics" UserStore={UserStore} />
           <AccountPlans path="/subscriptions" UserStore={UserStore} />
           <Upgrade path="/upgrade" UserStore={UserStore} />
@@ -48,7 +50,7 @@ const Console = props => {
           <ContactUser UserStore={UserStore} path="u/:username" />
           <Home UserStore={UserStore} default />
           <Bookings UserStore={UserStore} path="/booking" />
-          <Preferences path="/preference" />
+          <Settings path="/settings" />
           <Sessions path="/sessions" />
           <CreateVendor path="/upgrade" UserStore={UserStore} />
           <Ticket path="/ticket" />

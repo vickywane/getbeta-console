@@ -7,6 +7,7 @@ import media from 'styled-media-query'
 import { saveAs } from 'file-saver'
 import { Box } from '@chakra-ui/core'
 import moment from 'moment'
+import Header from '../../../components/headers/header'
 
 import useWindowWidth from '../../../utils/hook_style'
 import { Title, Text, Hover, Body, center, Button } from '../../../styles/style'
@@ -42,14 +43,10 @@ const StyledBody = styled(Body)`
 `
 
 const ContentPlayer = props => {
-  const { goBack, contentDetails } = props
-  const [contentFileType, setContentFileType] = useState('')
-  // const { name, url, description  , dateCreated} = contentDetails
+  const { contentDetails } = props.location.state
 
-  const url = 'https://storage.googleapis.com/get-beta/Screenshot_from_2020-10-31_21-33-00.png'
-  const name = 'Screenshot_from_2020-10-31_21-33-00.png'
-  const description =
-    'Content file description is lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aperiam optio perferendis magni  beatae in.'
+  const [contentFileType, setContentFileType] = useState('')
+  const { name, url, description, dateCreated } = contentDetails
 
   const [contentName, setContentName] = useState('')
 
@@ -88,15 +85,22 @@ const ContentPlayer = props => {
       height: 15vh;
       padding: 0.5rem 1rem;
       background: #fff;
+
+      &:focus {
+        box-shadow: 0 0 1.5px 1.5px #0072ce;
+      }
     }
   `
 
   const Width = useWindowWidth()
 
-  const handleDownload = () => {}
+  const handleDownload = () => {
+    saveAs(url, name)
+  }
 
   return (
     <div>
+      <Header goBack={true} />
       <div>
         {contentFileType === 'video' ? (
           <Grid>
@@ -135,7 +139,7 @@ const ContentPlayer = props => {
                     </Box>
                   </div>
 
-                  <Hover>
+                  <Hover onClick={_ => handleDownload()}>
                     <IoMdDownload />
                   </Hover>
                 </div>
@@ -148,7 +152,7 @@ const ContentPlayer = props => {
 
                   <Text style={{ paddingTop: '5px' }}>
                     {' '}
-                    {moment('Wed Nov 04 2020 00:02:23 GMT+0100').format('dddd-yy-mm')}{' '}
+                    {moment(dateCreated).format('dddd-yy-mm')}{' '}
                   </Text>
                 </div>
                 <Text> {description} </Text>
@@ -166,6 +170,8 @@ const ContentPlayer = props => {
 
                 <textarea placeholder="Your own content review" />
               </ReviewInput>
+              <br />
+              <Button style={{ width: '100%' }}>Add Review</Button>
             </StyledBody>
           </Grid>
         )}

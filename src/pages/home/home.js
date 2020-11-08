@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
@@ -17,6 +16,7 @@ const Body = styled.div`
 const Card = styled.div`
   height: 25vh;
   width: 22rem;
+  color : #0072ce;
   border-radius: 7px;
   padding : 1rem 1rem
   box-shadow: 0 2px 3px #c0c0c0;
@@ -80,61 +80,50 @@ const Home = props => {
     <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
       <Profile UserStore={UserStore} Width={Width} />
       <br />
-      <br />
 
       <Body>
         {!isLoading && (
           <Grid>
-            <AnchorLink style={{ textDecoration: 'none' }} href="#packages">
-              <Card background="#fff" style={{ ...center }}>
-                <div>
-                  <StyledTitle align="center">
-                    {contents !== undefined && contents.length}
-                  </StyledTitle>
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center">
+                  {contents !== undefined && contents.length}
+                </StyledTitle>
 
-                  <Text align="center">
-                    {contents !== undefined && contents.length < 2
-                      ? 'Created Package'
-                      : 'Created Packages'}
-                  </Text>
-                </div>
-              </Card>
-            </AnchorLink>
+                <Text align="center">
+                  {contents !== undefined && contents.length < 2
+                    ? 'Created Package'
+                    : 'Created Packages'}
+                </Text>
+              </div>
+            </Card>
 
-            <AnchorLink style={{ textDecoration: 'none' }} href="#courses">
-              <Card background="#fff" style={{ ...center }}>
-                <div>
-                  <StyledTitle align="center">
-                    {courses !== undefined && courses.length}
-                  </StyledTitle>
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center">{courses !== undefined && courses.length}</StyledTitle>
 
-                  <Text align="center">
-                    {courses !== undefined && courses.length < 2
-                      ? 'Purchased Content'
-                      : 'Purchased Contents'}
-                  </Text>
-                </div>
-              </Card>
-            </AnchorLink>
+                <Text align="center">
+                  {courses !== undefined && courses.length < 2
+                    ? 'Purchased Content'
+                    : 'Purchased Contents'}
+                </Text>
+              </div>
+            </Card>
 
-            <AnchorLink style={{ textDecoration: 'none' }} href="#bookings">
-              <Card background="#fff" style={{ ...center }}>
-                <div>
-                  <StyledTitle align="center"> 0 </StyledTitle>
+            <Card background="#fff" style={{ ...center }}>
+              <div>
+                <StyledTitle align="center"> 0 </StyledTitle>
 
-                  <Text align="center"> My Bookings </Text>
-                </div>
-              </Card>
-            </AnchorLink>
-            <AnchorLink style={{ textDecoration: 'none' }} to="#bookings">
-              <Card style={{ ...center, backgroundColor: 'white' }}>
-                <div>
-                  <StyledTitle align="center"> 0 </StyledTitle>
+                <Text align="center"> My Bookings </Text>
+              </div>
+            </Card>
+            <Card style={{ ...center, backgroundColor: 'white' }}>
+              <div>
+                <StyledTitle align="center"> 0 </StyledTitle>
 
-                  <Text align="center"> Bookings </Text>
-                </div>
-              </Card>
-            </AnchorLink>
+                <Text align="center"> Bookings </Text>
+              </div>
+            </Card>
           </Grid>
         )}
 

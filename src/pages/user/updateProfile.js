@@ -13,12 +13,11 @@ import Header from '../../components/headers/header'
 import TestImage from '../../assets/images/img.jpg'
 import {
   Text,
-  InputBody,
   Hover,
   Button,
   center,
   StyledHover,
-  Title,
+  CreateCourseInputField as StyledInputBody,
   Body,
   Alert
 } from '../../styles/style'
@@ -46,54 +45,6 @@ const UserImage = styled.div`
       width: 125px;
       height: 125px;
   `};
-`
-
-const StyledInputBody = styled(InputBody)`
-  margin: 0.4rem 0.5rem;
-  width: 100%;
-  label {
-    font-size: 0.95rem;
-  }
-  input {
-    color: #000;
-    width: 40rem;
-    font-size: 0.95rem;
-    height: 53px;
-    border: 1px solid #c0c0c0;
-  }
-  textarea {
-    border: 1px solid #c0c0c0;
-    width: 40rem;
-  }
-  ${media.lessThan('huge')`
-    margin: 0.4rem 0.5rem;
-      textarea , input {
-        width: 40rem;
-      }
-  `};
-  ${media.lessThan('large')`
-  textarea , input {
-    width: 35rem;
-  }
-`};
-  ${media.lessThan('medium')`
-  label {
-    font-size : .95rem;
-  }
-  textarea , input {
-    font-size : .9rem;
-      width : 100%;
-  }
-`};
-  ${media.lessThan('small')`
-  label {
-    font-size : .85rem;
-  }
-  textarea , input {
-    font-size : .8rem
-    width : 100%;
-  }
-`};
 `
 
 const FormsGrid = styled.div`

@@ -84,7 +84,7 @@ const Routes = [
         <FiSettings />
       </Hover>
     ),
-    to: '/preference'
+    to: '/settings'
   },
   {
     id: 8,

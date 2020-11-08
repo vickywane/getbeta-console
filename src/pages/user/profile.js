@@ -48,7 +48,7 @@ export const Body = styled.div`
   background: rgba(233, 241, 251, 0.81);
   span {
     display: flex;
-    margin: 2rem 1rem;
+    margin: 1rem 1rem;
     align-items: center;
     justify-content: space-between;
   }

@@ -55,12 +55,23 @@ const List = styled.ul`
   list-style: none;
   padding: 0.5rem 0.5rem;
   li {
-    margin: 1rem 0.3rem;
+    margin: 0.5rem 0.3rem;
   }
 `
 
+const BtnGrid = styled.div`
+  display: grid;
+  grid-template-columns: auto 14rem;
+  ${media.lessThan('medium')`
+  display: flex;
+  flex-direction : column;
+  justify-content : center;
+  `}
+`
+
 const StyledBody = styled(Body)`
-  height: calc(100vh - 120px);
+  height: calc(100vh - 55px);
+  overflow: auto;
 `
 
 const Preferences = props => {
@@ -74,7 +85,7 @@ const Preferences = props => {
   const [newTag, setNewTag] = useState('')
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header />
       <StyledBody>
         <List>
@@ -82,28 +93,31 @@ const Preferences = props => {
             <div>
               <Title> Personalize your content feed </Title>
               <hr />
-              <InputBody style={{ margin: '.5rem .2rem' }}>
-                <input
-                  type="text"
-                  onChange={e => setNewTag(e.target.value)}
-                  placeholder="Add a new content keyword"
-                />
 
-                <button
-                  onClick={() => {
-                    setTags(newTag)
-                  }}
-                  style={{ fontSize: '.9rem' }}
-                >
-                  Save
-                </button>
-              </InputBody>
+              <BtnGrid>
+                <InputBody style={{ margin: '.5rem .2rem' }}>
+                  <input
+                    type="text"
+                    onChange={e => setNewTag(e.target.value)}
+                    placeholder="Add a new content keyword"
+                  />
+                </InputBody>
+
+                <div style={{ ...center }}>
+                  <Button
+                    onClick={() => {
+                      setTags(newTag)
+                    }}
+                    style={{ width: '90%' }}
+                  >
+                    Save Tag
+                  </Button>
+                </div>
+              </BtnGrid>
             </div>
 
             <div style={{ paddingTop: '10px' }}>
-              <Text small>
-                Personalize your content feed to show items with the following tags.
-              </Text>
+              <Text>Personalize your content feed to show items with the following tags.</Text>
               <Grid>
                 {!Lodash.isEmpty(tags) &&
                   tags.map(item => {
@@ -115,12 +129,11 @@ const Preferences = props => {
                   })}
               </Grid>
             </div>
-            <br />
           </li>
           <br />
           <li>
             <div>
-              <Title> Privacy </Title>
+              <Title> Account Privacy </Title>
               <hr />
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Text> Open for bookings and consultations</Text>

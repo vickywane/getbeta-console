@@ -6,9 +6,23 @@ import { FiMail } from 'react-icons/fi'
 import { IoLogoWhatsapp, IoLogoFacebook } from 'react-icons/io'
 import media from 'styled-media-query'
 import { observer, inject } from 'mobx-react'
+import { Select } from '@chakra-ui/core'
+
 import Header from '../../components/headers/header'
 
-import { Body, Text, Button, center, MdTitle } from '../../styles/style'
+import {
+  Body,
+  Text,
+  Button,
+  CreateCourseInputField as InputField,
+  center,
+  MdTitle
+} from '../../styles/style'
+
+const StyledBody = styled(Body)`
+  height: calc(100vh - 70px);
+  overflow: auto;
+`
 
 const Box = styled.div`
   width: auto;
@@ -81,109 +95,68 @@ const StyledCheckbox = styled(Checkbox)`
   margin-top: 15px;
   border: 2px solid #c0c0c0;
   border-radius: 2px;
-  display: flex;
   justify-content: center;
   align-items: center;
 `
 
-const EntertainmentQuestions = props => (
-  <Grid>
-    {industries.map(({ id, name }) => (
-      <li>
-        <Box key={id}>
-          <div>
-            <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-            <StyledCheckbox
-              style={{ width: '20px' }}
-              size="lg"
-              onChange={() => props.setCategories(name)}
-              variantColor="blue"
-            />
-          </div>
-        </Box>
-      </li>
-    ))}
-  </Grid>
+const EntertainmentQuestions = ({ setCategories }) => (
+  <InputField>
+    <Select onChange={e => setCategories(e.target.value)}>
+      {industries.map(({ id, name }) => (
+        <option value={name} key={id}>
+          {name}
+        </option>
+      ))}
+    </Select>
+  </InputField>
 )
 
-const LiteratureQuestions = props => (
-  <Grid>
-    {literature.map(({ id, name }) => (
-      <li>
-        <Box key={id}>
-          <div>
-            <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-            <StyledCheckbox
-              style={{ width: '20px' }}
-              size="lg"
-              onChange={() => props.setCategories(name)}
-              variantColor="blue"
-            />
-          </div>
-        </Box>
-      </li>
-    ))}
-  </Grid>
+const LiteratureQuestions = ({ setCategories }) => (
+  <InputField>
+    <Select onChange={e => setCategories(e.target.value)}>
+      {literature.map(({ id, name }) => (
+        <option value={name} key={id}>
+          {name}
+        </option>
+      ))}
+    </Select>
+  </InputField>
 )
 
-const FormalQuestions = props => (
-  <Grid>
-    {formalEducation.map(({ id, name }) => (
-      <li>
-        <Box key={id}>
-          <div>
-            <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-            <StyledCheckbox
-              style={{ width: '20px' }}
-              size="lg"
-              onChange={() => props.setCategories(name)}
-              variantColor="blue"
-            />
-          </div>
-        </Box>
-      </li>
-    ))}
-  </Grid>
+const FormalQuestions = ({ setCategories }) => (
+  <InputField>
+    <Select onChange={e => setCategories(e.target.value)}>
+      {formalEducation.map(({ id, name }) => (
+        <option value={name} key={id}>
+          {name}
+        </option>
+      ))}
+    </Select>
+  </InputField>
 )
 
-const VocationalQuestions = props => (
-  <Grid>
-    {vocational.map(({ id, name }) => (
-      <li>
-        <Box key={id}>
-          <div>
-            <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-            <StyledCheckbox
-              style={{ width: '20px' }}
-              size="lg"
-              onChange={() => props.setCategories(name)}
-              variantColor="blue"
-            />
-          </div>
-        </Box>
-      </li>
-    ))}
-  </Grid>
+const VocationalQuestions = ({ setCategories }) => (
+  <InputField>
+    <Select onChange={e => setCategories(e.target.value)}>
+      {vocational.map(({ id, name }) => (
+        <option value={name} key={id}>
+          {name}
+        </option>
+      ))}
+    </Select>
+  </InputField>
 )
 
-const HealthQuestions = props => (
-  <Grid>
-    {Health.map(({ id, name }) => (
-      <li>
-        <Box key={id}>
-          <div>
-            <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-            <StyledCheckbox
-              style={{ width: '20px' }}
-              size="lg"
-              onChange={() => props.setCategories(name)}
-              variantColor="blue"
-            />
-          </div>
-        </Box>
-      </li>
-    ))}
-  </Grid>
+const HealthQuestions = ({ setCategories }) => (
+  <InputField>
+    <Select onChange={e => setCategories(e.target.value)}>
+      {Health.map(({ id, name }) => (
+        <option value={name} key={id}>
+          {name}
+        </option>
+      ))}
+    </Select>
+  </InputField>
 )
 
 const Container = styled.div`
@@ -261,13 +234,11 @@ function CompleteProfileDetails(props) {
   }
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header goBack />
-      <Body
+      <StyledBody
         style={{
           display: 'flex',
-          height: window.innerHeight - 50,
-          overflow: 'auto',
           justifyContent: 'center'
         }}
       >
@@ -278,30 +249,21 @@ function CompleteProfileDetails(props) {
             We would like to know more about you through the following questions :
           </Text>
           <hr />
-          <InputBody>
+          <InputField>
             <label>
               What's your industry ? <br />
               <span style={{ fontSize: '.8rem', color: 'grey' }}>
                 Select one option from the categories
               </span>
             </label>
-            <Grid>
+            <Select placeholder="Industry" onChange={e => setIndustry(e.target.value)}>
               {industries.map(({ id, name }) => (
-                <li>
-                  <Box key={id}>
-                    <div key={id}>
-                      <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-                      <StyledCheckbox
-                        onChange={_ => setIndustry(name)}
-                        size="lg"
-                        variantColor="blue"
-                      />
-                    </div>
-                  </Box>
-                </li>
+                <option value={name} key={id}>
+                  {name}
+                </option>
               ))}
-            </Grid>
-          </InputBody>
+            </Select>
+          </InputField>
 
           {industry.length > 1 && (
             <InputBody>
@@ -334,7 +296,7 @@ function CompleteProfileDetails(props) {
             </InputBody>
           )}
 
-          <InputBody>
+          <InputField>
             <label>
               What's your expertise level ? <br />
               <span style={{ fontSize: '.8rem', color: 'grey' }}>
@@ -342,23 +304,15 @@ function CompleteProfileDetails(props) {
               </span>
             </label>
 
-            <Grid>
+            <Select onChange={e => setLevel(e.target.value)}>
               {expertise.map(name => (
-                <li>
-                  <Box key={name}>
-                    <div>
-                      <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
-                      <StyledCheckbox
-                        size="lg"
-                        variantColor="blue"
-                        onClick={() => setLevel(name)}
-                      />
-                    </div>
-                  </Box>
-                </li>
+                <option value={name} key={name}>
+                  {name}
+                </option>
               ))}
-            </Grid>
-          </InputBody>
+            </Select>
+          </InputField>
+
           <InputBody>
             <label>
               What's your focus ? <br />
@@ -391,11 +345,6 @@ function CompleteProfileDetails(props) {
                         <span style={{ margin: '.8rem .5rem' }}>{icon}</span>
                         <Text style={{ paddingTop: '15px' }}> {name} </Text>{' '}
                       </span>
-                      <StyledCheckbox
-                        onClick={() => setaudienceKind(name)}
-                        size="lg"
-                        variantColor="blue"
-                      />
                     </div>
                   </Box>
                 </li>
@@ -436,7 +385,7 @@ function CompleteProfileDetails(props) {
             <Button onClick={() => handleSurveySave()}> Submit My Answers </Button>
           </div>
         </Container>
-      </Body>
+      </StyledBody>
     </div>
   )
 }
