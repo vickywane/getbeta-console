@@ -4,6 +4,7 @@ import { Link, navigate } from '@reach/router'
 import { FiCheck } from 'react-icons/fi'
 import media from 'styled-media-query'
 
+import { observer, inject } from 'mobx-react'
 import { Text, Body, MdTitle, Hover, Button, Dot } from '../../styles/style'
 import Header from '../../components/headers/header'
 import { SubscriptionPlans } from '../../mockData'
@@ -150,8 +151,8 @@ const AccountPlans = props => {
                   <Button
                     disabled={name.toLocaleLowerCase() === role}
                     style={{
-                      background: name.toLocaleLowerCase() === role && 'grey' , 
-                      border : name.toLocaleLowerCase() === role && "0"
+                      background: name.toLocaleLowerCase() === role && 'grey',
+                      border: name.toLocaleLowerCase() === role && '0'
                     }}
                     onClick={() => {
                       navigate('/upgrade', {

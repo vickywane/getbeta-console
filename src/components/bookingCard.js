@@ -87,12 +87,6 @@ const BookingCard = props => {
             >
               {fullname}
             </Title>
-
-            <Box d="flex" alignItems="baseline">
-              <Badge rounded="full" px="5" fontSize={11} variantColor="teal">
-                5 Open Slots
-              </Badge>
-            </Box>
           </div>
 
           <Text style={{ padding: '0', margin: '0' }} small align="center">
@@ -109,21 +103,29 @@ const BookingCard = props => {
                   </Text>
                 </div> */}
 
-          <Text
-            style={{ marginTop: '20px' }}
-            align="center"
-            onClick={() => {
-              setBookingModal(true)
-              setDetails({
-                fullname: fullname,
-                price: price,
-                email: email,
-                rating: rating
-              })
-            }}
-          >
-            Create Booking
-          </Text>
+          <div style={{ display: 'flex', marginTop: '10px', justifyContent: 'space-between' }}>
+            <Box d="flex" alignItems="baseline">
+              <Badge rounded="full" px="5" fontSize={11} variantColor="teal">
+                5 Open Slots
+              </Badge>
+            </Box>
+
+            <Text
+              style={{ paddingRight: '10px' }}
+              align="center"
+              onClick={() => {
+                setBookingModal(true)
+                setDetails({
+                  fullname: fullname,
+                  price: price,
+                  email: email,
+                  rating: rating
+                })
+              }}
+            >
+              Create Booking
+            </Text>
+          </div>
         </div>
       </span>
     </StyledCard>

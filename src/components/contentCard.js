@@ -5,8 +5,9 @@ import moment from 'moment'
 import { navigate } from '@reach/router'
 import { FiCalendar, FiTrash2, FiMousePointer } from 'react-icons/fi'
 import { IoMdCalendar, IoMdShareAlt } from 'react-icons/io'
+import { Spinner } from 'react-bootstrap'
 
-import { Hover, Text, center } from '../styles/style'
+import { Hover, Text, center, Button } from '../styles/style'
 import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
 
@@ -80,7 +81,7 @@ function ContentCard(props) {
     subscribers,
     title
   } = props
-  const { deleteContent } = props.ContentStore
+  const { deleteContent, isLoading, subscribeToContent } = props.ContentStore
   const userId = localStorage.getItem('userId')
 
   return (
@@ -171,15 +172,42 @@ function ContentCard(props) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Hover style={{ display: 'flex' }}>
-            <Text small style={{ margin: '.1rem .3rem' }}>
-              Share Content
-            </Text>
+        {vendorId === userId ? (
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ ...center }}>
+                <Hover style={{ display: 'flex' }}>
+                  <Text small style={{ margin: '.1rem .3rem' }}>
+                    Share Content
+                  </Text>
 
-            <IoMdShareAlt />
-          </Hover>
-        </div>
+                  <IoMdShareAlt />
+                </Hover>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button onClick={() => subscribeToContent(id)} small>
+              {isLoading ? 'Subscribing' : 'Subscribe'}
+              {isLoading && (
+                <div style={{ paddingLeft: '.7rem' }}>
+                  <Spinner size="sm" animation="border" role="status" />
+                </div>
+              )}
+            </Button>
+
+            <div style={{ ...center }}>
+              <Hover style={{ display: 'flex' }}>
+                <Text small style={{ margin: '.1rem .3rem' }}>
+                  Share Content
+                </Text>
+
+                <IoMdShareAlt />
+              </Hover>
+            </div>
+          </div>
+        )}
       </section>
     </Card>
   )

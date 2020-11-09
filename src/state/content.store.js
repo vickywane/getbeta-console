@@ -92,7 +92,28 @@ class ContentStore {
       })
   }
 
-  @action subscribeToContent = userId => {}
+  @action subscribeToContent = contentId => {
+    this.isLoading = true
+
+    Axios.post(
+      `${CONTENT_ENDPOINT}/${id}/${contentId}/subscribe`,
+      {},
+      {
+        headers: {
+          'x-auth-token': token
+        }
+      }
+    )
+      .then(response => {
+        this.isLoading = false
+        console.log(response)
+      })
+      .catch(e => {
+        this.isLoading = false
+
+        console.log(e)
+      })
+  }
 
   @observable
   isCreatingContentFile = false
@@ -111,12 +132,11 @@ class ContentStore {
 
   @action
   addContentFile = (id, contentFile) => {
-
     this.isLoading = true
     this.isCreatingContentFile = true
     const contentfile = new FormData()
     contentfile.append('file', contentFile)
-    console.log(contentfile.get("file"), "form body");
+    console.log(contentfile.get('file'), 'form body')
     Axios.post(`${CONTENT_ENDPOINT}/content/${id}/addfile`, contentfile, {
       headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
     })
@@ -180,6 +200,8 @@ class ContentStore {
         this.content = res.data.content
       })
       .catch(e => {
+        console.log(e, 'err ge con')
+
         this.isLoadingContents = false
 
         Sentry.captureException(e)

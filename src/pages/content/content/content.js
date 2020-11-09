@@ -112,6 +112,9 @@ const ContentBody = styled.div`
   grid-template-columns: ${props => (props.showPreview ? 'auto 22rem' : 'auto')};
   transition: all 300ms;
   ${media.lessThan('large')`
+    grid-template-columns:  ${props => (props.showPreview ? 'auto 15rem' : 'auto')};
+  `};
+  ${media.lessThan('medium')`
     grid-template-columns: auto;
   `};
 `
@@ -119,7 +122,7 @@ const ContentBody = styled.div`
 const ContentFileOverview = styled.div`
   display: ${props => (props.open ? 'flex' : 'none')};
   border-left: 1px solid #c0c0c0;
-  ${media.lessThan('large')`
+  ${media.lessThan('medium')`
       display : none;
   `};
 `
@@ -161,6 +164,8 @@ const EditContent = props => {
 
   let data = toJS(content)
   const files = toJS(contentFiles)
+
+  console.log(data, 'conteent data')
 
   useEffect(() => {
     if (Lodash.isEmpty(files)) {

@@ -294,6 +294,28 @@ class UserStore {
         Sentry.captureException(e, 'error getting users for booking')
       })
   }
+
+  // USER ACCOUNT SUBSCRIPTIONS =====>
+
+  @action
+  subscribeToPlan = (business_name, settlement_bank, account_number) => {
+    this.isLoading = true
+    Axios.post(
+      `${AUTH_ENDPOINT}/${id}/sub_account/create`,
+      { business_name, settlement_bank, account_number },
+      {
+        headers: {
+          'x-auth-token': token
+        }
+      }
+    )
+      .then(res => {
+        this.isLoading = true
+      })
+      .catch(e => {
+        this.isLoading = true
+      })
+  }
 }
 
 const DecoratedUserStore = decorate(UserStore, {

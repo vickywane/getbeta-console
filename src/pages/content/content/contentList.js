@@ -10,7 +10,7 @@ import ModalWrapper from '../../../components/modals/modalWrapper'
 import ContentCard from '../../../components/contentCard'
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
-import { Text, Searchbox, Hover, center, CardGrid, Button } from '../../../styles/style'
+import { Text, Searchbox, Hover, center, Button } from '../../../styles/style'
 
 const Body = styled.div`
   padding: 1rem 1rem;
@@ -44,7 +44,7 @@ const FilterBody = styled.div`
       display: flex;
       height: auto;
       width: auto;
-      padding: .5rem .5rem;
+      padding: 0.5rem 0.5rem;
       border-radius: 5px;
       box-shadow: 0 2px 3px grey;
       ul {
@@ -52,14 +52,32 @@ const FilterBody = styled.div`
         padding: 0;
         li {
           display: flex;
-          margin: .1rem .5rem;
+          margin: 0.1rem 0.5rem;
           cursor: pointer;
           div {
-            margin-right : 10px;
+            margin-right: 10px;
           }
         }
       }
     }
+  }
+`
+
+export const CardGrid = styled.div`
+  display: grid;
+  grid-gap: 2rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  ${media.lessThan('large')`
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  `};
+  ${media.lessThan('medium')`
+   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  `};
+  ${media.lessThan('small')`
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  `};
+  li {
+    list-style: none;
   }
 `
 
@@ -174,11 +192,9 @@ const Contents = props => {
             </StyledFilter> */}
 
             <div style={{ display: 'flex' }}>
-              <Text> Showing {contentList.length} packages </Text>
-
               <FilterBody>
                 <Text style={{ marginLeft: '10px' }}>
-                  Sort By :
+                  Sort By :{' '}
                   <span style={{ cursor: 'pointer', textDecoration: 'underline' }}>
                     Recently Added
                   </span>
@@ -186,27 +202,27 @@ const Contents = props => {
                     <ul>
                       <li>
                         <div style={{ ...center }}>
-                          <input style={{width: '1.2rem', height: '1.1rem'}} type="radio" />
+                          <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
                         </div>
-                        <Text  style={{marginTop : "10px"}}  > Recently Added Contents </Text>{' '}
+                        <Text style={{ marginTop: '10px' }}> Recently Added Contents </Text>{' '}
                       </li>
                       <li>
                         <div style={{ ...center }}>
                           <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
                         </div>
-                        <Text  style={{marginTop : "10px"}}  > Most Viewed Content </Text>{' '}
+                        <Text style={{ marginTop: '10px' }}> Most Viewed Content </Text>{' '}
                       </li>
                       <li>
                         <div style={{ ...center }}>
                           <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
                         </div>
-                        <Text style={{marginTop : "10px"}} > My Created Contents </Text>{' '}
+                        <Text style={{ marginTop: '10px' }}> My Created Contents </Text>{' '}
                       </li>
                       <li>
                         <div style={{ ...center }}>
-                          <input style={{ width: '1.2rem', height: '1.1rem'}} type="radio" />
+                          <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
                         </div>
-                        <Text  style={{marginTop : "10px"}}  > My Created Contents </Text>{' '}
+                        <Text style={{ marginTop: '10px' }}> My Created Contents </Text>{' '}
                       </li>
                     </ul>
                   </section>

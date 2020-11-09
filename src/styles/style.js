@@ -308,7 +308,7 @@ export const MdTitle = styled.h4`
 export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
-  word-break : break-all;
+  word-break: break-all;
   font-size: ${props => (props.small ? '.8rem' : '.9rem')};
   font-family: Open Sans;
   ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.9rem')}`};
@@ -323,9 +323,9 @@ export const Button = styled.button`
   align-items: center;
   height: 35px;
   background: #0072ce;
-  padding: 0.5rem 2rem;
+  padding: ${props => (props.small ? ' 0.3rem 1.5rem' : ' 0.5rem 2rem')};
   text-align: center;
-  font-size: 0.8rem;
+  font-size: ${props => (props.small ? '.7rem' : '0.8rem')};
   border-radius: 3px;
   color: #fff;
   ${media.lessThan('large')`
@@ -484,7 +484,7 @@ input {
   width  : 25rem;
 input {
   padding : 0.2rem 1rem;
-  width  : 27rem;
+  width  : 100%;
 }
 `};
   ${media.lessThan('small')`
