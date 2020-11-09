@@ -32,6 +32,37 @@ const FilterButton = styled(Button)`
   `};
 `
 
+const FilterBody = styled.div`
+  section {
+    display: none;
+  }
+
+  &: hover {
+    section {
+      background: #fff;
+      position: absolute;
+      display: flex;
+      height: auto;
+      width: auto;
+      padding: .5rem .5rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 3px grey;
+      ul {
+        list-style: none;
+        padding: 0;
+        li {
+          display: flex;
+          margin: .1rem .5rem;
+          cursor: pointer;
+          div {
+            margin-right : 10px;
+          }
+        }
+      }
+    }
+  }
+`
+
 const Contents = props => {
   const { fetchContents, isLoadingContents, contents } = props.ContentStore
   const [showModal, setModal] = useState(false)
@@ -58,14 +89,14 @@ const Contents = props => {
   const Width = useWindowWidth()
 
   const Grid = styled.div`
-    display : flex;
-    flex-direction : row;
-    justify-content : space-between;
-    ${media.lessThan("medium")`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    ${media.lessThan('medium')`
       display : flex;
       flex-direction : column;
       justify-content : space-between;
-    `};  
+    `};
   `
 
   return (
@@ -132,7 +163,7 @@ const Contents = props => {
       </ModalWrapper>
 
       <Body>
-        <Grid style={{ margin: '0.5rem 0'}}>
+        <Grid style={{ margin: '0.5rem 0' }}>
           <div style={{ display: 'flex' }}>
             {/* <FilterButton onClick={() => setModal(true)}>
               <FiFilter style={{ fontSize: '1.1rem' }} />
@@ -142,11 +173,45 @@ const Contents = props => {
               <FiFilter style={{ fontSize: '1.3rem' }} />
             </StyledFilter> */}
 
-            <div style={{display : "flex"}} >
+            <div style={{ display: 'flex' }}>
               <Text> Showing {contentList.length} packages </Text>
-              <Text style={{marginLeft : "10px"}} >
-                Sort By :<span style={{ cursor : "pointer", textDecoration: 'underline' }}>Recently Added</span>
-              </Text>
+
+              <FilterBody>
+                <Text style={{ marginLeft: '10px' }}>
+                  Sort By :
+                  <span style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                    Recently Added
+                  </span>
+                  <section>
+                    <ul>
+                      <li>
+                        <div style={{ ...center }}>
+                          <input style={{width: '1.2rem', height: '1.1rem'}} type="radio" />
+                        </div>
+                        <Text  style={{marginTop : "10px"}}  > Recently Added Contents </Text>{' '}
+                      </li>
+                      <li>
+                        <div style={{ ...center }}>
+                          <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
+                        </div>
+                        <Text  style={{marginTop : "10px"}}  > Most Viewed Content </Text>{' '}
+                      </li>
+                      <li>
+                        <div style={{ ...center }}>
+                          <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
+                        </div>
+                        <Text style={{marginTop : "10px"}} > My Created Contents </Text>{' '}
+                      </li>
+                      <li>
+                        <div style={{ ...center }}>
+                          <input style={{ width: '1.2rem', height: '1.1rem'}} type="radio" />
+                        </div>
+                        <Text  style={{marginTop : "10px"}}  > My Created Contents </Text>{' '}
+                      </li>
+                    </ul>
+                  </section>
+                </Text>
+              </FilterBody>
             </div>
           </div>
 
