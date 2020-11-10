@@ -5,63 +5,12 @@ import media from 'styled-media-query'
 import { Body, Title, Text, center } from '../../styles/style'
 import Header from '../../components/headers/header'
 
-const testData = [
-  {
-    id: 1,
-    title: 'Some crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 2,
-    title: 'Some  crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 3,
-    title: 'Some  crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 1,
-    title: 'Some crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 2,
-    title: 'Some  crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 3,
-    title: 'Some  crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 1,
-    title: 'Some crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 2,
-    title: 'Some  crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  },
-  {
-    id: 3,
-    title: 'Some  crazy test notification',
-    date: new Date(),
-    from: 'Anonymouse User'
-  }
-]
+const testData = []
 
+const StyledBody = styled(Body)`
+  height: calc(100vh - 60px);
+  overflow: auto;
+`
 const Notification = styled.ul`
   padding: 1rem 1rem;
   list-style: none;
@@ -109,10 +58,10 @@ const Notifications = props => {
   const {} = props
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header screen={'Notifications'} goBack={true} />
 
-      <Body style={{ background: '#fbfbfb', display: 'flex', justifyContent: 'center' }}>
+      <StyledBody style={{ background: '#fbfbfb', display: 'flex', justifyContent: 'center' }}>
         <Notification style={{}}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ ...center }}>
@@ -123,27 +72,37 @@ const Notifications = props => {
             </div>
           </div>
           <hr />
-          <div style={{ height: window.innerHeight - 80, overflow: 'auto' }}>
-            {testData.map(({ id, title, date, from }) => {
-              return (
-                <li key={id}>
-                  <div style={{ ...center }}>
-                    <Image src={require('../../assets/images/img.jpg')} alt="User" />
-                  </div>
+          <div style={{ height: 'calc(100vh - 100px)', overflow: 'auto' }}>
+            {testData.length < 1 ? (
+              <div>
+                <br />
+                <br />
+                <Title small align="center" color="grey">
+                  You currently have no new notifications{' '}
+                </Title>
+              </div>
+            ) : (
+              testData.map(({ id, title, date, from }) => {
+                return (
+                  <li key={id}>
+                    <div style={{ ...center }}>
+                      <Image src={require('../../assets/images/img.jpg')} alt="User" />
+                    </div>
 
-                  <div style={{ ...center }}>
-                    <Text> {title} </Text>
-                  </div>
+                    <div style={{ ...center }}>
+                      <Text> {title} </Text>
+                    </div>
 
-                  <Time style={{ ...center }}>
-                    <Text> 2 Hour </Text>
-                  </Time>
-                </li>
-              )
-            })}
+                    <Time style={{ ...center }}>
+                      <Text> 2 Hour </Text>
+                    </Time>
+                  </li>
+                )
+              })
+            )}
           </div>
         </Notification>
-      </Body>
+      </StyledBody>
     </div>
   )
 }

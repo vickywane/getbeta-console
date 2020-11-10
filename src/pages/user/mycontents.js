@@ -90,8 +90,8 @@ const MyContent = props => {
 
   return (
     <Body>
-      <ContentHead>
-        <div style={{ ...center, display: Width >= 1200 && !searchVisiblity && 'none' }}>
+      {Width >= 600 ? (
+        <ContentHead>
           <div style={{ display: 'flex', paddingTop: '12px' }}>
             {!showAllPublicContent ? (
               <Title
@@ -107,22 +107,62 @@ const MyContent = props => {
               <Title style={{ color: '#0072CE', margin: 0, padding: 0 }}>All Contents</Title>
             )}
           </div>
-        </div>
 
-        {searchVisiblity ? (
-          <StyledSearchbox>
+          {searchVisiblity ? (
+            <StyledSearchbox>
+              <Hover>
+                <FiSearch />
+              </Hover>
+
+              <input placeholder="Find your contents" />
+            </StyledSearchbox>
+          ) : (
             <Hover>
-              <FiSearch />
+              <FiSearch onClick={() => setSearchVisiblity(true)} style={{ color: '#0072ce' }} />
             </Hover>
+          )}
+        </ContentHead>
+      ) : (
+        <ContentHead>
+          <div style={{ ...center }}>
+            {!searchVisiblity && (
+              <div style={{ display: 'flex', paddingTop: '5px' }}>
+                {!showAllPublicContent ? (
+                  <Title
+                    onClick={() =>
+                      navigate(TabState === 'created-content' ? '/create-content' : '/contents')
+                    }
+                    small
+                    style={{ cursor: 'pointer', color: '#0072CE', margin: 0, padding: 0 }}
+                  >
+                    Create Content
+                  </Title>
+                ) : (
+                  <Title style={{ color: '#0072CE', margin: 0, padding: 0 }}>All Contents</Title>
+                )}
+              </div>
+            )}
+          </div>
 
-            <input placeholder="Find your contents" />
-          </StyledSearchbox>
-        ) : (
-          <Hover>
-            <FiSearch onClick={() => setSearchVisiblity(true)} style={{ color: '#0072ce' }} />
-          </Hover>
-        )}
-      </ContentHead>
+          {searchVisiblity ? (
+            <StyledSearchbox>
+              <Hover>
+                <FiSearch />
+              </Hover>
+
+              <input placeholder="Find your contents" />
+
+              <Hover>
+                <FiX />
+              </Hover>
+            </StyledSearchbox>
+          ) : (
+            <Hover>
+              <FiSearch onClick={() => setSearchVisiblity(true)} style={{ color: '#0072ce' }} />
+            </Hover>
+          )}
+        </ContentHead>
+      )}
 
       <section>
         {showAllPublicContent ? (

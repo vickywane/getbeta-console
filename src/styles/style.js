@@ -527,8 +527,8 @@ input {
   width  : 100%;
   padding : 0.4rem 0.5rem;
   input {
-    font-size : 0.8rem;
-    padding : 0.2rem 0.5rem;
+    font-size : 0.75rem;
+    padding : 0.2rem .4rem;
     width  : 90%;
   }
   `};
