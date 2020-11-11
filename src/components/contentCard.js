@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Badge, Box } from '@chakra-ui/core'
 import styled from 'styled-components'
 import moment from 'moment'
@@ -11,6 +11,7 @@ import Dropdown from '../components/dropdown'
 import { Hover, Text, center, Button } from '../styles/style'
 import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
+import { setSubstitutionWrappers } from '@sendgrid/mail'
 
 const property = {
   imageUrl:
@@ -85,7 +86,8 @@ const ShareComponent = ({ handleDropdown, showDropdown }) => (
     </div>
     <section>
       <ul>
-        <a style={{textDecoration : "none"}}
+        <a
+          style={{ textDecoration: 'none' }}
           data-size="large"
           data-text="custom share text"
           data-url="https://dev.twitter.com/web/tweet-button"
@@ -139,9 +141,19 @@ function ContentCard(props) {
     subscribers,
     title
   } = props
+
   const { deleteContent, isLoading, subscribeToContent } = props.ContentStore
   const userId = localStorage.getItem('userId')
   const [showDropdown, setDropdownVisibility] = useState(false)
+  const [subscribeStatus, setSubscribeStatus] = useState(false)
+
+  useEffect(() => {
+    subscribers.forEach(({ subscriberId }) => {
+      if (subscriberId === userId) {
+        setSubscribeStatus(true)
+      }
+    })
+  }, [])
 
   return (
     <Card style={{ border: '1px solid #c0c0c0' }}>
@@ -238,8 +250,16 @@ function ContentCard(props) {
           />
         ) : (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button onClick={() => subscribeToContent(id)} small>
-              {isLoading ? 'Subscribing' : 'Subscribe'}
+            <Button
+              disabled={subscribeStatus}
+              onClick={() => subscribeToContent(id)}
+              style={{
+                background: subscribeStatus && 'grey',
+                border: subscribeStatus && '1px solid grey'
+              }}
+              small
+            >
+              {subscribeStatus ? 'Subscribed' : isLoading ? 'Subscribing' : 'Subscribe'}
               {isLoading && (
                 <div style={{ paddingLeft: '.7rem' }}>
                   <Spinner size="sm" animation="border" role="status" />

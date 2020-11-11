@@ -6,7 +6,7 @@ import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
 import { Stack, Select } from '@chakra-ui/core'
 import * as Yup from 'yup'
-import { Spinner } from "react-bootstrap"
+import { Spinner } from 'react-bootstrap'
 
 import useWindowWidth from '../../utils/hook_style'
 
@@ -142,9 +142,11 @@ const Upgrade = props => {
     alert('Select a subscription from previous page first')
     navigate(-1)
   }
-  const [bank, setBank] = useState('')
+  const [bank, setBank] = useState('Guaranty Trust Bank')
   const [accountName, setAccountName] = useState('')
   const [accountNumber, setAccountNumber] = useState('')
+  const [cvv, setCvv] = useState('')
+  const [expiry, setExpiry] = useState('')
 
   const Width = useWindowWidth()
   const { subscribeToPlan, isLoading } = props.UserStore
@@ -156,11 +158,12 @@ const Upgrade = props => {
       accountNumber: ''
     })
 
-    isValidAccount
-      .then(() => {
-        subscribeToPlan(accountName, bank, accountNumber)
-      })
-      .catch(e => console.log(e))
+    // isValidAccount
+    //   .then(() => {
+    //   })
+    //   .catch(e => console.log(e))
+
+    subscribeToPlan(accountName, bank, accountNumber)
   }
 
   return (
@@ -210,30 +213,55 @@ const Upgrade = props => {
                   </List>
                 </Card>
 
-                <Card>
+                <Card style={{ minWidth: '30rem' }}>
                   <Title align="center"> Confirm Payment Details </Title>
                   <hr style={{ background: '#fff' }} />
                   <form onSubmit={() => {}}>
+                    <InputBody style={{ color: 'black' }}>
+                      <label>BANK NAME</label>
+                      <Select onChange={e => setBank(e.target.value)}>
+                        <option value="Guaranty Trust Bank"> Guaranty Trust Bank </option>
+                        <option value="Stanbic Bank"> Stanbic Bank </option>
+                        <option value="Gtb"> First Bank Nigeria </option>
+                      </Select>
+                    </InputBody>
+
                     <InputBody width="100%">
                       <label> CARD NUMBER </label>
-                      <input placeholder="XXXX-XXXX-XXXX-XXXX" />
+                      <input
+                        value={accountNumber}
+                        onChange={e => setAccountNumber(e.target.value)}
+                        placeholder="XXXX-XXXX-XXXX-XXXX"
+                      />
                     </InputBody>
 
                     <InputBody width="100%">
                       <label> CARDHOLDER NAME</label>
 
-                      <input placeholder="Cardholder Name" />
+                      <input
+                        value={accountName}
+                        onChange={e => setAccountName(e.target.value)}
+                        placeholder="Cardholder Name"
+                      />
                     </InputBody>
 
                     <FlexInputs>
                       <InputBody width="100%">
                         <label> EXPIRY DATE </label>
-                        <input placeholder="01-01" />
+                        <input
+                          onChange={e => setExpiry(e.target.value)}
+                          value={expiry}
+                          placeholder="01-01"
+                        />
                       </InputBody>
 
                       <InputBody width="100%">
                         <label> CVV </label>
-                        <input placeholder="XX-XX" />
+                        <input
+                          onChange={e => setExpiry(e.target.value)}
+                          value={expiry}
+                          placeholder="XX-XX"
+                        />
                       </InputBody>
                     </FlexInputs>
                   </form>
@@ -313,12 +341,20 @@ const Upgrade = props => {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <InputBody borderColor="#c0c0c0" width="11rem">
                     <label> Expiry Date </label>
-                    <input placeholder="Account Name" />
+                    <input
+                      onChange={e => setExpiry(e.target.value)}
+                      value={expiry}
+                      placeholder="Account Name"
+                    />
                   </InputBody>
 
                   <InputBody borderColor="#c0c0c0" width="11rem">
                     <label> CVV </label>
-                    <input placeholder="CVV NUMBER" />
+                    <input
+                      onChange={e => setCvv(e.target.value)}
+                      value={cvv}
+                      placeholder="CVV NUMBER"
+                    />
                   </InputBody>
                 </div>
                 <div style={{ margin: '1rem 0', display: 'flex', justifyContent: 'center' }}>

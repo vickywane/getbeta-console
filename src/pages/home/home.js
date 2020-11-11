@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 
 import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
-
+import Axios from 'axios'
 import { Profile, Mybookings, MyContent, MyCourses } from '../user/'
 
 const Body = styled.div`
@@ -74,6 +74,7 @@ const Home = props => {
   }, [])
 
   const detail = toJS(userDetail)
+
   const { contents, courses, _id } = detail
 
   return (

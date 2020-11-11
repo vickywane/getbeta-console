@@ -4,7 +4,6 @@ import { navigate } from '@reach/router'
 import * as Sentry from '@sentry/react'
 
 const CONTENT_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
-const SUBSCRIPTIONS_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors/subscriptions`
 
 const id = localStorage.getItem('userId')
 const token = localStorage.getItem('token')
@@ -92,37 +91,17 @@ class ContentStore {
       })
   }
 
-  @action subscribeToContent = contentId => {
-    this.isLoading = true
-
-    Axios.post(
-      `${CONTENT_ENDPOINT}/${id}/${contentId}/subscribe`,
-      {},
-      {
-        headers: {
-          'x-auth-token': token
-        }
-      }
-    )
-      .then(response => {
-        this.isLoading = false
-        console.log(response)
-      })
-      .catch(e => {
-        this.isLoading = false
-
-        console.log(e)
-      })
-  }
-
   @observable
   isCreatingContentFile = false
 
-  @action userSubscribedContent = userId => {
+  @action userSubscribedContent = () => {
     this.isLoading = true
-    Axios.get(`${SUBSCRIPTIONS_ENDPOINT}/${userId}/subscribed-courses`)
+    Axios.get(`${CONTENT_ENDPOINT}/${id}/subscribed-contents`, {
+      headers: { 'x-auth-token': token }
+    })
       .then(res => {
         this.isLoading = false
+        this.contents = res.data.subscribedContents
       })
       .catch(e => {
         this.isLoading = false
@@ -136,7 +115,6 @@ class ContentStore {
     this.isCreatingContentFile = true
     const contentfile = new FormData()
     contentfile.append('file', contentFile)
-    console.log(contentfile.get('file'), 'form body')
     Axios.post(`${CONTENT_ENDPOINT}/content/${id}/addfile`, contentfile, {
       headers: { 'x-auth-token': token, 'Content-Type': 'multipart/formdata' }
     })
@@ -237,6 +215,27 @@ class ContentStore {
       .catch(e => {
         Sentry.captureException(e)
         this.isLoading = false
+      })
+  }
+
+  @action
+  subscribeToContent = contentId => {
+    this.isLoading = true
+    Axios.post(
+      `${CONTENT_ENDPOINT}/${id}/${contentId}/subscribe`,
+      {},
+      { headers: { 'x-auth-token': token } }
+    )
+      .then(response => {
+        this.isLoading = false
+
+        console.log(response)
+      })
+      .catch(e => {
+        this.isLoading = false
+
+        console.log(e)
+        Sentry.captureException(e, 'error subscribing to a content')
       })
   }
 }

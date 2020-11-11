@@ -296,7 +296,6 @@ class UserStore {
   }
 
   // USER ACCOUNT SUBSCRIPTIONS =====>
-
   @action
   subscribeToPlan = (business_name, settlement_bank, account_number) => {
     this.isLoading = true
@@ -310,10 +309,10 @@ class UserStore {
       }
     )
       .then(res => {
-        this.isLoading = true
+        this.isLoading = false
       })
       .catch(e => {
-        this.isLoading = true
+        this.isLoading = false
       })
   }
 }
