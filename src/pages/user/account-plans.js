@@ -99,6 +99,12 @@ const Bar = styled.div`
   `};
 `
 
+const StyledBody = styled(Body)`
+  height: calc(100vh - 140px);
+  
+  overflow: auto;
+`
+
 const AccountPlans = props => {
   const { role } = props.location.state.userData
 
@@ -122,7 +128,7 @@ const AccountPlans = props => {
             </div>
           </span>
         </Bar>
-        <Body style={{ height: window.innerHeight - 90, overflow: 'auto' }}>
+        <StyledBody>
           <Grid>
             {SubscriptionPlans.map(({ price, id, name, features }) => {
               return (
@@ -172,7 +178,7 @@ const AccountPlans = props => {
               )
             })}
           </Grid>
-        </Body>
+        </StyledBody>
       </div>
     </div>
   )

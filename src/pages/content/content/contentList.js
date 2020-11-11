@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Spinner } from 'react-bootstrap'
-import { FiSearch, FiFilter, FiChevronDown } from 'react-icons/fi'
+import { FiSearch, FiChevronDown } from 'react-icons/fi'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import media from 'styled-media-query'
-import ModalWrapper from '../../../components/modals/modalWrapper'
 
+import { filterData } from '../../../utils/filterData'
 import Dropdown from '../../../components/dropdown'
 import ContentCard from '../../../components/contentCard'
 import useWindowWidth from '../../../utils/hook_style'
@@ -22,14 +22,6 @@ const Body = styled.div`
   `};
   ${media.lessThan('small')`
   padding: 0.2rem 0.3rem;
-  `};
-`
-
-const FilterButton = styled(Button)`
-  display: none;
-  ${media.lessThan('small')`
-      display : flex;
-      height : 35px;
   `};
 `
 
@@ -54,10 +46,10 @@ export const CardGrid = styled.div`
 const FilterBtn = styled.div`
   height: auto;
   width: auto;
-  padding: 0.8rem 1.5ren;
+  padding: 0 0.5rem;
   display: flex;
+  transition: all 350ms;
   &: hover {
-    background: rgba(233, 241, 251, 0.81);
     cursor: pointer;
   }
 `
@@ -66,7 +58,9 @@ const Contents = props => {
   const { fetchContents, isLoadingContents, contents } = props.ContentStore
   const [showModal, setModal] = useState(false)
   const [filter, setFilter] = useState('')
+  const [filterType, setFilterType] = useState('Recently Added')
   const [Data, setData] = useState([])
+  const [showDropdown, setDropdownVisibility] = useState(false)
 
   useEffect(() => {
     fetchContents()
@@ -77,13 +71,16 @@ const Contents = props => {
   useEffect(() => {
     // DATA FILTERING HERE
     setData(contentList)
+  }, [contents])
 
+  useEffect(() => {
     if (filter.length > 2) {
-      const filtered = contentList.filter(data => data.vendorId === filter)
-
-      setData(filtered)
+      filterData(filter, contentList).then(result => {
+        setData(result[0])
+        setFilterType(result[1])
+      })
     }
-  }, [contents, filter])
+  }, [filter])
 
   const Width = useWindowWidth()
 
@@ -115,15 +112,21 @@ const Contents = props => {
           </div>
 
           <div style={{ display: 'flex' }}>
-            <Dropdown>
+            <Dropdown show={showDropdown}>
               <div style={{ display: 'flex' }}>
                 <Text style={{ marginLeft: '10px' }}>Sort By : </Text>
 
-                <FilterBtn style={{ marginLeft: '5px' }}>
-                  <Text>Recently Adxded </Text>
+                <FilterBtn
+                  onClick={() => setDropdownVisibility(!showDropdown)}
+                  style={{
+                    marginLeft: '10px',
+                    backgroundColor: showDropdown && 'rgba(233, 241, 251, 0.81)'
+                  }}
+                >
+                  <Text>{filterType} </Text>
 
-                  <div style={{ m, arginLeft: '' }}>
-                    <FiChevronDown style={{ fontSize: '1.2rem}' }} />
+                  <div style={{ marginLeft: '' }}>
+                    <FiChevronDown style={{ fontSize: '1.2rem' }} />
                   </div>
                 </FilterBtn>
               </div>
@@ -132,32 +135,51 @@ const Contents = props => {
                 <ul>
                   <li>
                     <div style={{ ...center }}>
-                      <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
+                      <input
+                        style={{ width: '1.2rem', height: '1.1rem' }}
+                        checked={filter === 'LATEST'}
+                        value="LATEST"
+                        onChange={e => setFilter(e.target.value)}
+                        type="radio"
+                      />
                     </div>
                     <Text style={{ marginTop: '10px' }}> Recently Added Contents </Text>{' '}
                   </li>
                   <li>
                     <div style={{ ...center }}>
-                      <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
+                      <input
+                        style={{ width: '1.2rem', height: '1.1rem' }}
+                        checked={filter === 'OLDEST'}
+                        value="OLDEST"
+                        onChange={e => setFilter(e.target.value)}
+                        type="radio"
+                      />
+                    </div>
+                    <Text style={{ marginTop: '10px' }}> Old Contents </Text>{' '}
+                  </li>
+                  <li>
+                    <div style={{ ...center }}>
+                      <input
+                        checked={filter === 'MOST_VIEWED'}
+                        value="MOST_VIEWED"
+                        onChange={e => setFilter(e.target.value)}
+                        style={{ width: '1.2rem', height: '1.1rem' }}
+                        type="radio"
+                      />
                     </div>
                     <Text style={{ marginTop: '10px' }}> Most Viewed Content </Text>{' '}
                   </li>
                   <li>
                     <div style={{ ...center }}>
-                      <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
+                      <input
+                        style={{ width: '1.2rem', height: '1.1rem' }}
+                        checked={filter === 'MY_CONTENT'}
+                        value="MY_CONTENT"
+                        onChange={e => setFilter(e.target.value)}
+                        type="radio"
+                      />
                     </div>
-                    <Text
-                      style={{ marginTop: '10px' }}
-                      onClick={() => setFilter(localStorage.getItem('userId'))}
-                    >
-                      My Created Contents
-                    </Text>{' '}
-                  </li>
-                  <li>
-                    <div style={{ ...center }}>
-                      <input style={{ width: '1.2rem', height: '1.1rem' }} type="radio" />
-                    </div>
-                    <Text style={{ marginTop: '10px' }}> My Created Contents </Text>{' '}
+                    <Text style={{ marginTop: '10px' }}>My Created Contents</Text>{' '}
                   </li>
                 </ul>
               </section>

@@ -6,6 +6,7 @@ import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
 import { Stack, Select } from '@chakra-ui/core'
 import * as Yup from 'yup'
+import { Spinner } from "react-bootstrap"
 
 import useWindowWidth from '../../utils/hook_style'
 
@@ -146,7 +147,7 @@ const Upgrade = props => {
   const [accountNumber, setAccountNumber] = useState('')
 
   const Width = useWindowWidth()
-  const { subscribeToPlan } = props.UserStore
+  const { subscribeToPlan, isLoading } = props.UserStore
 
   const handleCheckout = () => {
     const isValidAccount = billingSchema.isValid({
@@ -179,6 +180,7 @@ const Upgrade = props => {
                   <List>
                     <div>
                       <Title align="center"> {name} </Title>
+                      <hr style={{ background: '#fff' }} />
 
                       <ul>
                         {features.map(items => {
@@ -186,7 +188,7 @@ const Upgrade = props => {
                             <li>
                               <div style={{ display: 'flex' }}>
                                 <div style={{ margin: '0 0.5rem' }}>
-                                  <FiCheck style={{ fontSize: '1.4rem', color: 'white' }} />
+                                  <FiCheck style={{ fontSize: '1.3rem', color: 'white' }} />
                                 </div>
 
                                 <Text> {items} </Text>
@@ -195,6 +197,7 @@ const Upgrade = props => {
                           )
                         })}
                       </ul>
+                      <hr style={{ background: '#fff' }} />
                       <span>
                         <Title align="center" color="#fff">
                           {price}
@@ -208,8 +211,8 @@ const Upgrade = props => {
                 </Card>
 
                 <Card>
-                  <Title align="center"> Transaction Details </Title>
-
+                  <Title align="center"> Confirm Payment Details </Title>
+                  <hr style={{ background: '#fff' }} />
                   <form onSubmit={() => {}}>
                     <InputBody width="100%">
                       <label> CARD NUMBER </label>
@@ -241,10 +244,17 @@ const Upgrade = props => {
                       style={{
                         border: '1px solid #fff',
                         background: '#fff',
-                        color: '#0072ce'
+                        color: '#0072ce',
+                        width: '100%'
                       }}
                     >
-                      Proccess Payment
+                      {isLoading ? 'Billing Account' : 'Proccess Payment'}
+
+                      {isLoading && (
+                        <div style={{ paddingLeft: '.7rem' }}>
+                          <Spinner size="sm" animation="border" role="status" />
+                        </div>
+                      )}
                     </Button>
                   </div>
                   <br />

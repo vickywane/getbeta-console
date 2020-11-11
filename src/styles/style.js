@@ -481,15 +481,16 @@ input {
 }
 `};
   ${media.lessThan('medium')`
-  width  : 25rem;
-input {
-  padding : 0.2rem 1rem;
   width  : 100%;
-}
+  margin-bottom : 10px;
+  input {
+    padding : 0.2rem 1rem;
+    width  : 100%;
+  }
 `};
   ${media.lessThan('small')`
   padding: 0.4rem 0.6rem;
-  width  : 19rem;
+  width  : 100%;
   input {
     padding : 0.2rem .3rem;
     width  : 100%;
@@ -514,13 +515,14 @@ input {
     border : 0;
   }
   ${media.lessThan('medium')`
-  width  : 24rem;
+  width  : 100%;
   padding : 0.5rem 0.5rem;
+  height : 40px;
   input {
   border-radius : 15px;
-    font-size : 0.8rem;
-    padding : 0.2rem 0.5rem;
-    width  : 23rem
+    font-size : .9rem;
+    padding : 0.4rem 0.5rem;
+    width  : 90%
   }
   `};
   ${media.lessThan('small')`

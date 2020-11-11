@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Badge, Box } from '@chakra-ui/core'
 import styled from 'styled-components'
 import moment from 'moment'
 import { navigate } from '@reach/router'
-import { FiCalendar, FiTrash2, FiMousePointer } from 'react-icons/fi'
+import { FiCalendar, FiTrash2, FiMousePointer, FiTwitter } from 'react-icons/fi'
 import { IoMdCalendar, IoMdShareAlt } from 'react-icons/io'
 import { Spinner } from 'react-bootstrap'
+import Dropdown from '../components/dropdown'
 
 import { Hover, Text, center, Button } from '../styles/style'
 import media from 'styled-media-query'
@@ -69,6 +70,63 @@ const HoverCircle = styled.div`
   }
 `
 
+const ShareComponent = ({ handleDropdown, showDropdown }) => (
+  <Dropdown show={showDropdown}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ ...center }}>
+        <Hover onClick={() => handleDropdown()} style={{ display: 'flex' }}>
+          <Text small style={{ margin: '.1rem .3rem' }}>
+            Share Content
+          </Text>
+
+          <IoMdShareAlt />
+        </Hover>
+      </div>
+    </div>
+    <section>
+      <ul>
+        <a style={{textDecoration : "none"}}
+          data-size="large"
+          data-text="custom share text"
+          data-url="https://dev.twitter.com/web/tweet-button"
+          data-hashtags="example,demo"
+          data-via="twitterdev"
+          data-related="twitterapi,twitter"
+          href="https://twitter.com/intent/tweet"
+          target="_blank"
+          rel="no-opener"
+        >
+          <li>
+            <div style={{ ...center }}>
+              <Hover>
+                <FiTwitter />
+              </Hover>
+            </div>
+            <Text style={{ marginTop: '10px' }}> Share to Twitter</Text>{' '}
+          </li>
+        </a>
+
+        <li>
+          <div style={{ ...center }}>
+            <Hover>
+              <FiTwitter />
+            </Hover>
+          </div>
+          <Text style={{ marginTop: '10px' }}> Share to WhatsApp </Text>{' '}
+        </li>
+        <li>
+          <div style={{ ...center }}>
+            <Hover>
+              <FiTwitter />
+            </Hover>
+          </div>
+          <Text style={{ marginTop: '10px' }}> Share to Instagram </Text>{' '}
+        </li>
+      </ul>
+    </section>
+  </Dropdown>
+)
+
 function ContentCard(props) {
   const {
     id,
@@ -83,6 +141,7 @@ function ContentCard(props) {
   } = props
   const { deleteContent, isLoading, subscribeToContent } = props.ContentStore
   const userId = localStorage.getItem('userId')
+  const [showDropdown, setDropdownVisibility] = useState(false)
 
   return (
     <Card style={{ border: '1px solid #c0c0c0' }}>
@@ -173,19 +232,10 @@ function ContentCard(props) {
         </div>
 
         {vendorId === userId ? (
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ ...center }}>
-                <Hover style={{ display: 'flex' }}>
-                  <Text small style={{ margin: '.1rem .3rem' }}>
-                    Share Content
-                  </Text>
-
-                  <IoMdShareAlt />
-                </Hover>
-              </div>
-            </div>
-          </div>
+          <ShareComponent
+            showDropdown={showDropdown}
+            handleDropdown={() => setDropdownVisibility(!showDropdown)}
+          />
         ) : (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={() => subscribeToContent(id)} small>
@@ -198,13 +248,10 @@ function ContentCard(props) {
             </Button>
 
             <div style={{ ...center }}>
-              <Hover style={{ display: 'flex' }}>
-                <Text small style={{ margin: '.1rem .3rem' }}>
-                  Share Content
-                </Text>
-
-                <IoMdShareAlt />
-              </Hover>
+              <ShareComponent
+                showDropdown={showDropdown}
+                handleDropdown={() => setDropdownVisibility(!showDropdown)}
+              />
             </div>
           </div>
         )}

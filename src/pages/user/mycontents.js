@@ -152,7 +152,7 @@ const MyContent = props => {
 
               <input placeholder="Find your contents" />
 
-              <Hover>
+              <Hover onClick={_ => setSearchVisiblity(!searchVisiblity)}>
                 <FiX />
               </Hover>
             </StyledSearchbox>
