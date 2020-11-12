@@ -127,6 +127,7 @@ export const CreateCourseInputField = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1rem 1rem;
+  width : 100%;
   label {
     font-size: .95rem;
   }
@@ -208,7 +209,7 @@ export const CreateCourseInputField = styled.div`
   }
   `}
   ${media.lessThan('small')`
-  margin : .7rem .4rem;
+  margin : .3rem .4rem;
   label {
     font-size : .8rem;
   }
@@ -309,6 +310,7 @@ export const Text = styled.p`
   text-align: ${props => props.align};
   color: ${props => props.color};
   word-break: break-all;
+  font-weight: ${props => props.weight};
   font-size: ${props => (props.small ? '.8rem' : '.9rem')};
   font-family: Open Sans;
   ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.9rem')}`};

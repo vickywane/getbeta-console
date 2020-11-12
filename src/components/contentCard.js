@@ -175,7 +175,7 @@ function ContentCard(props) {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          .
+          <p style={{ opacity: 0 }}> . </p>
           {vendorId === userId && (
             <HoverCircle onClick={() => deleteContent(id)}>
               <FiTrash2 style={{ fontSize: '1.3rem' }} />

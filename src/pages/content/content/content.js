@@ -29,6 +29,7 @@ import { useDropzone } from 'react-dropzone'
 import { CSSTransition } from 'react-transition-group'
 import * as Lodash from 'lodash'
 
+import UpdateContent from './updateContent'
 import ContentFilePreview from '../../../components/contentFilePreview'
 import ContentFileCard from '../../../components/contentFileCard'
 import useWindowWidth from '../../../utils/hook_style'
@@ -64,7 +65,7 @@ const Body = styled.div`
 `};
 `
 
-const InputBody = styled.div`
+export const InputBody = styled.div`
   label {
     font-size: 1rem;
   }
@@ -164,8 +165,7 @@ const EditContent = props => {
 
   let data = toJS(content)
   const files = toJS(contentFiles)
-
-  console.log(data, 'conteent data')
+  const userId = localStorage.getItem('userId')
 
   useEffect(() => {
     if (Lodash.isEmpty(files)) {
@@ -275,57 +275,7 @@ const EditContent = props => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>
-            <Title> Edit Content </Title>{' '}
-          </DrawerHeader>
-          <hr />
-          <DrawerBody>
-            <div>
-              <InputBody>
-                <label> Content Title </label>
-                <input
-                  type="text"
-                  value={updateTitle}
-                  placeholder={data.title}
-                  onChange={e => {
-                    setUpdateTitle(e.target.value)
-                  }}
-                />
-              </InputBody>
-              <br />
-              <InputBody>
-                <label> Content Description </label>
-                <textarea
-                  type="text"
-                  value={updateDescription}
-                  placeholder={data.descrp}
-                  onChange={e => setUpdatedDescription(e.target.value)}
-                />
-              </InputBody>
-            </div>
-          </DrawerBody>
-
-          <DrawerFooter>
-            <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-              <Button onClick={onClose} style={{ background: 'grey' }}>
-                Cancel
-              </Button>
-
-              <Button
-                onClick={() => {
-                  handleUpdate()
-                  onClose()
-                }}
-              >
-                {isLoading ? 'Saving' : 'Save'} Changes.
-                {isLoading && (
-                  <div style={{ paddingLeft: '.7rem' }}>
-                    <Spinner size="sm" animation="border" role="status" />
-                  </div>
-                )}
-              </Button>
-            </div>
-          </DrawerFooter>
+          <UpdateContent />
         </DrawerContent>
       </Drawer>
 
@@ -369,13 +319,9 @@ const EditContent = props => {
                     </div>
 
                     <div style={{ ...center }}>
-                      {!isEditing ? (
+                      {data.vendorId === userId && (
                         <Hover onClick={onOpen}>
                           <FiEdit style={{ fontSize: '1.3rem' }} />
-                        </Hover>
-                      ) : (
-                        <Hover onClick={_ => handleUpdate()}>
-                          <FiCheck style={{ fontSize: '1.3rem' }} />
                         </Hover>
                       )}
                     </div>
@@ -446,13 +392,14 @@ const EditContent = props => {
                       </Title>
                     </div>
 
-                    {Width >= 700 ? (
-                      <Button onClick={() => setModalVisibility(true)}>Add Content File</Button>
-                    ) : (
-                      <StyledHover onClick={() => setModalVisibility(true)}>
-                        <FiPlus />
-                      </StyledHover>
-                    )}
+                    {data.vendorId === userId &&
+                      (Width >= 700 ? (
+                        <Button onClick={() => setModalVisibility(true)}>Add Content File</Button>
+                      ) : (
+                        <StyledHover onClick={() => setModalVisibility(true)}>
+                          <FiPlus />
+                        </StyledHover>
+                      ))}
                   </div>
                 </Body>
 

@@ -36,7 +36,8 @@ export const CardGrid = styled.div`
    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   `};
   ${media.lessThan('small')`
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  place-items : center;
   `};
   li {
     list-style: none;
@@ -114,20 +115,16 @@ const Contents = props => {
           <div style={{ display: 'flex' }}>
             <Dropdown show={showDropdown}>
               <div style={{ display: 'flex' }}>
-                <Text style={{ marginLeft: '10px' }}>Sort By : </Text>
+                <Text style={{ marginLeft: '5px' }}>Sort By : </Text>
 
                 <FilterBtn
                   onClick={() => setDropdownVisibility(!showDropdown)}
                   style={{
-                    marginLeft: '10px',
+                    marginLeft: '2px',
                     backgroundColor: showDropdown && 'rgba(233, 241, 251, 0.81)'
                   }}
                 >
-                  <Text>{filterType} </Text>
-
-                  <div style={{ marginLeft: '' }}>
-                    <FiChevronDown style={{ fontSize: '1.2rem' }} />
-                  </div>
+                  <Text weight="bold">{filterType} </Text>
                 </FilterBtn>
               </div>
 

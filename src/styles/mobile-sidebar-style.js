@@ -16,8 +16,8 @@ const StyledMenu = styled.nav`
   left: 0;
   transition: all 250ms;
   ${media.lessThan('small')`
-    width: 60%;
-  `};
+    width: 55%;
+`};
 `
 
 const StyledBurger = styled.button`

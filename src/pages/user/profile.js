@@ -118,7 +118,7 @@ const Profile = props => {
       {showConfirmationAlert && (
         <Alert variant="success">
           <div style={{ ...center }}>
-            <Text align="center">
+            <Text style={{}} align="center">
               Welcome to GetBeta! A confirmation email has been sent to your email address.
             </Text>
           </div>

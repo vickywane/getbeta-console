@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from '@reach/router'
-
+import FocusLock from 'react-focus-lock'
 import { inject, observer } from 'mobx-react'
 import { Item, Items } from './sidebar'
 import { StyledMenu } from '../styles/mobile-sidebar-style'
@@ -15,6 +15,7 @@ import {
   FiSettings,
   FiBarChart
 } from 'react-icons/fi'
+import ScrollLock from 'react-locky'
 
 const Routes = [
   {
@@ -108,63 +109,68 @@ const Notifications = ({ open, ...props }) => {
   const tabIndex = isHidden ? 0 : -1
 
   return (
-    <StyledMenu
-      style={{ height: window.innerHeight - 50 }}
-      open={open}
-      aria-hidden={!isHidden}
-      {...props}
-    >
-      <Body>
-        <Items>
-          {Routes.map(({ routeName, id, name, icon, to }) => {
-            return (
-              <Link key={id} to={`${to}/`}>
-                <Item active={currentRoute === routeName}>
-                  <div style={{ ...center, marginRight: '.3rem', marginLeft: '.7rem' }}>
-                    <Hover style={{ marginRight: '0.2rem' }}>{icon}</Hover>
-                  </div>
-
-                  <div style={{ ...center }}>
-                    <Text
-                      style={{
-                        padding: 0,
-                        margin: 0,
-                        fontWeight: currentRoute === routeName && 500
-                      }}
-                    >
-                      {name}
-                    </Text>
-                  </div>
-                </Item>
-              </Link>
-            )
-          })}
-        </Items>
-
-        <div
-          onClick={() => props.UserStore.setAuthState(false)}
-          style={{
-            position: 'absolute',
-            bottom: 15,
-            cursor: 'pointer',
-            marginBottom: 0,
-            textAlign: 'center'
-          }}
+    <FocusLock disabled={false} persistentFocus={true}>
+      <ScrollLock enabled={open}>
+        <StyledMenu
+          data-autofocus
+          style={{ height: window.innerHeight - 50 }}
+          open={open}
+          aria-hidden={!isHidden}
+          {...props}
         >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Hover>
-              <FiLogOut style={{ fontSize: '1.2rem' }} />
-            </Hover>
+          <Body>
+            <Items>
+              {Routes.map(({ routeName, id, name, icon, to }) => {
+                return (
+                  <Link key={id} to={`${to}/`}>
+                    <Item active={currentRoute === routeName}>
+                      <div style={{ ...center, marginRight: '.3rem', marginLeft: '.7rem' }}>
+                        <Hover style={{ marginRight: '0.6rem' }}>{icon}</Hover>
+                      </div>
 
-            <div style={{ ...center }}>
-              <Text style={{ fontWeight: 'bold', padding: '0rem 0.5rem', margin: 0 }}>
-                Log Out{' '}
-              </Text>
+                      <div style={{ ...center }}>
+                        <Text
+                          style={{
+                            padding: 0,
+                            margin: 0,
+                            fontWeight: currentRoute === routeName && 500
+                          }}
+                        >
+                          {name}
+                        </Text>
+                      </div>
+                    </Item>
+                  </Link>
+                )
+              })}
+            </Items>
+
+            <div
+              onClick={() => props.UserStore.setAuthState(false)}
+              style={{
+                position: 'absolute',
+                bottom: 15,
+                cursor: 'pointer',
+                marginBottom: 0,
+                textAlign: 'center'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Hover>
+                  <FiLogOut style={{ fontSize: '1.2rem' }} />
+                </Hover>
+
+                <div style={{ ...center }}>
+                  <Text style={{ fontWeight: 'bold', padding: '0rem 0.5rem', margin: 0 }}>
+                    Log Out{' '}
+                  </Text>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Body>
-    </StyledMenu>
+          </Body>
+        </StyledMenu>
+      </ScrollLock>
+    </FocusLock>
   )
 }
 

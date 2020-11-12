@@ -66,6 +66,8 @@ const MyContent = props => {
   const { getUserContents, contents, isLoadingContents, userSubscribedContent } = props.ContentStore
   const { userId, showAllPublicContent } = props
 
+  const [searchText, setSearchText] = useState('')
+  const [contentData, setContentData] = useState([])
   const [searchVisiblity, setSearchVisiblity] = useState(false)
   const [TabState, setTabState] = useState('created-content')
 
@@ -75,7 +77,6 @@ const MyContent = props => {
   }, [])
 
   let userContents = toJS(contents)
-
   const getUserContent = () => userSubscribedContent(userId)
 
   useEffect(() => {
@@ -85,6 +86,19 @@ const MyContent = props => {
       setSearchVisiblity(false)
     }
   }, [Width])
+
+  useEffect(() => {
+    if (searchText.length > 2) {
+      setContentData(userContents.find(c => c.title === searchText))
+    }
+  }, [searchText])
+
+  // useEffect(() => {
+  //   console.log("effect");
+  //   if (contents.length > 1) {
+  //     setContentData(userContents)
+  //   }
+  // }, [userContents])
 
   return (
     <Body>
@@ -112,7 +126,12 @@ const MyContent = props => {
                 <FiSearch />
               </Hover>
 
-              <input placeholder="Find your contents" />
+              <input
+                value={searchText}
+                type="text"
+                onChange={e => setSearchText(e.target.value)}
+                placeholder="Find your contents"
+              />
             </StyledSearchbox>
           ) : (
             <Hover>
@@ -148,15 +167,23 @@ const MyContent = props => {
                 <FiSearch />
               </Hover>
 
-              <input placeholder="Find your contents" />
+              <input
+                value={searchText}
+                type="text"
+                onChange={e => setSearchText(e.target.value)}
+                placeholder="Find your contents"
+              />
 
               <Hover onClick={_ => setSearchVisiblity(!searchVisiblity)}>
                 <FiX />
               </Hover>
             </StyledSearchbox>
           ) : (
-            <Hover>
-              <FiSearch onClick={() => setSearchVisiblity(true)} style={{ color: '#0072ce' }} />
+            <Hover style={{ paddingTop: '7px' }}>
+              <FiSearch
+                onClick={() => setSearchVisiblity(true)}
+                style={{ fontSize: '1.1rem', color: '#0072ce' }}
+              />
             </Hover>
           )}
         </ContentHead>
@@ -171,7 +198,7 @@ const MyContent = props => {
                 <Spinner variant="primary" animation="grow" role="loading" />
                 <br />
               </div>
-            ) : userContents.length === 0 ? (
+            ) : contentData.length === 0 ? (
               <div style={{ ...center }}>
                 <div>
                   <br />
@@ -187,7 +214,7 @@ const MyContent = props => {
               </div>
             ) : (
               <Grid>
-                {userContents.map(
+                {contentData.map(
                   ({
                     _id,
                     subscribers,
@@ -222,11 +249,11 @@ const MyContent = props => {
         ) : (
           <Tabs>
             <TabList>
-              <Tab style={{ fontSize: '.85rem' }} onClick={() => setTabState('created-content')}>
+              <Tab style={{ fontSize: '.8rem' }} onClick={() => setTabState('created-content')}>
                 My Content
               </Tab>
               <Tab
-                style={{ fontSize: '.85rem' }}
+                style={{ fontSize: '.8rem' }}
                 onClick={() => {
                   getUserContent()
                   setTabState('purchased-content')
@@ -235,7 +262,6 @@ const MyContent = props => {
                 Puchased Content
               </Tab>
             </TabList>
-            {TabState}
             <HomeList>
               <div>
                 <Text small> {userContents.length} Contents </Text>
@@ -247,7 +273,7 @@ const MyContent = props => {
                   <Spinner variant="primary" animation="grow" role="loading" />
                   <br />
                 </div>
-              ) : userContents.length === 0 ? (
+              ) : contentData.length === 0 ? (
                 <div style={{ ...center }}>
                   <div>
                     <div style={{ ...center }}>
@@ -262,7 +288,7 @@ const MyContent = props => {
                 </div>
               ) : (
                 <Grid>
-                  {userContents.map(
+                  {contentData.map(
                     ({
                       _id,
                       subscribers,
