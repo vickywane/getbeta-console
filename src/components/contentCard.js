@@ -4,14 +4,14 @@ import styled from 'styled-components'
 import moment from 'moment'
 import { navigate } from '@reach/router'
 import { FiCalendar, FiTrash2, FiMousePointer, FiTwitter } from 'react-icons/fi'
-import { IoMdCalendar, IoMdShareAlt } from 'react-icons/io'
+import { IoMdCalendar, IoMdShareAlt, IoIosLock } from 'react-icons/io'
 import { Spinner } from 'react-bootstrap'
 import Dropdown from '../components/dropdown'
 
-import { Hover, Text, center, Button } from '../styles/style'
+import ModalWrapper from '../components/modals/modalWrapper'
+import { Hover, Text, center, Button, Title } from '../styles/style'
 import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
-import { setSubstitutionWrappers } from '@sendgrid/mail'
 
 const property = {
   imageUrl:
@@ -68,6 +68,12 @@ const HoverCircle = styled.div`
   &: hover {
     color: #fff;
     background: #b21b00;
+  }
+`
+
+const StyledTitle = styled(Title)`
+  &: hover {
+    color: #0072ce;
   }
 `
 
@@ -136,6 +142,7 @@ function ContentCard(props) {
     price,
     coverImage,
     type,
+    showSubscribeModal,
     contentfiles,
     vendorId,
     subscribers,
@@ -150,6 +157,8 @@ function ContentCard(props) {
   useEffect(() => {
     subscribers.forEach(({ subscriberId }) => {
       if (subscriberId === userId) {
+        setSubscribeStatus(true)
+      } else if (userId === vendorId) {
         setSubscribeStatus(true)
       }
     })
@@ -185,13 +194,15 @@ function ContentCard(props) {
       </ImageBody>
       <section>
         <Box
-          onClick={() =>
-            navigate('/content', {
-              state: {
-                contentId: id
-              }
-            })
-          }
+          onClick={() => {
+            subscribeStatus
+              ? navigate('/content', {
+                  state: {
+                    contentId: id
+                  }
+                })
+              : showSubscribeModal(true)
+          }}
           style={{ cursor: 'pointer' }}
           fontWeight="normal"
           as="h6"
@@ -199,7 +210,7 @@ function ContentCard(props) {
           lineHeight="tight"
           isTruncated
         >
-          {title}
+          <StyledTitle>{title} </StyledTitle>
         </Box>
         <div style={{ display: 'flex', padding: '.3rem .5rem', justifyContent: 'space-between' }}>
           <Box
@@ -259,6 +270,12 @@ function ContentCard(props) {
               }}
               small
             >
+              {!subscribeStatus && (
+                <Hover style={{ paddingBottom: '5px', paddingRight: '5px' }}>
+                  <IoIosLock style={{ color: 'white' }} />
+                </Hover>
+              )}
+
               {subscribeStatus ? 'Subscribed' : isLoading ? 'Subscribing' : 'Subscribe'}
               {isLoading && (
                 <div style={{ paddingLeft: '.7rem' }}>

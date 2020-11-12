@@ -1,67 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Spinner } from 'react-bootstrap'
+import { inject, observer } from 'mobx-react'
+
 import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  useDisclosure,
-  DrawerContent,
-  DrawerCloseButton
-} from '@chakra-ui/core'
-import { InputBody } from './content'
-import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
+  Body,
+  Title,
+  Button,
+  CreateCourseInputField as InputBody,
+} from '../../../styles/style'
+
+const handleUpdate = _ => {}
 
 const UpdateContent = props => {
+  const { isLoading } = props.ContentStore
+  const { data } = props
+
+  const [updateTitle, setUpdateTitle] = useState(data.title)
+  const [updateDescription, setUpdatedDescription] = useState(data.descrp)
+
   return (
-    <div>
+    <Body>
       <Title> Edit Content </Title> <hr />
       <div>
         <InputBody>
           <label> Content Title </label>
           <input
             type="text"
-            //   value={updateTitle}
-            //   placeholder={data.title}
-            //   onChange={e => {
-            //     setUpdateTitle(e.target.value)
-            //   }}
+            value={updateTitle}
+            placeholder={data.title}
+            onChange={e => {
+              setUpdateTitle(e.target.value)
+            }}
           />
         </InputBody>
-        <br />
         <InputBody>
           <label> Content Description </label>
           <textarea
             type="text"
-            //   value={updateDescription}
-            //   placeholder={data.descrp}
-            //   onChange={e => setUpdatedDescription(e.target.value)}
+            value={updateDescription}
+            placeholder={data.descrp}
+            onChange={e => setUpdatedDescription(e.target.value)}
           />
         </InputBody>
       </div>
-      <DrawerFooter>
-        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-          {/* <Button onClick={onClose} style={{ background: 'grey' }}>
-                Cancel
-              </Button> */}
-
-          <Button
-          // onClick={() => {
-          //   handleUpdate()
-          //   onClose()
-          // }}
-          >
-            {/* {isLoading ? 'Saving' : 'Save'} Changes.
-                {isLoading && (
-                  <div style={{ paddingLeft: '.7rem' }}>
-                    <Spinner size="sm" animation="border" role="status" />
-                  </div>
-                )} */}
-          </Button>
-        </div>
-      </DrawerFooter>
-    </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          style={{
+            width: '90%'
+          }}
+          onClick={() => {
+            handleUpdate()
+          }}
+        >
+          {isLoading ? 'Saving' : 'Save'} Changes.
+          {isLoading && (
+            <div style={{ paddingLeft: '.7rem' }}>
+              <Spinner size="sm" animation="border" role="status" />
+            </div>
+          )}
+        </Button>
+      </div>
+    </Body>
   )
 }
 
-export default UpdateContent
+export default inject('ContentStore')(observer(UpdateContent))

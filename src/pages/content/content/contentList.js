@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Spinner } from 'react-bootstrap'
-import { FiSearch, FiChevronDown } from 'react-icons/fi'
+import { FiSearch, FiChevronDown, FiX } from 'react-icons/fi'
 import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import media from 'styled-media-query'
 
+import ModalWrapper from '../../../components/modals/modalWrapper'
 import { filterData } from '../../../utils/filterData'
 import Dropdown from '../../../components/dropdown'
 import ContentCard from '../../../components/contentCard'
+import SubscribeModal from './subscribeModal'
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
 import { Text, Searchbox, center, Button, Hover } from '../../../styles/style'
@@ -62,6 +64,7 @@ const Contents = props => {
   const [filterType, setFilterType] = useState('Recently Added')
   const [Data, setData] = useState([])
   const [showDropdown, setDropdownVisibility] = useState(false)
+  const [showSubscribeModal, setSubscribeModal] = useState(false)
 
   useEffect(() => {
     fetchContents()
@@ -99,6 +102,14 @@ const Contents = props => {
   return (
     <div style={{ height: '100%' }}>
       <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
+
+      <ModalWrapper
+        title="Subscribe to content"
+        visibility={showSubscribeModal}
+        closeModal={() => setSubscribeModal(!showSubscribeModal)}
+      >
+        <SubscribeModal setSubscribeModal />
+      </ModalWrapper>
 
       <Body>
         <Grid style={{ margin: '0.5rem 0' }}>
@@ -211,6 +222,7 @@ const Contents = props => {
                       price={price}
                       contentfiles={contentfiles}
                       type={type}
+                      showSubscribeModal={val => setSubscribeModal(val)}
                       subscribers={subscribers}
                       vendorId={vendorId}
                       title={title}

@@ -198,7 +198,7 @@ const MyContent = props => {
                 <Spinner variant="primary" animation="grow" role="loading" />
                 <br />
               </div>
-            ) : contentData.length === 0 ? (
+            ) : userContents.length === 0 ? (
               <div style={{ ...center }}>
                 <div>
                   <br />
@@ -214,7 +214,7 @@ const MyContent = props => {
               </div>
             ) : (
               <Grid>
-                {contentData.map(
+                {userContents.map(
                   ({
                     _id,
                     subscribers,
@@ -273,7 +273,7 @@ const MyContent = props => {
                   <Spinner variant="primary" animation="grow" role="loading" />
                   <br />
                 </div>
-              ) : contentData.length === 0 ? (
+              ) : userContents.length === 0 ? (
                 <div style={{ ...center }}>
                   <div>
                     <div style={{ ...center }}>
@@ -288,7 +288,7 @@ const MyContent = props => {
                 </div>
               ) : (
                 <Grid>
-                  {contentData.map(
+                  {userContents.map(
                     ({
                       _id,
                       subscribers,

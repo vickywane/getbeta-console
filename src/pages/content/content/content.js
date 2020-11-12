@@ -1,19 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled from 'styled-components'
-import {
-  FiChevronRight,
-  FiMoreVertical,
-  FiUploadCloud,
-  FiCalendar,
-  FiCheck,
-  FiEdit,
-  FiPlus
-} from 'react-icons/fi'
+import { FiChevronRight, FiUploadCloud, FiCalendar, FiEdit, FiPlus } from 'react-icons/fi'
 import {
   Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   useDisclosure,
   DrawerContent,
@@ -26,19 +15,16 @@ import { Spinner } from 'react-bootstrap'
 import moment from 'moment'
 import media from 'styled-media-query'
 import { useDropzone } from 'react-dropzone'
-import { CSSTransition } from 'react-transition-group'
 import * as Lodash from 'lodash'
 
 import UpdateContent from './updateContent'
 import ContentFilePreview from '../../../components/contentFilePreview'
 import ContentFileCard from '../../../components/contentFileCard'
 import useWindowWidth from '../../../utils/hook_style'
-import Player from './player'
 import ModalWrapper from '../../../components/modals/modalWrapper'
 import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
 import Header from '../../../components/headers/header'
 import { IoMdPeople } from 'react-icons/io'
-import { FiX } from 'react-icons/fi'
 
 const Head = styled.div`
   display: flex;
@@ -113,17 +99,19 @@ const ContentBody = styled.div`
   grid-template-columns: ${props => (props.showPreview ? 'auto 22rem' : 'auto')};
   transition: all 300ms;
   ${media.lessThan('large')`
-    grid-template-columns:  ${props => (props.showPreview ? 'auto 15rem' : 'auto')};
-  `};
-  ${media.lessThan('medium')`
     grid-template-columns: auto;
-  `};
+    `};
+`
+
+const Contents = styled.div`
+  height: calc(100vh - 240px);
+  overflow: auto;
 `
 
 const ContentFileOverview = styled.div`
   display: ${props => (props.open ? 'flex' : 'none')};
   border-left: 1px solid #c0c0c0;
-  ${media.lessThan('medium')`
+  ${media.lessThan('large')`
       display : none;
   `};
 `
@@ -134,7 +122,6 @@ const EditContent = props => {
 
   const [ModalVisibility, setModalVisibility] = useState(false)
   const [Content, setContent] = useState(null)
-  const [currentView, setCurrentView] = useState('content')
   const [showContentPreview, setContentPreview] = useState(true)
   const [isEditing, setEditing] = useState(false)
   const [headerName, setHeaderName] = useState('')
@@ -151,7 +138,6 @@ const EditContent = props => {
     getContentFiles,
     updateContent,
     contentFiles,
-    isLoading,
     isCreatingContentFile,
     addContentFile
   } = props.ContentStore
@@ -188,12 +174,6 @@ const EditContent = props => {
 
   const uploadContentFile = () => {
     addContentFile(contentId, Content, contentFileDescripiton)
-  }
-
-  const handleUpdate = () => {
-    setEditing(false)
-
-    updateContent(contentId, updateTitle, updateDescription)
   }
 
   const btnRef = useRef()
@@ -275,134 +255,130 @@ const EditContent = props => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <UpdateContent />
+          <UpdateContent data={data} />
         </DrawerContent>
       </Drawer>
 
-      <CSSTransition in={currentView === 'player'} timeout={300} unmountOnExit>
-        <Player contentDetails={contentDetail} goBack={() => setCurrentView('content')} />
-      </CSSTransition>
-
-      <CSSTransition in={currentView === 'content'} timeout={300} unmountOnExit>
-        <div>
-          {isLoadingContents ? (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-            >
-              <br />
-              <Spinner variant="primary" animation="grow" role="loading" />
-            </div>
-          ) : (
-            <ContentBody showPreview={showContentPreview}>
-              <div>
-                <Body style={{ background: 'rgba(233, 241, 251, 0.81)' }}>
-                  <Head>
-                    <div style={{ ...center }}>
-                      {isEditing ? (
-                        <InputBody>
-                          <input
-                            type="text"
-                            value={updateTitle}
-                            placeholder={data.title}
-                            onChange={e => {
-                              setUpdateTitle(e.target.value)
-                            }}
-                          />
-                        </InputBody>
-                      ) : (
-                        <Title small> {data.title} </Title>
-                      )}
-                    </div>
-
-                    <div style={{ ...center }}>
-                      {data.vendorId === userId && (
-                        <Hover onClick={onOpen}>
-                          <FiEdit style={{ fontSize: '1.3rem' }} />
-                        </Hover>
-                      )}
-                    </div>
-                  </Head>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex' }}>
-                      <Hover style={{ margin: '0 .4rem' }}>
-                        <FiCalendar />
-                      </Hover>
-
-                      <Text small style={{ ...center, paddingTop: '8px' }}>
-                        {moment(data.createdAt).format('D MMMM YYYY')}
-                      </Text>
-                    </div>
-
-                    <div style={{ display: 'flex' }}>
-                      <div style={{ margin: '0 .4rem' }}>
-                        <IoMdPeople />
-                      </div>
-
-                      <div style={{ paddingTop: '5px' }}>
-                        <Text small>
-                          {data.subscribers !== undefined && data.subscribers.length} Subscribers
-                        </Text>
-                      </div>
-                    </div>
-                  </div>
-
-                  {!isEditing ? (
-                    <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
-                  ) : (
-                    <InputBody>
-                      <textarea
-                        type="text"
-                        value={updateDescription}
-                        placeholder={data.descrp}
-                        onChange={e => setUpdatedDescription(e.target.value)}
-                      />
-                    </InputBody>
-                  )}
-
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      borderBottom: '1px solid #c0c0c0',
-                      padding: '0.5rem 0rem'
-                    }}
-                  >
-                    <div
-                      style={{ display: 'flex', cursor: 'pointer' }}
-                      onClick={() => setContentOpen(!isContentOpen)}
-                    >
-                      <Hover style={{ margin: '0 0.3rem' }}>
-                        <FiChevronRight
-                          style={{
-                            transition: 'all 250ms',
-                            fontSize: '1.3rem',
-                            transform: isContentOpen && 'rotate(90deg)'
+      <div>
+        {isLoadingContents ? (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <br />
+            <Spinner variant="primary" animation="grow" role="loading" />
+          </div>
+        ) : (
+          <ContentBody style={{ height: '100%' }} showPreview={showContentPreview}>
+            <div>
+              <Body style={{ background: 'rgba(233, 241, 251, 0.81)' }}>
+                <Head>
+                  <div style={{ ...center }}>
+                    {isEditing ? (
+                      <InputBody>
+                        <input
+                          type="text"
+                          value={updateTitle}
+                          placeholder={data.title}
+                          onChange={e => {
+                            setUpdateTitle(e.target.value)
                           }}
                         />
-                      </Hover>
+                      </InputBody>
+                    ) : (
+                      <Title small> {data.title} </Title>
+                    )}
+                  </div>
 
-                      <Title style={{ paddingTop: '7px' }} small>
-                        {' '}
-                        Content Files{' '}
-                      </Title>
+                  <div style={{ ...center }}>
+                    {data.vendorId === userId && (
+                      <Hover onClick={onOpen}>
+                        <FiEdit style={{ fontSize: '1.3rem' }} />
+                      </Hover>
+                    )}
+                  </div>
+                </Head>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex' }}>
+                    <Hover style={{ margin: '0 .4rem' }}>
+                      <FiCalendar />
+                    </Hover>
+
+                    <Text small style={{ ...center, paddingTop: '8px' }}>
+                      {moment(data.createdAt).format('D MMMM YYYY')}
+                    </Text>
+                  </div>
+
+                  <div style={{ display: 'flex' }}>
+                    <div style={{ margin: '0 .4rem' }}>
+                      <IoMdPeople />
                     </div>
 
-                    {data.vendorId === userId &&
-                      (Width >= 700 ? (
-                        <Button onClick={() => setModalVisibility(true)}>Add Content File</Button>
-                      ) : (
-                        <StyledHover onClick={() => setModalVisibility(true)}>
-                          <FiPlus />
-                        </StyledHover>
-                      ))}
+                    <div style={{ paddingTop: '5px' }}>
+                      <Text small>
+                        {data.subscribers !== undefined && data.subscribers.length} Subscribers
+                      </Text>
+                    </div>
                   </div>
-                </Body>
+                </div>
 
+                {!isEditing ? (
+                  <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
+                ) : (
+                  <InputBody>
+                    <textarea
+                      type="text"
+                      value={updateDescription}
+                      placeholder={data.descrp}
+                      onChange={e => setUpdatedDescription(e.target.value)}
+                    />
+                  </InputBody>
+                )}
+
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    borderBottom: '1px solid #c0c0c0',
+                    padding: '0.5rem 0rem'
+                  }}
+                >
+                  <div
+                    style={{ display: 'flex', cursor: 'pointer' }}
+                    onClick={() => setContentOpen(!isContentOpen)}
+                  >
+                    <Hover style={{ margin: '0 0.3rem' }}>
+                      <FiChevronRight
+                        style={{
+                          transition: 'all 250ms',
+                          fontSize: '1.3rem',
+                          transform: isContentOpen && 'rotate(90deg)'
+                        }}
+                      />
+                    </Hover>
+
+                    <Title style={{ paddingTop: '7px' }} small>
+                      {' '}
+                      Content Files{' '}
+                    </Title>
+                  </div>
+
+                  {data.vendorId === userId &&
+                    (Width >= 700 ? (
+                      <Button onClick={() => setModalVisibility(true)}>Add Content File</Button>
+                    ) : (
+                      <StyledHover onClick={() => setModalVisibility(true)}>
+                        <FiPlus />
+                      </StyledHover>
+                    ))}
+                </div>
+              </Body>
+
+              <Contents>
                 {Lodash.isEmpty(files) ? (
                   <div>
                     <br />
@@ -427,22 +403,20 @@ const EditContent = props => {
                       }
                       contentStore={props.ContentStore}
                       data={data}
-                      setCurrentView={() => setCurrentView('player')}
                       setHeaderName={val => setHeaderName(val)}
                       Width={Width}
                       files={files}
                     />
                   )
                 )}
-              </div>
-
-              <ContentFileOverview open={showContentPreview}>
-                <ContentFilePreview url={previewUrl} />
-              </ContentFileOverview>
-            </ContentBody>
-          )}
-        </div>
-      </CSSTransition>
+              </Contents>
+            </div>
+            <ContentFileOverview open={showContentPreview}>
+              <ContentFilePreview url={previewUrl} />
+            </ContentFileOverview>
+          </ContentBody>
+        )}
+      </div>
     </div>
   )
 }

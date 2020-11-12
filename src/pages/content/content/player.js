@@ -42,6 +42,11 @@ const StyledBody = styled(Body)`
   `};
 `
 
+const Container = styled.div`
+  height: calc(100vh - 55px);
+  overflow: auto;
+`
+
 const ContentPlayer = props => {
   const { contentDetails } = props.location.state
 
@@ -99,9 +104,9 @@ const ContentPlayer = props => {
   }
 
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header goBack={true} />
-      <div>
+      <Container>
         {contentFileType === 'video' ? (
           <Grid>
             <Player width="100%" height="500px" style={{}} controls={true} url={url} />
@@ -175,7 +180,7 @@ const ContentPlayer = props => {
             </StyledBody>
           </Grid>
         )}
-      </div>
+      </Container>
     </div>
   )
 }

@@ -214,7 +214,7 @@ export const CreateCourseInputField = styled.div`
     font-size : .8rem;
   }
   input {
-    height: 45px;
+    height: 40px;
     width: 100%;
     font-size : .75rem;
   }

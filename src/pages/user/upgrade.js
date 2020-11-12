@@ -11,10 +11,18 @@ import { Spinner } from 'react-bootstrap'
 import useWindowWidth from '../../utils/hook_style'
 
 import Header from '../../components/headers/header'
-import { Text, Title, center, Button, Body, MdTitle } from '../../styles/style'
+import {
+  Text,
+  Title,
+  center,
+  Button,
+  Body,
+  MdTitle,
+  CreateCourseInputField as InputContainer
+} from '../../styles/style'
 
 const StyledBody = styled(Body)`
-  height: calc(100vh - 55px);
+  height: calc(100vh - 50px);
   overflow: auto;
   background: rgba(233, 241, 251, 0.81);
 `
@@ -101,7 +109,7 @@ const InputBody = styled.div`
     }
   `};
   ${media.lessThan('small')`
-  margin: 1rem 1rem;
+  margin: .5rem 1rem;
   label {
     font-size : .8rem;
   }
@@ -116,6 +124,12 @@ const FlexInputs = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   place-items: center;
+  ${media.lessThan('medium')`
+    width : 100%;
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+  `}
 `
 
 const SmallCard = styled.div`
@@ -124,6 +138,14 @@ const SmallCard = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 3px grey;
   padding: 1rem;
+  ${media.lessThan('medium')`
+    width : 85%;
+    padding-right : 30px;
+  `};
+  ${media.lessThan('small')`
+  width : 97%;
+  padding-right : 20px;
+`};
 `
 
 const billingSchema = Yup.object().shape({
@@ -292,19 +314,18 @@ const Upgrade = props => {
           </div>
         ) : (
           <StyledBody style={{ ...center }}>
-            <SmallCard style={{ width: '80%' }}>
+            <SmallCard>
               <form onSubmit={() => handleCheckout}>
                 <MdTitle small align="center">
-                  {' '}
                   Subscription Checkout{' '}
                 </MdTitle>
                 <hr />
 
                 <div>
-                  <Title> Transaction Summary : </Title>
-
-                  <div style={{ paddingLeft: '5px', display: 'flex' }}>
-                    <Text> Plan: {name}. </Text>
+                  <div style={{ paddingLeft: '5px', display: 'flex', justifyContent: 'center' }}>
+                    <Text>
+                      {price} {name}.{' '}
+                    </Text>
                     <Text
                       small
                       style={{ color: '#0072ce', cursor: 'pointer', margin: '0 .5rem' }}
@@ -313,50 +334,46 @@ const Upgrade = props => {
                       Change Plan
                     </Text>
                   </div>
-
-                  <Text style={{ paddingLeft: '5px' }}> Price: {price} </Text>
                 </div>
 
                 <hr />
 
-                <InputBody>
+                <InputContainer>
                   <label>Bank Name</label>
                   <Select onChange={e => setBank(e.target.value)}>
                     <option value="Guaranty Trust Bank"> Guaranty Trust Bank </option>
                     <option value="Stanbic Bank"> Stanbic Bank </option>
                     <option value="Gtb"> First Bank Nigeria </option>
                   </Select>
-                </InputBody>
+                </InputContainer>
 
-                <InputBody borderColor="#c0c0c0" width="100%">
-                  <label> Card Number </label>
-                  <input onChange={e => {}} placeholder="Account Name" />
-                </InputBody>
+                <InputContainer borderColor="#c0c0c0" width="100%">
+                  <label> Account Number </label>
+                  <input onChange={e => {}} placeholder="Account Number" />
+                </InputContainer>
 
-                <InputBody borderColor="#c0c0c0" width="100%">
+                <InputContainer borderColor="#c0c0c0" width="100%">
                   <label> Cardholder Name </label>
-                  <input placeholder="Account Name" />
-                </InputBody>
+                  <input placeholder="Cardholder Name" />
+                </InputContainer>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <InputBody borderColor="#c0c0c0" width="11rem">
-                    <label> Expiry Date </label>
-                    <input
-                      onChange={e => setExpiry(e.target.value)}
-                      value={expiry}
-                      placeholder="Account Name"
-                    />
-                  </InputBody>
+                <InputContainer borderColor="#c0c0c0" width="100%">
+                  <label> Expiry Date </label>
+                  <input
+                    onChange={e => setExpiry(e.target.value)}
+                    value={expiry}
+                    placeholder="Expiry Date"
+                  />
+                </InputContainer>
 
-                  <InputBody borderColor="#c0c0c0" width="11rem">
-                    <label> CVV </label>
-                    <input
-                      onChange={e => setCvv(e.target.value)}
-                      value={cvv}
-                      placeholder="CVV NUMBER"
-                    />
-                  </InputBody>
-                </div>
+                <InputContainer borderColor="#c0c0c0" width="100%">
+                  <label> CVV </label>
+                  <input
+                    onChange={e => setCvv(e.target.value)}
+                    value={cvv}
+                    placeholder="CVV NUMBER"
+                  />
+                </InputContainer>
                 <div style={{ margin: '1rem 0', display: 'flex', justifyContent: 'center' }}>
                   <Button
                     onClick={e => {
