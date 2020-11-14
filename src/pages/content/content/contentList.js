@@ -209,7 +209,7 @@ const Contents = props => {
                 createdAt,
                 descrp,
                 price,
-                type,
+                type, coverImage , 
                 vendorId,
                 title
               }) => {
@@ -219,6 +219,7 @@ const Contents = props => {
                       id={_id}
                       createdAt={createdAt}
                       descrp={descrp}
+                      coverImage={coverImage}
                       price={price}
                       contentfiles={contentfiles}
                       type={type}

@@ -47,20 +47,22 @@ class ContentStore {
     )
       .then(result => {
         if (contentImage) {
-          const { _id } = result.data.content
-
+          console.log(result.data);
+          const { _id } = result.data.data
+           
           const formData = new FormData()
           formData.append('file', contentImage)
 
           Axios.put(`${CONTENT_ENDPOINT}/${id}/${_id}/img`, formData, {
             headers: { 'x-auth-token': token, 'Content-Type': 'mulipart/formdata' }
           })
-            .then(() => {
+            .then((res) => {
+              console.log(res);
               this.isLoading = false
 
               navigate('/contents')
             })
-            .catch(e => Sentry.captureException(e))
+            .catch(e =>{ console.log(e); Sentry.captureException(e)})
         }
 
         this.isLoading = false

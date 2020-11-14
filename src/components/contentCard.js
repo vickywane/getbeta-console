@@ -12,6 +12,7 @@ import ModalWrapper from '../components/modals/modalWrapper'
 import { Hover, Text, center, Button, Title } from '../styles/style'
 import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
+import { Login } from '../navigation/authentication'
 
 const property = {
   imageUrl:
@@ -148,7 +149,6 @@ function ContentCard(props) {
     subscribers,
     title
   } = props
-
   const { deleteContent, isLoading, subscribeToContent } = props.ContentStore
   const userId = localStorage.getItem('userId')
   const [showDropdown, setDropdownVisibility] = useState(false)
@@ -162,6 +162,10 @@ function ContentCard(props) {
         setSubscribeStatus(true)
       }
     })
+
+    if (userId === vendorId) {
+      setSubscribeStatus(true)
+    }
   }, [])
 
   return (

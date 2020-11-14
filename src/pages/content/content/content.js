@@ -152,7 +152,6 @@ const EditContent = props => {
   let data = toJS(content)
   const files = toJS(contentFiles)
   const userId = localStorage.getItem('userId')
-
   useEffect(() => {
     if (Lodash.isEmpty(files)) {
       setContentPreview(false)
