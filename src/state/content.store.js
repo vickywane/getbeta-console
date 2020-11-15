@@ -238,7 +238,7 @@ class ContentStore {
         if (Lodash.isEmpty(res.data.account)) {
           this.isLoading = false
           // user has no subaccount. navigate to account billing
-          navigate("/upgrade")
+          this.showBillingAccountModal = true
         } else {
           Axios.post(
             `${CONTENT_ENDPOINT}/${id}/${contentId}/subscribe`,
@@ -246,19 +246,37 @@ class ContentStore {
             { headers: { 'x-auth-token': token } }
           )
             .then(response => {
+              const width = 600
+              const height = 600
+              const url = response.data.body.authorization_url
+              let left = window.innerWidth / 2 - width / 2
+              let top = window.innerHeight / 2 - height / 2
+
+              window.open(
+                url,
+                '',
+                `toolbar=no, location=no, directories=no, status=no, menubar=no,
+        scrollbars=no, resizable=no, copyhistory=no, width=${width},
+        height=${height}, top=${top}, left=${left}`
+              )
               this.isLoading = false
-  
-              console.log(response)
             })
             .catch(e => {
               this.isLoading = false
-  
-              console.log(e)
+
               Sentry.captureException(e, 'error subscribing to a content')
             })
         }
       })
-      .catch(e => console.log(e))
+      .catch(e => Sentry.captureException(e))
+  }
+
+  @observable
+  showBillingAccountModal = false
+
+  @action
+  closeBillingAccountModal = () => {
+    this.showBillingAccountModal = !this.showBillingAccountModal
   }
 }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Spinner } from 'react-bootstrap'
 import { FiSearch, FiChevronDown, FiX } from 'react-icons/fi'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import media from 'styled-media-query'
 
@@ -14,6 +14,7 @@ import SubscribeModal from './subscribeModal'
 import useWindowWidth from '../../../utils/hook_style'
 import Header from '../../../components/headers/header'
 import { Text, Searchbox, center, Button, Hover } from '../../../styles/style'
+import BillingAccountModal from '../../../components/billingAccount'
 
 const Body = styled.div`
   padding: 1rem 1rem;
@@ -58,7 +59,13 @@ const FilterBtn = styled.div`
 `
 
 const Contents = props => {
-  const { fetchContents, isLoadingContents, contents } = props.ContentStore
+  const {
+    fetchContents,
+    isLoadingContents,
+    contents,
+    showBillingAccountModal,
+    closeBillingAccountModal
+  } = props.ContentStore
   const [showModal, setModal] = useState(false)
   const [filter, setFilter] = useState('')
   const [filterType, setFilterType] = useState('Recently Added')
@@ -111,6 +118,14 @@ const Contents = props => {
         <SubscribeModal setSubscribeModal />
       </ModalWrapper>
 
+      <ModalWrapper
+        title="Create Billing Account"
+        visibility={showBillingAccountModal}
+        closeModal={() => closeBillingAccountModal()}
+      >
+        <BillingAccountModal />
+      </ModalWrapper>
+
       <Body>
         <Grid style={{ margin: '0.5rem 0' }}>
           <div style={{ ...center }}>
@@ -123,7 +138,7 @@ const Contents = props => {
             </Searchbox>
           </div>
 
-          <div style={{ display: 'flex' , marginRight : "40px" }}>
+          <div style={{ display: 'flex', marginRight: '40px' }}>
             <Dropdown show={showDropdown}>
               <div style={{ display: 'flex' }}>
                 <Text style={{ marginLeft: '5px' }}>Sort By : </Text>
@@ -209,7 +224,8 @@ const Contents = props => {
                 createdAt,
                 descrp,
                 price,
-                type, coverImage , 
+                type,
+                coverImage,
                 vendorId,
                 title
               }) => {
@@ -239,4 +255,4 @@ const Contents = props => {
   )
 }
 
-export default observer(Contents)
+export default inject('UserStore')(observer(Contents))

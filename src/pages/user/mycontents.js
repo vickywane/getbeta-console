@@ -64,7 +64,7 @@ const ContentHead = styled.div`
 
 const MyContent = props => {
   const { getUserContents, contents, isLoadingContents, userSubscribedContent } = props.ContentStore
-  const { userId, showAllPublicContent } = props
+  const { userId, showAllPublicContent, userDetail } = props
 
   const [searchText, setSearchText] = useState('')
   const [contentData, setContentData] = useState([])
@@ -92,7 +92,6 @@ const MyContent = props => {
       setContentData(userContents.find(c => c.title === searchText))
     }
   }, [searchText])
-
   // useEffect(() => {
   //   console.log("effect");
   //   if (contents.length > 1) {
@@ -275,16 +274,44 @@ const MyContent = props => {
                 </div>
               ) : userContents.length === 0 ? (
                 <div style={{ ...center }}>
-                  <div>
-                    <div style={{ ...center }}>
-                      <Planet color="#0072ce" mood="sad" size={140} />
+                  {userDetail.role === 'starter' ? (
+                    <div>
+                      <div style={{ ...center }}>
+                        <Planet color="#0072ce" mood="sad" size={140} />
+                      </div>
+                      <br />
+                      <Text align="center">
+                        You currently do not have any created content. <br /> Upgrade to a
+                        <span style={{ fontWeight: 'bold' }}> Professional Plan </span> to create
+                        your first content.
+                      </Text>
+
+                      <Text
+                        onClick={_ =>
+                          navigate('/subscriptions', {
+                            state: {
+                              userData: userDetail
+                            }
+                          })
+                        }
+                        align="center"
+                        style={{ cursor: 'pointer', color: '#0072ce' }}
+                      >
+                        Upgrade Subscription
+                      </Text>
                     </div>
-                    <br />
-                    <Text align="center"> You currently do not have any created content. </Text>
-                    <Link to="/create-content">
-                      <Text align="center"> Create Content</Text>
-                    </Link>
-                  </div>
+                  ) : (
+                    <div>
+                      <div style={{ ...center }}>
+                        <Planet color="#0072ce" mood="sad" size={140} />
+                      </div>
+                      <br />
+                      <Text align="center">You currently do not have any created content.</Text>
+                      <Link to="/create-content">
+                        <Text align="center"> Create Content</Text>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <Grid>

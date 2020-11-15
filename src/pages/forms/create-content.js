@@ -73,10 +73,10 @@ const contentSchema = Yup.object().shape({
 const FormGrid = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
+  grid-gap: 0.5rem 1rem;
   ${media.lessThan('medium')`
       display : flex;
       flex-direction : column
-       
     `}
 `
 

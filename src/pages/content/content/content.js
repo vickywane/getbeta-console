@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/core'
 import { navigate } from '@reach/router'
 import { toJS } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { Spinner } from 'react-bootstrap'
 import moment from 'moment'
 import media from 'styled-media-query'
@@ -22,7 +22,16 @@ import ContentFilePreview from '../../../components/contentFilePreview'
 import ContentFileCard from '../../../components/contentFileCard'
 import useWindowWidth from '../../../utils/hook_style'
 import ModalWrapper from '../../../components/modals/modalWrapper'
-import { Text, MdTitle, Hover, Title, Button, center, StyledHover } from '../../../styles/style'
+import {
+  Text,
+  MdTitle,
+  Hover,
+  SmallUserImage,
+  Title,
+  Button,
+  center,
+  StyledHover
+} from '../../../styles/style'
 import Header from '../../../components/headers/header'
 import { IoMdPeople } from 'react-icons/io'
 
@@ -141,17 +150,24 @@ const EditContent = props => {
     isCreatingContentFile,
     addContentFile
   } = props.ContentStore
+  const { getUser, user } = props.UserStore
   const { contentId } = props.location.state
   const [isContentOpen, setContentOpen] = useState(true)
 
   useEffect(() => {
     getContent(contentId)
-    getContentFiles(contentId)
   }, [])
 
   let data = toJS(content)
   const files = toJS(contentFiles)
   const userId = localStorage.getItem('userId')
+
+  useEffect(() => {
+    if (data.vendorId) {
+      getUser(data.vendorId)
+    }
+  }, [data])
+
   useEffect(() => {
     if (Lodash.isEmpty(files)) {
       setContentPreview(false)
@@ -176,6 +192,7 @@ const EditContent = props => {
   }
 
   const btnRef = useRef()
+  const creatorDetail = toJS(user)
 
   return (
     <div>
@@ -276,20 +293,7 @@ const EditContent = props => {
               <Body style={{ background: 'rgba(233, 241, 251, 0.81)' }}>
                 <Head>
                   <div style={{ ...center }}>
-                    {isEditing ? (
-                      <InputBody>
-                        <input
-                          type="text"
-                          value={updateTitle}
-                          placeholder={data.title}
-                          onChange={e => {
-                            setUpdateTitle(e.target.value)
-                          }}
-                        />
-                      </InputBody>
-                    ) : (
-                      <Title small> {data.title} </Title>
-                    )}
+                    <Title small> {data.title} </Title>
                   </div>
 
                   <div style={{ ...center }}>
@@ -325,18 +329,20 @@ const EditContent = props => {
                   </div>
                 </div>
 
-                {!isEditing ? (
-                  <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
-                ) : (
-                  <InputBody>
-                    <textarea
-                      type="text"
-                      value={updateDescription}
-                      placeholder={data.descrp}
-                      onChange={e => setUpdatedDescription(e.target.value)}
+                <Text style={{ paddingLeft: '20px' }}> {data.descrp} </Text>
+
+                <div style={{ display: 'flex' }}>
+                  <div style={{ margin: '0 .5rem' }}>
+                    <SmallUserImage
+                      small
+                      src={user.img ? user.img : require('../../../assets/images/img.jpg')}
                     />
-                  </InputBody>
-                )}
+                  </div>
+
+                  <div style={{ ...center }}>
+                    <Text style={{ paddingTop: '4px' }}> {user.fullname} </Text>
+                  </div>
+                </div>
 
                 <div
                   style={{
@@ -361,7 +367,6 @@ const EditContent = props => {
                     </Hover>
 
                     <Title style={{ paddingTop: '7px' }} small>
-                      {' '}
                       Content Files{' '}
                     </Title>
                   </div>
@@ -420,4 +425,4 @@ const EditContent = props => {
   )
 }
 
-export default observer(EditContent)
+export default inject('UserStore')(observer(EditContent))

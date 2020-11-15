@@ -67,7 +67,7 @@ const List = styled.div`
 const InputBody = styled.div`
   margin: 1rem 1rem;
   label {
-    .85rem;
+    font-size: 0.85rem;
   }
   input {
     display: flex;
@@ -190,7 +190,7 @@ const Upgrade = props => {
     //   })
     //   .catch(e => console.log(e))
 
-    subscribeToPlan(accountName, bank, accountNumber)
+    subscribeToPlan(accountName, bank, accountNumber, name)
   }
 
   return (
@@ -201,8 +201,6 @@ const Upgrade = props => {
         {Width >= 1000 ? (
           <div style={{ ...center }}>
             <div>
-              <br />
-              <br />
               <br />
               <br />
               <Grid style={{ width: '100%' }}>

@@ -6,7 +6,6 @@ import { observer } from 'mobx-react'
 
 import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
-import Axios from 'axios'
 import { Profile, Mybookings, MyContent, MyCourses } from '../user/'
 
 const Body = styled.div`
@@ -132,7 +131,7 @@ const Home = props => {
         <br />
 
         <Section id="courses">
-          <MyContent id="courses" userId={_id} Width={Width} />
+          <MyContent userDetail={detail} id="courses" userId={_id} Width={Width} />
         </Section>
 
         <br />

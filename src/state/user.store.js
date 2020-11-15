@@ -300,7 +300,7 @@ class UserStore {
   accountIsUpgraded = false
 
   @action
-  subscribeToPlan = (business_name, settlement_bank, account_number) => {
+  subscribeToPlan = (business_name, settlement_bank, account_number, plan_type) => {
     this.isLoading = true
     Axios.post(
       `${AUTH_ENDPOINT}/${id}/sub_account/create`,
@@ -312,16 +312,63 @@ class UserStore {
       }
     )
       .then(res => {
-        this.accountIsUpgraded = true
-        this.isLoading = false
+        // TODO: B.E doesnt allow me to pass in the subscription plan
+        Axios.put(
+          plan_type === 'Professional'
+            ? `${AUTH_ENDPOINT}/${id}/vendor-role`
+            : `${AUTH_ENDPOINT}/${id}/enterprise-role`,
+          {},
+          { headers: { 'x-auth-token': token } }
+        )
+          .then(res => {
+            this.accountIsUpgraded = true
+            this.isLoading = false
 
-        setTimeout(() => {
-          this.accountIsUpgraded = false
-          navigate('/console/*')
-        }, 2000)
+            setTimeout(() => {
+              this.accountIsUpgraded = false
+              navigate('/console/*')
+            }, 2000)
+          })
+          .catch(e => console.log(e))
       })
       .catch(e => {
         this.isLoading = false
+      })
+  }
+
+  @observable
+  showBillingAccountModal = false
+  errorCreatingBillingAccount = false
+
+  @action
+  closeBillingAccountModal = () => {
+    this.showBillingAccountModal = !this.showBillingAccountModal
+  }
+
+  @action
+  createBillingAccount = (business_name, settlement_bank, account_number) => {
+    this.isLoading = true
+
+    Axios.post(
+      `${AUTH_ENDPOINT}/${id}/sub_account/create`,
+      { business_name, settlement_bank, account_number },
+      { headers: { 'x-auth-token': token } }
+    )
+      .then(response => {
+        this.isLoading = false
+        this.accountIsUpgraded = true
+
+        setTimeout(() => {
+          this.accountIsUpgraded = false
+
+          this.showBillingAccountModal = false
+        }, 2000)
+      })
+      .catch(e => {
+        this.errorCreatingBillingAccount = true
+        this.isLoading = false
+
+        Sentry.captureException(e, 'error creating billing account')
       })
   }
 }
