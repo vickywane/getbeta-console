@@ -13,6 +13,7 @@ import { Hover, Text, center, Button, Title } from '../styles/style'
 import media from 'styled-media-query'
 import { inject, observer } from 'mobx-react'
 import { Login } from '../navigation/authentication'
+import { toJS } from 'mobx'
 
 const property = {
   imageUrl:
@@ -153,6 +154,7 @@ function ContentCard(props) {
   const userId = localStorage.getItem('userId')
   const [showDropdown, setDropdownVisibility] = useState(false)
   const [subscribeStatus, setSubscribeStatus] = useState(false)
+  const { userDetail } = props.UserStore
 
   useEffect(() => {
     subscribers.forEach(({ subscriberId }) => {
@@ -279,7 +281,6 @@ function ContentCard(props) {
                   <IoIosLock style={{ color: 'white' }} />
                 </Hover>
               )}
-
               {subscribeStatus ? 'Subscribed' : isLoading ? 'Subscribing' : 'Subscribe'}
               {isLoading && (
                 <div style={{ paddingLeft: '.7rem' }}>
@@ -301,4 +302,4 @@ function ContentCard(props) {
   )
 }
 
-export default inject('ContentStore')(observer(ContentCard))
+export default inject('ContentStore', 'UserStore')(observer(ContentCard))

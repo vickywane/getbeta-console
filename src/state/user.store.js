@@ -296,6 +296,9 @@ class UserStore {
   }
 
   // USER ACCOUNT SUBSCRIPTIONS =====>
+  @observable
+  accountIsUpgraded = false
+
   @action
   subscribeToPlan = (business_name, settlement_bank, account_number) => {
     this.isLoading = true
@@ -309,7 +312,13 @@ class UserStore {
       }
     )
       .then(res => {
+        this.accountIsUpgraded = true
         this.isLoading = false
+
+        setTimeout(() => {
+          this.accountIsUpgraded = false
+          navigate('/console/*')
+        }, 2000)
       })
       .catch(e => {
         this.isLoading = false

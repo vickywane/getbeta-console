@@ -2,6 +2,7 @@ import Axios from 'axios'
 import { action, observable, decorate } from 'mobx'
 import { navigate } from '@reach/router'
 import * as Sentry from '@sentry/react'
+import * as Lodash from 'lodash'
 
 const CONTENT_ENDPOINT = `${process.env.REACT_APP_PRODUCTION_API_URI}/vendors`
 
@@ -47,22 +48,25 @@ class ContentStore {
     )
       .then(result => {
         if (contentImage) {
-          console.log(result.data);
+          console.log(result.data)
           const { _id } = result.data.data
-           
+
           const formData = new FormData()
           formData.append('file', contentImage)
 
           Axios.put(`${CONTENT_ENDPOINT}/${id}/${_id}/img`, formData, {
             headers: { 'x-auth-token': token, 'Content-Type': 'mulipart/formdata' }
           })
-            .then((res) => {
-              console.log(res);
+            .then(res => {
+              console.log(res)
               this.isLoading = false
 
               navigate('/contents')
             })
-            .catch(e =>{ console.log(e); Sentry.captureException(e)})
+            .catch(e => {
+              console.log(e)
+              Sentry.captureException(e)
+            })
         }
 
         this.isLoading = false
@@ -223,22 +227,38 @@ class ContentStore {
   @action
   subscribeToContent = contentId => {
     this.isLoading = true
-    Axios.post(
-      `${CONTENT_ENDPOINT}/${id}/${contentId}/subscribe`,
-      {},
-      { headers: { 'x-auth-token': token } }
-    )
-      .then(response => {
-        this.isLoading = false
 
-        console.log(response)
+    // check if user has a subaccount
+    Axios.get(`${CONTENT_ENDPOINT}/${id}/account/1`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+      .then(res => {
+        if (Lodash.isEmpty(res.data.account)) {
+          this.isLoading = false
+          // user has no subaccount. navigate to account billing
+          navigate("/upgrade")
+        } else {
+          Axios.post(
+            `${CONTENT_ENDPOINT}/${id}/${contentId}/subscribe`,
+            {},
+            { headers: { 'x-auth-token': token } }
+          )
+            .then(response => {
+              this.isLoading = false
+  
+              console.log(response)
+            })
+            .catch(e => {
+              this.isLoading = false
+  
+              console.log(e)
+              Sentry.captureException(e, 'error subscribing to a content')
+            })
+        }
       })
-      .catch(e => {
-        this.isLoading = false
-
-        console.log(e)
-        Sentry.captureException(e, 'error subscribing to a content')
-      })
+      .catch(e => console.log(e))
   }
 }
 

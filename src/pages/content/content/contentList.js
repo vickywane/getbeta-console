@@ -123,7 +123,7 @@ const Contents = props => {
             </Searchbox>
           </div>
 
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex' , marginRight : "40px" }}>
             <Dropdown show={showDropdown}>
               <div style={{ display: 'flex' }}>
                 <Text style={{ marginLeft: '5px' }}>Sort By : </Text>

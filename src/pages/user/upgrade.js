@@ -15,6 +15,7 @@ import {
   Text,
   Title,
   center,
+  Alert,
   Button,
   Body,
   MdTitle,
@@ -22,14 +23,14 @@ import {
 } from '../../styles/style'
 
 const StyledBody = styled(Body)`
-  height: calc(100vh - 50px);
+  height: calc(100vh - 55px);
   overflow: auto;
   background: rgba(233, 241, 251, 0.81);
 `
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 40% 60%;
   place-items: center;
   ${media.lessThan('medium')`
       display : flex;
@@ -39,13 +40,15 @@ const Grid = styled.div`
 `
 
 const Card = styled.div`
-  width: 80%;
+  width: auto;
   background: #0072ce;
   border: 1px solid #0072ce;
   color: #fff;
-  padding: 1rem 1rem;
   border-radius: 5px;
   margin: 1rem 0;
+  span {
+    padding: 1rem 1rem;
+  }
 `
 
 const List = styled.div`
@@ -64,13 +67,13 @@ const List = styled.div`
 const InputBody = styled.div`
   margin: 1rem 1rem;
   label {
-    .9rem;
+    .85rem;
   }
   input {
     display: flex;
     flex: 1;
     width: ${props => props.width};
-    height: 55px;
+    height: 50px;
     border: 1px solid #fff;
     color: blue;
     padding: 0.5rem 1rem;
@@ -137,14 +140,16 @@ const SmallCard = styled.div`
   border: 0;
   border-radius: 5px;
   box-shadow: 0 2px 3px grey;
-  padding: 1rem;
+  span {
+    padding: 1rem;
+  }
   ${media.lessThan('medium')`
-    width : 85%;
+    width : 90%;
     padding-right : 30px;
   `};
   ${media.lessThan('small')`
   width : 97%;
-  padding-right : 20px;
+    padding-right : 20px;
 `};
 `
 
@@ -164,14 +169,14 @@ const Upgrade = props => {
     alert('Select a subscription from previous page first')
     navigate(-1)
   }
-  const [bank, setBank] = useState('Guaranty Trust Bank')
+  const [bank, setBank] = useState('Guaranty Trust Bank') //default
   const [accountName, setAccountName] = useState('')
   const [accountNumber, setAccountNumber] = useState('')
   const [cvv, setCvv] = useState('')
   const [expiry, setExpiry] = useState('')
 
   const Width = useWindowWidth()
-  const { subscribeToPlan, isLoading } = props.UserStore
+  const { subscribeToPlan, isLoading, accountIsUpgraded } = props.UserStore
 
   const handleCheckout = () => {
     const isValidAccount = billingSchema.isValid({
@@ -236,158 +241,156 @@ const Upgrade = props => {
                 </Card>
 
                 <Card style={{ minWidth: '30rem' }}>
-                  <Title align="center"> Confirm Payment Details </Title>
-                  <hr style={{ background: '#fff' }} />
-                  <form onSubmit={() => {}}>
-                    <InputBody style={{ color: 'black' }}>
-                      <label>BANK NAME</label>
-                      <Select onChange={e => setBank(e.target.value)}>
-                        <option value="Guaranty Trust Bank"> Guaranty Trust Bank </option>
-                        <option value="Stanbic Bank"> Stanbic Bank </option>
-                        <option value="Gtb"> First Bank Nigeria </option>
-                      </Select>
-                    </InputBody>
+                  {accountIsUpgraded && (
+                    <Alert style={{ ...center, borderRadius: '5px 5px 0 0' }}>
+                      <Text> You account has been upgraded to a {name} account </Text>{' '}
+                    </Alert>
+                  )}
 
-                    <InputBody width="100%">
-                      <label> CARD NUMBER </label>
-                      <input
-                        value={accountNumber}
-                        onChange={e => setAccountNumber(e.target.value)}
-                        placeholder="XXXX-XXXX-XXXX-XXXX"
-                      />
-                    </InputBody>
+                  <span>
+                    <Title align="center"> Confirm Payment Details </Title>
+                    <hr style={{ background: '#fff' }} />
+                    <form onSubmit={() => handleCheckout()}>
+                      <InputBody style={{ color: 'black' }}>
+                        <label style={{ color: '#fff' }}>BANK NAME</label>
+                        <Select onChange={e => setBank(e.target.value)}>
+                          <option value="Guaranty Trust Bank"> Guaranty Trust Bank </option>
+                          <option value="Stanbic Bank"> Stanbic Bank </option>
+                          <option value="First Bank Nigeria"> First Bank Nigeria </option>
+                        </Select>
+                      </InputBody>
 
-                    <InputBody width="100%">
-                      <label> CARDHOLDER NAME</label>
-
-                      <input
-                        value={accountName}
-                        onChange={e => setAccountName(e.target.value)}
-                        placeholder="Cardholder Name"
-                      />
-                    </InputBody>
-
-                    <FlexInputs>
                       <InputBody width="100%">
-                        <label> EXPIRY DATE </label>
+                        <label> ACCOUNT NUMBER </label>
                         <input
-                          onChange={e => setExpiry(e.target.value)}
-                          value={expiry}
-                          placeholder="01-01"
+                          value={accountNumber}
+                          onChange={e => setAccountNumber(e.target.value)}
+                          placeholder="XXXX-XXXX-XXXX-XXXX"
                         />
                       </InputBody>
 
                       <InputBody width="100%">
-                        <label> CVV </label>
+                        <label> CARDHOLDER NAME</label>
+
                         <input
-                          onChange={e => setExpiry(e.target.value)}
-                          value={expiry}
-                          placeholder="XX-XX"
+                          value={accountName}
+                          onChange={e => setAccountName(e.target.value)}
+                          placeholder="Cardholder Name"
                         />
                       </InputBody>
-                    </FlexInputs>
-                  </form>
-                  <br />
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button
-                      onClick={() => handleCheckout()}
-                      style={{
-                        border: '1px solid #fff',
-                        background: '#fff',
-                        color: '#0072ce',
-                        width: '100%'
-                      }}
-                    >
-                      {isLoading ? 'Billing Account' : 'Proccess Payment'}
 
-                      {isLoading && (
-                        <div style={{ paddingLeft: '.7rem' }}>
-                          <Spinner size="sm" animation="border" role="status" />
-                        </div>
-                      )}
-                    </Button>
-                  </div>
-                  <br />
+                      <FlexInputs>
+                        <InputBody width="100%">
+                          <label> EXPIRY DATE </label>
+                          <input
+                            onChange={e => setExpiry(e.target.value)}
+                            value={expiry}
+                            placeholder="01-01"
+                          />
+                        </InputBody>
+
+                        <InputBody width="100%">
+                          <label> CVV </label>
+                          <input
+                            onChange={e => setCvv(e.target.value)}
+                            value={cvv}
+                            placeholder="XX-XX"
+                          />
+                        </InputBody>
+                      </FlexInputs>
+                    </form>
+                    <br />
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Button
+                        onClick={() => handleCheckout()}
+                        style={{
+                          border: '1px solid #fff',
+                          background: '#fff',
+                          color: '#0072ce',
+                          width: '95%'
+                        }}
+                      >
+                        {isLoading ? 'Billing Account' : 'Proccess Payment'}
+
+                        {isLoading && (
+                          <div style={{ paddingLeft: '.7rem' }}>
+                            <Spinner size="sm" animation="border" role="status" />
+                          </div>
+                        )}
+                      </Button>
+                    </div>
+                    <br />
+                  </span>
                 </Card>
               </Grid>
             </div>
           </div>
         ) : (
-          <StyledBody style={{ ...center }}>
+          <div style={{ ...center }}>
             <SmallCard>
-              <form onSubmit={() => handleCheckout}>
-                <MdTitle small align="center">
-                  Subscription Checkout{' '}
-                </MdTitle>
-                <hr />
+              {accountIsUpgraded && (
+                <Alert style={{ ...center, borderRadius: '5px 5px 0 0', width: '100%' }}>
+                  <Text> You account has been upgraded to a {name} account </Text>{' '}
+                </Alert>
+              )}
+              <span>
+                <form onSubmit={() => handleCheckout}>
+                  <MdTitle small align="center">
+                    Confirm Payment Details
+                  </MdTitle>
+                  <hr />
 
-                <div>
-                  <div style={{ paddingLeft: '5px', display: 'flex', justifyContent: 'center' }}>
-                    <Text>
-                      {price} {name}.{' '}
-                    </Text>
-                    <Text
-                      small
-                      style={{ color: '#0072ce', cursor: 'pointer', margin: '0 .5rem' }}
-                      onClick={() => navigate(-1)}
-                    >
-                      Change Plan
-                    </Text>
+                  <div>
+                    <div style={{ paddingLeft: '5px', display: 'flex', justifyContent: 'center' }}>
+                      <Text>
+                        {price} {name}.{' '}
+                      </Text>
+                      <Text
+                        small
+                        style={{ color: '#0072ce', cursor: 'pointer', margin: '0 .5rem' }}
+                        onClick={() => navigate(-1)}
+                      >
+                        Change Plan
+                      </Text>
+                    </div>
                   </div>
-                </div>
 
-                <hr />
+                  <hr />
 
-                <InputContainer>
-                  <label>Bank Name</label>
-                  <Select onChange={e => setBank(e.target.value)}>
-                    <option value="Guaranty Trust Bank"> Guaranty Trust Bank </option>
-                    <option value="Stanbic Bank"> Stanbic Bank </option>
-                    <option value="Gtb"> First Bank Nigeria </option>
-                  </Select>
-                </InputContainer>
+                  <InputContainer>
+                    <label>Bank Name</label>
+                    <Select onChange={e => setBank(e.target.value)}>
+                      <option value="Guaranty Trust Bank"> Guaranty Trust Bank </option>
+                      <option value="Stanbic Bank"> Stanbic Bank </option>
+                      <option value="Gtb"> First Bank Nigeria </option>
+                    </Select>
+                  </InputContainer>
 
-                <InputContainer borderColor="#c0c0c0" width="100%">
-                  <label> Account Number </label>
-                  <input onChange={e => {}} placeholder="Account Number" />
-                </InputContainer>
+                  <InputContainer borderColor="#c0c0c0" width="90%">
+                    <label> Account Number </label>
+                    <input onChange={e => {}} placeholder="Account Number" />
+                  </InputContainer>
 
-                <InputContainer borderColor="#c0c0c0" width="100%">
-                  <label> Cardholder Name </label>
-                  <input placeholder="Cardholder Name" />
-                </InputContainer>
+                  <InputContainer borderColor="#c0c0c0" width="90%">
+                    <label> Cardholder Name </label>
+                    <input placeholder="Cardholder Name" />
+                  </InputContainer>
 
-                <InputContainer borderColor="#c0c0c0" width="100%">
-                  <label> Expiry Date </label>
-                  <input
-                    onChange={e => setExpiry(e.target.value)}
-                    value={expiry}
-                    placeholder="Expiry Date"
-                  />
-                </InputContainer>
-
-                <InputContainer borderColor="#c0c0c0" width="100%">
-                  <label> CVV </label>
-                  <input
-                    onChange={e => setCvv(e.target.value)}
-                    value={cvv}
-                    placeholder="CVV NUMBER"
-                  />
-                </InputContainer>
-                <div style={{ margin: '1rem 0', display: 'flex', justifyContent: 'center' }}>
-                  <Button
-                    onClick={e => {
-                      e.preventDefault()
-                      handleCheckout()
-                    }}
-                    style={{ width: '90%' }}
-                  >
-                    Confirm Payment
-                  </Button>
-                </div>
-              </form>
+                  <div style={{ margin: '1rem 0', display: 'flex', justifyContent: 'center' }}>
+                    <Button
+                      onClick={e => {
+                        e.preventDefault()
+                        handleCheckout()
+                      }}
+                      style={{ width: '90%' }}
+                    >
+                      Confirm Payment
+                    </Button>
+                  </div>
+                </form>
+              </span>
             </SmallCard>
-          </StyledBody>
+          </div>
         )}
       </StyledBody>
     </div>

@@ -311,7 +311,7 @@ export const Text = styled.p`
   color: ${props => props.color};
   word-break: break-all;
   font-weight: ${props => props.weight};
-  font-size: ${props => (props.small ? '.8rem' : '.9rem')};
+  font-size: ${props => (props.small ? '.8rem' : '.95rem')};
   font-family: Open Sans;
   ${media.lessThan('large')` font-size :  ${props => (props.small ? '.8rem' : '.9rem')}`};
   ${media.lessThan('small')`font-size : 0.75rem`};
