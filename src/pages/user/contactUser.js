@@ -35,10 +35,10 @@ const ContactUser = props => {
   const userData = toJS(user)
   const { fullname, email, createdAt } = userData
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <Header goBack={true} />
 
-      <div style={{ height: window.innerHeight - 50, overflow: 'auto' }}>
+      <div style={{ height: 'calc(100vh - 55px)', overflow: 'auto' }}>
         {isLoading ? (
           <Loading />
         ) : (

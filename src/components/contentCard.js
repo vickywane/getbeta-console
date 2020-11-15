@@ -244,7 +244,7 @@ function ContentCard(props) {
           <div style={{ ...center }}>
             <Box d="flex" alignItems="center">
               <Box as="span" color="gray.600" fontSize="sm">
-                ${price}
+                ₦{price}.00
               </Box>
             </Box>
           </div>

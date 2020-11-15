@@ -72,7 +72,7 @@ const contentSchema = Yup.object().shape({
 
 const FormGrid = styled.div`
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 48% 48%;
   grid-gap: 0.5rem 1rem;
   ${media.lessThan('medium')`
       display : flex;
@@ -220,6 +220,7 @@ const CreateContent = props => {
                 <InputField>
                   <label> Content Type </label>
                   <Select
+                    style={{ width: '100%' }}
                     onChange={e => setContentType(e.target.value)}
                     size="md"
                     defaultValue="Article"
@@ -233,11 +234,11 @@ const CreateContent = props => {
                 </InputField>
 
                 <InputField>
-                  <label> Content Price </label>
+                  <label> Content Price ( ₦ ) </label>
                   <input
                     onChange={e => setContentPrice(e.target.value)}
                     value={ContentPrice}
-                    type="text"
+                    type="number"
                     placeholder="Content Price"
                   />
                 </InputField>
@@ -247,7 +248,7 @@ const CreateContent = props => {
               <div style={{ ...center }}>
                 <Button
                   style={{
-                    width: '90%',
+                    width: '98%',
                     background: ContentName.length < 5 && 'transparent',
                     color: ContentName.length < 5 && '#0072ce'
                   }}

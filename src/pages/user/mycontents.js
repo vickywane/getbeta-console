@@ -92,6 +92,7 @@ const MyContent = props => {
       setContentData(userContents.find(c => c.title === searchText))
     }
   }, [searchText])
+
   // useEffect(() => {
   //   console.log("effect");
   //   if (contents.length > 1) {
@@ -261,94 +262,158 @@ const MyContent = props => {
                 Puchased Content
               </Tab>
             </TabList>
-            <HomeList>
-              <div>
-                <Text small> {userContents.length} Contents </Text>
-              </div>
 
-              {isLoadingContents ? (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <br />
-                  <Spinner variant="primary" animation="grow" role="loading" />
-                  <br />
+            {TabState === 'created-content' ? (
+              <HomeList>
+                <div>
+                  <Text small> {userContents.length} Contents </Text>
                 </div>
-              ) : userContents.length === 0 ? (
-                <div style={{ ...center }}>
-                  {userDetail.role === 'starter' ? (
-                    <div>
-                      <div style={{ ...center }}>
-                        <Planet color="#0072ce" mood="sad" size={140} />
-                      </div>
-                      <br />
-                      <Text align="center">
-                        You currently do not have any created content. <br /> Upgrade to a
-                        <span style={{ fontWeight: 'bold' }}> Professional Plan </span> to create
-                        your first content.
-                      </Text>
 
-                      <Text
-                        onClick={_ =>
-                          navigate('/subscriptions', {
-                            state: {
-                              userData: userDetail
-                            }
-                          })
-                        }
-                        align="center"
-                        style={{ cursor: 'pointer', color: '#0072ce' }}
-                      >
-                        Upgrade Subscription
-                      </Text>
-                    </div>
-                  ) : (
+                {isLoadingContents ? (
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <br />
+                    <Spinner variant="primary" animation="grow" role="loading" />
+                    <br />
+                  </div>
+                ) : userContents.length === 0 ? (
+                  <div style={{ ...center }}>
+                    {userDetail.role === 'starter' ? (
+                      <div>
+                        <div style={{ ...center }}>
+                          <Planet color="#0072ce" mood="sad" size={140} />
+                        </div>
+                        <br />
+                        <Text align="center">
+                          You currently do not have any created content. <br /> Upgrade to a
+                          <span style={{ fontWeight: 'bold' }}> Professional Plan </span> to create
+                          your first content.
+                        </Text>
+
+                        <Text
+                          onClick={_ =>
+                            navigate('/subscriptions', {
+                              state: {
+                                userData: userDetail
+                              }
+                            })
+                          }
+                          align="center"
+                          style={{ cursor: 'pointer', color: '#0072ce' }}
+                        >
+                          Upgrade Subscription
+                        </Text>
+                      </div>
+                    ) : (
+                      <div>
+                        <div style={{ ...center }}>
+                          <Planet color="#0072ce" mood="sad" size={140} />
+                        </div>
+                        <br />
+                        <Text align="center">You currently do not have any created content.</Text>
+                        <Link to="/create-content">
+                          <Text align="center"> Create Content</Text>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Grid>
+                    {userContents.map(
+                      ({
+                        _id,
+                        subscribers,
+                        contentfiles,
+                        createdAt,
+                        descrp,
+                        price,
+                        type,
+                        coverImage,
+                        vendorId,
+                        title
+                      }) => {
+                        return (
+                          <li key={_id}>
+                            <ContentCard
+                              id={_id}
+                              coverImage={coverImage}
+                              createdAt={createdAt}
+                              descrp={descrp}
+                              price={price}
+                              contentfiles={contentfiles}
+                              type={type}
+                              subscribers={subscribers}
+                              vendorId={vendorId}
+                              title={title}
+                            />
+                          </li>
+                        )
+                      }
+                    )}
+                  </Grid>
+                )}
+              </HomeList>
+            ) : (
+              <HomeList>
+                <div>
+                  <Text small> {userContents.length} Contents </Text>
+                </div>
+
+                {isLoadingContents ? (
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <br />
+                    <Spinner variant="primary" animation="grow" role="loading" />
+                    <br />
+                  </div>
+                ) : userContents.length === 0 ? (
+                  <div style={{ ...center }}>
                     <div>
                       <div style={{ ...center }}>
                         <Planet color="#0072ce" mood="sad" size={140} />
                       </div>
                       <br />
-                      <Text align="center">You currently do not have any created content.</Text>
-                      <Link to="/create-content">
-                        <Text align="center"> Create Content</Text>
+                      <Text align="center">You currently do not have any purchased content.</Text>
+                      <Link to="/contents">
+                        <Text align="center"> Purchase Content</Text>
                       </Link>
                     </div>
-                  )}
-                </div>
-              ) : (
-                <Grid>
-                  {userContents.map(
-                    ({
-                      _id,
-                      subscribers,
-                      contentfiles,
-                      createdAt,
-                      descrp,
-                      price,
-                      type,
-                      coverImage,
-                      vendorId,
-                      title
-                    }) => {
-                      return (
-                        <li key={_id}>
-                          <ContentCard
-                            id={_id}
-                            coverImage={coverImage}
-                            createdAt={createdAt}
-                            descrp={descrp}
-                            price={price}
-                            contentfiles={contentfiles}
-                            type={type}
-                            subscribers={subscribers}
-                            vendorId={vendorId}
-                            title={title}
-                          />
-                        </li>
-                      )
-                    }
-                  )}
-                </Grid>
-              )}
-            </HomeList>
+                  </div>
+                ) : (
+                  <Grid>
+                    {userContents.map(
+                      ({
+                        _id,
+                        subscribers,
+                        contentfiles,
+                        createdAt,
+                        descrp,
+                        price,
+                        type,
+                        coverImage,
+                        vendorId,
+                        title
+                      }) => {
+                        return (
+                          <li key={_id}>
+                            <ContentCard
+                              id={_id}
+                              coverImage={coverImage}
+                              createdAt={createdAt}
+                              descrp={descrp}
+                              price={price}
+                              contentfiles={contentfiles}
+                              type={type}
+                              subscribers={subscribers}
+                              vendorId={vendorId}
+                              title={title}
+                            />
+                          </li>
+                        )
+                      }
+                    )}
+                  </Grid>
+                )}
+              </HomeList>
+            )}
           </Tabs>
         )}
       </section>
