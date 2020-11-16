@@ -114,7 +114,6 @@ const Profile = props => {
 
   return (
     <div>
-      <Header path="home" />
       {showConfirmationAlert && (
         <Alert variant="success">
           <div style={{ ...center }}>

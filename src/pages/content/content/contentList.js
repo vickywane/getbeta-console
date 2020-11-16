@@ -110,13 +110,13 @@ const Contents = props => {
     <div style={{ height: '100%' }}>
       <Header backgroundColor="rgba(233, 241, 251, 0.81)" showSearch={true} />
 
-      <ModalWrapper
+      {/* <ModalWrapper
         title="Subscribe to content"
         visibility={showSubscribeModal}
         closeModal={() => setSubscribeModal(!showSubscribeModal)}
       >
         <SubscribeModal setSubscribeModal />
-      </ModalWrapper>
+      </ModalWrapper> */}
 
       <ModalWrapper
         title="Create Billing Account"

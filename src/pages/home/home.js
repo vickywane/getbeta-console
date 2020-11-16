@@ -7,6 +7,7 @@ import { observer } from 'mobx-react'
 import { Text, Title, Section, center } from '../../styles/style'
 import useWindowWidth from '../../utils/hook_style'
 import { Profile, Mybookings, MyContent, MyCourses } from '../user/'
+import Header from '../../components/headers/header'
 
 const Body = styled.div`
   padding: 0.5rem 0.5rem;
@@ -63,6 +64,11 @@ const Grid = styled.div`
   `};
 `
 
+const StyledBody = styled.div`
+  height: calc(100vh - 55px);
+  overflow: auto;
+`
+
 const Home = props => {
   const { UserStore } = props
   const Width = useWindowWidth()
@@ -77,70 +83,76 @@ const Home = props => {
   const { contents, courses, _id } = detail
 
   return (
-    <div style={{ height: window.innerHeight, overflowX: 'auto', background: '#fbfbfb' }}>
-      <Profile UserStore={UserStore} Width={Width} />
-      <br />
+    <div>
+      <Header path="home" />
 
-      <Body>
-        {!isLoading && (
-          <Grid>
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center">
-                  {contents !== undefined && contents.length}
-                </StyledTitle>
-
-                <Text align="center">
-                  {contents !== undefined && contents.length < 2
-                    ? 'Created Package'
-                    : 'Created Packages'}
-                </Text>
-              </div>
-            </Card>
-
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center">{courses !== undefined && courses.length}</StyledTitle>
-
-                <Text align="center">
-                  {courses !== undefined && courses.length < 2
-                    ? 'Purchased Content'
-                    : 'Purchased Contents'}
-                </Text>
-              </div>
-            </Card>
-
-            <Card background="#fff" style={{ ...center }}>
-              <div>
-                <StyledTitle align="center"> 0 </StyledTitle>
-
-                <Text align="center"> My Bookings </Text>
-              </div>
-            </Card>
-            <Card style={{ ...center, backgroundColor: 'white' }}>
-              <div>
-                <StyledTitle align="center"> 0 </StyledTitle>
-
-                <Text align="center"> Bookings </Text>
-              </div>
-            </Card>
-          </Grid>
-        )}
-
-        <br />
+      <StyledBody style={{ background: '#fbfbfb' }}>
+        <Profile UserStore={UserStore} Width={Width} />
         <br />
 
-        <Section id="courses">
-          <MyContent userDetail={detail} id="courses" userId={_id} Width={Width} />
-        </Section>
+        <Body>
+          {!isLoading && (
+            <Grid>
+              <Card background="#fff" style={{ ...center }}>
+                <div>
+                  <StyledTitle align="center">
+                    {contents !== undefined && contents.length}
+                  </StyledTitle>
 
-        <br />
-        {/* <br />
+                  <Text align="center">
+                    {contents !== undefined && contents.length < 2
+                      ? 'Created Package'
+                      : 'Created Packages'}
+                  </Text>
+                </div>
+              </Card>
+
+              <Card background="#fff" style={{ ...center }}>
+                <div>
+                  <StyledTitle align="center">
+                    {courses !== undefined && courses.length}
+                  </StyledTitle>
+
+                  <Text align="center">
+                    {courses !== undefined && courses.length < 2
+                      ? 'Purchased Content'
+                      : 'Purchased Contents'}
+                  </Text>
+                </div>
+              </Card>
+
+              <Card background="#fff" style={{ ...center }}>
+                <div>
+                  <StyledTitle align="center"> 0 </StyledTitle>
+
+                  <Text align="center"> My Bookings </Text>
+                </div>
+              </Card>
+              <Card style={{ ...center, backgroundColor: 'white' }}>
+                <div>
+                  <StyledTitle align="center"> 0 </StyledTitle>
+
+                  <Text align="center"> Bookings </Text>
+                </div>
+              </Card>
+            </Grid>
+          )}
+
+          <br />
+          <br />
+
+          <Section id="courses">
+            <MyContent userDetail={detail} id="courses" userId={_id} Width={Width} />
+          </Section>
+
+          <br />
+          {/* <br />
 
         <Section id="bookings">
           <Mybookings Width={Width} />
         </Section> */}
-      </Body>
+        </Body>
+      </StyledBody>
     </div>
   )
 }

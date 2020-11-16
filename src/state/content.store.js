@@ -107,7 +107,7 @@ class ContentStore {
     })
       .then(res => {
         this.isLoading = false
-        // this.contents = res.data.subscribedContents
+        this.contents = res.data.contents
       })
       .catch(e => {
         this.isLoading = false

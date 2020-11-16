@@ -201,13 +201,13 @@ function ContentCard(props) {
       <section>
         <Box
           onClick={() => {
-            subscribeStatus
-              ? navigate('/content', {
-                  state: {
-                    contentId: id
-                  }
-                })
-              : showSubscribeModal(true)
+            subscribeStatus &&
+              navigate('/content', {
+                state: {
+                  contentId: id
+                }
+              })
+            // : showSubscribeModal(true)
           }}
           style={{ cursor: 'pointer' }}
           fontWeight="normal"
