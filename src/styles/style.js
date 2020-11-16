@@ -26,7 +26,9 @@ export const AuthInputFields = styled.div`
   display: flex;
   flex-direction: column;
   label {
+    opacity: 0.9;
     font-size: 1rem;
+    font-weight: 600;
   }
   input {
     background: #fbfbfb;

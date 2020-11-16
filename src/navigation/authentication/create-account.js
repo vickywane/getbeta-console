@@ -5,6 +5,8 @@ import * as Yup from 'yup'
 import { FiAlertTriangle } from 'react-icons/fi'
 import { Link } from '@reach/router'
 import { Spinner } from 'react-bootstrap'
+import { FcGoogle } from 'react-icons/fc'
+import { IoLogoFacebook } from 'react-icons/io'
 
 import { observer } from 'mobx-react'
 
@@ -90,7 +92,7 @@ const CreateAccount = props => {
           >
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Hover style={{ margin: '0 0.5rem' }}>
-                <FiAlertTriangle style={{ fontSize: '1.8rem' }} />
+                <FiAlertTriangle style={{ fontSize: '1.6rem' }} />
               </Hover>
               <Text> Incorrect account credentials. Try Again </Text>
             </div>
@@ -106,7 +108,7 @@ const CreateAccount = props => {
 
             <form onSubmit={() => handleRegistration()}>
               <AuthInputFields>
-                <label> Full name </label>
+                <label style={{ opacity: '.8' }}> Full name </label>
                 <input
                   value={FullName}
                   onChange={e => {
@@ -118,7 +120,7 @@ const CreateAccount = props => {
               </AuthInputFields>
 
               <AuthInputFields>
-                <label> Email Address </label>
+                <label style={{ opacity: '.8' }}> Email Address </label>
                 <input
                   value={Email}
                   onChange={e => setEmail(e.target.value)}
@@ -141,7 +143,7 @@ const CreateAccount = props => {
               </AuthInputFields>
 
               <AuthInputFields>
-                <label> Mobile Number </label>
+                <label style={{ opacity: '.8' }}> Mobile Number </label>
                 <input
                   value={mobileNumber}
                   onChange={e => setMobileNumber(e.target.value)}
@@ -159,7 +161,7 @@ const CreateAccount = props => {
               </AuthInputFields>
 
               <AuthInputFields>
-                <label> Password </label>
+                <label style={{ opacity: '.8' }}> Password </label>
                 <input
                   value={Password}
                   onChange={e => {
@@ -172,7 +174,7 @@ const CreateAccount = props => {
               </AuthInputFields>
 
               <AuthInputFields>
-                <label> Confirm Password </label>
+                <label style={{ opacity: '.8' }}> Confirm Password </label>
                 <input
                   value={ConfirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
@@ -185,7 +187,7 @@ const CreateAccount = props => {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 style={{
-                  width: '15rem',
+                  width: '95%',
                   background: Password !== ConfirmPassword && 'transparent',
                   color: Password !== ConfirmPassword && '#0072ce'
                 }}
@@ -204,11 +206,49 @@ const CreateAccount = props => {
 
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Text style={{ margin: '0 1rem' }}> Own An Account </Text>
+              <Text style={{ margin: '0 1rem' }}> Own An Account ? </Text>
 
               <Link to="/login">
-                <Text> Login </Text>
+                <Text> Login Instead </Text>
               </Link>
+            </div>
+            <hr />
+            <div
+              style={{
+                margin: '.5rem 0',
+                display: 'flex',
+                flexDirection: 'column'
+                // justifyContent: 'space-between'
+              }}
+            >
+              <Text align="center" style={{ opacity: '.8' }}>
+                {' '}
+                Create Account Using:{' '}
+              </Text>
+
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  style={{
+                    width: '50%',
+                    margin: '0 2rem',
+                    background: '#0F9D58',
+                    border: '1px solid #0F9D58'
+                  }}
+                  onClick={() => {}}
+                >
+                  <Hover style={{ margin: '0 .5rem' }}>
+                    <FcGoogle />
+                  </Hover>
+                  Google
+                </Button>
+
+                <Button style={{ width: '50%' }} onClick={() => {}}>
+                  <Hover style={{ margin: '0 .5rem' }}>
+                    <IoLogoFacebook />
+                  </Hover>
+                  Facebook
+                </Button>
+              </div>
             </div>
           </section>
         </span>

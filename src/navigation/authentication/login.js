@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import media from 'styled-media-query'
 import { Link } from '@reach/router'
 import { FiAlertTriangle } from 'react-icons/fi'
+import { IoLogoFacebook } from 'react-icons/io'
 import * as Yup from 'yup'
+
+import { FcGoogle } from 'react-icons/fc'
 
 import { observer } from 'mobx-react'
 import {
@@ -100,6 +103,7 @@ const Login = props => {
                 Account Login
               </MdTitle>
             </div>
+
             <hr />
             <form onSubmit={() => handleLogin()}>
               <AuthInputFields>
@@ -124,7 +128,14 @@ const Login = props => {
                 )}
               </AuthInputFields>
               <AuthInputFields>
-                <label> Password </label>
+                <label style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  Password
+                  <div style={{ ...center }}>
+                    <Link to="/reset-password" onClick={() => setPasswordReset(true)}>
+                      <Text> Forgotten? </Text>
+                    </Link>
+                  </div>
+                </label>
                 <input
                   value={Password}
                   onChange={e => setPassword(e.target.value)}
@@ -170,10 +181,49 @@ const Login = props => {
               </Link>
             </div>
 
-            <div style={{ ...center }}>
-              <Link to="/reset-password" onClick={() => setPasswordReset(true)}>
-                <Text> Forgot Password ? </Text>
-              </Link>
+            <div
+              style={{
+                margin: '.5rem 0',
+                display: 'flex',
+                flexDirection: 'column'
+                // justifyContent: 'space-between'
+              }}
+            >
+              <Text align="center" style={{ opacity: '.8' }}>
+                {' '}
+                Or Login With:{' '}
+              </Text>
+
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  style={{
+                    width: '50%',
+                    margin: '0 2rem',
+                    background: '#0F9D58',
+                    border: '1px solid #0F9D58'
+                  }}
+                  onClick={() => {
+                    handleLogin()
+                  }}
+                >
+                  <Hover style={{ margin: '0 .5rem' }}>
+                    <FcGoogle />
+                  </Hover>
+                  Google
+                </Button>
+
+                <Button
+                  style={{ width: '50%' }}
+                  onClick={() => {
+                    handleLogin()
+                  }}
+                >
+                  <Hover style={{ margin: '0 .5rem' }}>
+                    <IoLogoFacebook />
+                  </Hover>
+                  Facebook
+                </Button>
+              </div>
             </div>
           </section>
         </span>
